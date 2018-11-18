@@ -1,37 +1,8 @@
 import React from "react";
 
-export interface Note {
-  title: string;
-  content: string;
-  dateCreated: string;
-}
+// tslint:disable-next-line
+export interface AppContextShape {}
 
-export interface AppContextShape {
-  notes: ReadonlyArray<Note>;
-  handleAddNote: (note: Note) => void;
-  handleEditNote: (note: Note, prevDateString: string) => void;
-  handleDeleteNote: (noteDate: string) => void;
-  handleResetName: () => void;
-  handleClearNotes: () => void;
-}
-
-const AppContext = React.createContext({
-  notes: [] as ReadonlyArray<Note>,
-  handleAddNote: (note: Note) => {
-    return;
-  },
-  handleEditNote: (note: Note, prevDateString: string) => {
-    return;
-  },
-  handleDeleteNote: (noteDate: string) => {
-    return;
-  },
-  handleResetName: () => {
-    return;
-  },
-  handleClearNotes: () => {
-    return;
-  },
-});
+const AppContext = React.createContext({});
 
 export default AppContext;
