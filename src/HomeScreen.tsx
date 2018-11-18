@@ -28,14 +28,16 @@ export default class Home extends React.Component<IProps, IState> {
     const { valid, attempted } = this.state;
     return (
       <Container>
-        <Text style={{ fontSize: 20, marginTop: 12 }}>"I am"</Text>
+        <Text style={{ fontSize: 20, marginTop: 12, fontWeight: "bold" }}>
+          "I am"
+        </Text>
         <TextInput
           style={{
             width: "95%",
             marginTop: 12,
           }}
           mode="outlined"
-          label="Enter"
+          label="Translate to Mandarin"
           value={this.state.value}
           onChangeText={(value: string) => this.setState({ value })}
         />
@@ -48,6 +50,10 @@ export default class Home extends React.Component<IProps, IState> {
         </Button>
         {valid ? (
           <Text style={{ fontSize: 20, marginTop: 12 }}>Correct!</Text>
+        ) : attempted ? (
+          <Text style={{ fontSize: 20, marginTop: 12 }}>
+            Wrong, keep trying!
+          </Text>
         ) : null}
       </Container>
     );

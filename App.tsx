@@ -8,9 +8,8 @@ const theme = {
   roundness: 2,
   colors: {
     ...DefaultTheme.colors,
-    primary: "rgb(227,83,89)",
+    primary: "rgb(200,8,20)",
     accent: "#3498db",
-    // accent: "#f1c40f",
   },
 };
 
