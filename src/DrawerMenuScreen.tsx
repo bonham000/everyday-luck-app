@@ -1,6 +1,6 @@
 import glamorous from "glamorous-native";
 import React from "react";
-import { Image, ScrollView, View } from "react-native";
+import { Image, Keyboard, ScrollView, View } from "react-native";
 import {
   NavigationActions,
   NavigationScreenProp,
@@ -22,6 +22,15 @@ const resetNavigation = (routeName: ROUTE_NAMES) => {
 };
 
 export default class extends React.Component<IProps, {}> {
+  componentDidUpdate(prevProps: IProps): void {
+    if (
+      this.getDrawerStateFromProps(this.props) &&
+      !this.getDrawerStateFromProps(prevProps)
+    ) {
+      Keyboard.dismiss();
+    }
+  }
+
   render(): JSX.Element {
     return (
       <ScrollView
@@ -68,6 +77,15 @@ export default class extends React.Component<IProps, {}> {
       </ScrollView>
     );
   }
+
+  getDrawerStateFromProps = (props: IProps) => {
+    try {
+      // @ts-ignore
+      return props.navigation.state.isDrawerOpen;
+    } catch (err) {
+      return false;
+    }
+  };
 }
 
 const Item = glamorous.text({
