@@ -10,48 +10,65 @@ import {
 
 import { ROUTE_NAMES } from "./RouteNames";
 
-const resetNavigation = (routeName: ROUTE_NAMES) =>
-  StackActions.reset({
+interface IProps {
+  navigation: NavigationScreenProp<{}>;
+}
+
+const resetNavigation = (routeName: ROUTE_NAMES) => {
+  return StackActions.reset({
     index: 0,
     actions: [NavigationActions.navigate({ routeName })],
   });
+};
 
-export default (props: { navigation: NavigationScreenProp<{}> }) => (
-  <ScrollView
-    contentContainerStyle={{ backgroundColor: "rgb(30,30,30)", height: "100%" }}
-  >
-    <SafeAreaView
-      style={{ flex: 1, paddingTop: 75 }}
-      forceInset={{ top: "always", horizontal: "never" }}
-    >
-      <View style={{ flexDirection: "row", justifyContent: "center" }}>
-        <Image
-          style={{ width: 100, height: 100 }}
-          resizeMode="contain"
-          source={require("../assets/icon.png")}
-        />
-      </View>
-      <Item
-        onPress={() =>
-          props.navigation.dispatch(resetNavigation(ROUTE_NAMES.MANDARIN_QUIZ))
-        }
+export default class extends React.Component<IProps, {}> {
+  render(): JSX.Element {
+    return (
+      <ScrollView
+        keyboardShouldPersistTaps="always"
+        contentContainerStyle={{
+          backgroundColor: "rgb(28,28,28)",
+          height: "100%",
+        }}
       >
-        🏮
-        {"  "}
-        English to Mandarin Quiz
-      </Item>
-      <Item
-        onPress={() =>
-          props.navigation.dispatch(resetNavigation(ROUTE_NAMES.FLASHCARDS))
-        }
-      >
-        🎎
-        {"  "}
-        Mandarin Flashcards
-      </Item>
-    </SafeAreaView>
-  </ScrollView>
-);
+        <SafeAreaView
+          style={{ flex: 1, paddingTop: 75 }}
+          forceInset={{ top: "always", horizontal: "never" }}
+        >
+          <View style={{ flexDirection: "row", justifyContent: "center" }}>
+            <Image
+              style={{ width: 100, height: 100 }}
+              resizeMode="contain"
+              source={require("../assets/icon.png")}
+            />
+          </View>
+          <Item
+            onPress={() =>
+              this.props.navigation.dispatch(
+                resetNavigation(ROUTE_NAMES.MANDARIN_QUIZ),
+              )
+            }
+          >
+            🏮
+            {"  "}
+            English to Mandarin Quiz
+          </Item>
+          <Item
+            onPress={() =>
+              this.props.navigation.dispatch(
+                resetNavigation(ROUTE_NAMES.FLASHCARDS),
+              )
+            }
+          >
+            🎎
+            {"  "}
+            Mandarin Flashcards
+          </Item>
+        </SafeAreaView>
+      </ScrollView>
+    );
+  }
+}
 
 const Item = glamorous.text({
   fontSize: 16,

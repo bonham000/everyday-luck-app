@@ -54,6 +54,10 @@ export default class Home extends React.Component<IProps, IState> {
     );
   }
 
+  componentWillUnmount(): void {
+    this.stopConfetti();
+  }
+
   render(): JSX.Element {
     const {
       valid,
@@ -88,6 +92,7 @@ export default class Home extends React.Component<IProps, IState> {
                 style={TextInputStyles}
                 value={this.state.value}
                 onChangeText={this.handleChange}
+                onSubmitEditing={this.handleCheck}
                 label="Translate the English to Mandarin please"
               />
             </QuizBox>
@@ -231,6 +236,8 @@ const QuizBox = glamorous.view({
 const TextInputStyles = {
   width: "95%",
   fontSize: 34,
+  marginTop: 6,
+  backgroundColor: "rgb(231,237,240)",
 };
 
 const EnglishText = ({ children }: { children: string[] }) => (
