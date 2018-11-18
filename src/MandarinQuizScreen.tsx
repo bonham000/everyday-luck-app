@@ -102,7 +102,7 @@ export default class Home extends React.Component<IProps, IState> {
           dark
           mode="contained"
           style={{
-            marginTop: 25,
+            marginTop: 30,
             backgroundColor: !valid && attempted ? PRIMARY_RED : PRIMARY_BLUE,
           }}
           onPress={valid ? this.handleProceed : this.handleCheck}
@@ -127,25 +127,23 @@ export default class Home extends React.Component<IProps, IState> {
   };
 
   handleCheck = () => {
-    if (this.state.value) {
-      const CURRENT_WORD = WORDS[this.state.currentWordIndex];
-      if (this.state.value === CURRENT_WORD.mandarin) {
-        this.setState(prevState => {
-          return {
-            valid: true,
-            attempted: true,
-            progressCount: prevState.progressCount + 1,
-          };
-        }, this.makeItRain);
-      } else {
-        this.setState({
+    const CURRENT_WORD = WORDS[this.state.currentWordIndex];
+    if (this.state.value === CURRENT_WORD.mandarin) {
+      this.setState(prevState => {
+        return {
+          valid: true,
           attempted: true,
-          valid: false,
-          shouldShake: true,
-          encouragementText:
-            ENCOURAGEMENTS[randomInRange(0, ENCOURAGEMENTS.length - 1)],
-        });
-      }
+          progressCount: prevState.progressCount + 1,
+        };
+      }, this.makeItRain);
+    } else {
+      this.setState({
+        attempted: true,
+        valid: false,
+        shouldShake: true,
+        encouragementText:
+          ENCOURAGEMENTS[randomInRange(0, ENCOURAGEMENTS.length - 1)],
+      });
     }
   };
 

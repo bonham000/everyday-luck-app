@@ -6,10 +6,12 @@ import {
   NavigationScreenProp,
 } from "react-navigation";
 
+import AboutScreen from "./AboutScreen";
 import DrawerComponent from "./DrawerMenuScreen";
 import FlashcardsScreen from "./FlashcardsScreen";
 import MandarinQuizScreen from "./MandarinQuizScreen";
 import { ROUTE_NAMES } from "./RouteNames";
+import ViewAllScreen from "./ViewAllScreen";
 
 const AppStack = () => {
   return createStackNavigator(
@@ -24,16 +26,7 @@ const AppStack = () => {
           return {
             title: "Learn Mandarin 🇨🇳",
             headerBackTitle: null,
-            headerLeft: (
-              <MaterialIcons
-                name="menu"
-                size={32}
-                style={{
-                  marginLeft: 15,
-                }}
-                onPress={() => navigation.toggleDrawer()}
-              />
-            ),
+            headerLeft: <MenuIcon onPress={navigation.toggleDrawer} />,
           };
         },
       },
@@ -47,16 +40,35 @@ const AppStack = () => {
           return {
             title: "Mandarin Flashcards 🗂",
             headerBackTitle: null,
-            headerLeft: (
-              <MaterialIcons
-                name="menu"
-                size={32}
-                style={{
-                  marginLeft: 15,
-                }}
-                onPress={() => navigation.toggleDrawer()}
-              />
-            ),
+            headerLeft: <MenuIcon onPress={navigation.toggleDrawer} />,
+          };
+        },
+      },
+      [ROUTE_NAMES.VIEW_ALL]: {
+        screen: ViewAllScreen,
+        navigationOptions: ({
+          navigation,
+        }: {
+          navigation: NavigationScreenProp<{}>;
+        }) => {
+          return {
+            title: "All Words ⛩",
+            headerBackTitle: null,
+            headerLeft: <MenuIcon onPress={navigation.toggleDrawer} />,
+          };
+        },
+      },
+      [ROUTE_NAMES.ABOUT]: {
+        screen: AboutScreen,
+        navigationOptions: ({
+          navigation,
+        }: {
+          navigation: NavigationScreenProp<{}>;
+        }) => {
+          return {
+            title: "About 🎐",
+            headerBackTitle: null,
+            headerLeft: <MenuIcon onPress={navigation.toggleDrawer} />,
           };
         },
       },
@@ -66,6 +78,17 @@ const AppStack = () => {
     },
   );
 };
+
+const MenuIcon = ({ onPress }: { onPress: () => void }) => (
+  <MaterialIcons
+    name="menu"
+    size={32}
+    style={{
+      marginLeft: 15,
+    }}
+    onPress={onPress}
+  />
+);
 
 export default () =>
   createDrawerNavigator(

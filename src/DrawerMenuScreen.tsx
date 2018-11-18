@@ -73,6 +73,26 @@ export default class extends React.Component<IProps, {}> {
             {"  "}
             Mandarin Flashcards
           </Item>
+          <Item
+            onPress={() =>
+              this.props.navigation.dispatch(
+                resetNavigation(ROUTE_NAMES.VIEW_ALL),
+              )
+            }
+          >
+            🍱
+            {"  "}
+            View All Words
+          </Item>
+          <Item
+            onPress={() =>
+              this.props.navigation.dispatch(resetNavigation(ROUTE_NAMES.ABOUT))
+            }
+          >
+            🎋
+            {"  "}
+            About
+          </Item>
         </SafeAreaView>
       </ScrollView>
     );
