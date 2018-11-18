@@ -1,9 +1,11 @@
 import glamorous from "glamorous-native";
 import React from "react";
 import { Image, ScrollView, View } from "react-native";
-import { SafeAreaView } from "react-navigation";
+import { NavigationScreenProp, SafeAreaView } from "react-navigation";
 
-export default (props: any) => (
+import { ROUTE_NAMES } from "./RouteNames";
+
+export default (props: { navigation: NavigationScreenProp<{}> }) => (
   <ScrollView>
     <SafeAreaView
       style={{ flex: 1, paddingTop: 75 }}
@@ -16,8 +18,14 @@ export default (props: any) => (
           source={require("../assets/icon.png")}
         />
       </View>
-      <Item>Prompts</Item>
-      <Item>Flashcards</Item>
+      <Item
+        onPress={() => props.navigation.navigate(ROUTE_NAMES.MANDARIN_QUIZ)}
+      >
+        English to Mandarin Quiz
+      </Item>
+      <Item onPress={() => props.navigation.navigate(ROUTE_NAMES.FLASHCARDS)}>
+        Mandarin Flashcards
+      </Item>
     </SafeAreaView>
   </ScrollView>
 );

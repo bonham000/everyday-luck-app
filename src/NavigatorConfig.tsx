@@ -7,21 +7,45 @@ import {
 } from "react-navigation";
 
 import DrawerComponent from "./DrawerMenuScreen";
-import App from "./HomeScreen";
+import FlashcardsScreen from "./FlashcardsScreen";
+import MandarinQuizScreen from "./MandarinQuizScreen";
 import { ROUTE_NAMES } from "./RouteNames";
 
 const AppStack = () => {
   return createStackNavigator(
     {
-      [ROUTE_NAMES.HOME]: {
-        screen: App,
+      [ROUTE_NAMES.MANDARIN_QUIZ]: {
+        screen: MandarinQuizScreen,
         navigationOptions: ({
           navigation,
         }: {
           navigation: NavigationScreenProp<{}>;
         }) => {
           return {
-            title: "Learn Mandarin",
+            title: "Learn Mandarin 🇨🇳",
+            headerBackTitle: null,
+            headerLeft: (
+              <MaterialIcons
+                name="menu"
+                size={32}
+                style={{
+                  marginLeft: 15,
+                }}
+                onPress={() => navigation.toggleDrawer()}
+              />
+            ),
+          };
+        },
+      },
+      [ROUTE_NAMES.FLASHCARDS]: {
+        screen: FlashcardsScreen,
+        navigationOptions: ({
+          navigation,
+        }: {
+          navigation: NavigationScreenProp<{}>;
+        }) => {
+          return {
+            title: "Practice Flashcards 🗂",
             headerBackTitle: null,
             headerLeft: (
               <MaterialIcons
@@ -38,7 +62,7 @@ const AppStack = () => {
       },
     },
     {
-      initialRouteName: ROUTE_NAMES.HOME,
+      initialRouteName: ROUTE_NAMES.MANDARIN_QUIZ,
     },
   );
 };
@@ -46,7 +70,7 @@ const AppStack = () => {
 export default () =>
   createDrawerNavigator(
     {
-      [ROUTE_NAMES.HOME]: {
+      [ROUTE_NAMES.MANDARIN_QUIZ]: {
         screen: AppStack(),
       },
     },
