@@ -25,6 +25,7 @@ interface IState {
 
 export default class Home extends React.Component<IProps, IState> {
   CONFETTI_REF: any = null;
+  INPUT_REF: any = null;
   timer: any = null;
 
   constructor(props: IProps) {
@@ -44,10 +45,13 @@ export default class Home extends React.Component<IProps, IState> {
 
   componentDidMount(): void {
     const currentWordIndex = this.getNextWordIndex();
-    this.setState({
-      currentWordIndex: this.getNextWordIndex(),
-      wordCompletedCache: new Set([currentWordIndex]),
-    });
+    this.setState(
+      {
+        currentWordIndex: this.getNextWordIndex(),
+        wordCompletedCache: new Set([currentWordIndex]),
+      },
+      this.focusInput,
+    );
   }
 
   render(): JSX.Element {
@@ -78,12 +82,13 @@ export default class Home extends React.Component<IProps, IState> {
             <QuizBox>
               <EnglishText>"{CURRENT_WORD.english}"</EnglishText>
               <TextInput
-                style={TextInputStyles}
-                error={attempted}
                 mode="outlined"
-                label="Translate the English to Mandarin please"
+                error={attempted}
+                ref={this.setInputRef}
+                style={TextInputStyles}
                 value={this.state.value}
                 onChangeText={this.handleChange}
+                label="Translate the English to Mandarin please"
               />
             </QuizBox>
           </Shaker>
@@ -140,17 +145,23 @@ export default class Home extends React.Component<IProps, IState> {
   };
 
   handleProceed = () => {
-    this.setState(prevState => {
-      const nextIndex = this.getNextWordIndex();
+    this.setState(
+      prevState => {
+        const nextIndex = this.getNextWordIndex();
 
-      return {
-        value: "",
-        valid: false,
-        attempted: false,
-        currentWordIndex: nextIndex,
-        wordCompletedCache: prevState.wordCompletedCache.add(nextIndex),
-      };
-    }, this.stopConfetti);
+        return {
+          value: "",
+          valid: false,
+          attempted: false,
+          currentWordIndex: nextIndex,
+          wordCompletedCache: prevState.wordCompletedCache.add(nextIndex),
+        };
+      },
+      () => {
+        this.stopConfetti();
+        this.focusInput();
+      },
+    );
   };
 
   getNextWordIndex = (): number => {
@@ -181,6 +192,17 @@ export default class Home extends React.Component<IProps, IState> {
   stopConfetti = () => {
     if (this.CONFETTI_REF) {
       this.CONFETTI_REF.stopConfetti();
+    }
+  };
+
+  setInputRef = (ref: any) => {
+    // @ts-ignore
+    this.INPUT_REF = ref;
+  };
+
+  focusInput = () => {
+    if (this.INPUT_REF) {
+      this.INPUT_REF.focus();
     }
   };
 }

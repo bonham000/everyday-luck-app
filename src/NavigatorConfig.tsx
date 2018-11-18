@@ -45,7 +45,7 @@ const AppStack = () => {
           navigation: NavigationScreenProp<{}>;
         }) => {
           return {
-            title: "Practice Flashcards 🗂",
+            title: "Mandarin Flashcards 🗂",
             headerBackTitle: null,
             headerLeft: (
               <MaterialIcons

@@ -24,7 +24,7 @@ export default [
   },
   {
     mandarin: "你忙嗎?",
-    pinyin: "ǐ máng ma?",
+    pinyin: "nǐ máng ma?",
     english: "Are you busy?",
   },
   {

@@ -11,7 +11,9 @@ export default class FlashcardsScreen extends React.Component<IProps, {}> {
   render(): JSX.Element {
     return (
       <Container>
-        <Text>🚧 Work in progress 🚧</Text>
+        <Text style={{ fontSize: 18, fontWeight: "bold" }}>
+          🚧 Work in progress 🚧
+        </Text>
       </Container>
     );
   }
@@ -19,7 +21,7 @@ export default class FlashcardsScreen extends React.Component<IProps, {}> {
 
 const Container = glamorous.view({
   flex: 1,
-  paddingTop: 8,
+  paddingTop: 50,
   alignItems: "center",
   backgroundColor: "rgb(231,237,240)",
 });

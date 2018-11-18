@@ -6,7 +6,9 @@ import { NavigationScreenProp, SafeAreaView } from "react-navigation";
 import { ROUTE_NAMES } from "./RouteNames";
 
 export default (props: { navigation: NavigationScreenProp<{}> }) => (
-  <ScrollView>
+  <ScrollView
+    contentContainerStyle={{ backgroundColor: "rgb(30,30,30)", height: "100%" }}
+  >
     <SafeAreaView
       style={{ flex: 1, paddingTop: 75 }}
       forceInset={{ top: "always", horizontal: "never" }}
@@ -21,9 +23,13 @@ export default (props: { navigation: NavigationScreenProp<{}> }) => (
       <Item
         onPress={() => props.navigation.navigate(ROUTE_NAMES.MANDARIN_QUIZ)}
       >
+        🏮
+        {"  "}
         English to Mandarin Quiz
       </Item>
       <Item onPress={() => props.navigation.navigate(ROUTE_NAMES.FLASHCARDS)}>
+        🎎
+        {"  "}
         Mandarin Flashcards
       </Item>
     </SafeAreaView>
@@ -31,7 +37,8 @@ export default (props: { navigation: NavigationScreenProp<{}> }) => (
 );
 
 const Item = glamorous.text({
-  fontSize: 18,
+  fontSize: 16,
   marginTop: 45,
-  marginLeft: 24,
+  marginLeft: 12,
+  color: "white",
 });
