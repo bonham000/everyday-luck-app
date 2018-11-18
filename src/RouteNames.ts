@@ -1,0 +1,5 @@
+export enum ROUTE_NAMES {
+  HOME = "HOME",
+  VIEW_NOTE = "VIEW_NOTE",
+  CREATE_NOTE = "CREATE_NOTE",
+}

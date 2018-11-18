@@ -1,0 +1,28 @@
+{
+  "expo": {
+    "name": "Learn Mandarin",
+    "description": "An app to help you learn Mandarin",
+    "slug": "mandarin",
+    "privacy": "public",
+    "sdkVersion": "31.0.0",
+    "platforms": ["ios", "android"],
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "cover",
+      "backgroundColor": "#ffffff"
+    },
+    "updates": {
+      "fallbackToCacheTimeout": 450
+    },
+    "assetBundlePatterns": ["**/*"],
+    "android": {
+      "package": "com.mandarin.app"
+    },
+    "ios": {
+      "supportsTablet": true
+    }
+  }
+}
