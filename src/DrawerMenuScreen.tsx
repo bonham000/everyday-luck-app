@@ -1,9 +1,20 @@
 import glamorous from "glamorous-native";
 import React from "react";
 import { Image, ScrollView, View } from "react-native";
-import { NavigationScreenProp, SafeAreaView } from "react-navigation";
+import {
+  NavigationActions,
+  NavigationScreenProp,
+  SafeAreaView,
+  StackActions,
+} from "react-navigation";
 
 import { ROUTE_NAMES } from "./RouteNames";
+
+const resetNavigation = (routeName: ROUTE_NAMES) =>
+  StackActions.reset({
+    index: 0,
+    actions: [NavigationActions.navigate({ routeName })],
+  });
 
 export default (props: { navigation: NavigationScreenProp<{}> }) => (
   <ScrollView
@@ -21,13 +32,19 @@ export default (props: { navigation: NavigationScreenProp<{}> }) => (
         />
       </View>
       <Item
-        onPress={() => props.navigation.navigate(ROUTE_NAMES.MANDARIN_QUIZ)}
+        onPress={() =>
+          props.navigation.dispatch(resetNavigation(ROUTE_NAMES.MANDARIN_QUIZ))
+        }
       >
         🏮
         {"  "}
         English to Mandarin Quiz
       </Item>
-      <Item onPress={() => props.navigation.navigate(ROUTE_NAMES.FLASHCARDS)}>
+      <Item
+        onPress={() =>
+          props.navigation.dispatch(resetNavigation(ROUTE_NAMES.FLASHCARDS))
+        }
+      >
         🎎
         {"  "}
         Mandarin Flashcards
