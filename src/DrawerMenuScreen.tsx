@@ -53,9 +53,7 @@ export default class extends React.Component<IProps, {}> {
           </View>
           <Item
             onPress={() =>
-              this.props.navigation.dispatch(
-                resetNavigation(ROUTE_NAMES.MANDARIN_QUIZ),
-              )
+              this.props.navigation.navigate(ROUTE_NAMES.MANDARIN_QUIZ)
             }
           >
             🏮
@@ -64,9 +62,7 @@ export default class extends React.Component<IProps, {}> {
           </Item>
           <Item
             onPress={() =>
-              this.props.navigation.dispatch(
-                resetNavigation(ROUTE_NAMES.FLASHCARDS),
-              )
+              this.props.navigation.navigate(ROUTE_NAMES.FLASHCARDS)
             }
           >
             🎎
@@ -74,20 +70,14 @@ export default class extends React.Component<IProps, {}> {
             Mandarin Flashcards
           </Item>
           <Item
-            onPress={() =>
-              this.props.navigation.dispatch(
-                resetNavigation(ROUTE_NAMES.VIEW_ALL),
-              )
-            }
+            onPress={() => this.props.navigation.navigate(ROUTE_NAMES.VIEW_ALL)}
           >
             🍱
             {"  "}
             View All Words
           </Item>
           <Item
-            onPress={() =>
-              this.props.navigation.dispatch(resetNavigation(ROUTE_NAMES.ABOUT))
-            }
+            onPress={() => this.props.navigation.navigate(ROUTE_NAMES.ABOUT)}
           >
             🎋
             {"  "}

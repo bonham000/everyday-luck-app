@@ -1,6 +1,13 @@
 /**
  * Source for quiz content:
  */
+
+export interface Word {
+  mandarin: string;
+  pinyin: string;
+  english: string;
+}
+
 export default [
   {
     mandarin: "我是",
