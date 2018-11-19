@@ -18,15 +18,16 @@
     "react-navigation": "^2.18.2"
   },
   "devDependencies": {
+    "@types/expo": "^30.0.1",
     "@types/expo__vector-icons": "^6.2.3",
     "@types/react": "^16.4.18",
-    "react-native-confetti": "^0.1.0",
     "@types/react-native": "^0.57.7",
     "@types/react-native-dialog": "^4.0.1",
     "@types/react-native-sortable-list": "^0.0.7",
     "@types/react-navigation": "^2.13.0",
     "babel-preset-expo": "^5.0.0",
     "prettier": "1.14.3",
+    "react-native-confetti": "^0.1.0",
     "tslint": "^5.11.0",
     "typescript": "^3.1.6"
   }

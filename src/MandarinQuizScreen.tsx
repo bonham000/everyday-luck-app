@@ -4,7 +4,7 @@ import Confetti from "react-native-confetti";
 import { Button, Text, TextInput } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
-import { PRIMARY_BLUE, PRIMARY_RED } from "../App";
+import { PRIMARY_BLUE, PRIMARY_RED } from "./Colors";
 import Shaker from "./Shaker";
 import WORDS from "./WordSource";
 

@@ -1,10 +1,8 @@
 import React from "react";
 import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 
+import { PRIMARY_BLUE, PRIMARY_RED } from "./src/Colors";
 import NotesApp from "./src/ParentContainer";
-
-export const PRIMARY_RED = "rgb(200,8,20)";
-export const PRIMARY_BLUE = "#3498db";
 
 const theme = {
   ...DefaultTheme,
