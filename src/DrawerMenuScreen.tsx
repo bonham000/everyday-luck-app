@@ -74,7 +74,7 @@ export default class extends React.Component<IProps, {}> {
           >
             🍱
             {"  "}
-            View All Words
+            View All Content
           </Item>
           <Item
             onPress={() => this.props.navigation.navigate(ROUTE_NAMES.ABOUT)}

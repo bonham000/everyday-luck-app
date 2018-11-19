@@ -15,9 +15,16 @@ export default class FlashcardsScreen extends React.Component<IProps, {}> {
         <FlatList
           contentContainerStyle={{ width: "100%" }}
           data={WORDS.map(w => ({ ...w, key: w.mandarin }))}
-          renderItem={({ item }: { item: Word }) => {
+          renderItem={({ item, index }: { item: Word; index: number }) => {
+            const even = index % 2 === 0;
             return (
-              <WordBox>
+              <WordBox
+                style={{
+                  backgroundColor: even
+                    ? "rgb(231,237,240)"
+                    : "rgb(226,232,236)",
+                }}
+              >
                 <WordText style={{ fontSize: 32, padding: 8 }}>
                   {item.mandarin}
                 </WordText>
@@ -36,7 +43,6 @@ const Container = glamorous.view({
   flex: 1,
   paddingTop: 15,
   paddingBottom: 35,
-  backgroundColor: "rgb(231,237,240)",
 });
 
 const WordBox = glamorous.view({

@@ -66,7 +66,7 @@ const AppStack = () => {
           navigation: NavigationScreenProp<{}>;
         }) => {
           return {
-            title: "About 🎐",
+            title: "About 🎏",
             headerBackTitle: null,
             headerLeft: <MenuIcon onPress={navigation.toggleDrawer} />,
           };
