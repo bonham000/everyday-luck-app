@@ -27,6 +27,14 @@ export default class NotesApp extends React.Component<{}, IState> {
     AppState.removeEventListener("change", this.handleAppStateChange);
   }
 
+  shouldComponentUpdate(nextProps: IProps, nextState: IState): boolean {
+    if (this.state.appState !== nextState.appState) {
+      return false;
+    }
+
+    return true;
+  }
+
   render(): JSX.Element | null {
     const AppNavigator = createAppNavigator();
     return (

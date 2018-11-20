@@ -1,10 +1,14 @@
+import { Ionicons } from "@expo/vector-icons";
 import glamorous from "glamorous-native";
 import React from "react";
+import { Alert } from "react-native";
+import ActionButton from "react-native-action-button";
 import Confetti from "react-native-confetti";
 import { Button, Text, TextInput } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
 import { PRIMARY_BLUE, PRIMARY_RED } from "./Colors";
+import { ROUTE_NAMES } from "./RouteNames";
 import Shaker from "./Shaker";
 import WORDS from "./WordSource";
 
@@ -21,6 +25,7 @@ interface IState {
   wordCompletedCache: Set<number>;
   encouragementText: string;
   progressCount: number;
+  revealAnswer: boolean;
 }
 
 export default class Home extends React.Component<IProps, IState> {
@@ -31,7 +36,11 @@ export default class Home extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
 
-    this.state = {
+    this.state = this.getInitialState();
+  }
+
+  getInitialState = () => {
+    return {
       value: "",
       attempted: false,
       valid: false,
@@ -40,14 +49,15 @@ export default class Home extends React.Component<IProps, IState> {
       wordCompletedCache: new Set(),
       encouragementText: "",
       progressCount: 0,
+      revealAnswer: false,
     };
-  }
+  };
 
   componentDidMount(): void {
     const currentWordIndex = this.getNextWordIndex();
     this.setState(
       {
-        currentWordIndex: this.getNextWordIndex(),
+        currentWordIndex,
         wordCompletedCache: new Set([currentWordIndex]),
       },
       this.focusInput,
@@ -56,6 +66,9 @@ export default class Home extends React.Component<IProps, IState> {
 
   componentWillUnmount(): void {
     this.stopConfetti();
+    if (this.timer) {
+      clearTimeout(this.timer);
+    }
   }
 
   render(): JSX.Element {
@@ -63,6 +76,7 @@ export default class Home extends React.Component<IProps, IState> {
       valid,
       attempted,
       shouldShake,
+      revealAnswer,
       progressCount,
       currentWordIndex,
       encouragementText,
@@ -76,7 +90,7 @@ export default class Home extends React.Component<IProps, IState> {
           Progress: {progressCount} word
           {progressCount === 1 ? "" : "s"} completed ({WORDS.length} total)
         </ProgressText>
-        {valid ? (
+        {valid || revealAnswer ? (
           <QuizBox>
             <MandarinText>{CURRENT_WORD.mandarin}</MandarinText>
             <PinyinText>{CURRENT_WORD.pinyin}</PinyinText>
@@ -105,16 +119,47 @@ export default class Home extends React.Component<IProps, IState> {
             marginTop: 30,
             backgroundColor: !valid && attempted ? PRIMARY_RED : PRIMARY_BLUE,
           }}
-          onPress={valid ? this.handleProceed : this.handleCheck}
+          onPress={
+            valid
+              ? this.handleProceed
+              : revealAnswer
+                ? this.handleToggleRevealAnswer
+                : this.handleCheck
+          }
         >
           {valid
             ? `✨ ${
                 COMPLIMENTS[randomInRange(0, COMPLIMENTS.length - 1)]
               }! Next! ✨`
-            : attempted
-              ? `${encouragementText}! Keep trying! 🙏`
-              : "Check answer 👲"}
+            : revealAnswer
+              ? "Hide Answer 🧐"
+              : attempted
+                ? `${encouragementText}! Keep trying! 🙏`
+                : "Check answer 👲"}
         </Button>
+        <ActionButton position="left" buttonColor="rgba(231,76,60,1)">
+          <ActionButton.Item
+            buttonColor="#9b59b6"
+            title="Skip this one!"
+            onPress={this.handleProceed}
+          >
+            <Ionicons name="md-key" style={ActionIconStyle} />
+          </ActionButton.Item>
+          <ActionButton.Item
+            buttonColor="#3498db"
+            title={`${revealAnswer ? "Hide" : "Reveal"} answer`}
+            onPress={this.handleToggleRevealAnswer}
+          >
+            <Ionicons name="md-color-wand" style={ActionIconStyle} />
+          </ActionButton.Item>
+          <ActionButton.Item
+            buttonColor="#1abc9c"
+            title="View all definitions"
+            onPress={() => this.props.navigation.navigate(ROUTE_NAMES.VIEW_ALL)}
+          >
+            <Ionicons name="md-school" style={ActionIconStyle} />
+          </ActionButton.Item>
+        </ActionButton>
       </Container>
     );
   }
@@ -129,13 +174,30 @@ export default class Home extends React.Component<IProps, IState> {
   handleCheck = () => {
     const CURRENT_WORD = WORDS[this.state.currentWordIndex];
     if (this.state.value === CURRENT_WORD.mandarin) {
-      this.setState(prevState => {
-        return {
-          valid: true,
-          attempted: true,
-          progressCount: prevState.progressCount + 1,
-        };
-      }, this.makeItRain);
+      const { wordCompletedCache } = this.state;
+      if (wordCompletedCache.size === WORDS.length) {
+        this.setState(
+          prevState => {
+            return {
+              valid: true,
+              attempted: true,
+              progressCount: prevState.progressCount + 1,
+            };
+          },
+          () => {
+            this.makeItRain();
+            this.handleFinish();
+          },
+        );
+      } else {
+        this.setState(prevState => {
+          return {
+            valid: true,
+            attempted: true,
+            progressCount: prevState.progressCount + 1,
+          };
+        }, this.makeItRain);
+      }
     } else {
       this.setState({
         attempted: true,
@@ -156,6 +218,7 @@ export default class Home extends React.Component<IProps, IState> {
           value: "",
           valid: false,
           attempted: false,
+          revealAnswer: false,
           currentWordIndex: nextIndex,
           wordCompletedCache: prevState.wordCompletedCache.add(nextIndex),
         };
@@ -165,6 +228,32 @@ export default class Home extends React.Component<IProps, IState> {
         this.focusInput();
       },
     );
+  };
+
+  handleFinish = () => {
+    this.timer = setTimeout(() => {
+      Alert.alert(
+        "You finished all the words! 🥇",
+        "The quiz will now restart.",
+        [
+          {
+            text: "OK!",
+            onPress: () => {
+              this.setState(this.getInitialState(), () => {
+                this.timer = setTimeout(this.stopConfetti, 250);
+              });
+            },
+          },
+        ],
+        { cancelable: false },
+      );
+    }, 250);
+  };
+
+  handleToggleRevealAnswer = () => {
+    this.setState(prevState => ({
+      revealAnswer: !prevState.revealAnswer,
+    }));
   };
 
   getNextWordIndex = (): number => {
@@ -178,7 +267,7 @@ export default class Home extends React.Component<IProps, IState> {
   };
 
   getRandomWordIndex = (): number => {
-    return randomInRange(0, WORDS.length - 1);
+    return randomInRange(0, WORDS.length);
   };
 
   setConfettiRef = (node: any) => {
@@ -275,6 +364,12 @@ const PinyinText = ({ children }: { children: string }) => (
     {children}
   </Text>
 );
+
+const ActionIconStyle = {
+  fontSize: 20,
+  height: 22,
+  color: "white",
+};
 
 const randomInRange = (min: number, max: number) => {
   return Math.floor(Math.random() * (max - min) + min);
