@@ -33,13 +33,7 @@ export default class extends React.Component<IProps, {}> {
 
   render(): JSX.Element {
     return (
-      <ScrollView
-        keyboardShouldPersistTaps="always"
-        contentContainerStyle={{
-          backgroundColor: "rgb(28,28,28)",
-          height: "100%",
-        }}
-      >
+      <ScrollView keyboardShouldPersistTaps="always">
         <SafeAreaView
           style={{ flex: 1, paddingTop: 75 }}
           forceInset={{ top: "always", horizontal: "never" }}
@@ -102,5 +96,4 @@ const Item = glamorous.text({
   fontSize: 16,
   marginTop: 45,
   marginLeft: 12,
-  color: "white",
 });

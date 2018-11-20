@@ -27,7 +27,7 @@ export default class NotesApp extends React.Component<{}, IState> {
     AppState.removeEventListener("change", this.handleAppStateChange);
   }
 
-  shouldComponentUpdate(nextProps: IProps, nextState: IState): boolean {
+  shouldComponentUpdate(nextProps: {}, nextState: IState): boolean {
     if (this.state.appState !== nextState.appState) {
       return false;
     }
