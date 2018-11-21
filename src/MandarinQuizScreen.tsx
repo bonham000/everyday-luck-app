@@ -181,6 +181,7 @@ export default class Home extends React.Component<IProps, IState> {
             return {
               valid: true,
               attempted: true,
+              shouldShake: false,
               progressCount: prevState.progressCount + 1,
             };
           },
@@ -194,6 +195,7 @@ export default class Home extends React.Component<IProps, IState> {
           return {
             valid: true,
             attempted: true,
+            shouldShake: false,
             progressCount: prevState.progressCount + 1,
           };
         }, this.makeItRain);
@@ -218,6 +220,7 @@ export default class Home extends React.Component<IProps, IState> {
           value: "",
           valid: false,
           attempted: false,
+          shouldShake: false,
           revealAnswer: false,
           currentWordIndex: nextIndex,
           wordCompletedCache: prevState.wordCompletedCache.add(nextIndex),
