@@ -30,7 +30,7 @@ export default class FlashcardsScreen extends React.Component<IProps, IState> {
           onChangeText={this.handleSearch}
         />
         <FlatList
-          contentContainerStyle={{ width: "100%" }}
+          contentContainerStyle={{ flex: 1, width: "100%" }}
           data={this.getListContent()}
           renderItem={({ item, index }: { item: Word; index: number }) => {
             const even = index % 2 === 0;

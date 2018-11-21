@@ -255,6 +255,7 @@ export default class Home extends React.Component<IProps, IState> {
 
   handleToggleRevealAnswer = () => {
     this.setState(prevState => ({
+      attempted: false,
       revealAnswer: !prevState.revealAnswer,
     }));
   };
