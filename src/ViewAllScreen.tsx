@@ -25,15 +25,18 @@ export default class FlashcardsScreen extends React.Component<IProps, IState> {
     return (
       <Container>
         <Searchbar
+          style={{
+            borderTopWidth: 1,
+            borderTopColor: "rgba(45,45,45,0.05)",
+          }}
           placeholder="Filter list"
           value={this.state.searchValue}
           onChangeText={this.handleSearch}
         />
         <FlatList
-          contentContainerStyle={{ flex: 1, width: "100%" }}
+          contentContainerStyle={{ width: "100%" }}
           data={this.getListContent()}
-          renderItem={({ item, index }: { item: Word; index: number }) => {
-            const even = index % 2 === 0;
+          renderItem={({ item }: { item: Word; index: number }) => {
             return (
               <WordBox>
                 <WordText style={{ fontSize: 32, padding: 8 }}>
@@ -78,7 +81,6 @@ const mapWordsForList = (word: Word) => ({
 
 const Container = glamorous.view({
   flex: 1,
-  paddingBottom: 35,
 });
 
 const WordBox = glamorous.view({

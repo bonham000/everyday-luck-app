@@ -1,7 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import glamorous from "glamorous-native";
 import React from "react";
-import { Alert } from "react-native";
+import { Alert, Keyboard, TouchableWithoutFeedback } from "react-native";
 import ActionButton from "react-native-action-button";
 import Confetti from "react-native-confetti";
 import { Button, Text, TextInput } from "react-native-paper";
@@ -84,83 +84,88 @@ export default class Home extends React.Component<IProps, IState> {
     const CURRENT_WORD = WORDS[currentWordIndex];
 
     return (
-      <Container>
-        <Confetti untilStopped duration={1500} ref={this.setConfettiRef} />
-        <ProgressText>
-          Progress: {progressCount} word
-          {progressCount === 1 ? "" : "s"} completed ({WORDS.length} total)
-        </ProgressText>
-        {valid || revealAnswer ? (
-          <QuizBox>
-            <MandarinText>{CURRENT_WORD.mandarin}</MandarinText>
-            <PinyinText>{CURRENT_WORD.pinyin}</PinyinText>
-          </QuizBox>
-        ) : (
-          <Shaker style={{ width: "100%" }} shouldShake={shouldShake}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+        <Container>
+          <Confetti untilStopped duration={1500} ref={this.setConfettiRef} />
+          <ProgressText>
+            Progress: {progressCount} word
+            {progressCount === 1 ? "" : "s"} completed ({WORDS.length} total)
+          </ProgressText>
+          {valid || revealAnswer ? (
             <QuizBox>
-              <EnglishText>"{CURRENT_WORD.english}"</EnglishText>
-              <TextInput
-                mode="outlined"
-                error={attempted}
-                ref={this.setInputRef}
-                style={TextInputStyles}
-                value={this.state.value}
-                onChangeText={this.handleChange}
-                onSubmitEditing={this.handleCheck}
-                label="Translate the English to Mandarin please"
-              />
+              <MandarinText>{CURRENT_WORD.mandarin}</MandarinText>
+              <PinyinText>{CURRENT_WORD.pinyin}</PinyinText>
             </QuizBox>
-          </Shaker>
-        )}
-        <Button
-          dark
-          mode="contained"
-          style={{
-            marginTop: 30,
-            backgroundColor: !valid && attempted ? PRIMARY_RED : PRIMARY_BLUE,
-          }}
-          onPress={
-            valid
-              ? this.handleProceed
+          ) : (
+            <Shaker style={{ width: "100%" }} shouldShake={shouldShake}>
+              <QuizBox>
+                <EnglishText>"{CURRENT_WORD.english}"</EnglishText>
+                <TextInput
+                  mode="outlined"
+                  error={attempted}
+                  ref={this.setInputRef}
+                  style={TextInputStyles}
+                  value={this.state.value}
+                  onChangeText={this.handleChange}
+                  onSubmitEditing={this.handleCheck}
+                  label="Translate the English to Mandarin please"
+                />
+              </QuizBox>
+            </Shaker>
+          )}
+          <Button
+            dark
+            mode="contained"
+            style={{
+              marginTop: 30,
+              minWidth: 215,
+              backgroundColor: !valid && attempted ? PRIMARY_RED : PRIMARY_BLUE,
+            }}
+            onPress={
+              valid
+                ? this.handleProceed
+                : revealAnswer
+                  ? this.handleToggleRevealAnswer
+                  : this.handleCheck
+            }
+          >
+            {valid
+              ? `✨ ${
+                  COMPLIMENTS[randomInRange(0, COMPLIMENTS.length - 1)]
+                }! Next! ✨`
               : revealAnswer
-                ? this.handleToggleRevealAnswer
-                : this.handleCheck
-          }
-        >
-          {valid
-            ? `✨ ${
-                COMPLIMENTS[randomInRange(0, COMPLIMENTS.length - 1)]
-              }! Next! ✨`
-            : revealAnswer
-              ? "Hide Answer 🧐"
-              : attempted
-                ? `${encouragementText}! Keep trying! 🙏`
-                : "Check answer 👲"}
-        </Button>
-        <ActionButton position="left" buttonColor="rgba(231,76,60,1)">
-          <ActionButton.Item
-            buttonColor="#9b59b6"
-            title="Skip this one!"
-            onPress={this.handleProceed}
-          >
-            <Ionicons name="md-key" style={ActionIconStyle} />
-          </ActionButton.Item>
-          <ActionButton.Item
-            buttonColor="#3498db"
-            title={`${revealAnswer ? "Hide" : "Reveal"} answer`}
-            onPress={this.handleToggleRevealAnswer}
-          >
-            <Ionicons name="md-color-wand" style={ActionIconStyle} />
-          </ActionButton.Item>
-          <ActionButton.Item
-            buttonColor="#1abc9c"
-            title="View all definitions"
-            onPress={() => this.props.navigation.navigate(ROUTE_NAMES.VIEW_ALL)}
-          >
-            <Ionicons name="md-school" style={ActionIconStyle} />
-          </ActionButton.Item>
-        </ActionButton>
-      </Container>
+                ? "Hide Answer 🧐"
+                : attempted
+                  ? `${encouragementText}! Keep trying! 🙏`
+                  : "Check answer 👲"}
+          </Button>
+          <ActionButton position="left" buttonColor="rgba(231,76,60,1)">
+            <ActionButton.Item
+              buttonColor="#9b59b6"
+              title="Skip this one!"
+              onPress={this.handleProceed}
+            >
+              <Ionicons name="md-key" style={ActionIconStyle} />
+            </ActionButton.Item>
+            <ActionButton.Item
+              buttonColor="#3498db"
+              title={`${revealAnswer ? "Hide" : "Reveal"} answer`}
+              onPress={this.handleToggleRevealAnswer}
+            >
+              <Ionicons name="md-color-wand" style={ActionIconStyle} />
+            </ActionButton.Item>
+            <ActionButton.Item
+              buttonColor="#1abc9c"
+              title="View all definitions"
+              onPress={() =>
+                this.props.navigation.navigate(ROUTE_NAMES.VIEW_ALL)
+              }
+            >
+              <Ionicons name="md-school" style={ActionIconStyle} />
+            </ActionButton.Item>
+          </ActionButton>
+        </Container>
+      </TouchableWithoutFeedback>
     );
   }
 

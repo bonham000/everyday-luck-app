@@ -38,7 +38,7 @@ const AppStack = () => {
           navigation: NavigationScreenProp<{}>;
         }) => {
           return {
-            title: "Mandarin Flashcards 🗂",
+            title: "Mandarin Flashcards 👨‍🚀",
             headerBackTitle: null,
             headerLeft: <MenuIcon onPress={navigation.toggleDrawer} />,
           };
@@ -90,8 +90,8 @@ const MenuIcon = ({ onPress }: { onPress: () => void }) => (
   />
 );
 
-export default () =>
-  createDrawerNavigator(
+export default () => {
+  return createDrawerNavigator(
     {
       [ROUTE_NAMES.MANDARIN_QUIZ]: {
         screen: AppStack(),
@@ -101,3 +101,4 @@ export default () =>
       contentComponent: DrawerComponent,
     },
   );
+};

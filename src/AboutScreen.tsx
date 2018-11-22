@@ -19,7 +19,7 @@ export default class FlashcardsScreen extends React.Component<IProps, {}> {
           you want.
         </Text>
         <Text onPress={this.openAboutLink} style={LinkStyles}>
-          Source
+          Source 👨‍💻
         </Text>
       </Container>
     );

@@ -15,6 +15,7 @@ interface IProps {
 }
 
 interface IState {
+  completed: number;
   cards: ReadonlyArray<Word>;
 }
 
@@ -25,6 +26,7 @@ export default class FlashcardsScreen extends React.Component<IProps, IState> {
     super(props);
 
     this.state = {
+      completed: 0,
       cards: knuthShuffle(WordSource),
     };
   }
@@ -38,13 +40,18 @@ export default class FlashcardsScreen extends React.Component<IProps, IState> {
           verticalSwipe={false}
           cardVerticalMargin={0}
           cardHorizontalMargin={0}
-          marginTop={16}
+          marginTop={32}
           cards={this.state.cards}
           renderCard={this.renderCard}
+          onSwiped={this.handleSwipe}
           onSwipedAll={this.handleFinish}
           ref={this.handleAssignSwiperRef}
           backgroundColor={LIGHT_WHITE}
         />
+        <ProgressText>
+          Progress: {this.state.completed} flashcards completed (
+          {this.state.cards.length} total)
+        </ProgressText>
       </View>
     );
   }
@@ -76,6 +83,12 @@ export default class FlashcardsScreen extends React.Component<IProps, IState> {
     this.setState({
       cards: knuthShuffle(WordSource),
     });
+  };
+
+  handleSwipe = () => {
+    this.setState(prevState => ({
+      completed: prevState.completed + 1,
+    }));
   };
 
   handleAssignSwiperRef = (swiper: any) => {
@@ -132,6 +145,13 @@ const BackText = glamorous.text({
   textAlign: "center",
   width: width - 40,
   color: PRIMARY_BLUE,
+});
+
+const ProgressText = glamorous.text({
+  position: "absolute",
+  left: 5,
+  top: 5,
+  fontSize: 10,
 });
 
 const knuthShuffle = (array: ReadonlyArray<any>): ReadonlyArray<any> => {
