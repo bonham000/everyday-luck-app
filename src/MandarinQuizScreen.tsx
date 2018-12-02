@@ -139,31 +139,33 @@ export default class Home extends React.Component<IProps, IState> {
                   ? `${encouragementText}! Keep trying! 🙏`
                   : "Check answer 👲"}
           </Button>
-          <ActionButton position="left" buttonColor="rgba(231,76,60,1)">
-            <ActionButton.Item
-              buttonColor="#9b59b6"
-              title="Skip this one!"
-              onPress={this.handleProceed}
-            >
-              <Ionicons name="md-key" style={ActionIconStyle} />
-            </ActionButton.Item>
-            <ActionButton.Item
-              buttonColor="#3498db"
-              title={`${revealAnswer ? "Hide" : "Reveal"} answer`}
-              onPress={this.handleToggleRevealAnswer}
-            >
-              <Ionicons name="md-color-wand" style={ActionIconStyle} />
-            </ActionButton.Item>
-            <ActionButton.Item
-              buttonColor="#1abc9c"
-              title="View all definitions"
-              onPress={() =>
-                this.props.navigation.navigate(ROUTE_NAMES.VIEW_ALL)
-              }
-            >
-              <Ionicons name="md-school" style={ActionIconStyle} />
-            </ActionButton.Item>
-          </ActionButton>
+          {!valid && (
+            <ActionButton position="left" buttonColor="rgba(231,76,60,1)">
+              <ActionButton.Item
+                buttonColor="#9b59b6"
+                title="Skip this one!"
+                onPress={this.handleProceed}
+              >
+                <Ionicons name="md-key" style={ActionIconStyle} />
+              </ActionButton.Item>
+              <ActionButton.Item
+                buttonColor="#3498db"
+                title={`${revealAnswer ? "Hide" : "Reveal"} answer`}
+                onPress={this.handleToggleRevealAnswer}
+              >
+                <Ionicons name="md-color-wand" style={ActionIconStyle} />
+              </ActionButton.Item>
+              <ActionButton.Item
+                buttonColor="#1abc9c"
+                title="View all definitions"
+                onPress={() =>
+                  this.props.navigation.navigate(ROUTE_NAMES.VIEW_ALL)
+                }
+              >
+                <Ionicons name="md-school" style={ActionIconStyle} />
+              </ActionButton.Item>
+            </ActionButton>
+          )}
         </Container>
       </TouchableWithoutFeedback>
     );
