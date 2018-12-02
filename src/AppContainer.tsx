@@ -1,12 +1,13 @@
-import glamorous from "glamorous-native";
 import React from "react";
 import { AppState, BackHandler, View } from "react-native";
-import { Text } from "react-native-paper";
 
+import AppContext from "./AppContext";
+import { CustomToast } from "./Components/ToastProvider";
 import createAppNavigator from "./NavigatorConfig";
 
 interface IState {
   appState: string;
+  toastMessage: string;
   tryingToCloseApp: boolean;
 }
 
@@ -19,6 +20,7 @@ export default class NotesApp extends React.Component<{}, IState> {
 
     this.state = {
       appState: AppState.currentState,
+      toastMessage: "",
       tryingToCloseApp: false,
     };
   }
@@ -27,7 +29,7 @@ export default class NotesApp extends React.Component<{}, IState> {
     BackHandler.addEventListener("hardwareBackPress", () => {
       if (this.canCloseApp()) {
         if (!this.state.tryingToCloseApp) {
-          this.activateTemporaryCloseState();
+          this.setToastMessage("Press again to close app ✌");
           return true;
         } else {
           return BackHandler.exitApp();
@@ -42,13 +44,24 @@ export default class NotesApp extends React.Component<{}, IState> {
     BackHandler.removeEventListener("hardwareBackPress", () => {
       return;
     });
+
+    this.clearTimer();
   }
 
   render(): JSX.Element | null {
     return (
       <View style={{ flex: 1 }}>
-        {this.state.tryingToCloseApp ? <CloseWarning /> : null}
-        <AppPureComponent assignNavigatorRef={this.assignNavRef} />
+        <AppContext.Provider
+          value={{
+            setToastMessage: this.setToastMessage,
+          }}
+        >
+          <CustomToast
+            close={this.clearToast}
+            message={this.state.toastMessage}
+          />
+          <AppPureComponent assignNavigatorRef={this.assignNavRef} />
+        </AppContext.Provider>
       </View>
     );
   }
@@ -58,19 +71,28 @@ export default class NotesApp extends React.Component<{}, IState> {
     this.navigationRef = ref;
   };
 
-  activateTemporaryCloseState = () => {
+  clearTimer = () => {
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+    }
+  };
+
+  setToastMessage = (toastMessage: string): void => {
+    this.clearTimer();
     this.setState(
       {
-        tryingToCloseApp: true,
+        toastMessage,
       },
       () => {
-        this.timeout = setTimeout(() => {
-          this.setState({
-            tryingToCloseApp: false,
-          });
-        }, 2000);
+        this.timeout = setTimeout(this.clearToast, 2000);
       },
     );
+  };
+
+  clearToast = () => {
+    this.setState({
+      toastMessage: "",
+    });
   };
 
   canCloseApp = () => {
@@ -96,32 +118,3 @@ class AppPureComponent extends React.Component<
     return <AppNavigator ref={this.props.assignNavigatorRef} />;
   }
 }
-
-const CloseWarning = () => (
-  <BarContainer>
-    <Bar>
-      <Text style={{ color: "white", fontSize: 18 }}>
-        Press again to close app ✌
-      </Text>
-    </Bar>
-  </BarContainer>
-);
-
-const BarContainer = glamorous.view({
-  height: 50,
-  zIndex: 25,
-  marginTop: 42,
-  width: "100%",
-  position: "absolute",
-  alignItems: "center",
-  justifyContent: "center",
-});
-
-const Bar = glamorous.view({
-  height: 48,
-  width: "90%",
-  borderRadius: 3,
-  alignItems: "center",
-  justifyContent: "center",
-  backgroundColor: "rgba(45,45,45,0.91)",
-});

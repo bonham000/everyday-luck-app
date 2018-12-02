@@ -4,17 +4,19 @@ import { Clipboard, FlatList } from "react-native";
 import { Searchbar } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
+import ToastProvider from "../Components/ToastProvider";
 import WORDS, { Word } from "../Content/WordSource";
 
 interface IProps {
   navigation: NavigationScreenProp<{}>;
+  setToastMessage: (toastMessage: string) => void;
 }
 
 interface IState {
   searchValue: string;
 }
 
-export default class FlashcardsScreen extends React.Component<IProps, IState> {
+class ViewAllScreen extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
 
@@ -39,7 +41,7 @@ export default class FlashcardsScreen extends React.Component<IProps, IState> {
           data={this.getListContent()}
           renderItem={({ item }: { item: Word; index: number }) => {
             return (
-              <WordBox onPress={copyHandler(item.mandarin)}>
+              <WordBox onPress={this.copyHandler(item.mandarin)}>
                 <WordText style={{ fontSize: 32, padding: 8 }}>
                   {item.mandarin}
                 </WordText>
@@ -63,6 +65,14 @@ export default class FlashcardsScreen extends React.Component<IProps, IState> {
     const filterWords = filterBySearchTerm(this.state.searchValue);
     return WORDS.filter(filterWords).map(mapWordsForList);
   };
+
+  copyHandler = (mandarin: string) => () => {
+    try {
+      Clipboard.setString(mandarin);
+      this.props.setToastMessage(`${mandarin} copied!`);
+      // tslint:disable-next-line
+    } catch (_) {}
+  };
 }
 
 const filterBySearchTerm = (searchValue: string) => (word: Word) => {
@@ -79,13 +89,6 @@ const mapWordsForList = (word: Word) => ({
   ...word,
   key: word.mandarin,
 });
-
-const copyHandler = (mandarin: string) => () => {
-  try {
-    Clipboard.setString(mandarin);
-    // tslint:disable-next-line
-  } catch (_) {}
-};
 
 const Container = glamorous.view({
   flex: 1,
@@ -104,3 +107,7 @@ const WordText = glamorous.text({
   padding: 4,
   paddingLeft: 8,
 });
+
+export default (props: any) => (
+  <ToastProvider {...props} Component={ViewAllScreen} />
+);
