@@ -49,6 +49,56 @@ const Content = [
     pinyin: "Wǒ zhèngzài xuéxí pǔtōnghuà",
     english: "I am learning mandarin",
   },
+  {
+    mandarin: "這個",
+    pinyin: "Zhège",
+    english: "This",
+  },
+  {
+    mandarin: "我吃",
+    pinyin: "Wǒ chī",
+    english: "I eat",
+  },
+  {
+    mandarin: "蛋糕",
+    pinyin: "Dàngāo",
+    english: "Cake",
+  },
+  {
+    mandarin: "冰淇淋",
+    pinyin: "Bīngqílín",
+    english: "Ice cream",
+  },
+  {
+    mandarin: "不好",
+    pinyin: "Bù hǎo",
+    english: "Not good",
+  },
+  {
+    mandarin: "老師",
+    pinyin: "Lǎoshī",
+    english: "Teacher",
+  },
+  {
+    mandarin: "經理",
+    pinyin: "Jīnglǐ",
+    english: "Manager",
+  },
+  {
+    mandarin: "同事",
+    pinyin: "Tóngshì",
+    english: "Colleague",
+  },
+  {
+    mandarin: "開發工程師",
+    pinyin: "Kāifā Gōngchéngshī",
+    english: "Software Developer",
+  },
+  {
+    mandarin: "魚",
+    pinyin: "Yú",
+    english: "Fish",
+  },
 ];
 
 export default (process.env.NODE_ENV === "development"
