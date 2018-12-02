@@ -5,7 +5,7 @@ import { Searchbar } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
 import ToastProvider from "../Components/ToastProvider";
-import WORDS, { Word } from "../Content/WordSource";
+import WORDS, { Word } from "../Content/Source";
 
 interface IProps {
   navigation: NavigationScreenProp<{}>;

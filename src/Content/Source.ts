@@ -30,7 +30,7 @@ const Content = [
     english: "Good morning",
   },
   {
-    mandarin: "你忙嗎?",
+    mandarin: "你忙嗎",
     pinyin: "nǐ máng ma?",
     english: "Are you busy?",
   },
@@ -45,7 +45,7 @@ const Content = [
     english: "Welcome everyone",
   },
   {
-    mandarin: "我正在学习普通话",
+    mandarin: "我正在學習普通話",
     pinyin: "Wǒ zhèngzài xuéxí pǔtōnghuà",
     english: "I am learning mandarin",
   },

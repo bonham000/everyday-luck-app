@@ -5,7 +5,7 @@ import Swiper from "react-native-deck-swiper";
 import FlipCard from "react-native-flip-card";
 import { NavigationScreenProp } from "react-navigation";
 
-import WordSource, { Word } from "../Content/WordSource";
+import WordSource, { Word } from "../Content/Source";
 import { LIGHT_WHITE, PRIMARY_BLUE, PRIMARY_RED } from "../Styles/Colors";
 
 export const { width, height } = Dimensions.get("window");
@@ -35,18 +35,18 @@ export default class FlashcardsScreen extends React.Component<IProps, IState> {
     return (
       <View style={{ flex: 1, backgroundColor: LIGHT_WHITE }}>
         <Swiper
-          animateOverlayLabelsOpacity
+          marginTop={32}
           animateCardOpacity
           verticalSwipe={false}
           cardVerticalMargin={0}
           cardHorizontalMargin={0}
-          marginTop={32}
           cards={this.state.cards}
           renderCard={this.renderCard}
           onSwiped={this.handleSwipe}
           onSwipedAll={this.handleFinish}
           ref={this.handleAssignSwiperRef}
           backgroundColor={LIGHT_WHITE}
+          animateOverlayLabelsOpacity
         />
         <ProgressText>
           Progress: {this.state.completed} flashcards completed (

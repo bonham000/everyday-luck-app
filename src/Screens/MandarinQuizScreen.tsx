@@ -9,7 +9,7 @@ import { NavigationScreenProp } from "react-navigation";
 
 import Shaker from "../Components/Shaker";
 import { ROUTE_NAMES } from "../Constants/Routes";
-import WORDS from "../Content/WordSource";
+import WORDS from "../Content/Source";
 import { PRIMARY_BLUE, PRIMARY_RED } from "../Styles/Colors";
 
 interface IProps {
