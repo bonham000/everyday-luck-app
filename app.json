@@ -22,7 +22,7 @@
       "package": "com.mandarin.app"
     },
     "ios": {
-      "supportsTablet": true
+      "bundleIdentifier": "learn.mandarin.app"
     }
   }
 }

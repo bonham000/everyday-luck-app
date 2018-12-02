@@ -1,6 +1,6 @@
 import glamorous from "glamorous-native";
 import React from "react";
-import { FlatList } from "react-native";
+import { Clipboard, FlatList } from "react-native";
 import { Searchbar } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
@@ -39,7 +39,7 @@ export default class FlashcardsScreen extends React.Component<IProps, IState> {
           data={this.getListContent()}
           renderItem={({ item }: { item: Word; index: number }) => {
             return (
-              <WordBox>
+              <WordBox onPress={copyHandler(item.mandarin)}>
                 <WordText style={{ fontSize: 32, padding: 8 }}>
                   {item.mandarin}
                 </WordText>
@@ -80,11 +80,18 @@ const mapWordsForList = (word: Word) => ({
   key: word.mandarin,
 });
 
+const copyHandler = (mandarin: string) => () => {
+  try {
+    Clipboard.setString(mandarin);
+    // tslint:disable-next-line
+  } catch (_) {}
+};
+
 const Container = glamorous.view({
   flex: 1,
 });
 
-const WordBox = glamorous.view({
+const WordBox = glamorous.touchableOpacity({
   padding: 8,
   width: "100%",
   paddingLeft: 12,
