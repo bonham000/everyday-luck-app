@@ -8,21 +8,21 @@ export interface Word {
   english: string;
 }
 
-export default [
+const Content = [
   {
     mandarin: "我是",
     pinyin: "Wǒ shì",
     english: "I am",
   },
   {
-    mandarin: "謝謝",
-    pinyin: "Xièxiè",
-    english: "Thank you",
-  },
-  {
     mandarin: "很好",
     pinyin: "Hěn hǎo",
     english: "Very good",
+  },
+  {
+    mandarin: "謝謝",
+    pinyin: "Xièxiè",
+    english: "Thank you",
   },
   {
     mandarin: "早上好",
@@ -50,3 +50,7 @@ export default [
     english: "I am learning mandarin",
   },
 ];
+
+export default (process.env.NODE_ENV === "development"
+  ? Content.slice(0, 2)
+  : Content);

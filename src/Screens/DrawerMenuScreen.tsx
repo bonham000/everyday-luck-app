@@ -8,7 +8,7 @@ import {
   StackActions,
 } from "react-navigation";
 
-import { ROUTE_NAMES } from "./RouteNames";
+import { ROUTE_NAMES } from "../Constants/Routes";
 
 interface IProps {
   navigation: NavigationScreenProp<{}>;
@@ -42,7 +42,7 @@ export default class extends React.Component<IProps, {}> {
             <Image
               style={{ width: 100, height: 100 }}
               resizeMode="contain"
-              source={require("../assets/icon.png")}
+              source={require("../../assets/icon.png")}
             />
           </View>
           <Item

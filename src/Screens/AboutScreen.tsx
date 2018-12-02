@@ -4,7 +4,7 @@ import React from "react";
 import { Text } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
-import { PRIMARY_BLUE } from "./Colors";
+import { PRIMARY_BLUE } from "../Styles/Colors";
 
 interface IProps {
   navigation: NavigationScreenProp<{}>;

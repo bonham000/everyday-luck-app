@@ -7,10 +7,10 @@ import Confetti from "react-native-confetti";
 import { Button, Text, TextInput } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
-import { PRIMARY_BLUE, PRIMARY_RED } from "./Colors";
-import { ROUTE_NAMES } from "./RouteNames";
-import Shaker from "./Shaker";
-import WORDS from "./WordSource";
+import Shaker from "../Components/Shaker";
+import { ROUTE_NAMES } from "../Constants/Routes";
+import WORDS from "../Content/WordSource";
+import { PRIMARY_BLUE, PRIMARY_RED } from "../Styles/Colors";
 
 interface IProps {
   navigation: NavigationScreenProp<{}>;

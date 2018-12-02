@@ -23,6 +23,7 @@
   "devDependencies": {
     "@types/expo": "^30.0.1",
     "@types/expo__vector-icons": "^6.2.3",
+    "@types/node": "^10.12.11",
     "@types/react": "^16.4.18",
     "@types/react-native": "^0.57.7",
     "@types/react-native-dialog": "^4.0.1",

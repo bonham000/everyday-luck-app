@@ -6,12 +6,12 @@ import {
   NavigationScreenProp,
 } from "react-navigation";
 
-import AboutScreen from "./AboutScreen";
-import DrawerComponent from "./DrawerMenuScreen";
-import FlashcardsScreen from "./FlashcardsScreen";
-import MandarinQuizScreen from "./MandarinQuizScreen";
-import { ROUTE_NAMES } from "./RouteNames";
-import ViewAllScreen from "./ViewAllScreen";
+import { ROUTE_NAMES } from "./Constants/Routes";
+import AboutScreen from "./Screens/AboutScreen";
+import DrawerComponent from "./Screens/DrawerMenuScreen";
+import FlashcardsScreen from "./Screens/FlashcardsScreen";
+import MandarinQuizScreen from "./Screens/MandarinQuizScreen";
+import ViewAllScreen from "./Screens/ViewAllScreen";
 
 const AppStack = () => {
   return createStackNavigator(

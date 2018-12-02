@@ -2,7 +2,7 @@ import React from "react";
 import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
 
 import App from "./src/AppContainer";
-import { PRIMARY_BLUE, PRIMARY_RED } from "./src/Colors";
+import { PRIMARY_BLUE, PRIMARY_RED } from "./src/Styles/Colors";
 
 const theme = {
   ...DefaultTheme,

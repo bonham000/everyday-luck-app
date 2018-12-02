@@ -3,7 +3,8 @@ import React from "react";
 import { FlatList } from "react-native";
 import { Searchbar } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
-import WORDS, { Word } from "./WordSource";
+
+import WORDS, { Word } from "../Content/WordSource";
 
 interface IProps {
   navigation: NavigationScreenProp<{}>;

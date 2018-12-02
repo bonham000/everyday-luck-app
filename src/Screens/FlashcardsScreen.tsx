@@ -5,8 +5,8 @@ import Swiper from "react-native-deck-swiper";
 import FlipCard from "react-native-flip-card";
 import { NavigationScreenProp } from "react-navigation";
 
-import { LIGHT_WHITE, PRIMARY_BLUE, PRIMARY_RED } from "./Colors";
-import WordSource, { Word } from "./WordSource";
+import WordSource, { Word } from "../Content/WordSource";
+import { LIGHT_WHITE, PRIMARY_BLUE, PRIMARY_RED } from "../Styles/Colors";
 
 export const { width, height } = Dimensions.get("window");
 
