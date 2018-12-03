@@ -91,13 +91,48 @@ const Content = [
   },
   {
     mandarin: "開發工程師",
-    pinyin: "Kāifā Gōngchéngshī",
-    english: "Software Developer",
+    pinyin: "Kāifā gōngchéngshī",
+    english: "Software developer",
   },
   {
     mandarin: "魚",
     pinyin: "Yú",
     english: "Fish",
+  },
+  {
+    mandarin: "早餐",
+    pinyin: "Zǎocān",
+    english: "Breakfast",
+  },
+  {
+    mandarin: "午餐",
+    pinyin: "Wǔcān",
+    english: "Lunch",
+  },
+  {
+    mandarin: "晚餐",
+    pinyin: "Wǎncān",
+    english: "Dinner",
+  },
+  {
+    mandarin: "你叫什麼名字",
+    pinyin: "Nǐ jiào shénme míngzì",
+    english: "What is your name?",
+  },
+  {
+    mandarin: "你的職業是什麼",
+    pinyin: "Nǐ de zhíyè shì shénme",
+    english: "What is your occupation?",
+  },
+  {
+    mandarin: "我怎麼說",
+    pinyin: "Wǒ zěnme shuō",
+    english: "How do I say?",
+  },
+  {
+    mandarin: "這很難",
+    pinyin: "Zhè hěn nán",
+    english: "It is difficult",
   },
 ];
 
