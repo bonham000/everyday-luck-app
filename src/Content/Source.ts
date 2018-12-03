@@ -134,6 +134,11 @@ const Content = [
     pinyin: "Zhè hěn nán",
     english: "It is difficult",
   },
+  {
+    mandarin: "大家好",
+    pinyin: "Dàjiā hǎo",
+    english: "Hello everyone",
+  },
 ];
 
 export default (process.env.NODE_ENV === "development"
