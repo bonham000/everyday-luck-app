@@ -29,10 +29,20 @@ export default class NotesApp extends React.Component<{}, IState> {
     BackHandler.addEventListener("hardwareBackPress", () => {
       if (this.canCloseApp()) {
         if (!this.state.tryingToCloseApp) {
-          this.setToastMessage("Press again to close app ✌");
+          this.setState(
+            {
+              tryingToCloseApp: true,
+            },
+            () => this.setToastMessage("Press again to close app ✌"),
+          );
           return true;
         } else {
-          return BackHandler.exitApp();
+          return this.setState(
+            {
+              tryingToCloseApp: false,
+            },
+            BackHandler.exitApp,
+          );
         }
       }
 
@@ -75,6 +85,8 @@ export default class NotesApp extends React.Component<{}, IState> {
     if (this.timeout) {
       clearTimeout(this.timeout);
     }
+
+    this.setState({ tryingToCloseApp: false });
   };
 
   setToastMessage = (toastMessage: string): void => {
