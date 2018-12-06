@@ -85,7 +85,9 @@ export default class NotesApp extends React.Component<{}, IState> {
     if (this.timeout) {
       clearTimeout(this.timeout);
     }
+  };
 
+  abortTryingToClose = () => {
     this.setState({ tryingToCloseApp: false });
   };
 
@@ -96,7 +98,10 @@ export default class NotesApp extends React.Component<{}, IState> {
         toastMessage,
       },
       () => {
-        this.timeout = setTimeout(this.clearToast, 2000);
+        this.timeout = setTimeout(() => {
+          this.clearToast();
+          this.abortTryingToClose();
+        }, 2000);
       },
     );
   };
