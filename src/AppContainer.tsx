@@ -2,7 +2,7 @@ import React from "react";
 import { AppState, BackHandler, View } from "react-native";
 
 import AppContext from "@src/AppContext";
-import { CustomToast } from "@src/Components/ToastProvider";
+import { CustomToast } from "@src/components/ToastProvider";
 import createAppNavigator from "@src/NavigatorConfig";
 
 /** ========================================================================
