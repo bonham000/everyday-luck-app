@@ -4,10 +4,10 @@ import { Clipboard, FlatList } from "react-native";
 import { Searchbar } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
-import ToastProvider from "../Components/ToastProvider";
-import WORDS, { Word } from "../Content/Source";
-import { COLORS } from "../Styles/Colors";
-import { filterBySearchTerm, mapWordsForList } from "../utils";
+import ToastProvider from "@src/Components/ToastProvider";
+import WORDS, { Word } from "@src/Content/Source";
+import { COLORS } from "@src/Styles/Colors";
+import { filterBySearchTerm, mapWordsForList } from "@src/utils";
 
 /** ========================================================================
  * Types

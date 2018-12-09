@@ -3,8 +3,8 @@ import React from "react";
 import { Image, Keyboard, ScrollView, View } from "react-native";
 import { NavigationScreenProp, SafeAreaView } from "react-navigation";
 
-import { ROUTE_NAMES } from "../Constants/Routes";
-import { resetNavigation } from "../utils";
+import { ROUTE_NAMES } from "@src/Constants/Routes";
+import { resetNavigation } from "@src/utils";
 
 /** ========================================================================
  * Types

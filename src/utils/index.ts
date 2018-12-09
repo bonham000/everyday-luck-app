@@ -1,7 +1,7 @@
 import { NavigationActions, StackActions } from "react-navigation";
 
-import { ROUTE_NAMES } from "../Constants/Routes";
-import { Word } from "../Content/Source";
+import { ROUTE_NAMES } from "@src/Constants/Routes";
+import { Word } from "@src/Content/Source";
 
 /**
  * Return a random number for the given range.
