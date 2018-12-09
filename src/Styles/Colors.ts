@@ -11,6 +11,7 @@ export const COLORS = {
   actionButtonPurple: "#9b59b6",
   actionButtonBlue: "#3498db",
   actionButtonMint: "#1abc9c",
+  actionButtonYellow: "#FFAB85",
   wordCardBorder: "rgba(25,25,25,0.5)",
   wordCardBackground: "rgb(231, 237, 240)",
 };

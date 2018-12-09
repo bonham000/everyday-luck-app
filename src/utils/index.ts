@@ -11,7 +11,7 @@ export const randomInRange = (min: number, max: number) => {
 };
 
 /**
- * Shuffle an array of values
+ * Shuffle an array of values.
  */
 export const knuthShuffle = (array: ReadonlyArray<any>): ReadonlyArray<any> => {
   let currentIndex = array.length;
@@ -50,7 +50,7 @@ export const filterBySearchTerm = (searchValue: string) => (word: Word) => {
 };
 
 /**
- * Map words to list items for view all screen
+ * Map words to list items for view all screen.
  */
 export const mapWordsForList = (word: Word) => ({
   ...word,
@@ -65,4 +65,13 @@ export const resetNavigation = (routeName: ROUTE_NAMES) => {
     index: 0,
     actions: [NavigationActions.navigate({ routeName })],
   });
+};
+
+/**
+ * Filter the words list and only return 1 character words.
+ */
+export const filterForOneCharacterMode = (
+  words: ReadonlyArray<Word>,
+): ReadonlyArray<Word> => {
+  return words.filter(word => word.mandarin.length === 1);
 };

@@ -10,9 +10,9 @@ import { NavigationScreenProp } from "react-navigation";
 import Shaker from "@src/Components/Shaker";
 import { ROUTE_NAMES } from "@src/Constants/Routes";
 import { COMPLIMENTS, ENCOURAGEMENTS } from "@src/Constants/Toasts";
-import WORDS from "@src/Content/Source";
+import WORDS, { Word } from "@src/Content/Source";
 import { COLORS } from "@src/Styles/Colors";
-import { randomInRange } from "@src/utils";
+import { filterForOneCharacterMode, randomInRange } from "@src/utils";
 
 /** ========================================================================
  * Types
@@ -33,6 +33,8 @@ interface IState {
   encouragementText: string;
   progressCount: number;
   revealAnswer: boolean;
+  oneCharacterMode: boolean;
+  wordContent: ReadonlyArray<Word>;
 }
 
 /** ========================================================================
@@ -73,13 +75,15 @@ class QuizScreen extends React.Component<IProps, IState> {
     const {
       valid,
       attempted,
+      wordContent,
       shouldShake,
       revealAnswer,
       progressCount,
+      oneCharacterMode,
       currentWordIndex,
       encouragementText,
     } = this.state;
-    const CURRENT_WORD = WORDS[currentWordIndex];
+    const CURRENT_WORD = wordContent[currentWordIndex];
 
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -87,7 +91,8 @@ class QuizScreen extends React.Component<IProps, IState> {
           <Confetti untilStopped duration={1500} ref={this.setConfettiRef} />
           <ProgressText>
             Progress: {progressCount} word
-            {progressCount === 1 ? "" : "s"} completed ({WORDS.length} total)
+            {progressCount === 1 ? "" : "s"} completed ({wordContent.length}{" "}
+            total)
           </ProgressText>
           {valid || revealAnswer ? (
             <QuizBox>
@@ -163,6 +168,15 @@ class QuizScreen extends React.Component<IProps, IState> {
               >
                 <Ionicons name="md-school" style={ActionIconStyle} />
               </ActionButton.Item>
+              <ActionButton.Item
+                buttonColor={COLORS.actionButtonYellow}
+                onPress={this.handleToggleOneCharacterMode}
+                title={`${
+                  oneCharacterMode ? "Disable" : "Switch to"
+                } one-character mode`}
+              >
+                <Ionicons name="md-jet" style={ActionIconStyle} />
+              </ActionButton.Item>
             </ActionButton>
           )}
         </Container>
@@ -170,7 +184,7 @@ class QuizScreen extends React.Component<IProps, IState> {
     );
   }
 
-  getInitialState = () => {
+  getInitialState = (activateOneCharacterMode: boolean = false) => {
     return {
       value: "",
       attempted: false,
@@ -181,6 +195,10 @@ class QuizScreen extends React.Component<IProps, IState> {
       encouragementText: "",
       progressCount: 0,
       revealAnswer: false,
+      oneCharacterMode: activateOneCharacterMode,
+      wordContent: activateOneCharacterMode
+        ? filterForOneCharacterMode(WORDS)
+        : WORDS,
     };
   };
 
@@ -192,7 +210,7 @@ class QuizScreen extends React.Component<IProps, IState> {
   };
 
   handleCheck = () => {
-    const CURRENT_WORD = WORDS[this.state.currentWordIndex];
+    const CURRENT_WORD = this.state.wordContent[this.state.currentWordIndex];
     /**
      * Check answer: either correct or incorrect
      */
@@ -225,7 +243,7 @@ class QuizScreen extends React.Component<IProps, IState> {
         /**
          * Handle finish as well if user is at end.
          */
-        if (wordCompletedCache.size === WORDS.length) {
+        if (wordCompletedCache.size === this.state.wordContent.length) {
           this.handleFinish();
         }
       },
@@ -279,6 +297,12 @@ class QuizScreen extends React.Component<IProps, IState> {
       attempted: false,
       revealAnswer: !prevState.revealAnswer,
     }));
+  };
+
+  handleToggleOneCharacterMode = () => {
+    this.setState(this.getInitialState(!this.state.oneCharacterMode), () => {
+      this.timer = setTimeout(this.stopConfetti, 250);
+    });
   };
 
   getNextWordIndex = (): number => {
