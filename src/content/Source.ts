@@ -11,11 +11,6 @@ export interface Word {
 
 const Content = [
   {
-    mandarin: "道",
-    pinyin: "Dào",
-    english: "Road",
-  },
-  {
     mandarin: "我是",
     pinyin: "Wǒ shì",
     english: "I am",
