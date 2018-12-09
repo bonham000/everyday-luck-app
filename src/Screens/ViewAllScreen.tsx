@@ -41,10 +41,7 @@ class ViewAllScreen extends React.Component<IProps, IState> {
     return (
       <Container>
         <Searchbar
-          style={{
-            borderTopWidth: 1,
-            borderTopColor: COLORS.lightDark,
-          }}
+          style={SearchBarStyles}
           placeholder="Filter list"
           value={this.state.searchValue}
           onChangeText={this.handleSearch}
@@ -83,8 +80,9 @@ class ViewAllScreen extends React.Component<IProps, IState> {
     try {
       Clipboard.setString(mandarin);
       this.props.setToastMessage(`${mandarin} copied!`);
-      // tslint:disable-next-line
-    } catch (_) {}
+    } catch (_) {
+      return; // no-op
+    }
   };
 }
 
@@ -97,14 +95,19 @@ const WordBox = glamorous.touchableOpacity({
   width: "100%",
   paddingLeft: 12,
   borderBottomWidth: 1,
-  borderBottomColor: "rgba(25,25,25,0.5)",
-  backgroundColor: "rgb(231, 237, 240)",
+  borderBottomColor: COLORS.wordCardBorder,
+  backgroundColor: COLORS.wordCardBackground,
 });
 
 const WordText = glamorous.text({
   padding: 4,
   paddingLeft: 8,
 });
+
+const SearchBarStyles = {
+  borderTopWidth: 1,
+  borderTopColor: COLORS.lightDark,
+};
 
 /** ========================================================================
  * Export

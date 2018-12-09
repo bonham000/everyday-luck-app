@@ -193,33 +193,11 @@ class QuizScreen extends React.Component<IProps, IState> {
 
   handleCheck = () => {
     const CURRENT_WORD = WORDS[this.state.currentWordIndex];
+    /**
+     * Check answer: either correct or incorrect
+     */
     if (this.state.value === CURRENT_WORD.mandarin) {
-      const { wordCompletedCache } = this.state;
-      if (wordCompletedCache.size === WORDS.length) {
-        this.setState(
-          prevState => {
-            return {
-              valid: true,
-              attempted: true,
-              shouldShake: false,
-              progressCount: prevState.progressCount + 1,
-            };
-          },
-          () => {
-            this.makeItRain();
-            this.handleFinish();
-          },
-        );
-      } else {
-        this.setState(prevState => {
-          return {
-            valid: true,
-            attempted: true,
-            shouldShake: false,
-            progressCount: prevState.progressCount + 1,
-          };
-        }, this.makeItRain);
-      }
+      this.handleCorrectAnswer();
     } else {
       this.setState({
         attempted: true,
@@ -229,6 +207,29 @@ class QuizScreen extends React.Component<IProps, IState> {
           ENCOURAGEMENTS[randomInRange(0, ENCOURAGEMENTS.length - 1)],
       });
     }
+  };
+
+  handleCorrectAnswer = () => {
+    const { wordCompletedCache } = this.state;
+    this.setState(
+      prevState => {
+        return {
+          valid: true,
+          attempted: true,
+          shouldShake: false,
+          progressCount: prevState.progressCount + 1,
+        };
+      },
+      () => {
+        this.makeItRain();
+        /**
+         * Handle finish as well if user is at end.
+         */
+        if (wordCompletedCache.size === WORDS.length) {
+          this.handleFinish();
+        }
+      },
+    );
   };
 
   handleProceed = () => {

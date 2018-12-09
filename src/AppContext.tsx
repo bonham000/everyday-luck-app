@@ -4,8 +4,10 @@ import React from "react";
  * Context for toast message
  * =========================================================================
  */
-export default React.createContext({
+const AppToastContext = React.createContext({
   setToastMessage: (toastMessage: string) => {
     return;
   },
 });
+
+export default AppToastContext;

@@ -41,7 +41,7 @@ class AboutScreen extends React.Component<IProps, {}> {
         "https://github.com/bonham000/mandarin",
       );
     } catch (_) {
-      return;
+      return; // no-op
     }
   };
 }
