@@ -316,7 +316,7 @@ class QuizScreen extends React.Component<IProps, IState> {
   };
 
   getRandomWordIndex = (): number => {
-    return randomInRange(0, WORDS.length);
+    return randomInRange(0, this.state.wordContent.length);
   };
 
   setConfettiRef = (node: any) => {
