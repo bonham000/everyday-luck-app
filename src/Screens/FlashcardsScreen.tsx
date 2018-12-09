@@ -6,9 +6,13 @@ import FlipCard from "react-native-flip-card";
 import { NavigationScreenProp } from "react-navigation";
 
 import WordSource, { Word } from "../Content/Source";
-import { LIGHT_WHITE, PRIMARY_BLUE, PRIMARY_RED } from "../Styles/Colors";
+import { COLORS } from "../Styles/Colors";
+import { knuthShuffle } from "../utils";
 
-export const { width, height } = Dimensions.get("window");
+/** ========================================================================
+ * Types
+ * =========================================================================
+ */
 
 interface IProps {
   navigation: NavigationScreenProp<{}>;
@@ -19,7 +23,14 @@ interface IState {
   cards: ReadonlyArray<Word>;
 }
 
-export default class FlashcardsScreen extends React.Component<IProps, IState> {
+export const { width, height } = Dimensions.get("window");
+
+/** ========================================================================
+ * React Class
+ * =========================================================================
+ */
+
+class FlashcardsScreen extends React.Component<IProps, IState> {
   swiper: any = null;
 
   constructor(props: IProps) {
@@ -33,7 +44,7 @@ export default class FlashcardsScreen extends React.Component<IProps, IState> {
 
   render(): JSX.Element {
     return (
-      <View style={{ flex: 1, backgroundColor: LIGHT_WHITE }}>
+      <View style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
         <Swiper
           marginTop={32}
           animateCardOpacity
@@ -45,7 +56,7 @@ export default class FlashcardsScreen extends React.Component<IProps, IState> {
           onSwiped={this.handleSwipe}
           onSwipedAll={this.handleFinish}
           ref={this.handleAssignSwiperRef}
-          backgroundColor={LIGHT_WHITE}
+          backgroundColor={COLORS.lightWhite}
           animateOverlayLabelsOpacity
         />
         <ProgressText>
@@ -110,6 +121,11 @@ export default class FlashcardsScreen extends React.Component<IProps, IState> {
   };
 }
 
+/** ========================================================================
+ * Helpers & Styles
+ * =========================================================================
+ */
+
 const FlipCardStyles = {
   backgroundColor: "white",
   alignItems: "center",
@@ -137,14 +153,14 @@ const FaceText = glamorous.text({
   fontSize: 75,
   textAlign: "center",
   width: width - 40,
-  color: PRIMARY_RED,
+  color: COLORS.primaryRed,
 });
 
 const BackText = glamorous.text({
   fontSize: 32,
   textAlign: "center",
   width: width - 40,
-  color: PRIMARY_BLUE,
+  color: COLORS.primaryBlue,
 });
 
 const ProgressText = glamorous.text({
@@ -154,24 +170,9 @@ const ProgressText = glamorous.text({
   fontSize: 10,
 });
 
-const knuthShuffle = (array: ReadonlyArray<any>): ReadonlyArray<any> => {
-  let currentIndex = array.length;
-  let temporaryValue;
-  let randomIndex;
+/** ========================================================================
+ * Types
+ * =========================================================================
+ */
 
-  // While there remain elements to shuffle...
-  while (0 !== currentIndex) {
-    // Pick a remaining element...
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-
-    // And swap it with the current element.
-    temporaryValue = array[currentIndex];
-    // @ts-ignore
-    array[currentIndex] = array[randomIndex];
-    // @ts-ignore
-    array[randomIndex] = temporaryValue;
-  }
-
-  return array;
-};
+export default FlashcardsScreen;

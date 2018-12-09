@@ -9,8 +9,15 @@ import { NavigationScreenProp } from "react-navigation";
 
 import Shaker from "../Components/Shaker";
 import { ROUTE_NAMES } from "../Constants/Routes";
+import { COMPLIMENTS, ENCOURAGEMENTS } from "../Constants/Toasts";
 import WORDS from "../Content/Source";
-import { PRIMARY_BLUE, PRIMARY_RED } from "../Styles/Colors";
+import { COLORS } from "../Styles/Colors";
+import { randomInRange } from "../utils";
+
+/** ========================================================================
+ * Types
+ * =========================================================================
+ */
 
 interface IProps {
   navigation: NavigationScreenProp<{}>;
@@ -28,7 +35,12 @@ interface IState {
   revealAnswer: boolean;
 }
 
-export default class Home extends React.Component<IProps, IState> {
+/** ========================================================================
+ * React Class
+ * =========================================================================
+ */
+
+class QuizScreen extends React.Component<IProps, IState> {
   CONFETTI_REF: any = null;
   INPUT_REF: any = null;
   timer: any = null;
@@ -38,20 +50,6 @@ export default class Home extends React.Component<IProps, IState> {
 
     this.state = this.getInitialState();
   }
-
-  getInitialState = () => {
-    return {
-      value: "",
-      attempted: false,
-      valid: false,
-      shouldShake: false,
-      currentWordIndex: 0,
-      wordCompletedCache: new Set(),
-      encouragementText: "",
-      progressCount: 0,
-      revealAnswer: false,
-    };
-  };
 
   componentDidMount(): void {
     const currentWordIndex = this.getNextWordIndex();
@@ -119,7 +117,8 @@ export default class Home extends React.Component<IProps, IState> {
             style={{
               marginTop: 30,
               minWidth: 215,
-              backgroundColor: !valid && attempted ? PRIMARY_RED : PRIMARY_BLUE,
+              backgroundColor:
+                !valid && attempted ? COLORS.primaryRed : COLORS.primaryBlue,
             }}
             onPress={
               valid
@@ -140,23 +139,23 @@ export default class Home extends React.Component<IProps, IState> {
                   : "Check answer 👲"}
           </Button>
           {!valid && (
-            <ActionButton position="left" buttonColor="rgba(231,76,60,1)">
+            <ActionButton position="left" buttonColor={COLORS.actionButtonRed}>
               <ActionButton.Item
-                buttonColor="#9b59b6"
+                buttonColor={COLORS.actionButtonPurple}
                 title="Skip this one!"
                 onPress={this.handleProceed}
               >
                 <Ionicons name="md-key" style={ActionIconStyle} />
               </ActionButton.Item>
               <ActionButton.Item
-                buttonColor="#3498db"
+                buttonColor={COLORS.actionButtonBlue}
                 title={`${revealAnswer ? "Hide" : "Reveal"} answer`}
                 onPress={this.handleToggleRevealAnswer}
               >
                 <Ionicons name="md-color-wand" style={ActionIconStyle} />
               </ActionButton.Item>
               <ActionButton.Item
-                buttonColor="#1abc9c"
+                buttonColor={COLORS.actionButtonMint}
                 title="View all definitions"
                 onPress={() =>
                   this.props.navigation.navigate(ROUTE_NAMES.VIEW_ALL)
@@ -170,6 +169,20 @@ export default class Home extends React.Component<IProps, IState> {
       </TouchableWithoutFeedback>
     );
   }
+
+  getInitialState = () => {
+    return {
+      value: "",
+      attempted: false,
+      valid: false,
+      shouldShake: false,
+      currentWordIndex: 0,
+      wordCompletedCache: new Set(),
+      encouragementText: "",
+      progressCount: 0,
+      revealAnswer: false,
+    };
+  };
 
   handleChange = (value: string) => {
     this.setState({
@@ -310,6 +323,11 @@ export default class Home extends React.Component<IProps, IState> {
   };
 }
 
+/** ========================================================================
+ * Helpers & Styles
+ * =========================================================================
+ */
+
 const Container = glamorous.view({
   flex: 1,
   paddingTop: 8,
@@ -336,6 +354,12 @@ const TextInputStyles = {
   fontSize: 34,
   marginTop: 6,
   backgroundColor: "rgb(231,237,240)",
+};
+
+const ActionIconStyle = {
+  fontSize: 20,
+  height: 22,
+  color: "white",
 };
 
 const EnglishText = ({ children }: { children: string[] }) => (
@@ -376,50 +400,9 @@ const PinyinText = ({ children }: { children: string }) => (
   </Text>
 );
 
-const ActionIconStyle = {
-  fontSize: 20,
-  height: 22,
-  color: "white",
-};
+/** ========================================================================
+ * Export
+ * =========================================================================
+ */
 
-const randomInRange = (min: number, max: number) => {
-  return Math.floor(Math.random() * (max - min) + min);
-};
-
-const COMPLIMENTS = [
-  "Amazing",
-  "Awesome",
-  "Blithesome",
-  "Excellent",
-  "Fabulous",
-  "Fantastic",
-  "Favorable",
-  "Fortuitous",
-  "Gorgeous",
-  "Incredible",
-  "Ineffable",
-  "Mirthful",
-  "Outstanding",
-  "Perfect",
-  "Propitious",
-  "Remarkable",
-  "Rousing",
-  "Spectacular",
-  "Splendid",
-  "Stellar",
-  "Stupendous",
-  "Super",
-  "Upbeat",
-  "Unbelievable",
-  "Wondrous",
-];
-
-const ENCOURAGEMENTS = [
-  "No good",
-  "Nope",
-  "Too bad",
-  "So close",
-  "Almost",
-  "One more time",
-  "Nearly",
-];
+export default QuizScreen;

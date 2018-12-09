@@ -1,13 +1,23 @@
 import React, { Component } from "react";
 import { Animated, ViewStyle } from "react-native";
 
+/** ========================================================================
+ * Types
+ * =========================================================================
+ */
+
 interface IProps {
   style?: ViewStyle;
   children: JSX.Element;
   shouldShake?: boolean;
 }
 
-export default class Shaker extends Component<IProps, {}> {
+/** ========================================================================
+ * React Class
+ * =========================================================================
+ */
+
+class ShakerComponent extends Component<IProps, {}> {
   SHAKER: any = null;
 
   componentWillMount(): void {
@@ -58,3 +68,10 @@ export default class Shaker extends Component<IProps, {}> {
     );
   }
 }
+
+/** ========================================================================
+ * Export
+ * =========================================================================
+ */
+
+export default ShakerComponent;

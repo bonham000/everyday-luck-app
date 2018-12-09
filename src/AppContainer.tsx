@@ -5,13 +5,23 @@ import AppContext from "./AppContext";
 import { CustomToast } from "./Components/ToastProvider";
 import createAppNavigator from "./NavigatorConfig";
 
+/** ========================================================================
+ * Types
+ * =========================================================================
+ */
+
 interface IState {
   appState: string;
   toastMessage: string;
   tryingToCloseApp: boolean;
 }
 
-export default class NotesApp extends React.Component<{}, IState> {
+/** ========================================================================
+ * React Class
+ * =========================================================================
+ */
+
+class NotesApp extends React.Component<{}, IState> {
   timeout: any = null;
   navigationRef: any = null;
 
@@ -26,6 +36,11 @@ export default class NotesApp extends React.Component<{}, IState> {
   }
 
   async componentDidMount(): Promise<void> {
+    /**
+     * Manage state to assign a toast warning if user tries to
+     * press the back button when it will close the app. Show them
+     * a toast and allow them to press again to close the app.
+     */
     BackHandler.addEventListener("hardwareBackPress", () => {
       if (this.canCloseApp()) {
         if (!this.state.tryingToCloseApp) {
@@ -121,6 +136,11 @@ export default class NotesApp extends React.Component<{}, IState> {
   };
 }
 
+/** ========================================================================
+ * App Component
+ * =========================================================================
+ */
+
 // tslint:disable-next-line
 class AppPureComponent extends React.Component<
   { assignNavigatorRef: (ref: any) => void },
@@ -135,3 +155,10 @@ class AppPureComponent extends React.Component<
     return <AppNavigator ref={this.props.assignNavigatorRef} />;
   }
 }
+
+/** ========================================================================
+ * Export
+ * =========================================================================
+ */
+
+export default NotesApp;

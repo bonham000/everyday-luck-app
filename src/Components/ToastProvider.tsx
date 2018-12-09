@@ -4,6 +4,11 @@ import { Text } from "react-native-paper";
 
 import AppContext from "../AppContext";
 
+/** ========================================================================
+ * Types
+ * =========================================================================
+ */
+
 interface Args {
   setToastMessage: (message: string) => void;
 }
@@ -14,7 +19,12 @@ interface IProps {
   Component: ComponentProp;
 }
 
-export default class extends React.Component<IProps, {}> {
+/** ========================================================================
+ * React Class
+ * =========================================================================
+ */
+
+class ToastProvider extends React.Component<IProps, {}> {
   render(): JSX.Element {
     const { Component, ...rest } = this.props;
     return (
@@ -27,7 +37,7 @@ export default class extends React.Component<IProps, {}> {
   }
 }
 
-export const CustomToast = ({
+const CustomToast = ({
   message,
   close,
 }: {
@@ -47,6 +57,11 @@ export const CustomToast = ({
   );
 };
 
+/** ========================================================================
+ * Helpers & Styles
+ * =========================================================================
+ */
+
 const BarContainer = glamorous.touchableOpacity({
   height: 50,
   zIndex: 25,
@@ -65,3 +80,12 @@ const Bar = glamorous.view({
   justifyContent: "center",
   backgroundColor: "rgba(45,45,45,0.91)",
 });
+
+/** ========================================================================
+ * Export
+ * =========================================================================
+ */
+
+export { CustomToast };
+
+export default ToastProvider;

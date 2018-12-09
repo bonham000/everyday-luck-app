@@ -1,27 +1,26 @@
 import glamorous from "glamorous-native";
 import React from "react";
 import { Image, Keyboard, ScrollView, View } from "react-native";
-import {
-  NavigationActions,
-  NavigationScreenProp,
-  SafeAreaView,
-  StackActions,
-} from "react-navigation";
+import { NavigationScreenProp, SafeAreaView } from "react-navigation";
 
 import { ROUTE_NAMES } from "../Constants/Routes";
+import { resetNavigation } from "../utils";
+
+/** ========================================================================
+ * Types
+ * =========================================================================
+ */
 
 interface IProps {
   navigation: NavigationScreenProp<{}>;
 }
 
-const resetNavigation = (routeName: ROUTE_NAMES) => {
-  return StackActions.reset({
-    index: 0,
-    actions: [NavigationActions.navigate({ routeName })],
-  });
-};
+/** ========================================================================
+ * React Class
+ * =========================================================================
+ */
 
-export default class extends React.Component<IProps, {}> {
+class DrawerMenuScreen extends React.Component<IProps, {}> {
   componentDidUpdate(prevProps: IProps): void {
     if (
       this.getDrawerStateFromProps(this.props) &&
@@ -40,49 +39,29 @@ export default class extends React.Component<IProps, {}> {
         >
           <View style={{ flexDirection: "row", justifyContent: "center" }}>
             <Image
-              style={{ width: 100, height: 100 }}
               resizeMode="contain"
+              style={{ width: 100, height: 100 }}
               source={require("../../assets/icon.png")}
             />
           </View>
           <Item
-            onPress={() =>
-              this.props.navigation.dispatch(
-                resetNavigation(ROUTE_NAMES.MANDARIN_QUIZ),
-              )
-            }
+            onPress={this.createNavigationHandler(ROUTE_NAMES.MANDARIN_QUIZ)}
           >
             🏮
             {"  "}
             Translation Quiz
           </Item>
-          <Item
-            onPress={() =>
-              this.props.navigation.dispatch(
-                resetNavigation(ROUTE_NAMES.FLASHCARDS),
-              )
-            }
-          >
+          <Item onPress={this.createNavigationHandler(ROUTE_NAMES.FLASHCARDS)}>
             🎎
             {"  "}
             Mandarin Flashcards
           </Item>
-          <Item
-            onPress={() =>
-              this.props.navigation.dispatch(
-                resetNavigation(ROUTE_NAMES.VIEW_ALL),
-              )
-            }
-          >
+          <Item onPress={this.createNavigationHandler(ROUTE_NAMES.VIEW_ALL)}>
             🍱
             {"  "}
             View All Content
           </Item>
-          <Item
-            onPress={() =>
-              this.props.navigation.dispatch(resetNavigation(ROUTE_NAMES.ABOUT))
-            }
-          >
+          <Item onPress={this.createNavigationHandler(ROUTE_NAMES.ABOUT)}>
             🎋
             {"  "}
             About
@@ -91,6 +70,12 @@ export default class extends React.Component<IProps, {}> {
       </ScrollView>
     );
   }
+
+  createNavigationHandler = (route: ROUTE_NAMES) => {
+    return () => {
+      this.props.navigation.dispatch(resetNavigation(route));
+    };
+  };
 
   getDrawerStateFromProps = (props: IProps) => {
     try {
@@ -102,8 +87,20 @@ export default class extends React.Component<IProps, {}> {
   };
 }
 
+/** ========================================================================
+ * Helpers & Styles
+ * =========================================================================
+ */
+
 const Item = glamorous.text({
   fontSize: 16,
   marginTop: 45,
   marginLeft: 12,
 });
+
+/** ========================================================================
+ * Export
+ * =========================================================================
+ */
+
+export default DrawerMenuScreen;

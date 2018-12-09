@@ -4,13 +4,23 @@ import React from "react";
 import { Text } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
-import { PRIMARY_BLUE } from "../Styles/Colors";
+import { COLORS } from "../Styles/Colors";
+
+/** ========================================================================
+ * Types
+ * =========================================================================
+ */
 
 interface IProps {
   navigation: NavigationScreenProp<{}>;
 }
 
-export default class FlashcardsScreen extends React.Component<IProps, {}> {
+/** ========================================================================
+ * React Class
+ * =========================================================================
+ */
+
+class AboutScreen extends React.Component<IProps, {}> {
   render(): JSX.Element {
     return (
       <Container>
@@ -36,6 +46,11 @@ export default class FlashcardsScreen extends React.Component<IProps, {}> {
   };
 }
 
+/** ========================================================================
+ * Helpers & Styles
+ * =========================================================================
+ */
+
 const Container = glamorous.view({
   flex: 1,
   paddingTop: 75,
@@ -54,5 +69,12 @@ const LinkStyles = {
   fontSize: 16,
   marginTop: 28,
   fontWeight: "bold",
-  color: PRIMARY_BLUE,
+  color: COLORS.primaryBlue,
 };
+
+/** ========================================================================
+ * Export
+ * =========================================================================
+ */
+
+export default AboutScreen;

@@ -13,6 +13,10 @@ import FlashcardsScreen from "./Screens/FlashcardsScreen";
 import MandarinQuizScreen from "./Screens/MandarinQuizScreen";
 import ViewAllScreen from "./Screens/ViewAllScreen";
 
+/** ========================================================================
+ * App navigation
+ * =========================================================================
+ */
 const AppStack = () => {
   return createStackNavigator(
     {

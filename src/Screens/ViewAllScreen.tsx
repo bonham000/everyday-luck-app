@@ -6,6 +6,13 @@ import { NavigationScreenProp } from "react-navigation";
 
 import ToastProvider from "../Components/ToastProvider";
 import WORDS, { Word } from "../Content/Source";
+import { COLORS } from "../Styles/Colors";
+import { filterBySearchTerm, mapWordsForList } from "../utils";
+
+/** ========================================================================
+ * Types
+ * =========================================================================
+ */
 
 interface IProps {
   navigation: NavigationScreenProp<{}>;
@@ -16,6 +23,11 @@ interface IState {
   searchValue: string;
 }
 
+/** ========================================================================
+ * React Class
+ * =========================================================================
+ */
+
 class ViewAllScreen extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
@@ -24,13 +36,14 @@ class ViewAllScreen extends React.Component<IProps, IState> {
       searchValue: "",
     };
   }
+
   render(): JSX.Element {
     return (
       <Container>
         <Searchbar
           style={{
             borderTopWidth: 1,
-            borderTopColor: "rgba(45,45,45,0.05)",
+            borderTopColor: COLORS.lightDark,
           }}
           placeholder="Filter list"
           value={this.state.searchValue}
@@ -75,21 +88,6 @@ class ViewAllScreen extends React.Component<IProps, IState> {
   };
 }
 
-const filterBySearchTerm = (searchValue: string) => (word: Word) => {
-  const term = searchValue.toLowerCase();
-  const { mandarin, pinyin, english } = word;
-  return (
-    mandarin.toLowerCase().includes(term) ||
-    pinyin.toLowerCase().includes(term) ||
-    english.toLowerCase().includes(term)
-  );
-};
-
-const mapWordsForList = (word: Word) => ({
-  ...word,
-  key: word.mandarin,
-});
-
 const Container = glamorous.view({
   flex: 1,
 });
@@ -107,6 +105,11 @@ const WordText = glamorous.text({
   padding: 4,
   paddingLeft: 8,
 });
+
+/** ========================================================================
+ * Export
+ * =========================================================================
+ */
 
 export default (props: any) => (
   <ToastProvider {...props} Component={ViewAllScreen} />
