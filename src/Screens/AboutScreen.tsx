@@ -4,7 +4,7 @@ import React from "react";
 import { Text } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
-import { COLORS } from "@src/Styles/Colors";
+import { COLORS } from "@src/styles/Colors";
 
 /** ========================================================================
  * Types

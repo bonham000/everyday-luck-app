@@ -5,8 +5,8 @@ import Swiper from "react-native-deck-swiper";
 import FlipCard from "react-native-flip-card";
 import { NavigationScreenProp } from "react-navigation";
 
-import WordSource, { Word } from "@src/Content/Source";
-import { COLORS } from "@src/Styles/Colors";
+import WordSource, { Word } from "@src/content/Source";
+import { COLORS } from "@src/styles/Colors";
 import { knuthShuffle } from "@src/utils";
 
 /** ========================================================================

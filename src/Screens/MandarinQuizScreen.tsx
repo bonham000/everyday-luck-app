@@ -7,11 +7,11 @@ import Confetti from "react-native-confetti";
 import { Button, Text, TextInput } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
-import Shaker from "@src/Components/Shaker";
-import { ROUTE_NAMES } from "@src/Constants/Routes";
-import { COMPLIMENTS, ENCOURAGEMENTS } from "@src/Constants/Toasts";
-import WORDS, { Word } from "@src/Content/Source";
-import { COLORS } from "@src/Styles/Colors";
+import Shaker from "@src/components/Shaker";
+import { ROUTE_NAMES } from "@src/constants/Routes";
+import { COMPLIMENTS, ENCOURAGEMENTS } from "@src/constants/Toasts";
+import WORDS, { Word } from "@src/content/Source";
+import { COLORS } from "@src/styles/Colors";
 import { filterForOneCharacterMode, randomInRange } from "@src/utils";
 
 /** ========================================================================
