@@ -16,6 +16,11 @@ const Content = [
     english: "I am",
   },
   {
+    mandarin: "美",
+    pinyin: "Měi",
+    english: "Nice",
+  },
+  {
     mandarin: "很好",
     pinyin: "Hěn hǎo",
     english: "Very good",
@@ -168,5 +173,5 @@ const Content = [
 ];
 
 export default (process.env.NODE_ENV === "development"
-  ? Content.slice(0, 2)
+  ? Content.slice(0, 5)
   : Content);

@@ -41,7 +41,7 @@ class DrawerMenuScreen extends React.Component<IProps, {}> {
             <Image
               resizeMode="contain"
               style={{ width: 100, height: 100 }}
-              source={require("../../assets/icon.png")}
+              source={require("../assets/icon.png")}
             />
           </View>
           <Item
