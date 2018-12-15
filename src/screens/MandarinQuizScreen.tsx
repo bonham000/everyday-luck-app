@@ -141,7 +141,7 @@ class QuizScreen extends React.Component<IProps, IState> {
             {valid
               ? `✨ ${
                   COMPLIMENTS[randomInRange(0, COMPLIMENTS.length - 1)]
-                }! Next! ✨`
+                }! ✨`
               : revealAnswer
                 ? "Hide Answer 🧐"
                 : attempted
