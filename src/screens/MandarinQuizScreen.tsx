@@ -144,7 +144,6 @@ class QuizScreen extends React.Component<IProps, IState> {
                   ? `${encouragementText}! Keep trying! 🙏`
                   : "Check answer 👲"}
           </Button>
-          <Text>{JSON.stringify(wordContent.map(w => w.english))}</Text>
           {!valid && (
             <ActionButton position="left" buttonColor={COLORS.actionButtonRed}>
               <ActionButton.Item
