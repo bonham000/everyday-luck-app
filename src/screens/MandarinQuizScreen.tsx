@@ -154,13 +154,6 @@ class QuizScreen extends React.Component<IProps, IState> {
                 <Ionicons name="md-key" style={ActionIconStyle} />
               </ActionButton.Item>
               <ActionButton.Item
-                buttonColor={COLORS.actionButtonBlue}
-                title={`${revealAnswer ? "Hide" : "Reveal"} answer`}
-                onPress={this.handleToggleRevealAnswer}
-              >
-                <Ionicons name="md-color-wand" style={ActionIconStyle} />
-              </ActionButton.Item>
-              <ActionButton.Item
                 buttonColor={COLORS.actionButtonMint}
                 title="View all definitions"
                 onPress={() =>
@@ -221,10 +214,27 @@ class QuizScreen extends React.Component<IProps, IState> {
     if (value === CURRENT_WORD.mandarin) {
       this.handleCorrectAnswer();
     } else {
+      /**
+       * Answer is incorrect:
+       *
+       * - If this is the first mistake, set the word to be reviewing again later
+       * - Also update the button to now reveal the answer
+       * - If the user presses again without changing the input, reveal the answer
+       * - Otherwise show a different encouragementText each time.
+       */
+      let encouragementText;
       let updatedContent = wordContent;
       if (!this.state.failedOnce) {
         if (currentWordIndex !== wordContent.length - 1) {
           updatedContent = [...wordContent, wordContent[currentWordIndex]];
+        }
+        encouragementText =
+          ENCOURAGEMENTS[randomInRange(0, ENCOURAGEMENTS.length - 1)];
+      } else {
+        if (value === this.state.value) {
+          return this.handleToggleRevealAnswer();
+        } else {
+          encouragementText = "Press to reveal answer";
         }
       }
 
@@ -233,9 +243,8 @@ class QuizScreen extends React.Component<IProps, IState> {
         valid: false,
         shouldShake: true,
         failedOnce: true,
+        encouragementText,
         wordContent: updatedContent,
-        encouragementText:
-          ENCOURAGEMENTS[randomInRange(0, ENCOURAGEMENTS.length - 1)],
       });
     }
   };
