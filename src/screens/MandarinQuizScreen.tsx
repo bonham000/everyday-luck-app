@@ -55,6 +55,10 @@ class QuizScreen extends React.Component<IProps, IState> {
   }
 
   componentDidMount(): void {
+    /**
+     * Start the quiz when the component mounts at a
+     * randomly selected word.
+     */
     const currentWordIndex = this.getNextWordIndex();
     this.setState(
       {
@@ -92,8 +96,8 @@ class QuizScreen extends React.Component<IProps, IState> {
           <Confetti untilStopped duration={1500} ref={this.setConfettiRef} />
           <ProgressText>
             Progress: {progressCount} word
-            {progressCount === 1 ? "" : "s"} completed ({wordContent.length}{" "}
-            total)
+            {progressCount === 1 ? "" : "s"} completed,{" "}
+            {wordContent.length - progressCount} remaining
           </ProgressText>
           {valid || revealAnswer ? (
             <QuizBox>
@@ -353,11 +357,6 @@ class QuizScreen extends React.Component<IProps, IState> {
     return randomInRange(min, max);
   };
 
-  setConfettiRef = (node: any) => {
-    // @ts-ignore
-    this.CONFETTI_REF = node;
-  };
-
   makeItRain = () => {
     if (this.CONFETTI_REF) {
       this.CONFETTI_REF.startConfetti();
@@ -370,15 +369,18 @@ class QuizScreen extends React.Component<IProps, IState> {
     }
   };
 
-  setInputRef = (ref: any) => {
-    // @ts-ignore
-    this.INPUT_REF = ref;
-  };
-
   focusInput = () => {
     if (this.INPUT_REF) {
       this.INPUT_REF.focus();
     }
+  };
+
+  setConfettiRef = (node: any) => {
+    this.CONFETTI_REF = node;
+  };
+
+  setInputRef = (ref: any) => {
+    this.INPUT_REF = ref;
   };
 }
 
