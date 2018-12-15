@@ -34,6 +34,7 @@ interface IState {
   progressCount: number;
   revealAnswer: boolean;
   oneCharacterMode: boolean;
+  failedOnce: boolean;
   wordContent: ReadonlyArray<Word>;
 }
 
@@ -143,6 +144,7 @@ class QuizScreen extends React.Component<IProps, IState> {
                   ? `${encouragementText}! Keep trying! 🙏`
                   : "Check answer 👲"}
           </Button>
+          <Text>{JSON.stringify(wordContent.map(w => w.english))}</Text>
           {!valid && (
             <ActionButton position="left" buttonColor={COLORS.actionButtonRed}>
               <ActionButton.Item
@@ -191,6 +193,7 @@ class QuizScreen extends React.Component<IProps, IState> {
       valid: false,
       shouldShake: false,
       currentWordIndex: 0,
+      failedOnce: false,
       wordCompletedCache: new Set(),
       encouragementText: "",
       progressCount: 0,
@@ -210,17 +213,28 @@ class QuizScreen extends React.Component<IProps, IState> {
   };
 
   handleCheck = () => {
-    const CURRENT_WORD = this.state.wordContent[this.state.currentWordIndex];
+    const { value, wordContent, currentWordIndex } = this.state;
+
+    const CURRENT_WORD = wordContent[currentWordIndex];
     /**
      * Check answer: either correct or incorrect
      */
-    if (this.state.value === CURRENT_WORD.mandarin) {
+    if (value === CURRENT_WORD.mandarin) {
       this.handleCorrectAnswer();
     } else {
+      let updatedContent = wordContent;
+      if (!this.state.failedOnce) {
+        if (currentWordIndex !== wordContent.length - 1) {
+          updatedContent = [...wordContent, wordContent[currentWordIndex]];
+        }
+      }
+
       this.setState({
         attempted: true,
         valid: false,
         shouldShake: true,
+        failedOnce: true,
+        wordContent: updatedContent,
         encouragementText:
           ENCOURAGEMENTS[randomInRange(0, ENCOURAGEMENTS.length - 1)],
       });
@@ -235,6 +249,7 @@ class QuizScreen extends React.Component<IProps, IState> {
           valid: true,
           attempted: true,
           shouldShake: false,
+          failedOnce: false,
           progressCount: prevState.progressCount + 1,
         };
       },
@@ -261,6 +276,7 @@ class QuizScreen extends React.Component<IProps, IState> {
           attempted: false,
           shouldShake: false,
           revealAnswer: false,
+          failedOnce: false,
           currentWordIndex: nextIndex,
           wordCompletedCache: prevState.wordCompletedCache.add(nextIndex),
         };
@@ -322,8 +338,11 @@ class QuizScreen extends React.Component<IProps, IState> {
     }
   };
 
-  getRandomWordIndex = (): number => {
-    return randomInRange(0, this.state.wordContent.length);
+  getRandomWordIndex = (
+    min = 0,
+    max = this.state.wordContent.length,
+  ): number => {
+    return randomInRange(min, max);
   };
 
   setConfettiRef = (node: any) => {
