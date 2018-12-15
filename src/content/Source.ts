@@ -56,6 +56,21 @@ const Content = [
     english: "I am learning mandarin",
   },
   {
+    mandarin: "我正在努力",
+    pinyin: "Wǒ zhèngzài nǔlì",
+    english: "I am studying hard",
+  },
+  {
+    mandarin: "努力",
+    pinyin: "Nǔlì",
+    english: "Work hard",
+  },
+  {
+    mandarin: "正在",
+    pinyin: "Zhèngzài",
+    english: "Being",
+  },
+  {
     mandarin: "這個",
     pinyin: "Zhège",
     english: "This",
@@ -169,6 +184,116 @@ const Content = [
     mandarin: "喜歡",
     pinyin: "Xǐhuān",
     english: "Like",
+  },
+  {
+    mandarin: "喜",
+    pinyin: "Xǐ",
+    english: "Like",
+  },
+  {
+    mandarin: "人",
+    pinyin: "Rén",
+    english: "People",
+  },
+  {
+    mandarin: "家",
+    pinyin: "Jiā",
+    english: "Family",
+  },
+  {
+    mandarin: "國家",
+    pinyin: "Guójiā",
+    english: "Country",
+  },
+  {
+    mandarin: "大",
+    pinyin: "Dà",
+    english: "Big",
+  },
+  {
+    mandarin: "餐",
+    pinyin: "Cān",
+    english: "Meal",
+  },
+  {
+    mandarin: "早",
+    pinyin: "Zǎo",
+    english: "Early",
+  },
+  {
+    mandarin: "上",
+    pinyin: "Shàng",
+    english: "On",
+  },
+  {
+    mandarin: "沒關係",
+    pinyin: "Méiguānxì",
+    english: "It's ok",
+  },
+  {
+    mandarin: "沒關係",
+    pinyin: "Méiguānxì",
+    english: "It's ok",
+  },
+  {
+    mandarin: "好久不見",
+    pinyin: "Hǎojiǔ bùjiàn",
+    english: "Long time no see",
+  },
+  {
+    mandarin: "久",
+    pinyin: "Jiǔ",
+    english: "Long",
+  },
+  {
+    mandarin: "見",
+    pinyin: "Jiàn",
+    english: "See",
+  },
+  {
+    mandarin: "恭喜恭喜",
+    pinyin: "Gōngxǐ gōngxǐ",
+    english: "Congratulations",
+  },
+  {
+    mandarin: "再見",
+    pinyin: "Zàijiàn",
+    english: "Goodbye",
+  },
+  {
+    mandarin: "再",
+    pinyin: "Zài",
+    english: "Again",
+  },
+  {
+    mandarin: "快樂",
+    pinyin: "Kuàilè",
+    english: "Happy",
+  },
+  {
+    mandarin: "快樂",
+    pinyin: "Kuàilè",
+    english: "Happy",
+  },
+  {
+    mandarin: "可愛",
+    pinyin: "Kě'ài",
+    english: "Cute",
+  },
+  {
+    mandarin: "可",
+    pinyin: "Kě",
+    english: "Can",
+  },
+  {
+    mandarin: "愛",
+    pinyin: "Ài",
+    english: "Love",
+  },
+  {
+    mandarin: "對不起",
+    pinyin: "Duìbùqǐ",
+    english: "I'm sorry",
   },
 ];
 

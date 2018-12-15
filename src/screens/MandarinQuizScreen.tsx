@@ -293,10 +293,17 @@ class QuizScreen extends React.Component<IProps, IState> {
   };
 
   handleToggleRevealAnswer = () => {
-    this.setState(prevState => ({
-      attempted: false,
-      revealAnswer: !prevState.revealAnswer,
-    }));
+    this.setState(
+      prevState => ({
+        attempted: false,
+        revealAnswer: !prevState.revealAnswer,
+      }),
+      () => {
+        if (!this.state.revealAnswer) {
+          this.focusInput();
+        }
+      },
+    );
   };
 
   handleToggleOneCharacterMode = () => {
