@@ -20,5 +20,5 @@ All the source content is in the `src/Content/Source.ts` file, and may be substi
 
 **Todo:**
 
-- [ ] Flashcards pass/fail style with replay later
+- [ ] Flashcards with Tinder pass/fail style with replay later
 - [ ] App update feature
