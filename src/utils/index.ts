@@ -1,7 +1,7 @@
 import { NavigationActions, StackActions } from "react-navigation";
 
 import { ROUTE_NAMES } from "@src/constants/Routes";
-import { Word } from "@src/content/Source";
+import { Word } from "@src/content/Mandarin";
 
 /**
  * Return a random number for the given range.
@@ -41,10 +41,10 @@ export const knuthShuffle = (array: ReadonlyArray<any>): ReadonlyArray<any> => {
  */
 export const filterBySearchTerm = (searchValue: string) => (word: Word) => {
   const term = searchValue.toLowerCase();
-  const { mandarin, pinyin, english } = word;
+  const { characters, phonetic, english } = word;
   return (
-    mandarin.toLowerCase().includes(term) ||
-    pinyin.toLowerCase().includes(term) ||
+    characters.toLowerCase().includes(term) ||
+    phonetic.toLowerCase().includes(term) ||
     english.toLowerCase().includes(term)
   );
 };
@@ -54,7 +54,7 @@ export const filterBySearchTerm = (searchValue: string) => (word: Word) => {
  */
 export const mapWordsForList = (word: Word) => ({
   ...word,
-  key: word.mandarin,
+  key: word.characters,
 });
 
 /**
@@ -73,5 +73,5 @@ export const resetNavigation = (routeName: ROUTE_NAMES) => {
 export const filterForOneCharacterMode = (
   words: ReadonlyArray<Word>,
 ): ReadonlyArray<Word> => {
-  return words.filter(word => word.mandarin.length === 1);
+  return words.filter(word => word.characters.length === 1);
 };

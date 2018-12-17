@@ -10,7 +10,7 @@ import { NavigationScreenProp } from "react-navigation";
 import Shaker from "@src/components/Shaker";
 import { ROUTE_NAMES } from "@src/constants/Routes";
 import { COMPLIMENTS, ENCOURAGEMENTS } from "@src/constants/Toasts";
-import WORDS, { Word } from "@src/content/Source";
+import WORDS, { Word } from "@src/content/Mandarin";
 import { COLORS } from "@src/styles/Colors";
 import { filterForOneCharacterMode, randomInRange } from "@src/utils";
 
@@ -101,8 +101,8 @@ class QuizScreen extends React.Component<IProps, IState> {
           </ProgressText>
           {valid || revealAnswer ? (
             <QuizBox>
-              <MandarinText>{CURRENT_WORD.mandarin}</MandarinText>
-              <PinyinText>{CURRENT_WORD.pinyin}</PinyinText>
+              <MandarinText>{CURRENT_WORD.characters}</MandarinText>
+              <PinyinText>{CURRENT_WORD.phonetic}</PinyinText>
             </QuizBox>
           ) : (
             <Shaker style={{ width: "100%" }} shouldShake={shouldShake}>
@@ -215,7 +215,7 @@ class QuizScreen extends React.Component<IProps, IState> {
     /**
      * Check answer: either correct or incorrect
      */
-    if (value === CURRENT_WORD.mandarin) {
+    if (value === CURRENT_WORD.characters) {
       this.handleCorrectAnswer();
     } else {
       /**

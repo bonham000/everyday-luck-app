@@ -5,7 +5,7 @@ import Swiper from "react-native-deck-swiper";
 import FlipCard from "react-native-flip-card";
 import { NavigationScreenProp } from "react-navigation";
 
-import WordSource, { Word } from "@src/content/Source";
+import WordSource, { Word } from "@src/content/Mandarin";
 import { COLORS } from "@src/styles/Colors";
 import { knuthShuffle } from "@src/utils";
 
@@ -77,10 +77,10 @@ class FlashcardsScreen extends React.Component<IProps, IState> {
           flipVertical={false}
         >
           <FlipSideView>
-            <FaceText>{card.mandarin}</FaceText>
+            <FaceText>{card.characters}</FaceText>
           </FlipSideView>
           <FlipSideView>
-            <BackText>{card.pinyin}</BackText>
+            <BackText>{card.phonetic}</BackText>
             <BackText style={{ fontSize: 22, marginTop: 18 }}>
               "{card.english}"
             </BackText>

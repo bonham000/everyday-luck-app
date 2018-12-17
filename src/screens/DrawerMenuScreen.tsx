@@ -49,17 +49,17 @@ class DrawerMenuScreen extends React.Component<IProps, {}> {
           >
             🏮
             {"  "}
-            Translation Quiz
+            Quiz
           </Item>
           <Item onPress={this.createNavigationHandler(ROUTE_NAMES.FLASHCARDS)}>
             🎎
             {"  "}
-            Mandarin Flashcards
+            Flashcards
           </Item>
           <Item onPress={this.createNavigationHandler(ROUTE_NAMES.VIEW_ALL)}>
             🍱
             {"  "}
-            View All Content
+            View All
           </Item>
           <Item onPress={this.createNavigationHandler(ROUTE_NAMES.ABOUT)}>
             🎋

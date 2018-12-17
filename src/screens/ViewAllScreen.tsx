@@ -5,7 +5,7 @@ import { Searchbar } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
 import ToastProvider from "@src/components/ToastProvider";
-import WORDS, { Word } from "@src/content/Source";
+import WORDS, { Word } from "@src/content/Mandarin";
 import { COLORS } from "@src/styles/Colors";
 import { filterBySearchTerm, mapWordsForList } from "@src/utils";
 
@@ -41,6 +41,7 @@ class ViewAllScreen extends React.Component<IProps, IState> {
     return (
       <Container>
         <Searchbar
+          autoFocus
           style={SearchBarStyles}
           placeholder="Filter list"
           value={this.state.searchValue}
@@ -51,11 +52,11 @@ class ViewAllScreen extends React.Component<IProps, IState> {
           data={this.getListContent()}
           renderItem={({ item }: { item: Word; index: number }) => {
             return (
-              <WordBox onPress={this.copyHandler(item.mandarin)}>
+              <WordBox onPress={this.copyHandler(item.characters)}>
                 <WordText style={{ fontSize: 32, padding: 8 }}>
-                  {item.mandarin}
+                  {item.characters}
                 </WordText>
-                <WordText>{item.pinyin}</WordText>
+                <WordText>{item.phonetic}</WordText>
                 <WordText>"{item.english}"</WordText>
               </WordBox>
             );

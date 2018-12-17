@@ -28,7 +28,7 @@ const AppStack = () => {
           navigation: NavigationScreenProp<{}>;
         }) => {
           return {
-            title: "Learn Mandarin 🇨🇳",
+            title: "Mandarin Quiz 🇨🇳",
             headerBackTitle: null,
             headerLeft: <MenuIcon onPress={navigation.toggleDrawer} />,
           };
