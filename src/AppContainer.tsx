@@ -1,5 +1,6 @@
 import React from "react";
 import { AppState, BackHandler, View } from "react-native";
+import { SinglePickerMaterialDialog } from "react-native-material-dialog";
 
 import AppContext from "@src/AppContext";
 import { CustomToast } from "@src/components/ToastProvider";
@@ -14,6 +15,8 @@ interface IState {
   appState: string;
   toastMessage: string;
   tryingToCloseApp: boolean;
+  selectedLanguage: any;
+  languageSelectionMenuOpen: boolean;
 }
 
 /** ========================================================================
@@ -32,6 +35,12 @@ class NotesApp extends React.Component<{}, IState> {
       appState: AppState.currentState,
       toastMessage: "",
       tryingToCloseApp: false,
+      selectedLanguage: {
+        label: "Mandarin",
+        selected: true,
+        value: 0,
+      },
+      languageSelectionMenuOpen: false,
     };
   }
 
@@ -79,11 +88,27 @@ class NotesApp extends React.Component<{}, IState> {
         <AppContext.Provider
           value={{
             setToastMessage: this.setToastMessage,
+            openLanguageSelectionMenu: this.openLanguageSelectionMenu,
           }}
         >
           <CustomToast
             close={this.clearToast}
             message={this.state.toastMessage}
+          />
+          <SinglePickerMaterialDialog
+            title={"Pick one element!"}
+            items={["Mandarin", "Korean"].map((row, index) => ({
+              value: index,
+              label: row,
+            }))}
+            visible={this.state.languageSelectionMenuOpen}
+            selectedItem={this.state.selectedLanguage}
+            onCancel={() => this.setState({ languageSelectionMenuOpen: false })}
+            onOk={(result: any) => {
+              this.setState({ languageSelectionMenuOpen: false });
+              this.setState({ selectedLanguage: result.selectedItem });
+              console.log(result);
+            }}
           />
           <AppPureComponent assignNavigatorRef={this.assignNavRef} />
         </AppContext.Provider>
@@ -124,6 +149,12 @@ class NotesApp extends React.Component<{}, IState> {
   clearToast = () => {
     this.setState({
       toastMessage: "",
+    });
+  };
+
+  openLanguageSelectionMenu = () => {
+    this.setState({
+      languageSelectionMenuOpen: true,
     });
   };
 

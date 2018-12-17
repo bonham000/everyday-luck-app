@@ -6,7 +6,10 @@ import React from "react";
  */
 const AppToastContext = React.createContext({
   setToastMessage: (toastMessage: string) => {
-    return;
+    // Handle setting Toast message
+  },
+  openLanguageSelectionMenu: () => {
+    // Handle opening menu
   },
 });
 

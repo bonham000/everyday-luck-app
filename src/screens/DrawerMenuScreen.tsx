@@ -3,6 +3,7 @@ import React from "react";
 import { Image, Keyboard, ScrollView, View } from "react-native";
 import { NavigationScreenProp, SafeAreaView } from "react-navigation";
 
+import LanguagesSelectionProvider from "@src/components/LanguageSelectionProvider";
 import { ROUTE_NAMES } from "@src/constants/Routes";
 import { resetNavigation } from "@src/utils";
 
@@ -13,6 +14,7 @@ import { resetNavigation } from "@src/utils";
 
 interface IProps {
   navigation: NavigationScreenProp<{}>;
+  openLanguageSelectionMenu: () => void;
 }
 
 /** ========================================================================
@@ -66,10 +68,19 @@ class DrawerMenuScreen extends React.Component<IProps, {}> {
             {"  "}
             About
           </Item>
+          <Item onPress={this.handleSwitchLanguage}>
+            🥢
+            {"  "}
+            Switch Language
+          </Item>
         </SafeAreaView>
       </ScrollView>
     );
   }
+
+  handleSwitchLanguage = () => {
+    this.props.openLanguageSelectionMenu();
+  };
 
   createNavigationHandler = (route: ROUTE_NAMES) => {
     return () => {
@@ -103,4 +114,6 @@ const Item = glamorous.text({
  * =========================================================================
  */
 
-export default DrawerMenuScreen;
+export default (props: any) => (
+  <LanguagesSelectionProvider {...props} Component={DrawerMenuScreen} />
+);

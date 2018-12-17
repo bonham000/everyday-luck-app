@@ -38,16 +38,22 @@ class ViewAllScreen extends React.Component<IProps, IState> {
   }
 
   render(): JSX.Element {
+    const SearchBar = (
+      // @ts-ignore
+      <Searchbar
+        autoFocus
+        style={SearchBarStyles}
+        placeholder="Filter list"
+        value={this.state.searchValue}
+        onChangeText={this.handleSearch}
+      />
+    );
+
     return (
       <Container>
-        <Searchbar
-          autoFocus
-          style={SearchBarStyles}
-          placeholder="Filter list"
-          value={this.state.searchValue}
-          onChangeText={this.handleSearch}
-        />
+        {SearchBar}
         <FlatList
+          keyboardDismissMode="on-drag"
           contentContainerStyle={{ width: "100%" }}
           data={this.getListContent()}
           renderItem={({ item }: { item: Word; index: number }) => {
