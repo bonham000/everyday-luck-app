@@ -5,8 +5,7 @@ import { SinglePickerMaterialDialog } from "react-native-material-dialog";
 import AppContext from "@src/AppContext";
 import { CustomToast } from "@src/components/ToastProvider";
 import createAppNavigator from "@src/NavigatorConfig";
-import { COLORS } from "./styles/Colors";
-import { getLanguageContent } from "./utils";
+import { getLanguageContent } from "@src/utils";
 
 /** ========================================================================
  * Types
