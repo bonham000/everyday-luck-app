@@ -80,6 +80,7 @@ class DrawerMenuScreen extends React.Component<IProps, {}> {
 
   handleSwitchLanguage = () => {
     this.props.openLanguageSelectionMenu();
+    this.props.navigation.closeDrawer();
   };
 
   createNavigationHandler = (route: ROUTE_NAMES) => {

@@ -5,7 +5,8 @@ import Swiper from "react-native-deck-swiper";
 import FlipCard from "react-native-flip-card";
 import { NavigationScreenProp } from "react-navigation";
 
-import WordSource, { Word } from "@src/content/Mandarin";
+import LanguagesSelectionProvider from "@src/components/LanguageSelectionProvider";
+import { Word } from "@src/content/Mandarin";
 import { COLORS } from "@src/styles/Colors";
 import { knuthShuffle } from "@src/utils";
 
@@ -16,6 +17,7 @@ import { knuthShuffle } from "@src/utils";
 
 interface IProps {
   navigation: NavigationScreenProp<{}>;
+  selectedLanguage: ReadonlyArray<Word>;
 }
 
 interface IState {
@@ -38,8 +40,14 @@ class FlashcardsScreen extends React.Component<IProps, IState> {
 
     this.state = {
       completed: 0,
-      cards: knuthShuffle(WordSource),
+      cards: knuthShuffle(this.props.selectedLanguage),
     };
+  }
+
+  componentDidUpdate(prevProps: IProps): void {
+    if (prevProps.selectedLanguage !== this.props.selectedLanguage) {
+      this.randomizeDeck();
+    }
   }
 
   render(): JSX.Element {
@@ -92,7 +100,7 @@ class FlashcardsScreen extends React.Component<IProps, IState> {
 
   randomizeDeck = () => {
     this.setState({
-      cards: knuthShuffle(WordSource),
+      cards: knuthShuffle(this.props.selectedLanguage),
     });
   };
 
@@ -175,4 +183,6 @@ const ProgressText = glamorous.text({
  * =========================================================================
  */
 
-export default FlashcardsScreen;
+export default (props: any) => (
+  <LanguagesSelectionProvider {...props} Component={FlashcardsScreen} />
+);

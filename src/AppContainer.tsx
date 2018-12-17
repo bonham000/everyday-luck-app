@@ -5,6 +5,8 @@ import { SinglePickerMaterialDialog } from "react-native-material-dialog";
 import AppContext from "@src/AppContext";
 import { CustomToast } from "@src/components/ToastProvider";
 import createAppNavigator from "@src/NavigatorConfig";
+import { COLORS } from "./styles/Colors";
+import { getLanguageContent } from "./utils";
 
 /** ========================================================================
  * Types
@@ -35,12 +37,12 @@ class NotesApp extends React.Component<{}, IState> {
       appState: AppState.currentState,
       toastMessage: "",
       tryingToCloseApp: false,
+      languageSelectionMenuOpen: false,
       selectedLanguage: {
+        value: 0,
         label: "Mandarin",
         selected: true,
-        value: 0,
       },
-      languageSelectionMenuOpen: false,
     };
   }
 
@@ -89,6 +91,9 @@ class NotesApp extends React.Component<{}, IState> {
           value={{
             setToastMessage: this.setToastMessage,
             openLanguageSelectionMenu: this.openLanguageSelectionMenu,
+            selectedLanguage: getLanguageContent(
+              this.state.selectedLanguage.label,
+            ),
           }}
         >
           <CustomToast
@@ -96,19 +101,15 @@ class NotesApp extends React.Component<{}, IState> {
             message={this.state.toastMessage}
           />
           <SinglePickerMaterialDialog
-            title={"Pick one element!"}
+            title={"Pick a language!"}
             items={["Mandarin", "Korean"].map((row, index) => ({
               value: index,
               label: row,
             }))}
             visible={this.state.languageSelectionMenuOpen}
             selectedItem={this.state.selectedLanguage}
-            onCancel={() => this.setState({ languageSelectionMenuOpen: false })}
-            onOk={(result: any) => {
-              this.setState({ languageSelectionMenuOpen: false });
-              this.setState({ selectedLanguage: result.selectedItem });
-              console.log(result);
-            }}
+            onCancel={this.closeLanguageSelectionMenu}
+            onOk={this.handlePickLanguage}
           />
           <AppPureComponent assignNavigatorRef={this.assignNavRef} />
         </AppContext.Provider>
@@ -156,6 +157,17 @@ class NotesApp extends React.Component<{}, IState> {
     this.setState({
       languageSelectionMenuOpen: true,
     });
+  };
+
+  closeLanguageSelectionMenu = () => {
+    this.setState({
+      languageSelectionMenuOpen: false,
+    });
+  };
+
+  handlePickLanguage = (result: any) => {
+    this.setState({ languageSelectionMenuOpen: false });
+    this.setState({ selectedLanguage: result.selectedItem });
   };
 
   canCloseApp = () => {

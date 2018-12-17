@@ -4,8 +4,9 @@ import { Clipboard, FlatList } from "react-native";
 import { Searchbar } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
+import LanguagesSelectionProvider from "@src/components/LanguageSelectionProvider";
 import ToastProvider from "@src/components/ToastProvider";
-import WORDS, { Word } from "@src/content/Mandarin";
+import { Word } from "@src/content/Mandarin";
 import { COLORS } from "@src/styles/Colors";
 import { filterBySearchTerm, mapWordsForList } from "@src/utils";
 
@@ -16,6 +17,7 @@ import { filterBySearchTerm, mapWordsForList } from "@src/utils";
 
 interface IProps {
   navigation: NavigationScreenProp<{}>;
+  selectedLanguage: ReadonlyArray<Word>;
   setToastMessage: (toastMessage: string) => void;
 }
 
@@ -35,6 +37,14 @@ class ViewAllScreen extends React.Component<IProps, IState> {
     this.state = {
       searchValue: "",
     };
+  }
+
+  shouldComponentUpdate(nextProps: IProps): boolean {
+    if (nextProps.selectedLanguage !== this.props.selectedLanguage) {
+      return true;
+    }
+
+    return false;
   }
 
   render(): JSX.Element {
@@ -80,7 +90,7 @@ class ViewAllScreen extends React.Component<IProps, IState> {
 
   getListContent = () => {
     const filterWords = filterBySearchTerm(this.state.searchValue);
-    return WORDS.filter(filterWords).map(mapWordsForList);
+    return this.props.selectedLanguage.filter(filterWords).map(mapWordsForList);
   };
 
   copyHandler = (mandarin: string) => () => {
@@ -121,6 +131,11 @@ const SearchBarStyles = {
  * =========================================================================
  */
 
-export default (props: any) => (
-  <ToastProvider {...props} Component={ViewAllScreen} />
+export default (parentProps: any) => (
+  <LanguagesSelectionProvider
+    {...parentProps}
+    Component={(childProps: any) => (
+      <ToastProvider {...childProps} Component={ViewAllScreen} />
+    )}
+  />
 );

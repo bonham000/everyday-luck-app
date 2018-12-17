@@ -1,7 +1,12 @@
 import { NavigationActions, StackActions } from "react-navigation";
 
 import { ROUTE_NAMES } from "@src/constants/Routes";
-import { Word } from "@src/content/Mandarin";
+import Korean from "@src/content/Korean";
+import Mandarin, { Word } from "@src/content/Mandarin";
+
+export const assertUnreachable = (x: never): never => {
+  throw new Error(`Unreachable code! -> ${JSON.stringify(x)}`);
+};
 
 /**
  * Return a random number for the given range.
@@ -74,4 +79,20 @@ export const filterForOneCharacterMode = (
   words: ReadonlyArray<Word>,
 ): ReadonlyArray<Word> => {
   return words.filter(word => word.characters.length === 1);
+};
+
+/**
+ * Gets the language lesson content for the user selected language.
+ */
+export const getLanguageContent = (
+  language: "Mandarin" | "Korean",
+): ReadonlyArray<Word> => {
+  switch (language) {
+    case "Mandarin":
+      return Mandarin;
+    case "Korean":
+      return Korean;
+    default:
+      return [];
+  }
 };

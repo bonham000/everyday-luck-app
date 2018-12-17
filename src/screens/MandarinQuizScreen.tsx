@@ -7,10 +7,11 @@ import Confetti from "react-native-confetti";
 import { Button, Text, TextInput } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
+import LanguagesSelectionProvider from "@src/components/LanguageSelectionProvider";
 import Shaker from "@src/components/Shaker";
 import { ROUTE_NAMES } from "@src/constants/Routes";
 import { COMPLIMENTS, ENCOURAGEMENTS } from "@src/constants/Toasts";
-import WORDS, { Word } from "@src/content/Mandarin";
+import { Word } from "@src/content/Mandarin";
 import { COLORS } from "@src/styles/Colors";
 import { filterForOneCharacterMode, randomInRange } from "@src/utils";
 
@@ -21,6 +22,7 @@ import { filterForOneCharacterMode, randomInRange } from "@src/utils";
 
 interface IProps {
   navigation: NavigationScreenProp<{}>;
+  selectedLanguage: ReadonlyArray<Word>;
 }
 
 interface IState {
@@ -73,6 +75,12 @@ class QuizScreen extends React.Component<IProps, IState> {
     this.stopConfetti();
     if (this.timer) {
       clearTimeout(this.timer);
+    }
+  }
+
+  componentDidUpdate(prevProps: IProps): void {
+    if (prevProps.selectedLanguage !== this.props.selectedLanguage) {
+      this.setState(this.getInitialState());
     }
   }
 
@@ -183,6 +191,7 @@ class QuizScreen extends React.Component<IProps, IState> {
   }
 
   getInitialState = (activateOneCharacterMode: boolean = false) => {
+    const WORDS = this.props.selectedLanguage;
     return {
       value: "",
       attempted: false,
@@ -466,4 +475,6 @@ const PinyinText = ({ children }: { children: string }) => (
  * =========================================================================
  */
 
-export default QuizScreen;
+export default (props: any) => (
+  <LanguagesSelectionProvider {...props} Component={QuizScreen} />
+);

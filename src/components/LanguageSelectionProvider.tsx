@@ -26,6 +26,7 @@ class LanguagesSelectionProvider extends React.Component<IProps, {}> {
         {value => (
           <Component
             {...rest}
+            selectedLanguage={value.selectedLanguage}
             openLanguageSelectionMenu={value.openLanguageSelectionMenu}
           />
         )}
