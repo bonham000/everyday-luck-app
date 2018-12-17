@@ -64,6 +64,7 @@ class ViewAllScreen extends React.Component<IProps, IState> {
         {SearchBar}
         <FlatList
           keyboardDismissMode="interactive"
+          keyboardShouldPersistTaps="always"
           contentContainerStyle={{ width: "100%" }}
           data={this.getListContent()}
           renderItem={({ item }: { item: Word; index: number }) => {
