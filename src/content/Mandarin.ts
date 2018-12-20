@@ -299,6 +299,5 @@ const Content = [
 }
 
 export default (process.env.NODE_ENV === "development"
-  ? // ? Content.slice(0, 5)
-    Content
+  ? Content.slice(0, 5)
   : Content);
