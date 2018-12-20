@@ -70,6 +70,11 @@ const Content = [
     english: "I'm sorry",
   },
   {
+    characters: "미안합니다",
+    phonetic: "mianhabnida",
+    english: "I'm sorry",
+  },
+  {
     characters: "개좋아",
     phonetic: "gae joh ah",
     english: "I really like it",
@@ -113,6 +118,31 @@ const Content = [
     characters: "제발",
     phonetic: "jebal",
     english: "Please",
+  },
+  {
+    characters: "제발",
+    phonetic: "jinjja",
+    english: "Really",
+  },
+  {
+    characters: "감사합니다",
+    phonetic: "gamsahabnida",
+    english: "Thank you",
+  },
+  {
+    characters: "빨리",
+    phonetic: "ppalli",
+    english: "Quickly",
+  },
+  {
+    characters: "가자",
+    phonetic: "gaja",
+    english: "Let's go",
+  },
+  {
+    characters: "재미있어요",
+    phonetic: "jaemiiss-eoyo",
+    english: "It's fun",
   },
 ];
 
