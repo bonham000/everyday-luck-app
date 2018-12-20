@@ -231,11 +231,6 @@ const Content = [
     english: "It's ok",
   },
   {
-    characters: "沒關係",
-    phonetic: "Méiguānxì",
-    english: "It's ok",
-  },
-  {
     characters: "好久不見",
     phonetic: "Hǎojiǔ bùjiàn",
     english: "Long time no see",
@@ -271,11 +266,6 @@ const Content = [
     english: "Happy",
   },
   {
-    characters: "快樂",
-    phonetic: "Kuàilè",
-    english: "Happy",
-  },
-  {
     characters: "可愛",
     phonetic: "Kě'ài",
     english: "Cute",
@@ -297,6 +287,18 @@ const Content = [
   },
 ];
 
+{
+  Content.reduce((set, { characters }: any) => {
+    if (set.has(characters)) {
+      console.log(`***** Duplicate word detected!!! -> ${characters}`);
+    } else {
+      set.add(characters);
+    }
+    return set;
+  }, new Set());
+}
+
 export default (process.env.NODE_ENV === "development"
-  ? Content.slice(0, 5)
+  ? // ? Content.slice(0, 5)
+    Content
   : Content);

@@ -120,7 +120,7 @@ const Content = [
     english: "Please",
   },
   {
-    characters: "제발",
+    characters: "진짜",
     phonetic: "jinjja",
     english: "Really",
   },
@@ -145,6 +145,17 @@ const Content = [
     english: "It's fun",
   },
 ];
+
+{
+  Content.reduce((set, { characters }: any) => {
+    if (set.has(characters)) {
+      console.log(`***** Duplicate word detected!!! -> ${characters}`);
+    } else {
+      set.add(characters);
+    }
+    return set;
+  }, new Set());
+}
 
 export default (process.env.NODE_ENV === "development"
   ? Content.slice(0, 5)

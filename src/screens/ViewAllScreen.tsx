@@ -1,6 +1,6 @@
 import glamorous from "glamorous-native";
 import React from "react";
-import { Clipboard, FlatList } from "react-native";
+import { Clipboard, FlatList, Keyboard } from "react-native";
 import { Searchbar } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
@@ -63,8 +63,7 @@ class ViewAllScreen extends React.Component<IProps, IState> {
       <Container>
         {SearchBar}
         <FlatList
-          keyboardDismissMode="on-drag"
-          keyboardShouldPersistTaps="always"
+          onScroll={Keyboard.dismiss}
           contentContainerStyle={{ width: "100%" }}
           data={this.getListContent()}
           renderItem={({ item }: { item: Word; index: number }) => {
