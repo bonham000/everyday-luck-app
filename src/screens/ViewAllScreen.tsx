@@ -39,14 +39,6 @@ class ViewAllScreen extends React.Component<IProps, IState> {
     };
   }
 
-  shouldComponentUpdate(nextProps: IProps): boolean {
-    if (nextProps.selectedLanguage !== this.props.selectedLanguage) {
-      return true;
-    }
-
-    return false;
-  }
-
   render(): JSX.Element {
     const SearchBar = (
       // @ts-ignore
@@ -83,9 +75,7 @@ class ViewAllScreen extends React.Component<IProps, IState> {
   }
 
   handleSearch = (searchValue: string) => {
-    this.setState({
-      searchValue,
-    });
+    this.setState({ searchValue });
   };
 
   getListContent = () => {
