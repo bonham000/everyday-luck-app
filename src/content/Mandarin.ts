@@ -285,6 +285,16 @@ const Content = [
     phonetic: "Duìbùqǐ",
     english: "I'm sorry",
   },
+  {
+    characters: "告訴",
+    phonetic: "Gàosù",
+    english: "Tell",
+  },
+  {
+    characters: "故事",
+    phonetic: "Gùshì",
+    english: "Story",
+  },
 ];
 
 {
