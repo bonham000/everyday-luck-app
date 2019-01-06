@@ -295,6 +295,16 @@ const Content = [
     phonetic: "Gùshì",
     english: "Story",
   },
+  {
+    characters: "火鍋",
+    phonetic: "Huǒguō",
+    english: "Hot pot",
+  },
+  {
+    characters: "真的嗎",
+    phonetic: "Zhēn de ma",
+    english: "Really",
+  },
 ];
 
 {
