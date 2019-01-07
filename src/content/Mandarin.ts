@@ -305,6 +305,36 @@ const Content = [
     phonetic: "Zhēn de ma",
     english: "Really",
   },
+  {
+    characters: "為什麼",
+    phonetic: "Wèishéme",
+    english: "Why",
+  },
+  {
+    characters: "為",
+    phonetic: "Wèi",
+    english: "For",
+  },
+  {
+    characters: "你認真的嗎",
+    phonetic: "Nǐ rèn zhēn de ma",
+    english: "Are you serious?",
+  },
+  {
+    characters: "認",
+    phonetic: "Rèn",
+    english: "Recognize, know, admit",
+  },
+  {
+    characters: "不客氣",
+    phonetic: "Bù kèqì",
+    english: "You are welcome",
+  },
+  {
+    characters: "大哥",
+    phonetic: "Dàgē",
+    english: "Big brother",
+  },
 ];
 
 {
