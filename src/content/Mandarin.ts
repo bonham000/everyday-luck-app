@@ -335,6 +335,16 @@ const Content = [
     phonetic: "Dàgē",
     english: "Big brother",
   },
+  {
+    characters: "超",
+    phonetic: "Chāo",
+    english: "Super",
+  },
+  {
+    characters: "對",
+    phonetic: "Duì",
+    english: "Correct",
+  },
 ];
 
 {
