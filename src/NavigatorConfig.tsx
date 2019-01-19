@@ -13,6 +13,7 @@ import FlashcardsScreen from "@src/screens/FlashcardsScreen";
 import HomeScreen from "@src/screens/HomeScreen";
 import MandarinQuizScreen from "@src/screens/MandarinQuizScreen";
 import ViewAllScreen from "@src/screens/ViewAllScreen";
+import LessonSummaryScreen from "./screens/LessonSummaryScreen";
 
 /** ========================================================================
  * App navigation
@@ -32,6 +33,20 @@ const AppStack = () => {
             title: "Home 🎏",
             headerBackTitle: null,
             headerLeft: <MenuIcon onPress={navigation.toggleDrawer} />,
+          };
+        },
+      },
+      [ROUTE_NAMES.LESSON_SUMMARY]: {
+        screen: LessonSummaryScreen,
+        navigationOptions: ({
+          navigation,
+        }: {
+          navigation: NavigationScreenProp<{}>;
+        }) => {
+          const index = navigation.getParam("lessonIndex");
+          return {
+            title: `Lesson ${index} Summary`,
+            headerBackTitle: null,
           };
         },
       },

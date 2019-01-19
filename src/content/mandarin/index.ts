@@ -5,7 +5,7 @@ import LESSON_FOUR from "@src/content/mandarin/04.ts";
 import LESSON_FIVE from "@src/content/mandarin/05.ts";
 import { Word } from "@src/content/mandarin/types";
 
-const LESSONS: ReadonlyArray<any> = [
+export const LESSONS: ReadonlyArray<any> = [
   LESSON_ONE,
   LESSON_TWO,
   LESSON_THREE,

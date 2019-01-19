@@ -1,19 +1,22 @@
-import { ROUTE_NAMES } from "@src/constants/Routes";
-import { LESSONS } from "@src/content/mandarin";
-import { Word } from "@src/content/mandarin/types";
 import glamorous from "glamorous-native";
 import React from "react";
 import { Text } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
-import { LessonSummaryScreenParams } from "./LessonSummaryScreen";
+
+import { Word } from "@src/content/mandarin/types";
 
 /** ========================================================================
  * Types
  * =========================================================================
  */
 
+export interface LessonSummaryScreenParams {
+  lesson: ReadonlyArray<Word>;
+  lessonIndex: number;
+}
+
 interface IProps {
-  navigation: NavigationScreenProp<{}>;
+  navigation: NavigationScreenProp<LessonSummaryScreenParams>;
 }
 
 /** ========================================================================
@@ -21,29 +24,16 @@ interface IProps {
  * =========================================================================
  */
 
-class HomeScreen extends React.Component<IProps, {}> {
+class LessonSummaryScreen extends React.Component<IProps, {}> {
   render(): JSX.Element {
+    const lesson = this.props.navigation.getParam("lesson");
     return (
       <Container>
-        <Text style={TextStyles}>Choose a lesson to start studying</Text>
-        {LESSONS.map((lesson, index) => {
-          return (
-            <LessonLink onPress={this.openLessonSummary(lesson, index)}>
-              <Text>Lesson {index + 1}</Text>
-            </LessonLink>
-          );
-        })}
+        <Text style={TextStyles}>Lesson Summary</Text>
+        <Text>{JSON.stringify(lesson)}</Text>
       </Container>
     );
   }
-
-  openLessonSummary = (lesson: ReadonlyArray<Word>, index: number) => () => {
-    const params: LessonSummaryScreenParams = {
-      lesson,
-      lessonIndex: index,
-    };
-    this.props.navigation.navigate(ROUTE_NAMES.LESSON_SUMMARY, params);
-  };
 }
 
 /** ========================================================================
@@ -58,13 +48,6 @@ const Container = glamorous.view({
   backgroundColor: "rgb(231,237,240)",
 });
 
-const LessonLink = glamorous.touchableOpacity({
-  width: "90%",
-  padding: 10,
-  margin: 2,
-  backgroundColor: "rgb(225,225,225)",
-});
-
 const TextStyles = {
   fontSize: 16,
   width: "88%",
@@ -77,4 +60,4 @@ const TextStyles = {
  * =========================================================================
  */
 
-export default HomeScreen;
+export default LessonSummaryScreen;
