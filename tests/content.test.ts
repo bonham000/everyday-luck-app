@@ -8,7 +8,7 @@ describe("Content only contains unique words one time", () => {
 });
 
 const findDuplicates = (Content: any) => {
-  return Content.reduce((set: any, { characters }: any) => {
+  Content.reduce((set: any, { characters }: any) => {
     if (set.has(characters)) {
       throw new Error(`***** Duplicate word detected!!! -> ${characters}`);
     } else {
