@@ -45,7 +45,7 @@ const AppStack = () => {
         }) => {
           const index = navigation.getParam("lessonIndex");
           return {
-            title: `Lesson ${index + 1} Summary 👨‍🎓`,
+            title: `Lesson ${Number(index) + 1} Summary 👨‍🎓`,
             headerBackTitle: null,
           };
         },
