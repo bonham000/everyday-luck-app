@@ -10,6 +10,7 @@ import { ROUTE_NAMES } from "@src/constants/Routes";
 import AboutScreen from "@src/screens/AboutScreen";
 import DrawerComponent from "@src/screens/DrawerMenuScreen";
 import FlashcardsScreen from "@src/screens/FlashcardsScreen";
+import HomeScreen from "@src/screens/HomeScreen";
 import MandarinQuizScreen from "@src/screens/MandarinQuizScreen";
 import ViewAllScreen from "@src/screens/ViewAllScreen";
 
@@ -20,6 +21,20 @@ import ViewAllScreen from "@src/screens/ViewAllScreen";
 const AppStack = () => {
   return createStackNavigator(
     {
+      [ROUTE_NAMES.HOME]: {
+        screen: HomeScreen,
+        navigationOptions: ({
+          navigation,
+        }: {
+          navigation: NavigationScreenProp<{}>;
+        }) => {
+          return {
+            title: "Home 🎏",
+            headerBackTitle: null,
+            headerLeft: <MenuIcon onPress={navigation.toggleDrawer} />,
+          };
+        },
+      },
       [ROUTE_NAMES.MANDARIN_QUIZ]: {
         screen: MandarinQuizScreen,
         navigationOptions: ({
@@ -78,7 +93,7 @@ const AppStack = () => {
       },
     },
     {
-      initialRouteName: ROUTE_NAMES.MANDARIN_QUIZ,
+      initialRouteName: ROUTE_NAMES.HOME,
     },
   );
 };
@@ -97,7 +112,7 @@ const MenuIcon = ({ onPress }: { onPress: () => void }) => (
 export default () => {
   return createDrawerNavigator(
     {
-      [ROUTE_NAMES.MANDARIN_QUIZ]: {
+      [ROUTE_NAMES.HOME]: {
         screen: AppStack(),
       },
     },
