@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Word } from "@src/content/Mandarin";
+import { Word } from "@src/content/mandarin/types";
 
 /** ========================================================================
  * Context for toast message

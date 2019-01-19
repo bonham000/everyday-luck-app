@@ -6,7 +6,7 @@ import FlipCard from "react-native-flip-card";
 import { NavigationScreenProp } from "react-navigation";
 
 import LanguagesSelectionProvider from "@src/components/LanguageSelectionProvider";
-import { Word } from "@src/content/Mandarin";
+import { Word } from "@src/content/mandarin/types";
 import { COLORS } from "@src/styles/Colors";
 import { knuthShuffle } from "@src/utils";
 
@@ -111,6 +111,7 @@ class FlashcardsScreen extends React.Component<IProps, IState> {
   };
 
   handleAssignSwiperRef = (swiper: any) => {
+    // tslint:disable-next-line
     this.swiper = swiper;
   };
 

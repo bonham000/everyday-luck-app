@@ -4,8 +4,6 @@ import React from "react";
 import { Text } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
-import { COLORS } from "@src/styles/Colors";
-
 /** ========================================================================
  * Types
  * =========================================================================
@@ -57,13 +55,6 @@ const TextStyles = {
   width: "88%",
   fontWeight: "bold",
   textAlign: "center",
-};
-
-const LinkStyles = {
-  fontSize: 16,
-  marginTop: 28,
-  fontWeight: "bold",
-  color: COLORS.primaryBlue,
 };
 
 /** ========================================================================

@@ -1,9 +1,11 @@
+import { Word } from "@src/content/mandarin/types";
+
 /** ========================================================================
  * KOREAN content for app
  * =========================================================================
  */
 
-const Content = [
+const Content: ReadonlyArray<Word> = [
   {
     characters: "안녕하세요",
     phonetic: "annyeonghaseyo",

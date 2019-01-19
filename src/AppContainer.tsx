@@ -117,7 +117,7 @@ class NotesApp extends React.Component<{}, IState> {
   }
 
   assignNavRef = (ref: any) => {
-    // @ts-ignore
+    // tslint:disable-next-line
     this.navigationRef = ref;
   };
 
@@ -138,6 +138,7 @@ class NotesApp extends React.Component<{}, IState> {
         toastMessage,
       },
       () => {
+        // tslint:disable-next-line
         this.timeout = setTimeout(() => {
           this.clearToast();
           this.abortTryingToClose();

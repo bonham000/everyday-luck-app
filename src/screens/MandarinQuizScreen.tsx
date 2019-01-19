@@ -11,7 +11,7 @@ import LanguagesSelectionProvider from "@src/components/LanguageSelectionProvide
 import Shaker from "@src/components/Shaker";
 import { ROUTE_NAMES } from "@src/constants/Routes";
 import { COMPLIMENTS, ENCOURAGEMENTS } from "@src/constants/Toasts";
-import { Word } from "@src/content/Mandarin";
+import { Word } from "@src/content/mandarin/types";
 import { COLORS } from "@src/styles/Colors";
 import { filterForOneCharacterMode, randomInRange } from "@src/utils";
 
@@ -310,6 +310,7 @@ class QuizScreen extends React.Component<IProps, IState> {
   };
 
   handleFinish = () => {
+    // tslint:disable-next-line
     this.timer = setTimeout(() => {
       Alert.alert(
         "You finished all the words! 🥇",
@@ -319,6 +320,7 @@ class QuizScreen extends React.Component<IProps, IState> {
             text: "OK!",
             onPress: () => {
               this.setState(this.getInitialState(), () => {
+                // tslint:disable-next-line
                 this.timer = setTimeout(this.stopConfetti, 250);
               });
             },
@@ -345,6 +347,7 @@ class QuizScreen extends React.Component<IProps, IState> {
 
   handleToggleOneCharacterMode = () => {
     this.setState(this.getInitialState(!this.state.oneCharacterMode), () => {
+      // tslint:disable-next-line
       this.timer = setTimeout(this.stopConfetti, 250);
     });
   };
@@ -385,10 +388,12 @@ class QuizScreen extends React.Component<IProps, IState> {
   };
 
   setConfettiRef = (node: any) => {
+    // tslint:disable-next-line
     this.CONFETTI_REF = node;
   };
 
   setInputRef = (ref: any) => {
+    // tslint:disable-next-line
     this.INPUT_REF = ref;
   };
 }
@@ -432,7 +437,7 @@ const ActionIconStyle = {
   color: "white",
 };
 
-const EnglishText = ({ children }: { children: string[] }) => (
+const EnglishText = ({ children }: { children: ReadonlyArray<string> }) => (
   <Text
     style={{
       fontSize: 20,

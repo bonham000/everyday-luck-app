@@ -21,6 +21,7 @@ class ShakerComponent extends Component<IProps, {}> {
   SHAKER: any = null;
 
   componentWillMount(): void {
+    // tslint:disable-next-line
     this.SHAKER = new Animated.Value(0);
   }
 

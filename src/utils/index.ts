@@ -2,7 +2,8 @@ import { NavigationActions, StackActions } from "react-navigation";
 
 import { ROUTE_NAMES } from "@src/constants/Routes";
 import Korean from "@src/content/Korean";
-import Mandarin, { Word } from "@src/content/Mandarin";
+import Mandarin from "@src/content/mandarin/index.ts";
+import { Word } from "@src/content/mandarin/types";
 
 export const assertUnreachable = (x: never): never => {
   throw new Error(`Unreachable code! -> ${JSON.stringify(x)}`);
@@ -32,8 +33,10 @@ export const knuthShuffle = (array: ReadonlyArray<any>): ReadonlyArray<any> => {
     // And swap it with the current element.
     temporaryValue = array[currentIndex];
     // @ts-ignore
+    // tslint:disable-next-line
     array[currentIndex] = array[randomIndex];
     // @ts-ignore
+    // tslint:disable-next-line
     array[randomIndex] = temporaryValue;
   }
 

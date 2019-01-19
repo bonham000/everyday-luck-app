@@ -2,7 +2,7 @@
  * Adjectives for when users pass/fail questions.
  * =========================================================================
  */
-export const COMPLIMENTS = [
+export const COMPLIMENTS: ReadonlyArray<string> = [
   "Amazing",
   "Awesome",
   "Blithesome",
@@ -30,7 +30,7 @@ export const COMPLIMENTS = [
   "Wondrous",
 ];
 
-export const ENCOURAGEMENTS = [
+export const ENCOURAGEMENTS: ReadonlyArray<string> = [
   "No good",
   "Nope",
   "Too bad",

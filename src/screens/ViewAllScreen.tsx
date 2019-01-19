@@ -6,7 +6,7 @@ import { NavigationScreenProp } from "react-navigation";
 
 import LanguagesSelectionProvider from "@src/components/LanguageSelectionProvider";
 import ToastProvider from "@src/components/ToastProvider";
-import { Word } from "@src/content/Mandarin";
+import { Word } from "@src/content/mandarin/types";
 import { COLORS } from "@src/styles/Colors";
 import { filterBySearchTerm, mapWordsForList } from "@src/utils";
 
@@ -43,6 +43,7 @@ class ViewAllScreen extends React.Component<IProps, IState> {
     const SearchBar = (
       // @ts-ignore
       <Searchbar
+        // @ts-ignore
         autoFocus
         style={SearchBarStyles}
         placeholder="Filter list"

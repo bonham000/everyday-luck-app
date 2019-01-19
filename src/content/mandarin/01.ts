@@ -1,15 +1,11 @@
+import { Word } from "@src/content/mandarin/types";
+
 /** ========================================================================
- * MANDARIN content for app
+ * 01 Lesson
  * =========================================================================
  */
 
-export interface Word {
-  characters: string;
-  phonetic: string;
-  english: string;
-}
-
-const Content = [
+const Content: ReadonlyArray<Word> = [
   {
     characters: "我是",
     phonetic: "Wǒ shì",
@@ -347,17 +343,4 @@ const Content = [
   },
 ];
 
-{
-  Content.reduce((set, { characters }: any) => {
-    if (set.has(characters)) {
-      console.log(`***** Duplicate word detected!!! -> ${characters}`);
-    } else {
-      set.add(characters);
-    }
-    return set;
-  }, new Set());
-}
-
-export default (process.env.NODE_ENV === "development"
-  ? Content.slice(0, 5)
-  : Content);
+export default Content;

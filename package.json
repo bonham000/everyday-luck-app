@@ -5,6 +5,17 @@
   "scripts": {
     "start": "expo start",
     "tsc": "tsc",
+    "tslint": "tslint --project tsconfig.json -c tslint.json",
+    "tslint:fix": "tslint --project tsconfig.json -c tslint.json --fix",
+    "prettier:fix": "prettier --config .prettierrc --write './{src,test}/**/*.{ts,tsx}'",
+    "prettier:check": "prettier --config .prettierrc --list-different './{src,test}/**/*.{ts,tsx}'",
+    "format": "npm run prettier:fix && npm run tslint:fix",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:update-snapshots": "npm test -- -u",
+    "test:format": "npm run prettier:check && npm run tslint && npm run tsc",
+    "test:all": "npm run prettier:check && npm run tslint && npm run tsc && npm run test",
+    "test:clear": "jest --clearCache && rm -rf build",
     "publish": "expo publish",
     "build": "expo build:android"
   },
@@ -24,16 +35,23 @@
   "devDependencies": {
     "@types/expo": "^30.0.1",
     "@types/expo__vector-icons": "^6.2.3",
+    "@types/jest": "^23.3.13",
     "@types/node": "^10.12.11",
     "@types/react": "^16.4.18",
     "@types/react-native": "^0.57.7",
     "@types/react-native-dialog": "^4.0.1",
     "@types/react-native-sortable-list": "^0.0.7",
     "@types/react-navigation": "^2.13.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-jest": "^23.6.0",
     "babel-preset-expo": "^5.0.0",
+    "jest": "^23.6.0",
+    "jest-expo": "^31.0.0",
     "prettier": "1.14.3",
     "react-native-confetti": "^0.1.0",
+    "ts-jest": "^23.10.5",
     "tslint": "^5.11.0",
+    "tslint-immutable": "^5.1.0",
     "typescript": "^3.1.6"
   }
 }
