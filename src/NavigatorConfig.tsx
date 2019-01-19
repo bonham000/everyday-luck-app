@@ -30,7 +30,7 @@ const AppStack = () => {
           navigation: NavigationScreenProp<{}>;
         }) => {
           return {
-            title: "Home 🎏",
+            title: "Home 🧣",
             headerBackTitle: null,
             headerLeft: <MenuIcon onPress={navigation.toggleDrawer} />,
           };
@@ -45,7 +45,7 @@ const AppStack = () => {
         }) => {
           const index = navigation.getParam("lessonIndex");
           return {
-            title: `Lesson ${index} Summary`,
+            title: `Lesson ${index + 1} Summary 👨‍🎓`,
             headerBackTitle: null,
           };
         },

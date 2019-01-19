@@ -4,6 +4,7 @@ import { Text } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
 import { Word } from "@src/content/mandarin/types";
+import { COLORS } from "@src/styles/Colors";
 
 /** ========================================================================
  * Types
@@ -30,7 +31,21 @@ class LessonSummaryScreen extends React.Component<IProps, {}> {
     return (
       <Container>
         <Text style={TextStyles}>Lesson Summary</Text>
-        <Text>{JSON.stringify(lesson)}</Text>
+        <Text style={{ marginBottom: 12 }}>
+          {lesson.length} total words to practice in this lesson
+        </Text>
+        <ActionBlock>
+          <Text>Quiz</Text>
+        </ActionBlock>
+        <ActionBlock>
+          <Text>Multiple Choice</Text>
+        </ActionBlock>
+        <ActionBlock>
+          <Text>Flashcard</Text>
+        </ActionBlock>
+        <ActionBlock>
+          <Text>Review</Text>
+        </ActionBlock>
       </Container>
     );
   }
@@ -43,7 +58,7 @@ class LessonSummaryScreen extends React.Component<IProps, {}> {
 
 const Container = glamorous.view({
   flex: 1,
-  paddingTop: 75,
+  paddingTop: 35,
   alignItems: "center",
   backgroundColor: "rgb(231,237,240)",
 });
@@ -53,7 +68,15 @@ const TextStyles = {
   width: "88%",
   fontWeight: "bold",
   textAlign: "center",
+  marginBottom: 16,
 };
+
+const ActionBlock = glamorous.touchableOpacity({
+  width: "90%",
+  margin: 6,
+  padding: 12,
+  backgroundColor: COLORS.primaryBlue,
+});
 
 /** ========================================================================
  * Export

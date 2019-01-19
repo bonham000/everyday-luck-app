@@ -53,7 +53,7 @@ class HomeScreen extends React.Component<IProps, {}> {
 
 const Container = glamorous.view({
   flex: 1,
-  paddingTop: 75,
+  paddingTop: 35,
   alignItems: "center",
   backgroundColor: "rgb(231,237,240)",
 });
@@ -61,7 +61,7 @@ const Container = glamorous.view({
 const LessonLink = glamorous.touchableOpacity({
   width: "90%",
   padding: 10,
-  margin: 2,
+  margin: 4,
   backgroundColor: "rgb(225,225,225)",
 });
 
@@ -70,6 +70,7 @@ const TextStyles = {
   width: "88%",
   fontWeight: "bold",
   textAlign: "center",
+  marginBottom: 16,
 };
 
 /** ========================================================================
