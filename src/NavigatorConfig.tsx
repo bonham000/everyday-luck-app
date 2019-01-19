@@ -131,6 +131,7 @@ export default () => {
         screen: AppStack(),
       },
     },
+    // @ts-ignore
     {
       contentComponent: DrawerComponent,
     },

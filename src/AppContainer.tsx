@@ -1,6 +1,7 @@
 import React from "react";
 import { AppState, BackHandler, View } from "react-native";
 import { SinglePickerMaterialDialog } from "react-native-material-dialog";
+import { createAppContainer } from "react-navigation";
 
 import AppContext from "@src/AppContext";
 import { CustomToast } from "@src/components/ToastProvider";
@@ -25,7 +26,7 @@ interface IState {
  * =========================================================================
  */
 
-class NotesApp extends React.Component<{}, IState> {
+class AppContainer extends React.Component<{}, IState> {
   timeout: any = null;
   navigationRef: any = null;
 
@@ -195,7 +196,8 @@ class AppPureComponent extends React.Component<
 
   render(): JSX.Element {
     const AppNavigator = createAppNavigator();
-    return <AppNavigator ref={this.props.assignNavigatorRef} />;
+    const Nav = createAppContainer(AppNavigator);
+    return <Nav ref={this.props.assignNavigatorRef} />;
   }
 }
 
@@ -204,4 +206,4 @@ class AppPureComponent extends React.Component<
  * =========================================================================
  */
 
-export default NotesApp;
+export default AppContainer;

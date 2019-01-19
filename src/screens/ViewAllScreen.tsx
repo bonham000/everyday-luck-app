@@ -59,6 +59,7 @@ class ViewAllScreen extends React.Component<IProps, IState> {
           onScroll={Keyboard.dismiss}
           contentContainerStyle={{ width: "100%" }}
           data={this.getListContent()}
+          // @ts-ignore
           renderItem={({ item }: { item: Word; index: number }) => {
             return (
               <WordBox onPress={this.copyHandler(item.characters)}>

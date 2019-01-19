@@ -142,8 +142,8 @@ class QuizScreen extends React.Component<IProps, IState> {
               valid
                 ? this.handleProceed
                 : revealAnswer
-                  ? this.handleToggleRevealAnswer
-                  : this.handleCheck
+                ? this.handleToggleRevealAnswer
+                : this.handleCheck
             }
           >
             {valid
@@ -151,10 +151,10 @@ class QuizScreen extends React.Component<IProps, IState> {
                   COMPLIMENTS[randomInRange(0, COMPLIMENTS.length - 1)]
                 }! ✨`
               : revealAnswer
-                ? "Hide Answer 🧐"
-                : attempted
-                  ? `${encouragementText}! Keep trying! 🙏`
-                  : "Check answer 👲"}
+              ? "Hide Answer 🧐"
+              : attempted
+              ? `${encouragementText}! Keep trying! 🙏`
+              : "Check answer 👲"}
           </Button>
           {!valid && (
             <ActionButton position="left" buttonColor={COLORS.actionButtonRed}>
