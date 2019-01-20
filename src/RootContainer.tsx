@@ -88,6 +88,11 @@ class RootContainer extends React.Component<{}, IState> {
      * Add listener to AppState to detect app foreground/background actions.
      */
     AppState.addEventListener("change", this.handleAppStateChange);
+
+    /**
+     * Check for updates when app is first opened.
+     */
+    this.checkForAppUpdate();
   }
 
   componentWillUnmount(): void {
