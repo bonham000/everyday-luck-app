@@ -69,7 +69,7 @@ class FlashcardsScreen extends React.Component<IProps, IState> {
           renderCard={this.renderCard}
           onSwipedLeft={this.handleSwipe("left")}
           onSwipedRight={this.handleSwipe("right")}
-          onSwipedAll={this.handleFinish}
+          // onSwipedAll={this.handleFinish}
           ref={this.handleAssignSwiperRef}
           backgroundColor={COLORS.lightWhite}
           overlayLabels={CARD_OVERLAY_LABELS}
@@ -132,6 +132,10 @@ class FlashcardsScreen extends React.Component<IProps, IState> {
 
     const inc = direction === "right" ? 1 : 0;
     const finished = completed + inc;
+
+    if (finished === this.state.lesson.length) {
+      return this.handleFinish();
+    }
 
     this.setState({
       deck: newDeck,
