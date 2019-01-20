@@ -3,7 +3,8 @@ import React from "react";
 import { Text } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
-import { Word } from "@src/content/types";
+import { ROUTE_NAMES } from "@src/constants/Routes";
+import { Lesson, PracticeScreenParams } from "@src/content/types";
 import { COLORS } from "@src/styles/Colors";
 
 /** ========================================================================
@@ -12,7 +13,7 @@ import { COLORS } from "@src/styles/Colors";
  */
 
 export interface LessonSummaryScreenParams {
-  lesson: ReadonlyArray<Word>;
+  lesson: Lesson;
   lessonIndex: number;
   isSummaryReview: boolean;
 }
@@ -38,21 +39,35 @@ class LessonSummaryScreen extends React.Component<IProps, {}> {
         <Text style={{ marginBottom: 12 }}>
           {lesson.length} total words to practice in this lesson
         </Text>
-        <ActionBlock>
+        <ActionBlock onPress={this.handleNavigateToSection(ROUTE_NAMES.QUIZ)}>
           <Text>Quiz</Text>
         </ActionBlock>
-        <ActionBlock>
+        <ActionBlock
+          onPress={this.handleNavigateToSection(ROUTE_NAMES.FLASHCARDS)}
+        >
           <Text>Multiple Choice</Text>
         </ActionBlock>
-        <ActionBlock>
+        <ActionBlock
+          onPress={this.handleNavigateToSection(ROUTE_NAMES.FLASHCARDS)}
+        >
           <Text>Flashcard</Text>
         </ActionBlock>
-        <ActionBlock>
+        <ActionBlock
+          onPress={this.handleNavigateToSection(ROUTE_NAMES.VIEW_ALL)}
+        >
           <Text>Review</Text>
         </ActionBlock>
       </Container>
     );
   }
+
+  handleNavigateToSection = (routeName: ROUTE_NAMES) => () => {
+    const lesson = this.props.navigation.getParam("lesson");
+    const params: PracticeScreenParams = {
+      lesson,
+    };
+    this.props.navigation.navigate(routeName, params);
+  };
 }
 
 /** ========================================================================

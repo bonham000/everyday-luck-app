@@ -7,7 +7,7 @@ import { NavigationScreenProp } from "react-navigation";
 
 import { LanguageSelection } from "@src/AppContext";
 import LanguagesSelectionProvider from "@src/components/LanguageSelectionProvider";
-import { Word } from "@src/content/types";
+import { PracticeScreenParams, Word } from "@src/content/types";
 import { COLORS } from "@src/styles/Colors";
 import { knuthShuffle } from "@src/utils";
 
@@ -17,7 +17,7 @@ import { knuthShuffle } from "@src/utils";
  */
 
 interface IProps {
-  navigation: NavigationScreenProp<{}>;
+  navigation: NavigationScreenProp<PracticeScreenParams>;
   selectedLanguage: LanguageSelection;
 }
 
@@ -39,9 +39,11 @@ class FlashcardsScreen extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
 
+    const lesson = this.props.navigation.getParam("lesson");
+
     this.state = {
       completed: 0,
-      cards: knuthShuffle(this.props.selectedLanguage),
+      cards: knuthShuffle(lesson),
     };
   }
 
@@ -100,8 +102,9 @@ class FlashcardsScreen extends React.Component<IProps, IState> {
   };
 
   randomizeDeck = () => {
+    const lesson = this.props.navigation.getParam("lesson");
     this.setState({
-      cards: knuthShuffle(this.props.selectedLanguage),
+      cards: knuthShuffle(lesson),
     });
   };
 

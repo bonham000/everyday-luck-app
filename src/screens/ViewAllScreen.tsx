@@ -7,7 +7,7 @@ import { NavigationScreenProp } from "react-navigation";
 import { LanguageSelection } from "@src/AppContext";
 import LanguagesSelectionProvider from "@src/components/LanguageSelectionProvider";
 import ToastProvider from "@src/components/ToastProvider";
-import { Word } from "@src/content/types";
+import { PracticeScreenParams, Word } from "@src/content/types";
 import { COLORS } from "@src/styles/Colors";
 import { filterBySearchTerm, mapWordsForList } from "@src/utils";
 
@@ -17,7 +17,7 @@ import { filterBySearchTerm, mapWordsForList } from "@src/utils";
  */
 
 interface IProps {
-  navigation: NavigationScreenProp<{}>;
+  navigation: NavigationScreenProp<PracticeScreenParams>;
   selectedLanguage: LanguageSelection;
   setToastMessage: (toastMessage: string) => void;
 }
@@ -82,8 +82,9 @@ class ViewAllScreen extends React.Component<IProps, IState> {
   };
 
   getListContent = () => {
+    const lesson = this.props.navigation.getParam("lesson");
     const filterWords = filterBySearchTerm(this.state.searchValue);
-    return this.props.selectedLanguage.filter(filterWords).map(mapWordsForList);
+    return lesson.filter(filterWords).map(mapWordsForList);
   };
 
   copyHandler = (mandarin: string) => () => {

@@ -12,7 +12,7 @@ import LanguagesSelectionProvider from "@src/components/LanguageSelectionProvide
 import Shaker from "@src/components/Shaker";
 import { ROUTE_NAMES } from "@src/constants/Routes";
 import { COMPLIMENTS, ENCOURAGEMENTS } from "@src/constants/Toasts";
-import { Word } from "@src/content/types";
+import { PracticeScreenParams, Word } from "@src/content/types";
 import { COLORS } from "@src/styles/Colors";
 import { filterForOneCharacterMode, randomInRange } from "@src/utils";
 
@@ -22,7 +22,7 @@ import { filterForOneCharacterMode, randomInRange } from "@src/utils";
  */
 
 interface IProps {
-  navigation: NavigationScreenProp<{}>;
+  navigation: NavigationScreenProp<PracticeScreenParams>;
   selectedLanguage: LanguageSelection;
 }
 
@@ -192,7 +192,7 @@ class QuizScreen extends React.Component<IProps, IState> {
   }
 
   getInitialState = (activateOneCharacterMode: boolean = false) => {
-    const WORDS = this.props.selectedLanguage;
+    const lesson = this.props.navigation.getParam("lesson");
     return {
       value: "",
       attempted: false,
@@ -206,8 +206,8 @@ class QuizScreen extends React.Component<IProps, IState> {
       revealAnswer: false,
       oneCharacterMode: activateOneCharacterMode,
       wordContent: activateOneCharacterMode
-        ? filterForOneCharacterMode(WORDS)
-        : WORDS,
+        ? filterForOneCharacterMode(lesson)
+        : lesson,
     };
   };
 

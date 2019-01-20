@@ -11,7 +11,7 @@ import AboutScreen from "@src/screens/AboutScreen";
 import DrawerComponent from "@src/screens/DrawerMenuScreen";
 import FlashcardsScreen from "@src/screens/FlashcardsScreen";
 import HomeScreen from "@src/screens/HomeScreen";
-import MandarinQuizScreen from "@src/screens/MandarinQuizScreen";
+import MandarinQuizScreen from "@src/screens/QuizScreen";
 import ViewAllScreen from "@src/screens/ViewAllScreen";
 import LessonSummaryScreen from "./screens/LessonSummaryScreen";
 
@@ -53,7 +53,7 @@ const AppStack = () => {
           };
         },
       },
-      [ROUTE_NAMES.MANDARIN_QUIZ]: {
+      [ROUTE_NAMES.QUIZ]: {
         screen: MandarinQuizScreen,
         navigationOptions: ({
           navigation,
