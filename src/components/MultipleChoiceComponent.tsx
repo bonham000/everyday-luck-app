@@ -102,6 +102,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
                 >
                   <MandarinText
                     style={{
+                      color: !valid && attempted ? "white" : "black",
                       fontSize: shouldReveal ? 15 : 45,
                       fontWeight: shouldReveal ? "400" : "bold",
                     }}
