@@ -5,8 +5,7 @@ import Sentry from "sentry-expo";
 import App from "@src/AppContainer";
 import { COLORS } from "@src/styles/Colors";
 
-// @ts-ignore
-Sentry.config(process.env.SENTRY_DSN);
+Sentry.config(String(process.env.SENTRY_DSN)).install();
 
 const theme = {
   ...DefaultTheme,
