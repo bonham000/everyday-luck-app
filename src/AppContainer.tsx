@@ -102,9 +102,7 @@ class AppContainer extends React.Component<{}, IState> {
           value={{
             setToastMessage: this.setToastMessage,
             openLanguageSelectionMenu: this.openLanguageSelectionMenu,
-            selectedLanguage: getLanguageContent(
-              this.state.selectedLanguage.label,
-            ),
+            selectedLanguage: this.state.selectedLanguage.label,
           }}
         >
           <CustomToast

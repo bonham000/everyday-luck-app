@@ -1,4 +1,4 @@
-import { Word } from "@src/content/mandarin/types";
+import { Word } from "@src/content/types";
 
 /** ========================================================================
  * Lesson 04

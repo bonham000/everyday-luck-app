@@ -5,8 +5,9 @@ import Swiper from "react-native-deck-swiper";
 import FlipCard from "react-native-flip-card";
 import { NavigationScreenProp } from "react-navigation";
 
+import { LanguageSelection } from "@src/AppContext";
 import LanguagesSelectionProvider from "@src/components/LanguageSelectionProvider";
-import { Word } from "@src/content/mandarin/types";
+import { Word } from "@src/content/types";
 import { COLORS } from "@src/styles/Colors";
 import { knuthShuffle } from "@src/utils";
 
@@ -17,7 +18,7 @@ import { knuthShuffle } from "@src/utils";
 
 interface IProps {
   navigation: NavigationScreenProp<{}>;
-  selectedLanguage: ReadonlyArray<Word>;
+  selectedLanguage: LanguageSelection;
 }
 
 interface IState {
@@ -180,7 +181,7 @@ const ProgressText = glamorous.text({
 });
 
 /** ========================================================================
- * Types
+ * Export
  * =========================================================================
  */
 

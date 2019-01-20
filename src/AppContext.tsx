@@ -1,11 +1,11 @@
 import React from "react";
 
-import { Word } from "@src/content/mandarin/types";
-
 /** ========================================================================
  * Context for toast message
  * =========================================================================
  */
+export type LanguageSelection = "Mandarin" | "Korean";
+
 const AppContext = React.createContext({
   setToastMessage: (toastMessage: string) => {
     // Handle setting Toast message
@@ -13,7 +13,7 @@ const AppContext = React.createContext({
   openLanguageSelectionMenu: () => {
     // Handle opening menu
   },
-  selectedLanguage: [] as ReadonlyArray<Word>,
+  selectedLanguage: "Mandarin",
 });
 
 export default AppContext;

@@ -3,3 +3,5 @@ export interface Word {
   phonetic: string;
   english: string;
 }
+
+export type LessonSet = ReadonlyArray<ReadonlyArray<Word>>;

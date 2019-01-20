@@ -7,11 +7,12 @@ import Confetti from "react-native-confetti";
 import { Button, Text, TextInput } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
+import { LanguageSelection } from "@src/AppContext";
 import LanguagesSelectionProvider from "@src/components/LanguageSelectionProvider";
 import Shaker from "@src/components/Shaker";
 import { ROUTE_NAMES } from "@src/constants/Routes";
 import { COMPLIMENTS, ENCOURAGEMENTS } from "@src/constants/Toasts";
-import { Word } from "@src/content/mandarin/types";
+import { Word } from "@src/content/types";
 import { COLORS } from "@src/styles/Colors";
 import { filterForOneCharacterMode, randomInRange } from "@src/utils";
 
@@ -22,7 +23,7 @@ import { filterForOneCharacterMode, randomInRange } from "@src/utils";
 
 interface IProps {
   navigation: NavigationScreenProp<{}>;
-  selectedLanguage: ReadonlyArray<Word>;
+  selectedLanguage: LanguageSelection;
 }
 
 interface IState {

@@ -3,7 +3,7 @@ import React from "react";
 import { Text } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
-import { Word } from "@src/content/mandarin/types";
+import { Word } from "@src/content/types";
 import { COLORS } from "@src/styles/Colors";
 
 /** ========================================================================

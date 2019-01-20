@@ -1,12 +1,15 @@
-import { ROUTE_NAMES } from "@src/constants/Routes";
-import ALL_LESSONS, { LESSONS } from "@src/content/mandarin";
-import { Word } from "@src/content/mandarin/types";
-import { COLORS } from "@src/styles/Colors";
 import glamorous from "glamorous-native";
 import React from "react";
 import { Text } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
-import { LessonSummaryScreenParams } from "./LessonSummaryScreen";
+
+import { LanguageSelection } from "@src/AppContext";
+import LanguagesSelectionProvider from "@src/components/LanguageSelectionProvider";
+import { ROUTE_NAMES } from "@src/constants/Routes";
+import { getLanguageContent, getLessonSet } from "@src/content";
+import { Word } from "@src/content/types";
+import { LessonSummaryScreenParams } from "@src/screens/LessonSummaryScreen";
+import { COLORS } from "@src/styles/Colors";
 
 /** ========================================================================
  * Types
@@ -15,6 +18,7 @@ import { LessonSummaryScreenParams } from "./LessonSummaryScreen";
 
 interface IProps {
   navigation: NavigationScreenProp<{}>;
+  selectedLanguage: LanguageSelection;
 }
 
 /** ========================================================================
@@ -24,6 +28,9 @@ interface IProps {
 
 class HomeScreen extends React.Component<IProps, {}> {
   render(): JSX.Element {
+    const { selectedLanguage } = this.props;
+    const LESSONS = getLessonSet(selectedLanguage);
+    const ALL_LESSONS = getLanguageContent(selectedLanguage);
     return (
       <Container>
         <Text style={TextStyles}>Choose a lesson to start studying</Text>
@@ -94,4 +101,6 @@ const TextStyles = {
  * =========================================================================
  */
 
-export default HomeScreen;
+export default (props: any) => (
+  <LanguagesSelectionProvider {...props} Component={HomeScreen} />
+);
