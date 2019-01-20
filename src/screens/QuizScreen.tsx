@@ -127,6 +127,7 @@ class QuizScreen extends React.Component<IProps, IState> {
             handleChange={this.handleChange}
             handleCheck={this.handleCheck}
             handleProceed={this.handleProceed}
+            selectedLanguage={this.props.selectedLanguage}
             handleToggleRevealAnswer={this.handleToggleRevealAnswer}
           />
           <ActionButton position="left" buttonColor={COLORS.actionButtonRed}>

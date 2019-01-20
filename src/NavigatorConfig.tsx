@@ -6,6 +6,7 @@ import {
   NavigationScreenProp,
 } from "react-navigation";
 
+import MultipleChoiceComponent from "@src/components/MultipleChoiceComponent";
 import QuizInput from "@src/components/QuizInputComponent";
 import { ROUTE_NAMES } from "@src/constants/Routes";
 import { LessonScreenParams } from "@src/content/types";
@@ -66,7 +67,7 @@ const AppStack = () => {
       },
       [ROUTE_NAMES.MULTIPLE_CHOICE]: {
         screen: (props: any) => (
-          <QuizScreen {...props} QuizComponent={QuizInput} />
+          <QuizScreen {...props} QuizComponent={MultipleChoiceComponent} />
         ),
         navigationOptions: {
           title: "Multiple Choice 🇨🇳",

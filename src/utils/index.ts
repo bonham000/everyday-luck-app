@@ -1,7 +1,7 @@
 import { NavigationActions, StackActions } from "react-navigation";
 
 import { ROUTE_NAMES } from "@src/constants/Routes";
-import { Word } from "@src/content/types";
+import { Lesson, Word } from "@src/content/types";
 
 export const assertUnreachable = (x: never): never => {
   throw new Error(`Unreachable code! -> ${JSON.stringify(x)}`);
@@ -107,4 +107,26 @@ export const deriveContentFromLessons = (
       }),
     );
   }, []);
+};
+
+/**
+ * Derive shuffled multiple choice options given a word and all the
+ * language content.
+ */
+export const getAlternateChoices = (word: string, alternates: Lesson) => {
+  // tslint:disable-next-line
+  let choices: string[] = [word];
+  let idx: number;
+  let option: string;
+
+  while (choices.length < 4) {
+    idx = randomInRange(0, alternates.length);
+    option = alternates[idx].characters;
+
+    if (option !== word && option.length <= word.length + 2) {
+      choices = [...choices, option];
+    }
+  }
+
+  return knuthShuffle(choices);
 };
