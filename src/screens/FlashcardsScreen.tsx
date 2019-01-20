@@ -7,7 +7,7 @@ import { NavigationScreenProp } from "react-navigation";
 
 import { LanguageSelection } from "@src/AppContext";
 import LanguagesSelectionProvider from "@src/components/LanguageSelectionProvider";
-import { PracticeScreenParams, Word } from "@src/content/types";
+import { Lesson, PracticeScreenParams, Word } from "@src/content/types";
 import { COLORS } from "@src/styles/Colors";
 import { knuthShuffle } from "@src/utils";
 
@@ -23,7 +23,8 @@ interface IProps {
 
 interface IState {
   completed: number;
-  cards: ReadonlyArray<Word>;
+  lesson: Lesson;
+  deck: Lesson;
 }
 
 export const { width, height } = Dimensions.get("window");
@@ -42,8 +43,9 @@ class FlashcardsScreen extends React.Component<IProps, IState> {
     const lesson = this.props.navigation.getParam("lesson");
 
     this.state = {
+      lesson,
       completed: 0,
-      cards: knuthShuffle(lesson),
+      deck: knuthShuffle(lesson),
     };
   }
 
@@ -57,29 +59,32 @@ class FlashcardsScreen extends React.Component<IProps, IState> {
     return (
       <View style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
         <Swiper
+          infinite
           marginTop={32}
           animateCardOpacity
           verticalSwipe={false}
           cardVerticalMargin={0}
           cardHorizontalMargin={0}
-          cards={this.state.cards}
+          cards={this.state.deck}
           renderCard={this.renderCard}
-          onSwiped={this.handleSwipe}
+          onSwipedLeft={this.handleSwipe("left")}
+          onSwipedRight={this.handleSwipe("right")}
           onSwipedAll={this.handleFinish}
           ref={this.handleAssignSwiperRef}
           backgroundColor={COLORS.lightWhite}
+          overlayLabels={CARD_OVERLAY_LABELS}
           animateOverlayLabelsOpacity
         />
         <ProgressText>
           Progress: {this.state.completed} flashcards completed (
-          {this.state.cards.length} total)
+          {this.state.lesson.length} total)
         </ProgressText>
       </View>
     );
   }
 
   renderCard = (card: Word) => {
-    return card ? (
+    return (
       <ScrollView>
         <FlipCard
           style={FlipCardStyles}
@@ -98,39 +103,67 @@ class FlashcardsScreen extends React.Component<IProps, IState> {
           </FlipSideView>
         </FlipCard>
       </ScrollView>
-    ) : null;
+    );
   };
 
   randomizeDeck = () => {
-    const lesson = this.props.navigation.getParam("lesson");
     this.setState({
-      cards: knuthShuffle(lesson),
+      deck: knuthShuffle(this.state.lesson),
     });
   };
 
-  handleSwipe = () => {
-    this.setState(prevState => ({
-      completed: prevState.completed + 1,
-    }));
+  handleSwipe = (direction: "left" | "right") => (cardIndex: number) => {
+    const { deck, completed } = this.state;
+
+    let newDeck: Lesson;
+    if (direction === "left") {
+      const reshuffledDeckSlice = knuthShuffle([
+        ...deck.slice(cardIndex + 1),
+        deck[cardIndex],
+      ]);
+      if (completed > 0 && cardIndex === 0) {
+        newDeck = reshuffledDeckSlice;
+      } else {
+        newDeck = [...deck.slice(0, cardIndex + 1), ...reshuffledDeckSlice];
+      }
+    } else {
+      newDeck = deck;
+    }
+
+    const inc = direction === "right" ? 1 : 0;
+    const finished = completed + inc;
+
+    this.setState({
+      deck: newDeck,
+      completed: finished,
+    });
+  };
+
+  handleFinish = () => {
+    this.setState(
+      {
+        deck: [],
+        completed: 0,
+      },
+      () => {
+        Alert.alert(
+          "You finished all the flashcards!!! 🎉",
+          "The deck will be shuffled and restarted now.",
+          [
+            {
+              text: "OK!",
+              onPress: this.randomizeDeck,
+            },
+          ],
+          { cancelable: false },
+        );
+      },
+    );
   };
 
   handleAssignSwiperRef = (swiper: any) => {
     // tslint:disable-next-line
     this.swiper = swiper;
-  };
-
-  handleFinish = () => {
-    Alert.alert(
-      "You finished all the flashcards!!! 🎉",
-      "The deck will be shuffled and restarted now.",
-      [
-        {
-          text: "OK!",
-          onPress: this.randomizeDeck,
-        },
-      ],
-      { cancelable: false },
-    );
   };
 }
 
@@ -182,6 +215,45 @@ const ProgressText = glamorous.text({
   top: 5,
   fontSize: 10,
 });
+
+const CARD_OVERLAY_LABELS = {
+  left: {
+    title: "Try again!",
+    style: {
+      label: {
+        backgroundColor: "black",
+        borderColor: "black",
+        color: COLORS.primaryRed,
+        borderWidth: 1,
+      },
+      wrapper: {
+        flexDirection: "column",
+        alignItems: "flex-end",
+        justifyContent: "flex-start",
+        marginTop: 30,
+        marginLeft: -30,
+      },
+    },
+  },
+  right: {
+    title: "Got it!",
+    style: {
+      label: {
+        backgroundColor: "black",
+        borderColor: "black",
+        color: COLORS.actionButtonMint,
+        borderWidth: 1,
+      },
+      wrapper: {
+        flexDirection: "column",
+        alignItems: "flex-start",
+        justifyContent: "flex-start",
+        marginTop: 30,
+        marginLeft: 30,
+      },
+    },
+  },
+};
 
 /** ========================================================================
  * Export
