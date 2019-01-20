@@ -12,7 +12,7 @@ import LanguagesSelectionProvider from "@src/components/LanguageSelectionProvide
 import Shaker from "@src/components/Shaker";
 import { ROUTE_NAMES } from "@src/constants/Routes";
 import { COMPLIMENTS, ENCOURAGEMENTS } from "@src/constants/Toasts";
-import { PracticeScreenParams, Word } from "@src/content/types";
+import { LessonScreenParams, Word } from "@src/content/types";
 import { COLORS } from "@src/styles/Colors";
 import { filterForOneCharacterMode, randomInRange } from "@src/utils";
 
@@ -22,7 +22,7 @@ import { filterForOneCharacterMode, randomInRange } from "@src/utils";
  */
 
 interface IProps {
-  navigation: NavigationScreenProp<PracticeScreenParams>;
+  navigation: NavigationScreenProp<LessonScreenParams>;
   selectedLanguage: LanguageSelection;
 }
 
@@ -38,6 +38,8 @@ interface IState {
   revealAnswer: boolean;
   oneCharacterMode: boolean;
   failedOnce: boolean;
+  skipCount: number;
+  failCount: number;
   wordContent: ReadonlyArray<Word>;
 }
 
@@ -88,6 +90,8 @@ class QuizScreen extends React.Component<IProps, IState> {
   render(): JSX.Element {
     const {
       valid,
+      failCount,
+      skipCount,
       attempted,
       wordContent,
       shouldShake,
@@ -106,7 +110,8 @@ class QuizScreen extends React.Component<IProps, IState> {
           <ProgressText>
             Progress: {progressCount} word
             {progressCount === 1 ? "" : "s"} completed,{" "}
-            {wordContent.length - progressCount} remaining
+            {wordContent.length - progressCount} remaining, {skipCount} skipped,{" "}
+            {failCount} failed
           </ProgressText>
           {valid || revealAnswer ? (
             <QuizBox>
@@ -136,12 +141,15 @@ class QuizScreen extends React.Component<IProps, IState> {
             style={{
               marginTop: 30,
               minWidth: 215,
-              backgroundColor:
-                !valid && attempted ? COLORS.primaryRed : COLORS.primaryBlue,
+              backgroundColor: revealAnswer
+                ? COLORS.actionButtonMint
+                : !valid && attempted
+                ? COLORS.primaryRed
+                : COLORS.primaryBlue,
             }}
             onPress={
               valid
-                ? this.handleProceed
+                ? this.handleProceed()
                 : revealAnswer
                 ? this.handleToggleRevealAnswer
                 : this.handleCheck
@@ -162,16 +170,14 @@ class QuizScreen extends React.Component<IProps, IState> {
               <ActionButton.Item
                 buttonColor={COLORS.actionButtonPurple}
                 title="Skip this one!"
-                onPress={this.handleProceed}
+                onPress={this.handleProceed(true)}
               >
                 <Ionicons name="md-key" style={ActionIconStyle} />
               </ActionButton.Item>
               <ActionButton.Item
                 buttonColor={COLORS.actionButtonMint}
                 title="View all definitions"
-                onPress={() =>
-                  this.props.navigation.navigate(ROUTE_NAMES.VIEW_ALL)
-                }
+                onPress={this.navigateToViewAll}
               >
                 <Ionicons name="md-school" style={ActionIconStyle} />
               </ActionButton.Item>
@@ -203,6 +209,8 @@ class QuizScreen extends React.Component<IProps, IState> {
       wordCompletedCache: new Set(),
       encouragementText: "",
       progressCount: 0,
+      skipCount: 0,
+      failCount: 0,
       revealAnswer: false,
       oneCharacterMode: activateOneCharacterMode,
       wordContent: activateOneCharacterMode
@@ -222,12 +230,14 @@ class QuizScreen extends React.Component<IProps, IState> {
     const { value, wordContent, currentWordIndex } = this.state;
 
     const CURRENT_WORD = wordContent[currentWordIndex];
+    let failed = false;
     /**
      * Check answer: either correct or incorrect
      */
     if (value === CURRENT_WORD.characters) {
       this.handleCorrectAnswer();
     } else {
+      failed = true;
       /**
        * Answer is incorrect:
        *
@@ -236,7 +246,7 @@ class QuizScreen extends React.Component<IProps, IState> {
        * - If the user presses again without changing the input, reveal the answer
        * - Otherwise show a different encouragementText each time.
        */
-      let encouragementText;
+      let encouragementText: string;
       let updatedContent = wordContent;
       if (!this.state.failedOnce) {
         if (currentWordIndex !== wordContent.length - 1) {
@@ -252,14 +262,15 @@ class QuizScreen extends React.Component<IProps, IState> {
         }
       }
 
-      this.setState({
+      this.setState(prevState => ({
         attempted: true,
         valid: false,
         shouldShake: true,
         failedOnce: true,
         encouragementText,
+        failCount: failed ? prevState.failCount + 1 : prevState.failCount,
         wordContent: updatedContent,
-      });
+      }));
     }
   };
 
@@ -287,25 +298,38 @@ class QuizScreen extends React.Component<IProps, IState> {
     );
   };
 
-  handleProceed = () => {
+  handleProceed = (didSkip: boolean = false) => () => {
     this.setState(
-      prevState => {
-        const nextIndex = this.getNextWordIndex();
-
-        return {
-          value: "",
-          valid: false,
-          attempted: false,
-          shouldShake: false,
-          revealAnswer: false,
-          failedOnce: false,
-          currentWordIndex: nextIndex,
-          wordCompletedCache: prevState.wordCompletedCache.add(nextIndex),
-        };
-      },
+      prevState => ({
+        value: "",
+        valid: false,
+        attempted: false,
+        shouldShake: false,
+        revealAnswer: false,
+        failedOnce: false,
+        skipCount: prevState.skipCount + (didSkip ? 1 : 0),
+      }),
       () => {
-        this.stopConfetti();
-        this.focusInput();
+        if (
+          this.state.wordCompletedCache.size === this.state.wordContent.length
+        ) {
+          return this.handleFinish();
+        }
+
+        this.setState(
+          prevState => {
+            const nextIndex = this.getNextWordIndex();
+
+            return {
+              currentWordIndex: nextIndex,
+              wordCompletedCache: prevState.wordCompletedCache.add(nextIndex),
+            };
+          },
+          () => {
+            this.stopConfetti();
+            this.focusInput();
+          },
+        );
       },
     );
   };
@@ -335,7 +359,7 @@ class QuizScreen extends React.Component<IProps, IState> {
   handleToggleRevealAnswer = () => {
     this.setState(
       prevState => ({
-        attempted: false,
+        // attempted: false,
         revealAnswer: !prevState.revealAnswer,
       }),
       () => {
@@ -351,6 +375,17 @@ class QuizScreen extends React.Component<IProps, IState> {
       // tslint:disable-next-line
       this.timer = setTimeout(this.stopConfetti, 250);
     });
+  };
+
+  navigateToViewAll = () => {
+    const lesson = this.props.navigation.getParam("lesson");
+    const lessonIndex = this.props.navigation.getParam("lessonIndex");
+    const params: LessonScreenParams = {
+      lesson,
+      lessonIndex,
+      headerTitle: `Lesson ${lessonIndex + 1} Content`,
+    };
+    this.props.navigation.navigate(ROUTE_NAMES.VIEW_ALL, params);
   };
 
   getNextWordIndex = (): number => {

@@ -79,7 +79,7 @@ export const resetNavigation = (routeName: ROUTE_NAMES) => {
 export const filterForOneCharacterMode = (
   words: ReadonlyArray<Word>,
 ): ReadonlyArray<Word> => {
-  return words.filter(word => word.characters.length === 1);
+  return words.filter(({ characters }) => characters.length === 1);
 };
 
 /**

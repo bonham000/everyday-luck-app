@@ -7,8 +7,7 @@ import { LanguageSelection } from "@src/AppContext";
 import LanguagesSelectionProvider from "@src/components/LanguageSelectionProvider";
 import { ROUTE_NAMES } from "@src/constants/Routes";
 import { getLanguageContent, getLessonSet } from "@src/content";
-import { Word } from "@src/content/types";
-import { LessonSummaryScreenParams } from "@src/screens/LessonSummaryScreen";
+import { LessonScreenParams, Word } from "@src/content/types";
 import { COLORS } from "@src/styles/Colors";
 
 /** ========================================================================
@@ -55,7 +54,7 @@ class HomeScreen extends React.Component<IProps, {}> {
     index: number,
     isSummaryReview: boolean = false,
   ) => () => {
-    const params: LessonSummaryScreenParams = {
+    const params: LessonScreenParams = {
       lesson,
       lessonIndex: index,
       isSummaryReview,

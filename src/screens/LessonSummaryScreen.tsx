@@ -5,7 +5,7 @@ import { Text } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
 import { ROUTE_NAMES } from "@src/constants/Routes";
-import { Lesson, PracticeScreenParams } from "@src/content/types";
+import { LessonScreenParams } from "@src/content/types";
 import { COLORS } from "@src/styles/Colors";
 
 /** ========================================================================
@@ -13,14 +13,8 @@ import { COLORS } from "@src/styles/Colors";
  * =========================================================================
  */
 
-export interface LessonSummaryScreenParams {
-  lesson: Lesson;
-  lessonIndex: number;
-  isSummaryReview: boolean;
-}
-
 interface IProps {
-  navigation: NavigationScreenProp<LessonSummaryScreenParams>;
+  navigation: NavigationScreenProp<LessonScreenParams>;
 }
 
 /** ========================================================================
@@ -72,8 +66,10 @@ class LessonSummaryScreen extends React.Component<IProps, {}> {
 
   handleNavigateToSection = (routeName: ROUTE_NAMES) => () => {
     const lesson = this.props.navigation.getParam("lesson");
-    const params: PracticeScreenParams = {
+    const lessonIndex = this.props.navigation.getParam("lessonIndex");
+    const params: LessonScreenParams = {
       lesson,
+      lessonIndex,
     };
     this.props.navigation.navigate(routeName, params);
   };

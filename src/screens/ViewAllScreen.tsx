@@ -7,7 +7,7 @@ import { NavigationScreenProp } from "react-navigation";
 import { LanguageSelection } from "@src/AppContext";
 import LanguagesSelectionProvider from "@src/components/LanguageSelectionProvider";
 import ToastProvider from "@src/components/ToastProvider";
-import { PracticeScreenParams, Word } from "@src/content/types";
+import { LessonScreenParams, Word } from "@src/content/types";
 import { COLORS } from "@src/styles/Colors";
 import { filterBySearchTerm, mapWordsForList } from "@src/utils";
 
@@ -17,7 +17,7 @@ import { filterBySearchTerm, mapWordsForList } from "@src/utils";
  */
 
 interface IProps {
-  navigation: NavigationScreenProp<PracticeScreenParams>;
+  navigation: NavigationScreenProp<LessonScreenParams>;
   selectedLanguage: LanguageSelection;
   setToastMessage: (toastMessage: string) => void;
 }

@@ -7,13 +7,14 @@ import {
 } from "react-navigation";
 
 import { ROUTE_NAMES } from "@src/constants/Routes";
+import { LessonScreenParams } from "@src/content/types";
 import AboutScreen from "@src/screens/AboutScreen";
 import DrawerComponent from "@src/screens/DrawerMenuScreen";
 import FlashcardsScreen from "@src/screens/FlashcardsScreen";
 import HomeScreen from "@src/screens/HomeScreen";
+import LessonSummaryScreen from "@src/screens/LessonSummaryScreen";
 import MandarinQuizScreen from "@src/screens/QuizScreen";
 import ViewAllScreen from "@src/screens/ViewAllScreen";
-import LessonSummaryScreen from "./screens/LessonSummaryScreen";
 
 /** ========================================================================
  * App navigation
@@ -41,7 +42,7 @@ const AppStack = () => {
         navigationOptions: ({
           navigation,
         }: {
-          navigation: NavigationScreenProp<{}>;
+          navigation: NavigationScreenProp<LessonScreenParams>;
         }) => {
           const index = navigation.getParam("lessonIndex");
           const isSummaryReview = navigation.getParam("isSummaryReview");
@@ -69,9 +70,16 @@ const AppStack = () => {
       },
       [ROUTE_NAMES.VIEW_ALL]: {
         screen: ViewAllScreen,
-        navigationOptions: {
-          title: "All Words ⛩",
-          headerBackTitle: null,
+        navigationOptions: ({
+          navigation,
+        }: {
+          navigation: NavigationScreenProp<{}>;
+        }) => {
+          const title = navigation.getParam("headerTitle", undefined);
+          return {
+            title: title || "All Words ⛩",
+            headerBackTitle: null,
+          };
         },
       },
       [ROUTE_NAMES.ABOUT]: {

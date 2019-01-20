@@ -7,7 +7,7 @@ import { NavigationScreenProp } from "react-navigation";
 
 import { LanguageSelection } from "@src/AppContext";
 import LanguagesSelectionProvider from "@src/components/LanguageSelectionProvider";
-import { Lesson, PracticeScreenParams, Word } from "@src/content/types";
+import { Lesson, LessonScreenParams, Word } from "@src/content/types";
 import { COLORS } from "@src/styles/Colors";
 import { knuthShuffle } from "@src/utils";
 
@@ -17,7 +17,7 @@ import { knuthShuffle } from "@src/utils";
  */
 
 interface IProps {
-  navigation: NavigationScreenProp<PracticeScreenParams>;
+  navigation: NavigationScreenProp<LessonScreenParams>;
   selectedLanguage: LanguageSelection;
 }
 
