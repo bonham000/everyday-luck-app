@@ -383,7 +383,7 @@ class QuizScreen extends React.Component<IProps, IState> {
     const params: LessonScreenParams = {
       lesson,
       lessonIndex,
-      headerTitle: `Lesson ${lessonIndex + 1} Content`,
+      headerTitle: `Lesson ${Number(lessonIndex) + 1} Content`,
     };
     this.props.navigation.navigate(ROUTE_NAMES.VIEW_ALL, params);
   };
