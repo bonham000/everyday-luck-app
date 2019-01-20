@@ -36,7 +36,7 @@ jobs:
       # Install expo-cli and publish an OTA update
       - run:
           name: Install Expo CLI
-          command: sudo npm i -g expo-cli
+          command: sudo yarn global add expo-cli
       - run:
           name: Login to Expo
           command: expo login --username $EXPO_USERNAME --password $EXPO_PASSWORD
