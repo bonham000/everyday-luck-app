@@ -1,6 +1,7 @@
 import { ROUTE_NAMES } from "@src/constants/Routes";
-import { LESSONS } from "@src/content/mandarin";
+import ALL_LESSONS, { LESSONS } from "@src/content/mandarin";
 import { Word } from "@src/content/mandarin/types";
+import { COLORS } from "@src/styles/Colors";
 import glamorous from "glamorous-native";
 import React from "react";
 import { Text } from "react-native-paper";
@@ -33,14 +34,22 @@ class HomeScreen extends React.Component<IProps, {}> {
             </LessonLink>
           );
         })}
+        <ReviewLink onPress={this.openLessonSummary(ALL_LESSONS, 0, true)}>
+          <Text>Review all content</Text>
+        </ReviewLink>
       </Container>
     );
   }
 
-  openLessonSummary = (lesson: ReadonlyArray<Word>, index: number) => () => {
+  openLessonSummary = (
+    lesson: ReadonlyArray<Word>,
+    index: number,
+    isSummaryReview: boolean = false,
+  ) => () => {
     const params: LessonSummaryScreenParams = {
       lesson,
       lessonIndex: index,
+      isSummaryReview,
     };
     this.props.navigation.navigate(ROUTE_NAMES.LESSON_SUMMARY, params);
   };
@@ -63,6 +72,13 @@ const LessonLink = glamorous.touchableOpacity({
   padding: 10,
   margin: 4,
   backgroundColor: "rgb(225,225,225)",
+});
+
+const ReviewLink = glamorous.touchableOpacity({
+  width: "90%",
+  padding: 10,
+  margin: 4,
+  backgroundColor: COLORS.actionButtonMint,
 });
 
 const TextStyles = {

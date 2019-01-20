@@ -6,8 +6,8 @@ import { createAppContainer } from "react-navigation";
 
 import AppContext from "@src/AppContext";
 import { CustomToast } from "@src/components/ToastProvider";
+import { getLanguageContent } from "@src/content/index.ts";
 import createAppNavigator from "@src/NavigatorConfig";
-import { getLanguageContent } from "@src/utils";
 
 /** ========================================================================
  * Types

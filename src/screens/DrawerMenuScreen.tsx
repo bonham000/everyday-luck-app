@@ -36,7 +36,7 @@ class DrawerMenuScreen extends React.Component<IProps, {}> {
     return (
       <ScrollView keyboardShouldPersistTaps="always">
         <SafeAreaView
-          style={{ flex: 1, paddingTop: 75 }}
+          style={{ flex: 1, paddingTop: 75, paddingLeft: 6 }}
           forceInset={{ top: "always", horizontal: "never" }}
         >
           <View style={{ flexDirection: "row", justifyContent: "center" }}>
@@ -46,23 +46,6 @@ class DrawerMenuScreen extends React.Component<IProps, {}> {
               source={require("../assets/icon.png")}
             />
           </View>
-          <Item
-            onPress={this.createNavigationHandler(ROUTE_NAMES.MANDARIN_QUIZ)}
-          >
-            🏮
-            {"  "}
-            Quiz
-          </Item>
-          <Item onPress={this.createNavigationHandler(ROUTE_NAMES.FLASHCARDS)}>
-            🎎
-            {"  "}
-            Flashcards
-          </Item>
-          <Item onPress={this.createNavigationHandler(ROUTE_NAMES.VIEW_ALL)}>
-            🍱
-            {"  "}
-            View All
-          </Item>
           <Item onPress={this.createNavigationHandler(ROUTE_NAMES.ABOUT)}>
             🎋
             {"  "}
@@ -108,6 +91,7 @@ const Item = glamorous.text({
   fontSize: 16,
   marginTop: 45,
   marginLeft: 12,
+  fontWeight: "500",
 });
 
 /** ========================================================================

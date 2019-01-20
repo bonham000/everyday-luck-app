@@ -148,17 +148,4 @@ const Content: ReadonlyArray<Word> = [
   },
 ];
 
-{
-  Content.reduce((set, { characters }: any) => {
-    if (set.has(characters)) {
-      console.log(`***** Duplicate word detected!!! -> ${characters}`);
-    } else {
-      set.add(characters);
-    }
-    return set;
-  }, new Set());
-}
-
-export default (process.env.NODE_ENV === "development"
-  ? Content.slice(0, 5)
-  : Content);
+export default Content;

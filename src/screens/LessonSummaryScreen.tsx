@@ -14,6 +14,7 @@ import { COLORS } from "@src/styles/Colors";
 export interface LessonSummaryScreenParams {
   lesson: ReadonlyArray<Word>;
   lessonIndex: number;
+  isSummaryReview: boolean;
 }
 
 interface IProps {
@@ -28,9 +29,12 @@ interface IProps {
 class LessonSummaryScreen extends React.Component<IProps, {}> {
   render(): JSX.Element {
     const lesson = this.props.navigation.getParam("lesson");
+    const isSummaryReview = this.props.navigation.getParam("isSummaryReview");
     return (
       <Container>
-        <Text style={TextStyles}>Lesson Summary</Text>
+        <Text style={TextStyles}>
+          {isSummaryReview ? "Lesson" : "Content"} Summary
+        </Text>
         <Text style={{ marginBottom: 12 }}>
           {lesson.length} total words to practice in this lesson
         </Text>

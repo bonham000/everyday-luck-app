@@ -1,8 +1,6 @@
 import { NavigationActions, StackActions } from "react-navigation";
 
 import { ROUTE_NAMES } from "@src/constants/Routes";
-import Korean from "@src/content/Korean";
-import Mandarin from "@src/content/mandarin/index.ts";
 import { Word } from "@src/content/mandarin/types";
 
 export const assertUnreachable = (x: never): never => {
@@ -85,17 +83,28 @@ export const filterForOneCharacterMode = (
 };
 
 /**
- * Gets the language lesson content for the user selected language.
+ * Combine individual lesson content and check for duplicate words
  */
-export const getLanguageContent = (
-  language: "Mandarin" | "Korean",
-): ReadonlyArray<Word> => {
-  switch (language) {
-    case "Mandarin":
-      return Mandarin;
-    case "Korean":
-      return Korean;
-    default:
-      return [];
-  }
+export const deriveContentFromLessons = (
+  contentBlocks: ReadonlyArray<ReadonlyArray<Word>>,
+) => {
+  // Use a set to check for duplicate entries
+  const wordSet = new Set();
+  return contentBlocks.reduce((content, lesson, index) => {
+    return content.concat(
+      ...lesson.map((item: Word) => {
+        const { characters } = item;
+        if (wordSet.has(characters)) {
+          throw new Error(`Duplicate word detected! -> ${characters}`);
+        } else {
+          wordSet.add(item.characters);
+        }
+
+        return {
+          ...item,
+          lessonKey: index + 1,
+        };
+      }),
+    );
+  }, []);
 };
