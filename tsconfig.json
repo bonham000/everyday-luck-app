@@ -21,7 +21,8 @@
     "forceConsistentCasingInFileNames": false,
     "baseUrl": ".",
     "paths": {
-      "@src/*": ["src/*"]
+      "@src/*": ["src/*"],
+      "expo": ["node_modules/@types/expo", "node_modules/expo"]
     }
   },
   "exclude": ["node_modules"],

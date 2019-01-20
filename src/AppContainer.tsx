@@ -1,5 +1,6 @@
+import { Updates } from "expo";
 import React from "react";
-import { AppState, BackHandler, View } from "react-native";
+import { Alert, AppState, BackHandler, View } from "react-native";
 import { SinglePickerMaterialDialog } from "react-native-material-dialog";
 import { createAppContainer } from "react-navigation";
 
@@ -74,12 +75,22 @@ class AppContainer extends React.Component<{}, IState> {
 
       return false;
     });
+
+    /**
+     * Add listener to AppState to detect app foreground/background actions.
+     */
+    AppState.addEventListener("change", this.handleAppStateChange);
   }
 
   componentWillUnmount(): void {
+    /**
+     * Remove listeners and clear any existing timeout.
+     */
     BackHandler.removeEventListener("hardwareBackPress", () => {
       return;
     });
+
+    AppState.removeEventListener("change", this.handleAppStateChange);
 
     this.clearTimer();
   }
@@ -176,6 +187,45 @@ class AppContainer extends React.Component<{}, IState> {
       return this.navigationRef.state.nav.routes[0].routes.length === 1;
     } catch (_) {
       return true;
+    }
+  };
+
+  handleAppStateChange = (nextAppState: string) => {
+    if (
+      this.state.appState.match(/inactive|background/) &&
+      nextAppState === "active"
+    ) {
+      this.checkForAppUpdate();
+    }
+
+    this.setState({ appState: nextAppState });
+  };
+
+  checkForAppUpdate = async (): Promise<void> => {
+    try {
+      const { isAvailable } = await Updates.checkForUpdateAsync();
+      if (isAvailable) {
+        Alert.alert(
+          "Update Available!",
+          "Confirm to update now.",
+          [
+            { text: "Cancel", onPress: () => null, style: "cancel" },
+            { text: "OK", onPress: this.updateApp },
+          ],
+          { cancelable: false },
+        );
+      }
+    } catch (err) {
+      console.log("Error fetching app update...");
+    }
+  };
+
+  updateApp = async () => {
+    try {
+      await Updates.fetchUpdateAsync();
+      Updates.reloadFromCache();
+    } catch (err) {
+      console.log("Error updating...");
     }
   };
 }
