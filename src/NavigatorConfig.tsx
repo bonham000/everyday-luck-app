@@ -6,6 +6,7 @@ import {
   NavigationScreenProp,
 } from "react-navigation";
 
+import QuizInput from "@src/components/QuizInputComponent";
 import { ROUTE_NAMES } from "@src/constants/Routes";
 import { LessonScreenParams } from "@src/content/types";
 import AboutScreen from "@src/screens/AboutScreen";
@@ -13,7 +14,7 @@ import DrawerComponent from "@src/screens/DrawerMenuScreen";
 import FlashcardsScreen from "@src/screens/FlashcardsScreen";
 import HomeScreen from "@src/screens/HomeScreen";
 import LessonSummaryScreen from "@src/screens/LessonSummaryScreen";
-import MandarinQuizScreen from "@src/screens/QuizScreen";
+import QuizScreen from "@src/screens/QuizScreen";
 import ViewAllScreen from "@src/screens/ViewAllScreen";
 
 /** ========================================================================
@@ -55,9 +56,20 @@ const AppStack = () => {
         },
       },
       [ROUTE_NAMES.QUIZ]: {
-        screen: MandarinQuizScreen,
+        screen: (props: any) => (
+          <QuizScreen {...props} QuizComponent={QuizInput} />
+        ),
         navigationOptions: {
           title: "Quiz 🇨🇳",
+          headerBackTitle: null,
+        },
+      },
+      [ROUTE_NAMES.MULTIPLE_CHOICE]: {
+        screen: (props: any) => (
+          <QuizScreen {...props} QuizComponent={QuizInput} />
+        ),
+        navigationOptions: {
+          title: "Multiple Choice 🇨🇳",
           headerBackTitle: null,
         },
       },

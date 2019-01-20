@@ -4,14 +4,13 @@ import React from "react";
 import { Alert, Keyboard, TouchableWithoutFeedback } from "react-native";
 import ActionButton from "react-native-action-button";
 import Confetti from "react-native-confetti";
-import { Button, Text, TextInput } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
 import { LanguageSelection } from "@src/AppContext";
-import LanguagesSelectionProvider from "@src/components/LanguageSelectionProvider";
-import Shaker from "@src/components/Shaker";
+import LanguagesSelectionProvider, {
+  ComponentProp,
+} from "@src/components/LanguageSelectionProvider";
 import { ROUTE_NAMES } from "@src/constants/Routes";
-import { COMPLIMENTS, ENCOURAGEMENTS } from "@src/constants/Toasts";
 import { LessonScreenParams, Word } from "@src/content/types";
 import { COLORS } from "@src/styles/Colors";
 import { filterForOneCharacterMode, randomInRange } from "@src/utils";
@@ -24,6 +23,7 @@ import { filterForOneCharacterMode, randomInRange } from "@src/utils";
 interface IProps {
   navigation: NavigationScreenProp<LessonScreenParams>;
   selectedLanguage: LanguageSelection;
+  Component: ComponentProp;
 }
 
 interface IState {
@@ -33,13 +33,13 @@ interface IState {
   currentWordIndex: number;
   shouldShake: boolean;
   wordCompletedCache: Set<number>;
-  encouragementText: string;
   progressCount: number;
   revealAnswer: boolean;
   oneCharacterMode: boolean;
   failedOnce: boolean;
   skipCount: number;
   failCount: number;
+  didReveal: boolean;
   wordContent: ReadonlyArray<Word>;
 }
 
@@ -90,6 +90,7 @@ class QuizScreen extends React.Component<IProps, IState> {
   render(): JSX.Element {
     const {
       valid,
+      didReveal,
       failCount,
       skipCount,
       attempted,
@@ -99,9 +100,10 @@ class QuizScreen extends React.Component<IProps, IState> {
       progressCount,
       oneCharacterMode,
       currentWordIndex,
-      encouragementText,
     } = this.state;
     const CURRENT_WORD = wordContent[currentWordIndex];
+
+    const Component = this.props.Component;
 
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -113,85 +115,45 @@ class QuizScreen extends React.Component<IProps, IState> {
             {wordContent.length - progressCount} remaining, {skipCount} skipped,{" "}
             {failCount} failed
           </ProgressText>
-          {valid || revealAnswer ? (
-            <QuizBox>
-              <MandarinText>{CURRENT_WORD.characters}</MandarinText>
-              <PinyinText>{CURRENT_WORD.phonetic}</PinyinText>
-            </QuizBox>
-          ) : (
-            <Shaker style={{ width: "100%" }} shouldShake={shouldShake}>
-              <QuizBox>
-                <EnglishText>"{CURRENT_WORD.english}"</EnglishText>
-                <TextInput
-                  mode="outlined"
-                  error={attempted}
-                  ref={this.setInputRef}
-                  style={TextInputStyles}
-                  value={this.state.value}
-                  onChangeText={this.handleChange}
-                  onSubmitEditing={this.handleCheck}
-                  label="Translate the English to Mandarin please"
-                />
-              </QuizBox>
-            </Shaker>
-          )}
-          <Button
-            dark
-            mode="contained"
-            style={{
-              marginTop: 30,
-              minWidth: 215,
-              backgroundColor: revealAnswer
-                ? COLORS.actionButtonMint
-                : !valid && attempted
-                ? COLORS.primaryRed
-                : COLORS.primaryBlue,
-            }}
-            onPress={
-              valid
-                ? this.handleProceed()
-                : revealAnswer
-                ? this.handleToggleRevealAnswer
-                : this.handleCheck
-            }
-          >
-            {valid
-              ? `✨ ${
-                  COMPLIMENTS[randomInRange(0, COMPLIMENTS.length - 1)]
-                }! ✨`
-              : revealAnswer
-              ? "Hide Answer 🧐"
-              : attempted
-              ? `${encouragementText}! Keep trying! 🙏`
-              : "Check answer 👲"}
-          </Button>
-          {!valid && (
-            <ActionButton position="left" buttonColor={COLORS.actionButtonRed}>
-              <ActionButton.Item
-                buttonColor={COLORS.actionButtonPurple}
-                title="Skip this one!"
-                onPress={this.handleProceed(true)}
-              >
-                <Ionicons name="md-key" style={ActionIconStyle} />
-              </ActionButton.Item>
-              <ActionButton.Item
-                buttonColor={COLORS.actionButtonMint}
-                title="View all definitions"
-                onPress={this.navigateToViewAll}
-              >
-                <Ionicons name="md-school" style={ActionIconStyle} />
-              </ActionButton.Item>
-              <ActionButton.Item
-                buttonColor={COLORS.actionButtonYellow}
-                onPress={this.handleToggleOneCharacterMode}
-                title={`${
-                  oneCharacterMode ? "Disable" : "Switch to"
-                } one-character mode`}
-              >
-                <Ionicons name="md-jet" style={ActionIconStyle} />
-              </ActionButton.Item>
-            </ActionButton>
-          )}
+          <Component
+            didReveal={didReveal}
+            valid={valid}
+            revealAnswer={revealAnswer}
+            currentWord={CURRENT_WORD}
+            shouldShake={shouldShake}
+            attempted={attempted}
+            setInputRef={this.setInputRef}
+            value={this.state.value}
+            handleChange={this.handleChange}
+            handleCheck={this.handleCheck}
+            handleProceed={this.handleProceed}
+            handleToggleRevealAnswer={this.handleToggleRevealAnswer}
+          />
+          <ActionButton position="left" buttonColor={COLORS.actionButtonRed}>
+            <ActionButton.Item
+              buttonColor={COLORS.actionButtonPurple}
+              title="Skip this one!"
+              onPress={this.handleProceed(true)}
+            >
+              <Ionicons name="md-key" style={ActionIconStyle} />
+            </ActionButton.Item>
+            <ActionButton.Item
+              buttonColor={COLORS.actionButtonMint}
+              title="View all definitions"
+              onPress={this.navigateToViewAll}
+            >
+              <Ionicons name="md-school" style={ActionIconStyle} />
+            </ActionButton.Item>
+            <ActionButton.Item
+              buttonColor={COLORS.actionButtonYellow}
+              onPress={this.handleToggleOneCharacterMode}
+              title={`${
+                oneCharacterMode ? "Disable" : "Switch to"
+              } one-character mode`}
+            >
+              <Ionicons name="md-jet" style={ActionIconStyle} />
+            </ActionButton.Item>
+          </ActionButton>
         </Container>
       </TouchableWithoutFeedback>
     );
@@ -211,6 +173,7 @@ class QuizScreen extends React.Component<IProps, IState> {
       progressCount: 0,
       skipCount: 0,
       failCount: 0,
+      didReveal: false,
       revealAnswer: false,
       oneCharacterMode: activateOneCharacterMode,
       wordContent: activateOneCharacterMode
@@ -246,19 +209,14 @@ class QuizScreen extends React.Component<IProps, IState> {
        * - If the user presses again without changing the input, reveal the answer
        * - Otherwise show a different encouragementText each time.
        */
-      let encouragementText: string;
       let updatedContent = wordContent;
       if (!this.state.failedOnce) {
         if (currentWordIndex !== wordContent.length - 1) {
           updatedContent = [...wordContent, wordContent[currentWordIndex]];
         }
-        encouragementText =
-          ENCOURAGEMENTS[randomInRange(0, ENCOURAGEMENTS.length - 1)];
       } else {
         if (value === this.state.value) {
           return this.handleToggleRevealAnswer();
-        } else {
-          encouragementText = "Press to reveal answer";
         }
       }
 
@@ -267,9 +225,8 @@ class QuizScreen extends React.Component<IProps, IState> {
         valid: false,
         shouldShake: true,
         failedOnce: true,
-        encouragementText,
-        failCount: failed ? prevState.failCount + 1 : prevState.failCount,
         wordContent: updatedContent,
+        failCount: failed ? prevState.failCount + 1 : prevState.failCount,
       }));
     }
   };
@@ -359,7 +316,7 @@ class QuizScreen extends React.Component<IProps, IState> {
   handleToggleRevealAnswer = () => {
     this.setState(
       prevState => ({
-        // attempted: false,
+        didReveal: true,
         revealAnswer: !prevState.revealAnswer,
       }),
       () => {
@@ -453,69 +410,22 @@ const ProgressText = glamorous.text({
   fontSize: 10,
 });
 
-const QuizBox = glamorous.view({
-  marginTop: 25,
-  height: 125,
-  width: "100%",
-  alignItems: "center",
-});
-
-const TextInputStyles = {
-  width: "95%",
-  fontSize: 34,
-  marginTop: 6,
-  backgroundColor: "rgb(231,237,240)",
-};
-
 const ActionIconStyle = {
   fontSize: 20,
   height: 22,
   color: "white",
 };
 
-const EnglishText = ({ children }: { children: ReadonlyArray<string> }) => (
-  <Text
-    style={{
-      fontSize: 20,
-      marginTop: 15,
-      marginBottom: 15,
-      fontWeight: "bold",
-    }}
-  >
-    {children}
-  </Text>
-);
-
-const MandarinText = ({ children }: { children: string }) => (
-  <Text
-    style={{
-      fontSize: 40,
-      marginTop: 15,
-      marginBottom: 15,
-      fontWeight: "bold",
-    }}
-  >
-    {children}
-  </Text>
-);
-
-const PinyinText = ({ children }: { children: string }) => (
-  <Text
-    style={{
-      fontSize: 22,
-      marginBottom: 15,
-      fontWeight: "bold",
-    }}
-  >
-    {children}
-  </Text>
-);
-
 /** ========================================================================
  * Export
  * =========================================================================
  */
 
-export default (props: any) => (
-  <LanguagesSelectionProvider {...props} Component={QuizScreen} />
+export default ({ QuizComponent, ...rest }: any) => (
+  <LanguagesSelectionProvider
+    {...rest}
+    Component={(childProps: any) => (
+      <QuizScreen {...childProps} Component={QuizComponent} />
+    )}
+  />
 );

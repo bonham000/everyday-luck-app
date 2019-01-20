@@ -7,7 +7,7 @@ import AppContext from "@src/AppContext";
  * =========================================================================
  */
 
-type ComponentProp = (args: any) => JSX.Element;
+export type ComponentProp = (args: any) => JSX.Element;
 
 interface IProps {
   Component: ComponentProp;

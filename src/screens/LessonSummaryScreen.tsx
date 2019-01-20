@@ -56,7 +56,7 @@ class LessonSummaryScreen extends React.Component<IProps, {}> {
           <Text>Quiz</Text>
         </ActionBlock>
         <ActionBlock
-          onPress={this.handleNavigateToSection(ROUTE_NAMES.FLASHCARDS)}
+          onPress={this.handleNavigateToSection(ROUTE_NAMES.MULTIPLE_CHOICE)}
         >
           <Text>Multiple Choice</Text>
         </ActionBlock>
