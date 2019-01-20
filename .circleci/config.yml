@@ -6,12 +6,33 @@ jobs:
       - image: circleci/node:8.9.1
     steps:
       - checkout
+      # Restore npm cache
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+
+      # Install dependencies
       - run:
           name: Install dependencies
           command: npm install
+
+      # Run tests
       - run:
           name: Run tests
           command: npm run test:all
+
+      # Persist npm cache
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
+      - persist_to_workspace:
+          root: ~/mandarin
+          paths: .
+
+      # Install expo-cli and publish an OTA update
       - run:
           name: Install Expo CLI
           command: sudo npm i -g expo-cli
