@@ -23,6 +23,17 @@
     },
     "ios": {
       "bundleIdentifier": "learn.mandarin.app"
+    },
+    "hooks": {
+      "postPublish": [
+        {
+          "file": "sentry-expo/upload-sourcemaps",
+          "config": {
+            "organization": "personal-github",
+            "project": "mandarin-app"
+          }
+        }
+      ]
     }
   }
 }

@@ -3,6 +3,7 @@ import React from "react";
 import { Alert, AppState, BackHandler, View } from "react-native";
 import { SinglePickerMaterialDialog } from "react-native-material-dialog";
 import { createAppContainer } from "react-navigation";
+import Sentry from "sentry-expo";
 
 import AppContext from "@src/AppContext";
 import { CustomToast } from "@src/components/ToastProvider";
@@ -48,6 +49,8 @@ class AppContainer extends React.Component<{}, IState> {
   }
 
   async componentDidMount(): Promise<void> {
+    Sentry.captureException(new Error("Test Error!"));
+
     /**
      * Manage state to assign a toast warning if user tries to
      * press the back button when it will close the app. Show them

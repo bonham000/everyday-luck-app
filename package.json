@@ -30,7 +30,8 @@
     "react-native-flip-card": "^3.5.2",
     "react-native-material-dialog": "^0.7.6",
     "react-native-paper": "^2.5.0",
-    "react-navigation": "^3.0.9"
+    "react-navigation": "^3.0.9",
+    "sentry-expo": "^1.11.2"
   },
   "devDependencies": {
     "@types/expo": "^31.0.8",

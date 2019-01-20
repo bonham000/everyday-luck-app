@@ -1,8 +1,12 @@
 import React from "react";
 import { DefaultTheme, Provider as PaperProvider } from "react-native-paper";
+import Sentry from "sentry-expo";
 
 import App from "@src/AppContainer";
 import { COLORS } from "@src/styles/Colors";
+
+// @ts-ignore
+Sentry.config(process.env.SENTRY_DSN);
 
 const theme = {
   ...DefaultTheme,
