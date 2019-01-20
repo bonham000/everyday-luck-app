@@ -1,12 +1,19 @@
 import { Updates } from "expo";
 import React from "react";
-import { Alert, AppState, BackHandler, View } from "react-native";
+import {
+  ActivityIndicator,
+  Alert,
+  AppState,
+  BackHandler,
+  View,
+} from "react-native";
 import { SinglePickerMaterialDialog } from "react-native-material-dialog";
 import { createAppContainer } from "react-navigation";
 
 import AppContext from "@src/AppContext";
 import { CustomToast } from "@src/components/ToastProvider";
 import createAppNavigator from "@src/NavigatorConfig";
+import { COLORS } from "./styles/Colors";
 
 /** ========================================================================
  * Types
@@ -16,6 +23,7 @@ import createAppNavigator from "@src/NavigatorConfig";
 interface IState {
   appState: string;
   toastMessage: string;
+  updating: boolean;
   tryingToCloseApp: boolean;
   selectedLanguage: any;
   languageSelectionMenuOpen: boolean;
@@ -36,6 +44,7 @@ class AppContainer extends React.Component<{}, IState> {
     this.state = {
       appState: AppState.currentState,
       toastMessage: "",
+      updating: false,
       tryingToCloseApp: false,
       languageSelectionMenuOpen: false,
       selectedLanguage: {
@@ -95,6 +104,16 @@ class AppContainer extends React.Component<{}, IState> {
   }
 
   render(): JSX.Element | null {
+    if (this.state.updating) {
+      return (
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
+          <ActivityIndicator size="large" color={COLORS.primaryBlue} />
+        </View>
+      );
+    }
+
     return (
       <View style={{ flex: 1 }}>
         <AppContext.Provider
@@ -212,17 +231,26 @@ class AppContainer extends React.Component<{}, IState> {
           { cancelable: false },
         );
       }
-    } catch (err) {
-      console.log("Error fetching app update...");
-    }
+      // tslint:disable-next-line
+    } catch (err) {}
   };
 
-  updateApp = async () => {
+  updateApp = () => {
     try {
-      await Updates.fetchUpdateAsync();
-      Updates.reloadFromCache();
+      this.setState(
+        {
+          updating: true,
+        },
+        async () => {
+          await Updates.fetchUpdateAsync();
+          Updates.reloadFromCache();
+        },
+      );
     } catch (err) {
-      console.log("Error updating...");
+      this.setState({
+        updating: false,
+        toastMessage: "Update failed...",
+      });
     }
   };
 }
@@ -237,7 +265,7 @@ class AppPureComponent extends React.Component<
   { assignNavigatorRef: (ref: any) => void },
   {}
 > {
-  shouldComponentUpdate(nextProps: any): boolean {
+  shouldComponentUpdate(_: any): boolean {
     return false;
   }
 
