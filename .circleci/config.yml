@@ -1,0 +1,21 @@
+version: 2
+jobs:
+  publish:
+    docker:
+      - image: circleci/node:3.8-alpine
+    steps:
+      - checkout
+      - run:
+          - name: Install dependencies
+          - command: npm install
+      - run:
+          - name: Run tests
+          - command: npm run test:all
+      - run:
+          - name: Install Expo CLI
+          - command: npm i -g expo-cli
+workflows:
+  version: 2
+  test_and_publish_update:
+    jobs:
+      - publish
