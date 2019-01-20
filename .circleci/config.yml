@@ -15,6 +15,12 @@ jobs:
       - run:
           name: Install Expo CLI
           command: sudo npm i -g expo-cli
+      - run:
+          name: Login to Expo
+          command: expo login --username $EXPO_USERNAME --password $EXPO_PASSWORD
+      - run:
+          name: Publish OTA Update
+          command: npm run publish
 workflows:
   version: 2
   test_and_publish_update:
