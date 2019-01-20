@@ -38,12 +38,13 @@ class HomeScreen extends React.Component<IProps, {}> {
           return (
             <LessonLink onPress={this.openLessonSummary(lesson, index)}>
               <Text>Lesson {index + 1}</Text>
+              <Text>🔐</Text>
             </LessonLink>
           );
         })}
         <LineBreak />
         <ReviewLink onPress={this.openLessonSummary(ALL_LESSONS, 0, true)}>
-          <Text>Review all unlocked lessons</Text>
+          <Text>View all unlocked lessons</Text>
         </ReviewLink>
       </Container>
     );
@@ -79,6 +80,9 @@ const LessonLink = glamorous.touchableOpacity({
   width: "90%",
   padding: 10,
   margin: 4,
+  flexDirection: "row",
+  alignItems: "center",
+  justifyContent: "space-between",
   backgroundColor: "rgb(225,225,225)",
 });
 
