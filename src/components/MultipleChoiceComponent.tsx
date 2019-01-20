@@ -1,11 +1,12 @@
 import glamorous from "glamorous-native";
 import React from "react";
-import { GestureResponderEvent } from "react-native";
+import { GestureResponderEvent, ViewStyle } from "react-native";
 import { Button, Text } from "react-native-paper";
 
 import { LanguageSelection } from "@src/AppContext";
+import Shaker from "@src/components/Shaker";
 import { getLanguageContent } from "@src/content";
-import { Word } from "@src/content/types";
+import { Lesson, Word } from "@src/content/types";
 import { COLORS } from "@src/styles/Colors";
 import { getAlternateChoices } from "@src/utils";
 
@@ -25,9 +26,13 @@ interface IProps {
   selectedLanguage: LanguageSelection;
   setInputRef: () => void;
   handleChange: () => void;
-  handleCheck: (event: GestureResponderEvent) => void;
   handleProceed: () => (event: GestureResponderEvent) => void;
   handleToggleRevealAnswer: (event: GestureResponderEvent) => void;
+  handleCheck: (correct: boolean) => (event: GestureResponderEvent) => void;
+}
+
+interface IState {
+  choices: Lesson;
 }
 
 /** ========================================================================
@@ -35,38 +40,101 @@ interface IProps {
  * =========================================================================
  */
 
-const MultipleChoiceInput = ({
-  valid,
-  revealAnswer,
-  selectedLanguage,
-  currentWord,
-  shouldShake,
-  attempted,
-  setInputRef,
-  value,
-  handleChange,
-  handleCheck,
-  handleProceed,
-  handleToggleRevealAnswer,
-  didReveal,
-}: IProps) => {
-  const ALTERNATE_CHOICES = getAlternateChoices(
-    currentWord.characters,
-    getLanguageContent(selectedLanguage),
-  );
-  return (
-    <React.Fragment>
-      <TitleContainer>
-        <PinyinText>{currentWord.english}</PinyinText>
-      </TitleContainer>
-      {ALTERNATE_CHOICES.map(choice => (
-        <Choice>
-          <MandarinText>{choice}</MandarinText>
-        </Choice>
-      ))}
-    </React.Fragment>
-  );
-};
+class MultipleChoiceInput extends React.Component<IProps, IState> {
+  constructor(props: IProps) {
+    super(props);
+
+    this.state = {
+      choices: this.deriveAlternateChoices(),
+    };
+  }
+
+  deriveAlternateChoices = () => {
+    return getAlternateChoices(
+      this.props.currentWord,
+      getLanguageContent(this.props.selectedLanguage),
+    );
+  };
+
+  componentDidUpdate(nextProps: IProps): void {
+    if (
+      nextProps.currentWord.characters !== this.props.currentWord.characters
+    ) {
+      this.setState({
+        choices: this.deriveAlternateChoices(),
+      });
+    }
+  }
+
+  render(): JSX.Element {
+    const {
+      valid,
+      currentWord,
+      shouldShake,
+      attempted,
+      handleCheck,
+      handleProceed,
+    } = this.props;
+    const shouldReveal = valid || attempted;
+    return (
+      <React.Fragment>
+        <TitleContainer>
+          <PinyinText>{currentWord.english}</PinyinText>
+        </TitleContainer>
+        <Shaker style={{ width: "100%" }} shouldShake={shouldShake}>
+          <Container>
+            {this.state.choices.map(choice => {
+              const isCorrect = choice.characters === currentWord.characters;
+              return (
+                <Choice
+                  style={{
+                    backgroundColor: valid
+                      ? isCorrect
+                        ? COLORS.actionButtonMint
+                        : COLORS.lightDark
+                      : attempted
+                      ? isCorrect
+                        ? COLORS.actionButtonMint
+                        : COLORS.primaryRed
+                      : COLORS.lightDark,
+                  }}
+                  onPress={() => handleCheck(isCorrect)}
+                >
+                  <MandarinText
+                    style={{
+                      fontSize: shouldReveal ? 15 : 45,
+                      fontWeight: shouldReveal ? "400" : "bold",
+                    }}
+                  >
+                    {shouldReveal
+                      ? `${choice.characters} - ${choice.phonetic} - ${
+                          choice.english
+                        }`
+                      : choice.characters}
+                  </MandarinText>
+                </Choice>
+              );
+            })}
+          </Container>
+        </Shaker>
+        {shouldReveal ? (
+          <Button
+            dark
+            mode="contained"
+            style={{
+              marginTop: 30,
+              minWidth: 215,
+              backgroundColor: COLORS.primaryBlue,
+            }}
+            onPress={handleProceed()}
+          >
+            Proceed
+          </Button>
+        ) : null}
+      </React.Fragment>
+    );
+  }
+}
 
 /** ========================================================================
  * Helpers & Styles
@@ -80,17 +148,16 @@ const TitleContainer = glamorous.view({
   alignItems: "center",
 });
 
-const MandarinText = ({ children }: { children: string }) => (
-  <Text
-    style={{
-      fontSize: 45,
-      marginTop: 15,
-      marginBottom: 15,
-    }}
-  >
-    {children}
-  </Text>
-);
+const Container = glamorous.view({
+  width: "100%",
+  alignItems: "center",
+});
+
+const MandarinText = glamorous.text({
+  color: "black",
+  marginTop: 15,
+  marginBottom: 15,
+});
 
 const PinyinText = ({ children }: { children: string }) => (
   <Text
@@ -104,23 +171,33 @@ const PinyinText = ({ children }: { children: string }) => (
   </Text>
 );
 
-const Choice = ({ children }: { children: JSX.Element }) => (
+const Choice = ({
+  children,
+  style,
+  onPress,
+}: {
+  children: JSX.Element;
+  style?: ViewStyle;
+  onPress: (event: GestureResponderEvent) => void;
+}) => (
   <Button
     dark
     mode="contained"
     style={{
       marginTop: 12,
       width: "90%",
-      backgroundColor: COLORS.actionButtonMint,
+      height: 80,
+      justifyContent: "center",
+      ...style,
     }}
-    onPress={() => null}
+    onPress={onPress}
   >
     {children}
   </Button>
 );
 
 /** ========================================================================
- * Helpers & Styles
+ * Export
  * =========================================================================
  */
 

@@ -24,9 +24,9 @@ interface IProps {
   value: string;
   setInputRef: () => void;
   handleChange: () => void;
-  handleCheck: (event: GestureResponderEvent) => void;
   handleProceed: () => (event: GestureResponderEvent) => void;
   handleToggleRevealAnswer: (event: GestureResponderEvent) => void;
+  handleCheck: (correct: boolean) => (event: GestureResponderEvent) => void;
 }
 
 /** ========================================================================
@@ -90,7 +90,7 @@ const QuizInput = ({
             ? handleProceed()
             : revealAnswer
             ? handleToggleRevealAnswer
-            : handleCheck
+            : () => handleCheck(value === currentWord.characters)
         }
       >
         {valid

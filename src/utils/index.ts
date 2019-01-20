@@ -113,17 +113,20 @@ export const deriveContentFromLessons = (
  * Derive shuffled multiple choice options given a word and all the
  * language content.
  */
-export const getAlternateChoices = (word: string, alternates: Lesson) => {
+export const getAlternateChoices = (word: Word, alternates: Lesson) => {
   // tslint:disable-next-line
-  let choices: string[] = [word];
+  let choices: Word[] = [word];
   let idx: number;
-  let option: string;
+  let option: Word;
 
   while (choices.length < 4) {
     idx = randomInRange(0, alternates.length);
-    option = alternates[idx].characters;
+    option = alternates[idx];
 
-    if (option !== word && option.length <= word.length + 2) {
+    if (
+      option.characters !== word.characters &&
+      option.characters.length <= word.characters.length + 2
+    ) {
       choices = [...choices, option];
     }
   }

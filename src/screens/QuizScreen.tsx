@@ -190,15 +190,14 @@ class QuizScreen extends React.Component<IProps, IState> {
     });
   };
 
-  handleCheck = () => {
+  handleCheck = (correct: boolean) => {
     const { value, wordContent, currentWordIndex } = this.state;
 
-    const CURRENT_WORD = wordContent[currentWordIndex];
     let failed = false;
     /**
      * Check answer: either correct or incorrect
      */
-    if (value === CURRENT_WORD.characters) {
+    if (correct) {
       this.handleCorrectAnswer();
     } else {
       failed = true;
@@ -293,6 +292,10 @@ class QuizScreen extends React.Component<IProps, IState> {
   };
 
   handleFinish = () => {
+    /**
+     * TODO: Handle completion logic here.
+     */
+
     // tslint:disable-next-line
     this.timer = setTimeout(() => {
       Alert.alert(
