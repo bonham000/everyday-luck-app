@@ -5,7 +5,6 @@ import { NavigationScreenProp, SafeAreaView } from "react-navigation";
 
 import LanguagesSelectionProvider from "@src/components/LanguageSelectionProvider";
 import { ROUTE_NAMES } from "@src/constants/Routes";
-import { resetNavigation } from "@src/utils";
 
 /** ========================================================================
  * Types
