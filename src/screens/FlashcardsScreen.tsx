@@ -65,15 +65,14 @@ class FlashcardsScreen extends React.Component<IProps, IState> {
           verticalSwipe={false}
           cardVerticalMargin={0}
           cardHorizontalMargin={0}
+          animateOverlayLabelsOpacity
           cards={this.state.deck}
           renderCard={this.renderCard}
-          onSwipedLeft={this.handleSwipe("left")}
-          onSwipedRight={this.handleSwipe("right")}
-          // onSwipedAll={this.handleFinish}
           ref={this.handleAssignSwiperRef}
           backgroundColor={COLORS.lightWhite}
           overlayLabels={CARD_OVERLAY_LABELS}
-          animateOverlayLabelsOpacity
+          onSwipedLeft={this.handleSwipe("left")}
+          onSwipedRight={this.handleSwipe("right")}
         />
         <ProgressText>
           Progress: {this.state.completed} flashcards completed (
@@ -117,14 +116,23 @@ class FlashcardsScreen extends React.Component<IProps, IState> {
 
     let newDeck: Lesson;
     if (direction === "left") {
-      const reshuffledDeckSlice = knuthShuffle([
-        ...deck.slice(cardIndex + 1),
-        deck[cardIndex],
-      ]);
-      if (completed > 0 && cardIndex === 0) {
-        newDeck = reshuffledDeckSlice;
+      if (cardIndex === deck.length - 2) {
+        newDeck = [
+          ...deck.slice(0, cardIndex + 1),
+          deck[cardIndex + 1],
+          deck[cardIndex],
+        ];
       } else {
-        newDeck = [...deck.slice(0, cardIndex + 1), ...reshuffledDeckSlice];
+        const reshuffledDeckSlice = knuthShuffle([
+          ...deck.slice(cardIndex + 1),
+          deck[cardIndex],
+        ]);
+
+        if (cardIndex === deck.length - 1 && completed > 0) {
+          newDeck = reshuffledDeckSlice;
+        } else {
+          newDeck = [...deck.slice(0, cardIndex + 1), ...reshuffledDeckSlice];
+        }
       }
     } else {
       newDeck = deck;
@@ -222,7 +230,7 @@ const ProgressText = glamorous.text({
 
 const CARD_OVERLAY_LABELS = {
   left: {
-    title: "Try again!",
+    title: "Nope!",
     style: {
       label: {
         backgroundColor: "black",
