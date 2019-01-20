@@ -17,6 +17,7 @@ import HomeScreen from "@src/screens/HomeScreen";
 import LessonSummaryScreen from "@src/screens/LessonSummaryScreen";
 import QuizScreen from "@src/screens/QuizScreen";
 import ViewAllScreen from "@src/screens/ViewAllScreen";
+import { NavigationState } from "react-native-paper";
 
 /** ========================================================================
  * App navigation
@@ -125,6 +126,16 @@ export default () => {
     {
       [ROUTE_NAMES.HOME]: {
         screen: AppStack(),
+        navigationOptions: ({
+          navigation,
+        }: {
+          navigation: NavigationScreenProp<NavigationState<{}>>;
+        }) => {
+          return {
+            drawerLockMode:
+              navigation.state.index > 0 ? "locked-closed" : "unlocked",
+          };
+        },
       },
     },
     // @ts-ignore
