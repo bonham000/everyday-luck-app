@@ -45,6 +45,7 @@
     "@types/react-navigation": "3.0.1",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^23.6.0",
+    "babel-plugin-inline-dotenv": "^1.2.0",
     "babel-preset-expo": "^5.0.0",
     "jest": "^23.6.0",
     "jest-expo": "^32.0.0",

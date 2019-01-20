@@ -8,26 +8,27 @@ jobs:
       - checkout
       # Restore npm cache
       - restore_cache:
+          name: Restore Yarn Package Cache
           keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
+            - yarn-packages-{{ checksum "yarn.lock" }}
 
       # Install dependencies
       - run:
           name: Install dependencies
-          command: npm install
+          command: yarn install --frozen-lockfile
 
       # Run tests
       - run:
           name: Run tests
-          command: npm run test:all
+          command: yarn test:all
 
       # Persist npm cache
       - save_cache:
+          name: Save yarn package cache
+          key: yarn-packages-{{ checksum "yarn.lock" }}
           paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
+            - ~/.cache/yarn
+
       - persist_to_workspace:
           root: ~/mandarin
           paths: .
@@ -41,7 +42,7 @@ jobs:
           command: expo login --username $EXPO_USERNAME --password $EXPO_PASSWORD
       - run:
           name: Publish OTA Update
-          command: npm run publish
+          command: yarn run publish
 workflows:
   version: 2
   test_and_publish_update:
