@@ -10,10 +10,10 @@ import {
 import { SinglePickerMaterialDialog } from "react-native-material-dialog";
 import { createAppContainer } from "react-navigation";
 
-import AppContext from "@src/AppContext";
 import { CustomToast } from "@src/components/ToastProvider";
+import { COLORS } from "@src/constants/Colors";
+import GlobalContext from "@src/GlobalContext";
 import createAppNavigator from "@src/NavigatorConfig";
-import { COLORS } from "./styles/Colors";
 
 /** ========================================================================
  * Types
@@ -34,7 +34,7 @@ interface IState {
  * =========================================================================
  */
 
-class AppContainer extends React.Component<{}, IState> {
+class RootContainer extends React.Component<{}, IState> {
   timeout: any = null;
   navigationRef: any = null;
 
@@ -116,7 +116,7 @@ class AppContainer extends React.Component<{}, IState> {
 
     return (
       <View style={{ flex: 1 }}>
-        <AppContext.Provider
+        <GlobalContext.Provider
           value={{
             setToastMessage: this.setToastMessage,
             openLanguageSelectionMenu: this.openLanguageSelectionMenu,
@@ -139,7 +139,7 @@ class AppContainer extends React.Component<{}, IState> {
             onOk={this.handlePickLanguage}
           />
           <AppPureComponent assignNavigatorRef={this.assignNavRef} />
-        </AppContext.Provider>
+        </GlobalContext.Provider>
       </View>
     );
   }
@@ -281,4 +281,4 @@ class AppPureComponent extends React.Component<
  * =========================================================================
  */
 
-export default AppContainer;
+export default RootContainer;

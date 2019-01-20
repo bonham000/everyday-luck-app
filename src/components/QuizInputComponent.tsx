@@ -4,9 +4,9 @@ import { GestureResponderEvent } from "react-native";
 import { Button, Text, TextInput } from "react-native-paper";
 
 import Shaker from "@src/components/Shaker";
+import { COLORS } from "@src/constants/Colors";
 import { COMPLIMENTS } from "@src/constants/Toasts";
 import { Word } from "@src/content/types";
-import { COLORS } from "@src/styles/Colors";
 import { randomInRange } from "@src/utils";
 
 /** ========================================================================

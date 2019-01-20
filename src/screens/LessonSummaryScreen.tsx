@@ -4,9 +4,9 @@ import { StyleSheet } from "react-native";
 import { Text } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
+import { COLORS } from "@src/constants/Colors";
 import { ROUTE_NAMES } from "@src/constants/Routes";
 import { LessonScreenParams } from "@src/content/types";
-import { COLORS } from "@src/styles/Colors";
 
 /** ========================================================================
  * Types

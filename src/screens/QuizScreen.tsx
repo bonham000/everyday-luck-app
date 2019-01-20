@@ -6,13 +6,13 @@ import ActionButton from "react-native-action-button";
 import Confetti from "react-native-confetti";
 import { NavigationScreenProp } from "react-navigation";
 
-import { LanguageSelection } from "@src/AppContext";
 import LanguagesSelectionProvider, {
   ComponentProp,
 } from "@src/components/LanguageSelectionProvider";
+import { COLORS } from "@src/constants/Colors";
 import { ROUTE_NAMES } from "@src/constants/Routes";
 import { LessonScreenParams, Word } from "@src/content/types";
-import { COLORS } from "@src/styles/Colors";
+import { LanguageSelection } from "@src/GlobalContext";
 import { filterForOneCharacterMode, randomInRange } from "@src/utils";
 
 /** ========================================================================

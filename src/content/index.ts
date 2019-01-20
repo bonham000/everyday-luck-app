@@ -1,4 +1,3 @@
-import { LanguageSelection } from "@src/AppContext";
 import KOREAN, {
   LESSONS as KOREAN_LESSONS,
 } from "@src/content/korean/index.ts";
@@ -6,6 +5,7 @@ import MANDARIN, {
   LESSONS as MANDARIN_LESSONS,
 } from "@src/content/mandarin/index.ts";
 import { LessonSet, Word } from "@src/content/types";
+import { LanguageSelection } from "@src/GlobalContext";
 
 /**
  * Gets the lesson set for the user selected language.

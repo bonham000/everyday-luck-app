@@ -4,11 +4,11 @@ import { Clipboard, FlatList, Keyboard } from "react-native";
 import { Searchbar } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
-import { LanguageSelection } from "@src/AppContext";
 import LanguagesSelectionProvider from "@src/components/LanguageSelectionProvider";
 import ToastProvider from "@src/components/ToastProvider";
+import { COLORS } from "@src/constants/Colors";
 import { LessonScreenParams, Word } from "@src/content/types";
-import { COLORS } from "@src/styles/Colors";
+import { LanguageSelection } from "@src/GlobalContext";
 import { filterBySearchTerm, mapWordsForList } from "@src/utils";
 
 /** ========================================================================

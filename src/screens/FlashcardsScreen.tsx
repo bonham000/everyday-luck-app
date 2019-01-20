@@ -5,10 +5,10 @@ import Swiper from "react-native-deck-swiper";
 import FlipCard from "react-native-flip-card";
 import { NavigationScreenProp } from "react-navigation";
 
-import { LanguageSelection } from "@src/AppContext";
 import LanguagesSelectionProvider from "@src/components/LanguageSelectionProvider";
+import { COLORS } from "@src/constants/Colors";
 import { Lesson, LessonScreenParams, Word } from "@src/content/types";
-import { COLORS } from "@src/styles/Colors";
+import { LanguageSelection } from "@src/GlobalContext";
 import { knuthShuffle } from "@src/utils";
 
 /** ========================================================================

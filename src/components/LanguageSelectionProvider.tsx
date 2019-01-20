@@ -1,6 +1,6 @@
 import React from "react";
 
-import AppContext from "@src/AppContext";
+import GlobalContext from "@src/GlobalContext";
 
 /** ========================================================================
  * Types
@@ -22,7 +22,7 @@ class LanguagesSelectionProvider extends React.Component<IProps, {}> {
   render(): JSX.Element {
     const { Component, ...rest } = this.props;
     return (
-      <AppContext.Consumer>
+      <GlobalContext.Consumer>
         {value => (
           <Component
             {...rest}
@@ -30,7 +30,7 @@ class LanguagesSelectionProvider extends React.Component<IProps, {}> {
             openLanguageSelectionMenu={value.openLanguageSelectionMenu}
           />
         )}
-      </AppContext.Consumer>
+      </GlobalContext.Consumer>
     );
   }
 }

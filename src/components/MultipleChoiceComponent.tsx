@@ -3,11 +3,11 @@ import React from "react";
 import { GestureResponderEvent, ViewStyle } from "react-native";
 import { Button, Text } from "react-native-paper";
 
-import { LanguageSelection } from "@src/AppContext";
 import Shaker from "@src/components/Shaker";
+import { COLORS } from "@src/constants/Colors";
 import { getLanguageContent } from "@src/content";
 import { Lesson, Word } from "@src/content/types";
-import { COLORS } from "@src/styles/Colors";
+import { LanguageSelection } from "@src/GlobalContext";
 import { getAlternateChoices } from "@src/utils";
 
 /** ========================================================================

@@ -3,12 +3,12 @@ import React from "react";
 import { Text } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
-import { LanguageSelection } from "@src/AppContext";
 import LanguagesSelectionProvider from "@src/components/LanguageSelectionProvider";
+import { COLORS } from "@src/constants/Colors";
 import { ROUTE_NAMES } from "@src/constants/Routes";
 import { getLanguageContent, getLessonSet } from "@src/content";
 import { LessonScreenParams, Word } from "@src/content/types";
-import { COLORS } from "@src/styles/Colors";
+import { LanguageSelection } from "@src/GlobalContext";
 
 /** ========================================================================
  * Types
