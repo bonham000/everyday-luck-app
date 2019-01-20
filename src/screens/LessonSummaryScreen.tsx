@@ -50,12 +50,12 @@ class LessonSummaryScreen extends React.Component<IProps, {}> {
         <ActionBlock
           onPress={this.handleNavigateToSection(ROUTE_NAMES.FLASHCARDS)}
         >
-          <Text>Flashcard</Text>
+          <Text>Flashcards</Text>
         </ActionBlock>
         <ActionBlock
           onPress={this.handleNavigateToSection(ROUTE_NAMES.VIEW_ALL)}
         >
-          <Text>Review</Text>
+          <Text>Review All Content</Text>
         </ActionBlock>
       </Container>
     );

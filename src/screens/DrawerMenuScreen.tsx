@@ -68,7 +68,7 @@ class DrawerMenuScreen extends React.Component<IProps, {}> {
 
   createNavigationHandler = (route: ROUTE_NAMES) => {
     return () => {
-      this.props.navigation.dispatch(resetNavigation(route));
+      this.props.navigation.navigate(route);
     };
   };
 

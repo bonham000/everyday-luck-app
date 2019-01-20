@@ -55,58 +55,30 @@ const AppStack = () => {
       },
       [ROUTE_NAMES.QUIZ]: {
         screen: MandarinQuizScreen,
-        navigationOptions: ({
-          navigation,
-        }: {
-          navigation: NavigationScreenProp<{}>;
-        }) => {
-          return {
-            title: "Mandarin Quiz 🇨🇳",
-            headerBackTitle: null,
-            headerLeft: <MenuIcon onPress={navigation.toggleDrawer} />,
-          };
+        navigationOptions: {
+          title: "Quiz 🇨🇳",
+          headerBackTitle: null,
         },
       },
       [ROUTE_NAMES.FLASHCARDS]: {
         screen: FlashcardsScreen,
-        navigationOptions: ({
-          navigation,
-        }: {
-          navigation: NavigationScreenProp<{}>;
-        }) => {
-          return {
-            title: "Mandarin Flashcards 👨‍🚀",
-            headerBackTitle: null,
-            headerLeft: <MenuIcon onPress={navigation.toggleDrawer} />,
-          };
+        navigationOptions: {
+          title: "Flashcards 👨‍🚀",
+          headerBackTitle: null,
         },
       },
       [ROUTE_NAMES.VIEW_ALL]: {
         screen: ViewAllScreen,
-        navigationOptions: ({
-          navigation,
-        }: {
-          navigation: NavigationScreenProp<{}>;
-        }) => {
-          return {
-            title: "All Words ⛩",
-            headerBackTitle: null,
-            headerLeft: <MenuIcon onPress={navigation.toggleDrawer} />,
-          };
+        navigationOptions: {
+          title: "All Words ⛩",
+          headerBackTitle: null,
         },
       },
       [ROUTE_NAMES.ABOUT]: {
         screen: AboutScreen,
-        navigationOptions: ({
-          navigation,
-        }: {
-          navigation: NavigationScreenProp<{}>;
-        }) => {
-          return {
-            title: "About 🎏",
-            headerBackTitle: null,
-            headerLeft: <MenuIcon onPress={navigation.toggleDrawer} />,
-          };
+        navigationOptions: {
+          title: "About 🎏",
+          headerBackTitle: null,
         },
       },
     },

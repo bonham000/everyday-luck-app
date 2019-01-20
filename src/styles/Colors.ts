@@ -14,4 +14,5 @@ export const COLORS = {
   actionButtonYellow: "#FFAB85",
   wordCardBorder: "rgba(25,25,25,0.5)",
   wordCardBackground: "rgb(231, 237, 240)",
+  line: "rgba(25,25,25,0.85)",
 };
