@@ -44,13 +44,13 @@ class LessonSummaryScreen extends React.Component<IProps, {}> {
         <Text style={SectionTextStyles}>Practice</Text>
         <LineBreak />
         <ActionBlock onPress={this.handleNavigateToSection(ROUTE_NAMES.QUIZ)}>
-          <Text style={{ fontWeight: "500" }}>Quiz</Text>
+          <Text>Quiz</Text>
           {q && <Text>💯</Text>}
         </ActionBlock>
         <ActionBlock
           onPress={this.handleNavigateToSection(ROUTE_NAMES.MULTIPLE_CHOICE)}
         >
-          <Text style={{ fontWeight: "500" }}>Multiple Choice</Text>
+          <Text>Multiple Choice</Text>
           {mc && <Text>💯</Text>}
         </ActionBlock>
         <Text style={SectionTextStyles}>Study</Text>
@@ -111,6 +111,7 @@ const SectionTextStyles = {
 
 const ActionBlock = glamorous.touchableOpacity({
   width: "90%",
+  height: 50,
   margin: 6,
   padding: 12,
   flexDirection: "row",

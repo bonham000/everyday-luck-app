@@ -17,6 +17,7 @@ export const COLORS = {
   wordCardBackground: "rgb(231, 237, 240)",
   line: "rgba(25,25,25,0.85)",
   lineLight: "rgba(1,1,1,0.5)",
-  lessonBlock: "rgb(225,225,225)",
+  lessonBlock: "#3498db",
+  // lessonBlock: "rgb(225,225,225)",
   lockedLessonBlock: "rgb(200,200,200)",
 };

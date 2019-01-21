@@ -101,7 +101,6 @@ const Item = glamorous.text({
   fontSize: 16,
   marginTop: 45,
   marginLeft: 12,
-  fontWeight: "500",
 });
 
 /** ========================================================================

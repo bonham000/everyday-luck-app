@@ -132,8 +132,11 @@ const LessonLink = glamorous.touchableOpacity({
 
 const ReviewLink = glamorous.touchableOpacity({
   width: "90%",
+  height: 50,
   padding: 10,
   margin: 4,
+  // alignItems: "center",
+  justifyContent: "center",
   backgroundColor: COLORS.actionButtonMint,
 });
 
