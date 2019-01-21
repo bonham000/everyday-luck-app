@@ -3,7 +3,9 @@ import React from "react";
 import { Image, Keyboard, ScrollView, View } from "react-native";
 import { NavigationScreenProp, SafeAreaView } from "react-navigation";
 
-import LanguagesSelectionProvider from "@src/components/LanguageSelectionProvider";
+import GlobalContextProvider, {
+  GlobalContextProps,
+} from "@src/components/GlobalContextProvider";
 import { ROUTE_NAMES } from "@src/constants/Routes";
 
 /** ========================================================================
@@ -11,9 +13,8 @@ import { ROUTE_NAMES } from "@src/constants/Routes";
  * =========================================================================
  */
 
-interface IProps {
+interface IProps extends GlobalContextProps {
   navigation: NavigationScreenProp<{}>;
-  openLanguageSelectionMenu: () => void;
 }
 
 /** ========================================================================
@@ -99,5 +100,5 @@ const Item = glamorous.text({
  */
 
 export default (props: any) => (
-  <LanguagesSelectionProvider {...props} Component={DrawerMenuScreen} />
+  <GlobalContextProvider {...props} Component={DrawerMenuScreen} />
 );

@@ -12,7 +12,11 @@ import { createAppContainer } from "react-navigation";
 
 import { CustomToast } from "@src/components/ToastProvider";
 import { COLORS } from "@src/constants/Colors";
-import GlobalContext from "@src/GlobalContext";
+import GlobalContext, {
+  initialLessonScoreState,
+  LessonScoreType,
+  ScoreStatus,
+} from "@src/GlobalContext";
 import createAppNavigator from "@src/NavigatorConfig";
 
 /** ========================================================================
@@ -26,6 +30,7 @@ interface IState {
   updating: boolean;
   tryingToCloseApp: boolean;
   selectedLanguage: any;
+  userScoreStatus: ScoreStatus;
   languageSelectionMenuOpen: boolean;
 }
 
@@ -47,6 +52,7 @@ class RootContainer extends React.Component<{}, IState> {
       updating: false,
       tryingToCloseApp: false,
       languageSelectionMenuOpen: false,
+      userScoreStatus: initialLessonScoreState,
       selectedLanguage: {
         value: 0,
         label: "Mandarin",
@@ -126,6 +132,8 @@ class RootContainer extends React.Component<{}, IState> {
             setToastMessage: this.setToastMessage,
             openLanguageSelectionMenu: this.openLanguageSelectionMenu,
             selectedLanguage: this.state.selectedLanguage.label,
+            setLessonScore: this.setLessonScore,
+            userScoreStatus: this.state.userScoreStatus,
           }}
         >
           <CustomToast
@@ -148,6 +156,29 @@ class RootContainer extends React.Component<{}, IState> {
       </View>
     );
   }
+
+  setLessonScore = (lessonIndex: number, lessonPassedType: LessonScoreType) => {
+    console.log(lessonIndex, lessonPassedType);
+
+    const updatedScoreStatus = this.state.userScoreStatus.map(
+      (status, index) => {
+        if (index === lessonIndex) {
+          return {
+            ...status,
+            [lessonPassedType]: true,
+          };
+        } else {
+          return status;
+        }
+      },
+    );
+    this.setState(
+      {
+        userScoreStatus: updatedScoreStatus,
+      },
+      () => console.log(this.state.userScoreStatus),
+    );
+  };
 
   assignNavRef = (ref: any) => {
     // tslint:disable-next-line

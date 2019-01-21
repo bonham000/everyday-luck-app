@@ -3,21 +3,21 @@ import React from "react";
 import { Text } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
-import LanguagesSelectionProvider from "@src/components/LanguageSelectionProvider";
+import GlobalContextProvider, {
+  GlobalContextProps,
+} from "@src/components/GlobalContextProvider";
 import { COLORS } from "@src/constants/Colors";
 import { ROUTE_NAMES } from "@src/constants/Routes";
 import { getLanguageContent, getLessonSet } from "@src/content";
 import { LessonScreenParams, Word } from "@src/content/types";
-import { LanguageSelection } from "@src/GlobalContext";
 
 /** ========================================================================
  * Types
  * =========================================================================
  */
 
-interface IProps {
+interface IProps extends GlobalContextProps {
   navigation: NavigationScreenProp<{}>;
-  selectedLanguage: LanguageSelection;
 }
 
 /** ========================================================================
@@ -114,5 +114,5 @@ const LineBreak = glamorous.view({
  */
 
 export default (props: any) => (
-  <LanguagesSelectionProvider {...props} Component={HomeScreen} />
+  <GlobalContextProvider {...props} Component={HomeScreen} />
 );

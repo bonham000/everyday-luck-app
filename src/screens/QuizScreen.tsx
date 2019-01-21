@@ -6,13 +6,14 @@ import ActionButton from "react-native-action-button";
 import Confetti from "react-native-confetti";
 import { NavigationScreenProp } from "react-navigation";
 
-import LanguagesSelectionProvider, {
+import GlobalContextProvider, {
   ComponentProp,
-} from "@src/components/LanguageSelectionProvider";
+  GlobalContextProps,
+} from "@src/components/GlobalContextProvider";
 import { COLORS } from "@src/constants/Colors";
 import { ROUTE_NAMES } from "@src/constants/Routes";
 import { LessonScreenParams, Word } from "@src/content/types";
-import { LanguageSelection } from "@src/GlobalContext";
+import { LessonScoreType } from "@src/GlobalContext";
 import { filterForOneCharacterMode, randomInRange } from "@src/utils";
 
 /** ========================================================================
@@ -20,9 +21,9 @@ import { filterForOneCharacterMode, randomInRange } from "@src/utils";
  * =========================================================================
  */
 
-interface IProps {
+interface IProps extends GlobalContextProps {
   navigation: NavigationScreenProp<LessonScreenParams>;
-  selectedLanguage: LanguageSelection;
+  lessonType: LessonScoreType;
   Component: ComponentProp;
 }
 
@@ -292,23 +293,35 @@ class QuizScreen extends React.Component<IProps, IState> {
   };
 
   handleFinish = () => {
-    /**
-     * TODO: Handle completion logic here.
-     */
+    const { userScoreStatus, lessonType } = this.props;
+    const lessonIndex = this.props.navigation.getParam("lessonIndex");
+
+    const perfectScore = this.state.failCount === 0;
+    const firstPass = perfectScore && !userScoreStatus[lessonIndex][lessonType];
+    if (perfectScore) {
+      this.props.setLessonScore(lessonIndex, this.props.lessonType);
+    }
 
     // tslint:disable-next-line
     this.timer = setTimeout(() => {
       Alert.alert(
         "You finished all the words! 🥇",
-        "The quiz will now restart.",
+        firstPass
+          ? "Congratulations on passing this section!"
+          : "The quiz will now restart.",
         [
           {
             text: "OK!",
             onPress: () => {
-              this.setState(this.getInitialState(), () => {
-                // tslint:disable-next-line
-                this.timer = setTimeout(this.stopConfetti, 250);
-              });
+              if (firstPass) {
+                this.stopConfetti();
+                this.props.navigation.goBack();
+              } else {
+                this.setState(this.getInitialState(), () => {
+                  // tslint:disable-next-line
+                  this.timer = setTimeout(this.stopConfetti, 250);
+                });
+              }
             },
           },
         ],
@@ -426,7 +439,7 @@ const ActionIconStyle = {
  */
 
 export default ({ QuizComponent, ...rest }: any) => (
-  <LanguagesSelectionProvider
+  <GlobalContextProvider
     {...rest}
     Component={(childProps: any) => (
       <QuizScreen {...childProps} Component={QuizComponent} />

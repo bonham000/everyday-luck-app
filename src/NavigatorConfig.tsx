@@ -59,7 +59,7 @@ const AppStack = () => {
       },
       [ROUTE_NAMES.QUIZ]: {
         screen: (props: any) => (
-          <QuizScreen {...props} QuizComponent={QuizInput} />
+          <QuizScreen {...props} lessonType="q" QuizComponent={QuizInput} />
         ),
         navigationOptions: {
           title: "Quiz 🇨🇳",
@@ -68,7 +68,11 @@ const AppStack = () => {
       },
       [ROUTE_NAMES.MULTIPLE_CHOICE]: {
         screen: (props: any) => (
-          <QuizScreen {...props} QuizComponent={MultipleChoiceComponent} />
+          <QuizScreen
+            {...props}
+            lessonType="mc"
+            QuizComponent={MultipleChoiceComponent}
+          />
         ),
         navigationOptions: {
           title: "Multiple Choice 🇨🇳",

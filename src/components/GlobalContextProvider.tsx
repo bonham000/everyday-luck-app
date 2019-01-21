@@ -1,6 +1,10 @@
 import React from "react";
 
-import GlobalContext from "@src/GlobalContext";
+import GlobalContext, {
+  LanguageSelection,
+  LessonScoreType,
+  ScoreStatus,
+} from "@src/GlobalContext";
 
 /** ========================================================================
  * Types
@@ -8,6 +12,17 @@ import GlobalContext from "@src/GlobalContext";
  */
 
 export type ComponentProp = (args: any) => JSX.Element;
+
+export interface GlobalContextProps {
+  selectedLanguage: LanguageSelection;
+  userScoreStatus: ScoreStatus;
+  setToastMessage: (toastMessage: string) => void;
+  openLanguageSelectionMenu: () => void;
+  setLessonScore: (
+    lessonIndex: number,
+    lessonPassedType: LessonScoreType,
+  ) => void;
+}
 
 interface IProps {
   Component: ComponentProp;
@@ -18,7 +33,7 @@ interface IProps {
  * =========================================================================
  */
 
-class LanguagesSelectionProvider extends React.Component<IProps, {}> {
+class GlobalContextProvider extends React.Component<IProps, {}> {
   render(): JSX.Element {
     const { Component, ...rest } = this.props;
     return (
@@ -26,6 +41,8 @@ class LanguagesSelectionProvider extends React.Component<IProps, {}> {
         {value => (
           <Component
             {...rest}
+            setLessonScore={value.setLessonScore}
+            userScoreStatus={value.userScoreStatus}
             selectedLanguage={value.selectedLanguage}
             openLanguageSelectionMenu={value.openLanguageSelectionMenu}
           />
@@ -40,4 +57,4 @@ class LanguagesSelectionProvider extends React.Component<IProps, {}> {
  * =========================================================================
  */
 
-export default LanguagesSelectionProvider;
+export default GlobalContextProvider;

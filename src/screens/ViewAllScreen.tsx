@@ -4,11 +4,12 @@ import { Clipboard, FlatList, Keyboard } from "react-native";
 import { Searchbar } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
-import LanguagesSelectionProvider from "@src/components/LanguageSelectionProvider";
+import GlobalContextProvider, {
+  GlobalContextProps,
+} from "@src/components/GlobalContextProvider";
 import ToastProvider from "@src/components/ToastProvider";
 import { COLORS } from "@src/constants/Colors";
 import { LessonScreenParams, Word } from "@src/content/types";
-import { LanguageSelection } from "@src/GlobalContext";
 import { filterBySearchTerm, mapWordsForList } from "@src/utils";
 
 /** ========================================================================
@@ -16,10 +17,8 @@ import { filterBySearchTerm, mapWordsForList } from "@src/utils";
  * =========================================================================
  */
 
-interface IProps {
+interface IProps extends GlobalContextProps {
   navigation: NavigationScreenProp<LessonScreenParams>;
-  selectedLanguage: LanguageSelection;
-  setToastMessage: (toastMessage: string) => void;
 }
 
 interface IState {
@@ -126,7 +125,7 @@ const SearchBarStyles = {
  */
 
 export default (parentProps: any) => (
-  <LanguagesSelectionProvider
+  <GlobalContextProvider
     {...parentProps}
     Component={(childProps: any) => (
       <ToastProvider {...childProps} Component={ViewAllScreen} />
