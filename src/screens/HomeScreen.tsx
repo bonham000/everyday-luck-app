@@ -10,6 +10,7 @@ import { COLORS } from "@src/constants/Colors";
 import { ROUTE_NAMES } from "@src/constants/Routes";
 import { getLanguageContent, getLessonSet } from "@src/content";
 import { LessonScreenParams, Word } from "@src/content/types";
+import { getFinalUnlockedLesson } from "@src/utils";
 
 /** ========================================================================
  * Types
@@ -27,17 +28,34 @@ interface IProps extends GlobalContextProps {
 
 class HomeScreen extends React.Component<IProps, {}> {
   render(): JSX.Element {
-    const { selectedLanguage } = this.props;
+    const { userScoreStatus, selectedLanguage } = this.props;
+    const unlockedLessonIndex = getFinalUnlockedLesson(userScoreStatus);
     const LESSONS = getLessonSet(selectedLanguage);
     const ALL_LESSONS = getLanguageContent(selectedLanguage);
     return (
       <Container>
         <Text style={TextStyles}>Choose a lesson to start studying</Text>
         {LESSONS.map((lesson, index) => {
+          const isLocked = index > unlockedLessonIndex;
           return (
-            <LessonLink onPress={this.openLessonSummary(lesson, index)}>
+            <LessonLink
+              style={{
+                backgroundColor: isLocked
+                  ? "rgb(205,205,205)"
+                  : "rgb(225,225,225)",
+              }}
+              onPress={() => {
+                if (isLocked) {
+                  this.props.setToastMessage(
+                    "Please complete unlocked lessons first",
+                  );
+                } else {
+                  this.openLessonSummary(lesson, index)();
+                }
+              }}
+            >
               <Text>Lesson {index + 1}</Text>
-              <Text>🔐</Text>
+              {isLocked && <Text>🔐</Text>}
             </LessonLink>
           );
         })}
@@ -77,6 +95,7 @@ const Container = glamorous.view({
 
 const LessonLink = glamorous.touchableOpacity({
   width: "90%",
+  height: 50,
   padding: 10,
   margin: 4,
   flexDirection: "row",

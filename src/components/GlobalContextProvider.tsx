@@ -41,6 +41,7 @@ class GlobalContextProvider extends React.Component<IProps, {}> {
         {value => (
           <Component
             {...rest}
+            setToastMessage={value.setToastMessage}
             setLessonScore={value.setLessonScore}
             userScoreStatus={value.userScoreStatus}
             selectedLanguage={value.selectedLanguage}

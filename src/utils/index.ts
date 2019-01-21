@@ -2,6 +2,7 @@ import { NavigationActions, StackActions } from "react-navigation";
 
 import { ROUTE_NAMES } from "@src/constants/Routes";
 import { Lesson, Word } from "@src/content/types";
+import { ScoreStatus } from "@src/GlobalContext";
 
 export const assertUnreachable = (x: never): never => {
   throw new Error(`Unreachable code! -> ${JSON.stringify(x)}`);
@@ -132,4 +133,22 @@ export const getAlternateChoices = (word: Word, alternates: Lesson) => {
   }
 
   return knuthShuffle(choices);
+};
+
+/**
+ * Determines the unlocked lesson for a user given their score status.
+ */
+export const getFinalUnlockedLesson = (
+  userScoreStatus: ScoreStatus,
+): number => {
+  // @ts-ignore
+  return userScoreStatus.reduce((final, current, index) => {
+    if (typeof final === "number") {
+      return final;
+    } else if (!current.mc && !current.q) {
+      return index;
+    } else {
+      return null;
+    }
+  }, null);
 };

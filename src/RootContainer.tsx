@@ -158,8 +158,6 @@ class RootContainer extends React.Component<{}, IState> {
   }
 
   setLessonScore = (lessonIndex: number, lessonPassedType: LessonScoreType) => {
-    console.log(lessonIndex, lessonPassedType);
-
     const updatedScoreStatus = this.state.userScoreStatus.map(
       (status, index) => {
         if (index === lessonIndex) {
