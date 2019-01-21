@@ -45,13 +45,13 @@ class LessonSummaryScreen extends React.Component<IProps, {}> {
         <LineBreak />
         <ActionBlock onPress={this.handleNavigateToSection(ROUTE_NAMES.QUIZ)}>
           <Text>Quiz</Text>
-          {q && <Text>💯</Text>}
+          {q && !isSummaryReview && <Text>💯</Text>}
         </ActionBlock>
         <ActionBlock
           onPress={this.handleNavigateToSection(ROUTE_NAMES.MULTIPLE_CHOICE)}
         >
           <Text>Multiple Choice</Text>
-          {mc && <Text>💯</Text>}
+          {mc && !isSummaryReview && <Text>💯</Text>}
         </ActionBlock>
         <Text style={SectionTextStyles}>Study</Text>
         <LineBreak />

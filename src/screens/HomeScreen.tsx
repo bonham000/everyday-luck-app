@@ -135,7 +135,6 @@ const ReviewLink = glamorous.touchableOpacity({
   height: 50,
   padding: 10,
   margin: 4,
-  // alignItems: "center",
   justifyContent: "center",
   backgroundColor: COLORS.actionButtonMint,
 });
