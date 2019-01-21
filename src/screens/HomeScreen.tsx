@@ -8,7 +8,7 @@ import GlobalContextProvider, {
 } from "@src/components/GlobalContextProvider";
 import { COLORS } from "@src/constants/Colors";
 import { ROUTE_NAMES } from "@src/constants/Routes";
-import { getLanguageContent, getLessonSet } from "@src/content";
+import { getLessonSet } from "@src/content";
 import { LessonScreenParams, Word } from "@src/content/types";
 import { getFinalUnlockedLesson } from "@src/utils";
 
@@ -31,7 +31,6 @@ class HomeScreen extends React.Component<IProps, {}> {
     const { userScoreStatus, selectedLanguage } = this.props;
     const unlockedLessonIndex = getFinalUnlockedLesson(userScoreStatus);
     const LESSONS = getLessonSet(selectedLanguage);
-    const ALL_LESSONS = getLanguageContent(selectedLanguage);
     return (
       <Container>
         <Text style={TextStyles}>Choose a lesson to start studying</Text>
