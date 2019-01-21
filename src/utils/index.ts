@@ -119,15 +119,18 @@ export const getAlternateChoices = (word: Word, alternates: Lesson) => {
   let choices: Word[] = [word];
   let idx: number;
   let option: Word;
+  const chosen: Set<number> = new Set();
 
   while (choices.length < 4) {
     idx = randomInRange(0, alternates.length);
     option = alternates[idx];
 
     if (
+      !chosen.has(idx) &&
       option.characters !== word.characters &&
       option.characters.length <= word.characters.length + 2
     ) {
+      chosen.add(idx);
       choices = [...choices, option];
     }
   }
@@ -145,7 +148,7 @@ export const getFinalUnlockedLesson = (
   return userScoreStatus.reduce((final, current, index) => {
     if (typeof final === "number") {
       return final;
-    } else if (!current.mc && !current.q) {
+    } else if (!current.mc || !current.q) {
       return index;
     } else {
       return null;

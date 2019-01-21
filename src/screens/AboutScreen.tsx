@@ -25,11 +25,11 @@ class AboutScreen extends React.Component<IProps, {}> {
     return (
       <Container>
         <Text style={TextStyles}>
-          This is an app to help you learn languages! It currently supports
+          This is an app to help you learn languages! It currently teaches
           Mandarin and Korean.
         </Text>
         <Text onPress={this.openAboutLink} style={LinkStyles}>
-          Source 👨‍💻
+          Source Code 👨‍💻
         </Text>
       </Container>
     );

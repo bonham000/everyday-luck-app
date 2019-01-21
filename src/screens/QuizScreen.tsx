@@ -212,9 +212,7 @@ class QuizScreen extends React.Component<IProps, IState> {
        */
       let updatedContent = wordContent;
       if (!this.state.failedOnce) {
-        if (currentWordIndex !== wordContent.length - 1) {
-          updatedContent = [...wordContent, wordContent[currentWordIndex]];
-        }
+        updatedContent = [...wordContent, wordContent[currentWordIndex]];
       } else {
         if (value === this.state.value) {
           return this.handleToggleRevealAnswer();
@@ -298,29 +296,38 @@ class QuizScreen extends React.Component<IProps, IState> {
 
     const perfectScore = this.state.failCount === 0;
     const firstPass = perfectScore && !userScoreStatus[lessonIndex][lessonType];
+    let lessonCompleted = false;
     if (perfectScore) {
       this.props.setLessonScore(lessonIndex, this.props.lessonType);
+      const otherLessonType = lessonType === "mc" ? "q" : "mc";
+      const otherLessonStatus = userScoreStatus[lessonIndex][otherLessonType];
+      if (otherLessonStatus) {
+        lessonCompleted = true;
+      }
     }
 
     // tslint:disable-next-line
     this.timer = setTimeout(() => {
       Alert.alert(
-        "You finished all the words! 🥇",
-        firstPass
-          ? "Congratulations on passing this section!"
-          : "The quiz will now restart.",
+        lessonCompleted
+          ? "The next lesson is unlocked! 🥇"
+          : firstPass
+          ? "Amazing! You passed this lesson! 💯"
+          : "You finished the quiz!",
+        lessonCompleted
+          ? "Great - keep going! 很好!"
+          : firstPass
+          ? "Congratulations! 恭喜恭喜！"
+          : "All words completed, 好！",
         [
           {
             text: "OK!",
             onPress: () => {
-              if (firstPass) {
-                this.stopConfetti();
-                this.props.navigation.goBack();
+              this.stopConfetti();
+              if (lessonCompleted) {
+                this.props.navigation.navigate(ROUTE_NAMES.HOME);
               } else {
-                this.setState(this.getInitialState(), () => {
-                  // tslint:disable-next-line
-                  this.timer = setTimeout(this.stopConfetti, 250);
-                });
+                this.props.navigation.goBack();
               }
             },
           },

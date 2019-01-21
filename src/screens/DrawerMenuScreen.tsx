@@ -49,7 +49,7 @@ class DrawerMenuScreen extends React.Component<IProps, {}> {
           <Item onPress={this.createNavigationHandler(ROUTE_NAMES.ABOUT)}>
             🎋
             {"  "}
-            About
+            About this App
           </Item>
           <Item onPress={this.handleSwitchLanguage}>
             🥢

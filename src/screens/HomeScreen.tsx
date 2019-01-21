@@ -37,31 +37,58 @@ class HomeScreen extends React.Component<IProps, {}> {
         <Text style={TextStyles}>Choose a lesson to start studying</Text>
         {LESSONS.map((lesson, index) => {
           const isLocked = index > unlockedLessonIndex;
+          const isFinalUnlocked = index === unlockedLessonIndex;
           return (
             <LessonLink
               style={{
                 backgroundColor: isLocked
-                  ? "rgb(205,205,205)"
-                  : "rgb(225,225,225)",
+                  ? COLORS.lockedLessonBlock
+                  : COLORS.lessonBlock,
               }}
               onPress={() => {
                 if (isLocked) {
                   this.props.setToastMessage(
-                    "Please complete unlocked lessons first",
+                    "Please complete the previous lesson first",
                   );
                 } else {
                   this.openLessonSummary(lesson, index)();
                 }
               }}
             >
-              <Text>Lesson {index + 1}</Text>
+              <Text
+                style={
+                  isLocked
+                    ? {
+                        color: COLORS.inactive,
+                        fontWeight: "normal",
+                        textDecorationLine: "line-through",
+                        textDecorationStyle: "solid",
+                      }
+                    : {
+                        color: "black",
+                        fontWeight: "500",
+                        textDecorationLine: "normal",
+                      }
+                }
+              >
+                Lesson {index + 1}
+              </Text>
+              {isFinalUnlocked && <Text>🤹‍♂️</Text>}
               {isLocked && <Text>🔐</Text>}
             </LessonLink>
           );
         })}
         <LineBreak />
-        <ReviewLink onPress={this.openLessonSummary(ALL_LESSONS, 0, true)}>
-          <Text>View all unlocked lessons</Text>
+        <ReviewLink
+          onPress={this.openLessonSummary(
+            LESSONS.slice(0, unlockedLessonIndex + 1).reduce(
+              (flattened, lesson) => [...flattened, ...lesson],
+            ),
+            0,
+            true,
+          )}
+        >
+          <Text style={{ fontWeight: "600" }}>View all unlocked lessons</Text>
         </ReviewLink>
       </Container>
     );
