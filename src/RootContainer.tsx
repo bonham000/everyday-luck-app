@@ -12,8 +12,12 @@ import { createAppContainer } from "react-navigation";
 
 import { CustomToast } from "@src/components/ToastProvider";
 import { COLORS } from "@src/constants/Colors";
+import {
+  getExistingUserScoresAsync,
+  resetUserScoresAsync,
+  saveProgressToAsyncStorage,
+} from "@src/content/store";
 import GlobalContext, {
-  initialLessonScoreState,
   LessonScoreType,
   ScoreStatus,
 } from "@src/GlobalContext";
@@ -25,6 +29,7 @@ import createAppNavigator from "@src/NavigatorConfig";
  */
 
 interface IState {
+  loading: boolean;
   appState: string;
   toastMessage: string;
   updating: boolean;
@@ -47,12 +52,13 @@ class RootContainer extends React.Component<{}, IState> {
     super(props);
 
     this.state = {
+      loading: true,
       appState: AppState.currentState,
       toastMessage: "",
       updating: false,
       tryingToCloseApp: false,
       languageSelectionMenuOpen: false,
-      userScoreStatus: initialLessonScoreState,
+      userScoreStatus: [],
       selectedLanguage: {
         value: 0,
         label: "Mandarin",
@@ -61,7 +67,16 @@ class RootContainer extends React.Component<{}, IState> {
     };
   }
 
+  getInitialScoreState = async () => {
+    this.setState({
+      loading: false,
+      userScoreStatus: await getExistingUserScoresAsync(),
+    });
+  };
+
   async componentDidMount(): Promise<void> {
+    this.getInitialScoreState();
+
     /**
      * Manage state to assign a toast warning if user tries to
      * press the back button when it will close the app. Show them
@@ -115,7 +130,7 @@ class RootContainer extends React.Component<{}, IState> {
   }
 
   render(): JSX.Element | null {
-    if (this.state.updating) {
+    if (this.state.updating || this.state.loading) {
       return (
         <View
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
@@ -129,6 +144,7 @@ class RootContainer extends React.Component<{}, IState> {
       <View style={{ flex: 1 }}>
         <GlobalContext.Provider
           value={{
+            handleResetScores: this.handleResetScores,
             setToastMessage: this.setToastMessage,
             openLanguageSelectionMenu: this.openLanguageSelectionMenu,
             selectedLanguage: this.state.selectedLanguage.label,
@@ -174,8 +190,12 @@ class RootContainer extends React.Component<{}, IState> {
       {
         userScoreStatus: updatedScoreStatus,
       },
-      () => console.log(this.state.userScoreStatus),
+      this.persistScore,
     );
+  };
+
+  persistScore = async () => {
+    saveProgressToAsyncStorage(this.state.userScoreStatus);
   };
 
   assignNavRef = (ref: any) => {
@@ -213,6 +233,38 @@ class RootContainer extends React.Component<{}, IState> {
     this.setState({
       toastMessage: "",
     });
+  };
+
+  handleResetScores = () => {
+    Alert.alert(
+      "Are you sure?",
+      "All existing progress will be erased!",
+      [
+        {
+          text: "Cancel",
+          onPress: () => null,
+          style: "cancel",
+        },
+        {
+          text: "OK",
+          onPress: () => {
+            this.setState(
+              {
+                loading: true,
+              },
+              () => {
+                // tslint:disable-next-line
+                this.timeout = setTimeout(async () => {
+                  await resetUserScoresAsync();
+                  this.getInitialScoreState();
+                }, 1250);
+              },
+            );
+          },
+        },
+      ],
+      { cancelable: false },
+    );
   };
 
   openLanguageSelectionMenu = () => {

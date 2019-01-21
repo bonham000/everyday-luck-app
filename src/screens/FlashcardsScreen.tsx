@@ -73,6 +73,8 @@ class FlashcardsScreen extends React.Component<IProps, IState> {
           overlayLabels={CARD_OVERLAY_LABELS}
           onSwipedLeft={this.handleSwipe("left")}
           onSwipedRight={this.handleSwipe("right")}
+          overlayOpacityVerticalThreshold={1}
+          overlayOpacityHorizontalThreshold={1}
         />
         <ProgressText>
           Progress: {this.state.completed} flashcards completed (

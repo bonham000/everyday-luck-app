@@ -18,6 +18,7 @@ export interface GlobalContextProps {
   userScoreStatus: ScoreStatus;
   setToastMessage: (toastMessage: string) => void;
   openLanguageSelectionMenu: () => void;
+  handleResetScores: () => void;
   setLessonScore: (
     lessonIndex: number,
     lessonPassedType: LessonScoreType,
@@ -44,6 +45,7 @@ class GlobalContextProvider extends React.Component<IProps, {}> {
             setToastMessage={value.setToastMessage}
             setLessonScore={value.setLessonScore}
             userScoreStatus={value.userScoreStatus}
+            handleResetScores={value.handleResetScores}
             selectedLanguage={value.selectedLanguage}
             openLanguageSelectionMenu={value.openLanguageSelectionMenu}
           />
