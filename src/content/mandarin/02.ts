@@ -7,6 +7,16 @@ import { Word } from "@src/content/types";
 
 const Content: ReadonlyArray<Word> = [
   {
+    characters: "對",
+    phonetic: "Duì",
+    english: "Correct",
+  },
+  {
+    characters: "天",
+    phonetic: "Tiān",
+    english: "Day",
+  },
+  {
     characters: "很好",
     phonetic: "Hěn hǎo",
     english: "Very good",
@@ -62,29 +72,64 @@ const Content: ReadonlyArray<Word> = [
     english: "Like",
   },
   {
-    characters: "國家",
-    phonetic: "Guójiā",
-    english: "Country",
+    characters: "冰淇淋",
+    phonetic: "Bīngqílín",
+    english: "Ice cream",
   },
   {
-    characters: "快樂",
-    phonetic: "Kuàilè",
-    english: "Happy",
+    characters: "這很難",
+    phonetic: "Zhè hěn nán",
+    english: "It is difficult",
   },
   {
-    characters: "可愛",
-    phonetic: "Kě'ài",
-    english: "Cute",
+    characters: "大家好",
+    phonetic: "Dàjiā hǎo",
+    english: "Hello everyone",
   },
   {
-    characters: "大哥",
-    phonetic: "Dàgē",
-    english: "Big brother",
+    characters: "告訴",
+    phonetic: "Gàosù",
+    english: "Tell",
   },
   {
-    characters: "天天",
-    phonetic: "Tiāntiān",
-    english: "Everyday",
+    characters: "故事",
+    phonetic: "Gùshì",
+    english: "Story",
+  },
+  {
+    characters: "火鍋",
+    phonetic: "Huǒguō",
+    english: "Hot pot",
+  },
+  {
+    characters: "真的嗎",
+    phonetic: "Zhēn de ma",
+    english: "Really",
+  },
+  {
+    characters: "為什麼",
+    phonetic: "Wèishéme",
+    english: "Why",
+  },
+  {
+    characters: "不客氣",
+    phonetic: "Bù kèqì",
+    english: "You are welcome",
+  },
+  {
+    characters: "這個",
+    phonetic: "Zhège",
+    english: "This",
+  },
+  {
+    characters: "我吃",
+    phonetic: "Wǒ chī",
+    english: "I eat",
+  },
+  {
+    characters: "蛋糕",
+    phonetic: "Dàngāo",
+    english: "Cake",
   },
 ];
 

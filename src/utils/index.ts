@@ -2,7 +2,7 @@ import { NavigationActions, StackActions } from "react-navigation";
 
 import { ROUTE_NAMES } from "@src/constants/Routes";
 import { Lesson, Word } from "@src/content/types";
-import { ScoreStatus } from "@src/GlobalContext";
+import { LanguageSelection, ScoreStatus } from "@src/GlobalContext";
 
 export const assertUnreachable = (x: never): never => {
   throw new Error(`Unreachable code! -> ${JSON.stringify(x)}`);
@@ -83,15 +83,44 @@ export const filterForOneCharacterMode = (
   return words.filter(({ characters }) => characters.length === 1);
 };
 
+const LESSON_MAX = 25;
+
 /**
- * Combine individual lesson content and check for duplicate words
+ * Combine individual lesson content and check for duplicate words.
+ *
+ * Big function!
  */
 export const deriveContentFromLessons = (
   contentBlocks: ReadonlyArray<ReadonlyArray<Word>>,
+  language: LanguageSelection,
 ) => {
+  let summaryMessage = `\nContent Summary for ${language}:\n\n`;
   // Use a set to check for duplicate entries
   const wordSet = new Set();
-  return contentBlocks.reduce((content, lesson, index) => {
+  const lessons = contentBlocks.reduce((content, lesson, index) => {
+    /**
+     * Check and validate length of lesson
+     */
+    if (lesson.length > LESSON_MAX) {
+      throw new Error(
+        `Invalid length for ${language} lesson ${index +
+          1}: expected ${LESSON_MAX} but received ${lesson.length}`,
+      );
+    } else if (
+      lesson.length !== 0 &&
+      lesson.length < LESSON_MAX &&
+      index < contentBlocks.length - 1
+    ) {
+      throw new Error(
+        `Invalid length for non-final for ${language} lesson ${index +
+          1}: expected ${LESSON_MAX} but received ${lesson.length}`,
+      );
+    } else {
+      summaryMessage += `Lesson ${index + 1} - ${lesson.length} ${
+        lesson.length < 10 ? " " : ""
+      }total words\n`;
+    }
+
     return content.concat(
       ...lesson.map((item: Word) => {
         const { characters } = item;
@@ -108,6 +137,9 @@ export const deriveContentFromLessons = (
       }),
     );
   }, []);
+
+  console.log(summaryMessage);
+  return lessons;
 };
 
 /**

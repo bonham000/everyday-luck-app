@@ -14,4 +14,4 @@ export const LESSONS: LessonSet = [
   LESSON_FIVE,
 ];
 
-export default deriveContentFromLessons(LESSONS);
+export default deriveContentFromLessons(LESSONS, "Mandarin");

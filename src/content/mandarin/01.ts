@@ -107,14 +107,29 @@ const Content: ReadonlyArray<Word> = [
     english: "Super",
   },
   {
-    characters: "對",
-    phonetic: "Duì",
-    english: "Correct",
+    characters: "國家",
+    phonetic: "Guójiā",
+    english: "Country",
   },
   {
-    characters: "天",
-    phonetic: "Tiān",
-    english: "Day",
+    characters: "快樂",
+    phonetic: "Kuàilè",
+    english: "Happy",
+  },
+  {
+    characters: "可愛",
+    phonetic: "Kě'ài",
+    english: "Cute",
+  },
+  {
+    characters: "大哥",
+    phonetic: "Dàgē",
+    english: "Big brother",
+  },
+  {
+    characters: "天天",
+    phonetic: "Tiāntiān",
+    english: "Everyday",
   },
 ];
 
