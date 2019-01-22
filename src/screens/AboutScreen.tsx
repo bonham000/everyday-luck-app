@@ -5,7 +5,6 @@ import { Text } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
 import { COLORS } from "@src/constants/Colors";
-import LessonSummaryScreen from "@src/screens/LessonSummaryScreen";
 
 /** ========================================================================
  * Types
@@ -30,11 +29,13 @@ class AboutScreen extends React.Component<IProps, {}> {
           Mandarin and Korean.
         </Text>
         <Text style={TextStyles}>
-          All the content is organized into a series lessons. Future lessons are
-          locked and require you to complete unlocked lessons first. To complete
-          a lesson and unlock the next one, you have to get a perfect score on
-          the quiz and multiple choice tests for that lesson.
+          All the content is organized into a series of lessons. Future lessons
+          are locked and require you to complete unlocked lessons first. To
+          complete a lesson and unlock the next one, you have to get a perfect
+          score on the quiz and multiple choice tests for that lesson. Good
+          luck!
         </Text>
+        <Text>✨✨✨</Text>
         <Text onPress={this.openAboutLink} style={LinkStyles}>
           Source Code 👨‍💻
         </Text>
