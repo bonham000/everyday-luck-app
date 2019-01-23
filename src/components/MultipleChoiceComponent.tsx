@@ -8,7 +8,7 @@ import { COLORS } from "@src/constants/Colors";
 import { getLanguageContent } from "@src/content";
 import { Lesson, Word } from "@src/content/types";
 import { LanguageSelection } from "@src/GlobalContext";
-import { getAlternateChoices } from "@src/utils";
+import { getAlternateChoices } from "@src/tools/utils";
 
 /** ========================================================================
  * Types
@@ -72,7 +72,6 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
       currentWord,
       shouldShake,
       attempted,
-      handleCheck,
       handleProceed,
     } = this.props;
     const shouldReveal = valid || attempted;
@@ -98,7 +97,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
                         : COLORS.primaryRed
                       : COLORS.lightDark,
                   }}
-                  onPress={() => handleCheck(isCorrect)}
+                  onPress={this.handleSelectAnswer(isCorrect)}
                 >
                   <MandarinText
                     style={{
@@ -135,6 +134,12 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
       </React.Fragment>
     );
   }
+
+  handleSelectAnswer = (isCorrect: boolean) => () => {
+    if (!this.props.attempted) {
+      this.props.handleCheck(isCorrect);
+    }
+  };
 }
 
 /** ========================================================================

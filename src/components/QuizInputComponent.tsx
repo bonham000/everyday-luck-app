@@ -7,7 +7,7 @@ import Shaker from "@src/components/Shaker";
 import { COLORS } from "@src/constants/Colors";
 import { COMPLIMENTS } from "@src/constants/Toasts";
 import { Word } from "@src/content/types";
-import { randomInRange } from "@src/utils";
+import { randomInRange } from "@src/tools/utils";
 
 /** ========================================================================
  * Types
