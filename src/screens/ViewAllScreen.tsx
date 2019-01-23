@@ -10,7 +10,7 @@ import GlobalContextProvider, {
 import ToastProvider from "@src/components/ToastProvider";
 import { COLORS } from "@src/constants/Colors";
 import { LessonScreenParams, Word } from "@src/content/types";
-import { filterBySearchTerm, mapWordsForList } from "@src/utils";
+import { filterBySearchTerm, mapWordsForList } from "@src/tools/utils";
 
 /** ========================================================================
  * Types

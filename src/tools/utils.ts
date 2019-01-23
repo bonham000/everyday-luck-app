@@ -1,7 +1,7 @@
 import { NavigationActions, StackActions } from "react-navigation";
 
 import { ROUTE_NAMES } from "@src/constants/Routes";
-import { Lesson, Word } from "@src/content/types";
+import { Lesson, LessonSet, Word } from "@src/content/types";
 import { LanguageSelection, ScoreStatus } from "@src/GlobalContext";
 
 export const assertUnreachable = (x: never): never => {
@@ -83,6 +83,16 @@ export const filterForOneCharacterMode = (
   return words.filter(({ characters }) => characters.length === 1);
 };
 
+/**
+ * There can be several empty placeholder lesson blocks. Determine the
+ * last lesson block which has content (this one can be partially) filled.
+ */
+const determineFinalLessonBlock = (contentBlocks: LessonSet): number => {
+  return contentBlocks.reduce((finalIndex, current, index) => {
+    return current.length ? index : finalIndex;
+  }, 0);
+};
+
 const LESSON_MAX = 25;
 
 /**
@@ -91,12 +101,14 @@ const LESSON_MAX = 25;
  * Big function!
  */
 export const deriveContentFromLessons = (
-  contentBlocks: ReadonlyArray<ReadonlyArray<Word>>,
+  contentBlocks: LessonSet,
   language: LanguageSelection,
 ) => {
   let summaryMessage = `\nContent Summary for ${language}:\n\n`;
   // Use a set to check for duplicate entries
   const wordSet = new Set();
+  const finalLessonIndex = determineFinalLessonBlock(contentBlocks);
+
   const lessons = contentBlocks.reduce((content, lesson, index) => {
     /**
      * Check and validate length of lesson
@@ -109,7 +121,7 @@ export const deriveContentFromLessons = (
     } else if (
       lesson.length !== 0 &&
       lesson.length < LESSON_MAX &&
-      index < contentBlocks.length - 1
+      index < finalLessonIndex
     ) {
       throw new Error(
         `Invalid length for non-final for ${language} lesson ${index +
