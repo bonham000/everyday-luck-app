@@ -159,6 +159,7 @@ export const getAlternateChoices = (word: Word, alternates: Lesson) => {
 
     if (
       !chosen.has(idx) &&
+      option.english === word.english &&
       option.characters !== word.characters &&
       option.characters.length <= word.characters.length + 2
     ) {

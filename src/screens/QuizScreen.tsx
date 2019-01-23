@@ -14,7 +14,7 @@ import { COLORS } from "@src/constants/Colors";
 import { ROUTE_NAMES } from "@src/constants/Routes";
 import { LessonScreenParams, Word } from "@src/content/types";
 import { LessonScoreType } from "@src/GlobalContext";
-import { filterForOneCharacterMode, randomInRange } from "@src/utils";
+import { filterForOneCharacterMode, randomInRange } from "@src/tools/utils";
 
 /** ========================================================================
  * Types

@@ -10,7 +10,7 @@ import GlobalContextProvider, {
 } from "@src/components/GlobalContextProvider";
 import { COLORS } from "@src/constants/Colors";
 import { Lesson, LessonScreenParams, Word } from "@src/content/types";
-import { knuthShuffle } from "@src/utils";
+import { knuthShuffle } from "@src/tools/utils";
 
 /** ========================================================================
  * Types

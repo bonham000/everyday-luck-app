@@ -10,7 +10,7 @@ import { COLORS } from "@src/constants/Colors";
 import { ROUTE_NAMES } from "@src/constants/Routes";
 import { getLessonSet } from "@src/content";
 import { LessonScreenParams, Word } from "@src/content/types";
-import { getFinalUnlockedLesson } from "@src/utils";
+import { getFinalUnlockedLesson } from "@src/tools/utils";
 
 /** ========================================================================
  * Types
