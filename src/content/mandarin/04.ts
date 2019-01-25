@@ -27,11 +27,6 @@ const Content: ReadonlyArray<Word> = [
     english: "I want",
   },
   {
-    characters: "一",
-    phonetic: "Yī",
-    english: "One",
-  },
-  {
     characters: "我不能",
     phonetic: "Wǒ bùnéng",
     english: "I cannot",
