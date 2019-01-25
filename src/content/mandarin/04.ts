@@ -21,6 +21,21 @@ const Content: ReadonlyArray<Word> = [
     phonetic: "Xīn",
     english: "Heart",
   },
+  {
+    characters: "我想要",
+    phonetic: "Wǒ xiǎng yào",
+    english: "I want",
+  },
+  {
+    characters: "一",
+    phonetic: "Yī",
+    english: "One",
+  },
+  {
+    characters: "我不能",
+    phonetic: "Wǒ bùnéng",
+    english: "I cannot",
+  },
 ];
 
 export default Content;
