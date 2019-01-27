@@ -1,11 +1,9 @@
-import { Word } from "@src/content/types";
-
 /** ========================================================================
  * KOREAN content for app
  * =========================================================================
  */
 
-const Content: ReadonlyArray<Word> = [
+export default [
   {
     characters: "안녕하세요",
     phonetic: "annyeonghaseyo",
@@ -132,5 +130,3 @@ const Content: ReadonlyArray<Word> = [
     english: "Thank you",
   },
 ];
-
-export default Content;

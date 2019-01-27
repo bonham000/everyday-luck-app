@@ -4,6 +4,8 @@ import LESSON_THREE from "@src/content/mandarin/03.ts";
 import LESSON_FOUR from "@src/content/mandarin/04.ts";
 import LESSON_FIVE from "@src/content/mandarin/05.ts";
 import LESSON_SIX from "@src/content/mandarin/06.ts";
+import LESSON_SEVEN from "@src/content/mandarin/07.ts";
+
 import { LessonSet } from "@src/content/types";
 import { deriveContentFromLessons } from "@src/tools/utils";
 
@@ -14,6 +16,7 @@ export const LESSONS: LessonSet = [
   LESSON_FOUR,
   LESSON_FIVE,
   LESSON_SIX,
+  LESSON_SEVEN,
 ];
 
 export default deriveContentFromLessons(LESSONS, "Mandarin");

@@ -1,11 +1,9 @@
-import { Word } from "@src/content/types";
-
 /** ========================================================================
  * Lesson 02
  * =========================================================================
  */
 
-const Content: ReadonlyArray<Word> = [
+export default [
   {
     characters: "對",
     phonetic: "Duì",
@@ -132,5 +130,3 @@ const Content: ReadonlyArray<Word> = [
     english: "Cake",
   },
 ];
-
-export default Content;
