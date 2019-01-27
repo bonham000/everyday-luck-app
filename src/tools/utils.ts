@@ -104,12 +104,15 @@ export const deriveContentFromLessons = (
   contentBlocks: LessonSet,
   language: LanguageSelection,
 ) => {
+  let totalWords = 0;
   let summaryMessage = `\nContent Summary for ${language}:\n\n`;
   // Use a set to check for duplicate entries
   const wordSet = new Set();
   const finalLessonIndex = determineFinalLessonBlock(contentBlocks);
 
   const lessons = contentBlocks.reduce((content, lesson, index) => {
+    totalWords += lesson.length;
+
     /**
      * Check and validate length of lesson
      */
@@ -137,7 +140,9 @@ export const deriveContentFromLessons = (
       ...lesson.map((item: Word) => {
         const { characters } = item;
         if (wordSet.has(characters)) {
-          throw new Error(`Duplicate word detected! -> ${characters}`);
+          throw new Error(
+            `Duplicate word detected in lesson ${index + 1}! -> ${characters}`,
+          );
         } else {
           wordSet.add(item.characters);
         }
@@ -150,6 +155,7 @@ export const deriveContentFromLessons = (
     );
   }, []);
 
+  summaryMessage += `\nTotal: ${totalWords} words`;
   console.log(summaryMessage);
   return lessons;
 };
