@@ -107,7 +107,7 @@ export default [
   {
     characters: "結束",
     phonetic: "Jiéshù",
-    english: "Start",
+    english: "End",
   },
   {
     characters: "始",
