@@ -1,5 +1,6 @@
 import glamorous from "glamorous-native";
 import React from "react";
+import { ScrollView } from "react-native";
 import { Text } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
@@ -131,12 +132,18 @@ class HomeScreen extends React.Component<IProps, {}> {
  * =========================================================================
  */
 
-const Container = glamorous.view({
-  flex: 1,
-  paddingTop: 35,
-  alignItems: "center",
-  backgroundColor: "rgb(231,237,240)",
-});
+const Container = (props: { children: any }) => (
+  <ScrollView
+    contentContainerStyle={{
+      flex: 1,
+      width: "100%",
+      paddingTop: 25,
+      alignItems: "center",
+    }}
+  >
+    {props.children}
+  </ScrollView>
+);
 
 const LessonLink = glamorous.touchableOpacity({
   width: "90%",
