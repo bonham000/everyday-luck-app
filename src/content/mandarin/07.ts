@@ -1,8 +1,3 @@
-/** ========================================================================
- * Lesson 05
- * =========================================================================
- */
-
 export default [
   {
     characters: "我懂了",
@@ -103,5 +98,30 @@ export default [
     characters: "許多",
     phonetic: "Xǔduō",
     english: "Many",
+  },
+  {
+    characters: "週年",
+    phonetic: "Zhōunián",
+    english: "Anniversary",
+  },
+  {
+    characters: "新年快樂",
+    phonetic: "Xīnnián kuàilè",
+    english: "Happy new year",
+  },
+  {
+    characters: "新",
+    phonetic: "Xīn",
+    english: "New",
+  },
+  {
+    characters: "年",
+    phonetic: "Nián",
+    english: "Year",
+  },
+  {
+    characters: "跑",
+    phonetic: "Pǎo",
+    english: "Run",
   },
 ];
