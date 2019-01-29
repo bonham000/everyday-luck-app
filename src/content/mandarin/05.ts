@@ -32,7 +32,7 @@ export default [
   {
     characters: "感謝",
     phonetic: "Gǎnxiè",
-    english: "Thank you",
+    english: "Thank you (more emphasis)",
   },
   {
     characters: "小",

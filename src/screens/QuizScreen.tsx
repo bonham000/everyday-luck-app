@@ -22,7 +22,7 @@ import { filterForOneCharacterMode, randomInRange } from "@src/tools/utils";
  */
 
 interface IProps extends GlobalContextProps {
-  navigation: NavigationScreenProp<LessonScreenParams>;
+  navigation: NavigationScreenProp<{}, LessonScreenParams>;
   lessonType: LessonScoreType;
   Component: ComponentProp;
 }
@@ -359,9 +359,11 @@ class QuizScreen extends React.Component<IProps, IState> {
   };
 
   navigateToViewAll = () => {
+    const type = this.props.navigation.getParam("type");
     const lesson = this.props.navigation.getParam("lesson");
     const lessonIndex = this.props.navigation.getParam("lessonIndex");
     const params: LessonScreenParams = {
+      type,
       lesson,
       lessonIndex,
       headerTitle: `Lesson ${Number(lessonIndex) + 1} Content`,

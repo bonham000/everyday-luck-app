@@ -45,14 +45,17 @@ const AppStack = () => {
         navigationOptions: ({
           navigation,
         }: {
-          navigation: NavigationScreenProp<LessonScreenParams>;
+          navigation: NavigationScreenProp<{}, LessonScreenParams>;
         }) => {
           const index = navigation.getParam("lessonIndex");
-          const isSummaryReview = navigation.getParam("isSummaryReview");
+          const type = navigation.getParam("type");
           return {
-            title: isSummaryReview
-              ? "Review All 🔮"
-              : `Lesson ${Number(index) + 1} Summary 🎎`,
+            title:
+              type === "LESSON"
+                ? `Lesson ${Number(index) + 1} Summary 🎎`
+                : type === "SUMMARY"
+                ? "Review All 🔮"
+                : "Game Mode! 🎲",
             headerBackTitle: null,
           };
         },

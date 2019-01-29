@@ -17,7 +17,7 @@ import { LessonScreenParams } from "@src/content/types";
  */
 
 interface IProps extends GlobalContextProps {
-  navigation: NavigationScreenProp<LessonScreenParams>;
+  navigation: NavigationScreenProp<{}, LessonScreenParams>;
 }
 
 /** ========================================================================
@@ -27,54 +27,67 @@ interface IProps extends GlobalContextProps {
 
 class LessonSummaryScreen extends React.Component<IProps, {}> {
   render(): JSX.Element {
+    const type = this.props.navigation.getParam("type");
     const lesson = this.props.navigation.getParam("lesson");
     const lessonIndex = this.props.navigation.getParam("lessonIndex");
-    const isSummaryReview = this.props.navigation.getParam("isSummaryReview");
+    const isLesson = type === "LESSON";
     const { mc, q } = this.props.userScoreStatus[lessonIndex];
     return (
       <Container>
         <Text style={TextStyles}>
-          {isSummaryReview ? "Content" : "Lesson"} Summary
+          {type === "LESSON"
+            ? "Lesson Summary"
+            : type === "SUMMARY"
+            ? "Content Summary"
+            : "Fun Challenge, 遊戲！"}
         </Text>
         <Text style={{ marginBottom: 12 }}>
-          {isSummaryReview
-            ? `This is a summary of all unlocked content`
-            : `${lesson.length} total words to practice in this lesson`}
+          {type === "LESSON"
+            ? `${lesson.length} total words to practice in this lesson`
+            : type === "SUMMARY"
+            ? "This is a summary of all unlocked content"
+            : "There are 25 random words selected for you!"}
         </Text>
-        <Text style={SectionTextStyles}>Practice</Text>
+        {type !== "GAME" && <Text style={SectionTextStyles}>Practice</Text>}
         <LineBreak />
         <ActionBlock onPress={this.handleNavigateToSection(ROUTE_NAMES.QUIZ)}>
           <Text>Quiz</Text>
-          {q && !isSummaryReview && <Text>💯</Text>}
+          {q && isLesson && <Text>💯</Text>}
         </ActionBlock>
         <ActionBlock
           onPress={this.handleNavigateToSection(ROUTE_NAMES.MULTIPLE_CHOICE)}
         >
           <Text>Multiple Choice</Text>
-          {mc && !isSummaryReview && <Text>💯</Text>}
+          {mc && isLesson && <Text>💯</Text>}
         </ActionBlock>
-        <Text style={SectionTextStyles}>Study</Text>
-        <LineBreak />
-        <ActionBlock
-          style={{ backgroundColor: COLORS.actionButtonMint }}
-          onPress={this.handleNavigateToSection(ROUTE_NAMES.FLASHCARDS)}
-        >
-          <Text>Flashcards</Text>
-        </ActionBlock>
-        <ActionBlock
-          style={{ backgroundColor: COLORS.actionButtonMint }}
-          onPress={this.handleNavigateToSection(ROUTE_NAMES.VIEW_ALL)}
-        >
-          <Text>Review All Content</Text>
-        </ActionBlock>
+        {type !== "GAME" && (
+          <React.Fragment>
+            <Text style={SectionTextStyles}>Study</Text>
+            <LineBreak />
+            <ActionBlock
+              style={{ backgroundColor: COLORS.actionButtonMint }}
+              onPress={this.handleNavigateToSection(ROUTE_NAMES.FLASHCARDS)}
+            >
+              <Text>Flashcards</Text>
+            </ActionBlock>
+            <ActionBlock
+              style={{ backgroundColor: COLORS.actionButtonMint }}
+              onPress={this.handleNavigateToSection(ROUTE_NAMES.VIEW_ALL)}
+            >
+              <Text>Review All Content</Text>
+            </ActionBlock>
+          </React.Fragment>
+        )}
       </Container>
     );
   }
 
   handleNavigateToSection = (routeName: ROUTE_NAMES) => () => {
+    const type = this.props.navigation.getParam("type");
     const lesson = this.props.navigation.getParam("lesson");
     const lessonIndex = this.props.navigation.getParam("lessonIndex");
     const params: LessonScreenParams = {
+      type,
       lesson,
       lessonIndex,
     };

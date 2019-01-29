@@ -8,9 +8,11 @@ export type Lesson = ReadonlyArray<Word>;
 
 export type LessonSet = ReadonlyArray<Lesson>;
 
+export type LessonSummaryType = "SUMMARY" | "GAME" | "LESSON";
+
 export interface LessonScreenParams {
   lesson: Lesson;
   lessonIndex: number;
-  isSummaryReview?: boolean;
   headerTitle?: string;
+  type: LessonSummaryType;
 }

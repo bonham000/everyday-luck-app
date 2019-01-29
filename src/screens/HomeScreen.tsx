@@ -9,8 +9,12 @@ import GlobalContextProvider, {
 import { COLORS } from "@src/constants/Colors";
 import { ROUTE_NAMES } from "@src/constants/Routes";
 import { getLessonSet } from "@src/content";
-import { LessonScreenParams, Word } from "@src/content/types";
-import { getFinalUnlockedLesson } from "@src/tools/utils";
+import {
+  LessonScreenParams,
+  LessonSummaryType,
+  Word,
+} from "@src/content/types";
+import { getFinalUnlockedLesson, knuthShuffle } from "@src/tools/utils";
 
 /** ========================================================================
  * Types
@@ -80,16 +84,30 @@ class HomeScreen extends React.Component<IProps, {}> {
         <LineBreak />
         <ReviewLink
           onPress={this.openLessonSummary(
+            knuthShuffle(
+              LESSONS.slice(0, unlockedLessonIndex + 1).reduce(
+                (flattened, lesson) => [...flattened, ...lesson],
+              ),
+            ).slice(0, 25),
+            0,
+            "GAME",
+          )}
+        >
+          <Text style={{ fontWeight: "600" }}>Game Mode!</Text>
+          <Text>🎲</Text>
+        </ReviewLink>
+        <ReviewLink
+          onPress={this.openLessonSummary(
             LESSONS.slice(0, unlockedLessonIndex + 1).reduce(
               (flattened, lesson) => [...flattened, ...lesson],
             ),
             0,
-            true,
+            "SUMMARY",
           )}
         >
-          <Text style={{ fontWeight: "600" }}>View all unlocked lessons</Text>
+          <Text style={{ fontWeight: "600" }}>View All Unlocked Content</Text>
+          <Text>📚</Text>
         </ReviewLink>
-        <Text>{JSON.stringify(userScoreStatus)}</Text>
       </Container>
     );
   }
@@ -97,12 +115,12 @@ class HomeScreen extends React.Component<IProps, {}> {
   openLessonSummary = (
     lesson: ReadonlyArray<Word>,
     index: number,
-    isSummaryReview: boolean = false,
+    type: LessonSummaryType = "LESSON",
   ) => () => {
     const params: LessonScreenParams = {
+      type,
       lesson,
       lessonIndex: index,
-      isSummaryReview,
     };
     this.props.navigation.navigate(ROUTE_NAMES.LESSON_SUMMARY, params);
   };
@@ -123,7 +141,7 @@ const Container = glamorous.view({
 const LessonLink = glamorous.touchableOpacity({
   width: "90%",
   height: 50,
-  padding: 10,
+  padding: 12,
   margin: 4,
   flexDirection: "row",
   alignItems: "center",
@@ -134,9 +152,11 @@ const LessonLink = glamorous.touchableOpacity({
 const ReviewLink = glamorous.touchableOpacity({
   width: "90%",
   height: 50,
-  padding: 10,
+  padding: 12,
   margin: 4,
-  justifyContent: "center",
+  flexDirection: "row",
+  alignItems: "center",
+  justifyContent: "space-between",
   backgroundColor: COLORS.actionButtonMint,
 });
 
