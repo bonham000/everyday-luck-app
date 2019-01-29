@@ -89,6 +89,7 @@ class HomeScreen extends React.Component<IProps, {}> {
         >
           <Text style={{ fontWeight: "600" }}>View all unlocked lessons</Text>
         </ReviewLink>
+        <Text>{JSON.stringify(userScoreStatus)}</Text>
       </Container>
     );
   }
