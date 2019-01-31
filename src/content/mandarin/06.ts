@@ -121,7 +121,7 @@ export default [
   },
   {
     characters: "請原諒我",
-    phonetic: "Qǐng yuánliàng w",
+    phonetic: "Qǐng yuánliàng wǒ",
     english: "Please forgive me",
   },
 ];
