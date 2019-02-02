@@ -1,4 +1,5 @@
 import React from "react";
+import { LessonSummaryType } from "./content/types";
 
 /** ========================================================================
  * Context for toast message
@@ -28,7 +29,11 @@ const AppContext = React.createContext({
   openLanguageSelectionMenu: () => {
     // Handle opening menu
   },
-  setLessonScore: (lessonIndex: number, lessonPassedType: LessonScoreType) => {
+  setLessonScore: (
+    lessonIndex: number,
+    lessonPassedType: LessonScoreType,
+    lessonType: LessonSummaryType,
+  ) => {
     // Handle setting lesson score
   },
 });
