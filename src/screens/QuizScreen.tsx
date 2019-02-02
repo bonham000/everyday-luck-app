@@ -106,6 +106,8 @@ class QuizScreen extends React.Component<IProps, IState> {
 
     const Component = this.props.Component;
 
+    const lessonType = this.props.navigation.getParam("type");
+
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <Container>
@@ -146,15 +148,17 @@ class QuizScreen extends React.Component<IProps, IState> {
             >
               <Ionicons name="md-school" style={ActionIconStyle} />
             </ActionButton.Item>
-            <ActionButton.Item
-              buttonColor={COLORS.actionButtonYellow}
-              onPress={this.handleToggleOneCharacterMode}
-              title={`${
-                oneCharacterMode ? "Disable" : "Switch to"
-              } one-character mode`}
-            >
-              <Ionicons name="md-jet" style={ActionIconStyle} />
-            </ActionButton.Item>
+            {lessonType === "SUMMARY" && (
+              <ActionButton.Item
+                buttonColor={COLORS.actionButtonYellow}
+                onPress={this.handleToggleOneCharacterMode}
+                title={`${
+                  oneCharacterMode ? "Disable" : "Switch to"
+                } one-character mode`}
+              >
+                <Ionicons name="md-jet" style={ActionIconStyle} />
+              </ActionButton.Item>
+            )}
           </ActionButton>
         </Container>
       </TouchableWithoutFeedback>
