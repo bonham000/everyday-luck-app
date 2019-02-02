@@ -34,4 +34,34 @@ export default [
     phonetic: "Xiào",
     english: "Laugh",
   },
+  {
+    characters: "週年",
+    phonetic: "Zhōunián",
+    english: "Anniversary",
+  },
+  {
+    characters: "你想死嗎",
+    phonetic: "Nǐ xiǎng sǐ ma?",
+    english: "Do you want to die?",
+  },
+  {
+    characters: "你想死嗎",
+    phonetic: "Nǐ xiǎng sǐ ma?",
+    english: "Do you want to die?",
+  },
+  {
+    characters: "死",
+    phonetic: "Sǐ",
+    english: "Dead",
+  },
+  {
+    characters: "恭喜发财",
+    phonetic: "Gōngxǐ fācái",
+    english: "Have loads of money",
+  },
+  {
+    characters: "王",
+    phonetic: "Wáng",
+    english: "King",
+  },
 ];
