@@ -23,7 +23,7 @@ import { filterForOneCharacterMode, randomInRange } from "@src/tools/utils";
 
 interface IProps extends GlobalContextProps {
   navigation: NavigationScreenProp<{}, LessonScreenParams>;
-  lessonType: LessonScoreType;
+  quizType: LessonScoreType;
   Component: ComponentProp;
 }
 
@@ -297,15 +297,16 @@ class QuizScreen extends React.Component<IProps, IState> {
   };
 
   handleFinish = () => {
-    const { userScoreStatus, lessonType } = this.props;
+    const { userScoreStatus, quizType } = this.props;
     const lessonIndex = this.props.navigation.getParam("lessonIndex");
+    const lessonType = this.props.navigation.getParam("type");
 
     const perfectScore = this.state.failCount === 0;
-    const firstPass = perfectScore && !userScoreStatus[lessonIndex][lessonType];
+    const firstPass = perfectScore && !userScoreStatus[lessonIndex][quizType];
     let lessonCompleted = false;
     if (perfectScore) {
-      this.props.setLessonScore(lessonIndex, this.props.lessonType);
-      const otherLessonType = lessonType === "mc" ? "q" : "mc";
+      this.props.setLessonScore(lessonIndex, this.props.quizType, lessonType);
+      const otherLessonType = quizType === "mc" ? "q" : "mc";
       const otherLessonStatus = userScoreStatus[lessonIndex][otherLessonType];
       if (otherLessonStatus) {
         lessonCompleted = true;
@@ -456,11 +457,11 @@ const ActionIconStyle = {
  * =========================================================================
  */
 
-export default ({ QuizComponent, ...rest }: any) => (
+export default ({ Component, ...rest }: IProps) => (
   <GlobalContextProvider
     {...rest}
     Component={(childProps: any) => (
-      <QuizScreen {...childProps} Component={QuizComponent} />
+      <QuizScreen {...childProps} Component={Component} />
     )}
   />
 );

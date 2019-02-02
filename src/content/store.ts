@@ -3,7 +3,7 @@ import { AsyncStorage } from "react-native";
 import { getLessonSet } from "@src/content/index.ts";
 import { LessonScoreType, ScoreStatus } from "@src/GlobalContext";
 import { randomInRange } from "@src/tools/utils";
-import { Lesson } from "./types";
+import { Lesson, LessonSummaryType } from "./types";
 
 const STORE_KEY = "SCORES";
 const EXPERIENCE_KEY = "EXPERIENCE";
@@ -62,11 +62,14 @@ export const getUserExperience = async (): Promise<number> => {
 };
 
 export const addExperiencePoints = async (
-  lessonType: LessonScoreType,
+  quizType: LessonScoreType,
+  lessonType: LessonSummaryType,
 ): Promise<number | undefined> => {
   try {
     const existingExp = await getUserExperience();
-    const additionalExp = randomInRange(0, lessonType === "q" ? 1250 : 500);
+    const MAX = quizType === "q" ? 1250 : 750;
+    const OFFSET = lessonType === "LESSON" ? 500 : 0;
+    const additionalExp = randomInRange(500, MAX - OFFSET);
     const newExp = existingExp + additionalExp;
     await AsyncStorage.setItem(EXPERIENCE_KEY, JSON.stringify(newExp));
     return newExp;
