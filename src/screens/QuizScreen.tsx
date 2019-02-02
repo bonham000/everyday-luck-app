@@ -378,7 +378,7 @@ class QuizScreen extends React.Component<IProps, IState> {
     const nextWordIndex = this.getRandomWordIndex();
     if (
       !wordCompletedCache.has(nextWordIndex) &&
-      (shouldSkipLast && nextWordIndex !== wordContent.length)
+      (shouldSkipLast || nextWordIndex !== wordContent.length)
     ) {
       return nextWordIndex;
     } else {
