@@ -35,16 +35,6 @@ export default [
     english: "Laugh",
   },
   {
-    characters: "週年",
-    phonetic: "Zhōunián",
-    english: "Anniversary",
-  },
-  {
-    characters: "你想死嗎",
-    phonetic: "Nǐ xiǎng sǐ ma?",
-    english: "Do you want to die?",
-  },
-  {
     characters: "你想死嗎",
     phonetic: "Nǐ xiǎng sǐ ma?",
     english: "Do you want to die?",
