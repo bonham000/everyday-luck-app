@@ -255,6 +255,8 @@ class QuizScreen extends React.Component<IProps, IState> {
   };
 
   handleProceed = (didSkip: boolean = false) => () => {
+    const didFail = this.state.failedOnce;
+
     this.setState(
       prevState => ({
         value: "",
@@ -274,7 +276,7 @@ class QuizScreen extends React.Component<IProps, IState> {
 
         this.setState(
           prevState => {
-            const nextIndex = this.getNextWordIndex();
+            const nextIndex = this.getNextWordIndex(didFail);
 
             return {
               currentWordIndex: nextIndex,
@@ -371,13 +373,16 @@ class QuizScreen extends React.Component<IProps, IState> {
     this.props.navigation.navigate(ROUTE_NAMES.VIEW_ALL, params);
   };
 
-  getNextWordIndex = (): number => {
-    const { wordCompletedCache } = this.state;
+  getNextWordIndex = (shouldSkipLast: boolean = false): number => {
+    const { wordCompletedCache, wordContent } = this.state;
     const nextWordIndex = this.getRandomWordIndex();
-    if (!wordCompletedCache.has(nextWordIndex)) {
+    if (
+      !wordCompletedCache.has(nextWordIndex) &&
+      (shouldSkipLast && nextWordIndex !== wordContent.length)
+    ) {
       return nextWordIndex;
     } else {
-      return this.getNextWordIndex();
+      return this.getNextWordIndex(shouldSkipLast);
     }
   };
 
