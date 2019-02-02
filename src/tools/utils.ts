@@ -89,8 +89,16 @@ export const filterForOneCharacterMode = (
  */
 const determineFinalLessonBlock = (contentBlocks: LessonSet): number => {
   return contentBlocks.reduce((finalIndex, current, index) => {
-    return current.length ? index : finalIndex;
+    if (notEmpty(current)) {
+      return current.length ? index : finalIndex;
+    } else {
+      return finalIndex;
+    }
   }, 0);
+};
+
+const notEmpty = (lesson: Lesson): boolean => {
+  return Boolean(lesson.filter(({ characters }) => Boolean(characters)).length);
 };
 
 const LESSON_MAX = 25;
@@ -111,8 +119,6 @@ export const deriveContentFromLessons = (
   const finalLessonIndex = determineFinalLessonBlock(contentBlocks);
 
   const lessons = contentBlocks.reduce((content, lesson, index) => {
-    totalWords += lesson.length;
-
     /**
      * Check and validate length of lesson
      */
@@ -130,28 +136,32 @@ export const deriveContentFromLessons = (
         `Invalid length for non-final for ${language} lesson ${index +
           1}: expected ${LESSON_MAX} but received ${lesson.length}`,
       );
-    } else {
+    } else if (index <= finalLessonIndex) {
+      totalWords += lesson.length;
       summaryMessage += `Lesson ${index + 1} - ${lesson.length} ${
         lesson.length < 10 ? " " : ""
       }total words\n`;
     }
 
     return content.concat(
-      ...lesson.map((item: Word) => {
-        const { characters } = item;
-        if (wordSet.has(characters)) {
-          throw new Error(
-            `Duplicate word detected in lesson ${index + 1}! -> ${characters}`,
-          );
-        } else {
-          wordSet.add(item.characters);
-        }
+      ...lesson
+        .filter(({ characters }) => Boolean(characters))
+        .map((item: Word) => {
+          const { characters, english } = item;
+          if (wordSet.has(characters)) {
+            throw new Error(
+              `Duplicate word detected in lesson ${index +
+                1}! -> ${characters} (${english})`,
+            );
+          } else {
+            wordSet.add(item.characters);
+          }
 
-        return {
-          ...item,
-          lessonKey: index + 1,
-        };
-      }),
+          return {
+            ...item,
+            lessonKey: index + 1,
+          };
+        }),
     );
   }, []);
 

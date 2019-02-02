@@ -54,4 +54,74 @@ export default [
     phonetic: "Wáng",
     english: "King",
   },
+  {
+    characters: "你該走了",
+    phonetic: "Nǐ gāi zǒule",
+    english: "You should go",
+  },
+  {
+    characters: "多",
+    phonetic: "Duō",
+    english: "Many",
+  },
+  {
+    characters: "需要",
+    phonetic: "Xūyào",
+    english: "Need",
+  },
+  {
+    characters: "我要走了",
+    phonetic: "Wǒ yào zǒule",
+    english: "I need to go",
+  },
+  {
+    characters: "給",
+    phonetic: "Gěi",
+    english: "Give",
+  },
+  {
+    characters: "月",
+    phonetic: "Yuè",
+    english: "Month",
+  },
+  {
+    characters: "國際",
+    phonetic: "Guójì",
+    english: "International",
+  },
+  {
+    characters: "發生",
+    phonetic: "Fāshēng",
+    english: "Happen",
+  },
+  {
+    characters: "自由",
+    phonetic: "Zìyóu",
+    english: "Freedom",
+  },
+  {
+    characters: "常",
+    phonetic: "Cháng",
+    english: "Often",
+  },
+  {
+    characters: "一起",
+    phonetic: "Yīqǐ",
+    english: "Together",
+  },
+  {
+    characters: "去",
+    phonetic: "Qù",
+    english: "Go with",
+  },
+  {
+    characters: "太陽",
+    phonetic: "Tàiyáng",
+    english: "Sun",
+  },
+  {
+    characters: "單獨",
+    phonetic: "Dāndú",
+    english: "Alone",
+  },
 ];
