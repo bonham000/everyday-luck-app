@@ -1,6 +1,6 @@
 import glamorous from "glamorous-native";
 import React from "react";
-import { Image, Keyboard, ScrollView, View } from "react-native";
+import { Image, Keyboard, View } from "react-native";
 import { NavigationScreenProp, SafeAreaView } from "react-navigation";
 
 import GlobalContextProvider, {
@@ -34,35 +34,38 @@ class DrawerMenuScreen extends React.Component<IProps, {}> {
 
   render(): JSX.Element {
     return (
-      <ScrollView keyboardShouldPersistTaps="always">
-        <SafeAreaView
-          style={{ flex: 1, paddingTop: 75, paddingLeft: 6 }}
-          forceInset={{ top: "always", horizontal: "never" }}
+      <SafeAreaView
+        style={{ flex: 1, paddingTop: 75, paddingLeft: 6 }}
+        forceInset={{ top: "always", horizontal: "never" }}
+      >
+        <View style={{ flexDirection: "row", justifyContent: "center" }}>
+          <Image
+            resizeMode="contain"
+            style={{ width: 100, height: 100 }}
+            source={require("../assets/icon.png")}
+          />
+        </View>
+        <Item onPress={this.createNavigationHandler(ROUTE_NAMES.ABOUT)}>
+          🎋
+          {"  "}
+          About this App
+        </Item>
+        <Item onPress={this.handleSwitchLanguage}>
+          🥢
+          {"  "}
+          Switch Language
+        </Item>
+        <Item onPress={this.resetScores}>
+          🗃
+          {"  "}
+          Reset Scores
+        </Item>
+        <Item
+          style={{ position: "absolute", bottom: 65, left: 6, fontSize: 12 }}
         >
-          <View style={{ flexDirection: "row", justifyContent: "center" }}>
-            <Image
-              resizeMode="contain"
-              style={{ width: 100, height: 100 }}
-              source={require("../assets/icon.png")}
-            />
-          </View>
-          <Item onPress={this.createNavigationHandler(ROUTE_NAMES.ABOUT)}>
-            🎋
-            {"  "}
-            About this App
-          </Item>
-          <Item onPress={this.handleSwitchLanguage}>
-            🥢
-            {"  "}
-            Switch Language
-          </Item>
-          <Item onPress={this.resetScores}>
-            🗃
-            {"  "}
-            Reset Scores
-          </Item>
-        </SafeAreaView>
-      </ScrollView>
+          {this.props.experience} experience points
+        </Item>
+      </SafeAreaView>
     );
   }
 

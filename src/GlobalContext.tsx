@@ -16,6 +16,9 @@ export type LessonScoreType = "mc" | "q";
 export type ScoreStatus = ReadonlyArray<LessonScore>;
 
 const AppContext = React.createContext({
+  experience: 0,
+  selectedLanguage: "Mandarin",
+  userScoreStatus: [] as ScoreStatus,
   setToastMessage: (toastMessage: string) => {
     // Handle setting Toast message
   },
@@ -25,8 +28,6 @@ const AppContext = React.createContext({
   openLanguageSelectionMenu: () => {
     // Handle opening menu
   },
-  selectedLanguage: "Mandarin",
-  userScoreStatus: [] as ScoreStatus,
   setLessonScore: (lessonIndex: number, lessonPassedType: LessonScoreType) => {
     // Handle setting lesson score
   },

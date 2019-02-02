@@ -1,10 +1,12 @@
 import { AsyncStorage } from "react-native";
 
 import { getLessonSet } from "@src/content/index.ts";
-import { ScoreStatus } from "@src/GlobalContext";
+import { LessonScoreType, ScoreStatus } from "@src/GlobalContext";
+import { randomInRange } from "@src/tools/utils";
 import { Lesson } from "./types";
 
 const STORE_KEY = "SCORES";
+const EXPERIENCE_KEY = "EXPERIENCE";
 
 const LESSON_SET = getLessonSet("Mandarin");
 
@@ -44,6 +46,30 @@ export const saveProgressToAsyncStorage = async (
 export const resetUserScoresAsync = async () => {
   try {
     AsyncStorage.setItem(STORE_KEY, JSON.stringify(initialLessonScoreState));
+  } catch (err) {
+    return;
+  }
+};
+
+export const getUserExperience = async (): Promise<number> => {
+  try {
+    const result = await AsyncStorage.getItem(EXPERIENCE_KEY);
+    const parsedResult = JSON.parse(result);
+    return parsedResult || 0;
+  } catch (err) {
+    return 0;
+  }
+};
+
+export const addExperiencePoints = async (
+  lessonType: LessonScoreType,
+): Promise<number | undefined> => {
+  try {
+    const existingExp = await getUserExperience();
+    const additionalExp = randomInRange(0, lessonType === "q" ? 1250 : 500);
+    const newExp = existingExp + additionalExp;
+    await AsyncStorage.setItem(EXPERIENCE_KEY, JSON.stringify(newExp));
+    return newExp;
   } catch (err) {
     return;
   }

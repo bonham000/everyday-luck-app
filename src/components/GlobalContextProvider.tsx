@@ -16,6 +16,7 @@ export type ComponentProp = (args: any) => JSX.Element;
 export interface GlobalContextProps {
   selectedLanguage: LanguageSelection;
   userScoreStatus: ScoreStatus;
+  experience: number;
   setToastMessage: (toastMessage: string) => void;
   openLanguageSelectionMenu: () => void;
   handleResetScores: () => void;
@@ -42,6 +43,7 @@ class GlobalContextProvider extends React.Component<IProps, {}> {
         {value => (
           <Component
             {...rest}
+            experience={value.experience}
             setToastMessage={value.setToastMessage}
             setLessonScore={value.setLessonScore}
             userScoreStatus={value.userScoreStatus}

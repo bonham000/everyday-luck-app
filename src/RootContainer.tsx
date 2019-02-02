@@ -13,7 +13,9 @@ import { createAppContainer } from "react-navigation";
 import { CustomToast } from "@src/components/ToastProvider";
 import { COLORS } from "@src/constants/Colors";
 import {
+  addExperiencePoints,
   getExistingUserScoresAsync,
+  getUserExperience,
   resetUserScoresAsync,
   saveProgressToAsyncStorage,
 } from "@src/content/store";
@@ -36,6 +38,7 @@ interface IState {
   tryingToCloseApp: boolean;
   selectedLanguage: any;
   userScoreStatus: ScoreStatus;
+  experience: number;
   languageSelectionMenuOpen: boolean;
 }
 
@@ -52,6 +55,7 @@ class RootContainer extends React.Component<{}, IState> {
     super(props);
 
     this.state = {
+      experience: 0,
       loading: true,
       appState: AppState.currentState,
       toastMessage: "",
@@ -70,6 +74,7 @@ class RootContainer extends React.Component<{}, IState> {
   getInitialScoreState = async () => {
     this.setState({
       loading: false,
+      experience: await getUserExperience(),
       userScoreStatus: await getExistingUserScoresAsync(),
     });
   };
@@ -144,12 +149,13 @@ class RootContainer extends React.Component<{}, IState> {
       <View style={{ flex: 1 }}>
         <GlobalContext.Provider
           value={{
-            handleResetScores: this.handleResetScores,
-            setToastMessage: this.setToastMessage,
-            openLanguageSelectionMenu: this.openLanguageSelectionMenu,
-            selectedLanguage: this.state.selectedLanguage.label,
+            experience: this.state.experience,
             setLessonScore: this.setLessonScore,
+            setToastMessage: this.setToastMessage,
+            handleResetScores: this.handleResetScores,
             userScoreStatus: this.state.userScoreStatus,
+            selectedLanguage: this.state.selectedLanguage.label,
+            openLanguageSelectionMenu: this.openLanguageSelectionMenu,
           }}
         >
           <CustomToast
@@ -186,16 +192,21 @@ class RootContainer extends React.Component<{}, IState> {
         }
       },
     );
+
     this.setState(
       {
         userScoreStatus: updatedScoreStatus,
       },
-      this.persistScore,
+      () => this.persistScore(lessonPassedType),
     );
   };
 
-  persistScore = async () => {
-    saveProgressToAsyncStorage(this.state.userScoreStatus);
+  persistScore = async (lessonType: LessonScoreType) => {
+    await saveProgressToAsyncStorage(this.state.userScoreStatus);
+    const experience = await addExperiencePoints(lessonType);
+    if (experience) {
+      this.setState({ experience });
+    }
   };
 
   assignNavRef = (ref: any) => {
