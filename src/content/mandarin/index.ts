@@ -10,7 +10,7 @@ import LESSON_NINE from "@src/content/mandarin/09.ts";
 import LESSON_TEN from "@src/content/mandarin/10.ts";
 
 import { LessonSet } from "@src/content/types";
-import { deriveContentFromLessons } from "@src/tools/utils";
+import { deriveContentFromLessons, isLessonEmpty } from "@src/tools/utils";
 
 export const LESSONS: LessonSet = [
   LESSON_ONE,
@@ -23,6 +23,6 @@ export const LESSONS: LessonSet = [
   LESSON_EIGHT,
   LESSON_NINE,
   LESSON_TEN,
-];
+].filter(isLessonEmpty);
 
 export default deriveContentFromLessons(LESSONS, "Mandarin");

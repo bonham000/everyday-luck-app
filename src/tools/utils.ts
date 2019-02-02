@@ -89,15 +89,11 @@ export const filterForOneCharacterMode = (
  */
 const determineFinalLessonBlock = (contentBlocks: LessonSet): number => {
   return contentBlocks.reduce((finalIndex, current, index) => {
-    if (notEmpty(current)) {
-      return current.length ? index : finalIndex;
-    } else {
-      return finalIndex;
-    }
+    return current.length ? index : finalIndex;
   }, 0);
 };
 
-const notEmpty = (lesson: Lesson): boolean => {
+export const isLessonEmpty = (lesson: Lesson) => {
   return Boolean(lesson.filter(({ characters }) => Boolean(characters)).length);
 };
 
