@@ -135,9 +135,10 @@ class HomeScreen extends React.Component<IProps, {}> {
 const Container = (props: { children: any }) => (
   <ScrollView
     contentContainerStyle={{
-      flex: 1,
+      flexGrow: 1,
       width: "100%",
       paddingTop: 25,
+      paddingBottom: 150,
       alignItems: "center",
     }}
   >
