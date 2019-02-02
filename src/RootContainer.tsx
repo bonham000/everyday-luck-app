@@ -24,7 +24,6 @@ import GlobalContext, {
   ScoreStatus,
 } from "@src/GlobalContext";
 import createAppNavigator from "@src/NavigatorConfig";
-import { LessonSummaryType } from "./content/types";
 
 /** ========================================================================
  * Types
@@ -183,7 +182,7 @@ class RootContainer extends React.Component<{}, IState> {
   setLessonScore = (
     lessonIndex: number,
     lessonPassedType: LessonScoreType,
-    lessonType: LessonSummaryType,
+    exp: number,
   ) => {
     const updatedScoreStatus = this.state.userScoreStatus.map(
       (status, index) => {
@@ -202,16 +201,13 @@ class RootContainer extends React.Component<{}, IState> {
       {
         userScoreStatus: updatedScoreStatus,
       },
-      () => this.persistScore(lessonPassedType, lessonType),
+      () => this.persistScore(exp),
     );
   };
 
-  persistScore = async (
-    quizType: LessonScoreType,
-    lessonType: LessonSummaryType,
-  ) => {
+  persistScore = async (exp: number) => {
     await saveProgressToAsyncStorage(this.state.userScoreStatus);
-    const experience = await addExperiencePoints(quizType, lessonType);
+    const experience = await addExperiencePoints(exp);
     if (experience) {
       this.setState({ experience });
     }

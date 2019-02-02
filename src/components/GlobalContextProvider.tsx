@@ -1,6 +1,5 @@
 import React from "react";
 
-import { LessonSummaryType } from "@src/content/types";
 import GlobalContext, {
   LanguageSelection,
   LessonScoreType,
@@ -24,7 +23,7 @@ export interface GlobalContextProps {
   setLessonScore: (
     lessonIndex: number,
     lessonPassedType: LessonScoreType,
-    lessonType: LessonSummaryType,
+    exp: number,
   ) => void;
 }
 

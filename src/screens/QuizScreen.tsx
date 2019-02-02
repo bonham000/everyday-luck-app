@@ -14,7 +14,11 @@ import { COLORS } from "@src/constants/Colors";
 import { ROUTE_NAMES } from "@src/constants/Routes";
 import { LessonScreenParams, Word } from "@src/content/types";
 import { LessonScoreType } from "@src/GlobalContext";
-import { filterForOneCharacterMode, randomInRange } from "@src/tools/utils";
+import {
+  filterForOneCharacterMode,
+  getExperiencePointsForLesson,
+  randomInRange,
+} from "@src/tools/utils";
 
 /** ========================================================================
  * Types
@@ -301,11 +305,13 @@ class QuizScreen extends React.Component<IProps, IState> {
     const lessonIndex = this.props.navigation.getParam("lessonIndex");
     const lessonType = this.props.navigation.getParam("type");
 
+    const exp = getExperiencePointsForLesson(quizType, lessonType);
+
     const perfectScore = this.state.failCount === 0;
     const firstPass = perfectScore && !userScoreStatus[lessonIndex][quizType];
     let lessonCompleted = false;
     if (perfectScore) {
-      this.props.setLessonScore(lessonIndex, this.props.quizType, lessonType);
+      this.props.setLessonScore(lessonIndex, this.props.quizType, exp);
       const otherLessonType = quizType === "mc" ? "q" : "mc";
       const otherLessonStatus = userScoreStatus[lessonIndex][otherLessonType];
       if (otherLessonStatus) {
@@ -322,7 +328,7 @@ class QuizScreen extends React.Component<IProps, IState> {
           ? "Amazing! You passed this lesson! 💯"
           : "You finished the quiz!",
         lessonCompleted
-          ? "Great - keep going! 很好!"
+          ? `Great - keep going! 很好! You earned ${exp} experience points!`
           : firstPass
           ? "Congratulations! 恭喜恭喜！"
           : "All words completed, 好！",

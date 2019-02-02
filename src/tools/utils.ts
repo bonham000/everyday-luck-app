@@ -1,8 +1,12 @@
 import { NavigationActions, StackActions } from "react-navigation";
 
 import { ROUTE_NAMES } from "@src/constants/Routes";
-import { Lesson, LessonSet, Word } from "@src/content/types";
-import { LanguageSelection, ScoreStatus } from "@src/GlobalContext";
+import { Lesson, LessonSet, LessonSummaryType, Word } from "@src/content/types";
+import {
+  LanguageSelection,
+  LessonScoreType,
+  ScoreStatus,
+} from "@src/GlobalContext";
 
 export const assertUnreachable = (x: never): never => {
   throw new Error(`Unreachable code! -> ${JSON.stringify(x)}`);
@@ -211,4 +215,14 @@ export const getFinalUnlockedLesson = (
       return null;
     }
   }, null);
+};
+
+export const getExperiencePointsForLesson = (
+  quizType: LessonScoreType,
+  lessonType: LessonSummaryType,
+): number => {
+  const MIN = 500;
+  const MAX = quizType === "q" ? 1250 : 750;
+  const OFFSET = lessonType === "LESSON" ? 500 : 0;
+  return randomInRange(MIN, MAX - OFFSET);
 };
