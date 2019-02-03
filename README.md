@@ -1,6 +1,6 @@
-# 學習中文
+# 很多汉字 - Mandarin Learning App
 
-### Mandarin [or insert your language here] Learning App
+》 **很多汉字:** Hěnduō hànzì -> _"many Chinese characters"_
 
 ---
 
