@@ -11,7 +11,11 @@ import LESSON_TEN from "@src/content/mandarin/10.ts";
 import LESSON_ELEVEN from "@src/content/mandarin/11.ts";
 
 import { LessonSet } from "@src/content/types";
-import { deriveContentFromLessons, isLessonEmpty } from "@src/tools/utils";
+import {
+  deriveContentFromLessons,
+  filterEmptyWords,
+  isLessonEmpty,
+} from "@src/tools/utils";
 
 export const LESSONS: LessonSet = [
   LESSON_ONE,
@@ -25,6 +29,8 @@ export const LESSONS: LessonSet = [
   LESSON_NINE,
   LESSON_TEN,
   LESSON_ELEVEN,
-].filter(isLessonEmpty);
+]
+  .filter(isLessonEmpty)
+  .map(filterEmptyWords);
 
 export default deriveContentFromLessons(LESSONS, "Mandarin");

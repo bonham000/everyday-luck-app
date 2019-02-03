@@ -101,6 +101,10 @@ export const isLessonEmpty = (lesson: Lesson) => {
   return Boolean(lesson.filter(({ characters }) => Boolean(characters)).length);
 };
 
+export const filterEmptyWords = (lesson: Lesson) => {
+  return lesson.filter((word: Word) => Boolean(word.characters));
+};
+
 const LESSON_MAX = 25;
 
 /**
