@@ -1,15 +1,5 @@
 export default [
   {
-    characters: "我懂了",
-    phonetic: "Wǒ dǒngle",
-    english: "I understand",
-  },
-  {
-    characters: "別擔心",
-    phonetic: "Bié dānxīn",
-    english: "Do not worry",
-  },
-  {
     characters: "怎麼了",
     phonetic: "Zěnme liǎo",
     english: "What happened?",
@@ -33,16 +23,6 @@ export default [
     characters: "拍",
     phonetic: "Pāi",
     english: "To pat, clap, slap, take (a photo)",
-  },
-  {
-    characters: "照片",
-    phonetic: "Zhàopiàn",
-    english: "Photo",
-  },
-  {
-    characters: "為什麼我要拍照片",
-    phonetic: "Wèishéme wǒ yào pāi zhàopiàn",
-    english: "Why do I have to take a photo?",
   },
   {
     characters: "我忘了",
@@ -123,5 +103,25 @@ export default [
     characters: "跑",
     phonetic: "Pǎo",
     english: "Run",
+  },
+  {
+    characters: "到",
+    phonetic: "Dào",
+    english: "To, towards, until, arrive, reach",
+  },
+  {
+    characters: "子",
+    phonetic: "Zi",
+    english: "Child, son",
+  },
+  {
+    characters: "地",
+    phonetic: "De",
+    english: "Ground, earth, soil",
+  },
+  {
+    characters: "出",
+    phonetic: "Chū",
+    english: "Go out, come out",
   },
 ];
