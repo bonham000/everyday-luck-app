@@ -5,9 +5,9 @@ export default [
     english: "Care",
   },
   {
-    characters: "",
-    phonetic: "",
-    english: "",
+    characters: "超棒",
+    phonetic: "Chāo bàng",
+    english: "Awesome",
   },
   {
     characters: "",
