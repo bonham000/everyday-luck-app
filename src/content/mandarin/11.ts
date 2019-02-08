@@ -35,14 +35,14 @@ export default [
     english: "Strawberry",
   },
   {
-    characters: "",
-    phonetic: "",
-    english: "",
+    characters: "還是",
+    phonetic: "Háishì",
+    english: "Or",
   },
   {
-    characters: "",
-    phonetic: "",
-    english: "",
+    characters: "或",
+    phonetic: "Huò",
+    english: "Or",
   },
   {
     characters: "",
