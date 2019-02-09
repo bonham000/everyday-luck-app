@@ -70,9 +70,9 @@ export default [
     english: "Wake up",
   },
   {
-    characters: "",
-    phonetic: "",
-    english: "",
+    characters: "饅頭",
+    phonetic: "Mántou",
+    english: "Steamed bun",
   },
   {
     characters: "",
