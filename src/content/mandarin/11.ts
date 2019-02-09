@@ -75,9 +75,9 @@ export default [
     english: "Steamed bun",
   },
   {
-    characters: "",
-    phonetic: "",
-    english: "",
+    characters: "加油",
+    phonetic: "Jiāyóu",
+    english: "Come on",
   },
   {
     characters: "",

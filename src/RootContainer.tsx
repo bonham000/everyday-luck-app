@@ -324,7 +324,7 @@ class RootContainer extends React.Component<{}, IState> {
       if (isAvailable) {
         Alert.alert(
           "Update Available!",
-          "Confirm to update now.",
+          "Confirm to update now",
           [
             { text: "Cancel", onPress: () => null, style: "cancel" },
             { text: "OK", onPress: this.updateApp },
