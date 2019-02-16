@@ -1,6 +1,6 @@
 import React from "react";
 
-import { getUser, User } from "@src/content/store";
+import { User } from "@src/content/store";
 import GlobalContext, {
   LanguageSelection,
   LessonScoreType,
@@ -15,7 +15,7 @@ import GlobalContext, {
 export type ComponentProp = (args: any) => JSX.Element;
 
 export interface GlobalContextProps {
-  user: User;
+  user?: User;
   selectedLanguage: LanguageSelection;
   userScoreStatus: ScoreStatus;
   experience: number;
@@ -43,32 +43,15 @@ interface IState {
  */
 
 class GlobalContextProvider extends React.Component<IProps, IState> {
-  constructor(props: IProps) {
-    super(props);
-
-    this.state = {
-      user: undefined,
-    };
-  }
-
-  async componentDidMount(): Promise<void> {
-    this.setState({
-      user: await getUser(),
-    });
-  }
-
   render(): JSX.Element | null {
     const { Component, ...rest } = this.props;
-    if (!this.state.user) {
-      return null;
-    }
 
     return (
       <GlobalContext.Consumer>
         {value => (
           <Component
             {...rest}
-            user={this.state.user}
+            user={value.user}
             experience={value.experience}
             setToastMessage={value.setToastMessage}
             setLessonScore={value.setLessonScore}

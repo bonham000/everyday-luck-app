@@ -148,6 +148,7 @@ class RootContainer extends React.Component<{}, IState> {
       <View style={{ flex: 1 }}>
         <GlobalContext.Provider
           value={{
+            user: this.state.user,
             experience: this.state.experience,
             setLessonScore: this.setLessonScore,
             setToastMessage: this.setToastMessage,
