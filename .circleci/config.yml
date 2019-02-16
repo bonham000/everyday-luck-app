@@ -20,7 +20,8 @@ jobs:
       # Run tests
       - run:
           name: Run tests
-          command: yarn test
+          run: echo "export default {}" > env.ts
+          run: yarn test
 
       # Persist npm cache
       - save_cache:
