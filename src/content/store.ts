@@ -1,8 +1,8 @@
 import { AsyncStorage } from "react-native";
 
-import { getLessonSet } from "@src/content/index.ts";
-import { Lesson } from "@src/content/types";
-import { ScoreStatus } from "@src/GlobalContext";
+import { Lesson, LessonSet } from "@src/content/types";
+import { ScoreStatus } from "@src/GlobalState";
+import CONFIG from "@src/tools/config";
 
 /** ========================================================================
  * User Authentication
@@ -53,9 +53,21 @@ export const logoutUser = async () => {
 const STORE_KEY = "SCORES";
 const EXPERIENCE_KEY = "EXPERIENCE";
 
-const LESSON_SET = getLessonSet("Mandarin");
+// const LESSON_SET = getLessonSet("Mandarin");
 
-export const getExistingUserScoresAsync = async () => {
+export const fetchLessonSet = async (): Promise<LessonSet | null> => {
+  try {
+    const URL = `${CONFIG.DRAGON_URI}/lessons`;
+    const response = await fetch(URL);
+    const result: LessonSet = await response.json();
+
+    return result;
+  } catch (err) {
+    return null;
+  }
+};
+
+export const getExistingUserScoresAsync = async (lessonSet: LessonSet) => {
   try {
     const result = await AsyncStorage.getItem(STORE_KEY);
     let parsedResult = JSON.parse(result);
@@ -63,9 +75,9 @@ export const getExistingUserScoresAsync = async () => {
     if (!parsedResult) {
       throw new Error("Data uninitialized");
     } else {
-      if (parsedResult.length < LESSON_SET.length) {
+      if (parsedResult.length < lessonSet.length) {
         parsedResult = parsedResult.concat(
-          new Array(LESSON_SET.length - parsedResult.length)
+          new Array(lessonSet.length - parsedResult.length)
             .fill("")
             .map(fillLesson),
         );
@@ -74,7 +86,7 @@ export const getExistingUserScoresAsync = async () => {
 
     return parsedResult;
   } catch (err) {
-    return initialLessonScoreState;
+    return getInitialScoreState(lessonSet);
   }
 };
 
@@ -90,7 +102,11 @@ export const saveProgressToAsyncStorage = async (
 
 export const resetUserScoresAsync = async () => {
   try {
-    AsyncStorage.setItem(STORE_KEY, JSON.stringify(initialLessonScoreState));
+    const lessons = await fetchLessonSet();
+    if (lessons) {
+      const initialScoreState = getInitialScoreState(lessons);
+      AsyncStorage.setItem(STORE_KEY, JSON.stringify(initialScoreState));
+    }
   } catch (err) {
     return;
   }
@@ -119,9 +135,9 @@ export const addExperiencePoints = async (
   }
 };
 
-const fillLesson = (item: Lesson) => ({
+const fillLesson = (_: Lesson) => ({
   mc: false,
   q: false,
 });
 
-export const initialLessonScoreState: ScoreStatus = LESSON_SET.map(fillLesson);
+const getInitialScoreState = (lessons: LessonSet) => lessons.map(fillLesson);

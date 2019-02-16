@@ -4,12 +4,11 @@ import { ScrollView } from "react-native";
 import { Text } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
-import GlobalContextProvider, {
-  GlobalContextProps,
-} from "@src/components/GlobalContextProvider";
+import GlobalStateProvider, {
+  GlobalStateProps,
+} from "@src/components/GlobalStateProvider";
 import { COLORS } from "@src/constants/Colors";
 import { ROUTE_NAMES } from "@src/constants/Routes";
-import { getLessonSet } from "@src/content";
 import {
   LessonScreenParams,
   LessonSummaryType,
@@ -22,7 +21,7 @@ import { getFinalUnlockedLesson, knuthShuffle } from "@src/tools/utils";
  * =========================================================================
  */
 
-interface IProps extends GlobalContextProps {
+interface IProps extends GlobalStateProps {
   navigation: NavigationScreenProp<{}>;
 }
 
@@ -33,13 +32,12 @@ interface IProps extends GlobalContextProps {
 
 class HomeScreen extends React.Component<IProps, {}> {
   render(): JSX.Element {
-    const { userScoreStatus, selectedLanguage } = this.props;
+    const { lessons, userScoreStatus } = this.props;
     const unlockedLessonIndex = getFinalUnlockedLesson(userScoreStatus);
-    const LESSONS = getLessonSet(selectedLanguage);
     return (
       <Container>
         <Text style={TextStyles}>Choose a lesson to start studying</Text>
-        {LESSONS.map((lesson, index) => {
+        {lessons.map((lesson, index) => {
           const isLocked = index > unlockedLessonIndex;
           const isFinalUnlocked = index === unlockedLessonIndex;
           return (
@@ -86,9 +84,9 @@ class HomeScreen extends React.Component<IProps, {}> {
         <ReviewLink
           onPress={this.openLessonSummary(
             knuthShuffle(
-              LESSONS.slice(0, unlockedLessonIndex + 1).reduce(
-                (flattened, lesson) => [...flattened, ...lesson],
-              ),
+              lessons
+                .slice(0, unlockedLessonIndex + 1)
+                .reduce((flattened, lesson) => [...flattened, ...lesson]),
             ).slice(0, 25),
             0,
             "GAME",
@@ -99,9 +97,9 @@ class HomeScreen extends React.Component<IProps, {}> {
         </ReviewLink>
         <ReviewLink
           onPress={this.openLessonSummary(
-            LESSONS.slice(0, unlockedLessonIndex + 1).reduce(
-              (flattened, lesson) => [...flattened, ...lesson],
-            ),
+            lessons
+              .slice(0, unlockedLessonIndex + 1)
+              .reduce((flattened, lesson) => [...flattened, ...lesson]),
             0,
             "SUMMARY",
           )}
@@ -190,5 +188,5 @@ const LineBreak = glamorous.view({
  */
 
 export default (props: any) => (
-  <GlobalContextProvider {...props} Component={HomeScreen} />
+  <GlobalStateProvider {...props} Component={HomeScreen} />
 );

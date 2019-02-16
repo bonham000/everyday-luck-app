@@ -7,7 +7,7 @@ import Shaker from "@src/components/Shaker";
 import { COLORS } from "@src/constants/Colors";
 import { getLanguageContent } from "@src/content";
 import { Lesson, Word } from "@src/content/types";
-import { LanguageSelection } from "@src/GlobalContext";
+import { LanguageSelection } from "@src/GlobalState";
 import { getAlternateChoices } from "@src/tools/utils";
 
 /** ========================================================================

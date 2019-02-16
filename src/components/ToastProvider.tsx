@@ -2,7 +2,7 @@ import glamorous from "glamorous-native";
 import React from "react";
 import { Text } from "react-native-paper";
 
-import AppContext from "@src/GlobalContext";
+import GlobalState from "@src/GlobalState";
 
 /** ========================================================================
  * Types
@@ -28,11 +28,11 @@ class ToastProvider extends React.Component<IProps, {}> {
   render(): JSX.Element {
     const { Component, ...rest } = this.props;
     return (
-      <AppContext.Consumer>
+      <GlobalState.Consumer>
         {value => (
           <Component {...rest} setToastMessage={value.setToastMessage} />
         )}
-      </AppContext.Consumer>
+      </GlobalState.Consumer>
     );
   }
 }

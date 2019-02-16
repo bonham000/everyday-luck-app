@@ -12,6 +12,7 @@ import {
  */
 
 const CONFIG = {
+  DRAGON_URI: process.env.DRAGON_URI || "http://localhost:8000",
   ANDROID_CLIENT_ID: process.env.ANDROID_CLIENT_ID || ANDROID_CLIENT_ID,
   IOS_CLIENT_ID: process.env.IOS_CLIENT_ID || IOS_CLIENT_ID,
   SENTRY_AUTH_TOKEN: process.env.SENTRY_AUTH_TOKEN || SENTRY_AUTH_TOKEN,

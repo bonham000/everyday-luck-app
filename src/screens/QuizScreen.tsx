@@ -6,14 +6,14 @@ import ActionButton from "react-native-action-button";
 import Confetti from "react-native-confetti";
 import { NavigationScreenProp } from "react-navigation";
 
-import GlobalContextProvider, {
+import GlobalStateProvider, {
   ComponentProp,
-  GlobalContextProps,
-} from "@src/components/GlobalContextProvider";
+  GlobalStateProps,
+} from "@src/components/GlobalStateProvider";
 import { COLORS } from "@src/constants/Colors";
 import { ROUTE_NAMES } from "@src/constants/Routes";
 import { LessonScreenParams, Word } from "@src/content/types";
-import { LessonScoreType } from "@src/GlobalContext";
+import { LessonScoreType } from "@src/GlobalState";
 import {
   filterForOneCharacterMode,
   getExperiencePointsForLesson,
@@ -25,7 +25,7 @@ import {
  * =========================================================================
  */
 
-interface IProps extends GlobalContextProps {
+interface IProps extends GlobalStateProps {
   navigation: NavigationScreenProp<{}, LessonScreenParams>;
   quizType: LessonScoreType;
   Component: ComponentProp;
@@ -464,7 +464,7 @@ const ActionIconStyle = {
  */
 
 export default ({ Component, ...rest }: IProps) => (
-  <GlobalContextProvider
+  <GlobalStateProvider
     {...rest}
     Component={(childProps: any) => (
       <QuizScreen {...childProps} Component={Component} />

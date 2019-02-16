@@ -15,9 +15,10 @@ export type LessonScoreType = "mc" | "q";
 
 export type ScoreStatus = ReadonlyArray<LessonScore>;
 
-const AppContext = React.createContext({
-  user: undefined,
+const GlobalState = React.createContext({
   experience: 0,
+  user: undefined,
+  lessons: [],
   selectedLanguage: "Mandarin",
   userScoreStatus: [] as ScoreStatus,
   setToastMessage: (toastMessage: string) => {
@@ -41,4 +42,4 @@ const AppContext = React.createContext({
   },
 });
 
-export default AppContext;
+export default GlobalState;

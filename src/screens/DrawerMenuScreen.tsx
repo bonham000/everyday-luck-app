@@ -3,9 +3,9 @@ import React from "react";
 import { Image, Keyboard, View } from "react-native";
 import { NavigationScreenProp, SafeAreaView } from "react-navigation";
 
-import GlobalContextProvider, {
-  GlobalContextProps,
-} from "@src/components/GlobalContextProvider";
+import GlobalStateProvider, {
+  GlobalStateProps,
+} from "@src/components/GlobalStateProvider";
 import { ROUTE_NAMES } from "@src/constants/Routes";
 import { logoutUser } from "@src/content/store";
 import { resetNavigation } from "@src/tools/utils";
@@ -15,7 +15,7 @@ import { resetNavigation } from "@src/tools/utils";
  * =========================================================================
  */
 
-interface IProps extends GlobalContextProps {
+interface IProps extends GlobalStateProps {
   navigation: NavigationScreenProp<{}>;
 }
 
@@ -136,5 +136,5 @@ const Bold = glamorous.text({
  */
 
 export default (props: any) => (
-  <GlobalContextProvider {...props} Component={DrawerMenuScreen} />
+  <GlobalStateProvider {...props} Component={DrawerMenuScreen} />
 );

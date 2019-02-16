@@ -4,9 +4,9 @@ import { Clipboard, FlatList, Keyboard } from "react-native";
 import { Searchbar } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
-import GlobalContextProvider, {
-  GlobalContextProps,
-} from "@src/components/GlobalContextProvider";
+import GlobalStateProvider, {
+  GlobalStateProps,
+} from "@src/components/GlobalStateProvider";
 import ToastProvider from "@src/components/ToastProvider";
 import { COLORS } from "@src/constants/Colors";
 import { LessonScreenParams, Word } from "@src/content/types";
@@ -17,7 +17,7 @@ import { filterBySearchTerm, mapWordsForList } from "@src/tools/utils";
  * =========================================================================
  */
 
-interface IProps extends GlobalContextProps {
+interface IProps extends GlobalStateProps {
   navigation: NavigationScreenProp<LessonScreenParams>;
 }
 
@@ -125,7 +125,7 @@ const SearchBarStyles = {
  */
 
 export default (parentProps: any) => (
-  <GlobalContextProvider
+  <GlobalStateProvider
     {...parentProps}
     Component={(childProps: any) => (
       <ToastProvider {...childProps} Component={ViewAllScreen} />

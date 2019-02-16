@@ -1,6 +1,6 @@
 import { Asset, Updates } from "expo";
 import React from "react";
-import { Alert, AppState, BackHandler, View } from "react-native";
+import { Alert, AppState, BackHandler, Text, View } from "react-native";
 import { SinglePickerMaterialDialog } from "react-native-material-dialog";
 import { createAppContainer } from "react-navigation";
 
@@ -8,6 +8,7 @@ import LoadingComponent from "@src/components/LoadingComponent";
 import { CustomToast } from "@src/components/ToastProvider";
 import {
   addExperiencePoints,
+  fetchLessonSet,
   getExistingUserScoresAsync,
   getUser,
   getUserExperience,
@@ -15,10 +16,8 @@ import {
   saveProgressToAsyncStorage,
   User,
 } from "@src/content/store";
-import GlobalContext, {
-  LessonScoreType,
-  ScoreStatus,
-} from "@src/GlobalContext";
+import { LessonSet } from "@src/content/types";
+import GlobalContext, { LessonScoreType, ScoreStatus } from "@src/GlobalState";
 import createAppNavigator from "@src/NavigatorConfig";
 
 /** ========================================================================
@@ -28,6 +27,8 @@ import createAppNavigator from "@src/NavigatorConfig";
 
 interface IState {
   user?: User;
+  lessons?: LessonSet;
+  error: boolean;
   loading: boolean;
   appState: string;
   toastMessage: string;
@@ -52,6 +53,7 @@ class RootContainer extends React.Component<{}, IState> {
     super(props);
 
     this.state = {
+      error: false,
       experience: 0,
       loading: true,
       appState: AppState.currentState,
@@ -76,12 +78,24 @@ class RootContainer extends React.Component<{}, IState> {
       require("@src/assets/google_icon.png"),
     ).downloadAsync();
 
-    this.setState({
-      loading: false,
-      user: await getUser(),
-      experience: await getUserExperience(),
-      userScoreStatus: await getExistingUserScoresAsync(),
-    });
+    /**
+     * Fetch lessons
+     */
+    const lessons = await fetchLessonSet();
+
+    if (!lessons) {
+      this.setState({
+        error: true,
+      });
+    } else {
+      this.setState({
+        loading: false,
+        lessons,
+        user: await getUser(),
+        experience: await getUserExperience(),
+        userScoreStatus: await getExistingUserScoresAsync(lessons),
+      });
+    }
   };
 
   async componentDidMount(): Promise<void> {
@@ -142,6 +156,14 @@ class RootContainer extends React.Component<{}, IState> {
   render(): JSX.Element | null {
     if (this.state.updating || this.state.loading) {
       return <LoadingComponent />;
+    } else if (this.state.error) {
+      return (
+        <View
+          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+        >
+          <Text>Everything is broken...</Text>
+        </View>
+      );
     }
 
     return (
@@ -150,6 +172,8 @@ class RootContainer extends React.Component<{}, IState> {
           value={{
             // @ts-ignore
             user: this.state.user,
+            // @ts-ignore
+            lessons: this.state.lessons,
             onSignin: this.handleSignin,
             experience: this.state.experience,
             setLessonScore: this.setLessonScore,

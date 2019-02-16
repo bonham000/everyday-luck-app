@@ -4,9 +4,9 @@ import React from "react";
 import { Image } from "react-native";
 import { NavigationScreenProp } from "react-navigation";
 
-import GlobalContextProvider, {
-  GlobalContextProps,
-} from "@src/components/GlobalContextProvider";
+import GlobalStateProvider, {
+  GlobalStateProps,
+} from "@src/components/GlobalStateProvider";
 import LoadingComponent from "@src/components/LoadingComponent";
 import { COLORS } from "@src/constants/Colors";
 import { ROUTE_NAMES } from "@src/constants/Routes";
@@ -19,7 +19,7 @@ import { resetNavigation } from "@src/tools/utils";
  * =========================================================================
  */
 
-interface IProps extends GlobalContextProps {
+interface IProps extends GlobalStateProps {
   navigation: NavigationScreenProp<{}>;
 }
 
@@ -184,5 +184,5 @@ const GoogleIcon = () => (
  */
 
 export default (props: any) => (
-  <GlobalContextProvider {...props} Component={GoogleSigninScreen} />
+  <GlobalStateProvider {...props} Component={GoogleSigninScreen} />
 );

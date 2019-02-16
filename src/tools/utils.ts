@@ -10,7 +10,7 @@ import {
   LanguageSelection,
   LessonScoreType,
   ScoreStatus,
-} from "@src/GlobalContext";
+} from "@src/GlobalState";
 
 export const assertUnreachable = (x: never): never => {
   throw new Error(`Unreachable code! -> ${JSON.stringify(x)}`);

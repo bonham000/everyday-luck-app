@@ -5,9 +5,9 @@ import Swiper from "react-native-deck-swiper";
 import FlipCard from "react-native-flip-card";
 import { NavigationScreenProp } from "react-navigation";
 
-import GlobalContextProvider, {
-  GlobalContextProps,
-} from "@src/components/GlobalContextProvider";
+import GlobalStateProvider, {
+  GlobalStateProps,
+} from "@src/components/GlobalStateProvider";
 import { COLORS } from "@src/constants/Colors";
 import { Lesson, LessonScreenParams, Word } from "@src/content/types";
 import { knuthShuffle } from "@src/tools/utils";
@@ -17,7 +17,7 @@ import { knuthShuffle } from "@src/tools/utils";
  * =========================================================================
  */
 
-interface IProps extends GlobalContextProps {
+interface IProps extends GlobalStateProps {
   navigation: NavigationScreenProp<LessonScreenParams>;
 }
 
@@ -275,5 +275,5 @@ const CARD_OVERLAY_LABELS = {
  */
 
 export default (props: any) => (
-  <GlobalContextProvider {...props} Component={FlashcardsScreen} />
+  <GlobalStateProvider {...props} Component={FlashcardsScreen} />
 );

@@ -1,11 +1,12 @@
 import React from "react";
 
 import { User } from "@src/content/store";
-import GlobalContext, {
+import { LessonSet } from "@src/content/types";
+import GlobalState, {
   LanguageSelection,
   LessonScoreType,
   ScoreStatus,
-} from "@src/GlobalContext";
+} from "@src/GlobalState";
 
 /** ========================================================================
  * Types
@@ -14,8 +15,9 @@ import GlobalContext, {
 
 export type ComponentProp = (args: any) => JSX.Element;
 
-export interface GlobalContextProps {
+export interface GlobalStateProps {
   user?: User;
+  lessons: LessonSet;
   selectedLanguage: LanguageSelection;
   userScoreStatus: ScoreStatus;
   experience: number;
@@ -43,16 +45,17 @@ interface IState {
  * =========================================================================
  */
 
-class GlobalContextProvider extends React.Component<IProps, IState> {
+class GlobalStateProvider extends React.Component<IProps, IState> {
   render(): JSX.Element | null {
     const { Component, ...rest } = this.props;
 
     return (
-      <GlobalContext.Consumer>
+      <GlobalState.Consumer>
         {value => (
           <Component
             {...rest}
             user={value.user}
+            lessons={value.lessons}
             onSignin={value.onSignin}
             experience={value.experience}
             setToastMessage={value.setToastMessage}
@@ -63,7 +66,7 @@ class GlobalContextProvider extends React.Component<IProps, IState> {
             openLanguageSelectionMenu={value.openLanguageSelectionMenu}
           />
         )}
-      </GlobalContext.Consumer>
+      </GlobalState.Consumer>
     );
   }
 }
@@ -73,4 +76,4 @@ class GlobalContextProvider extends React.Component<IProps, IState> {
  * =========================================================================
  */
 
-export default GlobalContextProvider;
+export default GlobalStateProvider;
