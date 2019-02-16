@@ -154,16 +154,27 @@ class RootContainer extends React.Component<{}, IState> {
   }
 
   render(): JSX.Element | null {
-    if (this.state.updating || this.state.loading) {
-      return <LoadingComponent />;
-    } else if (this.state.error) {
+    const {
+      error,
+      updating,
+      loading,
+      user,
+      lessons,
+      experience,
+      userScoreStatus,
+      selectedLanguage,
+    } = this.state;
+
+    if (error) {
       return (
         <View
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
         >
-          <Text>Everything is broken...</Text>
+          <Text>Everything is broken... 🎭</Text>
         </View>
       );
+    } else if (updating || loading) {
+      return <LoadingComponent />;
     }
 
     return (
@@ -171,16 +182,16 @@ class RootContainer extends React.Component<{}, IState> {
         <GlobalContext.Provider
           value={{
             // @ts-ignore
-            user: this.state.user,
+            user,
             // @ts-ignore
-            lessons: this.state.lessons,
+            lessons,
             onSignin: this.handleSignin,
-            experience: this.state.experience,
+            experience,
             setLessonScore: this.setLessonScore,
             setToastMessage: this.setToastMessage,
             handleResetScores: this.handleResetScores,
-            userScoreStatus: this.state.userScoreStatus,
-            selectedLanguage: this.state.selectedLanguage.label,
+            userScoreStatus,
+            selectedLanguage: selectedLanguage.label,
             openLanguageSelectionMenu: this.openLanguageSelectionMenu,
           }}
         >
