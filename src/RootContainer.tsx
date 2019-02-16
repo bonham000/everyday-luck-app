@@ -1,7 +1,6 @@
 import { Asset, Updates } from "expo";
 import React from "react";
 import { Alert, AppState, BackHandler, Text, View } from "react-native";
-import { SinglePickerMaterialDialog } from "react-native-material-dialog";
 import { createAppContainer } from "react-navigation";
 
 import LoadingComponent from "@src/components/LoadingComponent";
@@ -34,10 +33,8 @@ interface IState {
   toastMessage: string;
   updating: boolean;
   tryingToCloseApp: boolean;
-  selectedLanguage: any;
   userScoreStatus: ScoreStatus;
   experience: number;
-  languageSelectionMenuOpen: boolean;
 }
 
 /** ========================================================================
@@ -60,13 +57,7 @@ class RootContainer extends React.Component<{}, IState> {
       toastMessage: "",
       updating: false,
       tryingToCloseApp: false,
-      languageSelectionMenuOpen: false,
       userScoreStatus: [],
-      selectedLanguage: {
-        value: 0,
-        label: "Mandarin",
-        selected: true,
-      },
     };
   }
 
@@ -162,7 +153,6 @@ class RootContainer extends React.Component<{}, IState> {
       lessons,
       experience,
       userScoreStatus,
-      selectedLanguage,
     } = this.state;
 
     if (error) {
@@ -185,30 +175,17 @@ class RootContainer extends React.Component<{}, IState> {
             user,
             // @ts-ignore
             lessons,
-            onSignin: this.handleSignin,
             experience,
+            userScoreStatus,
+            onSignin: this.handleSignin,
             setLessonScore: this.setLessonScore,
             setToastMessage: this.setToastMessage,
             handleResetScores: this.handleResetScores,
-            userScoreStatus,
-            selectedLanguage: selectedLanguage.label,
-            openLanguageSelectionMenu: this.openLanguageSelectionMenu,
           }}
         >
           <CustomToast
             close={this.clearToast}
             message={this.state.toastMessage}
-          />
-          <SinglePickerMaterialDialog
-            title={"Pick a language!"}
-            items={["Mandarin", "Korean"].map((row, index) => ({
-              value: index,
-              label: row,
-            }))}
-            visible={this.state.languageSelectionMenuOpen}
-            selectedItem={this.state.selectedLanguage}
-            onCancel={this.closeLanguageSelectionMenu}
-            onOk={this.handlePickLanguage}
           />
           <AppPureComponent
             userLoggedIn={Boolean(this.state.user)}
@@ -326,23 +303,6 @@ class RootContainer extends React.Component<{}, IState> {
       ],
       { cancelable: false },
     );
-  };
-
-  openLanguageSelectionMenu = () => {
-    this.setState({
-      languageSelectionMenuOpen: true,
-    });
-  };
-
-  closeLanguageSelectionMenu = () => {
-    this.setState({
-      languageSelectionMenuOpen: false,
-    });
-  };
-
-  handlePickLanguage = (result: any) => {
-    this.setState({ languageSelectionMenuOpen: false });
-    this.setState({ selectedLanguage: result.selectedItem });
   };
 
   canCloseApp = () => {

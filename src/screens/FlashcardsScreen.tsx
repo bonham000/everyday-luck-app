@@ -49,12 +49,6 @@ class FlashcardsScreen extends React.Component<IProps, IState> {
     };
   }
 
-  componentDidUpdate(prevProps: IProps): void {
-    if (prevProps.selectedLanguage !== this.props.selectedLanguage) {
-      this.randomizeDeck();
-    }
-  }
-
   render(): JSX.Element {
     return (
       <View style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>

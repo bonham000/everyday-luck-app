@@ -6,11 +6,7 @@ import {
 
 import { ROUTE_NAMES } from "@src/constants/Routes";
 import { Lesson, LessonSet, LessonSummaryType, Word } from "@src/content/types";
-import {
-  LanguageSelection,
-  LessonScoreType,
-  ScoreStatus,
-} from "@src/GlobalState";
+import { LessonScoreType, ScoreStatus } from "@src/GlobalState";
 
 export const assertUnreachable = (x: never): never => {
   throw new Error(`Unreachable code! -> ${JSON.stringify(x)}`);
@@ -116,10 +112,8 @@ const LESSON_MAX = 25;
  *
  * Big function!
  */
-export const deriveContentFromLessons = (
-  contentBlocks: LessonSet,
-  language: LanguageSelection,
-) => {
+export const deriveContentFromLessons = (contentBlocks: LessonSet) => {
+  const language = "Mandarin";
   let totalWords = 0;
   let summaryMessage = `\nContent Summary for ${language}:\n\n`;
   // Use a set to check for duplicate entries

@@ -53,11 +53,6 @@ class DrawerMenuScreen extends React.Component<IProps, {}> {
           {"  "}
           About this App
         </Item>
-        <Item onPress={this.handleSwitchLanguage}>
-          🥢
-          {"  "}
-          Switch Language
-        </Item>
         <Item onPress={this.resetScores}>
           🗃
           {"  "}
@@ -79,11 +74,6 @@ class DrawerMenuScreen extends React.Component<IProps, {}> {
       </SafeAreaView>
     );
   }
-
-  handleSwitchLanguage = () => {
-    this.props.openLanguageSelectionMenu();
-    this.props.navigation.closeDrawer();
-  };
 
   resetScores = () => {
     this.props.handleResetScores();

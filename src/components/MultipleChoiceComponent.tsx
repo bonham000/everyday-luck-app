@@ -5,17 +5,16 @@ import { Button, Text } from "react-native-paper";
 
 import Shaker from "@src/components/Shaker";
 import { COLORS } from "@src/constants/Colors";
-import { getLanguageContent } from "@src/content";
 import { Lesson, Word } from "@src/content/types";
-import { LanguageSelection } from "@src/GlobalState";
 import { getAlternateChoices } from "@src/tools/utils";
+import GlobalStateProvider, { GlobalStateProps } from "./GlobalStateProvider";
 
 /** ========================================================================
  * Types
  * =========================================================================
  */
 
-interface IProps {
+interface IProps extends GlobalStateProps {
   valid: boolean;
   revealAnswer: boolean;
   didReveal: boolean;
@@ -23,7 +22,6 @@ interface IProps {
   shouldShake: boolean;
   attempted: boolean;
   value: string;
-  selectedLanguage: LanguageSelection;
   setInputRef: () => void;
   handleChange: () => void;
   handleProceed: () => (event: GestureResponderEvent) => void;
@@ -52,7 +50,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
   deriveAlternateChoices = () => {
     return getAlternateChoices(
       this.props.currentWord,
-      getLanguageContent(this.props.selectedLanguage),
+      this.props.lessons.reduce((flat, curr) => [...flat, ...curr]),
     );
   };
 
@@ -207,4 +205,6 @@ const Choice = ({
  * =========================================================================
  */
 
-export default MultipleChoiceInput;
+export default (props: any) => (
+  <GlobalStateProvider {...props} Component={MultipleChoiceInput} />
+);

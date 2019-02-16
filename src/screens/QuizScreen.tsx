@@ -86,12 +86,6 @@ class QuizScreen extends React.Component<IProps, IState> {
     }
   }
 
-  componentDidUpdate(prevProps: IProps): void {
-    if (prevProps.selectedLanguage !== this.props.selectedLanguage) {
-      this.setState(this.getInitialState());
-    }
-  }
-
   render(): JSX.Element {
     const {
       valid,
@@ -134,7 +128,6 @@ class QuizScreen extends React.Component<IProps, IState> {
             handleChange={this.handleChange}
             handleCheck={this.handleCheck}
             handleProceed={this.handleProceed}
-            selectedLanguage={this.props.selectedLanguage}
             handleToggleRevealAnswer={this.handleToggleRevealAnswer}
           />
           <ActionButton position="left" buttonColor={COLORS.actionButtonRed}>

@@ -2,11 +2,7 @@ import React from "react";
 
 import { User } from "@src/content/store";
 import { LessonSet } from "@src/content/types";
-import GlobalState, {
-  LanguageSelection,
-  LessonScoreType,
-  ScoreStatus,
-} from "@src/GlobalState";
+import GlobalState, { LessonScoreType, ScoreStatus } from "@src/GlobalState";
 
 /** ========================================================================
  * Types
@@ -18,7 +14,6 @@ export type ComponentProp = (args: any) => JSX.Element;
 export interface GlobalStateProps {
   user?: User;
   lessons: LessonSet;
-  selectedLanguage: LanguageSelection;
   userScoreStatus: ScoreStatus;
   experience: number;
   setToastMessage: (toastMessage: string) => void;
@@ -62,7 +57,6 @@ class GlobalStateProvider extends React.Component<IProps, IState> {
             setLessonScore={value.setLessonScore}
             userScoreStatus={value.userScoreStatus}
             handleResetScores={value.handleResetScores}
-            selectedLanguage={value.selectedLanguage}
             openLanguageSelectionMenu={value.openLanguageSelectionMenu}
           />
         )}

@@ -4,8 +4,6 @@ import React from "react";
  * Context for toast message
  * =========================================================================
  */
-export type LanguageSelection = "Mandarin" | "Korean";
-
 interface LessonScore {
   mc: boolean;
   q: boolean;
@@ -19,7 +17,6 @@ const GlobalState = React.createContext({
   experience: 0,
   user: undefined,
   lessons: [],
-  selectedLanguage: "Mandarin",
   userScoreStatus: [] as ScoreStatus,
   setToastMessage: (toastMessage: string) => {
     // Handle setting Toast message
