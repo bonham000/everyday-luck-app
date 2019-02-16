@@ -1,4 +1,4 @@
-import { Updates } from "expo";
+import { Asset, Updates } from "expo";
 import React from "react";
 import { Alert, AppState, BackHandler, View } from "react-native";
 import { SinglePickerMaterialDialog } from "react-native-material-dialog";
@@ -69,6 +69,13 @@ class RootContainer extends React.Component<{}, IState> {
   }
 
   getInitialScoreState = async () => {
+    /**
+     * Fetch image assets
+     */
+    await Asset.fromModule(
+      require("@src/assets/google_icon.png"),
+    ).downloadAsync();
+
     this.setState({
       loading: false,
       user: await getUser(),
