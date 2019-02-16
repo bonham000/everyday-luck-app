@@ -5,6 +5,12 @@ import {
   SENTRY_DSN,
 } from "../../env";
 
+/**
+ * Provide config for environment variables.
+ *
+ * Use env.ts file for local development.
+ */
+
 const CONFIG = {
   ANDROID_CLIENT_ID: process.env.ANDROID_CLIENT_ID || ANDROID_CLIENT_ID,
   IOS_CLIENT_ID: process.env.IOS_CLIENT_ID || IOS_CLIENT_ID,

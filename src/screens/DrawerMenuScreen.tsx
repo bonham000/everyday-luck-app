@@ -64,9 +64,14 @@ class DrawerMenuScreen extends React.Component<IProps, {}> {
         </Item>
         <Item onPress={this.logout}>🎡 Logout</Item>
         <Item
+          style={{ position: "absolute", bottom: 95, left: 6, fontSize: 12 }}
+        >
+          <Bold>Current user:</Bold> {this.props.user.name}
+        </Item>
+        <Item
           style={{ position: "absolute", bottom: 65, left: 6, fontSize: 12 }}
         >
-          {this.props.experience} experience points
+          <Bold>Experience points:</Bold> {this.props.experience}
         </Item>
       </SafeAreaView>
     );
@@ -116,6 +121,10 @@ const Item = glamorous.text({
   fontSize: 16,
   marginTop: 45,
   marginLeft: 12,
+});
+
+const Bold = glamorous.text({
+  fontWeight: "600",
 });
 
 /** ========================================================================
