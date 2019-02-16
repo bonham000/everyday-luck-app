@@ -1,5 +1,6 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import React from "react";
+import { NavigationState } from "react-native-paper";
 import {
   createDrawerNavigator,
   createStackNavigator,
@@ -13,19 +14,27 @@ import { LessonScreenParams } from "@src/content/types";
 import AboutScreen from "@src/screens/AboutScreen";
 import DrawerComponent from "@src/screens/DrawerMenuScreen";
 import FlashcardsScreen from "@src/screens/FlashcardsScreen";
+import GoogleSignInScreen from "@src/screens/GoogleSignInScreen";
 import HomeScreen from "@src/screens/HomeScreen";
 import LessonSummaryScreen from "@src/screens/LessonSummaryScreen";
 import QuizScreen from "@src/screens/QuizScreen";
 import ViewAllScreen from "@src/screens/ViewAllScreen";
-import { NavigationState } from "react-native-paper";
+import { getDrawerLockedState } from "./tools/utils";
 
 /** ========================================================================
  * App navigation
  * =========================================================================
  */
-const AppStack = () => {
+const createAppNavigationStack = (userLoggedIn: boolean) => {
   return createStackNavigator(
     {
+      [ROUTE_NAMES.SIGNIN]: {
+        screen: GoogleSignInScreen,
+        navigationOptions: {
+          title: "Welcome 歡迎",
+          headerBackTitle: null,
+        },
+      },
       [ROUTE_NAMES.HOME]: {
         screen: HomeScreen,
         navigationOptions: ({
@@ -112,7 +121,7 @@ const AppStack = () => {
       },
     },
     {
-      initialRouteName: ROUTE_NAMES.HOME,
+      initialRouteName: userLoggedIn ? ROUTE_NAMES.HOME : ROUTE_NAMES.SIGNIN,
     },
   );
 };
@@ -128,19 +137,18 @@ const MenuIcon = ({ onPress }: { onPress: () => void }) => (
   />
 );
 
-export default () => {
+export default (userLoggedIn: boolean) => {
   return createDrawerNavigator(
     {
-      [ROUTE_NAMES.HOME]: {
-        screen: AppStack(),
+      [ROUTE_NAMES.APP]: {
+        screen: createAppNavigationStack(userLoggedIn),
         navigationOptions: ({
           navigation,
         }: {
           navigation: NavigationScreenProp<NavigationState<{}>>;
         }) => {
           return {
-            drawerLockMode:
-              navigation.state.index > 0 ? "locked-closed" : "unlocked",
+            drawerLockMode: getDrawerLockedState(navigation),
           };
         },
       },

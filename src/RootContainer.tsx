@@ -1,29 +1,25 @@
 import { Updates } from "expo";
 import React from "react";
-import {
-  ActivityIndicator,
-  Alert,
-  AppState,
-  BackHandler,
-  View,
-} from "react-native";
+import { Alert, AppState, BackHandler, View } from "react-native";
 import { SinglePickerMaterialDialog } from "react-native-material-dialog";
 import { createAppContainer } from "react-navigation";
 
 import { CustomToast } from "@src/components/ToastProvider";
-import { COLORS } from "@src/constants/Colors";
 import {
   addExperiencePoints,
   getExistingUserScoresAsync,
+  getUser,
   getUserExperience,
   resetUserScoresAsync,
   saveProgressToAsyncStorage,
+  User,
 } from "@src/content/store";
 import GlobalContext, {
   LessonScoreType,
   ScoreStatus,
 } from "@src/GlobalContext";
 import createAppNavigator from "@src/NavigatorConfig";
+import LoadingComponent from "./components/LoadingComponent";
 
 /** ========================================================================
  * Types
@@ -31,6 +27,7 @@ import createAppNavigator from "@src/NavigatorConfig";
  */
 
 interface IState {
+  user?: User;
   loading: boolean;
   appState: string;
   toastMessage: string;
@@ -74,6 +71,7 @@ class RootContainer extends React.Component<{}, IState> {
   getInitialScoreState = async () => {
     this.setState({
       loading: false,
+      user: await getUser(),
       experience: await getUserExperience(),
       userScoreStatus: await getExistingUserScoresAsync(),
     });
@@ -140,7 +138,7 @@ class RootContainer extends React.Component<{}, IState> {
         <View
           style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
         >
-          <ActivityIndicator size="large" color={COLORS.primaryBlue} />
+          <LoadingComponent />
         </View>
       );
     }
@@ -173,7 +171,10 @@ class RootContainer extends React.Component<{}, IState> {
             onCancel={this.closeLanguageSelectionMenu}
             onOk={this.handlePickLanguage}
           />
-          <AppPureComponent assignNavigatorRef={this.assignNavRef} />
+          <AppPureComponent
+            userLoggedIn={Boolean(this.state.user)}
+            assignNavigatorRef={this.assignNavRef}
+          />
         </GlobalContext.Provider>
       </View>
     );
@@ -363,7 +364,7 @@ class RootContainer extends React.Component<{}, IState> {
 
 // tslint:disable-next-line
 class AppPureComponent extends React.Component<
-  { assignNavigatorRef: (ref: any) => void },
+  { assignNavigatorRef: (ref: any) => void; userLoggedIn: boolean },
   {}
 > {
   shouldComponentUpdate(_: any): boolean {
@@ -371,7 +372,7 @@ class AppPureComponent extends React.Component<
   }
 
   render(): JSX.Element {
-    const AppNavigator = createAppNavigator();
+    const AppNavigator = createAppNavigator(this.props.userLoggedIn);
     const Nav = createAppContainer(AppNavigator);
     return <Nav ref={this.props.assignNavigatorRef} />;
   }

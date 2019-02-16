@@ -4,6 +4,52 @@ import { getLessonSet } from "@src/content/index.ts";
 import { Lesson } from "@src/content/types";
 import { ScoreStatus } from "@src/GlobalContext";
 
+/** ========================================================================
+ * User Authentication
+ * =========================================================================
+ */
+
+const USER_KEY = "USER_KEY";
+
+export interface User {
+  email?: string;
+  familyName: string;
+  givenName: string;
+  id: string;
+  name: string;
+  photoUrl?: string;
+}
+
+export const getUser = async () => {
+  try {
+    const result = await AsyncStorage.getItem(USER_KEY);
+    return JSON.parse(result);
+  } catch (err) {
+    return;
+  }
+};
+
+export const saveUser = async (user: User) => {
+  try {
+    await AsyncStorage.setItem(USER_KEY, JSON.stringify(user));
+  } catch (err) {
+    return;
+  }
+};
+
+export const logoutUser = async () => {
+  try {
+    await AsyncStorage.removeItem(USER_KEY);
+  } catch (err) {
+    return;
+  }
+};
+
+/** ========================================================================
+ * Quiz
+ * =========================================================================
+ */
+
 const STORE_KEY = "SCORES";
 const EXPERIENCE_KEY = "EXPERIENCE";
 

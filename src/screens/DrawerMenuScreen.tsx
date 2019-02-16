@@ -7,6 +7,8 @@ import GlobalContextProvider, {
   GlobalContextProps,
 } from "@src/components/GlobalContextProvider";
 import { ROUTE_NAMES } from "@src/constants/Routes";
+import { logoutUser } from "@src/content/store";
+import { resetNavigation } from "@src/tools/utils";
 
 /** ========================================================================
  * Types
@@ -60,6 +62,7 @@ class DrawerMenuScreen extends React.Component<IProps, {}> {
           {"  "}
           Reset Scores
         </Item>
+        <Item onPress={this.logout}>🎡 Logout</Item>
         <Item
           style={{ position: "absolute", bottom: 65, left: 6, fontSize: 12 }}
         >
@@ -77,6 +80,15 @@ class DrawerMenuScreen extends React.Component<IProps, {}> {
   resetScores = () => {
     this.props.handleResetScores();
     this.props.navigation.closeDrawer();
+  };
+
+  logout = async () => {
+    try {
+      await logoutUser();
+      this.props.navigation.dispatch(resetNavigation(ROUTE_NAMES.SIGNIN));
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   createNavigationHandler = (route: ROUTE_NAMES) => {

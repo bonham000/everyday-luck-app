@@ -3,6 +3,8 @@
  * =========================================================================
  */
 export enum ROUTE_NAMES {
+  APP = "APP",
+  SIGNIN = "SIGNIN",
   HOME = "HOME",
   LESSON_SUMMARY = "LESSON_SUMMARY",
   QUIZ = "QUIZ",

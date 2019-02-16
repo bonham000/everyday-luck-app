@@ -1,4 +1,8 @@
-import { NavigationActions, StackActions } from "react-navigation";
+import {
+  DrawerLockMode,
+  NavigationActions,
+  StackActions,
+} from "react-navigation";
 
 import { ROUTE_NAMES } from "@src/constants/Routes";
 import { Lesson, LessonSet, LessonSummaryType, Word } from "@src/content/types";
@@ -7,6 +11,7 @@ import {
   LessonScoreType,
   ScoreStatus,
 } from "@src/GlobalContext";
+import { NavigationState } from "react-native-paper";
 
 export const assertUnreachable = (x: never): never => {
   throw new Error(`Unreachable code! -> ${JSON.stringify(x)}`);
@@ -229,4 +234,29 @@ export const getExperiencePointsForLesson = (
   const MAX = quizType === "q" ? 1250 : 750;
   const OFFSET = lessonType === "LESSON" ? 500 : 0;
   return randomInRange(MIN, MAX - OFFSET);
+};
+
+const isOnSignInScreen = (navigationState: any): boolean => {
+  try {
+    if (navigationState.routes[0].routeName === ROUTE_NAMES.SIGNIN) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (err) {
+    return false;
+  }
+};
+
+const LOCKED = "locked-closed";
+const UNLOCKED = "unlocked";
+
+export const getDrawerLockedState = (navigation: any): DrawerLockMode => {
+  const isOnSignIn = isOnSignInScreen(navigation.state);
+  const drawerLockMode = isOnSignIn
+    ? LOCKED
+    : navigation.state.index > 0
+    ? LOCKED
+    : UNLOCKED;
+  return drawerLockMode;
 };
