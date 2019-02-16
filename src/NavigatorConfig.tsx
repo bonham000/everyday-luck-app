@@ -19,7 +19,7 @@ import HomeScreen from "@src/screens/HomeScreen";
 import LessonSummaryScreen from "@src/screens/LessonSummaryScreen";
 import QuizScreen from "@src/screens/QuizScreen";
 import ViewAllScreen from "@src/screens/ViewAllScreen";
-import { getDrawerLockedState } from "./tools/utils";
+import { getDrawerLockedState } from "@src/tools/utils";
 
 /** ========================================================================
  * App navigation
