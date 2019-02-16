@@ -134,13 +134,7 @@ class RootContainer extends React.Component<{}, IState> {
 
   render(): JSX.Element | null {
     if (this.state.updating || this.state.loading) {
-      return (
-        <View
-          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-        >
-          <LoadingComponent />
-        </View>
-      );
+      return <LoadingComponent />;
     }
 
     return (

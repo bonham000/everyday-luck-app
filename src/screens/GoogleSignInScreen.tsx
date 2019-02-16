@@ -8,6 +8,7 @@ import LoadingComponent from "@src/components/LoadingComponent";
 import { COLORS } from "@src/constants/Colors";
 import { ROUTE_NAMES } from "@src/constants/Routes";
 import { saveUser } from "@src/content/store";
+import CONFIG from "@src/tools/config";
 import { resetNavigation } from "@src/tools/utils";
 
 /** ========================================================================
@@ -24,8 +25,8 @@ interface IState {
   error: boolean;
 }
 
-const ANDROID_CLIENT_ID = process.env.ANDROID_CLIENT_ID;
-const IOS_CLIENT_ID = process.env.IOS_CLIENT_ID;
+const ANDROID_CLIENT_ID = CONFIG.ANDROID_CLIENT_ID;
+const IOS_CLIENT_ID = CONFIG.IOS_CLIENT_ID;
 
 /** ========================================================================
  * React Class
@@ -82,7 +83,9 @@ class GoogleSignInScreen extends React.Component<IProps, IState> {
             await saveUser(user);
             this.props.navigation.dispatch(resetNavigation(ROUTE_NAMES.HOME));
           } else {
-            throw new Error("Authentication failed");
+            this.setState({
+              loading: false,
+            });
           }
         } catch (err) {
           console.log(err);
