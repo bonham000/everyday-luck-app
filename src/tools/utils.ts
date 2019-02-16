@@ -11,7 +11,6 @@ import {
   LessonScoreType,
   ScoreStatus,
 } from "@src/GlobalContext";
-import { NavigationState } from "react-native-paper";
 
 export const assertUnreachable = (x: never): never => {
   throw new Error(`Unreachable code! -> ${JSON.stringify(x)}`);
