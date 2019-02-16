@@ -4,6 +4,7 @@ import { Alert, AppState, BackHandler, View } from "react-native";
 import { SinglePickerMaterialDialog } from "react-native-material-dialog";
 import { createAppContainer } from "react-navigation";
 
+import LoadingComponent from "@src/components/LoadingComponent";
 import { CustomToast } from "@src/components/ToastProvider";
 import {
   addExperiencePoints,
@@ -19,7 +20,6 @@ import GlobalContext, {
   ScoreStatus,
 } from "@src/GlobalContext";
 import createAppNavigator from "@src/NavigatorConfig";
-import LoadingComponent from "./components/LoadingComponent";
 
 /** ========================================================================
  * Types
