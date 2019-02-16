@@ -35,6 +35,7 @@ class DrawerMenuScreen extends React.Component<IProps, {}> {
   }
 
   render(): JSX.Element {
+    const { user } = this.props;
     return (
       <SafeAreaView
         style={{ flex: 1, paddingTop: 75, paddingLeft: 6 }}
@@ -63,11 +64,13 @@ class DrawerMenuScreen extends React.Component<IProps, {}> {
           Reset Scores
         </Item>
         <Item onPress={this.logout}>🎡 Logout</Item>
-        <Item
-          style={{ position: "absolute", bottom: 95, left: 6, fontSize: 12 }}
-        >
-          <Bold>Current user:</Bold> {this.props.user.name}
-        </Item>
+        {user && (
+          <Item
+            style={{ position: "absolute", bottom: 95, left: 6, fontSize: 12 }}
+          >
+            <Bold>Current user:</Bold> {user.name}
+          </Item>
+        )}
         <Item
           style={{ position: "absolute", bottom: 65, left: 6, fontSize: 12 }}
         >

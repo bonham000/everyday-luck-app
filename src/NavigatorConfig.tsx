@@ -14,7 +14,7 @@ import { LessonScreenParams } from "@src/content/types";
 import AboutScreen from "@src/screens/AboutScreen";
 import DrawerComponent from "@src/screens/DrawerMenuScreen";
 import FlashcardsScreen from "@src/screens/FlashcardsScreen";
-import GoogleSignInScreen from "@src/screens/GoogleSignInScreen";
+import GoogleSignInScreen from "@src/screens/GoogleSigninScreen";
 import HomeScreen from "@src/screens/HomeScreen";
 import LessonSummaryScreen from "@src/screens/LessonSummaryScreen";
 import QuizScreen from "@src/screens/QuizScreen";

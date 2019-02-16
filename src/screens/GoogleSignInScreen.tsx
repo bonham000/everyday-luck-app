@@ -4,6 +4,9 @@ import React from "react";
 import { Image } from "react-native";
 import { NavigationScreenProp } from "react-navigation";
 
+import GlobalContextProvider, {
+  GlobalContextProps,
+} from "@src/components/GlobalContextProvider";
 import LoadingComponent from "@src/components/LoadingComponent";
 import { COLORS } from "@src/constants/Colors";
 import { ROUTE_NAMES } from "@src/constants/Routes";
@@ -16,7 +19,7 @@ import { resetNavigation } from "@src/tools/utils";
  * =========================================================================
  */
 
-interface IProps {
+interface IProps extends GlobalContextProps {
   navigation: NavigationScreenProp<{}>;
 }
 
@@ -33,7 +36,7 @@ const IOS_CLIENT_ID = CONFIG.IOS_CLIENT_ID;
  * =========================================================================
  */
 
-class GoogleSignInScreen extends React.Component<IProps, IState> {
+class GoogleSigninScreen extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
 
@@ -81,6 +84,7 @@ class GoogleSignInScreen extends React.Component<IProps, IState> {
           if (result.type === "success") {
             const { user } = result;
             await saveUser(user);
+            await this.props.onSignin();
             this.props.navigation.dispatch(resetNavigation(ROUTE_NAMES.HOME));
           } else {
             this.setState({
@@ -179,4 +183,6 @@ const GoogleIcon = () => (
  * =========================================================================
  */
 
-export default GoogleSignInScreen;
+export default (props: any) => (
+  <GlobalContextProvider {...props} Component={GoogleSigninScreen} />
+);

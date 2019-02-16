@@ -27,6 +27,7 @@ export interface GlobalContextProps {
     lessonPassedType: LessonScoreType,
     exp: number,
   ) => void;
+  onSignin: () => Promise<void>;
 }
 
 interface IProps {
@@ -52,6 +53,7 @@ class GlobalContextProvider extends React.Component<IProps, IState> {
           <Component
             {...rest}
             user={value.user}
+            onSignin={value.onSignin}
             experience={value.experience}
             setToastMessage={value.setToastMessage}
             setLessonScore={value.setLessonScore}

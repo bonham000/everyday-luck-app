@@ -16,6 +16,7 @@ export type LessonScoreType = "mc" | "q";
 export type ScoreStatus = ReadonlyArray<LessonScore>;
 
 const AppContext = React.createContext({
+  user: undefined,
   experience: 0,
   selectedLanguage: "Mandarin",
   userScoreStatus: [] as ScoreStatus,
@@ -34,6 +35,9 @@ const AppContext = React.createContext({
     exp: number,
   ) => {
     // Handle setting lesson score
+  },
+  onSignin: () => {
+    // Handle action on signin
   },
 });
 

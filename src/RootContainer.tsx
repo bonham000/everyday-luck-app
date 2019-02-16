@@ -148,7 +148,9 @@ class RootContainer extends React.Component<{}, IState> {
       <View style={{ flex: 1 }}>
         <GlobalContext.Provider
           value={{
+            // @ts-ignore
             user: this.state.user,
+            onSignin: this.handleSignin,
             experience: this.state.experience,
             setLessonScore: this.setLessonScore,
             setToastMessage: this.setToastMessage,
@@ -181,6 +183,12 @@ class RootContainer extends React.Component<{}, IState> {
       </View>
     );
   }
+
+  handleSignin = async () => {
+    this.setState({
+      user: await getUser(),
+    });
+  };
 
   setLessonScore = (
     lessonIndex: number,
