@@ -83,7 +83,9 @@ export const updateUserExperience = async (
   try {
     const response = await fetch(`${CONFIG.DRAGON_URI}/experience/${userId}`, {
       method: "POST",
-      body: String(userExperience),
+      body: JSON.stringify({
+        experience_points: userExperience,
+      }),
       headers: HEADERS,
     });
     const result = await response.json();
