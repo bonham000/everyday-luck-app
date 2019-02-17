@@ -8,7 +8,6 @@ import { LessonScreenParams, Word } from "@src/api/types";
 import GlobalStateProvider, {
   GlobalStateProps,
 } from "@src/components/GlobalStateProvider";
-import ToastProvider from "@src/components/ToastProvider";
 import { COLORS } from "@src/constants/Colors";
 import { filterBySearchTerm, mapWordsForList } from "@src/tools/utils";
 
@@ -125,10 +124,5 @@ const SearchBarStyles = {
  */
 
 export default (parentProps: any) => (
-  <GlobalStateProvider
-    {...parentProps}
-    Component={(childProps: any) => (
-      <ToastProvider {...childProps} Component={ViewAllScreen} />
-    )}
-  />
+  <GlobalStateProvider {...parentProps} Component={ViewAllScreen} />
 );
