@@ -4,16 +4,12 @@ import { ScrollView } from "react-native";
 import { Text } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
+import { LessonScreenParams, LessonSummaryType, Word } from "@src/api/types";
 import GlobalStateProvider, {
   GlobalStateProps,
 } from "@src/components/GlobalStateProvider";
 import { COLORS } from "@src/constants/Colors";
 import { ROUTE_NAMES } from "@src/constants/Routes";
-import {
-  LessonScreenParams,
-  LessonSummaryType,
-  Word,
-} from "@src/content/types";
 import { getFinalUnlockedLesson, knuthShuffle } from "@src/tools/utils";
 
 /** ========================================================================

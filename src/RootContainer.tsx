@@ -3,21 +3,19 @@ import React from "react";
 import { Alert, AppState, BackHandler, Text, View } from "react-native";
 import { createAppContainer } from "react-navigation";
 
+import {
+  fetchLessonSet,
+  findOrCreateUser,
+  updateUserExperience,
+  updateUserScores,
+} from "@src/api/api-helpers";
+import { getLocalUser, GoogleSigninUser } from "@src/api/store";
+import { LessonSet } from "@src/api/types";
 import LoadingComponent from "@src/components/LoadingComponent";
 import { CustomToast } from "@src/components/ToastProvider";
-import {
-  addExperiencePoints,
-  fetchLessonSet,
-  getExistingUserScoresAsync,
-  getUser,
-  getUserExperience,
-  resetUserScoresAsync,
-  saveProgressToAsyncStorage,
-  User,
-} from "@src/content/store";
-import { LessonSet } from "@src/content/types";
 import GlobalContext, { LessonScoreType, ScoreStatus } from "@src/GlobalState";
 import createAppNavigator from "@src/NavigatorConfig";
+import { fillEmptyLessonBlocks } from "@src/tools/utils";
 
 /** ========================================================================
  * Types
@@ -25,7 +23,8 @@ import createAppNavigator from "@src/NavigatorConfig";
  */
 
 interface IState {
-  user?: User;
+  userId?: string;
+  user?: GoogleSigninUser;
   lessons?: LessonSet;
   error: boolean;
   loading: boolean;
@@ -79,13 +78,32 @@ class RootContainer extends React.Component<{}, IState> {
         error: true,
       });
     } else {
-      this.setState({
-        loading: false,
-        lessons,
-        user: await getUser(),
-        experience: await getUserExperience(),
-        userScoreStatus: await getExistingUserScoresAsync(lessons),
-      });
+      const localUser = await getLocalUser();
+
+      if (localUser && localUser.email) {
+        const user = await findOrCreateUser(localUser.email);
+
+        if (user) {
+          let scoreHistory = JSON.parse(user.score_history);
+
+          if (scoreHistory.length < lessons.length) {
+            scoreHistory = scoreHistory.concat(
+              new Array(lessons.length - scoreHistory.length)
+                .fill("")
+                .map(fillEmptyLessonBlocks),
+            );
+          }
+
+          this.setState({
+            loading: false,
+            lessons,
+            user: localUser,
+            userId: user.uuid,
+            experience: user.experience_points,
+            userScoreStatus: scoreHistory,
+          });
+        }
+      }
     }
   };
 
@@ -196,43 +214,49 @@ class RootContainer extends React.Component<{}, IState> {
     );
   }
 
-  handleSignin = async () => {
-    this.setState({
-      user: await getUser(),
-    });
+  handleSignin = async (user: GoogleSigninUser) => {
+    if (user && user.email) {
+      const userResult = await findOrCreateUser(user.email);
+      if (userResult) {
+        this.setState({ user, userId: userResult.uuid });
+      }
+    } else {
+      // TODO: Handle missing email...
+    }
   };
 
-  setLessonScore = (
+  setLessonScore = async (
     lessonIndex: number,
     lessonPassedType: LessonScoreType,
     exp: number,
   ) => {
-    const updatedScoreStatus = this.state.userScoreStatus.map(
-      (status, index) => {
-        if (index === lessonIndex) {
-          return {
-            ...status,
-            [lessonPassedType]: true,
-          };
-        } else {
-          return status;
-        }
-      },
-    );
+    const { userId } = this.state;
 
-    this.setState(
-      {
-        userScoreStatus: updatedScoreStatus,
-      },
-      () => this.persistScore(exp),
-    );
-  };
+    if (userId) {
+      const updatedScoreStatus: ScoreStatus = this.state.userScoreStatus.map(
+        (status, index) => {
+          if (index === lessonIndex) {
+            return {
+              ...status,
+              [lessonPassedType]: true,
+            };
+          } else {
+            return status;
+          }
+        },
+      );
 
-  persistScore = async (exp: number) => {
-    await saveProgressToAsyncStorage(this.state.userScoreStatus);
-    const experience = await addExperiencePoints(exp);
-    if (experience) {
-      this.setState({ experience });
+      await updateUserScores(userId, updatedScoreStatus);
+      const updatedUser = await updateUserExperience(userId, exp);
+
+      if (updatedUser) {
+        const { experience_points, score_history } = updatedUser;
+
+        this.setState({
+          experience: experience_points,
+          userScoreStatus: JSON.parse(score_history),
+        });
+      }
     }
   };
 
@@ -293,7 +317,10 @@ class RootContainer extends React.Component<{}, IState> {
               () => {
                 // tslint:disable-next-line
                 this.timeout = setTimeout(async () => {
-                  await resetUserScoresAsync();
+                  /**
+                   * TODO: Add this action
+                   */
+                  console.log("Add action for resetting scores!");
                   this.getInitialScoreState();
                 }, 1250);
               },

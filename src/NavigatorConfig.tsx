@@ -7,10 +7,10 @@ import {
   NavigationScreenProp,
 } from "react-navigation";
 
+import { LessonScreenParams } from "@src/api/types";
 import MultipleChoiceComponent from "@src/components/MultipleChoiceComponent";
 import QuizInput from "@src/components/QuizInputComponent";
 import { ROUTE_NAMES } from "@src/constants/Routes";
-import { LessonScreenParams } from "@src/content/types";
 import AboutScreen from "@src/screens/AboutScreen";
 import DrawerComponent from "@src/screens/DrawerMenuScreen";
 import FlashcardsScreen from "@src/screens/FlashcardsScreen";

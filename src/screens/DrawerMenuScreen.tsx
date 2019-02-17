@@ -3,11 +3,11 @@ import React from "react";
 import { Image, Keyboard, View } from "react-native";
 import { NavigationScreenProp, SafeAreaView } from "react-navigation";
 
+import { logoutLocalUser } from "@src/api/store";
 import GlobalStateProvider, {
   GlobalStateProps,
 } from "@src/components/GlobalStateProvider";
 import { ROUTE_NAMES } from "@src/constants/Routes";
-import { logoutUser } from "@src/content/store";
 import { resetNavigation } from "@src/tools/utils";
 
 /** ========================================================================
@@ -82,7 +82,7 @@ class DrawerMenuScreen extends React.Component<IProps, {}> {
 
   logout = async () => {
     try {
-      await logoutUser();
+      await logoutLocalUser();
       this.props.navigation.dispatch(resetNavigation(ROUTE_NAMES.SIGNIN));
     } catch (err) {
       console.log(err);

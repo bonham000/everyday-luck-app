@@ -4,8 +4,8 @@ import {
   StackActions,
 } from "react-navigation";
 
+import { Lesson, LessonSet, LessonSummaryType, Word } from "@src/api/types";
 import { ROUTE_NAMES } from "@src/constants/Routes";
-import { Lesson, LessonSet, LessonSummaryType, Word } from "@src/content/types";
 import { LessonScoreType, ScoreStatus } from "@src/GlobalState";
 
 export const assertUnreachable = (x: never): never => {
@@ -253,3 +253,8 @@ export const getDrawerLockedState = (navigation: any): DrawerLockMode => {
     : UNLOCKED;
   return drawerLockMode;
 };
+
+export const fillEmptyLessonBlocks = (_: Lesson) => ({
+  mc: false,
+  q: false,
+});

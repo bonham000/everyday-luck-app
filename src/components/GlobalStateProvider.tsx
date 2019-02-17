@@ -1,7 +1,7 @@
 import React from "react";
 
-import { User } from "@src/content/store";
-import { LessonSet } from "@src/content/types";
+import { GoogleSigninUser } from "@src/api/store";
+import { LessonSet } from "@src/api/types";
 import GlobalState, { LessonScoreType, ScoreStatus } from "@src/GlobalState";
 
 /** ========================================================================
@@ -12,7 +12,7 @@ import GlobalState, { LessonScoreType, ScoreStatus } from "@src/GlobalState";
 export type ComponentProp = (args: any) => JSX.Element;
 
 export interface GlobalStateProps {
-  user?: User;
+  user?: GoogleSigninUser;
   lessons: LessonSet;
   userScoreStatus: ScoreStatus;
   experience: number;
@@ -24,7 +24,7 @@ export interface GlobalStateProps {
     lessonPassedType: LessonScoreType,
     exp: number,
   ) => void;
-  onSignin: () => Promise<void>;
+  onSignin: (user: GoogleSigninUser) => Promise<void>;
 }
 
 interface IProps {
@@ -32,7 +32,7 @@ interface IProps {
 }
 
 interface IState {
-  user?: User;
+  user?: GoogleSigninUser;
 }
 
 /** ========================================================================

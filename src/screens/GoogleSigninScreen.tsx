@@ -4,13 +4,13 @@ import React from "react";
 import { Image } from "react-native";
 import { NavigationScreenProp } from "react-navigation";
 
+import { saveLocalUser } from "@src/api/store";
 import GlobalStateProvider, {
   GlobalStateProps,
 } from "@src/components/GlobalStateProvider";
 import LoadingComponent from "@src/components/LoadingComponent";
 import { COLORS } from "@src/constants/Colors";
 import { ROUTE_NAMES } from "@src/constants/Routes";
-import { saveUser } from "@src/content/store";
 import CONFIG from "@src/tools/config";
 import { resetNavigation } from "@src/tools/utils";
 
@@ -83,8 +83,8 @@ class GoogleSigninScreen extends React.Component<IProps, IState> {
 
           if (result.type === "success") {
             const { user } = result;
-            await saveUser(user);
-            await this.props.onSignin();
+            await saveLocalUser(user);
+            await this.props.onSignin(user);
             this.props.navigation.dispatch(resetNavigation(ROUTE_NAMES.HOME));
           } else {
             this.setState({

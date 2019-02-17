@@ -1,5 +1,7 @@
 import React from "react";
 
+import { GoogleSigninUser } from "@src/api/store";
+
 /** ========================================================================
  * Context for toast message
  * =========================================================================
@@ -34,7 +36,7 @@ const GlobalState = React.createContext({
   ) => {
     // Handle setting lesson score
   },
-  onSignin: () => {
+  onSignin: (user: GoogleSigninUser) => {
     // Handle action on signin
   },
 });
