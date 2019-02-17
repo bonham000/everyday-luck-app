@@ -317,10 +317,11 @@ class RootContainer extends React.Component<{}, IState> {
               () => {
                 // tslint:disable-next-line
                 this.timeout = setTimeout(async () => {
-                  /**
-                   * TODO: Add this action
-                   */
-                  console.log("Add action for resetting scores!");
+                  const { userId } = this.state;
+                  if (userId) {
+                    await updateUserScores(userId, []);
+                    await updateUserExperience(userId, 0);
+                  }
                   this.getInitialScoreState();
                 }, 1250);
               },
