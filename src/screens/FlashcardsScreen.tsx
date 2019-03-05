@@ -92,7 +92,13 @@ class FlashcardsScreen extends React.Component<IProps, IState> {
           </FlipSideView>
           <FlipSideView>
             <BackText>{card.phonetic}</BackText>
-            <BackText style={{ fontSize: 22, marginTop: 18 }}>
+            <BackText
+              style={{
+                fontSize: 20, // TODO: Remove when reverting back to Mandarin
+                // fontSize: 22,
+                marginTop: 18,
+              }}
+            >
               "{card.english}"
             </BackText>
           </FlipSideView>
@@ -204,7 +210,8 @@ const FlipSideView = glamorous.view({
 });
 
 const FaceText = glamorous.text({
-  fontSize: 75,
+  fontSize: 18, // TODO: Remove when reverting back to Mandarin
+  // fontSize: 75,
   textAlign: "center",
   width: width - 40,
   color: COLORS.primaryRed,
