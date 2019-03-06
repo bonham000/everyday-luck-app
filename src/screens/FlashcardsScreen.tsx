@@ -210,7 +210,7 @@ const FlipSideView = glamorous.view({
 });
 
 const FaceText = glamorous.text({
-  fontSize: 18, // TODO: Remove when reverting back to Mandarin
+  fontSize: 24, // TODO: Remove when reverting back to Mandarin
   // fontSize: 75,
   textAlign: "center",
   width: width - 40,
