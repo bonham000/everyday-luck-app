@@ -25,15 +25,11 @@ class AboutScreen extends React.Component<IProps, {}> {
     return (
       <Container>
         <Text style={TextStyles}>
-          This is an app to help you learn languages! It currently teaches
-          Mandarin and Korean.
-        </Text>
-        <Text style={TextStyles}>
-          All the content is organized into a series of lessons. Future lessons
-          are locked and require you to complete unlocked lessons first. To
-          complete a lesson and unlock the next one, you have to get a perfect
-          score on the quiz and multiple choice tests for that lesson. Good
-          luck!
+          This is an app to help you learn Mandarin! All the content is
+          organized into a series of lessons. Future lessons are locked and
+          require you to complete unlocked lessons first. To complete a lesson
+          and unlock the next one, you have to get a perfect score on the quiz
+          and multiple choice tests for that lesson. Good luck!
         </Text>
         <Text>✨✨✨</Text>
         <Text onPress={this.openAboutLink} style={LinkStyles}>
