@@ -104,10 +104,13 @@ export const fetchLessonSet = async (): Promise<LessonSet | null> => {
   try {
     const URL = `${CONFIG.DRAGON_URI}/lessons`;
     const response = await fetch(URL);
+    console.log(response);
+
     const result: LessonSet = await response.json();
 
     return result;
   } catch (err) {
+    console.log(err);
     return null;
   }
 };

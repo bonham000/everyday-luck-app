@@ -1,5 +1,6 @@
 import {
   ANDROID_CLIENT_ID,
+  DRAGON_URI,
   IOS_CLIENT_ID,
   SENTRY_AUTH_TOKEN,
   SENTRY_DSN,
@@ -12,8 +13,7 @@ import {
  */
 
 const CONFIG = {
-  DRAGON_URI: process.env.DRAGON_URI || "http://localhost:8000",
-  // DRAGON_URI: process.env.DRAGON_URI || "https://dragon-999.herokuapp.com",
+  DRAGON_URI: process.env.DRAGON_URI || DRAGON_URI,
   ANDROID_CLIENT_ID: process.env.ANDROID_CLIENT_ID || ANDROID_CLIENT_ID,
   IOS_CLIENT_ID: process.env.IOS_CLIENT_ID || IOS_CLIENT_ID,
   SENTRY_AUTH_TOKEN: process.env.SENTRY_AUTH_TOKEN || SENTRY_AUTH_TOKEN,
