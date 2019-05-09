@@ -16,7 +16,7 @@
     "test:format": "npm run prettier:check && npm run tslint && npm run tsc",
     "test": "yarn run prettier:check && yarn run tslint && yarn run tsc && yarn run jest",
     "test:clear": "jest --clearCache && rm -rf build",
-    "publish": "expo publish",
+    "publish": "expo publish --non-interactive",
     "build": "expo build:android"
   },
   "dependencies": {
