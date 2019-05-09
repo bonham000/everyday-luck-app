@@ -5,7 +5,7 @@
 export const COLORS = {
   lightWhite: "rgb(231, 237, 240)",
   lightDark: "rgba(45,45,45,0.05)",
-  inactive: "rgb(75,75,75)",
+  inactive: "rgb(125,125,125)",
   primaryRed: "rgb(200,8,20)",
   primaryBlue: "#3498db",
   actionButtonRed: "rgba(231,76,60,1)",
@@ -18,6 +18,6 @@ export const COLORS = {
   line: "rgba(25,25,25,0.85)",
   lineLight: "rgba(1,1,1,0.5)",
   lessonBlock: "#3498db",
-  // lessonBlock: "rgb(225,225,225)",
-  lockedLessonBlock: "rgb(200,200,200)",
+  lockedLessonBlock: "rgb(215,215,215)",
+  dark: "rgb(15,15,15)",
 };

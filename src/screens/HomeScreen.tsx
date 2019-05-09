@@ -36,9 +36,8 @@ class HomeScreen extends React.Component<IProps, {}> {
         <Text style={TextStyles}>Choose a lesson to start studying</Text>
         {lessons.map((lesson, index) => {
           const isLocked = index > unlockedLessonIndex;
-          const isFinalUnlocked = index === unlockedLessonIndex;
           return (
-            <LessonLink
+            <LessonBlock
               style={{
                 backgroundColor: isLocked
                   ? COLORS.lockedLessonBlock
@@ -69,11 +68,12 @@ class HomeScreen extends React.Component<IProps, {}> {
                       }
                 }
               >
-                lesson {index + 1} {CHINESE_NUMBER_MAP[index + 1]}
+                lesson {index + 1}
               </Text>
-              {isFinalUnlocked && <Text>🤹‍♂️</Text>}
-              {isLocked && <Text>🔐</Text>}
-            </LessonLink>
+              <Text style={{ color: isLocked ? COLORS.inactive : COLORS.dark }}>
+                {CHINESE_NUMBER_MAP[index + 1]}
+              </Text>
+            </LessonBlock>
           );
         })}
         <LineBreak />
@@ -100,7 +100,7 @@ class HomeScreen extends React.Component<IProps, {}> {
             "SUMMARY",
           )}
         >
-          <Text style={{ fontWeight: "600" }}>View All Unlocked Content</Text>
+          <Text style={{ fontWeight: "600" }}>Review All Unlocked Content</Text>
           <Text>📚</Text>
         </ReviewLink>
       </Container>
@@ -140,11 +140,12 @@ const Container = (props: { children: any }) => (
   </ScrollView>
 );
 
-const LessonLink = glamorous.touchableOpacity({
+const LessonBlock = glamorous.touchableOpacity({
   width: "90%",
   height: 50,
   padding: 12,
   margin: 4,
+  borderRadius: 5,
   flexDirection: "row",
   alignItems: "center",
   justifyContent: "space-between",

@@ -63,7 +63,7 @@ class DrawerMenuScreen extends React.Component<IProps, {}> {
           <Item
             style={{ position: "absolute", bottom: 95, left: 6, fontSize: 12 }}
           >
-            <Bold>Current user:</Bold> {user.name}
+            <Bold>Name:</Bold> {user.name}
           </Item>
         )}
         <Item
