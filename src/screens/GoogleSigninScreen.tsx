@@ -54,7 +54,7 @@ class GoogleSigninScreen extends React.Component<IProps, IState> {
 
     return (
       <Container>
-        <AppTitle>很多汉字</AppTitle>
+        <AppTitle>很多漢字</AppTitle>
         <AppSubtitle>"Hěnduō hànzì"</AppSubtitle>
         <DescriptionText>This is an app for learning Chinese</DescriptionText>
         <GoogleButtonContainer onPress={this.signin}>

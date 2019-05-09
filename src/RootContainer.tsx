@@ -25,7 +25,7 @@ import { fillEmptyLessonBlocks } from "@src/tools/utils";
 interface IState {
   userId?: string;
   user?: GoogleSigninUser;
-  lessons?: LessonSet;
+  lessons: LessonSet;
   error: boolean;
   loading: boolean;
   appState: string;
@@ -50,62 +50,16 @@ class RootContainer extends React.Component<{}, IState> {
 
     this.state = {
       error: false,
+      lessons: [],
       experience: 0,
       loading: true,
-      appState: AppState.currentState,
       toastMessage: "",
       updating: false,
-      tryingToCloseApp: false,
       userScoreStatus: [],
+      tryingToCloseApp: false,
+      appState: AppState.currentState,
     };
   }
-
-  getInitialScoreState = async () => {
-    /**
-     * Fetch image assets
-     */
-    await Asset.fromModule(
-      require("@src/assets/google_icon.png"),
-    ).downloadAsync();
-
-    /**
-     * Fetch lessons
-     */
-    const lessons = await fetchLessonSet();
-
-    if (!lessons) {
-      this.setState({
-        error: true,
-      });
-    } else {
-      const localUser = await getLocalUser();
-
-      if (localUser && localUser.email) {
-        const user = await findOrCreateUser(localUser.email);
-
-        if (user) {
-          let scoreHistory = JSON.parse(user.score_history);
-
-          if (scoreHistory.length < lessons.length) {
-            scoreHistory = scoreHistory.concat(
-              new Array(lessons.length - scoreHistory.length)
-                .fill("")
-                .map(fillEmptyLessonBlocks),
-            );
-          }
-
-          this.setState({
-            loading: false,
-            lessons,
-            user: localUser,
-            userId: user.uuid,
-            experience: user.experience_points,
-            userScoreStatus: scoreHistory,
-          });
-        }
-      }
-    }
-  };
 
   async componentDidMount(): Promise<void> {
     this.getInitialScoreState();
@@ -185,16 +139,17 @@ class RootContainer extends React.Component<{}, IState> {
       return <LoadingComponent />;
     }
 
+    const authenticatedUser = user as GoogleSigninUser;
+    const lessonSet = lessons as LessonSet;
+
     return (
       <View style={{ flex: 1 }}>
         <GlobalContext.Provider
           value={{
-            // @ts-ignore
-            user,
-            // @ts-ignore
-            lessons,
             experience,
             userScoreStatus,
+            lessons: lessonSet,
+            user: authenticatedUser,
             onSignin: this.handleSignin,
             setLessonScore: this.setLessonScore,
             setToastMessage: this.setToastMessage,
@@ -214,6 +169,68 @@ class RootContainer extends React.Component<{}, IState> {
     );
   }
 
+  getInitialScoreState = async () => {
+    /**
+     * Fetch image assets
+     */
+    await Asset.fromModule(
+      require("@src/assets/google_icon.png"),
+    ).downloadAsync();
+
+    /**
+     * Fetch lessons
+     */
+    const lessons = await fetchLessonSet();
+
+    if (!lessons) {
+      this.setState({
+        error: true,
+      });
+    } else {
+      this.setState(
+        {
+          lessons,
+        },
+        this.setupUserSession,
+      );
+    }
+  };
+
+  setupUserSession = async () => {
+    const localUser = await getLocalUser();
+
+    if (localUser && localUser.email) {
+      const user = await findOrCreateUser(localUser.email);
+
+      if (user) {
+        const { lessons } = this.state;
+
+        let scoreHistory = JSON.parse(user.score_history);
+
+        if (scoreHistory.length < lessons.length) {
+          scoreHistory = scoreHistory.concat(
+            new Array(lessons.length - scoreHistory.length)
+              .fill("")
+              .map(fillEmptyLessonBlocks),
+          );
+        }
+
+        this.setState({
+          loading: false,
+          user: localUser,
+          userId: user.uuid,
+          experience: user.experience_points,
+          userScoreStatus: scoreHistory,
+        });
+      }
+    }
+    /**
+     * No local user found. Disable loading which will render the
+     * signin screen.
+     */
+    this.setState({ loading: false });
+  };
+
   handleSignin = async (user: GoogleSigninUser) => {
     if (user && user.email) {
       const userResult = await findOrCreateUser(user.email);
@@ -222,6 +239,7 @@ class RootContainer extends React.Component<{}, IState> {
       }
     } else {
       // TODO: Handle missing email...
+      console.log("User found with no email...");
     }
   };
 
@@ -309,27 +327,29 @@ class RootContainer extends React.Component<{}, IState> {
         },
         {
           text: "OK",
-          onPress: () => {
-            this.setState(
-              {
-                loading: true,
-              },
-              () => {
-                // tslint:disable-next-line
-                this.timeout = setTimeout(async () => {
-                  const { userId } = this.state;
-                  if (userId) {
-                    await updateUserScores(userId, []);
-                    await updateUserExperience(userId, 0);
-                  }
-                  this.getInitialScoreState();
-                }, 1250);
-              },
-            );
-          },
+          onPress: this.resetScores,
         },
       ],
       { cancelable: false },
+    );
+  };
+
+  resetScores = () => {
+    this.setState(
+      {
+        loading: true,
+      },
+      () => {
+        // tslint:disable-next-line
+        this.timeout = setTimeout(async () => {
+          const { userId } = this.state;
+          if (userId) {
+            await updateUserScores(userId, []);
+            await updateUserExperience(userId, 0);
+          }
+          this.getInitialScoreState();
+        }, 1250);
+      },
     );
   };
 
@@ -366,8 +386,9 @@ class RootContainer extends React.Component<{}, IState> {
           { cancelable: false },
         );
       }
-      // tslint:disable-next-line
-    } catch (err) {}
+    } catch (err) {
+      return;
+    }
   };
 
   updateApp = () => {

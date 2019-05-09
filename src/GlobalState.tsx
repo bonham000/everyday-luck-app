@@ -1,6 +1,7 @@
 import React from "react";
 
 import { GoogleSigninUser } from "@src/api/store";
+import { LessonSet } from "./api/types";
 
 /** ========================================================================
  * Context for toast message
@@ -17,17 +18,14 @@ export type ScoreStatus = ReadonlyArray<LessonScore>;
 
 const GlobalState = React.createContext({
   experience: 0,
-  user: undefined,
-  lessons: [],
+  user: {},
+  lessons: [] as LessonSet,
   userScoreStatus: [] as ScoreStatus,
   setToastMessage: (toastMessage: string) => {
     // Handle setting Toast message
   },
   handleResetScores: () => {
     // Handle resetting scores
-  },
-  openLanguageSelectionMenu: () => {
-    // Handle opening menu
   },
   setLessonScore: (
     lessonIndex: number,
