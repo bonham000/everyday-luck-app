@@ -258,3 +258,23 @@ export const fillEmptyLessonBlocks = (_: Lesson) => ({
   mc: false,
   q: false,
 });
+
+export const getGameModeLessonSet = (
+  lessons: LessonSet,
+  unlockedLessonIndex: number,
+) => {
+  return knuthShuffle(
+    lessons
+      .slice(0, unlockedLessonIndex + 1)
+      .reduce((flattened, lesson) => [...flattened, ...lesson]),
+  ).slice(0, 25);
+};
+
+export const getReviewLessonSet = (
+  lessons: LessonSet,
+  unlockedLessonIndex: number,
+) => {
+  return lessons
+    .slice(0, unlockedLessonIndex + 1)
+    .reduce((flattened, lesson) => [...flattened, ...lesson]);
+};

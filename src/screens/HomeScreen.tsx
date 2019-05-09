@@ -1,17 +1,26 @@
 import glamorous from "glamorous-native";
 import React from "react";
-import { ScrollView } from "react-native";
+import { ScrollView, TextStyle } from "react-native";
 import { Text } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
-import { LessonScreenParams, LessonSummaryType, Word } from "@src/api/types";
+import {
+  Lesson,
+  LessonScreenParams,
+  LessonSummaryType,
+  Word,
+} from "@src/api/types";
 import GlobalStateProvider, {
   GlobalStateProps,
 } from "@src/components/GlobalStateProvider";
 import { CHINESE_NUMBER_MAP } from "@src/constants/Characters";
 import { COLORS } from "@src/constants/Colors";
 import { ROUTE_NAMES } from "@src/constants/Routes";
-import { getFinalUnlockedLesson, knuthShuffle } from "@src/tools/utils";
+import {
+  getFinalUnlockedLesson,
+  getGameModeLessonSet,
+  getReviewLessonSet,
+} from "@src/tools/utils";
 
 /** ========================================================================
  * Types
@@ -34,56 +43,11 @@ class HomeScreen extends React.Component<IProps, {}> {
     return (
       <Container>
         <Text style={TextStyles}>Choose a lesson to start studying</Text>
-        {lessons.map((lesson, index) => {
-          const isLocked = index > unlockedLessonIndex;
-          return (
-            <LessonBlock
-              style={{
-                backgroundColor: isLocked
-                  ? COLORS.lockedLessonBlock
-                  : COLORS.lessonBlock,
-              }}
-              onPress={() => {
-                if (isLocked) {
-                  this.props.setToastMessage(
-                    "Please complete the previous lesson first",
-                  );
-                } else {
-                  this.openLessonSummary(lesson, index)();
-                }
-              }}
-            >
-              <Text
-                style={
-                  isLocked
-                    ? {
-                        color: COLORS.inactive,
-                        fontWeight: "normal",
-                        textDecorationStyle: "solid",
-                      }
-                    : {
-                        color: "black",
-                        fontWeight: "500",
-                        textDecorationLine: "normal",
-                      }
-                }
-              >
-                lesson {index + 1}
-              </Text>
-              <Text style={{ color: isLocked ? COLORS.inactive : COLORS.dark }}>
-                {CHINESE_NUMBER_MAP[index + 1]}
-              </Text>
-            </LessonBlock>
-          );
-        })}
+        {this.renderLessons()}
         <LineBreak />
         <ReviewLink
           onPress={this.openLessonSummary(
-            knuthShuffle(
-              lessons
-                .slice(0, unlockedLessonIndex + 1)
-                .reduce((flattened, lesson) => [...flattened, ...lesson]),
-            ).slice(0, 25),
+            getGameModeLessonSet(lessons, unlockedLessonIndex),
             0,
             "GAME",
           )}
@@ -93,9 +57,7 @@ class HomeScreen extends React.Component<IProps, {}> {
         </ReviewLink>
         <ReviewLink
           onPress={this.openLessonSummary(
-            lessons
-              .slice(0, unlockedLessonIndex + 1)
-              .reduce((flattened, lesson) => [...flattened, ...lesson]),
+            getReviewLessonSet(lessons, unlockedLessonIndex),
             0,
             "SUMMARY",
           )}
@@ -106,6 +68,43 @@ class HomeScreen extends React.Component<IProps, {}> {
       </Container>
     );
   }
+
+  renderLessons = () => {
+    const { lessons, userScoreStatus } = this.props;
+    const unlockedLessonIndex = getFinalUnlockedLesson(userScoreStatus);
+    return lessons.map((lesson, index) => {
+      const isLocked = index > unlockedLessonIndex;
+      return (
+        <LessonBlock
+          style={{
+            backgroundColor: isLocked
+              ? COLORS.lockedLessonBlock
+              : COLORS.lessonBlock,
+          }}
+          onPress={this.handleSelectLesson(lesson, index, isLocked)}
+        >
+          <LessonBlockText isLocked={isLocked}>
+            lesson {index + 1}
+          </LessonBlockText>
+          <Text style={{ color: isLocked ? COLORS.inactive : COLORS.dark }}>
+            {CHINESE_NUMBER_MAP[index + 1]}
+          </Text>
+        </LessonBlock>
+      );
+    });
+  };
+
+  handleSelectLesson = (
+    lesson: Lesson,
+    index: number,
+    isLocked: boolean,
+  ) => () => {
+    if (isLocked) {
+      this.props.setToastMessage("Please complete the previous lesson first");
+    } else {
+      this.openLessonSummary(lesson, index)();
+    }
+  };
 
   openLessonSummary = (
     lesson: ReadonlyArray<Word>,
@@ -178,6 +177,22 @@ const LineBreak = glamorous.view({
   marginBottom: 16,
   backgroundColor: COLORS.line,
 });
+
+const LessonBlockText = glamorous.text(
+  {},
+  (props: { isLocked: boolean }) =>
+    (props.isLocked
+      ? {
+          color: COLORS.inactive,
+          fontWeight: "500",
+          textDecorationStyle: "solid",
+        }
+      : {
+          color: "black",
+          fontWeight: "500",
+          textDecorationLine: "normal",
+        }) as TextStyle,
+);
 
 /** ========================================================================
  * Export
