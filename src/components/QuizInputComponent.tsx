@@ -26,7 +26,9 @@ interface IProps {
   handleChange: () => void;
   handleProceed: () => (event: GestureResponderEvent) => void;
   handleToggleRevealAnswer: (event: GestureResponderEvent) => void;
-  handleCheck: (correct: boolean) => (event: GestureResponderEvent) => void;
+  handleCheck: (
+    correct: boolean,
+  ) => (event: { nativeEvent: { text: string } }) => void;
 }
 
 /** ========================================================================
@@ -66,9 +68,10 @@ const QuizInput = ({
               style={TextInputStyles}
               value={value}
               onChangeText={handleChange}
-              // @ts-ignore
-              onSubmitEditing={handleCheck}
               label="Translate the English to Mandarin please"
+              onSubmitEditing={() =>
+                handleCheck(value === currentWord.characters)
+              }
             />
           </QuizBox>
         </Shaker>

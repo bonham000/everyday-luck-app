@@ -58,22 +58,23 @@ class ViewAllScreen extends React.Component<IProps, IState> {
           onScroll={Keyboard.dismiss}
           contentContainerStyle={{ width: "100%" }}
           data={this.getListContent()}
-          // @ts-ignore
-          renderItem={({ item }: { item: Word; index: number }) => {
-            return (
-              <WordBox onPress={this.copyHandler(item.characters)}>
-                <WordText style={{ fontSize: 32, padding: 8 }}>
-                  {item.characters}
-                </WordText>
-                <WordText>{item.phonetic}</WordText>
-                <WordText>"{item.english}"</WordText>
-              </WordBox>
-            );
-          }}
+          renderItem={this.renderItem}
         />
       </Container>
     );
   }
+
+  renderItem = ({ item }: { item: Word; index: number }): any => {
+    return (
+      <WordBox onPress={this.copyHandler(item.characters)}>
+        <WordText style={{ fontSize: 32, padding: 8 }}>
+          {item.characters}
+        </WordText>
+        <WordText>{item.phonetic}</WordText>
+        <WordText>"{item.english}"</WordText>
+      </WordBox>
+    );
+  };
 
   handleSearch = (searchValue: string) => {
     this.setState({ searchValue });
@@ -90,7 +91,7 @@ class ViewAllScreen extends React.Component<IProps, IState> {
       Clipboard.setString(mandarin);
       this.props.setToastMessage(`${mandarin} copied!`);
     } catch (_) {
-      return; // no-op
+      return;
     }
   };
 }

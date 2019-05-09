@@ -4,10 +4,12 @@ import { GestureResponderEvent, ViewStyle } from "react-native";
 import { Button, Text } from "react-native-paper";
 
 import { Lesson, Word } from "@src/api/types";
+import GlobalStateProvider, {
+  GlobalStateProps,
+} from "@src/components/GlobalStateProvider";
 import Shaker from "@src/components/Shaker";
 import { COLORS } from "@src/constants/Colors";
 import { getAlternateChoices } from "@src/tools/utils";
-import GlobalStateProvider, { GlobalStateProps } from "./GlobalStateProvider";
 
 /** ========================================================================
  * Types
