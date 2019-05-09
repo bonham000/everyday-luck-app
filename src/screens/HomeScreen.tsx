@@ -8,6 +8,7 @@ import { LessonScreenParams, LessonSummaryType, Word } from "@src/api/types";
 import GlobalStateProvider, {
   GlobalStateProps,
 } from "@src/components/GlobalStateProvider";
+import { CHINESE_NUMBER_MAP } from "@src/constants/Characters";
 import { COLORS } from "@src/constants/Colors";
 import { ROUTE_NAMES } from "@src/constants/Routes";
 import { getFinalUnlockedLesson, knuthShuffle } from "@src/tools/utils";
@@ -59,7 +60,6 @@ class HomeScreen extends React.Component<IProps, {}> {
                     ? {
                         color: COLORS.inactive,
                         fontWeight: "normal",
-                        textDecorationLine: "line-through",
                         textDecorationStyle: "solid",
                       }
                     : {
@@ -69,7 +69,7 @@ class HomeScreen extends React.Component<IProps, {}> {
                       }
                 }
               >
-                Lesson {index + 1}
+                lesson {index + 1} {CHINESE_NUMBER_MAP[index + 1]}
               </Text>
               {isFinalUnlocked && <Text>🤹‍♂️</Text>}
               {isLocked && <Text>🔐</Text>}
