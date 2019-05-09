@@ -69,7 +69,7 @@ class DrawerMenuScreen extends React.Component<IProps, {}> {
         <Item
           style={{ position: "absolute", bottom: 65, left: 6, fontSize: 12 }}
         >
-          <Bold>Experience points:</Bold> {this.props.experience}
+          <Bold>Experience:</Bold> {this.props.experience}
         </Item>
       </SafeAreaView>
     );

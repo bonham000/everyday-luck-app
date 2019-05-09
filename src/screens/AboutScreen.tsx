@@ -31,7 +31,7 @@ class AboutScreen extends React.Component<IProps, {}> {
           and unlock the next one, you have to get a perfect score on the quiz
           and multiple choice tests for that lesson. Good luck!
         </Text>
-        <Text>✨✨✨</Text>
+        <Emoji>✨✨✨</Emoji>
         <Text onPress={this.openAboutLink} style={LinkStyles}>
           Source Code 👨‍💻
         </Text>
@@ -65,9 +65,14 @@ const Container = glamorous.view({
 const TextStyles = {
   fontSize: 16,
   width: "88%",
-  fontWeight: "bold",
+  fontWeight: "400",
   textAlign: "center",
 };
+
+const Emoji = glamorous.text({
+  fontSize: 34,
+  marginTop: 22,
+});
 
 const LinkStyles = {
   fontSize: 16,
