@@ -57,7 +57,6 @@ class GlobalStateProvider extends React.Component<IProps, IState> {
             setLessonScore={value.setLessonScore}
             userScoreStatus={value.userScoreStatus}
             handleResetScores={value.handleResetScores}
-            openLanguageSelectionMenu={value.openLanguageSelectionMenu}
           />
         )}
       </GlobalState.Consumer>
