@@ -8,11 +8,11 @@ import {
 } from "react-navigation";
 
 import { LessonScreenParams } from "@src/api/types";
+import DrawerComponent from "@src/components/DrawerMenuScreen";
 import MultipleChoiceComponent from "@src/components/MultipleChoiceComponent";
 import QuizInput from "@src/components/QuizInputComponent";
 import { ROUTE_NAMES } from "@src/constants/Routes";
 import AboutScreen from "@src/screens/AboutScreen";
-import DrawerComponent from "@src/screens/DrawerMenuScreen";
 import FlashcardsScreen from "@src/screens/FlashcardsScreen";
 import GoogleSignInScreen from "@src/screens/GoogleSigninScreen";
 import HomeScreen from "@src/screens/HomeScreen";
