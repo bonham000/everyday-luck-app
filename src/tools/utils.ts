@@ -6,7 +6,7 @@ import {
 
 import { Lesson, LessonSet, LessonSummaryType, Word } from "@src/api/types";
 import { ROUTE_NAMES } from "@src/constants/Routes";
-import { LessonScoreType, ScoreStatus } from "@src/GlobalState";
+import { LessonScore, LessonScoreType, ScoreStatus } from "@src/GlobalState";
 
 export const assertUnreachable = (x: never): never => {
   throw new Error(`Unreachable code! -> ${JSON.stringify(x)}`);
@@ -228,7 +228,11 @@ export const getFinalUnlockedLesson = (
   return userScoreStatus.reduce((final, current, index) => {
     if (typeof final === "number") {
       return final;
-    } else if (!current.mc || !current.q) {
+    } else if (
+      !current.mc_mandarin ||
+      !current.mc_english ||
+      !current.quiz_text
+    ) {
       return index;
     } else {
       return null;
@@ -241,7 +245,7 @@ export const getExperiencePointsForLesson = (
   lessonType: LessonSummaryType,
 ): number => {
   const MIN = 500;
-  const MAX = quizType === "q" ? 1250 : 750;
+  const MAX = quizType === "quiz_text" ? 1250 : 750;
   const OFFSET = lessonType === "LESSON" ? 500 : 0;
   return randomInRange(MIN, MAX - OFFSET);
 };
@@ -271,9 +275,10 @@ export const getDrawerLockedState = (navigation: any): DrawerLockMode => {
   return drawerLockMode;
 };
 
-export const fillEmptyLessonBlocks = (_: Lesson) => ({
-  mc: false,
-  q: false,
+export const fillEmptyLessonBlocks = (_: Lesson): LessonScore => ({
+  quiz_text: false,
+  mc_english: false,
+  mc_mandarin: false,
 });
 
 export const getGameModeLessonSet = (

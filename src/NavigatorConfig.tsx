@@ -70,24 +70,47 @@ const createAppNavigationStack = (userLoggedIn: boolean) => {
         },
       },
       [ROUTE_NAMES.QUIZ]: {
-        screen: (props: any) => (
-          <QuizScreen {...props} quizType="q" Component={QuizInput} />
+        screen: (props: NavigationScreenProp<{}>) => (
+          <QuizScreen {...props} quizType="quiz_text" Component={QuizInput} />
         ),
         navigationOptions: {
           title: "Quiz 🇨🇳",
           headerBackTitle: null,
         },
       },
-      [ROUTE_NAMES.MULTIPLE_CHOICE]: {
-        screen: (props: any) => (
+      [ROUTE_NAMES.MULTIPLE_CHOICE_MANDARIN]: {
+        screen: (props: NavigationScreenProp<{}>) => (
           <QuizScreen
             {...props}
-            quizType="mc"
-            Component={MultipleChoiceComponent}
+            quizType="mc_mandarin"
+            Component={(childProps: NavigationScreenProp<{}>) => (
+              <MultipleChoiceComponent
+                {...childProps}
+                multipleChoiceType="MANDARIN"
+              />
+            )}
           />
         ),
         navigationOptions: {
-          title: "Multiple Choice 🇨🇳",
+          title: "English Recognition 🗽",
+          headerBackTitle: null,
+        },
+      },
+      [ROUTE_NAMES.MULTIPLE_CHOICE_ENGLISH]: {
+        screen: (props: NavigationScreenProp<{}>) => (
+          <QuizScreen
+            {...props}
+            quizType="mc_english"
+            Component={(childProps: NavigationScreenProp<{}>) => (
+              <MultipleChoiceComponent
+                {...childProps}
+                multipleChoiceType="ENGLISH"
+              />
+            )}
+          />
+        ),
+        navigationOptions: {
+          title: "Mandarin Recognition 🇨🇳",
           headerBackTitle: null,
         },
       },

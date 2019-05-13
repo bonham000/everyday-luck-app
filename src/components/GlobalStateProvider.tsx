@@ -1,4 +1,4 @@
-import React from "react";
+import React, { ComponentType } from "react";
 
 import { GoogleSigninUser } from "@src/api/store";
 import { LessonSet } from "@src/api/types";
@@ -28,7 +28,7 @@ export interface GlobalStateProps {
 }
 
 interface IProps {
-  Component: ComponentProp;
+  Component: ComponentType<any>;
 }
 
 interface IState {

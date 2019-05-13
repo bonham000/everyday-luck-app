@@ -305,8 +305,7 @@ class QuizScreen extends React.Component<IProps, IState> {
     let lessonCompleted = false;
     if (perfectScore) {
       this.props.setLessonScore(lessonIndex, this.props.quizType, exp);
-      const otherLessonType = quizType === "mc" ? "q" : "mc";
-      const otherLessonStatus = userScoreStatus[lessonIndex][otherLessonType];
+      const otherLessonStatus = userScoreStatus[lessonIndex][quizType];
       if (otherLessonStatus) {
         lessonCompleted = true;
       }
@@ -456,7 +455,7 @@ const ActionIconStyle = {
  * =========================================================================
  */
 
-export default ({ Component, ...rest }: IProps) => (
+export default ({ Component, ...rest }: Partial<IProps>) => (
   <GlobalStateProvider
     {...rest}
     Component={(childProps: any) => (

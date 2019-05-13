@@ -27,11 +27,12 @@ interface IProps extends GlobalStateProps {
 
 class LessonSummaryScreen extends React.Component<IProps, {}> {
   render(): JSX.Element {
-    const type = this.props.navigation.getParam("type");
-    const lesson = this.props.navigation.getParam("lesson");
-    const lessonIndex = this.props.navigation.getParam("lessonIndex");
+    const { navigation, userScoreStatus } = this.props;
+    const type = navigation.getParam("type");
+    const lesson = navigation.getParam("lesson");
+    const lessonIndex = navigation.getParam("lessonIndex");
     const isLesson = type === "LESSON";
-    const { mc, q } = this.props.userScoreStatus[lessonIndex];
+    const { mc_english, mc_mandarin, quiz_text } = userScoreStatus[lessonIndex];
     return (
       <Container>
         <Text style={TextStyles}>
@@ -52,13 +53,23 @@ class LessonSummaryScreen extends React.Component<IProps, {}> {
         <LineBreak />
         <ActionBlock onPress={this.handleNavigateToSection(ROUTE_NAMES.QUIZ)}>
           <Text>Quiz</Text>
-          {q && isLesson && <Text>💯</Text>}
+          {quiz_text && isLesson && <Text>💯</Text>}
         </ActionBlock>
         <ActionBlock
-          onPress={this.handleNavigateToSection(ROUTE_NAMES.MULTIPLE_CHOICE)}
+          onPress={this.handleNavigateToSection(
+            ROUTE_NAMES.MULTIPLE_CHOICE_MANDARIN,
+          )}
         >
-          <Text>Multiple Choice</Text>
-          {mc && isLesson && <Text>💯</Text>}
+          <Text>Mandarin Recognition</Text>
+          {mc_mandarin && isLesson && <Text>💯</Text>}
+        </ActionBlock>
+        <ActionBlock
+          onPress={this.handleNavigateToSection(
+            ROUTE_NAMES.MULTIPLE_CHOICE_ENGLISH,
+          )}
+        >
+          <Text>English Recognition</Text>
+          {mc_english && isLesson && <Text>💯</Text>}
         </ActionBlock>
         {type !== "GAME" && (
           <React.Fragment>
@@ -146,6 +157,6 @@ const LineBreak = glamorous.view({
  * =========================================================================
  */
 
-export default (props: any) => (
+export default (props: Partial<IProps>) => (
   <GlobalStateProvider {...props} Component={LessonSummaryScreen} />
 );

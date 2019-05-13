@@ -216,6 +216,6 @@ const Choice = ({
  * =========================================================================
  */
 
-export default (props: any) => (
+export default (props: Partial<IProps>) => (
   <GlobalStateProvider {...props} Component={MultipleChoiceInput} />
 );

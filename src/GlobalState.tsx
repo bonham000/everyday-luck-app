@@ -1,18 +1,19 @@
 import React from "react";
 
 import { GoogleSigninUser } from "@src/api/store";
-import { LessonSet } from "./api/types";
+import { LessonSet } from "@src/api/types";
 
 /** ========================================================================
  * Context for toast message
  * =========================================================================
  */
-interface LessonScore {
-  mc: boolean;
-  q: boolean;
+export interface LessonScore {
+  mc_english: boolean;
+  mc_mandarin: boolean;
+  quiz_text: boolean;
 }
 
-export type LessonScoreType = "mc" | "q";
+export type LessonScoreType = "mc_english" | "mc_mandarin" | "quiz_text";
 
 export type ScoreStatus = ReadonlyArray<LessonScore>;
 
