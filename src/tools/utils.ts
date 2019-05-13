@@ -172,29 +172,46 @@ export const deriveContentFromLessons = (contentBlocks: LessonSet) => {
   return lessons;
 };
 
+export type MC_TYPE = "MANDARIN" | "ENGLISH";
+
 /**
  * Derive shuffled multiple choice options given a word and all the
  * language content.
  */
-export const getAlternateChoices = (word: Word, alternates: Lesson) => {
-  // tslint:disable-next-line
-  let choices: Word[] = [word];
+export const getAlternateChoices = (
+  word: Word,
+  alternates: Lesson,
+  mcType: MC_TYPE,
+) => {
   let idx: number;
   let option: Word;
   const chosen: Set<number> = new Set();
+  let choices: ReadonlyArray<Word> = [word];
 
   while (choices.length < 4) {
     idx = randomInRange(0, alternates.length);
     option = alternates[idx];
 
-    if (
-      !chosen.has(idx) &&
-      option.english !== word.english &&
-      option.characters !== word.characters &&
-      option.characters.length <= word.characters.length + 2
-    ) {
-      chosen.add(idx);
-      choices = [...choices, option];
+    if (mcType === "MANDARIN") {
+      if (
+        !chosen.has(idx) &&
+        option.english !== word.english &&
+        option.characters !== word.characters &&
+        option.characters.length <= word.characters.length + 2
+      ) {
+        chosen.add(idx);
+        choices = [...choices, option];
+      }
+    } else {
+      if (
+        !chosen.has(idx) &&
+        option.characters !== word.characters &&
+        option.english !== word.english &&
+        option.english.length <= word.english.length + 2
+      ) {
+        chosen.add(idx);
+        choices = [...choices, option];
+      }
     }
   }
 

@@ -9,7 +9,7 @@ import GlobalStateProvider, {
 } from "@src/components/GlobalStateProvider";
 import Shaker from "@src/components/Shaker";
 import { COLORS } from "@src/constants/Colors";
-import { getAlternateChoices } from "@src/tools/utils";
+import { getAlternateChoices, MC_TYPE } from "@src/tools/utils";
 
 /** ========================================================================
  * Types
@@ -24,6 +24,7 @@ interface IProps extends GlobalStateProps {
   shouldShake: boolean;
   attempted: boolean;
   value: string;
+  multipleChoiceType: MC_TYPE;
   setInputRef: () => void;
   handleChange: () => void;
   handleProceed: () => (event: GestureResponderEvent) => void;
@@ -53,6 +54,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
     return getAlternateChoices(
       this.props.currentWord,
       this.props.lessons.reduce((flat, curr) => [...flat, ...curr]),
+      this.props.multipleChoiceType,
     );
   };
 
@@ -73,12 +75,17 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
       shouldShake,
       attempted,
       handleProceed,
+      multipleChoiceType,
     } = this.props;
     const shouldReveal = valid || attempted;
     return (
       <React.Fragment>
         <TitleContainer>
-          <PinyinText>{currentWord.english}</PinyinText>
+          <QuizPromptText>
+            {multipleChoiceType === "MANDARIN"
+              ? currentWord.english
+              : currentWord.characters}
+          </QuizPromptText>
         </TitleContainer>
         <Shaker style={{ width: "100%" }} shouldShake={shouldShake}>
           <Container>
@@ -99,7 +106,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
                   }}
                   onPress={this.handleSelectAnswer(isCorrect)}
                 >
-                  <MandarinText
+                  <QuizAnswerText
                     style={{
                       color: !valid && attempted ? "white" : "black",
                       fontSize: shouldReveal ? 15 : 45,
@@ -110,8 +117,10 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
                       ? `${choice.characters} - ${choice.phonetic} - ${
                           choice.english
                         }`
-                      : choice.characters}
-                  </MandarinText>
+                      : multipleChoiceType === "MANDARIN"
+                      ? currentWord.characters
+                      : currentWord.english}
+                  </QuizAnswerText>
                 </Choice>
               );
             })}
@@ -159,13 +168,13 @@ const Container = glamorous.view({
   alignItems: "center",
 });
 
-const MandarinText = glamorous.text({
+const QuizAnswerText = glamorous.text({
   color: "black",
   marginTop: 15,
   marginBottom: 15,
 });
 
-const PinyinText = ({ children }: { children: string }) => (
+const QuizPromptText = ({ children }: { children: string }) => (
   <Text
     style={{
       fontSize: 22,
