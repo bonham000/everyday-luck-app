@@ -1,6 +1,7 @@
 export interface Word {
-  characters: string;
-  phonetic: string;
+  traditional: string;
+  simplified: string;
+  pinyin: string;
   english: string;
 }
 

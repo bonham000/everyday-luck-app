@@ -54,8 +54,8 @@ const QuizInput = ({
     <React.Fragment>
       {valid || revealAnswer ? (
         <QuizBox>
-          <MandarinText>{currentWord.characters}</MandarinText>
-          <PinyinText>{currentWord.phonetic}</PinyinText>
+          <MandarinText>{currentWord.traditional}</MandarinText>
+          <PinyinText>{currentWord.pinyin}</PinyinText>
         </QuizBox>
       ) : (
         <Shaker style={{ width: "100%" }} shouldShake={shouldShake}>
@@ -70,7 +70,7 @@ const QuizInput = ({
               onChangeText={handleChange}
               label="Translate the English to Mandarin please"
               onSubmitEditing={() =>
-                handleCheck(value === currentWord.characters)
+                handleCheck(value === currentWord.traditional)
               }
             />
           </QuizBox>
@@ -93,7 +93,7 @@ const QuizInput = ({
             ? handleProceed()
             : revealAnswer
             ? handleToggleRevealAnswer
-            : () => handleCheck(value === currentWord.characters)
+            : () => handleCheck(value === currentWord.traditional)
         }
       >
         {valid

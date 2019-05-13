@@ -60,7 +60,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
 
   componentDidUpdate(nextProps: IProps): void {
     if (
-      nextProps.currentWord.characters !== this.props.currentWord.characters
+      nextProps.currentWord.traditional !== this.props.currentWord.traditional
     ) {
       this.setState({
         choices: this.deriveAlternateChoices(),
@@ -84,13 +84,13 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
           <QuizPromptText>
             {multipleChoiceType === "MANDARIN"
               ? currentWord.english
-              : currentWord.characters}
+              : currentWord.traditional}
           </QuizPromptText>
         </TitleContainer>
         <Shaker style={{ width: "100%" }} shouldShake={shouldShake}>
           <Container>
             {this.state.choices.map(choice => {
-              const isCorrect = choice.characters === currentWord.characters;
+              const isCorrect = choice.traditional === currentWord.traditional;
               return (
                 <Choice
                   style={{
@@ -114,11 +114,11 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
                     }}
                   >
                     {shouldReveal
-                      ? `${choice.characters} - ${choice.phonetic} - ${
+                      ? `${choice.traditional} - ${choice.pinyin} - ${
                           choice.english
                         }`
                       : multipleChoiceType === "MANDARIN"
-                      ? currentWord.characters
+                      ? currentWord.traditional
                       : currentWord.english}
                   </QuizAnswerText>
                 </Choice>

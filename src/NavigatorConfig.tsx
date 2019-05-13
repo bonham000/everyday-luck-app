@@ -8,7 +8,7 @@ import {
 } from "react-navigation";
 
 import { LessonScreenParams } from "@src/api/types";
-import DrawerComponent from "@src/components/DrawerMenuScreen";
+import DrawerComponent from "@src/components/DrawerMenu";
 import MultipleChoiceComponent from "@src/components/MultipleChoiceComponent";
 import QuizInput from "@src/components/QuizInputComponent";
 import { ROUTE_NAMES } from "@src/constants/Routes";

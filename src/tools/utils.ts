@@ -52,9 +52,9 @@ export const knuthShuffle = (array: ReadonlyArray<any>): ReadonlyArray<any> => {
  */
 export const filterBySearchTerm = (searchValue: string) => (word: Word) => {
   const term = searchValue.toLowerCase();
-  const { characters, phonetic, english } = word;
+  const { traditional, pinyin: phonetic, english } = word;
   return (
-    characters.toLowerCase().includes(term) ||
+    traditional.toLowerCase().includes(term) ||
     phonetic.toLowerCase().includes(term) ||
     english.toLowerCase().includes(term)
   );
@@ -65,7 +65,7 @@ export const filterBySearchTerm = (searchValue: string) => (word: Word) => {
  */
 export const mapWordsForList = (word: Word) => ({
   ...word,
-  key: word.characters,
+  key: word.traditional,
 });
 
 /**
@@ -84,7 +84,7 @@ export const resetNavigation = (routeName: ROUTE_NAMES) => {
 export const filterForOneCharacterMode = (
   words: ReadonlyArray<Word>,
 ): ReadonlyArray<Word> => {
-  return words.filter(({ characters }) => characters.length === 1);
+  return words.filter(({ traditional }) => traditional.length === 1);
 };
 
 /**
@@ -98,11 +98,13 @@ const determineFinalLessonBlock = (contentBlocks: LessonSet): number => {
 };
 
 export const isLessonEmpty = (lesson: Lesson) => {
-  return Boolean(lesson.filter(({ characters }) => Boolean(characters)).length);
+  return Boolean(
+    lesson.filter(({ traditional }) => Boolean(traditional)).length,
+  );
 };
 
 export const filterEmptyWords = (lesson: Lesson) => {
-  return lesson.filter((word: Word) => Boolean(word.characters));
+  return lesson.filter((word: Word) => Boolean(word.traditional));
 };
 
 const LESSON_MAX = 25;
@@ -147,16 +149,16 @@ export const deriveContentFromLessons = (contentBlocks: LessonSet) => {
 
     return content.concat(
       ...lesson
-        .filter(({ characters }) => Boolean(characters))
+        .filter(({ traditional }) => Boolean(traditional))
         .map((item: Word) => {
-          const { characters, english } = item;
-          if (wordSet.has(characters)) {
+          const { traditional, english } = item;
+          if (wordSet.has(traditional)) {
             throw new Error(
               `Duplicate word detected in lesson ${index +
-                1}! -> ${characters} (${english})`,
+                1}! -> ${traditional} (${english})`,
             );
           } else {
-            wordSet.add(item.characters);
+            wordSet.add(item.traditional);
           }
 
           return {
@@ -196,8 +198,8 @@ export const getAlternateChoices = (
       if (
         !chosen.has(idx) &&
         option.english !== word.english &&
-        option.characters !== word.characters &&
-        option.characters.length <= word.characters.length + 2
+        option.traditional !== word.traditional &&
+        option.traditional.length <= word.traditional.length + 2
       ) {
         chosen.add(idx);
         choices = [...choices, option];
@@ -205,7 +207,7 @@ export const getAlternateChoices = (
     } else {
       if (
         !chosen.has(idx) &&
-        option.characters !== word.characters &&
+        option.traditional !== word.traditional &&
         option.english !== word.english &&
         option.english.length <= word.english.length + 2
       ) {

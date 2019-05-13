@@ -66,11 +66,11 @@ class ViewAllScreen extends React.Component<IProps, IState> {
 
   renderItem = ({ item }: { item: Word; index: number }): any => {
     return (
-      <WordBox onPress={this.copyHandler(item.characters)}>
+      <WordBox onPress={this.copyHandler(item.traditional)}>
         <WordText style={{ fontSize: 32, padding: 8 }}>
-          {item.characters}
+          {item.traditional}
         </WordText>
-        <WordText>{item.phonetic}</WordText>
+        <WordText>{item.pinyin}</WordText>
         <WordText>"{item.english}"</WordText>
       </WordBox>
     );

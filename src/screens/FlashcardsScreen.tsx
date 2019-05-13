@@ -88,10 +88,10 @@ class FlashcardsScreen extends React.Component<IProps, IState> {
           flipVertical={false}
         >
           <FlipSideView>
-            <FaceText>{card.characters}</FaceText>
+            <FaceText>{card.traditional}</FaceText>
           </FlipSideView>
           <FlipSideView>
-            <BackText>{card.phonetic}</BackText>
+            <BackText>{card.pinyin}</BackText>
             <BackText
               style={{
                 fontSize: 22,
