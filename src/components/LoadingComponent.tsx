@@ -6,7 +6,7 @@ import { COLORS } from "@src/constants/Colors";
 
 export default () => (
   <Container>
-    <ActivityIndicator size="large" color={COLORS.primaryBlue} />
+    <ActivityIndicator size="large" color={COLORS.primaryRed} />
   </Container>
 );
 
