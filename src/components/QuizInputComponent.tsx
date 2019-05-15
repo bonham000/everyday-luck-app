@@ -70,7 +70,7 @@ const QuizInput = ({
               onChangeText={handleChange}
               label="Translate the English to Mandarin please"
               onSubmitEditing={() =>
-                handleCheck(value === currentWord.traditional)
+                value !== "" && handleCheck(value === currentWord.traditional)
               }
             />
           </QuizBox>
