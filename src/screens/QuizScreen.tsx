@@ -145,6 +145,13 @@ class QuizScreen extends React.Component<IProps, IState> {
             >
               <Ionicons name="md-school" style={ActionIconStyle} />
             </ActionButton.Item>
+            <ActionButton.Item
+              buttonColor={COLORS.actionButtonYellow}
+              title="Restart Quiz"
+              onPress={this.resetQuiz}
+            >
+              <Ionicons name="ios-refresh" style={ActionIconStyle} />
+            </ActionButton.Item>
             {lessonType === "SUMMARY" && (
               <ActionButton.Item
                 buttonColor={COLORS.actionButtonYellow}
@@ -183,6 +190,13 @@ class QuizScreen extends React.Component<IProps, IState> {
         ? filterForOneCharacterMode(lesson)
         : lesson,
     };
+  };
+
+  resetQuiz = () => {
+    /**
+     * TODO: Add confirmation alert.
+     */
+    this.getInitialState();
   };
 
   handleChange = (value: string) => {
