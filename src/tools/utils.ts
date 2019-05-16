@@ -176,6 +176,13 @@ export const deriveContentFromLessons = (contentBlocks: LessonSet) => {
 
 export type MC_TYPE = "MANDARIN" | "ENGLISH";
 
+const wordFillerContent = {
+  traditional: "N/A",
+  simplified: "N/A",
+  pinyin: "N/A",
+  english_alternate_choices: [],
+};
+
 /**
  * Derive shuffled multiple choice options given a word and all the
  * language content.
@@ -205,15 +212,15 @@ export const getAlternateChoices = (
         choices = [...choices, option];
       }
     } else {
-      if (
-        !chosen.has(idx) &&
-        option.traditional !== word.traditional &&
-        option.english !== word.english &&
-        option.english.length <= word.english.length + 2
-      ) {
-        chosen.add(idx);
-        choices = [...choices, option];
-      }
+      choices = [
+        word,
+        ...word.english_alternate_choices.map(choice => ({
+          english: choice,
+          ...wordFillerContent,
+        })),
+      ];
+
+      break;
     }
   }
 

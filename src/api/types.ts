@@ -3,6 +3,7 @@ export interface Word {
   simplified: string;
   pinyin: string;
   english: string;
+  english_alternate_choices: ReadonlyArray<string>;
 }
 
 export type Lesson = ReadonlyArray<Word>;

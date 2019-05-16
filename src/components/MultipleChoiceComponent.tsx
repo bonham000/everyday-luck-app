@@ -118,8 +118,8 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
                           choice.english
                         }`
                       : multipleChoiceType === "MANDARIN"
-                      ? currentWord.traditional
-                      : currentWord.english}
+                      ? choice.traditional
+                      : choice.english}
                   </QuizAnswerText>
                 </Choice>
               );

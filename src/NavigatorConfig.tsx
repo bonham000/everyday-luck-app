@@ -92,7 +92,7 @@ const createAppNavigationStack = (userLoggedIn: boolean) => {
           />
         ),
         navigationOptions: {
-          title: "English Recognition 🗽",
+          title: "Mandarin Recognition 🇨🇳",
           headerBackTitle: null,
         },
       },
@@ -110,7 +110,7 @@ const createAppNavigationStack = (userLoggedIn: boolean) => {
           />
         ),
         navigationOptions: {
-          title: "Mandarin Recognition 🇨🇳",
+          title: "English Recognition 🗽",
           headerBackTitle: null,
         },
       },
