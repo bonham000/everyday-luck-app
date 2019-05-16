@@ -1,17 +1,15 @@
 import glamorous from "glamorous-native";
 import React from "react";
-import { ActivityIndicator } from "react-native";
-
-import { COLORS } from "@src/constants/Colors";
+import { Text } from "react-native";
 
 /** ========================================================================
  * Component
  * =========================================================================
  */
 
-const LoadingComponent = () => (
+const ErrorComponent = () => (
   <Container>
-    <ActivityIndicator size="large" color={COLORS.primaryRed} />
+    <Text>Everything is broken... 🎭</Text>
   </Container>
 );
 
@@ -26,4 +24,4 @@ const Container = glamorous.view({
  * =========================================================================
  */
 
-export default LoadingComponent;
+export default ErrorComponent;

@@ -24,6 +24,7 @@ import GlobalContext, {
   ScoreStatus,
 } from "@src/GlobalState";
 import createAppNavigator from "@src/NavigatorConfig";
+import ErrorComponent from "./components/ErrorComponent";
 
 /** ========================================================================
  * Types
@@ -144,17 +145,8 @@ class RootContainer extends React.Component<{}, IState> {
       languageSetting,
       userScoreStatus,
     } = this.state;
-
-    console.log(`App language setting: ${languageSetting}`);
-
     if (error) {
-      return (
-        <View
-          style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-        >
-          <Text>Everything is broken... 🎭</Text>
-        </View>
-      );
+      return <ErrorComponent />;
     } else if (updating || loading) {
       return <LoadingComponent />;
     }

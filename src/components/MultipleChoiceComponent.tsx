@@ -1,11 +1,12 @@
 import glamorous from "glamorous-native";
 import React from "react";
-import { GestureResponderEvent, ViewStyle } from "react-native";
+import { GestureResponderEvent } from "react-native";
 import { Button, Text } from "react-native-paper";
 
 import { Lesson, Word } from "@src/api/types";
-import GlobalStateProvider, {
+import {
   GlobalStateProps,
+  withGlobalState,
 } from "@src/components/GlobalStateProvider";
 import Shaker from "@src/components/Shaker";
 import { COLORS } from "@src/constants/Colors";
@@ -81,7 +82,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
     return (
       <React.Fragment>
         <TitleContainer>
-          <QuizPromptText>
+          <QuizPromptText multipleChoiceType={multipleChoiceType}>
             {multipleChoiceType === "MANDARIN"
               ? currentWord.english
               : currentWord.traditional}
@@ -93,25 +94,16 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
               const isCorrect = choice.traditional === currentWord.traditional;
               return (
                 <Choice
-                  style={{
-                    backgroundColor: valid
-                      ? isCorrect
-                        ? COLORS.actionButtonMint
-                        : COLORS.lightDark
-                      : attempted
-                      ? isCorrect
-                        ? COLORS.actionButtonMint
-                        : COLORS.primaryRed
-                      : COLORS.lightDark,
-                  }}
+                  valid={valid}
+                  attempted={attempted}
+                  isCorrect={isCorrect}
                   onPress={this.handleSelectAnswer(isCorrect)}
                 >
                   <QuizAnswerText
-                    style={{
-                      color: !valid && attempted ? "white" : "black",
-                      fontSize: shouldReveal ? 15 : 45,
-                      fontWeight: shouldReveal ? "400" : "bold",
-                    }}
+                    valid={valid}
+                    attempted={attempted}
+                    shouldReveal={shouldReveal}
+                    multipleChoiceType={multipleChoiceType}
                   >
                     {shouldReveal
                       ? `${choice.traditional} - ${choice.pinyin} - ${
@@ -168,18 +160,47 @@ const Container = glamorous.view({
   alignItems: "center",
 });
 
-const QuizAnswerText = glamorous.text({
+const QuizAnswerText = ({
+  children,
+  valid,
+  attempted,
+  shouldReveal,
+  multipleChoiceType,
+}: {
+  children: string;
+  valid: boolean;
+  attempted: boolean;
+  shouldReveal: boolean;
+  multipleChoiceType: MC_TYPE;
+}) => (
+  <QuizAnswer
+    style={{
+      color: !valid && attempted ? "white" : "black",
+      fontSize: shouldReveal ? 15 : multipleChoiceType === "MANDARIN" ? 45 : 30,
+      fontWeight: shouldReveal ? "400" : "bold",
+    }}
+  >
+    {children}
+  </QuizAnswer>
+);
+
+const QuizAnswer = glamorous.text({
   color: "black",
   marginTop: 15,
   marginBottom: 15,
 });
 
-const QuizPromptText = ({ children }: { children: string }) => (
+const QuizPromptText = ({
+  children,
+  multipleChoiceType,
+}: {
+  children: string;
+  multipleChoiceType: MC_TYPE;
+}) => (
   <Text
     style={{
-      fontSize: 22,
-      marginBottom: 15,
       fontWeight: "bold",
+      fontSize: multipleChoiceType === "MANDARIN" ? 26 : 52,
     }}
   >
     {children}
@@ -188,11 +209,15 @@ const QuizPromptText = ({ children }: { children: string }) => (
 
 const Choice = ({
   children,
-  style,
+  valid,
+  attempted,
+  isCorrect,
   onPress,
 }: {
   children: JSX.Element;
-  style?: ViewStyle;
+  valid: boolean;
+  attempted: boolean;
+  isCorrect: boolean;
   onPress: (event: GestureResponderEvent) => void;
 }) => (
   <Button
@@ -203,7 +228,15 @@ const Choice = ({
       width: "90%",
       height: 80,
       justifyContent: "center",
-      ...style,
+      backgroundColor: valid
+        ? isCorrect
+          ? COLORS.actionButtonMint
+          : COLORS.lightDark
+        : attempted
+        ? isCorrect
+          ? COLORS.actionButtonMint
+          : COLORS.primaryRed
+        : COLORS.lightDark,
     }}
     onPress={onPress}
   >
@@ -216,6 +249,4 @@ const Choice = ({
  * =========================================================================
  */
 
-export default (props: Partial<IProps>) => (
-  <GlobalStateProvider {...props} Component={MultipleChoiceInput} />
-);
+export default withGlobalState(MultipleChoiceInput);
