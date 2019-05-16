@@ -3,7 +3,7 @@ import React from "react";
 import { GestureResponderEvent } from "react-native";
 import { Button, Text, TextInput } from "react-native-paper";
 
-import Shaker from "@src/components/Shaker";
+import Shaker from "@src/components/ShakerComponent";
 import { COLORS } from "@src/constants/Colors";
 import { COMPLIMENTS } from "@src/constants/Compliments";
 import { Word } from "@src/tools/types";

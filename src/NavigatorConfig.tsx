@@ -9,7 +9,7 @@ import {
 
 import MultipleChoiceComponent from "@src/components/MultipleChoiceComponent";
 import QuizInput from "@src/components/QuizInputComponent";
-import SideMenuComponent from "@src/components/SideMenu";
+import SideMenuComponent from "@src/components/SideMenuComponent";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import AboutScreen from "@src/screens/AboutScreen";
 import FlashcardsScreen from "@src/screens/FlashcardsScreen";

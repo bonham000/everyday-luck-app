@@ -7,7 +7,7 @@ import {
   GlobalStateProps,
   withGlobalState,
 } from "@src/components/GlobalStateProvider";
-import Shaker from "@src/components/Shaker";
+import Shaker from "@src/components/ShakerComponent";
 import { COLORS } from "@src/constants/Colors";
 import { Lesson, Word } from "@src/tools/types";
 import { getAlternateChoices, MC_TYPE } from "@src/tools/utils";
