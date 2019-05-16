@@ -4,12 +4,12 @@ import { Clipboard, FlatList, Keyboard } from "react-native";
 import { Searchbar } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
-import { LessonScreenParams, Word } from "@src/api/types";
 import {
   GlobalStateProps,
   withGlobalState,
 } from "@src/components/GlobalStateProvider";
 import { COLORS } from "@src/constants/Colors";
+import { LessonScreenParams, Word } from "@src/tools/types";
 import { filterBySearchTerm, mapWordsForList } from "@src/tools/utils";
 
 /** ========================================================================

@@ -1,7 +1,7 @@
 import React from "react";
 
-import { GoogleSigninUser } from "@src/api/store";
-import { LessonSet } from "@src/api/types";
+import { GoogleSigninUser } from "@src/tools/store";
+import { LessonSet } from "@src/tools/types";
 
 /** ========================================================================
  * Context for toast message

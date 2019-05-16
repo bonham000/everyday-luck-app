@@ -5,18 +5,18 @@ import { Text } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
 import {
-  Lesson,
-  LessonScreenParams,
-  LessonSummaryType,
-  Word,
-} from "@src/api/types";
-import {
   GlobalStateProps,
   withGlobalState,
 } from "@src/components/GlobalStateProvider";
 import { CHINESE_NUMBER_MAP } from "@src/constants/ChineseCharacters";
 import { COLORS } from "@src/constants/Colors";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
+import {
+  Lesson,
+  LessonScreenParams,
+  LessonSummaryType,
+  Word,
+} from "@src/tools/types";
 import {
   getFinalUnlockedLesson,
   getGameModeLessonSet,

@@ -3,19 +3,7 @@ import React from "react";
 import { Alert, AppState, BackHandler, View } from "react-native";
 import { createAppContainer } from "react-navigation";
 
-import {
-  fetchLessonSet,
-  findOrCreateUser,
-  updateUserExperience,
-  updateUserScores,
-} from "@src/api/api-helpers";
-import {
-  getAppLanguageSetting,
-  getLocalUser,
-  GoogleSigninUser,
-  setAppLanguageSetting,
-} from "@src/api/store";
-import { LessonSet } from "@src/api/types";
+import ErrorComponent from "@src/components/ErrorComponent";
 import LoadingComponent from "@src/components/LoadingComponent";
 import { CustomToast } from "@src/components/ToastProvider";
 import GlobalContext, {
@@ -24,7 +12,19 @@ import GlobalContext, {
   ScoreStatus,
 } from "@src/GlobalState";
 import createAppNavigator from "@src/NavigatorConfig";
-import ErrorComponent from "./components/ErrorComponent";
+import {
+  fetchLessonSet,
+  findOrCreateUser,
+  updateUserExperience,
+  updateUserScores,
+} from "@src/tools/api";
+import {
+  getAppLanguageSetting,
+  getLocalUser,
+  GoogleSigninUser,
+  setAppLanguageSetting,
+} from "@src/tools/store";
+import { LessonSet } from "@src/tools/types";
 
 /** ========================================================================
  * Types

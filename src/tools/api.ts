@@ -1,6 +1,6 @@
-import { LessonSet } from "@src/api/types";
 import { ScoreStatus } from "@src/GlobalState";
 import CONFIG from "@src/tools/config";
+import { LessonSet } from "@src/tools/types";
 
 /** ========================================================================
  * Types & Config
@@ -22,7 +22,7 @@ const HEADERS = {
 };
 
 /** ========================================================================
- * API Methods
+ * API Helper Methods
  * =========================================================================
  */
 

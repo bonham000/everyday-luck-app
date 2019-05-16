@@ -3,13 +3,13 @@ import React from "react";
 import { GestureResponderEvent } from "react-native";
 import { Button, Text } from "react-native-paper";
 
-import { Lesson, Word } from "@src/api/types";
 import {
   GlobalStateProps,
   withGlobalState,
 } from "@src/components/GlobalStateProvider";
 import Shaker from "@src/components/Shaker";
 import { COLORS } from "@src/constants/Colors";
+import { Lesson, Word } from "@src/tools/types";
 import { getAlternateChoices, MC_TYPE } from "@src/tools/utils";
 
 /** ========================================================================

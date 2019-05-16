@@ -6,10 +6,9 @@ import {
   SENTRY_DSN,
 } from "../../env";
 
-/**
- * Provide config for environment variables.
- *
- * Use env.ts file for local development.
+/** ========================================================================
+ * Environment variables config.
+ * =========================================================================
  */
 
 const CONFIG = {
@@ -19,5 +18,10 @@ const CONFIG = {
   SENTRY_AUTH_TOKEN: process.env.SENTRY_AUTH_TOKEN || SENTRY_AUTH_TOKEN,
   SENTRY_DSN: process.env.SENTRY_DSN || SENTRY_DSN,
 };
+
+/** ========================================================================
+ * Export
+ * =========================================================================
+ */
 
 export default CONFIG;

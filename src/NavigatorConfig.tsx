@@ -7,7 +7,6 @@ import {
   NavigationScreenProp,
 } from "react-navigation";
 
-import { LessonScreenParams } from "@src/api/types";
 import MultipleChoiceComponent from "@src/components/MultipleChoiceComponent";
 import QuizInput from "@src/components/QuizInputComponent";
 import SideMenuComponent from "@src/components/SideMenu";
@@ -19,6 +18,7 @@ import HomeScreen from "@src/screens/HomeScreen";
 import LessonSummaryScreen from "@src/screens/LessonSummaryScreen";
 import QuizScreen from "@src/screens/QuizScreen";
 import ViewAllScreen from "@src/screens/ViewAllScreen";
+import { LessonScreenParams } from "@src/tools/types";
 import { getDrawerLockedState } from "@src/tools/utils";
 import TranslationScreen from "./screens/TranslationScreen";
 

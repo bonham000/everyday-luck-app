@@ -3,12 +3,12 @@ import React from "react";
 import { Image, Keyboard, TouchableOpacity, View } from "react-native";
 import { NavigationScreenProp, SafeAreaView } from "react-navigation";
 
-import { logoutLocalUser } from "@src/api/store";
 import {
   GlobalStateProps,
   withGlobalState,
 } from "@src/components/GlobalStateProvider";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
+import { logoutLocalUser } from "@src/tools/store";
 import { resetNavigation } from "@src/tools/utils";
 
 /** ========================================================================

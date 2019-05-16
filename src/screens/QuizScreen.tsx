@@ -6,7 +6,6 @@ import ActionButton from "react-native-action-button";
 import Confetti from "react-native-confetti";
 import { NavigationScreenProp } from "react-navigation";
 
-import { LessonScreenParams, Word } from "@src/api/types";
 import GlobalStateProvider, {
   ComponentProp,
   GlobalStateProps,
@@ -14,6 +13,7 @@ import GlobalStateProvider, {
 import { COLORS } from "@src/constants/Colors";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import { LessonScoreType } from "@src/GlobalState";
+import { LessonScreenParams, Word } from "@src/tools/types";
 import {
   filterForOneCharacterMode,
   getExperiencePointsForLesson,

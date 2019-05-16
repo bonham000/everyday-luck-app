@@ -4,13 +4,13 @@ import { StyleSheet } from "react-native";
 import { Text } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
-import { LessonScreenParams } from "@src/api/types";
 import {
   GlobalStateProps,
   withGlobalState,
 } from "@src/components/GlobalStateProvider";
 import { COLORS } from "@src/constants/Colors";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
+import { LessonScreenParams } from "@src/tools/types";
 
 /** ========================================================================
  * Types

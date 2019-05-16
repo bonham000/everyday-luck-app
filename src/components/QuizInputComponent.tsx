@@ -3,10 +3,10 @@ import React from "react";
 import { GestureResponderEvent } from "react-native";
 import { Button, Text, TextInput } from "react-native-paper";
 
-import { Word } from "@src/api/types";
 import Shaker from "@src/components/Shaker";
 import { COLORS } from "@src/constants/Colors";
 import { COMPLIMENTS } from "@src/constants/Compliments";
+import { Word } from "@src/tools/types";
 import { randomInRange } from "@src/tools/utils";
 
 /** ========================================================================

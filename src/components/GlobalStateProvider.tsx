@@ -1,8 +1,8 @@
 import React, { ComponentType } from "react";
 
-import { GoogleSigninUser } from "@src/api/store";
-import { LessonSet } from "@src/api/types";
 import GlobalState, { LessonScoreType, ScoreStatus } from "@src/GlobalState";
+import { GoogleSigninUser } from "@src/tools/store";
+import { LessonSet } from "@src/tools/types";
 
 /** ========================================================================
  * Types
