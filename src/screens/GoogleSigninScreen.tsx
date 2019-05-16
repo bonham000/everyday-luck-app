@@ -5,8 +5,9 @@ import { Image } from "react-native";
 import { NavigationScreenProp } from "react-navigation";
 
 import { saveLocalUser } from "@src/api/store";
-import GlobalStateProvider, {
+import {
   GlobalStateProps,
+  withGlobalState,
 } from "@src/components/GlobalStateProvider";
 import LoadingComponent from "@src/components/LoadingComponent";
 import { COLORS } from "@src/constants/Colors";
@@ -183,6 +184,4 @@ const GoogleIcon = () => (
  * =========================================================================
  */
 
-export default (props: any) => (
-  <GlobalStateProvider {...props} Component={GoogleSigninScreen} />
-);
+export default withGlobalState(GoogleSigninScreen);

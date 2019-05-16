@@ -5,8 +5,9 @@ import { Searchbar } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
 import { LessonScreenParams, Word } from "@src/api/types";
-import GlobalStateProvider, {
+import {
   GlobalStateProps,
+  withGlobalState,
 } from "@src/components/GlobalStateProvider";
 import { COLORS } from "@src/constants/Colors";
 import { filterBySearchTerm, mapWordsForList } from "@src/tools/utils";
@@ -124,6 +125,4 @@ const SearchBarStyles = {
  * =========================================================================
  */
 
-export default (parentProps: any) => (
-  <GlobalStateProvider {...parentProps} Component={ViewAllScreen} />
-);
+export default withGlobalState(ViewAllScreen);

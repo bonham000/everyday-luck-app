@@ -10,8 +10,9 @@ import {
   LessonSummaryType,
   Word,
 } from "@src/api/types";
-import GlobalStateProvider, {
+import {
   GlobalStateProps,
+  withGlobalState,
 } from "@src/components/GlobalStateProvider";
 import { CHINESE_NUMBER_MAP } from "@src/constants/Characters";
 import { COLORS } from "@src/constants/Colors";
@@ -199,6 +200,4 @@ const LessonBlockText = glamorous.text(
  * =========================================================================
  */
 
-export default (props: any) => (
-  <GlobalStateProvider {...props} Component={HomeScreen} />
-);
+export default withGlobalState(HomeScreen);

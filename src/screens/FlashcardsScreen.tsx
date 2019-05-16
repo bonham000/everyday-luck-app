@@ -6,8 +6,9 @@ import FlipCard from "react-native-flip-card";
 import { NavigationScreenProp } from "react-navigation";
 
 import { Lesson, LessonScreenParams, Word } from "@src/api/types";
-import GlobalStateProvider, {
+import {
   GlobalStateProps,
+  withGlobalState,
 } from "@src/components/GlobalStateProvider";
 import { COLORS } from "@src/constants/Colors";
 import { knuthShuffle } from "@src/tools/utils";
@@ -273,6 +274,4 @@ const CARD_OVERLAY_LABELS = {
  * =========================================================================
  */
 
-export default (props: any) => (
-  <GlobalStateProvider {...props} Component={FlashcardsScreen} />
-);
+export default withGlobalState(FlashcardsScreen);

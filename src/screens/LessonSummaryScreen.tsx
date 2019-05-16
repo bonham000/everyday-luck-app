@@ -5,8 +5,9 @@ import { Text } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
 import { LessonScreenParams } from "@src/api/types";
-import GlobalStateProvider, {
+import {
   GlobalStateProps,
+  withGlobalState,
 } from "@src/components/GlobalStateProvider";
 import { COLORS } from "@src/constants/Colors";
 import { ROUTE_NAMES } from "@src/constants/Routes";
@@ -156,6 +157,4 @@ const LineBreak = glamorous.view({
  * =========================================================================
  */
 
-export default (props: Partial<IProps>) => (
-  <GlobalStateProvider {...props} Component={LessonSummaryScreen} />
-);
+export default withGlobalState(LessonSummaryScreen);

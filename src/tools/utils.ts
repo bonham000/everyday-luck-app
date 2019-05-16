@@ -216,10 +216,12 @@ export const getAlternateChoices = (
     } else {
       choices = [
         word,
-        ...word.english_alternate_choices.map(choice => ({
-          english: choice,
-          ...wordFillerContent,
-        })),
+        ...knuthShuffle(word.english_alternate_choices)
+          .slice(0, 4)
+          .map(choice => ({
+            english: choice,
+            ...wordFillerContent,
+          })),
       ];
 
       break;

@@ -64,9 +64,17 @@ class GlobalStateProvider extends React.Component<IProps, IState> {
   }
 }
 
+const withGlobalState = (component: ComponentType<any>) => {
+  return (props: any) => (
+    <GlobalStateProvider {...props} Component={component} />
+  );
+};
+
 /** ========================================================================
  * Export
  * =========================================================================
  */
+
+export { withGlobalState };
 
 export default GlobalStateProvider;

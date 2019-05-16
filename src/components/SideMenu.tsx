@@ -4,8 +4,9 @@ import { Image, Keyboard, View } from "react-native";
 import { NavigationScreenProp, SafeAreaView } from "react-navigation";
 
 import { logoutLocalUser } from "@src/api/store";
-import GlobalStateProvider, {
+import {
   GlobalStateProps,
+  withGlobalState,
 } from "@src/components/GlobalStateProvider";
 import { ROUTE_NAMES } from "@src/constants/Routes";
 import { resetNavigation } from "@src/tools/utils";
@@ -130,6 +131,4 @@ const Bold = glamorous.text({
  * =========================================================================
  */
 
-export default (props: any) => (
-  <GlobalStateProvider {...props} Component={SideMenuComponent} />
-);
+export default withGlobalState(SideMenuComponent);
