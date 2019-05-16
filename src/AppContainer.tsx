@@ -1,6 +1,6 @@
 import { Asset, Updates } from "expo";
 import React from "react";
-import { Alert, AppState, BackHandler, Text, View } from "react-native";
+import { Alert, AppState, BackHandler, View } from "react-native";
 import { createAppContainer } from "react-navigation";
 
 import {
