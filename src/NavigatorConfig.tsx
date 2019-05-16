@@ -20,6 +20,7 @@ import LessonSummaryScreen from "@src/screens/LessonSummaryScreen";
 import QuizScreen from "@src/screens/QuizScreen";
 import ViewAllScreen from "@src/screens/ViewAllScreen";
 import { getDrawerLockedState } from "@src/tools/utils";
+import TranslationScreen from "./screens/TranslationScreen";
 
 /** ========================================================================
  * App navigation
@@ -133,6 +134,13 @@ const createAppNavigationStack = (userLoggedIn: boolean) => {
             title: title || "All Words ⛩",
             headerBackTitle: null,
           };
+        },
+      },
+      [ROUTE_NAMES.TRANSLATION]: {
+        screen: TranslationScreen,
+        navigationOptions: {
+          title: "Translation 📔",
+          headerBackTitle: null,
         },
       },
       [ROUTE_NAMES.ABOUT]: {

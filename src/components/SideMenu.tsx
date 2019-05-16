@@ -58,6 +58,11 @@ class SideMenuComponent extends React.Component<IProps, {}> {
           {"  "}
           Reset Scores
         </Item>
+        <Item onPress={this.createNavigationHandler(ROUTE_NAMES.TRANSLATION)}>
+          📔
+          {"  "}
+          Translation
+        </Item>
         <Item onPress={this.logout}>🎡 Logout</Item>
         {user && (
           <Item
