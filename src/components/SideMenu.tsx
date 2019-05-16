@@ -24,7 +24,7 @@ interface IProps extends GlobalStateProps {
  * =========================================================================
  */
 
-class DrawerMenuScreen extends React.Component<IProps, {}> {
+class SideMenuComponent extends React.Component<IProps, {}> {
   componentDidUpdate(prevProps: IProps): void {
     if (
       this.getDrawerStateFromProps(this.props) &&
@@ -126,5 +126,5 @@ const Bold = glamorous.text({
  */
 
 export default (props: any) => (
-  <GlobalStateProvider {...props} Component={DrawerMenuScreen} />
+  <GlobalStateProvider {...props} Component={SideMenuComponent} />
 );

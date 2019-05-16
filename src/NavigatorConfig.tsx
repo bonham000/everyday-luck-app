@@ -8,9 +8,9 @@ import {
 } from "react-navigation";
 
 import { LessonScreenParams } from "@src/api/types";
-import DrawerComponent from "@src/components/DrawerMenu";
 import MultipleChoiceComponent from "@src/components/MultipleChoiceComponent";
 import QuizInput from "@src/components/QuizInputComponent";
+import SideMenuComponent from "@src/components/SideMenu";
 import { ROUTE_NAMES } from "@src/constants/Routes";
 import AboutScreen from "@src/screens/AboutScreen";
 import FlashcardsScreen from "@src/screens/FlashcardsScreen";
@@ -178,7 +178,7 @@ export default (userLoggedIn: boolean) => {
     },
     // @ts-ignore
     {
-      contentComponent: DrawerComponent,
+      contentComponent: SideMenuComponent,
     },
   );
 };
