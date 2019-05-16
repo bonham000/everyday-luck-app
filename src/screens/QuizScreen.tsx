@@ -315,11 +315,11 @@ class QuizScreen extends React.Component<IProps, IState> {
     const exp = getExperiencePointsForLesson(quizType, lessonType);
 
     const perfectScore = this.state.failCount === 0;
-    const firstPass = perfectScore && !userScoreStatus[lessonIndex][quizType];
+    const firstPass = perfectScore && !userScoreStatus[quizType];
     let lessonCompleted = false;
     if (perfectScore) {
-      this.props.setLessonScore(lessonIndex, this.props.quizType, exp);
-      const otherLessonStatus = userScoreStatus[lessonIndex][quizType];
+      this.props.setLessonScore(lessonIndex, quizType, exp);
+      const otherLessonStatus = userScoreStatus[quizType];
       if (otherLessonStatus) {
         lessonCompleted = true;
       }

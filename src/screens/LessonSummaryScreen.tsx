@@ -30,9 +30,8 @@ class LessonSummaryScreen extends React.Component<IProps, {}> {
     const { navigation, userScoreStatus } = this.props;
     const type = navigation.getParam("type");
     const lesson = navigation.getParam("lesson");
-    const lessonIndex = navigation.getParam("lessonIndex");
     const isLesson = type === "LESSON";
-    const { mc_english, mc_mandarin, quiz_text } = userScoreStatus[lessonIndex];
+    const { mc_english, mc_mandarin, quiz_text } = userScoreStatus;
     return (
       <Container>
         <Text style={TextStyles}>
