@@ -1,6 +1,6 @@
 import glamorous from "glamorous-native";
 import React from "react";
-import { Image, Keyboard, View } from "react-native";
+import { Image, Keyboard, TouchableOpacity, View } from "react-native";
 import { NavigationScreenProp, SafeAreaView } from "react-navigation";
 
 import { logoutLocalUser } from "@src/api/store";
@@ -54,17 +54,22 @@ class SideMenuComponent extends React.Component<IProps, {}> {
           {"  "}
           About this App
         </Item>
-        <Item onPress={this.resetScores}>
-          🗃
-          {"  "}
-          Reset Scores
-        </Item>
         <Item onPress={this.createNavigationHandler(ROUTE_NAMES.TRANSLATION)}>
           📔
           {"  "}
           Translation
         </Item>
-        <Item onPress={this.logout}>🎡 Logout</Item>
+        <Item onPress={this.handleSetLanguageOptions}>
+          🎗
+          {"  "}
+          Language Options
+        </Item>
+        <Item onPress={this.handleResetScores}>
+          🗃
+          {"  "}
+          Reset Scores
+        </Item>
+        <Item onPress={this.handleLogout}>🎡 Logout</Item>
         {user && (
           <Item
             style={{ position: "absolute", bottom: 95, left: 6, fontSize: 12 }}
@@ -81,12 +86,16 @@ class SideMenuComponent extends React.Component<IProps, {}> {
     );
   }
 
-  resetScores = () => {
+  handleSetLanguageOptions = () => {
+    console.log("TODO!");
+  };
+
+  handleResetScores = () => {
     this.props.handleResetScores();
     this.props.navigation.closeDrawer();
   };
 
-  logout = async () => {
+  handleLogout = async () => {
     try {
       await logoutLocalUser();
       this.props.navigation.dispatch(resetNavigation(ROUTE_NAMES.SIGNIN));
@@ -116,7 +125,13 @@ class SideMenuComponent extends React.Component<IProps, {}> {
  * =========================================================================
  */
 
-const Item = glamorous.text({
+const Item = ({ children, onPress, style }: any) => (
+  <TouchableOpacity onPress={onPress} style={style}>
+    <ItemText>{children}</ItemText>
+  </TouchableOpacity>
+);
+
+const ItemText = glamorous.text({
   fontSize: 16,
   marginTop: 45,
   marginLeft: 12,
