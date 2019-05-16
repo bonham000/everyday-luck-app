@@ -196,7 +196,7 @@ class QuizScreen extends React.Component<IProps, IState> {
     /**
      * TODO: Add confirmation alert.
      */
-    this.getInitialState();
+    this.setState(this.getInitialState());
   };
 
   handleChange = (value: string) => {

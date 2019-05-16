@@ -52,10 +52,10 @@ export const knuthShuffle = (array: ReadonlyArray<any>): ReadonlyArray<any> => {
  */
 export const filterBySearchTerm = (searchValue: string) => (word: Word) => {
   const term = searchValue.toLowerCase();
-  const { traditional, pinyin: phonetic, english } = word;
+  const { traditional, pinyin, english } = word;
   return (
     traditional.toLowerCase().includes(term) ||
-    phonetic.toLowerCase().includes(term) ||
+    pinyin.toLowerCase().includes(term) ||
     english.toLowerCase().includes(term)
   );
 };
