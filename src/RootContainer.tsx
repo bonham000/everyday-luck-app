@@ -9,11 +9,20 @@ import {
   updateUserExperience,
   updateUserScores,
 } from "@src/api/api-helpers";
-import { getLocalUser, GoogleSigninUser } from "@src/api/store";
+import {
+  getAppLanguageSetting,
+  getLocalUser,
+  GoogleSigninUser,
+  setAppLanguageSetting,
+} from "@src/api/store";
 import { LessonSet } from "@src/api/types";
 import LoadingComponent from "@src/components/LoadingComponent";
 import { CustomToast } from "@src/components/ToastProvider";
-import GlobalContext, { LessonScoreType, ScoreStatus } from "@src/GlobalState";
+import GlobalContext, {
+  APP_LANGUAGE_SETTING,
+  LessonScoreType,
+  ScoreStatus,
+} from "@src/GlobalState";
 import createAppNavigator from "@src/NavigatorConfig";
 
 /** ========================================================================
@@ -32,6 +41,7 @@ interface IState {
   updating: boolean;
   tryingToCloseApp: boolean;
   userScoreStatus: ScoreStatus;
+  languageSetting: APP_LANGUAGE_SETTING;
   experience: number;
 }
 
@@ -61,9 +71,10 @@ class RootContainer extends React.Component<{}, IState> {
       loading: true,
       toastMessage: "",
       updating: false,
-      userScoreStatus: defaultScoreState,
       tryingToCloseApp: false,
       appState: AppState.currentState,
+      userScoreStatus: defaultScoreState,
+      languageSetting: APP_LANGUAGE_SETTING.SIMPLIFIED,
     };
   }
 
@@ -124,14 +135,17 @@ class RootContainer extends React.Component<{}, IState> {
 
   render(): JSX.Element | null {
     const {
-      error,
-      updating,
-      loading,
       user,
+      error,
+      loading,
       lessons,
+      updating,
       experience,
+      languageSetting,
       userScoreStatus,
     } = this.state;
+
+    console.log(`App language setting: ${languageSetting}`);
 
     if (error) {
       return (
@@ -153,6 +167,7 @@ class RootContainer extends React.Component<{}, IState> {
         <GlobalContext.Provider
           value={{
             experience,
+            languageSetting,
             userScoreStatus,
             lessons: lessonSet,
             user: authenticatedUser,
@@ -160,6 +175,7 @@ class RootContainer extends React.Component<{}, IState> {
             setLessonScore: this.setLessonScore,
             setToastMessage: this.setToastMessage,
             handleResetScores: this.handleResetScores,
+            handleSwitchLanguage: this.handleSwitchLanguage,
           }}
         >
           <CustomToast
@@ -196,6 +212,7 @@ class RootContainer extends React.Component<{}, IState> {
       this.setState(
         {
           lessons,
+          languageSetting: await getAppLanguageSetting(),
         },
         this.setupUserSession,
       );
@@ -300,6 +317,44 @@ class RootContainer extends React.Component<{}, IState> {
     this.setState({
       toastMessage: "",
     });
+  };
+
+  handleSwitchLanguage = () => {
+    Alert.alert(
+      "Your current setting is Simplified Chinese",
+      "Do you want to switch to Traditional Chinese? You can switch back at anytime.",
+      [
+        {
+          text: "Cancel",
+          onPress: () => null,
+          style: "cancel",
+        },
+        {
+          text: "OK",
+          onPress: this.switchLanguage,
+        },
+      ],
+      { cancelable: false },
+    );
+  };
+
+  switchLanguage = () => {
+    switch (this.state.languageSetting) {
+      case APP_LANGUAGE_SETTING.SIMPLIFIED:
+        return this.setState(
+          {
+            languageSetting: APP_LANGUAGE_SETTING.TRADITIONAL,
+          },
+          async () => setAppLanguageSetting(APP_LANGUAGE_SETTING.TRADITIONAL),
+        );
+      case APP_LANGUAGE_SETTING.TRADITIONAL:
+        return this.setState(
+          {
+            languageSetting: APP_LANGUAGE_SETTING.SIMPLIFIED,
+          },
+          async () => setAppLanguageSetting(APP_LANGUAGE_SETTING.SIMPLIFIED),
+        );
+    }
   };
 
   handleResetScores = () => {

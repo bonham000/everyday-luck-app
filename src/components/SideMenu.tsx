@@ -87,7 +87,7 @@ class SideMenuComponent extends React.Component<IProps, {}> {
   }
 
   handleSetLanguageOptions = () => {
-    console.log("TODO!");
+    this.props.handleSwitchLanguage();
   };
 
   handleResetScores = () => {

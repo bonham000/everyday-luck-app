@@ -14,6 +14,11 @@ export interface ScoreStatus {
   final_completed_lesson_index: number;
 }
 
+export enum APP_LANGUAGE_SETTING {
+  SIMPLIFIED = "SIMPLIFIED",
+  TRADITIONAL = "TRADITIONAL",
+}
+
 export type LessonScoreType = "mc_english" | "mc_mandarin" | "quiz_text";
 
 const GlobalState = React.createContext({
@@ -21,6 +26,7 @@ const GlobalState = React.createContext({
   user: {},
   lessons: [] as LessonSet,
   userScoreStatus: {},
+  languageSetting: APP_LANGUAGE_SETTING.SIMPLIFIED,
   setToastMessage: (toastMessage: string) => {
     // Handle setting Toast message
   },
@@ -33,6 +39,9 @@ const GlobalState = React.createContext({
     exp: number,
   ) => {
     // Handle setting lesson score
+  },
+  handleSwitchLanguage: () => {
+    // Handle switching app language setting
   },
   onSignin: (user: GoogleSigninUser) => {
     // Handle action on signin

@@ -24,6 +24,7 @@ export interface GlobalStateProps {
     lessonPassedType: LessonScoreType,
     exp: number,
   ) => void;
+  handleSwitchLanguage: () => void;
   onSignin: (user: GoogleSigninUser) => Promise<void>;
 }
 
@@ -57,6 +58,7 @@ class GlobalStateProvider extends React.Component<IProps, IState> {
             setLessonScore={value.setLessonScore}
             userScoreStatus={value.userScoreStatus}
             handleResetScores={value.handleResetScores}
+            handleSwitchLanguage={value.handleSwitchLanguage}
           />
         )}
       </GlobalState.Consumer>
