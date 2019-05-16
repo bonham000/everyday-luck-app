@@ -3,6 +3,8 @@ export interface Word {
   simplified: string;
   pinyin: string;
   english: string;
+  usage_notes: string;
+  part_of_speech: string;
   english_alternate_choices: ReadonlyArray<string>;
 }
 
