@@ -5,7 +5,7 @@ import {
 } from "react-navigation";
 
 import { Lesson, LessonSet, LessonSummaryType, Word } from "@src/api/types";
-import { ROUTE_NAMES } from "@src/constants/Routes";
+import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import { LessonScoreType, ScoreStatus } from "@src/GlobalState";
 
 export const assertUnreachable = (x: never): never => {

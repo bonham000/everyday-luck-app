@@ -10,7 +10,7 @@ import {
   withGlobalState,
 } from "@src/components/GlobalStateProvider";
 import { COLORS } from "@src/constants/Colors";
-import { ROUTE_NAMES } from "@src/constants/Routes";
+import { ROUTE_NAMES } from "@src/constants/RouteNames";
 
 /** ========================================================================
  * Types

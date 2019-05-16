@@ -8,7 +8,7 @@ import {
   GlobalStateProps,
   withGlobalState,
 } from "@src/components/GlobalStateProvider";
-import { ROUTE_NAMES } from "@src/constants/Routes";
+import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import { resetNavigation } from "@src/tools/utils";
 
 /** ========================================================================

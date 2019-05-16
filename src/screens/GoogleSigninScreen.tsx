@@ -11,7 +11,7 @@ import {
 } from "@src/components/GlobalStateProvider";
 import LoadingComponent from "@src/components/LoadingComponent";
 import { COLORS } from "@src/constants/Colors";
-import { ROUTE_NAMES } from "@src/constants/Routes";
+import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import CONFIG from "@src/tools/config";
 import { resetNavigation } from "@src/tools/utils";
 

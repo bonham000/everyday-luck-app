@@ -12,7 +12,7 @@ import GlobalStateProvider, {
   GlobalStateProps,
 } from "@src/components/GlobalStateProvider";
 import { COLORS } from "@src/constants/Colors";
-import { ROUTE_NAMES } from "@src/constants/Routes";
+import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import { LessonScoreType } from "@src/GlobalState";
 import {
   filterForOneCharacterMode,

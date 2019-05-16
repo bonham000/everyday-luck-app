@@ -1,4 +1,4 @@
-export const CHINESE_NUMBER_MAP: ReadonlyArray<any> = [
+export const CHINESE_NUMBER_MAP: ReadonlyArray<string> = [
   "另",
   "一",
   "二",

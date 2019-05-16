@@ -6,7 +6,7 @@ import { Button, Text, TextInput } from "react-native-paper";
 import { Word } from "@src/api/types";
 import Shaker from "@src/components/Shaker";
 import { COLORS } from "@src/constants/Colors";
-import { COMPLIMENTS } from "@src/constants/Toasts";
+import { COMPLIMENTS } from "@src/constants/Compliments";
 import { randomInRange } from "@src/tools/utils";
 
 /** ========================================================================
