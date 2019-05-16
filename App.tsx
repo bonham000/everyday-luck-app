@@ -6,8 +6,8 @@ import {
 import { useScreens } from "react-native-screens";
 import Sentry from "sentry-expo";
 
+import App from "@src/AppContainer";
 import { COLORS } from "@src/constants/Colors";
-import App from "@src/RootContainer";
 
 useScreens();
 

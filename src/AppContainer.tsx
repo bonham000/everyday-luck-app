@@ -360,7 +360,7 @@ class RootContainer extends React.Component<{}, IState> {
   handleResetScores = () => {
     Alert.alert(
       "Are you sure?",
-      "All existing progress will be erased!",
+      "All existing progress will be erased! This is irreversible 🤯",
       [
         {
           text: "Cancel",

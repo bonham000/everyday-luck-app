@@ -57,12 +57,12 @@ class SideMenuComponent extends React.Component<IProps, {}> {
         <Item onPress={this.createNavigationHandler(ROUTE_NAMES.TRANSLATION)}>
           📔
           {"  "}
-          Translation
+          Translation Tool
         </Item>
         <Item onPress={this.handleSetLanguageOptions}>
           🎗
           {"  "}
-          Language Options
+          Set Language
         </Item>
         <Item onPress={this.handleResetScores}>
           🗃
@@ -92,7 +92,6 @@ class SideMenuComponent extends React.Component<IProps, {}> {
 
   handleResetScores = () => {
     this.props.handleResetScores();
-    this.props.navigation.closeDrawer();
   };
 
   handleLogout = async () => {
