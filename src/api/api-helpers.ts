@@ -34,7 +34,7 @@ export const findOrCreateUser = async (email: string): Response => {
     const maybeUser = {
       email,
       experience_points: 0,
-      score_history: [],
+      score_history: {},
     };
 
     const response = await fetch(`${CONFIG.DRAGON_URI}/users`, {
@@ -45,7 +45,7 @@ export const findOrCreateUser = async (email: string): Response => {
     const result = await response.json();
     return result;
   } catch (err) {
-    console.log(err);
+    console.log("Error fetching user: ", err);
   }
 
   return;

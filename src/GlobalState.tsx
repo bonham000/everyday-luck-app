@@ -7,21 +7,20 @@ import { LessonSet } from "@src/api/types";
  * Context for toast message
  * =========================================================================
  */
-export interface LessonScore {
+export interface ScoreStatus {
   mc_english: boolean;
   mc_mandarin: boolean;
   quiz_text: boolean;
+  final_completed_lesson_index: number;
 }
 
 export type LessonScoreType = "mc_english" | "mc_mandarin" | "quiz_text";
-
-export type ScoreStatus = ReadonlyArray<LessonScore>;
 
 const GlobalState = React.createContext({
   experience: 0,
   user: {},
   lessons: [] as LessonSet,
-  userScoreStatus: [] as ScoreStatus,
+  userScoreStatus: {},
   setToastMessage: (toastMessage: string) => {
     // Handle setting Toast message
   },

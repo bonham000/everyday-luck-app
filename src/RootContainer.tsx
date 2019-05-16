@@ -15,7 +15,6 @@ import LoadingComponent from "@src/components/LoadingComponent";
 import { CustomToast } from "@src/components/ToastProvider";
 import GlobalContext, { LessonScoreType, ScoreStatus } from "@src/GlobalState";
 import createAppNavigator from "@src/NavigatorConfig";
-import { fillEmptyLessonBlocks } from "@src/tools/utils";
 
 /** ========================================================================
  * Types
@@ -36,6 +35,13 @@ interface IState {
   experience: number;
 }
 
+const defaultScoreState = {
+  mc_english: false,
+  mc_mandarin: false,
+  quiz_text: false,
+  final_completed_lesson_index: 0,
+};
+
 /** ========================================================================
  * React Class
  * =========================================================================
@@ -55,7 +61,7 @@ class RootContainer extends React.Component<{}, IState> {
       loading: true,
       toastMessage: "",
       updating: false,
-      userScoreStatus: [],
+      userScoreStatus: defaultScoreState,
       tryingToCloseApp: false,
       appState: AppState.currentState,
     };
@@ -203,18 +209,7 @@ class RootContainer extends React.Component<{}, IState> {
       const user = await findOrCreateUser(localUser.email);
 
       if (user) {
-        const { lessons } = this.state;
-
-        let scoreHistory = JSON.parse(user.score_history);
-
-        if (scoreHistory.length < lessons.length) {
-          scoreHistory = scoreHistory.concat(
-            new Array(lessons.length - scoreHistory.length)
-              .fill("")
-              .map(fillEmptyLessonBlocks),
-          );
-        }
-
+        const scoreHistory = JSON.parse(user.score_history);
         this.setState({
           loading: false,
           user: localUser,
@@ -251,18 +246,10 @@ class RootContainer extends React.Component<{}, IState> {
     const { userId } = this.state;
 
     if (userId) {
-      const updatedScoreStatus: ScoreStatus = this.state.userScoreStatus.map(
-        (status, index) => {
-          if (index === lessonIndex) {
-            return {
-              ...status,
-              [lessonPassedType]: true,
-            };
-          } else {
-            return status;
-          }
-        },
-      );
+      const updatedScoreStatus: ScoreStatus = {
+        ...this.state.userScoreStatus,
+        [lessonPassedType]: true,
+      };
 
       await updateUserScores(userId, updatedScoreStatus);
       const updatedUser = await updateUserExperience(userId, exp);
@@ -344,7 +331,7 @@ class RootContainer extends React.Component<{}, IState> {
         this.timeout = setTimeout(async () => {
           const { userId } = this.state;
           if (userId) {
-            await updateUserScores(userId, []);
+            await updateUserScores(userId, defaultScoreState);
             await updateUserExperience(userId, 0);
           }
           this.getInitialScoreState();

@@ -6,7 +6,7 @@ import {
 
 import { Lesson, LessonSet, LessonSummaryType, Word } from "@src/api/types";
 import { ROUTE_NAMES } from "@src/constants/Routes";
-import { LessonScore, LessonScoreType, ScoreStatus } from "@src/GlobalState";
+import { LessonScoreType, ScoreStatus } from "@src/GlobalState";
 
 export const assertUnreachable = (x: never): never => {
   throw new Error(`Unreachable code! -> ${JSON.stringify(x)}`);
@@ -226,20 +226,7 @@ export const getAlternateChoices = (
 export const getFinalUnlockedLesson = (
   userScoreStatus: ScoreStatus,
 ): number => {
-  // @ts-ignore
-  return userScoreStatus.reduce((final, current, index) => {
-    if (typeof final === "number") {
-      return final;
-    } else if (
-      !current.mc_mandarin ||
-      !current.mc_english ||
-      !current.quiz_text
-    ) {
-      return index;
-    } else {
-      return null;
-    }
-  }, null);
+  return userScoreStatus.final_completed_lesson_index;
 };
 
 export const getExperiencePointsForLesson = (
@@ -276,12 +263,6 @@ export const getDrawerLockedState = (navigation: any): DrawerLockMode => {
     : UNLOCKED;
   return drawerLockMode;
 };
-
-export const fillEmptyLessonBlocks = (_: Lesson): LessonScore => ({
-  quiz_text: false,
-  mc_english: false,
-  mc_mandarin: false,
-});
 
 export const getGameModeLessonSet = (
   lessons: LessonSet,
