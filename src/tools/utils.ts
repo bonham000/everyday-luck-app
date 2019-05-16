@@ -180,6 +180,8 @@ const wordFillerContent = {
   traditional: "N/A",
   simplified: "N/A",
   pinyin: "N/A",
+  usage_notes: "",
+  part_of_speech: "",
   english_alternate_choices: [],
 };
 
