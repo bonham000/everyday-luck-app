@@ -116,7 +116,7 @@ const QuizInput = ({
           ? "Try again 🔖"
           : attempted
           ? `Wrong! Tap to reveal 🙏`
-          : "Check answer 👲"}
+          : "Check Answer!"}
       </Button>
     </React.Fragment>
   );

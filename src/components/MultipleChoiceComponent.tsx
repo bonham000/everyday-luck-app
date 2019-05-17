@@ -44,8 +44,11 @@ interface IState {
   choices: Lesson;
   playbackError: boolean;
   loadingSoundData: boolean;
+  playedOnce: boolean;
+  currentSoundAudio: Audio.Sound;
   currentSoundFileUri: string;
-  wordAudioMap: { [key: string]: string };
+  bufferingSoundFile: boolean;
+  wordAudioMap: { [key: string]: Audio.Sound };
 }
 
 /** ========================================================================
@@ -59,8 +62,11 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
 
     this.state = {
       wordAudioMap: {},
+      playedOnce: false,
       playbackError: false,
       loadingSoundData: true,
+      bufferingSoundFile: false,
+      currentSoundAudio: new Audio.Sound(),
       currentSoundFileUri: "",
       choices: this.deriveAlternateChoices(),
     };
@@ -82,19 +88,25 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
           choices: this.deriveAlternateChoices(),
         });
       } else {
+        if (this.state.playbackError) {
+          return this.setState({
+            loadingSoundData: false,
+            choices: this.deriveAlternateChoices(),
+          });
+        }
         const { wordAudioMap } = this.state;
         const word = this.props.currentWord.traditional;
         if (word in wordAudioMap && wordAudioMap[word] !== null) {
           this.setState({
-            playbackError: false,
+            playedOnce: false,
             loadingSoundData: false,
             choices: this.deriveAlternateChoices(),
-            currentSoundFileUri: wordAudioMap[word],
+            currentSoundAudio: wordAudioMap[word],
           });
         } else {
           this.setState(
             {
-              playbackError: false,
+              playedOnce: false,
               loadingSoundData: true,
               choices: this.deriveAlternateChoices(),
             },
@@ -115,24 +127,27 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
       languageSetting,
       multipleChoiceType,
     } = this.props;
-    const correctWord = currentWord[languageSetting];
     const shouldReveal = valid || attempted;
+    const correctWord = currentWord[languageSetting];
     return (
       <React.Fragment>
         <TitleContainer>
-          {multipleChoiceType === "MANDARIN_PRONUNCIATION" ? (
+          {multipleChoiceType === "MANDARIN_PRONUNCIATION" &&
+          !this.state.playbackError ? (
             <VoiceButton onPress={this.handlePronounce}>
               <Text>
                 {this.state.loadingSoundData
                   ? "Loading Sound Data..."
+                  : this.state.bufferingSoundFile
+                  ? "Preparing sound file"
                   : "Press to Speak!"}
               </Text>
             </VoiceButton>
           ) : (
             <QuizPromptText multipleChoiceType={multipleChoiceType}>
-              {multipleChoiceType === "MANDARIN"
-                ? currentWord.english
-                : correctWord}
+              {multipleChoiceType === "ENGLISH"
+                ? correctWord
+                : currentWord.english}
             </QuizPromptText>
           )}
         </TitleContainer>
@@ -187,12 +202,16 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
   handlePronounce = async () => {
     if (!this.state.loadingSoundData) {
       try {
-        const { currentSoundFileUri } = this.state;
-        const soundObject = new Audio.Sound();
-        await soundObject.loadAsync({ uri: currentSoundFileUri });
-        await soundObject.playAsync();
+        if (this.state.playedOnce) {
+          await this.state.currentSoundAudio.replayAsync({ positionMillis: 0 });
+        } else {
+          await this.state.currentSoundAudio.playAsync();
+        }
+        this.setState({
+          playedOnce: true,
+        });
       } catch (error) {
-        console.log("Failed to play sound file!");
+        console.log("Failed to play sound file!", error);
         this.setState({
           playbackError: true,
         });
@@ -209,9 +228,13 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
 
     switch (soundFileResult.type) {
       case OptionType.OK:
+        const soundObject = new Audio.Sound();
+        await soundObject.loadAsync({
+          uri: soundFileResult.data,
+        });
         return this.setState({
-          currentSoundFileUri: soundFileResult.data,
           loadingSoundData: false,
+          currentSoundAudio: soundObject,
         });
       case OptionType.EMPTY:
         console.log("No sound file uri found!!!");
@@ -231,17 +254,21 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
 
         switch (uriResult.type) {
           case OptionType.OK:
-            return { word, uri: uriResult.data };
+            const soundObject = new Audio.Sound();
+            await soundObject.loadAsync({
+              uri: uriResult.data,
+            });
+            return { word, soundObject };
           case OptionType.EMPTY:
-            return { word, uri: null };
+            return { word, soundObject: null };
         }
       }),
     );
 
-    const wordAudioMap = fetchWords.reduce((map, { word, uri }) => {
+    const wordAudioMap = fetchWords.reduce((map, { word, soundObject }) => {
       return {
         ...map,
-        [word]: uri,
+        [word]: soundObject,
       };
     }, {});
 

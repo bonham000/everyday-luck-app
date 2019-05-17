@@ -339,6 +339,12 @@ export interface SoundFileResponse {
 export const transformSoundFileResponse = (
   response: SoundFileResponse,
 ): Option<string> => {
+  if (Array.isArray(response)) {
+    return {
+      type: OptionType.EMPTY,
+    };
+  }
+
   const uris = response.items
     .map((result: { pathmp3?: string }) => {
       if (result.pathmp3) {

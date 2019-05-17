@@ -32,7 +32,12 @@ class LessonSummaryScreen extends React.Component<IProps, {}> {
     const type = navigation.getParam("type");
     const lesson = navigation.getParam("lesson");
     const isLesson = type === "LESSON";
-    const { mc_english, mc_mandarin, quiz_text } = userScoreStatus;
+    const {
+      mc_english,
+      mc_mandarin,
+      quiz_text,
+      mandarin_pronunciation,
+    } = userScoreStatus;
     return (
       <Container>
         <Text style={TextStyles}>
@@ -77,7 +82,7 @@ class LessonSummaryScreen extends React.Component<IProps, {}> {
           )}
         >
           <Text>Mandarin Pronunciation</Text>
-          {mc_english && isLesson && <Text>💯</Text>}
+          {mandarin_pronunciation && isLesson && <Text>💯</Text>}
         </ActionBlock>
         {type !== "GAME" && (
           <React.Fragment>
@@ -154,10 +159,10 @@ const ActionBlock = glamorous.touchableOpacity({
 
 const LineBreak = glamorous.view({
   width: "85%",
-  height: StyleSheet.hairlineWidth,
   marginTop: 12,
   marginBottom: 12,
   backgroundColor: "black",
+  height: StyleSheet.hairlineWidth,
 });
 
 /** ========================================================================

@@ -111,10 +111,8 @@ class QuizScreen extends React.Component<IProps, IState> {
         <Container>
           <Confetti untilStopped duration={1500} ref={this.setConfettiRef} />
           <ProgressText>
-            {progressCount} word
-            {progressCount === 1 ? "" : "s"} completed,{" "}
-            {wordContent.length - progressCount} remaining, {skipCount} skipped,{" "}
-            {failCount} failed
+            Progress: {progressCount} / {wordContent.length - progressCount}{" "}
+            complete, {skipCount} skipped, {failCount} failed
           </ProgressText>
           <Component
             didReveal={didReveal}
