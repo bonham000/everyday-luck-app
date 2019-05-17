@@ -36,7 +36,11 @@ class SideMenuComponent extends React.Component<IProps, {}> {
   }
 
   render(): JSX.Element {
-    const { user } = this.props;
+    const { user, languageSetting } = this.props;
+
+    const languageSettingString = `${languageSetting
+      .slice(0, 1)
+      .toUpperCase()}${languageSetting.slice(1)} Chinese`;
     return (
       <SafeAreaView
         style={{ flex: 1, paddingTop: 75, paddingLeft: 6 }}
@@ -72,15 +76,20 @@ class SideMenuComponent extends React.Component<IProps, {}> {
         <Item onPress={this.handleLogout}>🎡 Logout</Item>
         {user && (
           <Item
-            style={{ position: "absolute", bottom: 95, left: 6, fontSize: 12 }}
+            style={{ position: "absolute", bottom: 125, left: 6, fontSize: 12 }}
           >
             <Bold>Name:</Bold> {user.name}
           </Item>
         )}
         <Item
+          style={{ position: "absolute", bottom: 95, left: 6, fontSize: 12 }}
+        >
+          <Bold>Experience Points:</Bold> {this.props.experience}
+        </Item>
+        <Item
           style={{ position: "absolute", bottom: 65, left: 6, fontSize: 12 }}
         >
-          <Bold>Experience:</Bold> {this.props.experience}
+          <Bold>Language:</Bold> {languageSettingString}
         </Item>
       </SafeAreaView>
     );
