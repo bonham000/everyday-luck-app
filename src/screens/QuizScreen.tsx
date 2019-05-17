@@ -103,6 +103,7 @@ class QuizScreen extends React.Component<IProps, IState> {
 
     const Component = this.props.Component;
     const currentWord = wordContent[currentWordIndex];
+    const lesson = this.props.navigation.getParam("lesson");
     const lessonType = this.props.navigation.getParam("type");
 
     return (
@@ -118,6 +119,7 @@ class QuizScreen extends React.Component<IProps, IState> {
           <Component
             didReveal={didReveal}
             valid={valid}
+            lesson={lesson}
             revealAnswer={revealAnswer}
             currentWord={currentWord}
             shouldShake={shouldShake}

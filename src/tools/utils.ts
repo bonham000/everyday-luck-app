@@ -6,7 +6,14 @@ import {
 
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import { LessonScoreType, ScoreStatus } from "@src/GlobalState";
-import { Lesson, LessonSet, LessonSummaryType, Word } from "@src/tools/types";
+import {
+  Lesson,
+  LessonSet,
+  LessonSummaryType,
+  Option,
+  OptionType,
+  Word,
+} from "@src/tools/types";
 
 export const assertUnreachable = (x: never): never => {
   throw new Error(`Unreachable code! -> ${JSON.stringify(x)}`);
@@ -295,4 +302,62 @@ export const getReviewLessonSet = (
   return lessons
     .slice(0, unlockedLessonIndex + 1)
     .reduce((flattened, lesson) => flattened.concat(lesson));
+};
+
+interface AudioItem {
+  addtime: string;
+  code: string;
+  country: string;
+  hits: number;
+  id: number;
+  langname: string;
+  num_positive_votes: number;
+  num_votes: number;
+  original: string;
+  pathmp3: string;
+  pathogg: string;
+  rate: number;
+  sex: string;
+  username: string;
+  word: string;
+}
+
+export interface SoundFileResponse {
+  attributes: {
+    total: number;
+  };
+  items: ReadonlyArray<AudioItem>;
+}
+
+/**
+ * Parse a response from the Forzo API and return audio file uri,
+ * wrapped in an Option result type in case no result can be found.
+ *
+ * @response SoundFileResponse
+ * @returns Option<string> with uri
+ */
+export const transformSoundFileResponse = (
+  response: SoundFileResponse,
+): Option<string> => {
+  const uris = response.items
+    .map((result: { pathmp3?: string }) => {
+      if (result.pathmp3) {
+        return result.pathmp3;
+      } else {
+        return null;
+      }
+    })
+    .filter(Boolean);
+
+  const uri = uris[0];
+  if (uri) {
+    return {
+      data: uri,
+      type: OptionType.OK,
+    };
+  } else {
+    return {
+      type: OptionType.EMPTY,
+    };
+  }
 };
