@@ -29,7 +29,7 @@ export interface GlobalStateProps {
     lessonPassedType: LessonScoreType,
     exp: number,
   ) => void;
-  handleSwitchLanguage: () => void;
+  handleSwitchLanguage: (callback: () => void) => void;
   onSignin: (user: GoogleSigninUser) => Promise<void>;
 }
 

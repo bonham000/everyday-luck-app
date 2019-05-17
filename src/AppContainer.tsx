@@ -156,6 +156,10 @@ class RootContainer extends React.Component<{}, IState> {
 
     return (
       <View style={{ flex: 1 }}>
+        <CustomToast
+          close={this.clearToast}
+          message={this.state.toastMessage}
+        />
         <GlobalContext.Provider
           value={{
             experience,
@@ -170,10 +174,6 @@ class RootContainer extends React.Component<{}, IState> {
             handleSwitchLanguage: this.handleSwitchLanguage,
           }}
         >
-          <CustomToast
-            close={this.clearToast}
-            message={this.state.toastMessage}
-          />
           <AppPureComponent
             userLoggedIn={Boolean(this.state.user)}
             assignNavigatorRef={this.assignNavRef}
@@ -311,7 +311,7 @@ class RootContainer extends React.Component<{}, IState> {
     });
   };
 
-  handleSwitchLanguage = () => {
+  handleSwitchLanguage = (callback: () => void) => {
     Alert.alert(
       "Your current setting is Simplified Chinese",
       "Do you want to switch to Traditional Chinese? You can switch back at anytime.",
@@ -323,28 +323,34 @@ class RootContainer extends React.Component<{}, IState> {
         },
         {
           text: "OK",
-          onPress: this.switchLanguage,
+          onPress: () => this.switchLanguage(callback),
         },
       ],
       { cancelable: false },
     );
   };
 
-  switchLanguage = () => {
+  switchLanguage = (callback: () => void) => {
     switch (this.state.languageSetting) {
       case APP_LANGUAGE_SETTING.SIMPLIFIED:
         return this.setState(
           {
             languageSetting: APP_LANGUAGE_SETTING.TRADITIONAL,
           },
-          async () => setAppLanguageSetting(APP_LANGUAGE_SETTING.TRADITIONAL),
+          async () => {
+            callback();
+            setAppLanguageSetting(APP_LANGUAGE_SETTING.TRADITIONAL);
+          },
         );
       case APP_LANGUAGE_SETTING.TRADITIONAL:
         return this.setState(
           {
             languageSetting: APP_LANGUAGE_SETTING.SIMPLIFIED,
           },
-          async () => setAppLanguageSetting(APP_LANGUAGE_SETTING.SIMPLIFIED),
+          async () => {
+            callback();
+            setAppLanguageSetting(APP_LANGUAGE_SETTING.SIMPLIFIED);
+          },
         );
       default:
         return console.log(

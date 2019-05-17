@@ -40,7 +40,7 @@ const GlobalState = React.createContext({
   ) => {
     // Handle setting lesson score
   },
-  handleSwitchLanguage: () => {
+  handleSwitchLanguage: (callback: () => void) => {
     // Handle switching app language setting
   },
   onSignin: (user: GoogleSigninUser) => {

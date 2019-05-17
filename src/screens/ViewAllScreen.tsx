@@ -41,9 +41,7 @@ class ViewAllScreen extends React.Component<IProps, IState> {
 
   render(): JSX.Element {
     const SearchBar = (
-      // @ts-ignore
       <Searchbar
-        // @ts-ignore
         autoFocus
         style={SearchBarStyles}
         placeholder="Filter list"
@@ -60,17 +58,17 @@ class ViewAllScreen extends React.Component<IProps, IState> {
           contentContainerStyle={{ width: "100%" }}
           data={this.getListContent()}
           renderItem={this.renderItem}
+          keyExtractor={(item: Word) => item.traditional}
         />
       </Container>
     );
   }
 
   renderItem = ({ item }: { item: Word; index: number }): any => {
+    const content = item[this.props.languageSetting];
     return (
-      <WordBox onPress={this.copyHandler(item.traditional)}>
-        <WordText style={{ fontSize: 32, padding: 8 }}>
-          {item.traditional}
-        </WordText>
+      <WordBox onPress={this.copyHandler(content)}>
+        <WordText style={{ fontSize: 32, padding: 8 }}>{content}</WordText>
         <WordText>{item.pinyin}</WordText>
         <WordText>"{item.english}"</WordText>
       </WordBox>

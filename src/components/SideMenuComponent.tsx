@@ -87,7 +87,7 @@ class SideMenuComponent extends React.Component<IProps, {}> {
   }
 
   handleSetLanguageOptions = () => {
-    this.props.handleSwitchLanguage();
+    this.props.handleSwitchLanguage(this.props.navigation.closeDrawer);
   };
 
   handleResetScores = () => {

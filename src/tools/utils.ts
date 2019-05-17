@@ -292,5 +292,5 @@ export const getReviewLessonSet = (
 ) => {
   return lessons
     .slice(0, unlockedLessonIndex + 1)
-    .reduce((flattened, lesson) => [...flattened, ...lesson]);
+    .reduce((flattened, lesson) => flattened.concat(lesson));
 };
