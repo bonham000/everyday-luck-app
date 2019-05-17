@@ -67,32 +67,40 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
   }
 
   componentDidMount(): void {
-    this.fetchSoundData();
-    this.prefetchLessonSoundData();
+    if (this.props.multipleChoiceType === "MANDARIN_PRONUNCIATION") {
+      this.fetchSoundData();
+      this.prefetchLessonSoundData();
+    }
   }
 
   componentDidUpdate(nextProps: IProps): void {
     if (
       nextProps.currentWord.traditional !== this.props.currentWord.traditional
     ) {
-      const { wordAudioMap } = this.state;
-      const word = this.props.currentWord.traditional;
-      if (word in wordAudioMap && wordAudioMap[word] !== null) {
-        this.setState({
-          playbackError: false,
-          loadingSoundData: false,
+      if (this.props.multipleChoiceType !== "MANDARIN_PRONUNCIATION") {
+        return this.setState({
           choices: this.deriveAlternateChoices(),
-          currentSoundFileUri: wordAudioMap[word],
         });
       } else {
-        this.setState(
-          {
+        const { wordAudioMap } = this.state;
+        const word = this.props.currentWord.traditional;
+        if (word in wordAudioMap && wordAudioMap[word] !== null) {
+          this.setState({
             playbackError: false,
-            loadingSoundData: true,
+            loadingSoundData: false,
             choices: this.deriveAlternateChoices(),
-          },
-          this.fetchSoundData,
-        );
+            currentSoundFileUri: wordAudioMap[word],
+          });
+        } else {
+          this.setState(
+            {
+              playbackError: false,
+              loadingSoundData: true,
+              choices: this.deriveAlternateChoices(),
+            },
+            this.fetchSoundData,
+          );
+        }
       }
     }
   }
