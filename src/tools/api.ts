@@ -116,13 +116,15 @@ export const fetchLessonSet = async (): Promise<LessonSet | null> => {
  * Fetch word pronunciation.
  */
 export const fetchWordPronunciation = async (word: string) => {
-  const key = "";
-  const url = `https://apifree.forvo.com/key/${key}/format/json/action/word-pronunciations/word/${word}/language/zh`;
+  const url = `https://apifree.forvo.com/key/${
+    CONFIG.FORVO_API_KEY
+  }/format/json/action/word-pronunciations/word/${word}/language/zh`;
   try {
     const result = await fetch(url);
     const data = await result.json();
     return data;
   } catch (err) {
     console.log(err);
+    return null;
   }
 };
