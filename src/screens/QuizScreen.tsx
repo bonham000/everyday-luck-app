@@ -100,10 +100,9 @@ class QuizScreen extends React.Component<IProps, IState> {
       oneCharacterMode,
       currentWordIndex,
     } = this.state;
-    const CURRENT_WORD = wordContent[currentWordIndex];
 
     const Component = this.props.Component;
-
+    const currentWord = wordContent[currentWordIndex];
     const lessonType = this.props.navigation.getParam("type");
 
     return (
@@ -120,7 +119,7 @@ class QuizScreen extends React.Component<IProps, IState> {
             didReveal={didReveal}
             valid={valid}
             revealAnswer={revealAnswer}
-            currentWord={CURRENT_WORD}
+            currentWord={currentWord}
             shouldShake={shouldShake}
             attempted={attempted}
             setInputRef={this.setInputRef}
@@ -128,6 +127,7 @@ class QuizScreen extends React.Component<IProps, IState> {
             handleChange={this.handleChange}
             handleCheck={this.handleCheck}
             handleProceed={this.handleProceed}
+            languageSetting={this.props.languageSetting}
             handleToggleRevealAnswer={this.handleToggleRevealAnswer}
           />
           <ActionButton position="left" buttonColor={COLORS.actionButtonRed}>

@@ -1,6 +1,10 @@
 import React, { ComponentType } from "react";
 
-import GlobalState, { LessonScoreType, ScoreStatus } from "@src/GlobalState";
+import GlobalState, {
+  APP_LANGUAGE_SETTING,
+  LessonScoreType,
+  ScoreStatus,
+} from "@src/GlobalState";
 import { GoogleSigninUser } from "@src/tools/store";
 import { LessonSet } from "@src/tools/types";
 
@@ -16,6 +20,7 @@ export interface GlobalStateProps {
   lessons: LessonSet;
   userScoreStatus: ScoreStatus;
   experience: number;
+  languageSetting: APP_LANGUAGE_SETTING;
   setToastMessage: (toastMessage: string) => void;
   openLanguageSelectionMenu: () => void;
   handleResetScores: () => void;
@@ -55,6 +60,7 @@ class GlobalStateProvider extends React.Component<IProps, IState> {
             onSignin={value.onSignin}
             experience={value.experience}
             setToastMessage={value.setToastMessage}
+            languageSetting={value.languageSetting}
             setLessonScore={value.setLessonScore}
             userScoreStatus={value.userScoreStatus}
             handleResetScores={value.handleResetScores}

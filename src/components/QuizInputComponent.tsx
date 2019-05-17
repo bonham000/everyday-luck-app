@@ -6,6 +6,7 @@ import { Button, Text, TextInput } from "react-native-paper";
 import Shaker from "@src/components/ShakerComponent";
 import { COLORS } from "@src/constants/Colors";
 import { COMPLIMENTS } from "@src/constants/Compliments";
+import { APP_LANGUAGE_SETTING } from "@src/GlobalState";
 import { Word } from "@src/tools/types";
 import { randomInRange } from "@src/tools/utils";
 
@@ -22,6 +23,7 @@ interface IProps {
   shouldShake: boolean;
   attempted: boolean;
   value: string;
+  languageSetting: APP_LANGUAGE_SETTING;
   setInputRef: () => void;
   handleChange: () => void;
   handleProceed: () => (event: GestureResponderEvent) => void;
@@ -49,7 +51,17 @@ const QuizInput = ({
   handleProceed,
   handleToggleRevealAnswer,
   didReveal,
+  languageSetting,
 }: IProps) => {
+  /**
+   * Function to check answer on submit.
+   */
+  const handleCheckAnswer = () => {
+    if (value) {
+      handleCheck(value === currentWord.traditional);
+    }
+  };
+
   return (
     <React.Fragment>
       {valid || revealAnswer ? (
@@ -69,9 +81,7 @@ const QuizInput = ({
               value={value}
               onChangeText={handleChange}
               label="Translate the English to Mandarin please"
-              onSubmitEditing={() =>
-                value !== "" && handleCheck(value === currentWord.traditional)
-              }
+              onSubmitEditing={handleCheckAnswer}
             />
           </QuizBox>
         </Shaker>
@@ -93,7 +103,7 @@ const QuizInput = ({
             ? handleProceed()
             : revealAnswer
             ? handleToggleRevealAnswer
-            : () => handleCheck(value === currentWord.traditional)
+            : handleCheckAnswer
         }
       >
         {valid
