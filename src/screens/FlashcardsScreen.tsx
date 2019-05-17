@@ -72,8 +72,8 @@ class FlashcardsScreen extends React.Component<IProps, IState> {
           overlayOpacityHorizontalThreshold={1}
         />
         <ProgressText>
-          Progress: {this.state.completed} flashcards completed (
-          {this.state.lesson.length} total)
+          Progress: {this.state.completed} / {this.state.lesson.length}{" "}
+          completed
         </ProgressText>
       </View>
     );
@@ -224,10 +224,9 @@ const BackText = glamorous.text({
 });
 
 const ProgressText = glamorous.text({
-  position: "absolute",
-  left: 5,
-  top: 5,
+  marginTop: 8,
   fontSize: 10,
+  textAlign: "center",
 });
 
 const CARD_OVERLAY_LABELS = {

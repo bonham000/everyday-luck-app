@@ -452,8 +452,8 @@ const Container = glamorous.view({
 });
 
 const ProgressText = glamorous.text({
-  justifyContent: "center",
   fontSize: 10,
+  justifyContent: "center",
 });
 
 const ActionIconStyle = {
