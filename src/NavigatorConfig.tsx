@@ -115,6 +115,24 @@ const createAppNavigationStack = (userLoggedIn: boolean) => {
           headerBackTitle: null,
         },
       },
+      [ROUTE_NAMES.MULTIPLE_CHOICE_VOICE]: {
+        screen: (props: NavigationScreenProp<{}>) => (
+          <QuizScreen
+            {...props}
+            quizType="mc_english"
+            Component={(childProps: NavigationScreenProp<{}>) => (
+              <MultipleChoiceComponent
+                {...childProps}
+                multipleChoiceType="MANDARIN_PRONUNCIATION"
+              />
+            )}
+          />
+        ),
+        navigationOptions: {
+          title: "Mandarin Pronunciation 🗣",
+          headerBackTitle: null,
+        },
+      },
       [ROUTE_NAMES.FLASHCARDS]: {
         screen: FlashcardsScreen,
         navigationOptions: {

@@ -71,6 +71,14 @@ class LessonSummaryScreen extends React.Component<IProps, {}> {
           <Text>English Recognition</Text>
           {mc_english && isLesson && <Text>💯</Text>}
         </ActionBlock>
+        <ActionBlock
+          onPress={this.handleNavigateToSection(
+            ROUTE_NAMES.MULTIPLE_CHOICE_VOICE,
+          )}
+        >
+          <Text>Mandarin Pronunciation</Text>
+          {mc_english && isLesson && <Text>💯</Text>}
+        </ActionBlock>
         {type !== "GAME" && (
           <React.Fragment>
             <Text style={SectionTextStyles}>Study</Text>

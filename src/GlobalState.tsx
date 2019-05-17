@@ -11,6 +11,7 @@ export interface ScoreStatus {
   mc_english: boolean;
   mc_mandarin: boolean;
   quiz_text: boolean;
+  mandarin_pronunciation: boolean;
   final_completed_lesson_index: number;
 }
 

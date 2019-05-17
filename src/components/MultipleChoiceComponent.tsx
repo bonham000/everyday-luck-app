@@ -1,3 +1,4 @@
+import { Audio } from "expo";
 import glamorous from "glamorous-native";
 import React from "react";
 import { GestureResponderEvent } from "react-native";
@@ -9,6 +10,7 @@ import {
 } from "@src/components/GlobalStateProvider";
 import Shaker from "@src/components/ShakerComponent";
 import { COLORS } from "@src/constants/Colors";
+import { fetchWordPronunciation } from "@src/tools/api";
 import { Lesson, Word } from "@src/tools/types";
 import { getAlternateChoices, MC_TYPE } from "@src/tools/utils";
 
@@ -34,6 +36,10 @@ interface IProps extends GlobalStateProps {
 }
 
 interface IState {
+  playbackError: boolean;
+  playIndex: number;
+  loadingSoundData: boolean;
+  soundFileUrls: ReadonlyArray<string>;
   choices: Lesson;
 }
 
@@ -47,25 +53,30 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
     super(props);
 
     this.state = {
+      playbackError: false,
+      playIndex: 0,
+      soundFileUrls: [""],
+      loadingSoundData: true,
       choices: this.deriveAlternateChoices(),
     };
   }
 
-  deriveAlternateChoices = () => {
-    return getAlternateChoices(
-      this.props.currentWord,
-      this.props.lessons.reduce((flat, curr) => [...flat, ...curr]),
-      this.props.multipleChoiceType,
-    );
-  };
+  componentDidMount(): void {
+    this.fetchSoundData();
+  }
 
   componentDidUpdate(nextProps: IProps): void {
     if (
       nextProps.currentWord.traditional !== this.props.currentWord.traditional
     ) {
-      this.setState({
-        choices: this.deriveAlternateChoices(),
-      });
+      this.setState(
+        {
+          playbackError: false,
+          loadingSoundData: true,
+          choices: this.deriveAlternateChoices(),
+        },
+        this.fetchSoundData,
+      );
     }
   }
 
@@ -84,11 +95,21 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
     return (
       <React.Fragment>
         <TitleContainer>
-          <QuizPromptText multipleChoiceType={multipleChoiceType}>
-            {multipleChoiceType === "MANDARIN"
-              ? currentWord.english
-              : correctWord}
-          </QuizPromptText>
+          {multipleChoiceType === "MANDARIN_PRONUNCIATION" ? (
+            <VoiceButton onPress={this.handlePronounce}>
+              <Text>
+                {this.state.loadingSoundData
+                  ? "Loading Sound Data..."
+                  : "Press to Speak!"}
+              </Text>
+            </VoiceButton>
+          ) : (
+            <QuizPromptText multipleChoiceType={multipleChoiceType}>
+              {multipleChoiceType === "MANDARIN"
+                ? currentWord.english
+                : correctWord}
+            </QuizPromptText>
+          )}
         </TitleContainer>
         <Shaker style={{ width: "100%" }} shouldShake={shouldShake}>
           <Container>
@@ -111,9 +132,9 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
                       ? `${choice[languageSetting]} - ${choice.pinyin} - ${
                           choice.english
                         }`
-                      : multipleChoiceType === "MANDARIN"
-                      ? choice[languageSetting]
-                      : choice.english}
+                      : multipleChoiceType === "ENGLISH"
+                      ? choice.english
+                      : choice[languageSetting]}
                   </QuizAnswerText>
                 </Choice>
               );
@@ -137,6 +158,55 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
       </React.Fragment>
     );
   }
+
+  handlePronounce = async () => {
+    if (!this.state.loadingSoundData) {
+      try {
+        const { soundFileUrls, playIndex } = this.state;
+        const soundObject = new Audio.Sound();
+        const uri = soundFileUrls[playIndex];
+
+        await soundObject.loadAsync({ uri });
+        const playbackStatus = await soundObject.playAsync();
+        console.log(playbackStatus);
+
+        this.setState({
+          playIndex: playIndex < soundFileUrls.length - 1 ? playIndex + 1 : 0,
+        });
+      } catch (error) {
+        console.log("Failed to play sound file!");
+        this.setState({
+          playbackError: true,
+        });
+      }
+    }
+  };
+
+  fetchSoundData = async () => {
+    const soundData = await fetchWordPronunciation(
+      this.props.currentWord[this.props.languageSetting],
+    );
+
+    const soundFileUrls = soundData.items
+      .map((result: { pathmp3?: string }) => {
+        if (result.pathmp3) {
+          return result.pathmp3;
+        } else {
+          return null;
+        }
+      })
+      .filter(Boolean);
+
+    this.setState({ soundFileUrls, loadingSoundData: false });
+  };
+
+  deriveAlternateChoices = () => {
+    return getAlternateChoices(
+      this.props.currentWord,
+      this.props.lessons.reduce((flat, curr) => [...flat, ...curr]),
+      this.props.multipleChoiceType,
+    );
+  };
 
   handleSelectAnswer = (isCorrect: boolean) => () => {
     if (!this.props.attempted) {
@@ -179,12 +249,19 @@ const QuizAnswerText = ({
     style={{
       color: !valid && attempted ? "white" : "black",
       fontWeight: shouldReveal ? "400" : "bold",
-      fontSize: shouldReveal ? 15 : multipleChoiceType === "MANDARIN" ? 45 : 22,
+      fontSize: shouldReveal ? 15 : multipleChoiceType === "ENGLISH" ? 22 : 45,
     }}
   >
     {children}
   </QuizAnswer>
 );
+
+const VoiceButton = glamorous.touchableOpacity({
+  width: "85%",
+  height: 45,
+  alignItems: "center",
+  justifyContent: "center",
+});
 
 const QuizAnswer = glamorous.text({
   color: "black",
@@ -202,7 +279,7 @@ const QuizPromptText = ({
   <Text
     style={{
       fontWeight: "bold",
-      fontSize: multipleChoiceType === "MANDARIN" ? 26 : 52,
+      fontSize: multipleChoiceType === "ENGLISH" ? 52 : 26,
     }}
   >
     {children}

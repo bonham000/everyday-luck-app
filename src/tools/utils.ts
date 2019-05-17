@@ -174,7 +174,7 @@ export const deriveContentFromLessons = (contentBlocks: LessonSet) => {
   return lessons;
 };
 
-export type MC_TYPE = "MANDARIN" | "ENGLISH";
+export type MC_TYPE = "MANDARIN" | "ENGLISH" | "MANDARIN_PRONUNCIATION";
 
 const wordFillerContent = {
   traditional: "N/A",
@@ -203,17 +203,7 @@ export const getAlternateChoices = (
     idx = randomInRange(0, alternates.length);
     option = alternates[idx];
 
-    if (mcType === "MANDARIN") {
-      if (
-        !chosen.has(idx) &&
-        option.english !== word.english &&
-        option.traditional !== word.traditional &&
-        option.traditional.length <= word.traditional.length + 2
-      ) {
-        chosen.add(idx);
-        choices = [...choices, option];
-      }
-    } else {
+    if (mcType === "ENGLISH") {
       choices = [
         word,
         ...knuthShuffle(word.english_alternate_choices)
@@ -225,6 +215,16 @@ export const getAlternateChoices = (
       ];
 
       break;
+    } else {
+      if (
+        !chosen.has(idx) &&
+        option.english !== word.english &&
+        option.traditional !== word.traditional &&
+        option.traditional.length <= word.traditional.length + 2
+      ) {
+        chosen.add(idx);
+        choices = choices.concat(option);
+      }
     }
   }
 
