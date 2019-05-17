@@ -50,6 +50,7 @@ const defaultScoreState = {
   mc_english: false,
   mc_mandarin: false,
   quiz_text: false,
+  mandarin_pronunciation: false,
   final_completed_lesson_index: 0,
 };
 
