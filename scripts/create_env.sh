@@ -7,6 +7,7 @@ const SENTRY_AUTH_TOKEN = \"\";
 const ANDROID_CLIENT_ID = \"\";
 const IOS_CLIENT_ID = \"\";
 const DRAGON_URI = \"\";
+const FORVO_API_KEY = \"\";
 
 export {
   SENTRY_DSN,
@@ -14,4 +15,5 @@ export {
   ANDROID_CLIENT_ID,
   IOS_CLIENT_ID,
   DRAGON_URI,
+  FORVO_API_KEY,
  };" > env.ts
