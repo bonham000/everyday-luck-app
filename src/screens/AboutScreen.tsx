@@ -1,7 +1,6 @@
 import { WebBrowser } from "expo";
 import glamorous from "glamorous-native";
 import React from "react";
-import { Text } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
 import { COLORS } from "@src/constants/Colors";
@@ -24,17 +23,23 @@ class AboutScreen extends React.Component<IProps, {}> {
   render(): JSX.Element {
     return (
       <Container>
-        <Text style={TextStyles}>
-          This is an app to help you learn Mandarin! All the content is
-          organized into a series of lessons. Future lessons are locked and
-          require you to complete unlocked lessons first. To complete a lesson
-          and unlock the next one, you have to get a perfect score on the quiz
-          and multiple choice tests for that lesson. Good luck!
-        </Text>
+        <DescriptionText>
+          This app uses the vocabulary content from the{" "}
+          <Bold>Hanyu Shuiping Kaoshi</Bold> (Chinese Proficiency Test). This
+          test is the standardized test of Standard Chinese language proficiency
+          of China for non-native speakers such as foreign students and overseas
+          Chinese.
+        </DescriptionText>
+        <DescriptionText>
+          There are 6 levels total, which comprise a total of 5,000 words and
+          about 2,500 characters. The goal of the app is to break these lessons
+          into a series of small challenges which can be mastered with a little
+          practice each day.
+        </DescriptionText>
         <Emoji>✨✨✨</Emoji>
-        <Text onPress={this.openAboutLink} style={LinkStyles}>
-          Source Code 👨‍💻
-        </Text>
+        <LinkText onPress={this.openAboutLink}>
+          This app is open source
+        </LinkText>
       </Container>
     );
   }
@@ -57,29 +62,34 @@ class AboutScreen extends React.Component<IProps, {}> {
 
 const Container = glamorous.view({
   flex: 1,
-  paddingTop: 75,
+  paddingTop: 25,
   alignItems: "center",
-  backgroundColor: "rgb(231,237,240)",
+  backgroundColor: COLORS.wordCardBackground,
 });
 
-const TextStyles = {
-  fontSize: 16,
-  width: "88%",
+const DescriptionText = glamorous.text({
+  marginTop: 18,
+  fontSize: 18,
+  width: "90%",
   fontWeight: "400",
   textAlign: "center",
-};
+});
 
 const Emoji = glamorous.text({
   fontSize: 34,
   marginTop: 22,
 });
 
-const LinkStyles = {
-  fontSize: 16,
+const LinkText = glamorous.text({
+  fontSize: 15,
   marginTop: 28,
-  fontWeight: "bold",
+  fontWeight: "300",
   color: COLORS.primaryBlue,
-};
+});
+
+const Bold = glamorous.text({
+  fontWeight: "bold",
+});
 
 /** ========================================================================
  * Export

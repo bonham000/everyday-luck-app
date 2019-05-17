@@ -87,9 +87,6 @@ class HomeScreen extends React.Component<IProps, {}> {
           <LessonBlockText isLocked={isLocked}>
             lesson {index + 1}
           </LessonBlockText>
-          <Text style={{ color: isLocked ? COLORS.inactive : COLORS.dark }}>
-            {CHINESE_NUMBER_MAP[index + 1]}
-          </Text>
         </LessonBlock>
       );
     });
