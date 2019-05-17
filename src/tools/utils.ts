@@ -5,7 +5,11 @@ import {
 } from "react-navigation";
 
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
-import { LessonScoreType, ScoreStatus } from "@src/GlobalState";
+import {
+  APP_LANGUAGE_SETTING,
+  LessonScoreType,
+  ScoreStatus,
+} from "@src/GlobalState";
 import {
   Lesson,
   LessonSet,
@@ -366,4 +370,18 @@ export const transformSoundFileResponse = (
       type: OptionType.EMPTY,
     };
   }
+};
+
+/**
+ * Parse the app language setting in a human readable way.
+ *
+ * @param languageSetting
+ * @returns parsed human readable string
+ */
+export const formatUserLanguageSetting = (
+  languageSetting: APP_LANGUAGE_SETTING,
+): string => {
+  return `${languageSetting.slice(0, 1).toUpperCase()}${languageSetting.slice(
+    1,
+  )} Chinese`;
 };

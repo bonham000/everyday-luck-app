@@ -25,6 +25,7 @@ import {
   setAppLanguageSetting,
 } from "@src/tools/store";
 import { LessonSet } from "@src/tools/types";
+import { formatUserLanguageSetting } from "./tools/utils";
 
 /** ========================================================================
  * Types
@@ -313,9 +314,19 @@ class RootContainer extends React.Component<{}, IState> {
   };
 
   handleSwitchLanguage = (callback: () => void) => {
+    const { languageSetting } = this.state;
+    const alternate =
+      languageSetting === APP_LANGUAGE_SETTING.SIMPLIFIED
+        ? APP_LANGUAGE_SETTING.TRADITIONAL
+        : APP_LANGUAGE_SETTING.SIMPLIFIED;
+
     Alert.alert(
-      "Your current setting is Simplified Chinese",
-      "Do you want to switch to Traditional Chinese? You can switch back at anytime.",
+      `Your current setting is ${formatUserLanguageSetting(
+        this.state.languageSetting,
+      )}`,
+      `Do you want to switch to ${formatUserLanguageSetting(
+        alternate,
+      )}? You can switch back at anytime.`,
       [
         {
           text: "Cancel",
@@ -340,7 +351,7 @@ class RootContainer extends React.Component<{}, IState> {
           },
           async () => {
             callback();
-            setAppLanguageSetting(APP_LANGUAGE_SETTING.TRADITIONAL);
+            this.handleSetLanguageSuccess(APP_LANGUAGE_SETTING.TRADITIONAL);
           },
         );
       case APP_LANGUAGE_SETTING.TRADITIONAL:
@@ -350,7 +361,7 @@ class RootContainer extends React.Component<{}, IState> {
           },
           async () => {
             callback();
-            setAppLanguageSetting(APP_LANGUAGE_SETTING.SIMPLIFIED);
+            this.handleSetLanguageSuccess(APP_LANGUAGE_SETTING.SIMPLIFIED);
           },
         );
       default:
@@ -363,10 +374,19 @@ class RootContainer extends React.Component<{}, IState> {
           },
           async () => {
             callback();
-            setAppLanguageSetting(APP_LANGUAGE_SETTING.SIMPLIFIED);
+            this.handleSetLanguageSuccess(APP_LANGUAGE_SETTING.SIMPLIFIED);
           },
         );
     }
+  };
+
+  handleSetLanguageSuccess = (languageSetting: APP_LANGUAGE_SETTING) => {
+    setAppLanguageSetting(languageSetting);
+    this.setState({
+      toastMessage: `Language set to ${formatUserLanguageSetting(
+        languageSetting,
+      )}`,
+    });
   };
 
   handleResetScores = () => {

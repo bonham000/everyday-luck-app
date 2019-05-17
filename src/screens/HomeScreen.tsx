@@ -8,7 +8,6 @@ import {
   GlobalStateProps,
   withGlobalState,
 } from "@src/components/GlobalStateProvider";
-import { CHINESE_NUMBER_MAP } from "@src/constants/ChineseCharacters";
 import { COLORS } from "@src/constants/Colors";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import {

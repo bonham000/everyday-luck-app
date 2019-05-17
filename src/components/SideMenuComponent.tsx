@@ -9,7 +9,7 @@ import {
 } from "@src/components/GlobalStateProvider";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import { logoutLocalUser } from "@src/tools/store";
-import { resetNavigation } from "@src/tools/utils";
+import { formatUserLanguageSetting, resetNavigation } from "@src/tools/utils";
 
 /** ========================================================================
  * Types
@@ -37,10 +37,6 @@ class SideMenuComponent extends React.Component<IProps, {}> {
 
   render(): JSX.Element {
     const { user, languageSetting } = this.props;
-
-    const languageSettingString = `${languageSetting
-      .slice(0, 1)
-      .toUpperCase()}${languageSetting.slice(1)} Chinese`;
     return (
       <SafeAreaView
         style={{ flex: 1, paddingTop: 75, paddingLeft: 6 }}
@@ -89,7 +85,7 @@ class SideMenuComponent extends React.Component<IProps, {}> {
         <Item
           style={{ position: "absolute", bottom: 65, left: 6, fontSize: 12 }}
         >
-          <Bold>Language:</Bold> {languageSettingString}
+          <Bold>Language:</Bold> {formatUserLanguageSetting(languageSetting)}
         </Item>
       </SafeAreaView>
     );
