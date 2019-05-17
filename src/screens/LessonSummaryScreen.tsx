@@ -52,7 +52,7 @@ class LessonSummaryScreen extends React.Component<IProps, {}> {
         {type !== "GAME" && <Text style={SectionTextStyles}>Practice</Text>}
         <LineBreak />
         <ActionBlock onPress={this.handleNavigateToSection(ROUTE_NAMES.QUIZ)}>
-          <Text>Quiz</Text>
+          <Text>Characters Quiz</Text>
           {quiz_text && isLesson && <Text>💯</Text>}
         </ActionBlock>
         <ActionBlock

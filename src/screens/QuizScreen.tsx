@@ -110,7 +110,7 @@ class QuizScreen extends React.Component<IProps, IState> {
         <Container>
           <Confetti untilStopped duration={1500} ref={this.setConfettiRef} />
           <ProgressText>
-            Progress: {progressCount} word
+            {progressCount} word
             {progressCount === 1 ? "" : "s"} completed,{" "}
             {wordContent.length - progressCount} remaining, {skipCount} skipped,{" "}
             {failCount} failed
@@ -452,9 +452,7 @@ const Container = glamorous.view({
 });
 
 const ProgressText = glamorous.text({
-  position: "absolute",
-  left: 5,
-  top: 5,
+  justifyContent: "center",
   fontSize: 10,
 });
 

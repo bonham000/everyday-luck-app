@@ -76,8 +76,10 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
       shouldShake,
       attempted,
       handleProceed,
+      languageSetting,
       multipleChoiceType,
     } = this.props;
+    const correctWord = currentWord[languageSetting];
     const shouldReveal = valid || attempted;
     return (
       <React.Fragment>
@@ -85,13 +87,13 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
           <QuizPromptText multipleChoiceType={multipleChoiceType}>
             {multipleChoiceType === "MANDARIN"
               ? currentWord.english
-              : currentWord.traditional}
+              : correctWord}
           </QuizPromptText>
         </TitleContainer>
         <Shaker style={{ width: "100%" }} shouldShake={shouldShake}>
           <Container>
             {this.state.choices.map(choice => {
-              const isCorrect = choice.traditional === currentWord.traditional;
+              const isCorrect = choice[languageSetting] === correctWord;
               return (
                 <Choice
                   valid={valid}
@@ -106,11 +108,11 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
                     multipleChoiceType={multipleChoiceType}
                   >
                     {shouldReveal
-                      ? `${choice.traditional} - ${choice.pinyin} - ${
+                      ? `${choice[languageSetting]} - ${choice.pinyin} - ${
                           choice.english
                         }`
                       : multipleChoiceType === "MANDARIN"
-                      ? choice.traditional
+                      ? choice[languageSetting]
                       : choice.english}
                   </QuizAnswerText>
                 </Choice>
@@ -149,8 +151,8 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
  */
 
 const TitleContainer = glamorous.view({
-  marginTop: 35,
-  padding: 15,
+  marginTop: 25,
+  padding: 12,
   width: "100%",
   alignItems: "center",
 });
@@ -176,8 +178,8 @@ const QuizAnswerText = ({
   <QuizAnswer
     style={{
       color: !valid && attempted ? "white" : "black",
-      fontSize: shouldReveal ? 15 : multipleChoiceType === "MANDARIN" ? 45 : 30,
       fontWeight: shouldReveal ? "400" : "bold",
+      fontSize: shouldReveal ? 15 : multipleChoiceType === "MANDARIN" ? 45 : 22,
     }}
   >
     {children}
