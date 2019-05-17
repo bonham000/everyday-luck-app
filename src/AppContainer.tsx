@@ -346,6 +346,10 @@ class RootContainer extends React.Component<{}, IState> {
           },
           async () => setAppLanguageSetting(APP_LANGUAGE_SETTING.SIMPLIFIED),
         );
+      default:
+        return console.log(
+          `Unknown language setting received: ${this.state.languageSetting}`,
+        );
     }
   };
 

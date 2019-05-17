@@ -15,8 +15,8 @@ export interface ScoreStatus {
 }
 
 export enum APP_LANGUAGE_SETTING {
-  SIMPLIFIED = "SIMPLIFIED",
-  TRADITIONAL = "TRADITIONAL",
+  SIMPLIFIED = "simplified",
+  TRADITIONAL = "traditional",
 }
 
 export type LessonScoreType = "mc_english" | "mc_mandarin" | "quiz_text";

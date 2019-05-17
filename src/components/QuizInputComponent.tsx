@@ -53,12 +53,14 @@ const QuizInput = ({
   didReveal,
   languageSetting,
 }: IProps) => {
+  const correctValue = currentWord[languageSetting];
+
   /**
    * Function to check answer on submit.
    */
   const handleCheckAnswer = () => {
     if (value) {
-      handleCheck(value === currentWord.traditional);
+      handleCheck(value === correctValue);
     }
   };
 
@@ -66,7 +68,7 @@ const QuizInput = ({
     <React.Fragment>
       {valid || revealAnswer ? (
         <QuizBox>
-          <MandarinText>{currentWord.traditional}</MandarinText>
+          <MandarinText>{correctValue}</MandarinText>
           <PinyinText>{currentWord.pinyin}</PinyinText>
         </QuizBox>
       ) : (
