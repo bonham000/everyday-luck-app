@@ -219,6 +219,8 @@ export const getAlternateChoices = (
       if (
         !chosen.has(idx) &&
         option.english !== word.english &&
+        option.pinyin !== word.pinyin &&
+        option.simplified !== word.simplified &&
         option.traditional !== word.traditional &&
         option.traditional.length <= word.traditional.length + 2
       ) {
