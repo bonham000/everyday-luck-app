@@ -18,6 +18,7 @@
     "test:clear": "jest --clearCache && rm -rf build",
     "publish": "expo publish --non-interactive",
     "build": "expo build:android",
+    "parse-words": "tsc && npx babel-node --presets env build/scripts/parse_vocabulary_list.js",
     "scrap": "tsc && npx babel-node --presets env build/scripts/scrap_audio.js"
   },
   "dependencies": {
