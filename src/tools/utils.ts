@@ -335,6 +335,8 @@ export interface SoundFileResponse {
   items: ReadonlyArray<AudioItem>;
 }
 
+const API_RATE_LIMIT_REACHED = "API_RATE_LIMIT_REACHED";
+
 /**
  * Parse a response from the Forzo API and return audio file uri,
  * wrapped in an Option result type in case no result can be found.
@@ -347,6 +349,7 @@ export const transformSoundFileResponse = (
 ): Option<string> => {
   if (Array.isArray(response)) {
     return {
+      message: API_RATE_LIMIT_REACHED,
       type: OptionType.EMPTY,
     };
   }
@@ -402,28 +405,56 @@ const batchList = <T>(
 };
 
 export const prefetchWordsList = async (words: ReadonlyArray<string>) => {
+  const total = words.length;
+  let processed = 0;
+  let apiRateLimitReached = false;
+
   const batches = batchList(words, 2);
 
-  const result = Promise.all(
-    batches.map(async (batch: ReadonlyArray<string>) => {
-      return Promise.all(
-        batch
-          .map(async (word: string) => {
-            const pronunciationResult = await fetchWordPronunciation(word);
-            switch (pronunciationResult.type) {
-              case ResultType.OK:
-                const uri = transformSoundFileResponse(
-                  pronunciationResult.data,
-                );
-                return { word, uri };
-              case ResultType.ERROR:
+  console.log(`Starting to process words list - processing ${total} words:`);
+
+  const result = await Promise.all(
+    batches
+      .map(async (batch: ReadonlyArray<string>) => {
+        if (apiRateLimitReached) {
+          return null;
+        }
+
+        return Promise.all(
+          batch
+            .map(async (word: string) => {
+              if (apiRateLimitReached) {
                 return null;
-            }
-          })
-          .filter(Boolean),
-      );
-    }),
+              }
+
+              const pronunciationResult = await fetchWordPronunciation(word);
+              switch (pronunciationResult.type) {
+                case ResultType.OK:
+                  const uriResult = transformSoundFileResponse(
+                    pronunciationResult.data,
+                  );
+
+                  if (uriResult.type === OptionType.OK) {
+                    processed++;
+                    return { word, uri: uriResult.data };
+                  } else {
+                    if (uriResult.message === API_RATE_LIMIT_REACHED) {
+                      apiRateLimitReached = true;
+                    }
+                    return null;
+                  }
+                case ResultType.ERROR:
+                  return null;
+              }
+            })
+            .filter(Boolean),
+        );
+      })
+      .filter(Boolean),
   );
+
+  console.log(`Processed a total of ${processed} out of ${total} words.`);
+  console.log(`API rate limited reached: ${apiRateLimitReached}`);
 
   return result;
 };

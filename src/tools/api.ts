@@ -3,7 +3,7 @@ import axios from "axios";
 import { ScoreStatus } from "@src/GlobalState";
 import CONFIG from "@src/tools/config";
 import { LessonSet, Result, ResultType } from "@src/tools/types";
-import { SoundFileResponse } from "./utils";
+import { SoundFileResponse } from "@src/tools/utils";
 
 /** ========================================================================
  * Types & Config

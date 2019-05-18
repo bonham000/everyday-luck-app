@@ -53,6 +53,7 @@ export interface OptionSuccess<T> {
 }
 
 export interface Empty {
+  message?: string;
   type: OptionType.EMPTY;
 }
 
