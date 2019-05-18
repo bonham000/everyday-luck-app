@@ -6,6 +6,7 @@
     "outDir": "build",
     "lib": ["es2015", "es2016", "es2017"],
     "moduleResolution": "node",
+    "resolveJsonModule": true,
     "esModuleInterop": true,
     "noEmitHelpers": true,
     "noImplicitReturns": true,

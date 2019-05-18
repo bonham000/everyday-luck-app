@@ -310,7 +310,7 @@ export const getReviewLessonSet = (
     .reduce((flattened, lesson) => flattened.concat(lesson));
 };
 
-interface AudioItem {
+export interface AudioItem {
   addtime: string;
   code: string;
   country: string;
