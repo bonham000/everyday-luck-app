@@ -12,7 +12,11 @@ import Shaker from "@src/components/ShakerComponent";
 import { COLORS } from "@src/constants/Colors";
 import { audioRecordingsClass } from "@src/tools/dictionary";
 import { Lesson, OptionType, Word } from "@src/tools/types";
-import { getAlternateChoices, MC_TYPE } from "@src/tools/utils";
+import {
+  getAlternateChoices,
+  getAudioFileUrl,
+  MC_TYPE,
+} from "@src/tools/utils";
 
 /** ========================================================================
  * Types
@@ -228,7 +232,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
     switch (soundData.type) {
       case OptionType.OK:
         const soundObject = new Audio.Sound();
-        const uri = soundData.data.pathmp3;
+        const uri = getAudioFileUrl(soundData.data[0].filePath || "");
         await soundObject.loadAsync({
           uri,
         });
@@ -254,7 +258,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
         if (soundData.type === OptionType.OK) {
           const soundObject = new Audio.Sound();
           await soundObject.loadAsync({
-            uri: soundData.data.pathmp3,
+            uri: getAudioFileUrl(soundData.data[0].filePath || ""),
           });
           return { word, soundObject };
         } else {

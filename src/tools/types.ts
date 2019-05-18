@@ -79,8 +79,9 @@ export interface AudioItem {
   num_positive_votes: number;
   num_votes: number;
   original: string;
-  pathmp3: string;
-  pathogg: string;
+  pathmp3?: string;
+  pathogg?: string;
+  filePath?: string;
   rate: number;
   sex: string;
   username: string;

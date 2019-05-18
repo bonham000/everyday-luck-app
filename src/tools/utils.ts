@@ -22,6 +22,7 @@ import {
   Word,
 } from "@src/tools/types";
 import { fetchWordPronunciation } from "./api";
+import CONFIG from "./config";
 
 export const assertUnreachable = (x: never): never => {
   throw new Error(`Unreachable code! -> ${JSON.stringify(x)}`);
@@ -373,7 +374,7 @@ export const prefetchWordsList = async (words: ReadonlyArray<string>) => {
   let processed = 0;
   let apiRateLimitReached = false;
 
-  const batches = batchList(words, 2);
+  const batches = batchList(words);
 
   console.log(`\nStarting to process words list ---`);
   console.log(`Processing ${total} words in ${batches.length} batches:\n`);
@@ -442,9 +443,17 @@ export const prefetchWordsList = async (words: ReadonlyArray<string>) => {
 /**
  * Flatten the lesson set data into a single array of word items.
  *
- * @param lesosns
+ * @param lessons
  * @returns lesson flattened lesson data
  */
 export const flattenLessonSet = (lessons: LessonSet): Lesson => {
   return lessons.reduce((flat, lesson) => flat.concat(lesson));
+};
+
+/**
+ * Create the file path url for a word mp3 file recording.
+ */
+export const getAudioFileUrl = (fileKey: string): string => {
+  const encodedFileKey = encodeURIComponent(fileKey);
+  return `${CONFIG.DRAGON_URI}/static/${encodedFileKey}.mp3`;
 };
