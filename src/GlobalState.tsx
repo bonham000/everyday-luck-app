@@ -20,7 +20,11 @@ export enum APP_LANGUAGE_SETTING {
   TRADITIONAL = "traditional",
 }
 
-export type LessonScoreType = "mc_english" | "mc_mandarin" | "quiz_text";
+export type LessonScoreType =
+  | "mc_english"
+  | "mc_mandarin"
+  | "quiz_text"
+  | "mandarin_pronunciation";
 
 const GlobalState = React.createContext({
   experience: 0,

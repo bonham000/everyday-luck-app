@@ -96,7 +96,7 @@ class RootContainer extends React.Component<{}, IState> {
             {
               tryingToCloseApp: true,
             },
-            () => this.setToastMessage("Press again to close app ✌"),
+            () => this.setToastMessage("Press again to close app"),
           );
           return true;
         } else {
