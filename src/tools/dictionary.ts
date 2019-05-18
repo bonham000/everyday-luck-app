@@ -5,10 +5,22 @@ interface IAudioRecordingsDictionary {
   [key: string]: ReadonlyArray<AudioItem>;
 }
 
-const AudioRecordingsDictionary: IAudioRecordingsDictionary = AudioRecordings;
+class AudioRecordingsClass {
+  recordings: IAudioRecordingsDictionary = AudioRecordings;
 
-export const getAudioRecordingsForWord = (word: string): AudioItem => {
-  const result = AudioRecordingsDictionary[word][0];
+  getAudioRecordingsForWord = (word: string): AudioItem => {
+    const result = this.recordings[word][0];
 
-  return result;
-};
+    return result;
+  };
+
+  audioRecordingExists = (word: string): boolean => {
+    return word in this.recordings;
+  };
+
+  getFullDictionaryObject = () => {
+    return this.recordings;
+  };
+}
+
+export const audioRecordingsClass = new AudioRecordingsClass();

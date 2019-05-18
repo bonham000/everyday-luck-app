@@ -438,3 +438,13 @@ export const prefetchWordsList = async (words: ReadonlyArray<string>) => {
 
   return flattenedResults;
 };
+
+/**
+ * Flatten the lesson set data into a single array of word items.
+ *
+ * @param lesosns
+ * @returns lesson flattened lesson data
+ */
+export const flattenLessonSet = (lessons: LessonSet): Lesson => {
+  return lessons.reduce((flat, lesson) => flat.concat(lesson));
+};

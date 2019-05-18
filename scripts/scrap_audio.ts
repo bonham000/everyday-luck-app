@@ -1,32 +1,48 @@
 import fs from "fs";
 
-import { getAudioRecordingsForWord } from "@src/tools/dictionary";
-import { prefetchWordsList } from "@src/tools/utils";
+import { fetchLessonSet } from "@src/tools/api";
+import { audioRecordingsClass } from "@src/tools/dictionary";
+import { flattenLessonSet, prefetchWordsList } from "@src/tools/utils";
 
-const words: ReadonlyArray<string> = [
-  "我",
-  "我們",
-  // "你",
-  // "你們",
-  // "他",
-  // "她",
-  // "他們",
-  // "她們",
-  // "天天",
-];
+const scrapAudioRecordings = async () => {
+  const lessonSet = await fetchLessonSet();
 
-const scrap = async () => {
-  const a = getAudioRecordingsForWord("我");
-  return console.log(a);
+  if (!lessonSet) {
+    return console.log("Could not fetch lessons!");
+  }
 
-  const result = await prefetchWordsList(words);
+  const flattenedLessons = flattenLessonSet(lessonSet);
+
+  const missingWords = flattenedLessons
+    .filter(
+      word => !audioRecordingsClass.audioRecordingExists(word.traditional),
+    )
+    .map(word => word.traditional);
+
+  if (missingWords.length === 0) {
+    return console.log("\nNo words found without recordings - aborting.\n");
+  }
+
+  console.log(
+    `Found ${missingWords.length} words without recordings out of a total of ${
+      flattenedLessons.length
+    } words - processing now...`,
+  );
+
+  const result = await prefetchWordsList(missingWords);
+
+  const updatedDictionary = {
+    ...audioRecordingsClass.getFullDictionaryObject(),
+    ...result,
+  };
+
   console.log("Writing JSON result...");
   fs.writeFileSync(
     "src/assets/audio-result.json",
-    JSON.stringify(result),
+    JSON.stringify(updatedDictionary),
     "utf8",
   );
-  console.log("Finished!");
+  console.log("\nFinished!\n");
 };
 
-scrap();
+scrapAudioRecordings();

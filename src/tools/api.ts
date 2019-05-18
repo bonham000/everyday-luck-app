@@ -108,12 +108,12 @@ export const updateUserExperience = async (
  * Fetch lesson content.
  */
 export const fetchLessonSet = async (): Promise<LessonSet | null> => {
+  const URL = `${CONFIG.DRAGON_URI}/lessons`;
   try {
-    const URL = `${CONFIG.DRAGON_URI}/lessons`;
     const result = await axios.get<LessonSet>(URL);
     return result.data;
   } catch (err) {
-    console.log(err);
+    console.log(`Failed to fetch lessons at url: ${URL}`);
     return null;
   }
 };
