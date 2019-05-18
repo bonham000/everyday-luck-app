@@ -10,13 +10,9 @@ import {
 } from "@src/components/GlobalStateProvider";
 import Shaker from "@src/components/ShakerComponent";
 import { COLORS } from "@src/constants/Colors";
-import { fetchWordPronunciation } from "@src/tools/api";
-import { Lesson, OptionType, ResultType, Word } from "@src/tools/types";
-import {
-  getAlternateChoices,
-  MC_TYPE,
-  transformSoundFileResponse,
-} from "@src/tools/utils";
+import { audioRecordingsClass } from "@src/tools/dictionary";
+import { Lesson, OptionType, Word } from "@src/tools/types";
+import { getAlternateChoices, MC_TYPE } from "@src/tools/utils";
 
 /** ========================================================================
  * Types
@@ -74,7 +70,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
 
   componentDidMount(): void {
     if (this.props.multipleChoiceType === "MANDARIN_PRONUNCIATION") {
-      this.fetchSoundData();
+      this.fetchSoundDataForWord();
       this.prefetchLessonSoundData();
     }
   }
@@ -110,7 +106,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
               loadingSoundData: true,
               choices: this.deriveAlternateChoices(),
             },
-            this.fetchSoundData,
+            this.fetchSoundDataForWord,
           );
         }
       }
@@ -134,7 +130,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
         <TitleContainer>
           {multipleChoiceType === "MANDARIN_PRONUNCIATION" &&
           !this.state.playbackError ? (
-            <VoiceButton onPress={this.handlePronounce}>
+            <VoiceButton onPress={this.handlePronounceWord}>
               <Text>
                 {this.state.loadingSoundData
                   ? "Loading Sound Data..."
@@ -199,11 +195,17 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
     );
   }
 
-  handlePronounce = async () => {
+  handlePronounceWord = async () => {
     if (!this.state.loadingSoundData) {
       try {
         if (this.state.playedOnce) {
-          await this.state.currentSoundAudio.replayAsync({ positionMillis: 0 });
+          try {
+            await this.state.currentSoundAudio.replayAsync({
+              positionMillis: 0,
+            });
+          } catch (err) {
+            console.log("Error replaying sound file?");
+          }
         } else {
           await this.state.currentSoundAudio.playAsync();
         }
@@ -219,31 +221,23 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
     }
   };
 
-  fetchSoundData = async () => {
-    const soundData = await fetchWordPronunciation(
-      this.props.currentWord[this.props.languageSetting],
-    );
+  fetchSoundDataForWord = async () => {
+    const word = this.props.currentWord[this.props.languageSetting];
+    const soundData = audioRecordingsClass.getAudioRecordingsForWord(word);
 
     switch (soundData.type) {
-      case ResultType.OK:
-        const soundFileResult = transformSoundFileResponse(soundData.data);
+      case OptionType.OK:
+        const soundObject = new Audio.Sound();
+        const uri = soundData.data.pathmp3;
+        await soundObject.loadAsync({
+          uri,
+        });
+        return this.setState({
+          loadingSoundData: false,
+          currentSoundAudio: soundObject,
+        });
 
-        switch (soundFileResult.type) {
-          case OptionType.OK:
-            const soundObject = new Audio.Sound();
-            await soundObject.loadAsync({
-              uri: soundFileResult.data[0].pathmp3,
-            });
-            return this.setState({
-              loadingSoundData: false,
-              currentSoundAudio: soundObject,
-            });
-          case OptionType.EMPTY:
-            console.log("No sound file uri found!!!");
-            return this.setState({ playbackError: true });
-        }
-        break;
-      case ResultType.ERROR:
+      case OptionType.EMPTY:
         console.log("No sound file uri found!!!");
         return this.setState({ playbackError: true });
     }
@@ -254,40 +248,32 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
       return word[this.props.languageSetting];
     });
 
-    const fetchWords = await Promise.all(
+    const wordAudioMap = (await Promise.all(
       words.map(async (word: string) => {
-        const result = await fetchWordPronunciation(word);
-
-        switch (result.type) {
-          case ResultType.OK:
-            const uriResult = transformSoundFileResponse(result.data);
-
-            switch (uriResult.type) {
-              case OptionType.OK:
-                const soundObject = new Audio.Sound();
-                await soundObject.loadAsync({
-                  uri: uriResult.data[0].pathmp3,
-                });
-                return { word, soundObject };
-              case OptionType.EMPTY:
-                return { word, soundObject: null };
-            }
-            break;
-          case ResultType.ERROR:
-          default:
-            return { word, soundObject: null };
+        const soundData = audioRecordingsClass.getAudioRecordingsForWord(word);
+        if (soundData.type === OptionType.OK) {
+          const soundObject = new Audio.Sound();
+          await soundObject.loadAsync({
+            uri: soundData.data.pathmp3,
+          });
+          return { word, soundObject };
+        } else {
+          return null;
         }
-
-        return { word, soundObject: null };
       }),
-    );
-
-    const wordAudioMap = fetchWords.reduce((map, { word, soundObject }) => {
-      return {
-        ...map,
-        [word]: soundObject,
-      };
-    }, {});
+    ))
+      .filter(Boolean)
+      .reduce((map, recordingData) => {
+        if (recordingData) {
+          const { word, soundObject } = recordingData;
+          return {
+            ...map,
+            [word]: soundObject,
+          };
+        } else {
+          return map;
+        }
+      }, {});
 
     this.setState({ wordAudioMap });
   };

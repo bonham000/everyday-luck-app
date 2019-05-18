@@ -1,5 +1,5 @@
 import AudioRecordings from "@src/assets/audio-result.json";
-import { AudioItem } from "@src/tools/types";
+import { AudioItem, Option, OptionType } from "@src/tools/types";
 
 interface IAudioRecordingsDictionary {
   [key: string]: ReadonlyArray<AudioItem>;
@@ -8,10 +8,18 @@ interface IAudioRecordingsDictionary {
 class AudioRecordingsClass {
   recordings: IAudioRecordingsDictionary = AudioRecordings;
 
-  getAudioRecordingsForWord = (word: string): AudioItem => {
-    const result = this.recordings[word][0];
-
-    return result;
+  getAudioRecordingsForWord = (word: string): Option<AudioItem> => {
+    if (word in this.recordings) {
+      const result = this.recordings[word][0];
+      return {
+        data: result,
+        type: OptionType.OK,
+      };
+    } else {
+      return {
+        type: OptionType.EMPTY,
+      };
+    }
   };
 
   audioRecordingExists = (word: string): boolean => {
