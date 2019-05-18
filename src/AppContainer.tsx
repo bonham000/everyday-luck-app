@@ -10,6 +10,7 @@ import GlobalContext, {
   APP_LANGUAGE_SETTING,
   LessonScoreType,
   ScoreStatus,
+  WordDictionary,
 } from "@src/GlobalState";
 import createAppNavigator from "@src/NavigatorConfig";
 import {
@@ -25,7 +26,10 @@ import {
   setAppLanguageSetting,
 } from "@src/tools/store";
 import { LessonSet } from "@src/tools/types";
-import { formatUserLanguageSetting } from "./tools/utils";
+import {
+  createWordDictionaryFromLessons,
+  formatUserLanguageSetting,
+} from "@src/tools/utils";
 
 /** ========================================================================
  * Types
@@ -44,6 +48,7 @@ interface IState {
   tryingToCloseApp: boolean;
   userScoreStatus: ScoreStatus;
   languageSetting: APP_LANGUAGE_SETTING;
+  wordDictionary: WordDictionary;
   experience: number;
 }
 
@@ -74,6 +79,7 @@ class RootContainer extends React.Component<{}, IState> {
       loading: true,
       toastMessage: "",
       updating: false,
+      wordDictionary: {},
       tryingToCloseApp: false,
       appState: AppState.currentState,
       userScoreStatus: defaultScoreState,
@@ -144,6 +150,7 @@ class RootContainer extends React.Component<{}, IState> {
       lessons,
       updating,
       experience,
+      wordDictionary,
       languageSetting,
       userScoreStatus,
     } = this.state;
@@ -165,6 +172,7 @@ class RootContainer extends React.Component<{}, IState> {
         <GlobalContext.Provider
           value={{
             experience,
+            wordDictionary,
             languageSetting,
             userScoreStatus,
             lessons: lessonSet,
@@ -203,9 +211,11 @@ class RootContainer extends React.Component<{}, IState> {
         error: true,
       });
     } else {
+      const wordDictionary = createWordDictionaryFromLessons(lessons);
       this.setState(
         {
           lessons,
+          wordDictionary,
           languageSetting: await getAppLanguageSetting(),
         },
         this.setupUserSession,

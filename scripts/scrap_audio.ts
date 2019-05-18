@@ -2,7 +2,7 @@ import fs from "fs";
 import https from "https";
 
 import { fetchLessonSet } from "@src/tools/api";
-import { IAudioRecordingsDictionary } from "@src/tools/dictionary";
+import { IAudioRecordingsDictionary } from "@src/tools/audio-dictionary";
 import { flattenLessonSet, prefetchWordsList } from "@src/tools/utils";
 
 /**

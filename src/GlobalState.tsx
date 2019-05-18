@@ -1,7 +1,7 @@
 import React from "react";
 
 import { GoogleSigninUser } from "@src/tools/store";
-import { LessonSet } from "@src/tools/types";
+import { LessonSet, Word } from "@src/tools/types";
 
 /** ========================================================================
  * Context for toast message
@@ -13,6 +13,10 @@ export interface ScoreStatus {
   quiz_text: boolean;
   mandarin_pronunciation: boolean;
   final_completed_lesson_index: number;
+}
+
+export interface WordDictionary {
+  [key: string]: Word;
 }
 
 export enum APP_LANGUAGE_SETTING {
@@ -31,6 +35,7 @@ const GlobalState = React.createContext({
   user: {},
   lessons: [] as LessonSet,
   userScoreStatus: {},
+  wordDictionary: {},
   languageSetting: APP_LANGUAGE_SETTING.SIMPLIFIED,
   setToastMessage: (toastMessage: string) => {
     // Handle setting Toast message

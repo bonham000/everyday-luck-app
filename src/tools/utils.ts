@@ -9,6 +9,7 @@ import {
   APP_LANGUAGE_SETTING,
   LessonScoreType,
   ScoreStatus,
+  WordDictionary,
 } from "@src/GlobalState";
 import {
   AudioItem,
@@ -459,4 +460,30 @@ export const flattenLessonSet = (lessons: LessonSet): Lesson => {
 export const getAudioFileUrl = (fileKey: string): string => {
   const encodedFileKey = encodeURIComponent(fileKey);
   return `${CONFIG.DRAGON_URI}/static/${encodedFileKey}.mp3`;
+};
+
+/**
+ * Map all lesson words to a dictionary to have instant lookup of a
+ * word object given traditional, simplified, or english keys.
+ *
+ * @param lessons
+ * @returns word dictionary object
+ */
+export const createWordDictionaryFromLessons = (
+  lessons: LessonSet,
+): WordDictionary => {
+  const allWords = flattenLessonSet(lessons);
+
+  const wordDictionary: WordDictionary = {};
+
+  for (const word of allWords) {
+    // tslint:disable-next-line
+    wordDictionary[word.traditional] = word;
+    // tslint:disable-next-line
+    wordDictionary[word.simplified] = word;
+    // tslint:disable-next-line
+    wordDictionary[word.english] = word;
+  }
+
+  return wordDictionary;
 };

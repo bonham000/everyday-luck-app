@@ -4,6 +4,7 @@ import GlobalState, {
   APP_LANGUAGE_SETTING,
   LessonScoreType,
   ScoreStatus,
+  WordDictionary,
 } from "@src/GlobalState";
 import { GoogleSigninUser } from "@src/tools/store";
 import { LessonSet } from "@src/tools/types";
@@ -20,6 +21,7 @@ export interface GlobalStateProps {
   lessons: LessonSet;
   userScoreStatus: ScoreStatus;
   experience: number;
+  wordDictionary: WordDictionary;
   languageSetting: APP_LANGUAGE_SETTING;
   setToastMessage: (toastMessage: string) => void;
   openLanguageSelectionMenu: () => void;
@@ -52,21 +54,7 @@ class GlobalStateProvider extends React.Component<IProps, IState> {
 
     return (
       <GlobalState.Consumer>
-        {value => (
-          <Component
-            {...rest}
-            user={value.user}
-            lessons={value.lessons}
-            onSignin={value.onSignin}
-            experience={value.experience}
-            setToastMessage={value.setToastMessage}
-            languageSetting={value.languageSetting}
-            setLessonScore={value.setLessonScore}
-            userScoreStatus={value.userScoreStatus}
-            handleResetScores={value.handleResetScores}
-            handleSwitchLanguage={value.handleSwitchLanguage}
-          />
-        )}
+        {value => <Component {...rest} {...value} />}
       </GlobalState.Consumer>
     );
   }

@@ -10,7 +10,7 @@ import {
 } from "@src/components/GlobalStateProvider";
 import Shaker from "@src/components/ShakerComponent";
 import { COLORS } from "@src/constants/Colors";
-import { audioRecordingsClass } from "@src/tools/dictionary";
+import { audioRecordingsClass } from "@src/tools/audio-dictionary";
 import { Lesson, OptionType, Word } from "@src/tools/types";
 import {
   getAlternateChoices,
@@ -171,22 +171,23 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
             })}
           </Container>
         </Shaker>
-        {multipleChoiceType === "MANDARIN_PRONUNCIATION" &&
-        !this.state.playbackError ? (
-          <VoiceButton onPress={this.handlePronounceWord}>
-            <Text>
-              {this.state.loadingSoundData
-                ? "Loading Sound File..."
-                : this.state.bufferingSoundFile
-                ? "Preparing sound file"
-                : "Press to Speak!"}
-            </Text>
-          </VoiceButton>
-        ) : (
-          <QuizPromptText multipleChoiceType={multipleChoiceType}>
-            {currentWord.english}
-          </QuizPromptText>
-        )}
+        {multipleChoiceType === "MANDARIN_PRONUNCIATION" ? (
+          !this.state.playbackError ? (
+            <VoiceButton onPress={this.handlePronounceWord}>
+              <Text>
+                {this.state.loadingSoundData
+                  ? "Loading Sound File..."
+                  : this.state.bufferingSoundFile
+                  ? "Preparing sound file"
+                  : "Press to Speak!"}
+              </Text>
+            </VoiceButton>
+          ) : (
+            <QuizPromptText multipleChoiceType={multipleChoiceType}>
+              {currentWord.english}
+            </QuizPromptText>
+          )
+        ) : null}
         {shouldReveal ? (
           <Button
             dark
