@@ -11,7 +11,7 @@ import {
 import Shaker from "@src/components/ShakerComponent";
 import { COLORS } from "@src/constants/Colors";
 import { fetchWordPronunciation } from "@src/tools/api";
-import { Lesson, OptionType, Word } from "@src/tools/types";
+import { Lesson, OptionType, ResultType, Word } from "@src/tools/types";
 import {
   getAlternateChoices,
   MC_TYPE,
@@ -224,19 +224,26 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
       this.props.currentWord[this.props.languageSetting],
     );
 
-    const soundFileResult = transformSoundFileResponse(soundData);
+    switch (soundData.type) {
+      case ResultType.OK:
+        const soundFileResult = transformSoundFileResponse(soundData.data);
 
-    switch (soundFileResult.type) {
-      case OptionType.OK:
-        const soundObject = new Audio.Sound();
-        await soundObject.loadAsync({
-          uri: soundFileResult.data,
-        });
-        return this.setState({
-          loadingSoundData: false,
-          currentSoundAudio: soundObject,
-        });
-      case OptionType.EMPTY:
+        switch (soundFileResult.type) {
+          case OptionType.OK:
+            const soundObject = new Audio.Sound();
+            await soundObject.loadAsync({
+              uri: soundFileResult.data,
+            });
+            return this.setState({
+              loadingSoundData: false,
+              currentSoundAudio: soundObject,
+            });
+          case OptionType.EMPTY:
+            console.log("No sound file uri found!!!");
+            return this.setState({ playbackError: true });
+        }
+        break;
+      case ResultType.ERROR:
         console.log("No sound file uri found!!!");
         return this.setState({ playbackError: true });
     }
@@ -248,20 +255,30 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
     });
 
     const fetchWords = await Promise.all(
-      words.map(async word => {
+      words.map(async (word: string) => {
         const result = await fetchWordPronunciation(word);
-        const uriResult = transformSoundFileResponse(result);
 
-        switch (uriResult.type) {
-          case OptionType.OK:
-            const soundObject = new Audio.Sound();
-            await soundObject.loadAsync({
-              uri: uriResult.data,
-            });
-            return { word, soundObject };
-          case OptionType.EMPTY:
+        switch (result.type) {
+          case ResultType.OK:
+            const uriResult = transformSoundFileResponse(result.data);
+
+            switch (uriResult.type) {
+              case OptionType.OK:
+                const soundObject = new Audio.Sound();
+                await soundObject.loadAsync({
+                  uri: uriResult.data,
+                });
+                return { word, soundObject };
+              case OptionType.EMPTY:
+                return { word, soundObject: null };
+            }
+            break;
+          case ResultType.ERROR:
+          default:
             return { word, soundObject: null };
         }
+
+        return { word, soundObject: null };
       }),
     );
 

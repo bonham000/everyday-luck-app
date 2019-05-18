@@ -36,7 +36,7 @@ export interface ResultSuccess<T> {
 
 export interface Error {
   err: Error;
-  message: string;
+  message?: string;
   type: ResultType.ERROR;
 }
 

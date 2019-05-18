@@ -16,8 +16,10 @@ import {
   LessonSummaryType,
   Option,
   OptionType,
+  ResultType,
   Word,
 } from "@src/tools/types";
+import { fetchWordPronunciation } from "./api";
 
 export const assertUnreachable = (x: never): never => {
   throw new Error(`Unreachable code! -> ${JSON.stringify(x)}`);
@@ -384,4 +386,44 @@ export const formatUserLanguageSetting = (
   return `${languageSetting.slice(0, 1).toUpperCase()}${languageSetting.slice(
     1,
   )} Chinese`;
+};
+
+const batchList = <T>(
+  data: ReadonlyArray<T>,
+  batchSize: number = 10,
+): ReadonlyArray<ReadonlyArray<T>> => {
+  let result: ReadonlyArray<ReadonlyArray<T>> = [];
+
+  for (let i = 0; i < data.length; i += batchSize) {
+    result = result.concat([data.slice(i, i + batchSize)]);
+  }
+
+  return result;
+};
+
+export const prefetchWordsList = async (words: ReadonlyArray<string>) => {
+  const batches = batchList(words, 2);
+
+  const result = Promise.all(
+    batches.map(async (batch: ReadonlyArray<string>) => {
+      return Promise.all(
+        batch
+          .map(async (word: string) => {
+            const pronunciationResult = await fetchWordPronunciation(word);
+            switch (pronunciationResult.type) {
+              case ResultType.OK:
+                const uri = transformSoundFileResponse(
+                  pronunciationResult.data,
+                );
+                return { word, uri };
+              case ResultType.ERROR:
+                return null;
+            }
+          })
+          .filter(Boolean),
+      );
+    }),
+  );
+
+  return result;
 };

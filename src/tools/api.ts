@@ -1,6 +1,9 @@
+import axios from "axios";
+
 import { ScoreStatus } from "@src/GlobalState";
 import CONFIG from "@src/tools/config";
-import { LessonSet } from "@src/tools/types";
+import { LessonSet, Result, ResultType } from "@src/tools/types";
+import { SoundFileResponse } from "./utils";
 
 /** ========================================================================
  * Types & Config
@@ -103,9 +106,8 @@ export const updateUserExperience = async (
 export const fetchLessonSet = async (): Promise<LessonSet | null> => {
   try {
     const URL = `${CONFIG.DRAGON_URI}/lessons`;
-    const response = await fetch(URL);
-    const result: LessonSet = await response.json();
-    return result;
+    const result = await axios.get<LessonSet>(URL);
+    return result.data;
   } catch (err) {
     console.log(err);
     return null;
@@ -115,16 +117,23 @@ export const fetchLessonSet = async (): Promise<LessonSet | null> => {
 /**
  * Fetch word pronunciation.
  */
-export const fetchWordPronunciation = async (word: string) => {
+export const fetchWordPronunciation = async (
+  word: string,
+): Promise<Result<SoundFileResponse>> => {
   const url = `https://apifree.forvo.com/key/${
     CONFIG.FORVO_API_KEY
   }/format/json/action/word-pronunciations/word/${word}/language/zh`;
   try {
-    const result = await fetch(url);
-    const data = await result.json();
-    return data;
+    const result = await axios.get<SoundFileResponse>(url);
+    return {
+      type: ResultType.OK,
+      data: result.data,
+    };
   } catch (err) {
-    console.log(err);
-    return null;
+    console.log("Error fetching sound pronunciation file", err);
+    return {
+      err,
+      type: ResultType.ERROR,
+    };
   }
 };
