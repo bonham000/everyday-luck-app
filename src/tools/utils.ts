@@ -11,12 +11,14 @@ import {
   ScoreStatus,
 } from "@src/GlobalState";
 import {
+  AudioItem,
   Lesson,
   LessonSet,
   LessonSummaryType,
   Option,
   OptionType,
   ResultType,
+  SoundFileResponse,
   Word,
 } from "@src/tools/types";
 import { fetchWordPronunciation } from "./api";
@@ -309,31 +311,6 @@ export const getReviewLessonSet = (
     .slice(0, unlockedLessonIndex + 1)
     .reduce((flattened, lesson) => flattened.concat(lesson));
 };
-
-export interface AudioItem {
-  addtime: string;
-  code: string;
-  country: string;
-  hits: number;
-  id: number;
-  langname: string;
-  num_positive_votes: number;
-  num_votes: number;
-  original: string;
-  pathmp3: string;
-  pathogg: string;
-  rate: number;
-  sex: string;
-  username: string;
-  word: string;
-}
-
-export interface SoundFileResponse {
-  attributes: {
-    total: number;
-  };
-  items: ReadonlyArray<AudioItem>;
-}
 
 const API_RATE_LIMIT_REACHED = "API_RATE_LIMIT_REACHED";
 

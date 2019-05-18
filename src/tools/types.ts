@@ -1,24 +1,3 @@
-export interface Word {
-  traditional: string;
-  simplified: string;
-  pinyin: string;
-  english: string;
-  english_alternate_choices: ReadonlyArray<string>;
-}
-
-export type Lesson = ReadonlyArray<Word>;
-
-export type LessonSet = ReadonlyArray<Lesson>;
-
-export type LessonSummaryType = "SUMMARY" | "GAME" | "LESSON";
-
-export interface LessonScreenParams {
-  lesson: Lesson;
-  lessonIndex: number;
-  headerTitle?: string;
-  type: LessonSummaryType;
-}
-
 /** ========================================================================
  * Result & Option Types
  * =========================================================================
@@ -58,3 +37,59 @@ export interface Empty {
 }
 
 export type Option<T> = OptionSuccess<T> | Empty;
+
+/** ========================================================================
+ * Global App Types
+ * =========================================================================
+ */
+
+export interface Word {
+  traditional: string;
+  simplified: string;
+  pinyin: string;
+  english: string;
+  english_alternate_choices: ReadonlyArray<string>;
+}
+
+export type Lesson = ReadonlyArray<Word>;
+
+export type LessonSet = ReadonlyArray<Lesson>;
+
+export type LessonSummaryType = "SUMMARY" | "GAME" | "LESSON";
+
+export interface LessonScreenParams {
+  lesson: Lesson;
+  lessonIndex: number;
+  headerTitle?: string;
+  type: LessonSummaryType;
+}
+
+/** ========================================================================
+ * API Types
+ * =========================================================================
+ */
+
+export interface AudioItem {
+  addtime: string;
+  code: string;
+  country: string;
+  hits: number;
+  id: number;
+  langname: string;
+  num_positive_votes: number;
+  num_votes: number;
+  original: string;
+  pathmp3: string;
+  pathogg: string;
+  rate: number;
+  sex: string;
+  username: string;
+  word: string;
+}
+
+export interface SoundFileResponse {
+  attributes: {
+    total: number;
+  };
+  items: ReadonlyArray<AudioItem>;
+}

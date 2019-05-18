@@ -2,8 +2,12 @@ import axios from "axios";
 
 import { ScoreStatus } from "@src/GlobalState";
 import CONFIG from "@src/tools/config";
-import { LessonSet, Result, ResultType } from "@src/tools/types";
-import { SoundFileResponse } from "@src/tools/utils";
+import {
+  LessonSet,
+  Result,
+  ResultType,
+  SoundFileResponse,
+} from "@src/tools/types";
 
 /** ========================================================================
  * Types & Config

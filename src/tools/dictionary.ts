@@ -1,5 +1,5 @@
 import AudioRecordings from "@src/assets/audio-result.json";
-import { AudioItem } from "@src/tools/utils";
+import { AudioItem } from "@src/tools/types";
 
 interface IAudioRecordingsDictionary {
   [key: string]: ReadonlyArray<AudioItem>;
