@@ -4,7 +4,10 @@ import { Alert, AppState, BackHandler, View } from "react-native";
 import { createAppContainer } from "react-navigation";
 
 import ErrorComponent from "@src/components/ErrorComponent";
-import LoadingComponent from "@src/components/LoadingComponent";
+import {
+  LoadingComponent,
+  TransparentLoadingComponent,
+} from "@src/components/LoadingComponent";
 import { CustomToast } from "@src/components/ToastProvider";
 import GlobalContext, {
   APP_LANGUAGE_SETTING,
@@ -50,6 +53,7 @@ interface IState {
   languageSetting: APP_LANGUAGE_SETTING;
   wordDictionary: WordDictionary;
   experience: number;
+  transparentLoading: boolean;
 }
 
 const defaultScoreState = {
@@ -81,6 +85,7 @@ class RootContainer extends React.Component<{}, IState> {
       updating: false,
       wordDictionary: {},
       tryingToCloseApp: false,
+      transparentLoading: false,
       appState: AppState.currentState,
       userScoreStatus: defaultScoreState,
       languageSetting: APP_LANGUAGE_SETTING.SIMPLIFIED,
@@ -153,6 +158,7 @@ class RootContainer extends React.Component<{}, IState> {
       wordDictionary,
       languageSetting,
       userScoreStatus,
+      transparentLoading,
     } = this.state;
     if (error) {
       return <ErrorComponent />;
@@ -165,6 +171,7 @@ class RootContainer extends React.Component<{}, IState> {
 
     return (
       <View style={{ flex: 1 }}>
+        {transparentLoading && <TransparentLoadingComponent />}
         <CustomToast
           close={this.clearToast}
           message={this.state.toastMessage}
@@ -233,6 +240,7 @@ class RootContainer extends React.Component<{}, IState> {
         const scoreHistory = JSON.parse(user.score_history);
         this.setState({
           loading: false,
+          transparentLoading: false,
           user: localUser,
           userId: user.uuid,
           experience: user.experience_points,
@@ -421,7 +429,7 @@ class RootContainer extends React.Component<{}, IState> {
   resetScores = () => {
     this.setState(
       {
-        loading: true,
+        transparentLoading: true,
       },
       () => {
         // tslint:disable-next-line
@@ -431,6 +439,7 @@ class RootContainer extends React.Component<{}, IState> {
             await updateUserScores(userId, defaultScoreState);
             await updateUserExperience(userId, 0);
           }
+          this.setState({ toastMessage: "Scores reset!" });
           this.getInitialScoreState();
         }, 1250);
       },

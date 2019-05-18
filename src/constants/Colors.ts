@@ -20,4 +20,5 @@ export const COLORS = {
   lessonBlock: "#3498db",
   lockedLessonBlock: "rgb(215,215,215)",
   dark: "rgb(15,15,15)",
+  white: "rgb(250,250,250)",
 };

@@ -46,6 +46,7 @@ interface IState {
   skipCount: number;
   failCount: number;
   didReveal: boolean;
+  quizFinished: boolean;
   wordContent: ReadonlyArray<Word>;
 }
 
@@ -98,13 +99,14 @@ class QuizScreen extends React.Component<IProps, IState> {
       wordContent,
       initalizing,
       shouldShake,
+      quizFinished,
       revealAnswer,
       progressCount,
       oneCharacterMode,
       currentWordIndex,
     } = this.state;
 
-    if (initalizing) {
+    if (initalizing || quizFinished) {
       return null;
     }
 
@@ -193,6 +195,7 @@ class QuizScreen extends React.Component<IProps, IState> {
       failCount: 0,
       didReveal: false,
       revealAnswer: false,
+      quizFinished: false,
       oneCharacterMode: activateOneCharacterMode,
       wordContent: activateOneCharacterMode
         ? filterForOneCharacterMode(lesson)
@@ -335,31 +338,38 @@ class QuizScreen extends React.Component<IProps, IState> {
 
     // tslint:disable-next-line
     this.timer = setTimeout(() => {
-      Alert.alert(
-        lessonCompleted
-          ? "The next lesson is unlocked! 🥇"
-          : firstPass
-          ? "Amazing! You passed this lesson! 💯"
-          : "You finished the quiz!",
-        lessonCompleted
-          ? `Great - keep going! 很好! You earned ${exp} experience points!`
-          : firstPass
-          ? "Congratulations! 恭喜恭喜！"
-          : "All words completed, 好！",
-        [
-          {
-            text: "OK!",
-            onPress: () => {
-              this.stopConfetti();
-              if (lessonCompleted) {
-                this.props.navigation.navigate(ROUTE_NAMES.HOME);
-              } else {
-                this.props.navigation.goBack();
-              }
-            },
-          },
-        ],
-        { cancelable: false },
+      this.setState(
+        {
+          quizFinished: true,
+        },
+        () => {
+          Alert.alert(
+            lessonCompleted
+              ? "The next lesson is unlocked! 🥇"
+              : firstPass
+              ? "Amazing! You passed this lesson! 💯"
+              : "You finished the quiz!",
+            lessonCompleted
+              ? `Great - keep going! 很好! You earned ${exp} experience points!`
+              : firstPass
+              ? "Congratulations! 恭喜恭喜！"
+              : "All words completed, 好！",
+            [
+              {
+                text: "OK!",
+                onPress: () => {
+                  this.stopConfetti();
+                  if (lessonCompleted) {
+                    this.props.navigation.navigate(ROUTE_NAMES.HOME);
+                  } else {
+                    this.props.navigation.goBack();
+                  }
+                },
+              },
+            ],
+            { cancelable: false },
+          );
+        },
       );
     }, 250);
   };

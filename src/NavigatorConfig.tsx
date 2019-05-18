@@ -119,7 +119,7 @@ const createAppNavigationStack = (userLoggedIn: boolean) => {
         screen: (props: NavigationScreenProp<{}>) => (
           <QuizScreen
             {...props}
-            quizType="mc_english"
+            quizType="mandarin_pronunciation"
             Component={(childProps: NavigationScreenProp<{}>) => (
               <MultipleChoiceComponent
                 {...childProps}

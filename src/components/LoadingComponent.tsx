@@ -9,16 +9,33 @@ import { COLORS } from "@src/constants/Colors";
  * =========================================================================
  */
 
-const LoadingComponent = () => (
-  <Container>
+const LoadingComponent = ({ transparent }: { transparent?: boolean }) => (
+  <Container style={{ opacity: transparent ? 0.5 : 1 }}>
+    <ActivityIndicator size="large" color={COLORS.primaryRed} />
+  </Container>
+);
+
+const TransparentLoadingComponent = () => (
+  <Container
+    style={{
+      position: "absolute",
+      top: 0,
+      bottom: 0,
+      left: 0,
+      right: 0,
+      zIndex: 50,
+      opacity: 0.65,
+      backgroundColor: COLORS.white,
+    }}
+  >
     <ActivityIndicator size="large" color={COLORS.primaryRed} />
   </Container>
 );
 
 const Container = glamorous.view({
   flex: 1,
-  justifyContent: "center",
   alignItems: "center",
+  justifyContent: "center",
 });
 
 /** ========================================================================
@@ -26,4 +43,4 @@ const Container = glamorous.view({
  * =========================================================================
  */
 
-export default LoadingComponent;
+export { LoadingComponent, TransparentLoadingComponent };
