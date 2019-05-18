@@ -11,11 +11,12 @@ import {
 import Shaker from "@src/components/ShakerComponent";
 import { COLORS } from "@src/constants/Colors";
 import { audioRecordingsClass } from "@src/tools/audio-dictionary";
-import { Lesson, OptionType, Word } from "@src/tools/types";
+import { AudioItem, Lesson, OptionType, Word } from "@src/tools/types";
 import {
   getAlternateChoices,
   getAudioFileUrl,
   MC_TYPE,
+  randomInRange,
 } from "@src/tools/utils";
 
 /** ========================================================================
@@ -45,10 +46,10 @@ interface IState {
   playbackError: boolean;
   loadingSoundData: boolean;
   playedOnce: boolean;
-  currentSoundAudio: Audio.Sound;
+  currentSoundAudio: ReadonlyArray<Audio.Sound>;
   currentSoundFileUri: string;
   bufferingSoundFile: boolean;
-  wordAudioMap: { [key: string]: Audio.Sound };
+  wordAudioMap: { [key: string]: ReadonlyArray<Audio.Sound> };
 }
 
 /** ========================================================================
@@ -66,7 +67,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
       playbackError: false,
       loadingSoundData: true,
       bufferingSoundFile: false,
-      currentSoundAudio: new Audio.Sound(),
+      currentSoundAudio: [new Audio.Sound()],
       currentSoundFileUri: "",
       choices: this.deriveAlternateChoices(),
     };
@@ -209,16 +210,17 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
   handlePronounceWord = async () => {
     if (!this.state.loadingSoundData) {
       try {
+        const audioIndex = this.getRandomWordIndex();
         if (this.state.playedOnce) {
           try {
-            await this.state.currentSoundAudio.replayAsync({
+            await this.state.currentSoundAudio[audioIndex].replayAsync({
               positionMillis: 0,
             });
           } catch (err) {
             console.log("Error replaying sound file?");
           }
         } else {
-          await this.state.currentSoundAudio.playAsync();
+          await this.state.currentSoundAudio[audioIndex].playAsync();
         }
         this.setState({
           playedOnce: true,
@@ -237,15 +239,17 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
     const soundData = audioRecordingsClass.getAudioRecordingsForWord(word);
     switch (soundData.type) {
       case OptionType.OK:
-        const soundObject = new Audio.Sound();
-        const uri = getAudioFileUrl(soundData.data[0].filePath || "");
-        await soundObject.loadAsync({
-          uri,
-        });
-        return this.setState({
-          loadingSoundData: false,
-          currentSoundAudio: soundObject,
-        });
+        const sounds = await this.fetchSoundFilesForWord(soundData.data);
+        if (sounds !== null) {
+          const currentSoundAudio = sounds as ReadonlyArray<Audio.Sound>;
+          return this.setState({
+            currentSoundAudio,
+            loadingSoundData: false,
+          });
+        } else {
+          return this.setState({ playbackError: true });
+        }
+
       case OptionType.EMPTY:
         console.log("No sound file uri found!!!");
         return this.setState({ playbackError: true });
@@ -261,11 +265,8 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
       words.map(async (word: string) => {
         const soundData = audioRecordingsClass.getAudioRecordingsForWord(word);
         if (soundData.type === OptionType.OK) {
-          const soundObject = new Audio.Sound();
-          await soundObject.loadAsync({
-            uri: getAudioFileUrl(soundData.data[0].filePath || ""),
-          });
-          return { word, soundObject };
+          const sounds = await this.fetchSoundFilesForWord(soundData.data);
+          return { word, soundObjects: sounds };
         } else {
           return null;
         }
@@ -274,10 +275,10 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
       .filter(Boolean)
       .reduce((map, recordingData) => {
         if (recordingData) {
-          const { word, soundObject } = recordingData;
+          const { word, soundObjects } = recordingData;
           return {
             ...map,
-            [word]: soundObject,
+            [word]: soundObjects,
           };
         } else {
           return map;
@@ -287,10 +288,29 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
     this.setState({ wordAudioMap });
   };
 
+  fetchSoundFilesForWord = async (soundData: ReadonlyArray<AudioItem>) => {
+    return Promise.all(
+      soundData
+        .map(async audioItem => {
+          const soundObject = new Audio.Sound();
+          const filePath = audioItem.filePath;
+          if (filePath) {
+            const uri = getAudioFileUrl(filePath);
+            await soundObject.loadAsync({ uri });
+            return soundObject;
+          } else {
+            return null;
+          }
+        })
+        .filter(Boolean),
+    );
+  };
+
   deriveAlternateChoices = () => {
     return getAlternateChoices(
       this.props.currentWord,
       this.props.lessons.reduce((flat, curr) => [...flat, ...curr]),
+      this.props.wordDictionary,
       this.props.multipleChoiceType,
     );
   };
@@ -299,6 +319,13 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
     if (!this.props.attempted) {
       this.props.handleCheck(isCorrect);
     }
+  };
+
+  getRandomWordIndex = (
+    min = 0,
+    max = this.state.currentSoundAudio.length,
+  ): number => {
+    return randomInRange(min, max);
   };
 }
 

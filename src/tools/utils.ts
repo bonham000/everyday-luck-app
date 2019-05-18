@@ -193,15 +193,6 @@ export const deriveContentFromLessons = (contentBlocks: LessonSet) => {
 
 export type MC_TYPE = "MANDARIN" | "ENGLISH" | "MANDARIN_PRONUNCIATION";
 
-const wordFillerContent = {
-  traditional: "N/A",
-  simplified: "N/A",
-  pinyin: "N/A",
-  usage_notes: "",
-  part_of_speech: "",
-  english_alternate_choices: [],
-};
-
 /**
  * Derive shuffled multiple choice options given a word and all the
  * language content.
@@ -487,4 +478,10 @@ export const createWordDictionaryFromLessons = (
   }
 
   return wordDictionary;
+};
+
+export const delay = (time: number = 500) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => resolve("delayed!"), time);
+  });
 };
