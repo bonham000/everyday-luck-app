@@ -209,6 +209,7 @@ const wordFillerContent = {
 export const getAlternateChoices = (
   word: Word,
   alternates: Lesson,
+  wordDictionary: WordDictionary,
   mcType: MC_TYPE,
 ) => {
   let idx: number;
@@ -227,7 +228,7 @@ export const getAlternateChoices = (
           .slice(0, 4)
           .map(choice => ({
             english: choice,
-            ...wordFillerContent,
+            ...wordDictionary[choice],
           })),
       ];
 
