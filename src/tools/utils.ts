@@ -346,33 +346,20 @@ const API_RATE_LIMIT_REACHED = "API_RATE_LIMIT_REACHED";
  */
 export const transformSoundFileResponse = (
   response: SoundFileResponse,
-): Option<string> => {
+): Option<ReadonlyArray<AudioItem>> => {
   if (Array.isArray(response)) {
     return {
       message: API_RATE_LIMIT_REACHED,
       type: OptionType.EMPTY,
     };
-  }
-
-  const uris = response.items
-    .map((result: { pathmp3?: string }) => {
-      if (result.pathmp3) {
-        return result.pathmp3;
-      } else {
-        return null;
-      }
-    })
-    .filter(Boolean);
-
-  const uri = uris[0];
-  if (uri) {
-    return {
-      data: uri,
-      type: OptionType.OK,
-    };
   } else {
+    // @ts-ignore
+    const sortedByHits = response.items.sort((a: AudioItem, b: AudioItem) =>
+      a.hits > b.hits ? -1 : 1,
+    );
     return {
-      type: OptionType.EMPTY,
+      data: sortedByHits,
+      type: OptionType.OK,
     };
   }
 };
@@ -411,50 +398,66 @@ export const prefetchWordsList = async (words: ReadonlyArray<string>) => {
 
   const batches = batchList(words, 2);
 
-  console.log(`Starting to process words list - processing ${total} words:`);
+  console.log(`\nStarting to process words list ---`);
+  console.log(`Processing ${total} words in ${batches.length} batches:\n`);
 
-  const result = await Promise.all(
-    batches
-      .map(async (batch: ReadonlyArray<string>) => {
-        if (apiRateLimitReached) {
+  const processWord = async (word: string) => {
+    const pronunciationResult = await fetchWordPronunciation(word);
+    switch (pronunciationResult.type) {
+      case ResultType.OK:
+        const uriResult = transformSoundFileResponse(pronunciationResult.data);
+
+        if (uriResult.type === OptionType.OK) {
+          processed++;
+          return { word, soundData: uriResult.data };
+        } else {
+          if (uriResult.message === API_RATE_LIMIT_REACHED) {
+            apiRateLimitReached = true;
+          }
           return null;
         }
+      case ResultType.ERROR:
+        return null;
+    }
+  };
 
+  const result = await Promise.all(
+    batches.map(async (batch: ReadonlyArray<string>, index: number) => {
+      if (apiRateLimitReached) {
+        return null;
+      } else {
+        console.log(`- Processing batch ${index + 1}...`);
         return Promise.all(
-          batch
-            .map(async (word: string) => {
-              if (apiRateLimitReached) {
-                return null;
-              }
-
-              const pronunciationResult = await fetchWordPronunciation(word);
-              switch (pronunciationResult.type) {
-                case ResultType.OK:
-                  const uriResult = transformSoundFileResponse(
-                    pronunciationResult.data,
-                  );
-
-                  if (uriResult.type === OptionType.OK) {
-                    processed++;
-                    return { word, uri: uriResult.data };
-                  } else {
-                    if (uriResult.message === API_RATE_LIMIT_REACHED) {
-                      apiRateLimitReached = true;
-                    }
-                    return null;
-                  }
-                case ResultType.ERROR:
-                  return null;
-              }
-            })
-            .filter(Boolean),
+          batch.map(async (word: string) => {
+            if (apiRateLimitReached) {
+              return null;
+            } else {
+              return processWord(word);
+            }
+          }),
         );
-      })
-      .filter(Boolean),
+      }
+    }),
   );
 
-  console.log(`Processed a total of ${processed} out of ${total} words.`);
-  console.log(`API rate limited reached: ${apiRateLimitReached}`);
+  const flattenedResults = result
+    .filter(Boolean)
+    .map(resultList => resultList!.filter(Boolean))
+    .reduce((flat, wordsList) => flat.concat(wordsList))
+    .reduce((wordMap, uriResult) => {
+      if (uriResult) {
+        return {
+          ...wordMap,
+          [uriResult.word]: uriResult.soundData,
+        };
+      }
 
-  return result;
+      return wordMap;
+    }, {});
+
+  console.log(
+    `\nProcessed a total of ${processed} out of ${total} words - (API rate limited reached: ${apiRateLimitReached})`,
+  );
+
+  return flattenedResults;
 };

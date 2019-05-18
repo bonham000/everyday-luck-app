@@ -232,7 +232,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
           case OptionType.OK:
             const soundObject = new Audio.Sound();
             await soundObject.loadAsync({
-              uri: soundFileResult.data,
+              uri: soundFileResult.data[0].pathmp3,
             });
             return this.setState({
               loadingSoundData: false,
@@ -266,7 +266,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
               case OptionType.OK:
                 const soundObject = new Audio.Sound();
                 await soundObject.loadAsync({
-                  uri: uriResult.data,
+                  uri: uriResult.data[0].pathmp3,
                 });
                 return { word, soundObject };
               case OptionType.EMPTY:
