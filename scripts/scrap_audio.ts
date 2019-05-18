@@ -40,6 +40,43 @@ const createAudioDirectoryIfNotExists = () => {
 };
 
 /**
+ * Create a download queue to process downloads sequentially.
+ */
+class DownloadQueue {
+  queue: ReadonlyArray<any> = [];
+
+  enqueueDownload = (word: string, url: string, filePath: string) => {
+    const downloadItem = {
+      word,
+      url,
+      filePath,
+    };
+    // @ts-ignore
+    this.queue.push(downloadItem);
+  };
+
+  dequeue = () => {
+    // @ts-ignore
+    return this.queue.pop();
+  };
+
+  downloadMp3Async = () => {
+    const nextItem = this.dequeue();
+    if (nextItem) {
+      const { url, word, filePath } = nextItem;
+      const file = fs.createWriteStream(`audio/${filePath}.mp3`);
+      https.get(url, response => {
+        response.pipe(file);
+        console.log(`- File written for ${word}`);
+        this.downloadMp3Async();
+      });
+    }
+  };
+}
+
+const downloadQueue = new DownloadQueue();
+
+/**
  * Scrap audio recordings for any words not recorded yet.
  */
 const scrapAudioRecordings = async () => {
@@ -73,40 +110,6 @@ const scrapAudioRecordings = async () => {
 
   saveAudioRecordingsFile(updatedRecords);
 };
-
-class DownloadQueue {
-  queue: ReadonlyArray<any> = [];
-
-  enqueueDownload = (word: string, url: string, filePath: string) => {
-    const downloadItem = {
-      word,
-      url,
-      filePath,
-    };
-    // @ts-ignore
-    this.queue.push(downloadItem);
-  };
-
-  dequeue = () => {
-    // @ts-ignore
-    return this.queue.pop();
-  };
-
-  downloadMp3 = () => {
-    const nextItem = this.dequeue();
-    if (nextItem) {
-      const { url, word, filePath } = nextItem;
-      const file = fs.createWriteStream(`audio/${filePath}.mp3`);
-      https.get(url, response => {
-        response.pipe(file);
-        console.log(`- File written for ${word}`);
-        this.downloadMp3();
-      });
-    }
-  };
-}
-
-const downloadQueue = new DownloadQueue();
 
 /**
  * Fetch and save the mp3 file for a word.
@@ -161,7 +164,7 @@ const updateAudioRecordingsData = async () => {
   fetchMp3Files();
 
   console.log("Initializing mp3 downloads...");
-  downloadQueue.downloadMp3();
+  downloadQueue.downloadMp3Async();
 };
 
 /* Run the program - */

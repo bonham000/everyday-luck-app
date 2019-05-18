@@ -132,18 +132,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
     return (
       <React.Fragment>
         <TitleContainer>
-          {multipleChoiceType === "MANDARIN_PRONUNCIATION" &&
-          !this.state.playbackError ? (
-            <VoiceButton onPress={this.handlePronounceWord}>
-              <Text>
-                {this.state.loadingSoundData
-                  ? "Loading Sound Data..."
-                  : this.state.bufferingSoundFile
-                  ? "Preparing sound file"
-                  : "Press to Speak!"}
-              </Text>
-            </VoiceButton>
-          ) : (
+          {multipleChoiceType !== "MANDARIN_PRONUNCIATION" && (
             <QuizPromptText multipleChoiceType={multipleChoiceType}>
               {multipleChoiceType === "ENGLISH"
                 ? correctWord
@@ -160,6 +149,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
                   valid={valid}
                   attempted={attempted}
                   isCorrect={isCorrect}
+                  multipleChoiceType={multipleChoiceType}
                   onPress={this.handleSelectAnswer(isCorrect)}
                 >
                   <QuizAnswerText
@@ -181,6 +171,22 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
             })}
           </Container>
         </Shaker>
+        {multipleChoiceType === "MANDARIN_PRONUNCIATION" &&
+        !this.state.playbackError ? (
+          <VoiceButton onPress={this.handlePronounceWord}>
+            <Text>
+              {this.state.loadingSoundData
+                ? "Loading Sound File..."
+                : this.state.bufferingSoundFile
+                ? "Preparing sound file"
+                : "Press to Speak!"}
+            </Text>
+          </VoiceButton>
+        ) : (
+          <QuizPromptText multipleChoiceType={multipleChoiceType}>
+            {currentWord.english}
+          </QuizPromptText>
+        )}
         {shouldReveal ? (
           <Button
             dark
@@ -345,10 +351,12 @@ const QuizAnswerText = ({
 );
 
 const VoiceButton = glamorous.touchableOpacity({
+  marginTop: 25,
   width: "85%",
-  height: 45,
+  height: 55,
   alignItems: "center",
   justifyContent: "center",
+  backgroundColor: COLORS.actionButtonYellow,
 });
 
 const QuizAnswer = glamorous.text({
@@ -379,12 +387,14 @@ const Choice = ({
   valid,
   attempted,
   isCorrect,
+  multipleChoiceType,
   onPress,
 }: {
   children: JSX.Element;
   valid: boolean;
   attempted: boolean;
   isCorrect: boolean;
+  multipleChoiceType: MC_TYPE;
   onPress: (event: GestureResponderEvent) => void;
 }) => (
   <Button
@@ -393,7 +403,7 @@ const Choice = ({
     style={{
       marginTop: 12,
       width: "90%",
-      height: 80,
+      height: multipleChoiceType === "ENGLISH" ? 50 : 75,
       justifyContent: "center",
       backgroundColor: valid
         ? isCorrect
