@@ -32,6 +32,7 @@ interface IProps extends GlobalStateProps {
 }
 
 interface IState {
+  initalizing: boolean;
   value: string;
   attempted: boolean;
   valid: boolean;
@@ -73,6 +74,7 @@ class QuizScreen extends React.Component<IProps, IState> {
     this.setState(
       {
         currentWordIndex,
+        initalizing: false,
         wordCompletedCache: new Set([currentWordIndex]),
       },
       this.focusInput,
@@ -86,7 +88,7 @@ class QuizScreen extends React.Component<IProps, IState> {
     }
   }
 
-  render(): JSX.Element {
+  render(): JSX.Element | null {
     const {
       valid,
       didReveal,
@@ -94,12 +96,17 @@ class QuizScreen extends React.Component<IProps, IState> {
       skipCount,
       attempted,
       wordContent,
+      initalizing,
       shouldShake,
       revealAnswer,
       progressCount,
       oneCharacterMode,
       currentWordIndex,
     } = this.state;
+
+    if (initalizing) {
+      return null;
+    }
 
     const Component = this.props.Component;
     const currentWord = wordContent[currentWordIndex];
@@ -173,6 +180,7 @@ class QuizScreen extends React.Component<IProps, IState> {
     const lesson = this.props.navigation.getParam("lesson");
     return {
       value: "",
+      initalizing: true,
       attempted: false,
       valid: false,
       shouldShake: false,

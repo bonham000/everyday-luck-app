@@ -452,6 +452,9 @@ export const flattenLessonSet = (lessons: LessonSet): Lesson => {
 
 /**
  * Create the file path url for a word mp3 file recording.
+ *
+ * @param fileKey for word
+ * @returns encoded URL to fetch mp3 file
  */
 export const getAudioFileUrl = (fileKey: string): string => {
   const encodedFileKey = encodeURIComponent(fileKey);

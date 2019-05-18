@@ -1,5 +1,5 @@
 import fs from "fs";
-import http from "http";
+import https from "https";
 
 import { fetchLessonSet } from "@src/tools/api";
 import { IAudioRecordingsDictionary } from "@src/tools/dictionary";
@@ -60,6 +60,10 @@ const scrapAudioRecordings = async () => {
     })
     .map(word => word.traditional);
 
+  if (wordsToFetch.length === 0) {
+    return console.log(`All words have been fetched previously!`);
+  }
+
   const result = await prefetchWordsList(wordsToFetch);
 
   const updatedRecords = {
@@ -70,16 +74,45 @@ const scrapAudioRecordings = async () => {
   saveAudioRecordingsFile(updatedRecords);
 };
 
+class DownloadQueue {
+  queue: ReadonlyArray<any> = [];
+
+  enqueueDownload = (word: string, url: string, filePath: string) => {
+    const downloadItem = {
+      word,
+      url,
+      filePath,
+    };
+    // @ts-ignore
+    this.queue.push(downloadItem);
+  };
+
+  dequeue = () => {
+    // @ts-ignore
+    return this.queue.pop();
+  };
+
+  downloadMp3 = () => {
+    const nextItem = this.dequeue();
+    if (nextItem) {
+      const { url, word, filePath } = nextItem;
+      const file = fs.createWriteStream(`audio/${filePath}.mp3`);
+      https.get(url, response => {
+        response.pipe(file);
+        console.log(`- File written for ${word}`);
+        this.downloadMp3();
+      });
+    }
+  };
+}
+
+const downloadQueue = new DownloadQueue();
+
 /**
  * Fetch and save the mp3 file for a word.
  */
 const fetchAndSaveMp3File = (word: string, url: string, filePath: string) => {
-  const file = fs.createWriteStream(`audio/${filePath}.mp3`);
-  console.log(`- Fetching mp3 for ${word}`);
-  http.get(url, response => {
-    response.pipe(file);
-    console.log(`- File written for ${word}`);
-  });
+  downloadQueue.enqueueDownload(word, url, filePath);
 };
 
 /**
@@ -111,7 +144,7 @@ const fetchMp3Files = () => {
     if (result) {
       result.forEach((audioItem, index) => {
         if (audioItem.pathmp3) {
-          const url = audioItem.pathmp3.replace("https", "http");
+          const url = audioItem.pathmp3;
           const filePathKey = `${wordKey}-${index}`;
           fetchAndSaveMp3File(wordKey, url, filePathKey);
           updateAudioItemFilePath(wordKey, index, filePathKey, dictionary);
@@ -126,6 +159,9 @@ const fetchMp3Files = () => {
 const updateAudioRecordingsData = async () => {
   await scrapAudioRecordings();
   fetchMp3Files();
+
+  console.log("Initializing mp3 downloads...");
+  downloadQueue.downloadMp3();
 };
 
 /* Run the program - */

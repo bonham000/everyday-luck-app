@@ -29,8 +29,7 @@ class AudioRecordingsClass {
   };
 
   getFullDictionaryObject = () => {
-    const json = require("../assets/audio-result.json");
-    return json;
+    return this.recordings;
   };
 }
 

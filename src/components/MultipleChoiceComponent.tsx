@@ -229,10 +229,14 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
     const word = this.props.currentWord[this.props.languageSetting];
     const soundData = audioRecordingsClass.getAudioRecordingsForWord(word);
 
+    console.log(soundData);
+
     switch (soundData.type) {
       case OptionType.OK:
         const soundObject = new Audio.Sound();
         const uri = getAudioFileUrl(soundData.data[0].filePath || "");
+        console.log(uri);
+
         await soundObject.loadAsync({
           uri,
         });
@@ -240,6 +244,8 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
           loadingSoundData: false,
           currentSoundAudio: soundObject,
         });
+
+        console.log("what the fuck?");
 
       case OptionType.EMPTY:
         console.log("No sound file uri found!!!");
