@@ -192,12 +192,16 @@ export const getFinalUnlockedListKey = (
 };
 
 export const determineFinalUnlockedLesson = (
-  lesson: LessonSet,
+  lesson: Lesson,
   listIndex: number,
   userScoreStatus: ScoreStatus,
   appDifficultySetting: APP_DIFFICULTY_SETTING,
 ): number => {
   const listScore = mapListIndexToListScores(listIndex, userScoreStatus);
+  if (listScore.complete) {
+    return lesson.length;
+  }
+
   const completedWords = listScore.number_words_completed;
   const userLessonSize = convertAppDifficultyToLessonSize(appDifficultySetting);
 

@@ -55,13 +55,13 @@ class ListSummaryScreen extends React.Component<IProps, {}> {
     const hskLists = this.props.navigation.getParam("hskLists");
     const listIndex = this.props.navigation.getParam("listIndex");
     const { appDifficultySetting, userScoreStatus } = this.props;
+    const listScore = mapListIndexToListScores(listIndex, userScoreStatus);
     const unlockedLessonIndex = determineFinalUnlockedLesson(
-      hskLists,
+      lesson,
       listIndex,
       userScoreStatus,
       appDifficultySetting,
     );
-    const listScore = mapListIndexToListScores(listIndex, userScoreStatus);
     const isLocked = index > unlockedLessonIndex;
     const isFinalLesson = index === hskLists.length - 1;
     return (
