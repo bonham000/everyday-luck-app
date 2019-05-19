@@ -14,7 +14,6 @@ import GlobalContext, {
   APP_LANGUAGE_SETTING,
   LessonScoreType,
   ScoreStatus,
-  WordDictionary,
 } from "@src/GlobalState";
 import createAppNavigator from "@src/NavigatorConfig";
 import {
@@ -34,6 +33,7 @@ import { HSKListSet } from "@src/tools/types";
 import {
   createWordDictionaryFromLessons,
   formatUserLanguageSetting,
+  getAlternateLanguageSetting,
 } from "@src/tools/utils";
 import { GlobalStateValues } from "./components/GlobalStateProvider";
 
@@ -334,12 +334,9 @@ class RootContainer extends React.Component<{}, IState> {
     });
   };
 
-  handleSwitchLanguage = (callback: () => void) => {
+  handleSwitchLanguage = () => {
     const { languageSetting } = this.state;
-    const alternate =
-      languageSetting === APP_LANGUAGE_SETTING.SIMPLIFIED
-        ? APP_LANGUAGE_SETTING.TRADITIONAL
-        : APP_LANGUAGE_SETTING.SIMPLIFIED;
+    const alternate = getAlternateLanguageSetting(languageSetting);
 
     Alert.alert(
       `Your current setting is ${formatUserLanguageSetting(
@@ -356,14 +353,14 @@ class RootContainer extends React.Component<{}, IState> {
         },
         {
           text: "OK",
-          onPress: () => this.switchLanguage(callback),
+          onPress: () => this.switchLanguage(),
         },
       ],
       { cancelable: false },
     );
   };
 
-  switchLanguage = (callback: () => void) => {
+  switchLanguage = () => {
     switch (this.state.languageSetting) {
       case APP_LANGUAGE_SETTING.SIMPLIFIED:
         return this.setState(
@@ -371,7 +368,6 @@ class RootContainer extends React.Component<{}, IState> {
             languageSetting: APP_LANGUAGE_SETTING.TRADITIONAL,
           },
           async () => {
-            callback();
             this.handleSetLanguageSuccess(APP_LANGUAGE_SETTING.TRADITIONAL);
           },
         );
@@ -381,7 +377,6 @@ class RootContainer extends React.Component<{}, IState> {
             languageSetting: APP_LANGUAGE_SETTING.SIMPLIFIED,
           },
           async () => {
-            callback();
             this.handleSetLanguageSuccess(APP_LANGUAGE_SETTING.SIMPLIFIED);
           },
         );
@@ -394,7 +389,6 @@ class RootContainer extends React.Component<{}, IState> {
             languageSetting: APP_LANGUAGE_SETTING.SIMPLIFIED,
           },
           async () => {
-            callback();
             this.handleSetLanguageSuccess(APP_LANGUAGE_SETTING.SIMPLIFIED);
           },
         );
@@ -403,11 +397,9 @@ class RootContainer extends React.Component<{}, IState> {
 
   handleSetLanguageSuccess = (languageSetting: APP_LANGUAGE_SETTING) => {
     setAppLanguageSetting(languageSetting);
-    this.setState({
-      toastMessage: `Language set to ${formatUserLanguageSetting(
-        languageSetting,
-      )}`,
-    });
+    this.setToastMessage(
+      `Language set to ${formatUserLanguageSetting(languageSetting)}`,
+    );
   };
 
   handleUpdateAppDifficultySetting = async (
@@ -425,16 +417,20 @@ class RootContainer extends React.Component<{}, IState> {
             appDifficultySetting,
           );
           if (result) {
-            this.setState({
-              appDifficultySetting,
-              transparentLoading: false,
-              toastMessage: "App difficulty updated",
-            });
+            this.setState(
+              {
+                appDifficultySetting,
+                transparentLoading: false,
+              },
+              () => this.setToastMessage("App difficulty updated"),
+            );
           } else {
-            this.setState({
-              transparentLoading: false,
-              toastMessage: "Update failed, please try again...",
-            });
+            this.setState(
+              {
+                transparentLoading: false,
+              },
+              () => this.setToastMessage("Update failed, please try again..."),
+            );
           }
         },
       );

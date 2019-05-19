@@ -36,7 +36,7 @@ export interface GlobalStateProps extends GlobalStateValues {
     lessonPassedType: LessonScoreType,
     exp: number,
   ) => void;
-  handleSwitchLanguage: (callback: () => void) => void;
+  handleSwitchLanguage: () => void;
   onSignin: (user: GoogleSigninUser) => Promise<void>;
   handleUpdateAppDifficultySetting: (
     setting: APP_DIFFICULTY_SETTING,

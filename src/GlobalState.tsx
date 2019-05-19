@@ -60,7 +60,7 @@ const GlobalState = React.createContext({
   handleUpdateAppDifficultySetting: (setting: APP_DIFFICULTY_SETTING) => {
     // Handle switching app difficulty setting
   },
-  handleSwitchLanguage: (callback: () => void) => {
+  handleSwitchLanguage: () => {
     // Handle switching app language setting
   },
   onSignin: (user: GoogleSigninUser) => {

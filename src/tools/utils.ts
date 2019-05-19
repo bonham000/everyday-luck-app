@@ -273,6 +273,20 @@ export const formatUserLanguageSetting = (
   )} Chinese`;
 };
 
+/**
+ * Get the alternate language setting given one.
+ *
+ * @param languageSetting
+ * @returns languageSetting alternate
+ */
+export const getAlternateLanguageSetting = (
+  languageSetting: APP_LANGUAGE_SETTING,
+): APP_LANGUAGE_SETTING => {
+  return languageSetting === APP_LANGUAGE_SETTING.SIMPLIFIED
+    ? APP_LANGUAGE_SETTING.TRADITIONAL
+    : APP_LANGUAGE_SETTING.SIMPLIFIED;
+};
+
 const batchList = <T>(
   data: ReadonlyArray<T>,
   batchSize: number = 10,

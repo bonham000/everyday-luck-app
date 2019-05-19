@@ -3,6 +3,7 @@ import glamorous from "glamorous-native";
 import React from "react";
 import { NavigationScreenProp } from "react-navigation";
 
+import { Bold } from "@src/components/SharedComponents";
 import { COLORS } from "@src/constants/Colors";
 
 /** ========================================================================
@@ -96,10 +97,6 @@ const LinkText = glamorous.text({
   marginTop: 28,
   fontWeight: "300",
   color: COLORS.primaryBlue,
-});
-
-const Bold = glamorous.text({
-  fontWeight: "bold",
 });
 
 /** ========================================================================
