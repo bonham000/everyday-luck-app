@@ -1,6 +1,6 @@
 import glamorous from "glamorous-native";
 import React from "react";
-import { ScrollView, TextStyle } from "react-native";
+import { FlatList, TextStyle } from "react-native";
 import { Text } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
@@ -37,15 +37,21 @@ interface IProps extends GlobalStateProps {
 
 class ListSummaryScreen extends React.Component<IProps, {}> {
   render(): JSX.Element {
+    const hskLists = this.props.navigation.getParam("hskLists");
     return (
       <Container>
         <Text style={TextStyles}>Choose a lesson to start studying</Text>
-        {this.renderLessons()}
+        <FlatList
+          data={hskLists}
+          renderItem={this.renderItem}
+          keyExtractor={item => `${item[0].traditional}-${item[0].pinyin}`}
+        />
       </Container>
     );
   }
 
-  renderLessons = () => {
+  renderItem = ({ item, index }: { item: Lesson; index: number }): any => {
+    const lesson = item;
     const hskLists = this.props.navigation.getParam("hskLists");
     const listIndex = this.props.navigation.getParam("listIndex");
     const { appDifficultySetting, userScoreStatus } = this.props;
@@ -56,31 +62,29 @@ class ListSummaryScreen extends React.Component<IProps, {}> {
       appDifficultySetting,
     );
     const listScore = mapListIndexToListScores(listIndex, userScoreStatus);
-    return hskLists.map((lesson, index) => {
-      const isLocked = index > unlockedLessonIndex;
-      const isFinalLesson = index === hskLists.length - 1;
-      return (
-        <LessonBlock
-          style={{
-            backgroundColor: isLocked
-              ? COLORS.lockedLessonBlock
-              : COLORS.lessonBlock,
-          }}
-          onPress={this.handleSelectLesson(
-            lesson,
-            index,
-            isLocked,
-            isFinalLesson,
-            index <= unlockedLessonIndex,
-          )}
-        >
-          <LessonBlockText isLocked={isLocked}>
-            Lesson {index + 1}
-          </LessonBlockText>
-          {(isFinalLesson || listScore.complete) && <Text>🏅</Text>}
-        </LessonBlock>
-      );
-    });
+    const isLocked = index > unlockedLessonIndex;
+    const isFinalLesson = index === hskLists.length - 1;
+    return (
+      <LessonBlock
+        style={{
+          backgroundColor: isLocked
+            ? COLORS.lockedLessonBlock
+            : COLORS.lessonBlock,
+        }}
+        onPress={this.handleSelectLesson(
+          lesson,
+          index,
+          isLocked,
+          isFinalLesson,
+          index <= unlockedLessonIndex,
+        )}
+      >
+        <LessonBlockText isLocked={isLocked}>
+          Lesson {index + 1}
+        </LessonBlockText>
+        {(isFinalLesson || listScore.complete) && <Text>🏅</Text>}
+      </LessonBlock>
+    );
   };
 
   handleSelectLesson = (
@@ -127,22 +131,16 @@ class ListSummaryScreen extends React.Component<IProps, {}> {
  * =========================================================================
  */
 
-const Container = (props: { children: any }) => (
-  <ScrollView
-    contentContainerStyle={{
-      flexGrow: 1,
-      width: "100%",
-      paddingTop: 25,
-      paddingBottom: 150,
-      alignItems: "center",
-    }}
-  >
-    {props.children}
-  </ScrollView>
-);
+const Container = glamorous.view({
+  flex: 1,
+  width: "100%",
+  paddingTop: 25,
+  paddingLeft: 15,
+  paddingRight: 15,
+  backgroundColor: "rgb(231,237,240)",
+});
 
 const LessonBlock = glamorous.touchableOpacity({
-  width: "90%",
   height: 50,
   padding: 12,
   margin: 4,

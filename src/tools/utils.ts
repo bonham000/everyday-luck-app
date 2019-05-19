@@ -515,6 +515,6 @@ export const formatLessonContent = (
   lesson: Lesson,
   appDifficultySetting: APP_DIFFICULTY_SETTING,
 ) => {
-  // const lessonSize = convertAppDifficultyToLessonSize(appDifficultySetting);
-  return batchList(lesson, 1);
+  const lessonSize = convertAppDifficultyToLessonSize(appDifficultySetting);
+  return batchList(lesson, lessonSize);
 };
