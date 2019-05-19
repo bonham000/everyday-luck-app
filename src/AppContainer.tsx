@@ -10,6 +10,7 @@ import {
 } from "@src/components/LoadingComponent";
 import { CustomToast } from "@src/components/ToastProvider";
 import GlobalContext, {
+  APP_DIFFICULTY_SETTING,
   APP_LANGUAGE_SETTING,
   LessonScoreType,
   ScoreStatus,
@@ -19,6 +20,7 @@ import createAppNavigator from "@src/NavigatorConfig";
 import {
   fetchLessonSet,
   findOrCreateUser,
+  updateAppDifficultySetting,
   updateUserExperience,
   updateUserScores,
 } from "@src/tools/api";
@@ -33,26 +35,21 @@ import {
   createWordDictionaryFromLessons,
   formatUserLanguageSetting,
 } from "@src/tools/utils";
+import { GlobalStateValues } from "./components/GlobalStateProvider";
 
 /** ========================================================================
  * Types
  * =========================================================================
  */
 
-interface IState {
+interface IState extends GlobalStateValues {
   userId?: string;
-  user?: GoogleSigninUser;
-  lessons: HSKListSet;
   error: boolean;
   loading: boolean;
   appState: string;
   toastMessage: string;
   updating: boolean;
   tryingToCloseApp: boolean;
-  userScoreStatus: ScoreStatus;
-  languageSetting: APP_LANGUAGE_SETTING;
-  wordDictionary: WordDictionary;
-  experience: number;
   transparentLoading: boolean;
 }
 
@@ -88,6 +85,7 @@ class RootContainer extends React.Component<{}, IState> {
       transparentLoading: false,
       appState: AppState.currentState,
       userScoreStatus: defaultScoreState,
+      appDifficultySetting: APP_DIFFICULTY_SETTING.MEDIUM,
       languageSetting: APP_LANGUAGE_SETTING.SIMPLIFIED,
     };
   }
@@ -159,6 +157,7 @@ class RootContainer extends React.Component<{}, IState> {
       languageSetting,
       userScoreStatus,
       transparentLoading,
+      appDifficultySetting,
     } = this.state;
     if (error) {
       return <ErrorComponent />;
@@ -183,12 +182,15 @@ class RootContainer extends React.Component<{}, IState> {
             languageSetting,
             userScoreStatus,
             lessons: lessonSet,
+            appDifficultySetting,
             user: authenticatedUser,
             onSignin: this.handleSignin,
             setLessonScore: this.setLessonScore,
             setToastMessage: this.setToastMessage,
             handleResetScores: this.handleResetScores,
             handleSwitchLanguage: this.handleSwitchLanguage,
+            handleUpdateAppDifficultySetting: this
+              .handleUpdateAppDifficultySetting,
           }}
         >
           <AppPureComponent
@@ -245,6 +247,7 @@ class RootContainer extends React.Component<{}, IState> {
           userId: user.uuid,
           experience: user.experience_points,
           userScoreStatus: scoreHistory,
+          appDifficultySetting: user.app_difficulty_setting,
         });
       }
     }
@@ -405,6 +408,37 @@ class RootContainer extends React.Component<{}, IState> {
         languageSetting,
       )}`,
     });
+  };
+
+  handleUpdateAppDifficultySetting = async (
+    appDifficultySetting: APP_DIFFICULTY_SETTING,
+  ) => {
+    const { userId } = this.state;
+    if (userId) {
+      this.setState(
+        {
+          transparentLoading: true,
+        },
+        async () => {
+          const result = await updateAppDifficultySetting(
+            userId,
+            appDifficultySetting,
+          );
+          if (result) {
+            this.setState({
+              appDifficultySetting,
+              transparentLoading: false,
+              toastMessage: "App difficulty updated",
+            });
+          } else {
+            this.setState({
+              transparentLoading: false,
+              toastMessage: "Update failed, please try again...",
+            });
+          }
+        },
+      );
+    }
   };
 
   handleResetScores = () => {

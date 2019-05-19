@@ -1,6 +1,7 @@
 import React, { ComponentType } from "react";
 
 import GlobalState, {
+  APP_DIFFICULTY_SETTING,
   APP_LANGUAGE_SETTING,
   LessonScoreType,
   ScoreStatus,
@@ -16,13 +17,17 @@ import { HSKListSet } from "@src/tools/types";
 
 export type ComponentProp = (args: any) => JSX.Element;
 
-export interface GlobalStateProps {
+export interface GlobalStateValues {
   user?: GoogleSigninUser;
   lessons: HSKListSet;
   userScoreStatus: ScoreStatus;
   experience: number;
   wordDictionary: WordDictionary;
   languageSetting: APP_LANGUAGE_SETTING;
+  appDifficultySetting: APP_DIFFICULTY_SETTING;
+}
+
+export interface GlobalStateProps extends GlobalStateValues {
   setToastMessage: (toastMessage: string) => void;
   openLanguageSelectionMenu: () => void;
   handleResetScores: () => void;
@@ -33,6 +38,9 @@ export interface GlobalStateProps {
   ) => void;
   handleSwitchLanguage: (callback: () => void) => void;
   onSignin: (user: GoogleSigninUser) => Promise<void>;
+  handleUpdateAppDifficultySetting: (
+    setting: APP_DIFFICULTY_SETTING,
+  ) => Promise<void>;
 }
 
 interface IProps {

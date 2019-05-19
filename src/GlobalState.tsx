@@ -24,6 +24,12 @@ export enum APP_LANGUAGE_SETTING {
   TRADITIONAL = "traditional",
 }
 
+export enum APP_DIFFICULTY_SETTING {
+  EASY = "EASY",
+  MEDIUM = "MEDIUM",
+  HARD = "HARD",
+}
+
 export type LessonScoreType =
   | "mc_english"
   | "mc_mandarin"
@@ -36,6 +42,7 @@ const GlobalState = React.createContext({
   lessons: [] as HSKListSet,
   userScoreStatus: {},
   wordDictionary: {},
+  appDifficultySetting: APP_DIFFICULTY_SETTING.MEDIUM,
   languageSetting: APP_LANGUAGE_SETTING.SIMPLIFIED,
   setToastMessage: (toastMessage: string) => {
     // Handle setting Toast message
@@ -49,6 +56,9 @@ const GlobalState = React.createContext({
     exp: number,
   ) => {
     // Handle setting lesson score
+  },
+  handleUpdateAppDifficultySetting: (setting: APP_DIFFICULTY_SETTING) => {
+    // Handle switching app difficulty setting
   },
   handleSwitchLanguage: (callback: () => void) => {
     // Handle switching app language setting

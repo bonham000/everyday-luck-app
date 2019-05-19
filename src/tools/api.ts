@@ -1,6 +1,6 @@
 import axios from "axios";
 
-import { ScoreStatus } from "@src/GlobalState";
+import { APP_DIFFICULTY_SETTING, ScoreStatus } from "@src/GlobalState";
 import CONFIG from "@src/tools/config";
 import {
   HSKListSet,
@@ -14,14 +14,15 @@ import {
  * =========================================================================
  */
 
-export interface UserResponse {
+export interface UserResponseData {
   uuid: string;
   email: string;
   experience_points: number;
   score_history: string;
+  app_difficulty_setting: APP_DIFFICULTY_SETTING;
 }
 
-type Response = Promise<UserResponse | undefined>;
+type UserResponse = Promise<UserResponseData | undefined>;
 
 const HEADERS = {
   Accept: "application/json",
@@ -36,7 +37,7 @@ const HEADERS = {
 /**
  * Find or create a user given their email.
  */
-export const findOrCreateUser = async (email: string): Response => {
+export const findOrCreateUser = async (email: string): UserResponse => {
   try {
     const maybeUser = {
       email,
@@ -53,9 +54,8 @@ export const findOrCreateUser = async (email: string): Response => {
     return result;
   } catch (err) {
     console.log("Error fetching user: ", err);
+    return;
   }
-
-  return;
 };
 
 /**
@@ -64,7 +64,7 @@ export const findOrCreateUser = async (email: string): Response => {
 export const updateUserScores = async (
   userId: string,
   userScores: ScoreStatus,
-): Response => {
+): UserResponse => {
   try {
     const response = await fetch(`${CONFIG.DRAGON_URI}/set-scores/${userId}`, {
       method: "POST",
@@ -75,9 +75,8 @@ export const updateUserScores = async (
     return result;
   } catch (err) {
     console.log(err);
+    return;
   }
-
-  return;
 };
 
 /**
@@ -86,7 +85,7 @@ export const updateUserScores = async (
 export const updateUserExperience = async (
   userId: string,
   userExperience: number,
-): Response => {
+): UserResponse => {
   try {
     const response = await fetch(`${CONFIG.DRAGON_URI}/experience/${userId}`, {
       method: "POST",
@@ -99,9 +98,27 @@ export const updateUserExperience = async (
     return result;
   } catch (err) {
     console.log(err);
+    return;
   }
+};
 
-  return;
+/**
+ * Update app difficulty setting for user.
+ */
+export const updateAppDifficultySetting = async (
+  userId: string,
+  appDifficultySetting: APP_DIFFICULTY_SETTING,
+): UserResponse => {
+  try {
+    const result = await axios.post<UserResponseData>(
+      `${CONFIG.DRAGON_URI}/difficulty/${userId}`,
+      { app_difficulty_setting: appDifficultySetting },
+    );
+    return result.data;
+  } catch (err) {
+    console.log(err);
+    return;
+  }
 };
 
 /**
