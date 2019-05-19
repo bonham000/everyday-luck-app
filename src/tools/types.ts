@@ -63,17 +63,20 @@ export type HSKListSet = ReadonlyArray<HSKList>;
 export type LessonSummaryType = "SUMMARY" | "GAME" | "LESSON";
 
 export interface ListScreenParams {
-  lessons: LessonSet;
-  lessonIndex: number;
+  hskLists: LessonSet;
+  listIndex: number;
   headerTitle?: string;
   type: LessonSummaryType;
 }
 
 export interface LessonScreenParams {
   lesson: Lesson;
+  listIndex: number;
   lessonIndex: number;
   headerTitle?: string;
+  isFinalLesson: boolean;
   type: LessonSummaryType;
+  isFinalUnlockedLesson: boolean;
 }
 
 /** ========================================================================

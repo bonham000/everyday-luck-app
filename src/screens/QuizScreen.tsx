@@ -12,11 +12,15 @@ import GlobalStateProvider, {
 } from "@src/components/GlobalStateProvider";
 import { COLORS } from "@src/constants/Colors";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
-import { LessonScoreType } from "@src/GlobalState";
+import { LessonScoreType, ScoreStatus } from "@src/GlobalState";
 import { LessonScreenParams, Word } from "@src/tools/types";
 import {
+  convertAppDifficultyToLessonSize,
   filterForOneCharacterMode,
   getExperiencePointsForLesson,
+  getListScoreKeyFromIndex,
+  isLessonComplete,
+  mapListIndexToListScores,
   randomInRange,
 } from "@src/tools/utils";
 
@@ -106,7 +110,7 @@ class QuizScreen extends React.Component<IProps, IState> {
       currentWordIndex,
     } = this.state;
 
-    if (initalizing || quizFinished) {
+    if (initalizing) {
       return null;
     }
 
@@ -119,60 +123,60 @@ class QuizScreen extends React.Component<IProps, IState> {
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <Container>
           <Confetti untilStopped duration={1500} ref={this.setConfettiRef} />
-          <ProgressText>
-            Progress: {progressCount} / {lesson.length} complete, {skipCount}{" "}
-            skipped, {failCount} failed
-          </ProgressText>
-          <Component
-            valid={valid}
-            lesson={lesson}
-            didReveal={didReveal}
-            revealAnswer={revealAnswer}
-            currentWord={currentWord}
-            shouldShake={shouldShake}
-            attempted={attempted}
-            setInputRef={this.setInputRef}
-            value={this.state.value}
-            handleChange={this.handleChange}
-            handleCheck={this.handleCheck}
-            handleProceed={this.handleProceed}
-            languageSetting={this.props.languageSetting}
-            handleToggleRevealAnswer={this.handleToggleRevealAnswer}
-          />
-          <ActionButton position="left" buttonColor={COLORS.actionButtonRed}>
-            <ActionButton.Item
-              buttonColor={COLORS.actionButtonPurple}
-              title="Skip this one!"
-              onPress={this.handleProceed(true)}
-            >
-              <Ionicons name="md-key" style={ActionIconStyle} />
-            </ActionButton.Item>
-            <ActionButton.Item
-              buttonColor={COLORS.actionButtonMint}
-              title="View all definitions"
-              onPress={this.navigateToViewAll}
-            >
-              <Ionicons name="md-school" style={ActionIconStyle} />
-            </ActionButton.Item>
-            <ActionButton.Item
-              buttonColor={COLORS.actionButtonYellow}
-              title="Restart Quiz"
-              onPress={this.resetQuiz}
-            >
-              <Ionicons name="ios-refresh" style={ActionIconStyle} />
-            </ActionButton.Item>
-            {lessonType === "SUMMARY" && (
-              <ActionButton.Item
-                buttonColor={COLORS.actionButtonYellow}
-                onPress={this.handleToggleOneCharacterMode}
-                title={`${
-                  oneCharacterMode ? "Disable" : "Switch to"
-                } one-character mode`}
+          {quizFinished ? null : (
+            <React.Fragment>
+              <ProgressText>
+                Progress: {progressCount} / {lesson.length} complete,{" "}
+                {skipCount} skipped, {failCount} failed
+              </ProgressText>
+              <Component
+                valid={valid}
+                lesson={lesson}
+                didReveal={didReveal}
+                revealAnswer={revealAnswer}
+                currentWord={currentWord}
+                shouldShake={shouldShake}
+                attempted={attempted}
+                setInputRef={this.setInputRef}
+                value={this.state.value}
+                handleChange={this.handleChange}
+                handleCheck={this.handleCheck}
+                handleProceed={this.handleProceed}
+                languageSetting={this.props.languageSetting}
+                handleToggleRevealAnswer={this.handleToggleRevealAnswer}
+              />
+              <ActionButton
+                position="left"
+                buttonColor={COLORS.actionButtonRed}
               >
-                <Ionicons name="md-jet" style={ActionIconStyle} />
-              </ActionButton.Item>
-            )}
-          </ActionButton>
+                <ActionButton.Item
+                  buttonColor={COLORS.actionButtonPurple}
+                  title="Skip this one!"
+                  onPress={this.handleProceed(true)}
+                >
+                  <Ionicons name="md-key" style={ActionIconStyle} />
+                </ActionButton.Item>
+                <ActionButton.Item
+                  buttonColor={COLORS.actionButtonYellow}
+                  title="Restart Quiz"
+                  onPress={this.resetQuiz}
+                >
+                  <Ionicons name="ios-refresh" style={ActionIconStyle} />
+                </ActionButton.Item>
+                {lessonType === "SUMMARY" && (
+                  <ActionButton.Item
+                    buttonColor={COLORS.actionButtonYellow}
+                    onPress={this.handleToggleOneCharacterMode}
+                    title={`${
+                      oneCharacterMode ? "Disable" : "Switch to"
+                    } one-character mode`}
+                  >
+                    <Ionicons name="md-jet" style={ActionIconStyle} />
+                  </ActionButton.Item>
+                )}
+              </ActionButton>
+            </React.Fragment>
+          )}
         </Container>
       </TouchableWithoutFeedback>
     );
@@ -321,20 +325,62 @@ class QuizScreen extends React.Component<IProps, IState> {
   handleFinish = () => {
     const { userScoreStatus, quizType } = this.props;
     const lessonIndex = this.props.navigation.getParam("lessonIndex");
+    const listIndex = this.props.navigation.getParam("listIndex");
+    const isFinalLesson = this.props.navigation.getParam("isFinalLesson");
     const lessonType = this.props.navigation.getParam("type");
 
-    const exp = getExperiencePointsForLesson(quizType, lessonType);
+    const lessonContentSize = convertAppDifficultyToLessonSize(
+      this.props.appDifficultySetting,
+    );
+
+    const experiencePoints = getExperiencePointsForLesson(quizType, lessonType);
+
+    console.log(`lesson index - ${lessonIndex}`);
+    console.log(`lesson type - ${lessonType}`);
+    console.log(`quiz type - ${quizType}`);
+    console.log(`fail count - ${this.state.failCount}`);
 
     const perfectScore = this.state.failCount === 0;
     const firstPass = perfectScore && !userScoreStatus[quizType];
     let lessonCompleted = false;
+
+    let updatedScoreStatus: ScoreStatus = {
+      ...userScoreStatus,
+      [quizType]: true,
+    };
+
+    const listScoreKey = getListScoreKeyFromIndex(listIndex);
+    const listScore = mapListIndexToListScores(listIndex, updatedScoreStatus);
+
     if (perfectScore) {
-      this.props.setLessonScore(lessonIndex, quizType, exp);
-      const otherLessonStatus = userScoreStatus[quizType];
-      if (otherLessonStatus) {
-        lessonCompleted = true;
+      lessonCompleted = isLessonComplete(updatedScoreStatus);
+
+      if (lessonCompleted) {
+        updatedScoreStatus = {
+          ...updatedScoreStatus,
+          [listScoreKey]: {
+            ...listScore,
+            complete: isFinalLesson,
+            number_words_completed: (lessonIndex + 1) * lessonContentSize,
+          },
+        };
       }
+
+      if (lessonCompleted) {
+        updatedScoreStatus = {
+          ...updatedScoreStatus,
+          mc_english: false,
+          mc_mandarin: false,
+          quiz_text: false,
+          mandarin_pronunciation: false,
+        };
+      }
+
+      this.props.setLessonScore(updatedScoreStatus, experiencePoints);
     }
+
+    console.log(updatedScoreStatus);
+    console.log(`lesson completed - ${lessonCompleted}`);
 
     // tslint:disable-next-line
     this.timer = setTimeout(() => {
@@ -350,7 +396,7 @@ class QuizScreen extends React.Component<IProps, IState> {
               ? "Amazing! You passed this lesson! 💯"
               : "You finished the quiz!",
             lessonCompleted
-              ? `Great - keep going! 很好! You earned ${exp} experience points!`
+              ? `Great - keep going! 很好! You earned ${experiencePoints} experience points!`
               : firstPass
               ? "Congratulations! 恭喜恭喜！"
               : "All words completed, 好！",
@@ -360,7 +406,17 @@ class QuizScreen extends React.Component<IProps, IState> {
                 onPress: () => {
                   this.stopConfetti();
                   if (lessonCompleted) {
-                    this.props.navigation.navigate(ROUTE_NAMES.HOME);
+                    if (isFinalLesson) {
+                      this.props.navigation.navigate(ROUTE_NAMES.HOME);
+                    } else {
+                      if (firstPass) {
+                        this.props.navigation.navigate(
+                          ROUTE_NAMES.LIST_SUMMARY,
+                        );
+                      } else {
+                        this.props.navigation.goBack();
+                      }
+                    }
                   } else {
                     this.props.navigation.goBack();
                   }
@@ -393,19 +449,6 @@ class QuizScreen extends React.Component<IProps, IState> {
       // tslint:disable-next-line
       this.timer = setTimeout(this.stopConfetti, 250);
     });
-  };
-
-  navigateToViewAll = () => {
-    const type = this.props.navigation.getParam("type");
-    const lesson = this.props.navigation.getParam("lesson");
-    const lessonIndex = this.props.navigation.getParam("lessonIndex");
-    const params: LessonScreenParams = {
-      type,
-      lesson,
-      lessonIndex,
-      headerTitle: `Lesson ${Number(lessonIndex) + 1} Content`,
-    };
-    this.props.navigation.navigate(ROUTE_NAMES.VIEW_ALL, params);
   };
 
   getNextWordIndex = (shouldSkipLast: boolean = false): number => {

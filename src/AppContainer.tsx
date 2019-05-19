@@ -12,7 +12,6 @@ import { CustomToast } from "@src/components/ToastProvider";
 import GlobalContext, {
   APP_DIFFICULTY_SETTING,
   APP_LANGUAGE_SETTING,
-  LessonScoreType,
   ScoreStatus,
 } from "@src/GlobalState";
 import createAppNavigator from "@src/NavigatorConfig";
@@ -58,7 +57,36 @@ const defaultScoreState = {
   mc_mandarin: false,
   quiz_text: false,
   mandarin_pronunciation: false,
-  final_completed_lesson_index: 0,
+  list_02_score: {
+    complete: false,
+    list_index: 0,
+    list_key: "1-2",
+    number_words_completed: 0,
+  },
+  list_03_score: {
+    complete: false,
+    list_index: 1,
+    list_key: "3",
+    number_words_completed: 0,
+  },
+  list_04_score: {
+    complete: false,
+    list_index: 2,
+    list_key: "4",
+    number_words_completed: 0,
+  },
+  list_05_score: {
+    complete: false,
+    list_index: 3,
+    list_key: "5",
+    number_words_completed: 0,
+  },
+  list_06_score: {
+    complete: false,
+    list_index: 4,
+    list_key: "6",
+    number_words_completed: 0,
+  },
 };
 
 /** ========================================================================
@@ -270,19 +298,10 @@ class RootContainer extends React.Component<{}, IState> {
     }
   };
 
-  setLessonScore = async (
-    lessonIndex: number,
-    lessonPassedType: LessonScoreType,
-    exp: number,
-  ) => {
+  setLessonScore = async (updatedScoreStatus: ScoreStatus, exp: number) => {
     const { userId } = this.state;
 
     if (userId) {
-      const updatedScoreStatus: ScoreStatus = {
-        ...this.state.userScoreStatus,
-        [lessonPassedType]: true,
-      };
-
       await updateUserScores(userId, updatedScoreStatus);
       const updatedUser = await updateUserExperience(userId, exp);
 
@@ -469,7 +488,7 @@ class RootContainer extends React.Component<{}, IState> {
             await updateUserScores(userId, defaultScoreState);
             await updateUserExperience(userId, 0);
           }
-          this.setState({ toastMessage: "Scores reset!" });
+          this.setToastMessage("Scores reset!");
           this.getInitialScoreState();
         }, 1250);
       },

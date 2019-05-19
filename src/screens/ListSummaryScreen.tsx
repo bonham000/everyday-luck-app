@@ -16,7 +16,10 @@ import {
   LessonSummaryType,
   ListScreenParams,
 } from "@src/tools/types";
-import { getFinalUnlockedList } from "@src/tools/utils";
+import {
+  determineFinalUnlockedLesson,
+  mapListIndexToListScores,
+} from "@src/tools/utils";
 
 /** ========================================================================
  * Types
@@ -43,11 +46,19 @@ class ListSummaryScreen extends React.Component<IProps, {}> {
   }
 
   renderLessons = () => {
-    const lessons = this.props.navigation.getParam("lessons");
-    const { userScoreStatus } = this.props;
-    const unlockedLessonIndex = getFinalUnlockedList(userScoreStatus);
-    return lessons.map((lesson, index) => {
+    const hskLists = this.props.navigation.getParam("hskLists");
+    const listIndex = this.props.navigation.getParam("listIndex");
+    const { appDifficultySetting, userScoreStatus } = this.props;
+    const unlockedLessonIndex = determineFinalUnlockedLesson(
+      hskLists,
+      listIndex,
+      userScoreStatus,
+      appDifficultySetting,
+    );
+    const listScore = mapListIndexToListScores(listIndex, userScoreStatus);
+    return hskLists.map((lesson, index) => {
       const isLocked = index > unlockedLessonIndex;
+      const isFinalLesson = index === hskLists.length - 1;
       return (
         <LessonBlock
           style={{
@@ -55,11 +66,18 @@ class ListSummaryScreen extends React.Component<IProps, {}> {
               ? COLORS.lockedLessonBlock
               : COLORS.lessonBlock,
           }}
-          onPress={this.handleSelectLesson(lesson, index, isLocked)}
+          onPress={this.handleSelectLesson(
+            lesson,
+            index,
+            isLocked,
+            isFinalLesson,
+            index <= unlockedLessonIndex,
+          )}
         >
           <LessonBlockText isLocked={isLocked}>
             Lesson {index + 1}
           </LessonBlockText>
+          {(isFinalLesson || listScore.complete) && <Text>🏅</Text>}
         </LessonBlock>
       );
     });
@@ -69,23 +87,36 @@ class ListSummaryScreen extends React.Component<IProps, {}> {
     lesson: Lesson,
     index: number,
     isLocked: boolean,
+    isFinalLesson: boolean,
+    isFinalUnlockedLesson: boolean,
   ) => () => {
     if (isLocked) {
       this.props.setToastMessage("Please complete the previous lesson first");
     } else {
-      this.openLessonSummary(lesson, index)();
+      this.openLessonSummary(
+        lesson,
+        index,
+        isFinalLesson,
+        isFinalUnlockedLesson,
+      )();
     }
   };
 
   openLessonSummary = (
     lesson: Lesson,
-    index: number,
+    lessonIndex: number,
+    isFinalLesson: boolean,
+    isFinalUnlockedLesson: boolean,
     type: LessonSummaryType = "LESSON",
   ) => () => {
+    const listIndex = this.props.navigation.getParam("listIndex");
     const params: LessonScreenParams = {
       type,
       lesson,
-      lessonIndex: index,
+      listIndex,
+      isFinalLesson,
+      lessonIndex,
+      isFinalUnlockedLesson,
     };
     this.props.navigation.navigate(ROUTE_NAMES.LESSON_SUMMARY, params);
   };

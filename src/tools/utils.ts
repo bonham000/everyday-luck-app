@@ -9,6 +9,7 @@ import {
   APP_DIFFICULTY_SETTING,
   APP_LANGUAGE_SETTING,
   LessonScoreType,
+  ListScore,
   ScoreStatus,
   WordDictionary,
 } from "@src/GlobalState";
@@ -17,6 +18,7 @@ import {
   HSKList,
   HSKListSet,
   Lesson,
+  LessonSet,
   LessonSummaryType,
   Option,
   OptionType,
@@ -170,8 +172,69 @@ export const getAlternateChoices = (
 /**
  * Determines the unlocked lesson for a user given their score status.
  */
-export const getFinalUnlockedList = (userScoreStatus: ScoreStatus): number => {
-  return userScoreStatus.final_completed_lesson_index;
+export const getFinalUnlockedListKey = (
+  userScoreStatus: ScoreStatus,
+): number => {
+  return [
+    userScoreStatus.list_02_score,
+    userScoreStatus.list_03_score,
+    userScoreStatus.list_04_score,
+    userScoreStatus.list_05_score,
+    userScoreStatus.list_06_score,
+    // @ts-ignore
+  ].reduce((finalIndex, current) => {
+    return typeof finalIndex === "number"
+      ? finalIndex
+      : !current.complete
+      ? current.list_index
+      : null;
+  }, null);
+};
+
+export const determineFinalUnlockedLesson = (
+  lesson: LessonSet,
+  listIndex: number,
+  userScoreStatus: ScoreStatus,
+  appDifficultySetting: APP_DIFFICULTY_SETTING,
+): number => {
+  const listScore = mapListIndexToListScores(listIndex, userScoreStatus);
+  const completedWords = listScore.number_words_completed;
+  const userLessonSize = convertAppDifficultyToLessonSize(appDifficultySetting);
+
+  return Math.floor(completedWords / userLessonSize);
+};
+
+const SCORES_INDEX_MAP: ReadonlyArray<any> = [
+  "list_02_score",
+  "list_03_score",
+  "list_04_score",
+  "list_05_score",
+  "list_06_score",
+];
+
+export const getListScoreKeyFromIndex = (index: number) => {
+  return SCORES_INDEX_MAP[index];
+};
+
+export const mapListIndexToListScores = (
+  index: number,
+  userScoreStatus: ScoreStatus,
+): ListScore => {
+  const key = getListScoreKeyFromIndex(index);
+  // @ts-ignore
+  return userScoreStatus[key] as ListScore;
+};
+
+/**
+ * Determine if a lesson is complete.
+ */
+export const isLessonComplete = (userScoreStatus: ScoreStatus) => {
+  return (
+    userScoreStatus.mc_english &&
+    userScoreStatus.mc_mandarin &&
+    userScoreStatus.quiz_text &&
+    userScoreStatus.mandarin_pronunciation
+  );
 };
 
 export const getExperiencePointsForLesson = (
@@ -452,6 +515,6 @@ export const formatLessonContent = (
   lesson: Lesson,
   appDifficultySetting: APP_DIFFICULTY_SETTING,
 ) => {
-  const lessonSize = convertAppDifficultyToLessonSize(appDifficultySetting);
-  return batchList(lesson, lessonSize);
+  // const lessonSize = convertAppDifficultyToLessonSize(appDifficultySetting);
+  return batchList(lesson, 1);
 };

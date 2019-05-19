@@ -10,7 +10,9 @@ import {
 } from "@src/components/GlobalStateProvider";
 import { COLORS } from "@src/constants/Colors";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
+import { ScoreStatus } from "@src/GlobalState";
 import { LessonScreenParams } from "@src/tools/types";
+import { mapListIndexToListScores } from "@src/tools/utils";
 
 /** ========================================================================
  * Types
@@ -26,18 +28,62 @@ interface IProps extends GlobalStateProps {
  * =========================================================================
  */
 
+const getLessonSummaryStatus = (
+  isFinalLesson: boolean,
+  userScoreStatus: ScoreStatus,
+  listIndex: number,
+) => {
+  const listScore = mapListIndexToListScores(listIndex, userScoreStatus);
+  const listCompleted = listScore.complete;
+  const mcEnglish = listCompleted
+    ? true
+    : isFinalLesson
+    ? userScoreStatus.mc_english
+    : true;
+  const mcMandarin = listCompleted
+    ? true
+    : isFinalLesson
+    ? userScoreStatus.mc_mandarin
+    : true;
+  const quizText = listCompleted
+    ? true
+    : isFinalLesson
+    ? userScoreStatus.quiz_text
+    : true;
+  const mandarinPronunciation = listCompleted
+    ? true
+    : isFinalLesson
+    ? userScoreStatus.mandarin_pronunciation
+    : true;
+
+  return {
+    mcEnglish,
+    mcMandarin,
+    quizText,
+    mandarinPronunciation,
+  };
+};
+
 class LessonSummaryScreen extends React.Component<IProps, {}> {
   render(): JSX.Element {
     const { navigation, userScoreStatus } = this.props;
     const type = navigation.getParam("type");
     const lesson = navigation.getParam("lesson");
+    const listIndex = navigation.getParam("listIndex");
+    const isFinalUnlockedLesson = navigation.getParam("isFinalUnlockedLesson");
+    console.log(isFinalUnlockedLesson);
+
     const isLesson = type === "LESSON";
     const {
-      mc_english,
-      mc_mandarin,
-      quiz_text,
-      mandarin_pronunciation,
-    } = userScoreStatus;
+      mcEnglish,
+      mcMandarin,
+      quizText,
+      mandarinPronunciation,
+    } = getLessonSummaryStatus(
+      isFinalUnlockedLesson,
+      userScoreStatus,
+      listIndex,
+    );
     return (
       <Container>
         <Text style={TextStyles}>
@@ -58,7 +104,7 @@ class LessonSummaryScreen extends React.Component<IProps, {}> {
         <LineBreak />
         <ActionBlock onPress={this.handleNavigateToSection(ROUTE_NAMES.QUIZ)}>
           <Text>Characters Quiz</Text>
-          {quiz_text && isLesson && <Text>💯</Text>}
+          {quizText && isLesson && <Text>💯</Text>}
         </ActionBlock>
         <ActionBlock
           onPress={this.handleNavigateToSection(
@@ -66,7 +112,7 @@ class LessonSummaryScreen extends React.Component<IProps, {}> {
           )}
         >
           <Text>Mandarin Recognition</Text>
-          {mc_mandarin && isLesson && <Text>💯</Text>}
+          {mcMandarin && isLesson && <Text>💯</Text>}
         </ActionBlock>
         <ActionBlock
           onPress={this.handleNavigateToSection(
@@ -74,7 +120,7 @@ class LessonSummaryScreen extends React.Component<IProps, {}> {
           )}
         >
           <Text>English Recognition</Text>
-          {mc_english && isLesson && <Text>💯</Text>}
+          {mcEnglish && isLesson && <Text>💯</Text>}
         </ActionBlock>
         <ActionBlock
           onPress={this.handleNavigateToSection(
@@ -82,7 +128,7 @@ class LessonSummaryScreen extends React.Component<IProps, {}> {
           )}
         >
           <Text>Mandarin Pronunciation</Text>
-          {mandarin_pronunciation && isLesson && <Text>💯</Text>}
+          {mandarinPronunciation && isLesson && <Text>💯</Text>}
         </ActionBlock>
         {type !== "GAME" && (
           <React.Fragment>
@@ -109,11 +155,19 @@ class LessonSummaryScreen extends React.Component<IProps, {}> {
   handleNavigateToSection = (routeName: ROUTE_NAMES) => () => {
     const type = this.props.navigation.getParam("type");
     const lesson = this.props.navigation.getParam("lesson");
+    const listIndex = this.props.navigation.getParam("listIndex");
     const lessonIndex = this.props.navigation.getParam("lessonIndex");
+    const isFinalLesson = this.props.navigation.getParam("isFinalLesson");
+    const isFinalUnlockedLesson = this.props.navigation.getParam(
+      "isFinalUnlockedLesson",
+    );
     const params: LessonScreenParams = {
       type,
       lesson,
+      listIndex,
       lessonIndex,
+      isFinalLesson,
+      isFinalUnlockedLesson,
     };
     this.props.navigation.navigate(routeName, params);
   };

@@ -3,7 +3,6 @@ import React, { ComponentType } from "react";
 import GlobalState, {
   APP_DIFFICULTY_SETTING,
   APP_LANGUAGE_SETTING,
-  LessonScoreType,
   ScoreStatus,
   WordDictionary,
 } from "@src/GlobalState";
@@ -31,13 +30,9 @@ export interface GlobalStateProps extends GlobalStateValues {
   setToastMessage: (toastMessage: string) => void;
   openLanguageSelectionMenu: () => void;
   handleResetScores: () => void;
-  setLessonScore: (
-    lessonIndex: number,
-    lessonPassedType: LessonScoreType,
-    exp: number,
-  ) => void;
   handleSwitchLanguage: () => void;
   onSignin: (user: GoogleSigninUser) => Promise<void>;
+  setLessonScore: (updatedScoreStatus: ScoreStatus, exp: number) => void;
   handleUpdateAppDifficultySetting: (
     setting: APP_DIFFICULTY_SETTING,
   ) => Promise<void>;

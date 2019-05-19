@@ -7,12 +7,23 @@ import { HSKListSet, Word } from "@src/tools/types";
  * Context for toast message
  * =========================================================================
  */
+export interface ListScore {
+  list_key: string;
+  list_index: number;
+  complete: boolean;
+  number_words_completed: number;
+}
+
 export interface ScoreStatus {
   mc_english: boolean;
   mc_mandarin: boolean;
   quiz_text: boolean;
   mandarin_pronunciation: boolean;
-  final_completed_lesson_index: number;
+  list_02_score: ListScore;
+  list_03_score: ListScore;
+  list_04_score: ListScore;
+  list_05_score: ListScore;
+  list_06_score: ListScore;
 }
 
 export interface WordDictionary {
@@ -50,11 +61,7 @@ const GlobalState = React.createContext({
   handleResetScores: () => {
     // Handle resetting scores
   },
-  setLessonScore: (
-    lessonIndex: number,
-    lessonPassedType: LessonScoreType,
-    exp: number,
-  ) => {
+  setLessonScore: (updatedScoreStatus: ScoreStatus, exp: number) => {
     // Handle setting lesson score
   },
   handleUpdateAppDifficultySetting: (setting: APP_DIFFICULTY_SETTING) => {
