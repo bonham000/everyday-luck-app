@@ -2,8 +2,18 @@ import fs from "fs";
 
 import translateText from "./translate";
 
-/* Update current word list to import here: */
-import vocabularyList from "./lists/04";
+// @ts-ignore
+import vocabularyList2 from "./lists/02";
+// @ts-ignore
+import vocabularyList3 from "./lists/03";
+// @ts-ignore
+import vocabularyList4 from "./lists/04";
+// @ts-ignore
+import vocabularyList5 from "./lists/05";
+// @ts-ignore
+import vocabularyList6 from "./lists/06";
+
+const LIST = vocabularyList2;
 
 const createItemLiteral = (
   simplified: string,
@@ -22,17 +32,24 @@ const translateSimplifiedCharactersToTraditional = async (
 
 const parseList = async (vocabulary: ReadonlyArray<string>) => {
   return Promise.all(
-    vocabulary
-      .map(line => line.trim())
-      .filter(line => line.split(" ").length > 2)
-      .map(async line => {
-        const [simplified, pinyin = "", english = ""] = line.split(" ");
-        const traditional = await translateSimplifiedCharactersToTraditional(
-          simplified,
-        );
-        return createItemLiteral(simplified, traditional, pinyin, english);
-      }),
+    vocabulary.map(async line => {
+      const [simplified, pinyin, ...rest] = line.split(" ");
+      const english = rest.join(" ");
+      const traditional = await translateSimplifiedCharactersToTraditional(
+        simplified,
+      );
+      return createItemLiteral(simplified, traditional, pinyin, english);
+    }),
   );
+};
+
+// @ts-ignore
+const formatAndStandardizeRawList = (list: ReadonlyArray<string>) => {
+  const formatted = list
+    .map(line => line.trim())
+    .filter(line => line.split(" ").length > 2);
+
+  writeListToJson(formatted);
 };
 
 const writeListToJson = (result: ReadonlyArray<string>) => {
@@ -44,7 +61,7 @@ const writeListToJson = (result: ReadonlyArray<string>) => {
 
 const processWords = async () => {
   console.log("\nProcessing words...");
-  const parsedResult = await parseList(vocabularyList);
+  const parsedResult = await parseList(LIST);
   writeListToJson(parsedResult);
 };
 
