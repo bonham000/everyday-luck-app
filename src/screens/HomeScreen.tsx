@@ -18,8 +18,8 @@ import {
 } from "@src/tools/types";
 import {
   formatHskListContent,
+  getDailyChallengeQuizSet,
   getFinalUnlockedListKey,
-  getGameModeLessonSet,
   getReviewLessonSet,
 } from "@src/tools/utils";
 
@@ -39,12 +39,18 @@ interface IProps extends GlobalStateProps {
 
 class HomeScreen extends React.Component<IProps, {}> {
   render(): JSX.Element {
-    const { lessons, userScoreStatus } = this.props;
+    const { lessons, userScoreStatus, appDifficultySetting } = this.props;
     const finalUnlockedListIndex = getFinalUnlockedListKey(userScoreStatus);
     const totalWords = lessons.reduce(
       (total, lesson) => total + lesson.content.length,
       0,
     );
+    const dailyQuizSet = getDailyChallengeQuizSet(
+      lessons,
+      finalUnlockedListIndex,
+      appDifficultySetting,
+    );
+    const reviewSet = getReviewLessonSet(lessons, finalUnlockedListIndex);
     return (
       <Container>
         <Text style={TextStyles}>Choose a lesson to start studying</Text>
@@ -54,19 +60,13 @@ class HomeScreen extends React.Component<IProps, {}> {
         {this.renderListSets()}
         <LineBreak />
         <ReviewLink
-          onPress={this.openLessonSummaryForSpecialMode(
-            getGameModeLessonSet(lessons, finalUnlockedListIndex),
-            "GAME",
-          )}
+          onPress={this.openLessonSummarySpecial(dailyQuizSet, "DAILY_QUIZ")}
         >
-          <Text style={{ fontWeight: "600" }}>Game Mode!</Text>
-          <Text>🏺</Text>
+          <Text style={{ fontWeight: "600" }}>Daily Challenge!</Text>
+          <Text>🏟</Text>
         </ReviewLink>
         <ReviewLink
-          onPress={this.openLessonSummaryForSpecialMode(
-            getReviewLessonSet(lessons, finalUnlockedListIndex),
-            "SUMMARY",
-          )}
+          onPress={this.openLessonSummarySpecial(reviewSet, "SUMMARY")}
         >
           <Text style={{ fontWeight: "600" }}>Review All Unlocked Content</Text>
           <Text>🏖</Text>
@@ -133,7 +133,7 @@ class HomeScreen extends React.Component<IProps, {}> {
     this.props.navigation.navigate(ROUTE_NAMES.LIST_SUMMARY, params);
   };
 
-  openLessonSummaryForSpecialMode = (
+  openLessonSummarySpecial = (
     lesson: Lesson,
     type: LessonSummaryType,
   ) => () => {

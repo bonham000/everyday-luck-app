@@ -8,6 +8,7 @@ import {
   GlobalStateProps,
   withGlobalState,
 } from "@src/components/GlobalStateProvider";
+import { Bold } from "@src/components/SharedComponents";
 import { COLORS } from "@src/constants/Colors";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import { LessonScreenParams } from "@src/tools/types";
@@ -52,19 +53,21 @@ class LessonSummaryScreen extends React.Component<IProps, {}> {
             ? "Lesson Summary"
             : type === "SUMMARY"
             ? "Content Summary"
-            : "Fun Challenge - 遊戲！"}
+            : "Daily Challenge!!! 🏟"}
         </Text>
         <Text style={{ marginBottom: 12 }}>
           {type === "LESSON"
             ? `${lesson.length} total words to practice in this lesson`
             : type === "SUMMARY"
             ? "This is a summary of all unlocked content"
-            : "There are 25 random words selected for you!"}
+            : `There are ${lesson.length} random words selected for you!`}
         </Text>
         {type === "SUMMARY" && (
           <Text>There are {lesson.length} words to review</Text>
         )}
-        {type !== "GAME" && <Text style={SectionTextStyles}>Practice</Text>}
+        {type !== "DAILY_QUIZ" && (
+          <Text style={SectionTextStyles}>Practice</Text>
+        )}
         <LineBreak />
         <ActionBlock onPress={this.handleNavigateToSection(ROUTE_NAMES.QUIZ)}>
           <Text>Characters Quiz</Text>
@@ -94,7 +97,7 @@ class LessonSummaryScreen extends React.Component<IProps, {}> {
           <Text>Mandarin Pronunciation</Text>
           {mandarinPronunciation && isLesson && <Text>💯</Text>}
         </ActionBlock>
-        {type !== "GAME" && (
+        {type !== "DAILY_QUIZ" ? (
           <React.Fragment>
             <Text style={SectionTextStyles}>Study</Text>
             <LineBreak />
@@ -111,6 +114,12 @@ class LessonSummaryScreen extends React.Component<IProps, {}> {
               <Text>Review All Content</Text>
             </ActionBlock>
           </React.Fragment>
+        ) : (
+          <Text style={{ textAlign: "center", width: "85%", marginTop: 15 }}>
+            Practice makes perfect! The <Bold>Daily Challenge</Bold> will prompt
+            you each day with a quiz on the content you've already learned.
+            Reviewing like this will ensure you don't forget!
+          </Text>
         )}
       </Container>
     );

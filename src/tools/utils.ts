@@ -350,16 +350,21 @@ export const getDrawerLockedState = (navigation: any): DrawerLockMode => {
  * @param unlockedLessonIndex final unlocked lesson index
  * @returns random lesson containing 25 items
  */
-export const getGameModeLessonSet = (
+export const getDailyChallengeQuizSet = (
   lists: HSKListSet,
   unlockedLessonIndex: number,
+  appDifficultySetting: APP_DIFFICULTY_SETTING,
 ): Lesson => {
+  /**
+   * TODO: Only return unlocked list content.
+   */
+  const quizSize = convertAppDifficultyToLessonSize(appDifficultySetting);
   return knuthShuffle(
     lists
       .slice(0, unlockedLessonIndex + 1)
       .map(list => list.content.slice())
       .reduce((flattened, lesson) => [...flattened, ...lesson]),
-  ).slice(0, 25);
+  ).slice(0, quizSize);
 };
 
 /**

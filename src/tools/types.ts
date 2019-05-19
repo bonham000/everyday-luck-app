@@ -60,7 +60,7 @@ export type Lesson = ReadonlyArray<Word>;
 export type LessonSet = ReadonlyArray<Lesson>;
 export type HSKListSet = ReadonlyArray<HSKList>;
 
-export type LessonSummaryType = "SUMMARY" | "GAME" | "LESSON";
+export type LessonSummaryType = "SUMMARY" | "DAILY_QUIZ" | "LESSON";
 
 export type MultipleChoiceComponentType =
   | "MANDARIN"
