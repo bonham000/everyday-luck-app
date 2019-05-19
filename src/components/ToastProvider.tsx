@@ -1,6 +1,5 @@
 import glamorous from "glamorous-native";
 import React from "react";
-import { Text } from "react-native-paper";
 
 import GlobalState from "@src/GlobalState";
 
