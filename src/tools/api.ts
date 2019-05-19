@@ -158,7 +158,7 @@ export const fetchWordPronunciation = async (
       data: result.data,
     };
   } catch (err) {
-    console.log("Error fetching sound pronunciation file", err);
+    console.log("Error fetching sound pronunciation file ---", err.message);
     return {
       err,
       type: ResultType.ERROR,

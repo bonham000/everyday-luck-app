@@ -15,6 +15,8 @@ const getDictionaryObject = () => {
 
 /**
  * Serialize audio recordings data to JSON file.
+ *
+ * @data dictionary data to save
  */
 const saveAudioRecordingsFile = (data: IAudioRecordingsDictionary) => {
   console.log("\nWriting JSON result...");
@@ -38,43 +40,6 @@ const createAudioDirectoryIfNotExists = () => {
     }
   }
 };
-
-/**
- * Create a download queue to process downloads sequentially.
- */
-class DownloadQueue {
-  queue: ReadonlyArray<any> = [];
-
-  enqueueDownload = (word: string, url: string, filePath: string) => {
-    const downloadItem = {
-      word,
-      url,
-      filePath,
-    };
-    // @ts-ignore
-    this.queue.push(downloadItem);
-  };
-
-  dequeue = () => {
-    // @ts-ignore
-    return this.queue.pop();
-  };
-
-  downloadMp3Async = () => {
-    const nextItem = this.dequeue();
-    if (nextItem) {
-      const { url, word, filePath } = nextItem;
-      const file = fs.createWriteStream(`audio/${filePath}.mp3`);
-      https.get(url, response => {
-        response.pipe(file);
-        console.log(`- File written for ${word}`);
-        this.downloadMp3Async();
-      });
-    }
-  };
-}
-
-const downloadQueue = new DownloadQueue();
 
 /**
  * Scrap audio recordings for any words not recorded yet.
@@ -112,60 +77,131 @@ const scrapAudioRecordings = async () => {
 };
 
 /**
- * Fetch and save the mp3 file for a word.
+ * Create a download queue to process downloads sequentially.
  */
-const fetchAndSaveMp3File = (word: string, url: string, filePath: string) => {
-  downloadQueue.enqueueDownload(word, url, filePath);
-};
+class DownloadQueue {
+  failureCount = 0;
+  failureThreshold = 5;
+  queue: ReadonlyArray<any> = [];
+  dictionary: IAudioRecordingsDictionary = {};
 
-/**
- * Update the word dictionary with the new file path.
- */
-const updateAudioItemFilePath = (
-  wordKey: string,
-  index: number,
-  filePathKey: string,
-  dictionary: IAudioRecordingsDictionary,
-) => {
-  // tslint:disable-next-line
-  delete dictionary[wordKey][index]["pathmp3"];
-  // tslint:disable-next-line
-  delete dictionary[wordKey][index]["pathogg"];
-  // tslint:disable-next-line
-  dictionary[wordKey][index]["filePath"] = filePathKey;
-};
+  initializeDictionary = () => {
+    // tslint:disable-next-line
+    this.dictionary = getDictionaryObject();
+  };
+
+  enqueueDownload = (
+    word: string,
+    url: string,
+    index: number,
+    filePath: string,
+  ) => {
+    const downloadItem = {
+      word,
+      url,
+      index,
+      filePath,
+    };
+    // @ts-ignore
+    this.queue.push(downloadItem);
+  };
+
+  dequeue = () => {
+    // @ts-ignore
+    return this.queue.pop();
+  };
+
+  downloadMp3Async = () => {
+    const nextItem = this.dequeue();
+    if (nextItem) {
+      const { url, word, index, filePath } = nextItem;
+      const file = fs.createWriteStream(`audio/${filePath}.mp3`);
+      https
+        .get(url, response => {
+          response.pipe(file);
+          console.log(`- File written for ${word}`);
+          this.updateAudioItemFilePath(word, index, filePath, this.dictionary);
+          this.downloadMp3Async();
+        })
+        .on("error", error => {
+          console.log("Error encountered when downloading mp3");
+          // tslint:disable-next-line
+          this.failureCount = this.failureCount + 1;
+
+          if (this.failureCount > this.failureThreshold) {
+            console.log(
+              "Failure threshold exceeded - updating dictionary and aborting!",
+            );
+            saveAudioRecordingsFile(this.dictionary);
+          }
+        });
+    }
+  };
+
+  initializeDownloads = () => {
+    this.initializeDictionary();
+    this.downloadMp3Async();
+  };
+
+  updateAudioItemFilePath = (
+    wordKey: string,
+    index: number,
+    filePathKey: string,
+    dictionary: IAudioRecordingsDictionary,
+  ) => {
+    // tslint:disable-next-line
+    delete dictionary[wordKey][index]["pathmp3"];
+    // tslint:disable-next-line
+    delete dictionary[wordKey][index]["pathogg"];
+    // tslint:disable-next-line
+    dictionary[wordKey][index]["filePath"] = filePathKey;
+  };
+}
+
+const downloadQueue = new DownloadQueue();
 
 /**
  * Fetch all the mp3 files for the existing word dictionary which have
  * been fetched yet.
  */
+// @ts-ignore
 const fetchMp3Files = () => {
+  console.log("\n- Processing audio results for available downloads...");
   createAudioDirectoryIfNotExists();
+
+  let tasks = 0;
   const dictionary = getDictionaryObject();
+
   for (const wordKey in dictionary) {
     const result = dictionary[wordKey];
     if (result) {
       result.forEach((audioItem, index) => {
         if (audioItem.pathmp3) {
+          tasks++;
+          console.log(`- Preparing to enqueue audio task for ${wordKey}`);
           const url = audioItem.pathmp3;
           const filePathKey = `${wordKey}-${index}`;
-          fetchAndSaveMp3File(wordKey, url, filePathKey);
-          updateAudioItemFilePath(wordKey, index, filePathKey, dictionary);
+          downloadQueue.enqueueDownload(wordKey, url, index, filePathKey);
         }
       });
     }
   }
-  console.log("Updating audio recordings file...");
-  saveAudioRecordingsFile(dictionary);
+
+  if (tasks > 0) {
+    console.log("- Initializing mp3 downloads process...");
+    downloadQueue.initializeDownloads();
+  } else {
+    console.log("- No un-fetched files found\n");
+  }
 };
 
+// @ts-ignore
 const updateAudioRecordingsData = async () => {
   await scrapAudioRecordings();
-  fetchMp3Files();
-
-  console.log("Initializing mp3 downloads...");
-  downloadQueue.downloadMp3Async();
 };
 
-/* Run the program - */
-updateAudioRecordingsData();
+/* Scrap audio data - */
+// updateAudioRecordingsData();
+
+/* Download mp3s */
+fetchMp3Files();
