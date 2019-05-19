@@ -52,7 +52,7 @@ class LessonSummaryScreen extends React.Component<IProps, {}> {
             ? "Lesson Summary"
             : type === "SUMMARY"
             ? "Content Summary"
-            : "Fun Challenge, 遊戲！"}
+            : "Fun Challenge - 遊戲！"}
         </Text>
         <Text style={{ marginBottom: 12 }}>
           {type === "LESSON"
