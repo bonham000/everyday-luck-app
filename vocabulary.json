@@ -1,0 +1,8 @@
+{
+  "lists": [
+    [
+      "Item { simplified: \"怎么\", traditional: \"怎麼\", pinyin: \"blah\", english: \"blha-asfd\", english_alternate_choices: vec![\"\"], }",
+      "Item { simplified: \"怎么样\", traditional: \"怎麼樣\", pinyin: \"blah\", english: \"blha-asfd\", english_alternate_choices: vec![\"\"], }"
+    ]
+  ]
+}
