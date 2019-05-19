@@ -1,6 +1,6 @@
 import glamorous from "glamorous-native";
 import React from "react";
-import { StyleSheet } from "react-native";
+import { ScrollView, StyleSheet } from "react-native";
 import { Button, Text, TextInput } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
@@ -12,6 +12,7 @@ import { Bold } from "@src/components/SharedComponents";
 import { COLORS } from "@src/constants/Colors";
 import { APP_DIFFICULTY_SETTING } from "@src/GlobalState";
 import {
+  capitalize,
   convertAppDifficultyToLessonSize,
   formatUserLanguageSetting,
   getAlternateLanguageSetting,
@@ -119,6 +120,8 @@ class SettingsScreen extends React.Component<IProps, IState> {
           );
         },
       );
+    } else {
+      this.props.setToastMessage("Please enter a message");
     }
   };
 
@@ -130,7 +133,8 @@ class SettingsScreen extends React.Component<IProps, IState> {
         onPress={this.setAppDifficulty(setting)}
       >
         <DifficultSettingBlockText selected={selected}>
-          Hard ({convertAppDifficultyToLessonSize(setting)} questions per quiz)
+          {capitalize(setting)} ({convertAppDifficultyToLessonSize(setting)}{" "}
+          questions per quiz)
         </DifficultSettingBlockText>
         {selected && <Text>✅</Text>}
       </DifficultSettingBlock>
@@ -151,12 +155,20 @@ class SettingsScreen extends React.Component<IProps, IState> {
  * =========================================================================
  */
 
-const Container = glamorous.view({
-  flex: 1,
-  paddingTop: 15,
-  alignItems: "center",
-  backgroundColor: "rgb(231,237,240)",
-});
+const Container = (props: { children: any }) => (
+  <ScrollView
+    contentContainerStyle={{
+      flexGrow: 1,
+      width: "100%",
+      paddingTop: 15,
+      paddingBottom: 50,
+      alignItems: "center",
+      backgroundColor: "rgb(231,237,240)",
+    }}
+  >
+    {props.children}
+  </ScrollView>
+);
 
 const SectionTitle = glamorous.text({
   fontSize: 22,
@@ -208,7 +220,7 @@ const DifficultSettingBlockText = glamorous.text(
 );
 
 const TextInputStyles = {
-  width: "95%",
+  width: "90%",
   fontSize: 34,
   marginTop: 6,
   backgroundColor: "rgb(231,237,240)",

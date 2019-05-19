@@ -77,12 +77,15 @@ class HomeScreen extends React.Component<IProps, {}> {
     const unlockedListIndex = getFinalUnlockedListKey(userScoreStatus);
     return lessons.map((lesson, index) => {
       const isLocked = index > unlockedListIndex;
+      const inProgress = index === unlockedListIndex;
       const { list, content } = lesson;
       return (
         <LessonBlock
           style={{
             backgroundColor: isLocked
               ? COLORS.lockedLessonBlock
+              : inProgress
+              ? COLORS.lessonBlockInProgress
               : COLORS.lessonBlock,
           }}
           onPress={this.handleSelectList(content, index, isLocked)}

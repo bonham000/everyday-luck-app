@@ -528,3 +528,13 @@ export const formatLessonContent = (
   const lessonSize = convertAppDifficultyToLessonSize(appDifficultySetting);
   return batchList(lesson, lessonSize);
 };
+
+/**
+ * Capitalize a string
+ */
+export const capitalize = (value: string): string => {
+  return value
+    .slice(0, 1)
+    .toUpperCase()
+    .concat(value.toLowerCase().slice(1));
+};

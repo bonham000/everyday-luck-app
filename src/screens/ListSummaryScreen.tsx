@@ -40,10 +40,11 @@ class ListSummaryScreen extends React.Component<IProps, {}> {
     const hskLists = this.props.navigation.getParam("hskLists");
     return (
       <Container>
-        <Text style={TextStyles}>Choose a lesson to start studying</Text>
+        <TitleText>Choose a lesson to start studying</TitleText>
         <FlatList
           data={hskLists}
           renderItem={this.renderItem}
+          contentContainerStyle={{ paddingBottom: 50 }}
           keyExtractor={item => `${item[0].traditional}-${item[0].pinyin}`}
         />
       </Container>
@@ -62,14 +63,22 @@ class ListSummaryScreen extends React.Component<IProps, {}> {
       userScoreStatus,
       appDifficultySetting,
     );
-    const isLocked = index > unlockedLessonIndex;
+
     const isFinalLesson = index === hskLists.length - 1;
+    const shouldShowTrophy =
+      listScore.complete ||
+      (isFinalLesson && unlockedLessonIndex === hskLists.length - 1);
+
+    const isLocked = shouldShowTrophy ? false : index > unlockedLessonIndex;
+    const inProgress = !shouldShowTrophy && !isLocked;
     return (
       <LessonBlock
         style={{
-          backgroundColor: isLocked
-            ? COLORS.lockedLessonBlock
-            : COLORS.lessonBlock,
+          backgroundColor: shouldShowTrophy
+            ? COLORS.lessonBlock
+            : inProgress
+            ? COLORS.lessonBlockInProgress
+            : COLORS.lockedLessonBlock,
         }}
         onPress={this.handleSelectLesson(
           lesson,
@@ -82,7 +91,8 @@ class ListSummaryScreen extends React.Component<IProps, {}> {
         <LessonBlockText isLocked={isLocked}>
           Lesson {index + 1}
         </LessonBlockText>
-        {(isFinalLesson || listScore.complete) && <Text>🏅</Text>}
+        {shouldShowTrophy && <Text>🏅</Text>}
+        {inProgress && <Text>📝</Text>}
       </LessonBlock>
     );
   };
@@ -151,13 +161,13 @@ const LessonBlock = glamorous.touchableOpacity({
   backgroundColor: "rgb(225,225,225)",
 });
 
-const TextStyles = {
+const TitleText = glamorous.text({
   fontSize: 16,
-  width: "88%",
+  width: "100%",
   fontWeight: "bold",
   textAlign: "center",
   marginBottom: 16,
-};
+});
 
 const LessonBlockText = glamorous.text(
   {},

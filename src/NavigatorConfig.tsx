@@ -46,7 +46,7 @@ const createAppNavigationStack = (userLoggedIn: boolean) => {
           navigation: NavigationScreenProp<{}>;
         }) => {
           return {
-            title: "Lessons Home 🏮",
+            title: "Lessons Home 🏛",
             headerBackTitle: null,
             headerLeft: <MenuIcon onPress={navigation.toggleDrawer} />,
           };
@@ -79,10 +79,8 @@ const createAppNavigationStack = (userLoggedIn: boolean) => {
         }: {
           navigation: NavigationScreenProp<{}, LessonScreenParams>;
         }) => {
-          // const index = navigation.getParam("lessonIndex");
-          // const type = navigation.getParam("type");
           return {
-            title: "Lesson Summary",
+            title: "Lesson Summary 🏰",
             headerBackTitle: null,
           };
         },
