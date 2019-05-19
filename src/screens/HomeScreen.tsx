@@ -36,9 +36,16 @@ class HomeScreen extends React.Component<IProps, {}> {
   render(): JSX.Element {
     const { lessons, userScoreStatus } = this.props;
     const finalUnlockedListIndex = getFinalUnlockedListKey(userScoreStatus);
+    const totalWords = lessons.reduce(
+      (total, lesson) => total + lesson.content.length,
+      0,
+    );
     return (
       <Container>
         <Text style={TextStyles}>Choose a lesson to start studying</Text>
+        <Text style={{ marginTop: 6, marginBottom: 12 }}>
+          {totalWords.toLocaleString()} words total
+        </Text>
         {this.renderListSets()}
         <LineBreak />
         <ReviewLink
