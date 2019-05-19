@@ -62,6 +62,8 @@ export type HSKListSet = ReadonlyArray<HSKList>;
 
 export type LessonSummaryType = "SUMMARY" | "GAME" | "LESSON";
 
+export type MC_TYPE = "MANDARIN" | "ENGLISH" | "MANDARIN_PRONUNCIATION";
+
 export interface ListScreenParams {
   hskLists: LessonSet;
   listIndex: number;

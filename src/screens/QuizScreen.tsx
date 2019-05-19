@@ -16,7 +16,6 @@ import { LessonScoreType, ScoreStatus } from "@src/GlobalState";
 import { LessonScreenParams, Word } from "@src/tools/types";
 import {
   convertAppDifficultyToLessonSize,
-  filterForOneCharacterMode,
   getExperiencePointsForLesson,
   getListScoreKeyFromIndex,
   isLessonComplete,
@@ -45,7 +44,6 @@ interface IState {
   wordCompletedCache: Set<number>;
   progressCount: number;
   revealAnswer: boolean;
-  oneCharacterMode: boolean;
   failedOnce: boolean;
   skipCount: number;
   failCount: number;
@@ -106,7 +104,6 @@ class QuizScreen extends React.Component<IProps, IState> {
       quizFinished,
       revealAnswer,
       progressCount,
-      oneCharacterMode,
       currentWordIndex,
     } = this.state;
 
@@ -117,7 +114,6 @@ class QuizScreen extends React.Component<IProps, IState> {
     const Component = this.props.Component;
     const currentWord = wordContent[currentWordIndex];
     const lesson = this.props.navigation.getParam("lesson");
-    const lessonType = this.props.navigation.getParam("type");
 
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
@@ -163,17 +159,6 @@ class QuizScreen extends React.Component<IProps, IState> {
                 >
                   <Ionicons name="ios-refresh" style={ActionIconStyle} />
                 </ActionButton.Item>
-                {lessonType === "SUMMARY" && (
-                  <ActionButton.Item
-                    buttonColor={COLORS.actionButtonYellow}
-                    onPress={this.handleToggleOneCharacterMode}
-                    title={`${
-                      oneCharacterMode ? "Disable" : "Switch to"
-                    } one-character mode`}
-                  >
-                    <Ionicons name="md-jet" style={ActionIconStyle} />
-                  </ActionButton.Item>
-                )}
               </ActionButton>
             </React.Fragment>
           )}
@@ -182,7 +167,7 @@ class QuizScreen extends React.Component<IProps, IState> {
     );
   }
 
-  getInitialState = (activateOneCharacterMode: boolean = false) => {
+  getInitialState = () => {
     const lesson = this.props.navigation.getParam("lesson");
     return {
       value: "",
@@ -200,18 +185,14 @@ class QuizScreen extends React.Component<IProps, IState> {
       didReveal: false,
       revealAnswer: false,
       quizFinished: false,
-      oneCharacterMode: activateOneCharacterMode,
-      wordContent: activateOneCharacterMode
-        ? filterForOneCharacterMode(lesson)
-        : lesson,
+      wordContent: lesson,
     };
   };
 
   resetQuiz = () => {
-    /**
-     * TODO: Add confirmation alert.
-     */
-    this.setState(this.getInitialState());
+    this.setState(this.getInitialState(), () => {
+      this.props.setToastMessage("Quiz reset!");
+    });
   };
 
   handleChange = (value: string) => {
@@ -434,13 +415,6 @@ class QuizScreen extends React.Component<IProps, IState> {
         }
       },
     );
-  };
-
-  handleToggleOneCharacterMode = () => {
-    this.setState(this.getInitialState(!this.state.oneCharacterMode), () => {
-      // tslint:disable-next-line
-      this.timer = setTimeout(this.stopConfetti, 250);
-    });
   };
 
   getNextWordIndex = (shouldSkipLast: boolean = false): number => {

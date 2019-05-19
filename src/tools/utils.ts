@@ -18,10 +18,11 @@ import { fetchWordPronunciation } from "@src/tools/api";
 import CONFIG from "@src/tools/config";
 import {
   AudioItem,
-  HSKList,
   HSKListSet,
   Lesson,
+  LessonSet,
   LessonSummaryType,
+  MC_TYPE,
   Option,
   OptionType,
   ResultType,
@@ -29,12 +30,19 @@ import {
   Word,
 } from "@src/tools/types";
 
+/**
+ * Helper to assert unreachable code.
+ */
 export const assertUnreachable = (x: never): never => {
   throw new Error(`Unreachable code! -> ${JSON.stringify(x)}`);
 };
 
 /**
  * Return a random number for the given range.
+ *
+ * @param min Minimum range limit
+ * @param max maximum range limit
+ * @returns random number within given range
  */
 export const randomInRange = (min: number, max: number) => {
   return Math.floor(Math.random() * (max - min) + min);
@@ -42,8 +50,11 @@ export const randomInRange = (min: number, max: number) => {
 
 /**
  * Shuffle an array of values.
+ *
+ * @param array input
+ * @returns input array, shuffled
  */
-export const knuthShuffle = (array: ReadonlyArray<any>): ReadonlyArray<any> => {
+export const knuthShuffle = <T>(array: ReadonlyArray<T>): ReadonlyArray<T> => {
   let currentIndex = array.length;
   let temporaryValue;
   let randomIndex;
@@ -70,6 +81,10 @@ export const knuthShuffle = (array: ReadonlyArray<any>): ReadonlyArray<any> => {
 /**
  * Filter function for searching words list and matching based on
  * mandarin, pinyin, or english input.
+ *
+ * @param searchValue value to search for
+ * @returns a function which takes a `Word` item and searches that word
+ * content for the given `searchValue`
  */
 export const filterBySearchTerm = (searchValue: string) => (word: Word) => {
   const term = searchValue.toLowerCase();
@@ -83,6 +98,9 @@ export const filterBySearchTerm = (searchValue: string) => (word: Word) => {
 
 /**
  * Map words to list items for view all screen.
+ *
+ * @param word
+ * @returns word with key index added
  */
 export const mapWordsForList = (word: Word) => ({
   ...word,
@@ -91,6 +109,9 @@ export const mapWordsForList = (word: Word) => ({
 
 /**
  * Reset the navigation stack to the given route name.
+ *
+ * @param routeName to reset navigation to
+ * @returns navigation reset action
  */
 export const resetNavigation = (routeName: ROUTE_NAMES) => {
   return StackActions.reset({
@@ -100,29 +121,14 @@ export const resetNavigation = (routeName: ROUTE_NAMES) => {
 };
 
 /**
- * Filter the words list and only return 1 character words.
- */
-export const filterForOneCharacterMode = (
-  words: ReadonlyArray<Word>,
-): ReadonlyArray<Word> => {
-  return words.filter(({ traditional }) => traditional.length === 1);
-};
-
-export const isLessonEmpty = (lesson: HSKList) => {
-  return Boolean(
-    lesson.content.filter(({ traditional }) => Boolean(traditional)).length,
-  );
-};
-
-export const filterEmptyWords = (lesson: HSKList) => {
-  return lesson.content.filter((word: Word) => Boolean(word.traditional));
-};
-
-export type MC_TYPE = "MANDARIN" | "ENGLISH" | "MANDARIN_PRONUNCIATION";
-
-/**
  * Derive shuffled multiple choice options given a word and all the
  * language content.
+ *
+ * @param word given input word
+ * @param alternates Lesson of word alternates to generate choices
+ * @param wordDictionary dictionary mapping of words
+ * @param mcType multiple choice quiz type
+ * @returns array of random alternate word choices
  */
 export const getAlternateChoices = (
   word: Word,
@@ -177,6 +183,9 @@ export const getAlternateChoices = (
 
 /**
  * Determines the unlocked lesson for a user given their score status.
+ *
+ * @param userScoreStatus
+ * @returns index of final unlocked HSK list
  */
 export const getFinalUnlockedListKey = (
   userScoreStatus: ScoreStatus,
@@ -197,6 +206,15 @@ export const getFinalUnlockedListKey = (
   }, null);
 };
 
+/**
+ * Determine the final unlocked lesson in an HSK list.
+ *
+ * @param lesson
+ * @param listIndex
+ * @param userScoreStatus
+ * @param appDifficultySetting
+ * @param returns index of final unlocked lesson
+ */
 export const determineFinalUnlockedLesson = (
   lesson: Lesson,
   listIndex: number,
@@ -214,7 +232,10 @@ export const determineFinalUnlockedLesson = (
   return Math.floor(completedWords / userLessonSize);
 };
 
-const SCORES_INDEX_MAP: ReadonlyArray<any> = [
+/**
+ * Index mapping of score keys to list index.
+ */
+const SCORES_INDEX_MAP: ReadonlyArray<string> = [
   "list_02_score",
   "list_03_score",
   "list_04_score",
@@ -222,10 +243,23 @@ const SCORES_INDEX_MAP: ReadonlyArray<any> = [
   "list_06_score",
 ];
 
+/**
+ * Get the list score key from the given list index.
+ *
+ * @param index list index
+ * @returns score key
+ */
 export const getListScoreKeyFromIndex = (index: number) => {
   return SCORES_INDEX_MAP[index];
 };
 
+/**
+ * Map a list index to the list scores object.
+ *
+ * @param index list index
+ * @param userScoreStatus
+ * @returns score detail for the list
+ */
 export const mapListIndexToListScores = (
   index: number,
   userScoreStatus: ScoreStatus,
@@ -242,8 +276,11 @@ export const mapListIndexToListScores = (
 
 /**
  * Determine if a lesson is complete.
+ *
+ * @param userScoreStatus
+ * @returns true if lesson has been completed
  */
-export const isLessonComplete = (userScoreStatus: ScoreStatus) => {
+export const isLessonComplete = (userScoreStatus: ScoreStatus): boolean => {
   return (
     userScoreStatus.mc_english &&
     userScoreStatus.mc_mandarin &&
@@ -252,6 +289,13 @@ export const isLessonComplete = (userScoreStatus: ScoreStatus) => {
   );
 };
 
+/**
+ * Determine experience points for completing a lesson. Result is random, within
+ * a range.
+ *
+ * @param quizType type of completed quiz
+ * @returns lessonType lesson type
+ */
 export const getExperiencePointsForLesson = (
   quizType: LessonScoreType,
   lessonType: LessonSummaryType,
@@ -262,6 +306,12 @@ export const getExperiencePointsForLesson = (
   return randomInRange(MIN, MAX - OFFSET);
 };
 
+/**
+ * Helper to determine if the user is on the SignIn screen.
+ *
+ * @param navigationState
+ * @returns true if user is on the SignIn screen.
+ */
 const isOnSignInScreen = (navigationState: any): boolean => {
   try {
     if (navigationState.routes[0].routeName === ROUTE_NAMES.SIGNIN) {
@@ -277,6 +327,12 @@ const isOnSignInScreen = (navigationState: any): boolean => {
 const LOCKED = "locked-closed";
 const UNLOCKED = "unlocked";
 
+/**
+ * Helper to get the locked state for the side menu drawer.
+ *
+ * @param navigation
+ * @returns docker lock state
+ */
 export const getDrawerLockedState = (navigation: any): DrawerLockMode => {
   const isOnSignIn = isOnSignInScreen(navigation.state);
   const drawerLockMode = isOnSignIn
@@ -287,18 +343,32 @@ export const getDrawerLockedState = (navigation: any): DrawerLockMode => {
   return drawerLockMode;
 };
 
+/**
+ * Derive random lesson set for game mode.
+ *
+ * @param lists HSKListSet of content
+ * @param unlockedLessonIndex final unlocked lesson index
+ * @returns random lesson containing 25 items
+ */
 export const getGameModeLessonSet = (
-  lessons: HSKListSet,
+  lists: HSKListSet,
   unlockedLessonIndex: number,
-) => {
+): Lesson => {
   return knuthShuffle(
-    lessons
+    lists
       .slice(0, unlockedLessonIndex + 1)
       .map(list => list.content)
       .reduce((flattened, lesson) => [...flattened, ...lesson]),
   ).slice(0, 25);
 };
 
+/**
+ * Derive random lesson set for game mode.
+ *
+ * @param lessons HSKListSet of content
+ * @param unlockedLessonIndex final unlocked lesson index
+ * @returns merged review content of all unlocked lessons
+ */
 export const getReviewLessonSet = (
   lists: HSKListSet,
   unlockedLessonIndex: number,
@@ -319,7 +389,7 @@ const API_RATE_LIMIT_REACHED = "API_RATE_LIMIT_REACHED";
  * wrapped in an Option result type in case no result can be found.
  *
  * @response SoundFileResponse
- * @returns Option<string> with uri
+ * @returns `Option<string>` with uri
  */
 export const transformSoundFileResponse = (
   response: SoundFileResponse,
@@ -369,6 +439,13 @@ export const getAlternateLanguageSetting = (
     : APP_LANGUAGE_SETTING.SIMPLIFIED;
 };
 
+/**
+ * Helper to batch a list based on some size parameter.
+ *
+ * @param data list to batch
+ * @param batchSize size of batches
+ * @returns batched result
+ */
 const batchList = <T>(
   data: ReadonlyArray<T>,
   batchSize: number = 10,
@@ -382,6 +459,12 @@ const batchList = <T>(
   return result;
 };
 
+/**
+ * Helper to prefetch audio recordings for a words list.
+ *
+ * @param words
+ * @returns word audio map of results
+ */
 export const prefetchWordsList = async (words: ReadonlyArray<string>) => {
   const total = words.length;
   let processed = 0;
@@ -502,6 +585,12 @@ export const createWordDictionaryFromLessons = (
   return wordDictionary;
 };
 
+/**
+ * Arbitrary delay function to pause for some given time.
+ *
+ * @param time to delay
+ * @returns execution after the given delay has occurred
+ */
 export const delay = (time: number = 500) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => resolve("delayed!"), time);
@@ -510,6 +599,9 @@ export const delay = (time: number = 500) => {
 
 /**
  * Get the lesson size for the given app difficulty setting.
+ *
+ * @param setting current app difficulty setting
+ * @returns fixed lesson size based on app difficulty
  */
 export const convertAppDifficultyToLessonSize = (
   setting: APP_DIFFICULTY_SETTING,
@@ -528,17 +620,25 @@ export const convertAppDifficultyToLessonSize = (
 
 /**
  * Divide the lesson content into individual lesson batches.
+ *
+ * @param lesson
+ * @param appDifficultySetting
+ * @returns batched lists based on appropriate app lesson size
  */
 export const formatLessonContent = (
   lesson: Lesson,
   appDifficultySetting: APP_DIFFICULTY_SETTING,
-) => {
+): LessonSet => {
   const lessonSize = convertAppDifficultyToLessonSize(appDifficultySetting);
   return batchList(lesson, lessonSize);
 };
 
 /**
- * Capitalize a string
+ * Capitalize a string. For instance, `hello, NICE to MEET you.` would be
+ * capitalized to `Hello, nice to meet you.`.
+ *
+ * @param value string to capitalize
+ * @returns capitalized string.
  */
 export const capitalize = (value: string): string => {
   return value

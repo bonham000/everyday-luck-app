@@ -101,6 +101,22 @@ class SettingsScreen extends React.Component<IProps, IState> {
     );
   }
 
+  renderDifficultyBlock = (setting: APP_DIFFICULTY_SETTING) => {
+    const selected = setting === this.props.appDifficultySetting;
+    return (
+      <DifficultSettingBlock
+        selected={selected}
+        onPress={this.setAppDifficulty(setting)}
+      >
+        <DifficultSettingBlockText selected={selected}>
+          {capitalize(setting)} ({convertAppDifficultyToLessonSize(setting)}{" "}
+          questions per quiz)
+        </DifficultSettingBlockText>
+        {selected && <Text>✅</Text>}
+      </DifficultSettingBlock>
+    );
+  };
+
   handleChange = (input: string) => {
     this.setState({ input });
   };
@@ -123,22 +139,6 @@ class SettingsScreen extends React.Component<IProps, IState> {
     } else {
       this.props.setToastMessage("Please enter a message");
     }
-  };
-
-  renderDifficultyBlock = (setting: APP_DIFFICULTY_SETTING) => {
-    const selected = setting === this.props.appDifficultySetting;
-    return (
-      <DifficultSettingBlock
-        selected={selected}
-        onPress={this.setAppDifficulty(setting)}
-      >
-        <DifficultSettingBlockText selected={selected}>
-          {capitalize(setting)} ({convertAppDifficultyToLessonSize(setting)}{" "}
-          questions per quiz)
-        </DifficultSettingBlockText>
-        {selected && <Text>✅</Text>}
-      </DifficultSettingBlock>
-    );
   };
 
   setAppDifficulty = (setting: APP_DIFFICULTY_SETTING) => () => {
