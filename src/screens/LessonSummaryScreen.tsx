@@ -10,9 +10,8 @@ import {
 } from "@src/components/GlobalStateProvider";
 import { COLORS } from "@src/constants/Colors";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
-import { ScoreStatus } from "@src/GlobalState";
 import { LessonScreenParams } from "@src/tools/types";
-import { mapListIndexToListScores } from "@src/tools/utils";
+import { getLessonSummaryStatus } from "@src/tools/utils";
 
 /** ========================================================================
  * Types
@@ -27,42 +26,6 @@ interface IProps extends GlobalStateProps {
  * React Class
  * =========================================================================
  */
-
-const getLessonSummaryStatus = (
-  isFinalLesson: boolean,
-  userScoreStatus: ScoreStatus,
-  listIndex: number,
-) => {
-  const listScore = mapListIndexToListScores(listIndex, userScoreStatus);
-  const listCompleted = listScore.complete;
-  const mcEnglish = listCompleted
-    ? true
-    : isFinalLesson
-    ? userScoreStatus.mc_english
-    : true;
-  const mcMandarin = listCompleted
-    ? true
-    : isFinalLesson
-    ? userScoreStatus.mc_mandarin
-    : true;
-  const quizText = listCompleted
-    ? true
-    : isFinalLesson
-    ? userScoreStatus.quiz_text
-    : true;
-  const mandarinPronunciation = listCompleted
-    ? true
-    : isFinalLesson
-    ? userScoreStatus.mandarin_pronunciation
-    : true;
-
-  return {
-    mcEnglish,
-    mcMandarin,
-    quizText,
-    mandarinPronunciation,
-  };
-};
 
 class LessonSummaryScreen extends React.Component<IProps, {}> {
   render(): JSX.Element {

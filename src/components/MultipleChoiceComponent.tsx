@@ -11,12 +11,18 @@ import {
 import Shaker from "@src/components/ShakerComponent";
 import { COLORS } from "@src/constants/Colors";
 import { audioRecordingsClass } from "@src/tools/audio-dictionary";
-import { AudioItem, HSKList, Lesson, OptionType, Word } from "@src/tools/types";
+import {
+  AudioItem,
+  HSKList,
+  Lesson,
+  MultipleChoiceComponentType,
+  OptionType,
+  Word,
+} from "@src/tools/types";
 import {
   flattenLessonSet,
   getAlternateChoices,
   getAudioFileUrl,
-  MC_TYPE,
   randomInRange,
 } from "@src/tools/utils";
 
@@ -34,7 +40,7 @@ interface IProps extends GlobalStateProps {
   attempted: boolean;
   value: string;
   lesson: HSKList;
-  multipleChoiceType: MC_TYPE;
+  multipleChoiceType: MultipleChoiceComponentType;
   setInputRef: () => void;
   handleChange: () => void;
   handleProceed: () => (event: GestureResponderEvent) => void;
@@ -363,7 +369,7 @@ const QuizAnswerText = ({
   valid: boolean;
   attempted: boolean;
   shouldReveal: boolean;
-  multipleChoiceType: MC_TYPE;
+  multipleChoiceType: MultipleChoiceComponentType;
 }) => (
   <QuizAnswer
     style={{
@@ -403,7 +409,7 @@ const QuizPromptText = ({
   multipleChoiceType,
 }: {
   children: string;
-  multipleChoiceType: MC_TYPE;
+  multipleChoiceType: MultipleChoiceComponentType;
 }) => (
   <Text
     style={{
@@ -427,7 +433,7 @@ const Choice = ({
   valid: boolean;
   attempted: boolean;
   isCorrect: boolean;
-  multipleChoiceType: MC_TYPE;
+  multipleChoiceType: MultipleChoiceComponentType;
   onPress: (event: GestureResponderEvent) => void;
 }) => (
   <Button

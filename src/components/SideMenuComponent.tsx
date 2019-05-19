@@ -99,7 +99,7 @@ class SideMenuComponent extends React.Component<IProps, {}> {
       await logoutLocalUser();
       this.props.navigation.dispatch(resetNavigation(ROUTE_NAMES.SIGNIN));
     } catch (err) {
-      console.log(err);
+      return;
     }
   };
 

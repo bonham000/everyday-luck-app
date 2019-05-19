@@ -27,6 +27,6 @@
     }
   },
   "exclude": ["node_modules", "build"],
-  "include": ["src/**/*", "scripts/**/*", "global.d.ts"],
+  "include": ["src/**/*", "scripts/**/*", "global.d.ts", "App.tsx"],
   "types": ["typePatches"]
 }

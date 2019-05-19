@@ -56,7 +56,6 @@ class HomeScreen extends React.Component<IProps, {}> {
         <ReviewLink
           onPress={this.openLessonSummary(
             getGameModeLessonSet(lessons, finalUnlockedListIndex),
-            0,
             "GAME",
           )}
         >
@@ -66,7 +65,6 @@ class HomeScreen extends React.Component<IProps, {}> {
         <ReviewLink
           onPress={this.openLessonSummary(
             getReviewLessonSet(lessons, finalUnlockedListIndex),
-            0,
             "SUMMARY",
           )}
         >
@@ -132,11 +130,7 @@ class HomeScreen extends React.Component<IProps, {}> {
     this.props.navigation.navigate(ROUTE_NAMES.LIST_SUMMARY, params);
   };
 
-  openLessonSummary = (
-    lesson: Lesson,
-    lessonIndex: number,
-    type: LessonSummaryType = "LESSON",
-  ) => () => {
+  openLessonSummary = (lesson: Lesson, type: LessonSummaryType) => () => {
     const params: LessonScreenParams = {
       type,
       lesson,

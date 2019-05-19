@@ -171,27 +171,28 @@ class QuizScreen extends React.Component<IProps, IState> {
     const lesson = this.props.navigation.getParam("lesson");
     return {
       value: "",
+      skipCount: 0,
+      failCount: 0,
+      valid: false,
       initalizing: true,
       attempted: false,
-      valid: false,
       shouldShake: false,
       currentWordIndex: 0,
       failedOnce: false,
-      wordCompletedCache: new Set(),
-      encouragementText: "",
       progressCount: 0,
-      skipCount: 0,
-      failCount: 0,
       didReveal: false,
       revealAnswer: false,
       quizFinished: false,
       wordContent: lesson,
+      encouragementText: "",
+      wordCompletedCache: new Set(),
     };
   };
 
   resetQuiz = () => {
     this.setState(this.getInitialState(), () => {
       this.props.setToastMessage("Quiz reset!");
+      this.setState({ initalizing: false });
     });
   };
 

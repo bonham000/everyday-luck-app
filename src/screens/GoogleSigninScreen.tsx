@@ -93,7 +93,6 @@ class GoogleSigninScreen extends React.Component<IProps, IState> {
             });
           }
         } catch (err) {
-          console.log(err);
           this.setState({
             loading: false,
             error: true,

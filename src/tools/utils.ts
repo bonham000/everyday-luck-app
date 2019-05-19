@@ -22,7 +22,7 @@ import {
   Lesson,
   LessonSet,
   LessonSummaryType,
-  MC_TYPE,
+  MultipleChoiceComponentType,
   Option,
   OptionType,
   ResultType,
@@ -134,7 +134,7 @@ export const getAlternateChoices = (
   word: Word,
   alternates: Lesson,
   wordDictionary: WordDictionary,
-  mcType: MC_TYPE,
+  mcType: MultipleChoiceComponentType,
 ) => {
   let idx: number;
   let option: Word;
@@ -645,4 +645,48 @@ export const capitalize = (value: string): string => {
     .slice(0, 1)
     .toUpperCase()
     .concat(value.toLowerCase().slice(1));
+};
+
+/**
+ * Derive lesson summary score status for any lesson.
+ *
+ * @param isFinalLesson boolean for final lesson
+ * @param userScoreStatus user score status
+ * @param listIndex current list index
+ * @returns scores object for 4 quiz types
+ */
+export const getLessonSummaryStatus = (
+  isFinalLesson: boolean,
+  userScoreStatus: ScoreStatus,
+  listIndex: number,
+) => {
+  const listScore = mapListIndexToListScores(listIndex, userScoreStatus);
+  const listCompleted = listScore.complete;
+  const mcEnglish = listCompleted
+    ? true
+    : isFinalLesson
+    ? userScoreStatus.mc_english
+    : true;
+  const mcMandarin = listCompleted
+    ? true
+    : isFinalLesson
+    ? userScoreStatus.mc_mandarin
+    : true;
+  const quizText = listCompleted
+    ? true
+    : isFinalLesson
+    ? userScoreStatus.quiz_text
+    : true;
+  const mandarinPronunciation = listCompleted
+    ? true
+    : isFinalLesson
+    ? userScoreStatus.mandarin_pronunciation
+    : true;
+
+  return {
+    mcEnglish,
+    mcMandarin,
+    quizText,
+    mandarinPronunciation,
+  };
 };
