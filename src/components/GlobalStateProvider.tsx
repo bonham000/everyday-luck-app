@@ -7,7 +7,7 @@ import GlobalState, {
   WordDictionary,
 } from "@src/GlobalState";
 import { GoogleSigninUser } from "@src/tools/store";
-import { LessonSet } from "@src/tools/types";
+import { HSKListSet } from "@src/tools/types";
 
 /** ========================================================================
  * Types
@@ -18,7 +18,7 @@ export type ComponentProp = (args: any) => JSX.Element;
 
 export interface GlobalStateProps {
   user?: GoogleSigninUser;
-  lessons: LessonSet;
+  lessons: HSKListSet;
   userScoreStatus: ScoreStatus;
   experience: number;
   wordDictionary: WordDictionary;

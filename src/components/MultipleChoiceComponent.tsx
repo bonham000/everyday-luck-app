@@ -11,8 +11,9 @@ import {
 import Shaker from "@src/components/ShakerComponent";
 import { COLORS } from "@src/constants/Colors";
 import { audioRecordingsClass } from "@src/tools/audio-dictionary";
-import { AudioItem, Lesson, OptionType, Word } from "@src/tools/types";
+import { AudioItem, HSKList, Lesson, OptionType, Word } from "@src/tools/types";
 import {
+  flattenLessonSet,
   getAlternateChoices,
   getAudioFileUrl,
   MC_TYPE,
@@ -32,7 +33,7 @@ interface IProps extends GlobalStateProps {
   shouldShake: boolean;
   attempted: boolean;
   value: string;
-  lesson: Lesson;
+  lesson: HSKList;
   multipleChoiceType: MC_TYPE;
   setInputRef: () => void;
   handleChange: () => void;
@@ -257,7 +258,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
   };
 
   prefetchLessonSoundData = async () => {
-    const words = this.props.lesson.map((word: Word) => {
+    const words = this.props.lesson.content.map((word: Word) => {
       return word[this.props.languageSetting];
     });
 
@@ -309,7 +310,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
   deriveAlternateChoices = () => {
     return getAlternateChoices(
       this.props.currentWord,
-      this.props.lessons.reduce((flat, curr) => [...flat, ...curr]),
+      flattenLessonSet(this.props.lessons),
       this.props.wordDictionary,
       this.props.multipleChoiceType,
     );

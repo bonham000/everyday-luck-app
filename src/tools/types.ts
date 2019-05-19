@@ -51,14 +51,18 @@ export interface Word {
   english_alternate_choices: ReadonlyArray<string>;
 }
 
-export type Lesson = ReadonlyArray<Word>;
+export interface HSKList {
+  list: string;
+  content: Lesson;
+}
 
-export type LessonSet = ReadonlyArray<Lesson>;
+export type Lesson = ReadonlyArray<Word>;
+export type HSKListSet = ReadonlyArray<HSKList>;
 
 export type LessonSummaryType = "SUMMARY" | "GAME" | "LESSON";
 
 export interface LessonScreenParams {
-  lesson: Lesson;
+  lesson: HSKList;
   lessonIndex: number;
   headerTitle?: string;
   type: LessonSummaryType;

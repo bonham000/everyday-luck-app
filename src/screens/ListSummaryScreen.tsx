@@ -15,11 +15,7 @@ import {
   LessonScreenParams,
   LessonSummaryType,
 } from "@src/tools/types";
-import {
-  getFinalUnlockedList,
-  getGameModeLessonSet,
-  getReviewLessonSet,
-} from "@src/tools/utils";
+import { getFinalUnlockedList } from "@src/tools/utils";
 
 /** ========================================================================
  * Types
@@ -35,40 +31,17 @@ interface IProps extends GlobalStateProps {
  * =========================================================================
  */
 
-class HomeScreen extends React.Component<IProps, {}> {
+class ListSummaryScreen extends React.Component<IProps, {}> {
   render(): JSX.Element {
-    const { lessons, userScoreStatus } = this.props;
-    const unlockedLessonIndex = getFinalUnlockedList(userScoreStatus);
     return (
       <Container>
         <Text style={TextStyles}>Choose a lesson to start studying</Text>
-        {this.renderListSets()}
-        <LineBreak />
-        <ReviewLink
-          onPress={this.openLessonSummary(
-            getGameModeLessonSet(lessons, unlockedLessonIndex),
-            0,
-            "GAME",
-          )}
-        >
-          <Text style={{ fontWeight: "600" }}>Game Mode!</Text>
-          <Text>🎲</Text>
-        </ReviewLink>
-        <ReviewLink
-          onPress={this.openLessonSummary(
-            getReviewLessonSet(lessons, unlockedLessonIndex),
-            0,
-            "SUMMARY",
-          )}
-        >
-          <Text style={{ fontWeight: "600" }}>Review All Unlocked Content</Text>
-          <Text>📚</Text>
-        </ReviewLink>
+        {this.renderLessons()}
       </Container>
     );
   }
 
-  renderListSets = () => {
+  renderLessons = () => {
     const { lessons, userScoreStatus } = this.props;
     const unlockedLessonIndex = getFinalUnlockedList(userScoreStatus);
     return lessons.map((lesson, index) => {
@@ -196,4 +169,4 @@ const LessonBlockText = glamorous.text(
  * =========================================================================
  */
 
-export default withGlobalState(HomeScreen);
+export default withGlobalState(ListSummaryScreen);

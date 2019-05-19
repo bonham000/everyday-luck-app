@@ -10,7 +10,7 @@ import {
   withGlobalState,
 } from "@src/components/GlobalStateProvider";
 import { COLORS } from "@src/constants/Colors";
-import { Lesson, LessonScreenParams, Word } from "@src/tools/types";
+import { Lesson, LessonScreenParams } from "@src/tools/types";
 import { knuthShuffle } from "@src/tools/utils";
 
 /** ========================================================================
@@ -44,9 +44,9 @@ class FlashcardsScreen extends React.Component<IProps, IState> {
     const lesson = this.props.navigation.getParam("lesson");
 
     this.state = {
-      lesson,
       completed: 0,
-      deck: knuthShuffle(lesson),
+      lesson: lesson.content,
+      deck: knuthShuffle(lesson.content),
     };
   }
 

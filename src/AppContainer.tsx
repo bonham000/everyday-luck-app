@@ -28,7 +28,7 @@ import {
   GoogleSigninUser,
   setAppLanguageSetting,
 } from "@src/tools/store";
-import { LessonSet } from "@src/tools/types";
+import { HSKListSet } from "@src/tools/types";
 import {
   createWordDictionaryFromLessons,
   formatUserLanguageSetting,
@@ -42,7 +42,7 @@ import {
 interface IState {
   userId?: string;
   user?: GoogleSigninUser;
-  lessons: LessonSet;
+  lessons: HSKListSet;
   error: boolean;
   loading: boolean;
   appState: string;
@@ -167,7 +167,7 @@ class RootContainer extends React.Component<{}, IState> {
     }
 
     const authenticatedUser = user as GoogleSigninUser;
-    const lessonSet = lessons as LessonSet;
+    const lessonSet = lessons as HSKListSet;
 
     return (
       <View style={{ flex: 1 }}>

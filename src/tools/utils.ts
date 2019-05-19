@@ -13,8 +13,9 @@ import {
 } from "@src/GlobalState";
 import {
   AudioItem,
+  HSKList,
+  HSKListSet,
   Lesson,
-  LessonSet,
   LessonSummaryType,
   Option,
   OptionType,
@@ -108,87 +109,20 @@ export const filterForOneCharacterMode = (
  * There can be several empty placeholder lesson blocks. Determine the
  * last lesson block which has content (this one can be partially) filled.
  */
-const determineFinalLessonBlock = (contentBlocks: LessonSet): number => {
+const determineFinalLessonBlock = (contentBlocks: HSKListSet): number => {
   return contentBlocks.reduce((finalIndex, current, index) => {
-    return current.length ? index : finalIndex;
+    return current.content.length ? index : finalIndex;
   }, 0);
 };
 
-export const isLessonEmpty = (lesson: Lesson) => {
+export const isLessonEmpty = (lesson: HSKList) => {
   return Boolean(
-    lesson.filter(({ traditional }) => Boolean(traditional)).length,
+    lesson.content.filter(({ traditional }) => Boolean(traditional)).length,
   );
 };
 
-export const filterEmptyWords = (lesson: Lesson) => {
-  return lesson.filter((word: Word) => Boolean(word.traditional));
-};
-
-const LESSON_MAX = 25;
-
-/**
- * Combine individual lesson content and check for duplicate words.
- *
- * Big function!
- */
-export const deriveContentFromLessons = (contentBlocks: LessonSet) => {
-  const language = "Mandarin";
-  let totalWords = 0;
-  let summaryMessage = `\nContent Summary for ${language}:\n\n`;
-  // Use a set to check for duplicate entries
-  const wordSet = new Set();
-  const finalLessonIndex = determineFinalLessonBlock(contentBlocks);
-
-  const lessons = contentBlocks.reduce((content, lesson, index) => {
-    /**
-     * Check and validate length of lesson
-     */
-    if (lesson.length > LESSON_MAX) {
-      throw new Error(
-        `Invalid length for ${language} lesson ${index +
-          1}: expected ${LESSON_MAX} but received ${lesson.length}`,
-      );
-    } else if (
-      lesson.length !== 0 &&
-      lesson.length < LESSON_MAX &&
-      index < finalLessonIndex
-    ) {
-      throw new Error(
-        `Invalid length for non-final for ${language} lesson ${index +
-          1}: expected ${LESSON_MAX} but received ${lesson.length}`,
-      );
-    } else if (index <= finalLessonIndex) {
-      totalWords += lesson.length;
-      summaryMessage += `Lesson ${index + 1} - ${lesson.length} ${
-        lesson.length < 10 ? " " : ""
-      }total words\n`;
-    }
-
-    return content.concat(
-      ...lesson
-        .filter(({ traditional }) => Boolean(traditional))
-        .map((item: Word) => {
-          const { traditional, english } = item;
-          if (wordSet.has(traditional)) {
-            throw new Error(
-              `Duplicate word detected in lesson ${index +
-                1}! -> ${traditional} (${english})`,
-            );
-          } else {
-            wordSet.add(item.traditional);
-          }
-
-          return {
-            ...item,
-            lessonKey: index + 1,
-          };
-        }),
-    );
-  }, []);
-
-  summaryMessage += `\nTotal: ${totalWords} words`;
-  console.log(summaryMessage);
-  return lessons;
+export const filterEmptyWords = (lesson: HSKList) => {
+  return lesson.content.filter((word: Word) => Boolean(word.traditional));
 };
 
 export type MC_TYPE = "MANDARIN" | "ENGLISH" | "MANDARIN_PRONUNCIATION";
@@ -245,9 +179,7 @@ export const getAlternateChoices = (
 /**
  * Determines the unlocked lesson for a user given their score status.
  */
-export const getFinalUnlockedLesson = (
-  userScoreStatus: ScoreStatus,
-): number => {
+export const getFinalUnlockedList = (userScoreStatus: ScoreStatus): number => {
   return userScoreStatus.final_completed_lesson_index;
 };
 
@@ -287,22 +219,24 @@ export const getDrawerLockedState = (navigation: any): DrawerLockMode => {
 };
 
 export const getGameModeLessonSet = (
-  lessons: LessonSet,
+  lessons: HSKListSet,
   unlockedLessonIndex: number,
 ) => {
   return knuthShuffle(
     lessons
       .slice(0, unlockedLessonIndex + 1)
+      .map(list => list.content)
       .reduce((flattened, lesson) => [...flattened, ...lesson]),
   ).slice(0, 25);
 };
 
 export const getReviewLessonSet = (
-  lessons: LessonSet,
+  lists: HSKListSet,
   unlockedLessonIndex: number,
 ) => {
-  return lessons
+  return lists
     .slice(0, unlockedLessonIndex + 1)
+    .map(list => list.content)
     .reduce((flattened, lesson) => flattened.concat(lesson));
 };
 
@@ -439,8 +373,10 @@ export const prefetchWordsList = async (words: ReadonlyArray<string>) => {
  * @param lessons
  * @returns lesson flattened lesson data
  */
-export const flattenLessonSet = (lessons: LessonSet): Lesson => {
-  return lessons.reduce((flat, lesson) => flat.concat(lesson));
+export const flattenLessonSet = (lessons: HSKListSet): Lesson => {
+  return lessons
+    .map(list => list.content)
+    .reduce((flat, lesson) => flat.concat(lesson));
 };
 
 /**
@@ -462,7 +398,7 @@ export const getAudioFileUrl = (fileKey: string): string => {
  * @returns word dictionary object
  */
 export const createWordDictionaryFromLessons = (
-  lessons: LessonSet,
+  lessons: HSKListSet,
 ): WordDictionary => {
   const allWords = flattenLessonSet(lessons);
 

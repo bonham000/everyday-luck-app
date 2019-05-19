@@ -3,7 +3,7 @@ import axios from "axios";
 import { ScoreStatus } from "@src/GlobalState";
 import CONFIG from "@src/tools/config";
 import {
-  LessonSet,
+  HSKListSet,
   Result,
   ResultType,
   SoundFileResponse,
@@ -107,10 +107,10 @@ export const updateUserExperience = async (
 /**
  * Fetch lesson content.
  */
-export const fetchLessonSet = async (): Promise<LessonSet | null> => {
+export const fetchLessonSet = async (): Promise<HSKListSet | null> => {
   const URL = `${CONFIG.DRAGON_URI}/lessons`;
   try {
-    const result = await axios.get<LessonSet>(URL);
+    const result = await axios.get<HSKListSet>(URL);
     return result.data;
   } catch (err) {
     console.log(`Failed to fetch lessons at url: ${URL}`);

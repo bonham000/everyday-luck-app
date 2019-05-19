@@ -1,7 +1,7 @@
 import React from "react";
 
 import { GoogleSigninUser } from "@src/tools/store";
-import { LessonSet, Word } from "@src/tools/types";
+import { HSKListSet, Word } from "@src/tools/types";
 
 /** ========================================================================
  * Context for toast message
@@ -33,7 +33,7 @@ export type LessonScoreType =
 const GlobalState = React.createContext({
   experience: 0,
   user: {},
-  lessons: [] as LessonSet,
+  lessons: [] as HSKListSet,
   userScoreStatus: {},
   wordDictionary: {},
   languageSetting: APP_LANGUAGE_SETTING.SIMPLIFIED,
