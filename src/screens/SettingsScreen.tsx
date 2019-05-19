@@ -11,6 +11,7 @@ import { Bold } from "@src/components/SharedComponents";
 import { COLORS } from "@src/constants/Colors";
 import { APP_DIFFICULTY_SETTING } from "@src/GlobalState";
 import {
+  convertAppDifficultyToLessonSize,
   formatUserLanguageSetting,
   getAlternateLanguageSetting,
 } from "@src/tools/utils";
@@ -72,7 +73,7 @@ class SettingsScreen extends React.Component<IProps, {}> {
         onPress={this.setAppDifficulty(setting)}
       >
         <DifficultSettingBlockText selected={selected}>
-          Hard (50 questions per quiz)
+          Hard ({convertAppDifficultyToLessonSize(setting)} questions per quiz)
         </DifficultSettingBlockText>
         {selected && <Text>✅</Text>}
       </DifficultSettingBlock>

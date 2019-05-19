@@ -103,7 +103,10 @@ class HomeScreen extends React.Component<IProps, {}> {
     index: number,
     type: LessonSummaryType = "LESSON",
   ) => () => {
-    const lessons = formatLessonContent(lesson);
+    const lessons = formatLessonContent(
+      lesson,
+      this.props.appDifficultySetting,
+    );
     const params: ListScreenParams = {
       type,
       lessons,

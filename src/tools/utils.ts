@@ -6,6 +6,7 @@ import {
 
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import {
+  APP_DIFFICULTY_SETTING,
   APP_LANGUAGE_SETTING,
   LessonScoreType,
   ScoreStatus,
@@ -426,11 +427,31 @@ export const delay = (time: number = 500) => {
   });
 };
 
-const LESSON_SIZE = 5;
+/**
+ * Get the lesson size for the given app difficulty setting.
+ */
+export const convertAppDifficultyToLessonSize = (
+  setting: APP_DIFFICULTY_SETTING,
+) => {
+  switch (setting) {
+    case APP_DIFFICULTY_SETTING.EASY:
+      return 10;
+    case APP_DIFFICULTY_SETTING.MEDIUM:
+      return 25;
+    case APP_DIFFICULTY_SETTING.HARD:
+      return 50;
+    default:
+      return 25;
+  }
+};
 
 /**
  * Divide the lesson content into individual lesson batches.
  */
-export const formatLessonContent = (lesson: Lesson) => {
-  return batchList(lesson, LESSON_SIZE);
+export const formatLessonContent = (
+  lesson: Lesson,
+  appDifficultySetting: APP_DIFFICULTY_SETTING,
+) => {
+  const lessonSize = convertAppDifficultyToLessonSize(appDifficultySetting);
+  return batchList(lesson, lessonSize);
 };
