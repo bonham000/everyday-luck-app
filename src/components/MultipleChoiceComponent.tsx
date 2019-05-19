@@ -19,6 +19,7 @@ import {
   MC_TYPE,
   randomInRange,
 } from "@src/tools/utils";
+import { Bold } from "./SharedComponents";
 
 /** ========================================================================
  * Types
@@ -185,9 +186,14 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
               </Text>
             </VoiceButton>
           ) : (
-            <QuizPromptText multipleChoiceType={multipleChoiceType}>
-              {currentWord.english}
-            </QuizPromptText>
+            <FallbackTextContainer>
+              <QuizPromptText multipleChoiceType={multipleChoiceType}>
+                {`"${currentWord.english}"`}
+              </QuizPromptText>
+              <Text style={{ marginTop: 8 }}>
+                (Could not load audio file...)
+              </Text>
+            </FallbackTextContainer>
           )
         ) : null}
         {shouldReveal ? (
@@ -201,7 +207,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
             }}
             onPress={handleProceed()}
           >
-            Proceed
+            Next Question
           </Button>
         ) : null}
       </React.Fragment>
@@ -384,6 +390,13 @@ const QuizAnswer = glamorous.text({
   color: "black",
   marginTop: 15,
   marginBottom: 15,
+});
+
+const FallbackTextContainer = glamorous.view({
+  marginTop: 25,
+  marginBottom: 15,
+  alignItems: "center",
+  justifyContent: "center",
 });
 
 const QuizPromptText = ({

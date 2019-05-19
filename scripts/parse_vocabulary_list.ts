@@ -22,8 +22,8 @@ const translateSimplifiedCharactersToTraditional = async (
 const parseList = async (vocabulary: ReadonlyArray<string>) => {
   return Promise.all(
     vocabulary
-      .filter(line => line.split(" ").length > 2)
       .map(line => line.trim())
+      .filter(line => line.split(" ").length > 2)
       .map(async line => {
         const [simplified, pinyin = "", english = ""] = line.split(" ");
         const traditional = await translateSimplifiedCharactersToTraditional(
