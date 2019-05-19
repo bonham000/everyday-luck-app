@@ -98,6 +98,9 @@ class LessonSummaryScreen extends React.Component<IProps, {}> {
             ? "This is a summary of all unlocked content"
             : "There are 25 random words selected for you!"}
         </Text>
+        {type === "SUMMARY" && (
+          <Text>There are {lesson.length} words to review</Text>
+        )}
         {type !== "GAME" && <Text style={SectionTextStyles}>Practice</Text>}
         <LineBreak />
         <ActionBlock onPress={this.handleNavigateToSection(ROUTE_NAMES.QUIZ)}>

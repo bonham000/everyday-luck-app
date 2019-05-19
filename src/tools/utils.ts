@@ -14,6 +14,8 @@ import {
   ScoreStatus,
   WordDictionary,
 } from "@src/GlobalState";
+import { fetchWordPronunciation } from "@src/tools/api";
+import CONFIG from "@src/tools/config";
 import {
   AudioItem,
   HSKList,
@@ -26,8 +28,6 @@ import {
   SoundFileResponse,
   Word,
 } from "@src/tools/types";
-import { fetchWordPronunciation } from "./api";
-import CONFIG from "./config";
 
 export const assertUnreachable = (x: never): never => {
   throw new Error(`Unreachable code! -> ${JSON.stringify(x)}`);
@@ -230,6 +230,11 @@ export const mapListIndexToListScores = (
   index: number,
   userScoreStatus: ScoreStatus,
 ): ListScore => {
+  if (index === Infinity) {
+    const result = { complete: false };
+    return result as ListScore;
+  }
+
   const key = getListScoreKeyFromIndex(index);
   // @ts-ignore
   return userScoreStatus[key] as ListScore;
@@ -298,6 +303,9 @@ export const getReviewLessonSet = (
   lists: HSKListSet,
   unlockedLessonIndex: number,
 ) => {
+  /**
+   * TODO: Only return unlocked list content.
+   */
   return lists
     .slice(0, unlockedLessonIndex + 1)
     .map(list => list.content)

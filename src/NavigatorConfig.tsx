@@ -67,7 +67,7 @@ const createAppNavigationStack = (userLoggedIn: boolean) => {
                 ? `Lesson ${Number(index) + 1} Summary 🎎`
                 : type === "SUMMARY"
                 ? "Review All 🔮"
-                : "Game Mode! 🎲",
+                : "Game Mode! 🏖",
             headerBackTitle: null,
           };
         },

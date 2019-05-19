@@ -10,7 +10,12 @@ import {
 } from "@src/components/GlobalStateProvider";
 import { COLORS } from "@src/constants/Colors";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
-import { Lesson, LessonSummaryType, ListScreenParams } from "@src/tools/types";
+import {
+  Lesson,
+  LessonScreenParams,
+  LessonSummaryType,
+  ListScreenParams,
+} from "@src/tools/types";
 import {
   formatLessonContent as formatListContent,
   getFinalUnlockedListKey,
@@ -49,24 +54,24 @@ class HomeScreen extends React.Component<IProps, {}> {
         {this.renderListSets()}
         <LineBreak />
         <ReviewLink
-          onPress={this.openListSummary(
+          onPress={this.openLessonSummary(
             getGameModeLessonSet(lessons, finalUnlockedListIndex),
             0,
             "GAME",
           )}
         >
           <Text style={{ fontWeight: "600" }}>Game Mode!</Text>
-          <Text>🎲</Text>
+          <Text>🏺</Text>
         </ReviewLink>
         <ReviewLink
-          onPress={this.openListSummary(
+          onPress={this.openLessonSummary(
             getReviewLessonSet(lessons, finalUnlockedListIndex),
             0,
             "SUMMARY",
           )}
         >
           <Text style={{ fontWeight: "600" }}>Review All Unlocked Content</Text>
-          <Text>📚</Text>
+          <Text>🏖</Text>
         </ReviewLink>
       </Container>
     );
@@ -125,6 +130,23 @@ class HomeScreen extends React.Component<IProps, {}> {
       listIndex,
     };
     this.props.navigation.navigate(ROUTE_NAMES.LIST_SUMMARY, params);
+  };
+
+  openLessonSummary = (
+    lesson: Lesson,
+    lessonIndex: number,
+    type: LessonSummaryType = "LESSON",
+  ) => () => {
+    const params: LessonScreenParams = {
+      type,
+      lesson,
+      listIndex: Infinity,
+      lessonIndex: Infinity,
+      isFinalLesson: false,
+      isFinalUnlockedLesson: false,
+    };
+
+    this.props.navigation.navigate(ROUTE_NAMES.LESSON_SUMMARY, params);
   };
 }
 
