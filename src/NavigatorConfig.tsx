@@ -18,7 +18,7 @@ import HomeScreen from "@src/screens/HomeScreen";
 import LessonSummaryScreen from "@src/screens/LessonSummaryScreen";
 import QuizScreen from "@src/screens/QuizScreen";
 import ViewAllScreen from "@src/screens/ViewAllScreen";
-import { LessonScreenParams } from "@src/tools/types";
+import { LessonScreenParams, ListScreenParams } from "@src/tools/types";
 import { getDrawerLockedState } from "@src/tools/utils";
 import ListSummaryScreen from "./screens/ListSummaryScreen";
 import SettingsScreen from "./screens/SettingsScreen";
@@ -46,7 +46,7 @@ const createAppNavigationStack = (userLoggedIn: boolean) => {
           navigation: NavigationScreenProp<{}>;
         }) => {
           return {
-            title: "Lessons Home 🏛",
+            title: "App Home 🏰",
             headerBackTitle: null,
             headerLeft: <MenuIcon onPress={navigation.toggleDrawer} />,
           };
@@ -77,10 +77,11 @@ const createAppNavigationStack = (userLoggedIn: boolean) => {
         navigationOptions: ({
           navigation,
         }: {
-          navigation: NavigationScreenProp<{}, LessonScreenParams>;
+          navigation: NavigationScreenProp<{}, ListScreenParams>;
         }) => {
+          const listKey = navigation.getParam("listKey");
           return {
-            title: "Lesson Summary 🏰",
+            title: `HSK List ${listKey}`,
             headerBackTitle: null,
           };
         },

@@ -357,7 +357,7 @@ export const getGameModeLessonSet = (
   return knuthShuffle(
     lists
       .slice(0, unlockedLessonIndex + 1)
-      .map(list => list.content)
+      .map(list => list.content.slice())
       .reduce((flattened, lesson) => [...flattened, ...lesson]),
   ).slice(0, 25);
 };
@@ -631,7 +631,7 @@ export const convertAppDifficultyToLessonSize = (
  * @param appDifficultySetting
  * @returns batched lists based on appropriate app lesson size
  */
-export const formatLessonContent = (
+export const formatHskListContent = (
   lesson: Lesson,
   appDifficultySetting: APP_DIFFICULTY_SETTING,
 ): LessonSet => {

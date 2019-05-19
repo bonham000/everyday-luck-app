@@ -17,7 +17,7 @@ import {
   ListScreenParams,
 } from "@src/tools/types";
 import {
-  formatLessonContent as formatListContent,
+  formatHskListContent,
   getFinalUnlockedListKey,
   getGameModeLessonSet,
   getReviewLessonSet,
@@ -54,7 +54,7 @@ class HomeScreen extends React.Component<IProps, {}> {
         {this.renderListSets()}
         <LineBreak />
         <ReviewLink
-          onPress={this.openLessonSummary(
+          onPress={this.openLessonSummaryForSpecialMode(
             getGameModeLessonSet(lessons, finalUnlockedListIndex),
             "GAME",
           )}
@@ -63,7 +63,7 @@ class HomeScreen extends React.Component<IProps, {}> {
           <Text>🏺</Text>
         </ReviewLink>
         <ReviewLink
-          onPress={this.openLessonSummary(
+          onPress={this.openLessonSummaryForSpecialMode(
             getReviewLessonSet(lessons, finalUnlockedListIndex),
             "SUMMARY",
           )}
@@ -78,10 +78,10 @@ class HomeScreen extends React.Component<IProps, {}> {
   renderListSets = () => {
     const { lessons, userScoreStatus } = this.props;
     const unlockedListIndex = getFinalUnlockedListKey(userScoreStatus);
-    return lessons.map((lesson, index) => {
+    return lessons.map((hskList, index) => {
       const isLocked = index > unlockedListIndex;
       const inProgress = index === unlockedListIndex;
-      const { list, content } = lesson;
+      const { list, content } = hskList;
       return (
         <LessonBlock
           style={{
@@ -91,7 +91,7 @@ class HomeScreen extends React.Component<IProps, {}> {
               ? COLORS.lessonBlockInProgress
               : COLORS.lessonBlock,
           }}
-          onPress={this.handleSelectList(content, index, isLocked)}
+          onPress={this.handleSelectList(list, content, index, isLocked)}
         >
           <LessonBlockText isLocked={isLocked}>
             HSK Level {list}
@@ -105,32 +105,38 @@ class HomeScreen extends React.Component<IProps, {}> {
   };
 
   handleSelectList = (
-    lesson: Lesson,
+    listKey: string,
+    hskList: Lesson,
     index: number,
     isLocked: boolean,
   ) => () => {
     if (isLocked) {
       this.props.setToastMessage("Please complete the previous lesson first");
     } else {
-      this.openListSummary(lesson, index)();
+      this.openListSummary(listKey, hskList, index)();
     }
   };
 
   openListSummary = (
-    lesson: Lesson,
+    listKey: string,
+    list: Lesson,
     listIndex: number,
     type: LessonSummaryType = "LESSON",
   ) => () => {
-    const hskLists = formatListContent(lesson, this.props.appDifficultySetting);
+    const hskList = formatHskListContent(list, this.props.appDifficultySetting);
     const params: ListScreenParams = {
       type,
-      hskLists,
+      listKey,
+      hskList,
       listIndex,
     };
     this.props.navigation.navigate(ROUTE_NAMES.LIST_SUMMARY, params);
   };
 
-  openLessonSummary = (lesson: Lesson, type: LessonSummaryType) => () => {
+  openLessonSummaryForSpecialMode = (
+    lesson: Lesson,
+    type: LessonSummaryType,
+  ) => () => {
     const params: LessonScreenParams = {
       type,
       lesson,

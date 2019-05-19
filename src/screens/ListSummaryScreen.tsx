@@ -37,12 +37,12 @@ interface IProps extends GlobalStateProps {
 
 class ListSummaryScreen extends React.Component<IProps, {}> {
   render(): JSX.Element {
-    const hskLists = this.props.navigation.getParam("hskLists");
+    const hskList = this.props.navigation.getParam("hskList");
     return (
       <Container>
         <TitleText>Choose a lesson to start studying</TitleText>
         <FlatList
-          data={hskLists}
+          data={hskList}
           renderItem={this.renderItem}
           contentContainerStyle={{ paddingBottom: 50 }}
           keyExtractor={item => `${item[0].traditional}-${item[0].pinyin}`}
@@ -53,7 +53,7 @@ class ListSummaryScreen extends React.Component<IProps, {}> {
 
   renderItem = ({ item, index }: { item: Lesson; index: number }): any => {
     const lesson = item;
-    const hskLists = this.props.navigation.getParam("hskLists");
+    const hskList = this.props.navigation.getParam("hskList");
     const listIndex = this.props.navigation.getParam("listIndex");
     const { appDifficultySetting, userScoreStatus } = this.props;
     const listScore = mapListIndexToListScores(listIndex, userScoreStatus);
@@ -64,10 +64,10 @@ class ListSummaryScreen extends React.Component<IProps, {}> {
       appDifficultySetting,
     );
 
-    const isFinalLesson = index === hskLists.length - 1;
+    const isFinalLesson = index === hskList.length - 1;
     const shouldShowTrophy =
       listScore.complete ||
-      (isFinalLesson && unlockedLessonIndex === hskLists.length - 1);
+      (isFinalLesson && unlockedLessonIndex === hskList.length - 1);
 
     const isLocked = shouldShowTrophy ? false : index > unlockedLessonIndex;
     const inProgress = !shouldShowTrophy && !isLocked;

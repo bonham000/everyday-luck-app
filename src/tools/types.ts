@@ -68,7 +68,8 @@ export type MultipleChoiceComponentType =
   | "MANDARIN_PRONUNCIATION";
 
 export interface ListScreenParams {
-  hskLists: LessonSet;
+  listKey: string;
+  hskList: LessonSet;
   listIndex: number;
   headerTitle?: string;
   type: LessonSummaryType;

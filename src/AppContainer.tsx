@@ -193,8 +193,8 @@ class RootContainer extends React.Component<{}, IState> {
       return <LoadingComponent />;
     }
 
-    const authenticatedUser = user as GoogleSigninUser;
     const lessonSet = lessons as HSKListSet;
+    const authenticatedUser = user as GoogleSigninUser;
 
     return (
       <View style={{ flex: 1 }}>
@@ -520,7 +520,7 @@ class RootContainer extends React.Component<{}, IState> {
       if (isAvailable) {
         Alert.alert(
           "Update Available!",
-          "Confirm to update now",
+          "Confirm to update now 🛰",
           [
             { text: "Cancel", onPress: () => null, style: "cancel" },
             { text: "OK", onPress: this.updateApp },
