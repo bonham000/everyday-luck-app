@@ -3,7 +3,7 @@ jobs:
   publish:
     working_directory: ~/mandarin
     docker:
-      - image: circleci/node:9.9.0
+      - image: circleci/node:chakracore-10.13.0
     steps:
       - checkout
       # Restore npm cache
