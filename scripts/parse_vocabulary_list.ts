@@ -2,18 +2,20 @@ import fs from "fs";
 
 import translateText from "./translate";
 
-// @ts-ignore
 import vocabularyList2 from "./lists/02";
-// @ts-ignore
 import vocabularyList3 from "./lists/03";
-// @ts-ignore
 import vocabularyList4 from "./lists/04";
-// @ts-ignore
 import vocabularyList5 from "./lists/05";
-// @ts-ignore
 import vocabularyList6 from "./lists/06";
 
-const LIST = vocabularyList2;
+// @ts-ignore
+const lists: ReadonlyArray<ReadonlyArray<string>> = [
+  vocabularyList2,
+  vocabularyList3,
+  vocabularyList4,
+  vocabularyList5,
+  vocabularyList6,
+];
 
 const createItemLiteral = (
   simplified: string,
@@ -24,6 +26,7 @@ const createItemLiteral = (
   return `Item { simplified: "${simplified}", traditional: "${traditional}", pinyin: "${pinyin}", english: "${english}", english_alternate_choices: vec![""], }`;
 };
 
+// @ts-ignore
 const translateSimplifiedCharactersToTraditional = async (
   simplified: string,
 ) => {
@@ -33,14 +36,68 @@ const translateSimplifiedCharactersToTraditional = async (
 const parseList = async (vocabulary: ReadonlyArray<string>) => {
   return Promise.all(
     vocabulary.map(async line => {
-      const [simplified, pinyin, ...rest] = line.split(" ");
+      const [simplified, traditional, pinyin, ...rest] = line.split(" ");
       const english = rest.join(" ");
-      const traditional = await translateSimplifiedCharactersToTraditional(
-        simplified,
-      );
       return createItemLiteral(simplified, traditional, pinyin, english);
     }),
   );
+};
+
+class WordCache {
+  words = new Set();
+
+  hasWord = (word: string) => {
+    return this.words.has(word);
+  };
+
+  addWord = (word: string) => {
+    this.words.add(word);
+  };
+}
+
+const wordCache = new WordCache();
+
+// @ts-ignore
+const processListAndSaveUniqueWords = (
+  previousLists: ReadonlyArray<ReadonlyArray<string>>,
+  list: ReadonlyArray<string>,
+) => {
+  for (const previous of previousLists) {
+    previous.forEach(line => {
+      const [simplified] = line.split(" ");
+      wordCache.addWord(simplified);
+    });
+  }
+
+  const uniqueWords = list.filter(line => {
+    const [simplified] = line.split(" ");
+    return !wordCache.hasWord(simplified);
+  });
+
+  console.log(
+    `Found ${uniqueWords.length} unique words - total: ${list.length}`,
+  );
+  writeListToJson(uniqueWords);
+};
+
+// @ts-ignore
+const processListAndTranslateSimplifiedToTraditional = async (
+  list: ReadonlyArray<string>,
+  index: number,
+) => {
+  console.log(
+    `\n~~~ Processing list ${index}- ${list.length} words total ~~~\n`,
+  );
+  const translated = await Promise.all(
+    list.map(async line => {
+      const [simplified, ...rest] = line.split(" ");
+      const translation = await translateText(simplified);
+      const reconstruct = [simplified, translation, ...rest].join(" ");
+      return reconstruct;
+    }),
+  );
+
+  writeListToJson(translated, `vocabulary-${index}.json`);
 };
 
 // @ts-ignore
@@ -52,17 +109,20 @@ const formatAndStandardizeRawList = (list: ReadonlyArray<string>) => {
   writeListToJson(formatted);
 };
 
-const writeListToJson = (result: ReadonlyArray<string>) => {
+const writeListToJson = (
+  result: ReadonlyArray<string>,
+  fileName: string = "vocabulary.json",
+) => {
   console.log("\nWriting JSON result...");
   const data = JSON.stringify({ lists: result });
-  fs.writeFileSync("vocabulary.json", data, "utf8");
+  fs.writeFileSync(fileName, data, "utf8");
   console.log("\nFinished!\n");
 };
 
-const processWords = async () => {
+const main = async () => {
   console.log("\nProcessing words...");
-  const parsedResult = await parseList(LIST);
+  const parsedResult = await parseList(vocabularyList6);
   writeListToJson(parsedResult);
 };
 
-processWords();
+main();
