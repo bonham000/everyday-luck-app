@@ -51,7 +51,7 @@ const CustomToast = ({
   return (
     <BarContainer onPress={close}>
       <Bar>
-        <Text style={{ color: "white", fontSize: 18 }}>{message}</Text>
+        <ToastText>{message}</ToastText>
       </Bar>
     </BarContainer>
   );
@@ -63,7 +63,6 @@ const CustomToast = ({
  */
 
 const BarContainer = glamorous.touchableOpacity({
-  height: 50,
   zIndex: 25,
   marginTop: 42,
   width: "100%",
@@ -73,12 +72,17 @@ const BarContainer = glamorous.touchableOpacity({
 });
 
 const Bar = glamorous.view({
-  height: 48,
   width: "90%",
   borderRadius: 3,
   alignItems: "center",
   justifyContent: "center",
   backgroundColor: "rgba(45,45,45,0.91)",
+});
+
+const ToastText = glamorous.text({
+  color: "white",
+  fontSize: 18,
+  margin: 10,
 });
 
 /** ========================================================================

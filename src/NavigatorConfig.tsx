@@ -20,7 +20,6 @@ import QuizScreen from "@src/screens/QuizScreen";
 import ViewAllScreen from "@src/screens/ViewAllScreen";
 import { LessonScreenParams } from "@src/tools/types";
 import { getDrawerLockedState } from "@src/tools/utils";
-import ContactScreen from "./screens/ContactScreen";
 import ListSummaryScreen from "./screens/ListSummaryScreen";
 import SettingsScreen from "./screens/SettingsScreen";
 import TranslationScreen from "./screens/TranslationScreen";
@@ -176,13 +175,6 @@ const createAppNavigationStack = (userLoggedIn: boolean) => {
         screen: TranslationScreen,
         navigationOptions: {
           title: "Translation 📔",
-          headerBackTitle: null,
-        },
-      },
-      [ROUTE_NAMES.CONTACT]: {
-        screen: ContactScreen,
-        navigationOptions: {
-          title: "Contact 🛰",
           headerBackTitle: null,
         },
       },
