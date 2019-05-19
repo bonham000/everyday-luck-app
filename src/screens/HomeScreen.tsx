@@ -80,7 +80,12 @@ class HomeScreen extends React.Component<IProps, {}> {
           }}
           onPress={this.handleSelectLesson(content, index, isLocked)}
         >
-          <LessonBlockText isLocked={isLocked}>HSK List {list}</LessonBlockText>
+          <LessonBlockText isLocked={isLocked}>
+            HSK Level {list}
+          </LessonBlockText>
+          <LessonBlockText isLocked={isLocked}>
+            ({content.length} words)
+          </LessonBlockText>
         </LessonBlock>
       );
     });

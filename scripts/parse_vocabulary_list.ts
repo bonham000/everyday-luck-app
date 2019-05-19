@@ -2,7 +2,8 @@ import fs from "fs";
 
 import translateText from "./translate";
 
-import vocabularyList from "./vocabulary";
+/* Update current word list to import here: */
+import vocabularyList from "./lists/04";
 
 const createItemLiteral = (
   simplified: string,

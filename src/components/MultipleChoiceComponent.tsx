@@ -19,7 +19,6 @@ import {
   MC_TYPE,
   randomInRange,
 } from "@src/tools/utils";
-import { Bold } from "./SharedComponents";
 
 /** ========================================================================
  * Types
@@ -190,7 +189,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
               <QuizPromptText multipleChoiceType={multipleChoiceType}>
                 {`"${currentWord.english}"`}
               </QuizPromptText>
-              <Text style={{ marginTop: 8 }}>
+              <Text style={{ marginTop: 15 }}>
                 (Could not load audio file...)
               </Text>
             </FallbackTextContainer>
