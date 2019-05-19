@@ -59,10 +59,10 @@ class SideMenuComponent extends React.Component<IProps, {}> {
           {"  "}
           Translation Tool
         </Item>
-        <Item onPress={this.handleSetLanguageOptions}>
+        <Item onPress={this.createNavigationHandler(ROUTE_NAMES.SETTINGS)}>
           🎗
           {"  "}
-          Set Language
+          Settings
         </Item>
         <Item onPress={this.handleResetScores}>
           🗃
@@ -90,10 +90,6 @@ class SideMenuComponent extends React.Component<IProps, {}> {
       </SafeAreaView>
     );
   }
-
-  handleSetLanguageOptions = () => {
-    this.props.handleSwitchLanguage(this.props.navigation.closeDrawer);
-  };
 
   handleResetScores = () => {
     this.props.handleResetScores();

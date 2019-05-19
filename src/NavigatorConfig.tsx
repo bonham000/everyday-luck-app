@@ -21,6 +21,7 @@ import ViewAllScreen from "@src/screens/ViewAllScreen";
 import { LessonScreenParams } from "@src/tools/types";
 import { getDrawerLockedState } from "@src/tools/utils";
 import ListSummaryScreen from "./screens/ListSummaryScreen";
+import SettingsScreen from "./screens/SettingsScreen";
 import TranslationScreen from "./screens/TranslationScreen";
 
 /** ========================================================================
@@ -174,6 +175,13 @@ const createAppNavigationStack = (userLoggedIn: boolean) => {
         screen: TranslationScreen,
         navigationOptions: {
           title: "Translation 📔",
+          headerBackTitle: null,
+        },
+      },
+      [ROUTE_NAMES.SETTINGS]: {
+        screen: SettingsScreen,
+        navigationOptions: {
+          title: "Settings ⚙",
           headerBackTitle: null,
         },
       },
