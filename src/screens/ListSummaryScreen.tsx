@@ -14,6 +14,7 @@ import {
   Lesson,
   LessonScreenParams,
   LessonSummaryType,
+  ListScreenParams,
 } from "@src/tools/types";
 import { getFinalUnlockedList } from "@src/tools/utils";
 
@@ -23,7 +24,7 @@ import { getFinalUnlockedList } from "@src/tools/utils";
  */
 
 interface IProps extends GlobalStateProps {
-  navigation: NavigationScreenProp<{}>;
+  navigation: NavigationScreenProp<{}, ListScreenParams>;
 }
 
 /** ========================================================================
@@ -42,11 +43,11 @@ class ListSummaryScreen extends React.Component<IProps, {}> {
   }
 
   renderLessons = () => {
-    const { lessons, userScoreStatus } = this.props;
+    const lessons = this.props.navigation.getParam("lessons");
+    const { userScoreStatus } = this.props;
     const unlockedLessonIndex = getFinalUnlockedList(userScoreStatus);
     return lessons.map((lesson, index) => {
       const isLocked = index > unlockedLessonIndex;
-      const { list, content } = lesson;
       return (
         <LessonBlock
           style={{
@@ -54,10 +55,10 @@ class ListSummaryScreen extends React.Component<IProps, {}> {
               ? COLORS.lockedLessonBlock
               : COLORS.lessonBlock,
           }}
-          onPress={this.handleSelectLesson(content, index, isLocked)}
+          onPress={this.handleSelectLesson(lesson, index, isLocked)}
         >
           <LessonBlockText isLocked={isLocked}>
-            HSL List ${list}
+            Lesson {index + 1}
           </LessonBlockText>
         </LessonBlock>
       );
@@ -121,17 +122,6 @@ const LessonBlock = glamorous.touchableOpacity({
   backgroundColor: "rgb(225,225,225)",
 });
 
-const ReviewLink = glamorous.touchableOpacity({
-  width: "90%",
-  height: 50,
-  padding: 12,
-  margin: 4,
-  flexDirection: "row",
-  alignItems: "center",
-  justifyContent: "space-between",
-  backgroundColor: COLORS.actionButtonMint,
-});
-
 const TextStyles = {
   fontSize: 16,
   width: "88%",
@@ -139,14 +129,6 @@ const TextStyles = {
   textAlign: "center",
   marginBottom: 16,
 };
-
-const LineBreak = glamorous.view({
-  width: "85%",
-  height: 1,
-  marginTop: 16,
-  marginBottom: 16,
-  backgroundColor: COLORS.line,
-});
 
 const LessonBlockText = glamorous.text(
   {},

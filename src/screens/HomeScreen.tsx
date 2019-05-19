@@ -10,12 +10,9 @@ import {
 } from "@src/components/GlobalStateProvider";
 import { COLORS } from "@src/constants/Colors";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
+import { Lesson, LessonSummaryType, ListScreenParams } from "@src/tools/types";
 import {
-  Lesson,
-  LessonScreenParams,
-  LessonSummaryType,
-} from "@src/tools/types";
-import {
+  formatLessonContent,
   getFinalUnlockedList,
   getGameModeLessonSet,
   getReviewLessonSet,
@@ -83,9 +80,7 @@ class HomeScreen extends React.Component<IProps, {}> {
           }}
           onPress={this.handleSelectLesson(content, index, isLocked)}
         >
-          <LessonBlockText isLocked={isLocked}>
-            HSL List ${list}
-          </LessonBlockText>
+          <LessonBlockText isLocked={isLocked}>HSL List {list}</LessonBlockText>
         </LessonBlock>
       );
     });
@@ -108,12 +103,13 @@ class HomeScreen extends React.Component<IProps, {}> {
     index: number,
     type: LessonSummaryType = "LESSON",
   ) => () => {
-    const params: LessonScreenParams = {
+    const lessons = formatLessonContent(lesson);
+    const params: ListScreenParams = {
       type,
-      lesson,
+      lessons,
       lessonIndex: index,
     };
-    this.props.navigation.navigate(ROUTE_NAMES.LESSON_SUMMARY, params);
+    this.props.navigation.navigate(ROUTE_NAMES.LIST_SUMMARY, params);
   };
 }
 

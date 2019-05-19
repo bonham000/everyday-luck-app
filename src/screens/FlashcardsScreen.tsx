@@ -10,7 +10,7 @@ import {
   withGlobalState,
 } from "@src/components/GlobalStateProvider";
 import { COLORS } from "@src/constants/Colors";
-import { Lesson, LessonScreenParams } from "@src/tools/types";
+import { Lesson, LessonScreenParams, Word } from "@src/tools/types";
 import { knuthShuffle } from "@src/tools/utils";
 
 /** ========================================================================

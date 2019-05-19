@@ -20,6 +20,7 @@ import QuizScreen from "@src/screens/QuizScreen";
 import ViewAllScreen from "@src/screens/ViewAllScreen";
 import { LessonScreenParams } from "@src/tools/types";
 import { getDrawerLockedState } from "@src/tools/utils";
+import ListSummaryScreen from "./screens/ListSummaryScreen";
 import TranslationScreen from "./screens/TranslationScreen";
 
 /** ========================================================================
@@ -66,6 +67,21 @@ const createAppNavigationStack = (userLoggedIn: boolean) => {
                 : type === "SUMMARY"
                 ? "Review All 🔮"
                 : "Game Mode! 🎲",
+            headerBackTitle: null,
+          };
+        },
+      },
+      [ROUTE_NAMES.LIST_SUMMARY]: {
+        screen: ListSummaryScreen,
+        navigationOptions: ({
+          navigation,
+        }: {
+          navigation: NavigationScreenProp<{}, LessonScreenParams>;
+        }) => {
+          // const index = navigation.getParam("lessonIndex");
+          // const type = navigation.getParam("type");
+          return {
+            title: "Lesson Summary",
             headerBackTitle: null,
           };
         },

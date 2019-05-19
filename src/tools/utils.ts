@@ -105,16 +105,6 @@ export const filterForOneCharacterMode = (
   return words.filter(({ traditional }) => traditional.length === 1);
 };
 
-/**
- * There can be several empty placeholder lesson blocks. Determine the
- * last lesson block which has content (this one can be partially) filled.
- */
-const determineFinalLessonBlock = (contentBlocks: HSKListSet): number => {
-  return contentBlocks.reduce((finalIndex, current, index) => {
-    return current.content.length ? index : finalIndex;
-  }, 0);
-};
-
 export const isLessonEmpty = (lesson: HSKList) => {
   return Boolean(
     lesson.content.filter(({ traditional }) => Boolean(traditional)).length,
@@ -420,4 +410,13 @@ export const delay = (time: number = 500) => {
   return new Promise((resolve, reject) => {
     setTimeout(() => resolve("delayed!"), time);
   });
+};
+
+const LESSON_SIZE = 5;
+
+/**
+ * Divide the lesson content into individual lesson batches.
+ */
+export const formatLessonContent = (lesson: Lesson) => {
+  return batchList(lesson, LESSON_SIZE);
 };
