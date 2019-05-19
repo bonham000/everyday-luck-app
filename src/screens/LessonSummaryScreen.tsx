@@ -71,8 +71,6 @@ class LessonSummaryScreen extends React.Component<IProps, {}> {
     const lesson = navigation.getParam("lesson");
     const listIndex = navigation.getParam("listIndex");
     const isFinalUnlockedLesson = navigation.getParam("isFinalUnlockedLesson");
-    console.log(isFinalUnlockedLesson);
-
     const isLesson = type === "LESSON";
     const {
       mcEnglish,

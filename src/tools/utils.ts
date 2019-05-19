@@ -4,6 +4,7 @@ import {
   StackActions,
 } from "react-navigation";
 
+import ENGLISH_WORDS from "@src/constants/EnglishWords";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import {
   APP_DIFFICULTY_SETTING,
@@ -139,9 +140,15 @@ export const getAlternateChoices = (
     option = alternates[idx];
 
     if (mcType === "ENGLISH") {
+      const { english_alternate_choices } = word;
+      const alternateEnglishWords =
+        english_alternate_choices.length < 4
+          ? ENGLISH_WORDS
+          : english_alternate_choices;
+
       choices = [
         word,
-        ...knuthShuffle(word.english_alternate_choices)
+        ...knuthShuffle(alternateEnglishWords)
           .slice(0, 4)
           .map(choice => ({
             english: choice,

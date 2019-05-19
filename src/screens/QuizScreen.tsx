@@ -335,11 +335,6 @@ class QuizScreen extends React.Component<IProps, IState> {
 
     const experiencePoints = getExperiencePointsForLesson(quizType, lessonType);
 
-    console.log(`lesson index - ${lessonIndex}`);
-    console.log(`lesson type - ${lessonType}`);
-    console.log(`quiz type - ${quizType}`);
-    console.log(`fail count - ${this.state.failCount}`);
-
     const perfectScore = this.state.failCount === 0;
     const firstPass = perfectScore && !userScoreStatus[quizType];
     let lessonCompleted = false;
@@ -378,9 +373,6 @@ class QuizScreen extends React.Component<IProps, IState> {
 
       this.props.setLessonScore(updatedScoreStatus, experiencePoints);
     }
-
-    console.log(updatedScoreStatus);
-    console.log(`lesson completed - ${lessonCompleted}`);
 
     // tslint:disable-next-line
     this.timer = setTimeout(() => {
