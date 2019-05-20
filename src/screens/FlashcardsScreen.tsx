@@ -45,8 +45,8 @@ class FlashcardsScreen extends React.Component<IProps, IState> {
 
     this.state = {
       completed: 0,
-      lesson: lesson.content,
-      deck: knuthShuffle(lesson.content),
+      lesson,
+      deck: knuthShuffle(lesson),
     };
   }
 
