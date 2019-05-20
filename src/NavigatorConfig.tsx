@@ -7,8 +7,6 @@ import {
   NavigationScreenProp,
 } from "react-navigation";
 
-import MultipleChoiceComponent from "@src/components/MultipleChoiceComponent";
-import QuizInput from "@src/components/QuizInputComponent";
 import SideMenuComponent from "@src/components/SideMenuComponent";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import AboutScreen from "@src/screens/AboutScreen";
@@ -20,6 +18,7 @@ import QuizScreen from "@src/screens/QuizScreen";
 import ViewAllScreen from "@src/screens/ViewAllScreen";
 import { LessonScreenParams, ListScreenParams } from "@src/tools/types";
 import { getDrawerLockedState } from "@src/tools/utils";
+import { QUIZ_TYPE } from "./GlobalState";
 import ListSummaryScreen from "./screens/ListSummaryScreen";
 import SettingsScreen from "./screens/SettingsScreen";
 import TranslationScreen from "./screens/TranslationScreen";
@@ -88,7 +87,7 @@ const createAppNavigationStack = (userLoggedIn: boolean) => {
       },
       [ROUTE_NAMES.QUIZ]: {
         screen: (props: NavigationScreenProp<{}>) => (
-          <QuizScreen {...props} quizType="quiz_text" Component={QuizInput} />
+          <QuizScreen {...props} quizType={QUIZ_TYPE.QUIZ_TEXT} />
         ),
         navigationOptions: {
           title: "Quiz 🇨🇳",
@@ -97,16 +96,7 @@ const createAppNavigationStack = (userLoggedIn: boolean) => {
       },
       [ROUTE_NAMES.MULTIPLE_CHOICE_MANDARIN]: {
         screen: (props: NavigationScreenProp<{}>) => (
-          <QuizScreen
-            {...props}
-            quizType="mc_mandarin"
-            Component={(childProps: NavigationScreenProp<{}>) => (
-              <MultipleChoiceComponent
-                {...childProps}
-                multipleChoiceType="MANDARIN"
-              />
-            )}
-          />
+          <QuizScreen {...props} quizType={QUIZ_TYPE.MANDARIN} />
         ),
         navigationOptions: {
           title: "Mandarin Recognition 🇨🇳",
@@ -115,16 +105,7 @@ const createAppNavigationStack = (userLoggedIn: boolean) => {
       },
       [ROUTE_NAMES.MULTIPLE_CHOICE_ENGLISH]: {
         screen: (props: NavigationScreenProp<{}>) => (
-          <QuizScreen
-            {...props}
-            quizType="mc_english"
-            Component={(childProps: NavigationScreenProp<{}>) => (
-              <MultipleChoiceComponent
-                {...childProps}
-                multipleChoiceType="ENGLISH"
-              />
-            )}
-          />
+          <QuizScreen {...props} quizType={QUIZ_TYPE.ENGLISH} />
         ),
         navigationOptions: {
           title: "English Recognition 🗽",
@@ -133,16 +114,7 @@ const createAppNavigationStack = (userLoggedIn: boolean) => {
       },
       [ROUTE_NAMES.MULTIPLE_CHOICE_VOICE]: {
         screen: (props: NavigationScreenProp<{}>) => (
-          <QuizScreen
-            {...props}
-            quizType="mandarin_pronunciation"
-            Component={(childProps: NavigationScreenProp<{}>) => (
-              <MultipleChoiceComponent
-                {...childProps}
-                multipleChoiceType="MANDARIN_PRONUNCIATION"
-              />
-            )}
-          />
+          <QuizScreen {...props} quizType={QUIZ_TYPE.PRONUNCIATION} />
         ),
         navigationOptions: {
           title: "Mandarin Pronunciation 🗣",

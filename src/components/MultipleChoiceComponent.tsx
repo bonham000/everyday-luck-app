@@ -10,15 +10,9 @@ import {
 } from "@src/components/GlobalStateProvider";
 import Shaker from "@src/components/ShakerComponent";
 import { COLORS } from "@src/constants/Colors";
+import { QUIZ_TYPE } from "@src/GlobalState";
 import { audioRecordingsClass } from "@src/tools/audio-dictionary";
-import {
-  AudioItem,
-  HSKList,
-  Lesson,
-  MultipleChoiceComponentType,
-  OptionType,
-  Word,
-} from "@src/tools/types";
+import { AudioItem, HSKList, Lesson, OptionType, Word } from "@src/tools/types";
 import {
   flattenLessonSet,
   getAlternateChoices,
@@ -40,7 +34,7 @@ interface IProps extends GlobalStateProps {
   attempted: boolean;
   value: string;
   lesson: HSKList;
-  multipleChoiceType: MultipleChoiceComponentType;
+  quizType: QUIZ_TYPE;
   setInputRef: () => void;
   handleChange: () => void;
   handleProceed: () => (event: GestureResponderEvent) => void;
@@ -81,7 +75,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
   }
 
   componentDidMount(): void {
-    if (this.props.multipleChoiceType === "MANDARIN_PRONUNCIATION") {
+    if (this.props.quizType === QUIZ_TYPE.PRONUNCIATION) {
       this.fetchSoundDataForWord();
       this.prefetchLessonSoundData();
     }
@@ -91,7 +85,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
     if (
       nextProps.currentWord.traditional !== this.props.currentWord.traditional
     ) {
-      if (this.props.multipleChoiceType !== "MANDARIN_PRONUNCIATION") {
+      if (this.props.quizType !== QUIZ_TYPE.PRONUNCIATION) {
         return this.setState({
           choices: this.deriveAlternateChoices(),
         });
@@ -133,53 +127,13 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
       attempted,
       handleProceed,
       languageSetting,
-      multipleChoiceType,
+      quizType,
     } = this.props;
     const shouldReveal = valid || attempted;
     const correctWord = currentWord[languageSetting];
     return (
       <React.Fragment>
-        <TitleContainer>
-          {multipleChoiceType !== "MANDARIN_PRONUNCIATION" && (
-            <QuizPromptText multipleChoiceType={multipleChoiceType}>
-              {multipleChoiceType === "ENGLISH"
-                ? correctWord
-                : currentWord.english}
-            </QuizPromptText>
-          )}
-        </TitleContainer>
-        <Shaker style={{ width: "100%" }} shouldShake={shouldShake}>
-          <Container>
-            {this.state.choices.map(choice => {
-              const isCorrect = choice[languageSetting] === correctWord;
-              return (
-                <Choice
-                  valid={valid}
-                  attempted={attempted}
-                  isCorrect={isCorrect}
-                  multipleChoiceType={multipleChoiceType}
-                  onPress={this.handleSelectAnswer(isCorrect)}
-                >
-                  <QuizAnswerText
-                    valid={valid}
-                    attempted={attempted}
-                    shouldReveal={shouldReveal}
-                    multipleChoiceType={multipleChoiceType}
-                  >
-                    {shouldReveal
-                      ? `${choice[languageSetting]} - ${choice.pinyin} - ${
-                          choice.english
-                        }`
-                      : multipleChoiceType === "ENGLISH"
-                      ? choice.english
-                      : choice[languageSetting]}
-                  </QuizAnswerText>
-                </Choice>
-              );
-            })}
-          </Container>
-        </Shaker>
-        {multipleChoiceType === "MANDARIN_PRONUNCIATION" ? (
+        {quizType === QUIZ_TYPE.PRONUNCIATION ? (
           !this.state.playbackError ? (
             <VoiceButton onPress={this.handlePronounceWord}>
               <Text>
@@ -192,7 +146,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
             </VoiceButton>
           ) : (
             <FallbackTextContainer>
-              <QuizPromptText multipleChoiceType={multipleChoiceType}>
+              <QuizPromptText quizType={quizType}>
                 {`"${currentWord.english}"`}
               </QuizPromptText>
               <Text style={{ marginTop: 15 }}>
@@ -200,7 +154,46 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
               </Text>
             </FallbackTextContainer>
           )
-        ) : null}
+        ) : (
+          <TitleContainer>
+            <QuizPromptText quizType={quizType}>
+              {quizType === QUIZ_TYPE.ENGLISH
+                ? correctWord
+                : currentWord.english}
+            </QuizPromptText>
+          </TitleContainer>
+        )}
+        <Shaker style={{ width: "100%" }} shouldShake={shouldShake}>
+          <Container>
+            {this.state.choices.map(choice => {
+              const isCorrect = choice[languageSetting] === correctWord;
+              return (
+                <Choice
+                  valid={valid}
+                  attempted={attempted}
+                  isCorrect={isCorrect}
+                  quizType={quizType}
+                  onPress={this.handleSelectAnswer(isCorrect)}
+                >
+                  <QuizAnswerText
+                    valid={valid}
+                    attempted={attempted}
+                    shouldReveal={shouldReveal}
+                    quizType={quizType}
+                  >
+                    {shouldReveal
+                      ? `${choice[languageSetting]} - ${choice.pinyin} - ${
+                          choice.english
+                        }`
+                      : quizType === QUIZ_TYPE.ENGLISH
+                      ? choice.english
+                      : choice[languageSetting]}
+                  </QuizAnswerText>
+                </Choice>
+              );
+            })}
+          </Container>
+        </Shaker>
         {shouldReveal ? (
           <Button
             dark
@@ -323,7 +316,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
       this.props.currentWord,
       flattenLessonSet(this.props.lessons),
       this.props.wordDictionary,
-      this.props.multipleChoiceType,
+      this.props.quizType,
     );
   };
 
@@ -363,19 +356,19 @@ const QuizAnswerText = ({
   valid,
   attempted,
   shouldReveal,
-  multipleChoiceType,
+  quizType,
 }: {
   children: string;
   valid: boolean;
   attempted: boolean;
   shouldReveal: boolean;
-  multipleChoiceType: MultipleChoiceComponentType;
+  quizType: QUIZ_TYPE;
 }) => (
   <QuizAnswer
     style={{
       color: !valid && attempted ? "white" : "black",
       fontWeight: shouldReveal ? "400" : "bold",
-      fontSize: shouldReveal ? 15 : multipleChoiceType === "ENGLISH" ? 22 : 45,
+      fontSize: shouldReveal ? 15 : quizType === QUIZ_TYPE.ENGLISH ? 22 : 45,
     }}
   >
     {children}
@@ -384,6 +377,7 @@ const QuizAnswerText = ({
 
 const VoiceButton = glamorous.touchableOpacity({
   marginTop: 25,
+  marginBottom: 25,
   width: "85%",
   height: 55,
   alignItems: "center",
@@ -406,15 +400,15 @@ const FallbackTextContainer = glamorous.view({
 
 const QuizPromptText = ({
   children,
-  multipleChoiceType,
+  quizType,
 }: {
   children: string;
-  multipleChoiceType: MultipleChoiceComponentType;
+  quizType: QUIZ_TYPE;
 }) => (
   <Text
     style={{
       fontWeight: "bold",
-      fontSize: multipleChoiceType === "ENGLISH" ? 52 : 26,
+      fontSize: quizType === QUIZ_TYPE.ENGLISH ? 52 : 26,
     }}
   >
     {children}
@@ -426,14 +420,14 @@ const Choice = ({
   valid,
   attempted,
   isCorrect,
-  multipleChoiceType,
+  quizType,
   onPress,
 }: {
   children: JSX.Element;
   valid: boolean;
   attempted: boolean;
   isCorrect: boolean;
-  multipleChoiceType: MultipleChoiceComponentType;
+  quizType: QUIZ_TYPE;
   onPress: (event: GestureResponderEvent) => void;
 }) => (
   <Button
@@ -442,7 +436,7 @@ const Choice = ({
     style={{
       marginTop: 12,
       width: "90%",
-      height: multipleChoiceType === "ENGLISH" ? 50 : 75,
+      height: quizType === QUIZ_TYPE.ENGLISH ? 50 : 75,
       justifyContent: "center",
       backgroundColor: valid
         ? isCorrect

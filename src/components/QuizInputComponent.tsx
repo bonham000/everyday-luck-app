@@ -24,13 +24,11 @@ interface IProps {
   attempted: boolean;
   value: string;
   languageSetting: APP_LANGUAGE_SETTING;
-  setInputRef: () => void;
-  handleChange: () => void;
+  setInputRef: (ref: any) => void;
+  handleChange: (value: string) => void;
   handleProceed: () => (event: GestureResponderEvent) => void;
   handleToggleRevealAnswer: (event: GestureResponderEvent) => void;
-  handleCheck: (
-    correct: boolean,
-  ) => (event: { nativeEvent: { text: string } }) => void;
+  handleCheck: (correct: boolean) => void;
 }
 
 /** ========================================================================

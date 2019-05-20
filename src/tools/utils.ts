@@ -9,8 +9,8 @@ import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import {
   APP_DIFFICULTY_SETTING,
   APP_LANGUAGE_SETTING,
-  LessonScoreType,
   ListScore,
+  QUIZ_TYPE,
   ScoreStatus,
   WordDictionary,
 } from "@src/GlobalState";
@@ -24,7 +24,6 @@ import {
   Lesson,
   LessonSet,
   LessonSummaryType,
-  MultipleChoiceComponentType,
   Option,
   OptionType,
   ResultType,
@@ -139,7 +138,7 @@ export const getAlternateChoices = (
   word: Word,
   alternates: Lesson,
   wordDictionary: WordDictionary,
-  mcType: MultipleChoiceComponentType,
+  mcType: QUIZ_TYPE,
 ) => {
   let idx: number;
   let option: Word;
@@ -150,7 +149,7 @@ export const getAlternateChoices = (
     idx = randomInRange(0, alternates.length);
     option = alternates[idx];
 
-    if (mcType === "ENGLISH") {
+    if (mcType === QUIZ_TYPE.ENGLISH) {
       const { english_alternate_choices } = word;
       const alternateEnglishWords =
         english_alternate_choices.length < 4
@@ -302,11 +301,11 @@ export const isLessonComplete = (userScoreStatus: ScoreStatus): boolean => {
  * @returns lessonType lesson type
  */
 export const getExperiencePointsForLesson = (
-  quizType: LessonScoreType,
+  quizType: QUIZ_TYPE,
   lessonType: LessonSummaryType,
 ): number => {
   const MIN = 500;
-  const MAX = quizType === "quiz_text" ? 1250 : 750;
+  const MAX = quizType === QUIZ_TYPE.QUIZ_TEXT ? 1250 : 750;
   const OFFSET = lessonType === "LESSON" ? 500 : 0;
   return randomInRange(MIN, MAX - OFFSET);
 };

@@ -41,11 +41,19 @@ export enum APP_DIFFICULTY_SETTING {
   HARD = "HARD",
 }
 
-export type LessonScoreType =
-  | "mc_english"
-  | "mc_mandarin"
-  | "quiz_text"
-  | "mandarin_pronunciation";
+export enum QUIZ_TYPE {
+  ENGLISH = "mc_english",
+  MANDARIN = "mc_mandarin",
+  QUIZ_TEXT = "quiz_text",
+  PRONUNCIATION = "mandarin_pronunciation",
+}
+
+export const QuizTypeOptions: ReadonlyArray<QUIZ_TYPE> = [
+  QUIZ_TYPE.ENGLISH,
+  QUIZ_TYPE.MANDARIN,
+  QUIZ_TYPE.QUIZ_TEXT,
+  QUIZ_TYPE.PRONUNCIATION,
+];
 
 const GlobalState = React.createContext({
   experience: 0,

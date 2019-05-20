@@ -62,11 +62,6 @@ export type HSKListSet = ReadonlyArray<HSKList>;
 
 export type LessonSummaryType = "SUMMARY" | "DAILY_QUIZ" | "LESSON";
 
-export type MultipleChoiceComponentType =
-  | "MANDARIN"
-  | "ENGLISH"
-  | "MANDARIN_PRONUNCIATION";
-
 export interface ListScreenParams {
   listKey: string;
   hskList: LessonSet;

@@ -6,13 +6,15 @@ import ActionButton from "react-native-action-button";
 import Confetti from "react-native-confetti";
 import { NavigationScreenProp } from "react-navigation";
 
-import GlobalStateProvider, {
-  ComponentProp,
+import {
   GlobalStateProps,
+  withGlobalState,
 } from "@src/components/GlobalStateProvider";
+import MultipleChoiceComponent from "@src/components/MultipleChoiceComponent";
+import QuizInput from "@src/components/QuizInputComponent";
 import { COLORS } from "@src/constants/Colors";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
-import { LessonScoreType, ScoreStatus } from "@src/GlobalState";
+import { QUIZ_TYPE, QuizTypeOptions, ScoreStatus } from "@src/GlobalState";
 import { LessonScreenParams, Word } from "@src/tools/types";
 import {
   convertAppDifficultyToLessonSize,
@@ -30,8 +32,7 @@ import {
 
 interface IProps extends GlobalStateProps {
   navigation: NavigationScreenProp<{}, LessonScreenParams>;
-  quizType: LessonScoreType;
-  Component: ComponentProp;
+  quizType: QUIZ_TYPE;
 }
 
 interface IState {
@@ -49,6 +50,7 @@ interface IState {
   failCount: number;
   didReveal: boolean;
   quizFinished: boolean;
+  quizType: QUIZ_TYPE;
   wordContent: ReadonlyArray<Word>;
 }
 
@@ -93,26 +95,17 @@ class QuizScreen extends React.Component<IProps, IState> {
 
   render(): JSX.Element | null {
     const {
-      valid,
-      didReveal,
       failCount,
       skipCount,
-      attempted,
-      wordContent,
       initalizing,
-      shouldShake,
       quizFinished,
-      revealAnswer,
       progressCount,
-      currentWordIndex,
     } = this.state;
 
     if (initalizing) {
       return null;
     }
 
-    const Component = this.props.Component;
-    const currentWord = wordContent[currentWordIndex];
     const lesson = this.props.navigation.getParam("lesson");
 
     return (
@@ -125,22 +118,7 @@ class QuizScreen extends React.Component<IProps, IState> {
                 Progress: {progressCount} / {lesson.length} complete,{" "}
                 {skipCount} skipped, {failCount} failed
               </ProgressText>
-              <Component
-                valid={valid}
-                lesson={lesson}
-                didReveal={didReveal}
-                revealAnswer={revealAnswer}
-                currentWord={currentWord}
-                shouldShake={shouldShake}
-                attempted={attempted}
-                setInputRef={this.setInputRef}
-                value={this.state.value}
-                handleChange={this.handleChange}
-                handleCheck={this.handleCheck}
-                handleProceed={this.handleProceed}
-                languageSetting={this.props.languageSetting}
-                handleToggleRevealAnswer={this.handleToggleRevealAnswer}
-              />
+              {this.getQuizComponent()}
               <ActionButton
                 position="left"
                 buttonColor={COLORS.actionButtonRed}
@@ -167,6 +145,45 @@ class QuizScreen extends React.Component<IProps, IState> {
     );
   }
 
+  getQuizComponent = () => {
+    const {
+      valid,
+      didReveal,
+      attempted,
+      wordContent,
+      shouldShake,
+      revealAnswer,
+      quizType: randomQuizType,
+      currentWordIndex,
+    } = this.state;
+
+    const currentWord = wordContent[currentWordIndex];
+    const lesson = this.props.navigation.getParam("lesson");
+
+    const quizProps = {
+      valid,
+      lesson,
+      didReveal,
+      revealAnswer,
+      currentWord,
+      shouldShake,
+      attempted,
+      value: this.state.value,
+      setInputRef: this.setInputRef,
+      handleCheck: this.handleCheck,
+      handleChange: this.handleChange,
+      handleProceed: this.handleProceed,
+      languageSetting: this.props.languageSetting,
+      handleToggleRevealAnswer: this.handleToggleRevealAnswer,
+    };
+
+    return randomQuizType === QUIZ_TYPE.QUIZ_TEXT ? (
+      <QuizInput {...quizProps} />
+    ) : (
+      <MultipleChoiceComponent {...quizProps} quizType={randomQuizType} />
+    );
+  };
+
   getInitialState = () => {
     const lesson = this.props.navigation.getParam("lesson");
     return {
@@ -186,6 +203,7 @@ class QuizScreen extends React.Component<IProps, IState> {
       wordContent: lesson,
       encouragementText: "",
       wordCompletedCache: new Set(),
+      quizType: this.getQuizComponentType(),
     };
   };
 
@@ -201,6 +219,16 @@ class QuizScreen extends React.Component<IProps, IState> {
       value,
       shouldShake: false,
     });
+  };
+
+  getQuizComponentType = (): QUIZ_TYPE => {
+    const type = this.props.navigation.getParam("type");
+    if (type === "DAILY_QUIZ") {
+      const randomIdx = this.getRandomWordIndex(0, 4);
+      return QuizTypeOptions[randomIdx];
+    } else {
+      return this.props.quizType;
+    }
   };
 
   handleCheck = (correct: boolean) => {
@@ -292,6 +320,7 @@ class QuizScreen extends React.Component<IProps, IState> {
 
             return {
               currentWordIndex: nextIndex,
+              quizType: this.getQuizComponentType(),
               wordCompletedCache: prevState.wordCompletedCache.add(nextIndex),
             };
           },
@@ -495,11 +524,4 @@ const ActionIconStyle = {
  * =========================================================================
  */
 
-export default ({ Component, ...rest }: Partial<IProps>) => (
-  <GlobalStateProvider
-    {...rest}
-    Component={(childProps: any) => (
-      <QuizScreen {...childProps} Component={Component} />
-    )}
-  />
-);
+export default withGlobalState(QuizScreen);
