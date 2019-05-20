@@ -7,7 +7,7 @@ import GlobalState, {
   WordDictionary,
 } from "@src/GlobalState";
 import { GoogleSigninUser } from "@src/tools/store";
-import { AudioItem, HSKListSet, Lesson, Word } from "@src/tools/types";
+import { AudioItem, HSKListSet, Lesson } from "@src/tools/types";
 import { Audio } from "expo";
 
 /** ========================================================================
