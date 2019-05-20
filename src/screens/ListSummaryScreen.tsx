@@ -65,12 +65,10 @@ class ListSummaryScreen extends React.Component<IProps, {}> {
     );
 
     const isFinalLesson = index === hskList.length - 1;
-    const shouldShowTrophy =
-      listScore.complete ||
-      (isFinalLesson && unlockedLessonIndex === hskList.length - 1);
-
+    const shouldShowTrophy = listScore.complete || index < unlockedLessonIndex;
     const isLocked = shouldShowTrophy ? false : index > unlockedLessonIndex;
     const inProgress = !shouldShowTrophy && !isLocked;
+
     return (
       <LessonBlock
         style={{
@@ -85,7 +83,7 @@ class ListSummaryScreen extends React.Component<IProps, {}> {
           index,
           isLocked,
           isFinalLesson,
-          index <= unlockedLessonIndex,
+          index === unlockedLessonIndex,
         )}
       >
         <LessonBlockText isLocked={isLocked}>
@@ -105,7 +103,7 @@ class ListSummaryScreen extends React.Component<IProps, {}> {
     isFinalUnlockedLesson: boolean,
   ) => () => {
     if (isLocked) {
-      this.props.setToastMessage("Please complete the previous lesson first");
+      this.props.setToastMessage("Please complete the previous lesson first!");
     } else {
       this.openLessonSummary(
         lesson,
