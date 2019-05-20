@@ -14,11 +14,13 @@ import {
   ScoreStatus,
   WordDictionary,
 } from "@src/GlobalState";
-import { fetchWordPronunciation } from "@src/tools/api";
+import { fetchWordPronunciation, fetchWordTranslation } from "@src/tools/api";
 import CONFIG from "@src/tools/config";
 import {
   AudioItem,
+  ENGLISH,
   HSKListSet,
+  languageCode,
   Lesson,
   LessonSet,
   LessonSummaryType,
@@ -26,7 +28,10 @@ import {
   Option,
   OptionType,
   ResultType,
+  SIMPLIFIED_CHINESE,
   SoundFileResponse,
+  TRADITIONAL_CHINESE,
+  TranslationsData,
   Word,
 } from "@src/tools/types";
 
@@ -473,7 +478,6 @@ const batchList = <T>(
 export const prefetchWordsList = async (words: ReadonlyArray<string>) => {
   const total = words.length;
   let processed = 0;
-  let apiRateLimitReached = false;
 
   console.log(`\nStarting to process words list ---`);
   console.log(`Processing ${total} words:\n`);
@@ -497,10 +501,6 @@ export const prefetchWordsList = async (words: ReadonlyArray<string>) => {
           return { word, soundData: uriResult.data };
         } else {
           failureCount++;
-          if (uriResult.message === API_RATE_LIMIT_REACHED) {
-            apiRateLimitReached = true;
-          }
-
           return null;
         }
       case ResultType.ERROR:
@@ -515,10 +515,7 @@ export const prefetchWordsList = async (words: ReadonlyArray<string>) => {
   }> = [];
 
   for (const word of words) {
-    if (apiRateLimitReached) {
-      console.log("API rate limit reached... aborting!");
-      break;
-    } else if (failureCount > failedThreshold) {
+    if (failureCount > failedThreshold) {
       console.log("Errors encountered - aborting!");
       break;
     }
@@ -540,9 +537,7 @@ export const prefetchWordsList = async (words: ReadonlyArray<string>) => {
     return wordMap;
   }, {});
 
-  console.log(
-    `\nProcessed a total of ${processed} out of ${total} words - (API rate limited reached: ${apiRateLimitReached})`,
-  );
+  console.log(`\nProcessed a total of ${processed} out of ${total} words -`);
 
   return flattenedResults;
 };
@@ -700,4 +695,41 @@ export const getLessonSummaryStatus = (
     quizText,
     mandarinPronunciation,
   };
+};
+
+/**
+ * Handle translating a word into all the language variants. Takes one source
+ * and returns the word translated in English, Traditional Chinese, and Simplified
+ * Chinese.
+ *
+ * @param word word to translate
+ * @param source language source to translate from
+ * @returns `Promise<TranslationsData>` translation result data
+ */
+export const translateWord = async (
+  word: string,
+  source: languageCode,
+): Promise<TranslationsData> => {
+  let needToTranslate: ReadonlyArray<languageCode> = [];
+
+  if (source === ENGLISH) {
+    needToTranslate = [TRADITIONAL_CHINESE, SIMPLIFIED_CHINESE];
+  } else if (source === TRADITIONAL_CHINESE) {
+    needToTranslate = [SIMPLIFIED_CHINESE, ENGLISH];
+  } else if (source === SIMPLIFIED_CHINESE) {
+    needToTranslate = [TRADITIONAL_CHINESE, ENGLISH];
+  }
+
+  const translationQueue = needToTranslate.map(async target => {
+    const translation = await fetchWordTranslation(word, source, target);
+    return {
+      [target]: translation[0],
+    };
+  });
+
+  const translations = (await Promise.all(translationQueue)).concat({
+    [source]: word,
+  });
+
+  return (translations as unknown) as TranslationsData;
 };

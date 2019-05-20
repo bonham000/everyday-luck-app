@@ -90,6 +90,11 @@ export interface LessonScreenParams {
  * =========================================================================
  */
 
+/** ========================================================================
+ * Forvo API
+ * =========================================================================
+ */
+
 export interface AudioItem {
   addtime: string;
   code: string;
@@ -114,4 +119,36 @@ export interface SoundFileResponse {
     total: number;
   };
   items: ReadonlyArray<AudioItem>;
+}
+
+/** ========================================================================
+ * Google Translate API
+ * =========================================================================
+ */
+
+export type languageCode = "english" | "traditional" | "simplified";
+export const ENGLISH: languageCode = "english";
+export const TRADITIONAL_CHINESE: languageCode = "traditional";
+export const SIMPLIFIED_CHINESE: languageCode = "simplified";
+
+export const LANGUAGE_CODE_MAP = {
+  [ENGLISH]: "en",
+  [TRADITIONAL_CHINESE]: "zh-TW",
+  [SIMPLIFIED_CHINESE]: "zh-CN",
+};
+
+interface Translation {
+  translatedText: string;
+}
+
+export interface GoogleTranslateResponse {
+  data: {
+    translations: ReadonlyArray<Translation>;
+  };
+}
+
+export interface TranslationsData {
+  english: string;
+  traditional: string;
+  simplified: string;
 }

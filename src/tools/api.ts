@@ -3,7 +3,10 @@ import axios from "axios";
 import { APP_DIFFICULTY_SETTING, ScoreStatus } from "@src/GlobalState";
 import CONFIG from "@src/tools/config";
 import {
+  GoogleTranslateResponse,
   HSKListSet,
+  LANGUAGE_CODE_MAP,
+  languageCode,
   Result,
   ResultType,
   SoundFileResponse,
@@ -163,5 +166,54 @@ export const fetchWordPronunciation = async (
       err,
       type: ResultType.ERROR,
     };
+  }
+};
+
+/**
+ * Build the Google Translate API url based on the provided user options.
+ *
+ * @param word word to translate
+ * @param languageSetting user languageSetting
+ * @param translateEnglishToChinese boolean indicating if source is English
+ * @returns url for Google Translate API
+ */
+const buildGoogleTranslationUrl = (
+  word: string,
+  source: languageCode,
+  target: languageCode,
+): string => {
+  const encodedWord = encodeURIComponent(word);
+
+  let url = `https://translation.googleapis.com/language/translate/v2?`;
+
+  url += `key=${CONFIG.GOOGLE_TRANSLATE_API_KEY}`;
+  url += `&source=${LANGUAGE_CODE_MAP[source]}`;
+  url += `&target=${LANGUAGE_CODE_MAP[target]}`;
+  url += `&q=${encodedWord}`;
+
+  return url;
+};
+
+/**
+ * Translate some text using Google Translate API. Translates between Chinese and
+ * English, respecting user language setting.
+ *
+ * @param word word to translate
+ * @param languageSetting user languageSetting
+ * @param translateEnglishToChinese boolean indicating if source is English
+ * @returns `Promise<TranslationsData>` translation result
+ */
+export const fetchWordTranslation = async (
+  word: string,
+  source: languageCode,
+  target: languageCode,
+): Promise<ReadonlyArray<string>> => {
+  try {
+    const url = buildGoogleTranslationUrl(word, source, target);
+    const result = await axios.get<GoogleTranslateResponse>(url);
+    const { translations } = result.data.data;
+    return translations.map(({ translatedText }) => translatedText);
+  } catch (err) {
+    return [""];
   }
 };
