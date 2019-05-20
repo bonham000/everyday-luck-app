@@ -91,8 +91,9 @@ class TranslationScreen extends React.Component<IProps, IState> {
   renderTranslationResults = () => {
     const { translationResults } = this.state;
     if (translationResults) {
-      const data: ReadonlyArray<[languageCode, string]> = [
+      const data: ReadonlyArray<[keyof TranslationsData, string]> = [
         ["english", translationResults.english],
+        ["pinyin", translationResults.pinyin],
         ["simplified", translationResults.simplified],
         ["traditional", translationResults.traditional],
       ];
@@ -129,8 +130,21 @@ class TranslationScreen extends React.Component<IProps, IState> {
       const sourceCode: languageCode = sourceLanguageChinese
         ? this.props.languageSetting
         : "english";
-      const translationResults = await translateWord(input, sourceCode);
-      this.setState({ translationResults });
+      const wordExistsInDictionary = this.props.wordDictionary[
+        input.toLowerCase()
+      ];
+
+      /**
+       * Word may already exist in local dictionary!
+       */
+      if (wordExistsInDictionary) {
+        this.setState({
+          translationResults: wordExistsInDictionary,
+        });
+      } else {
+        const translationResults = await translateWord(input, sourceCode);
+        this.setState({ translationResults });
+      }
     } else {
       this.props.setToastMessage("Please enter a word to translate");
     }
@@ -188,11 +202,12 @@ const TranslationTextResult = ({
   language,
 }: {
   text: string;
-  language: languageCode;
+  language: keyof TranslationsData;
 }) => {
+  const romanized = language === "english" || language === "pinyin";
   return (
     <TranslationTextContainer>
-      <Text style={{ fontSize: language === "english" ? 28 : 42 }}>{text}</Text>
+      <Text style={{ fontSize: romanized ? 28 : 42 }}>{text}</Text>
       <Text style={{ fontSize: 18, marginLeft: 12 }}>
         ({capitalize(language)})
       </Text>

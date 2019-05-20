@@ -168,4 +168,5 @@ export interface TranslationsData {
   english: string;
   traditional: string;
   simplified: string;
+  pinyin: string;
 }

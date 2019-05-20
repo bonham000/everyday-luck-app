@@ -14,7 +14,11 @@ import {
   ScoreStatus,
   WordDictionary,
 } from "@src/GlobalState";
-import { fetchWordPronunciation, fetchWordTranslation } from "@src/tools/api";
+import {
+  convertChineseToPinyin,
+  fetchWordPronunciation,
+  fetchWordTranslation,
+} from "@src/tools/api";
 import CONFIG from "@src/tools/config";
 import {
   AudioItem,
@@ -584,7 +588,7 @@ export const createWordDictionaryFromLessons = (
     // tslint:disable-next-line
     wordDictionary[word.simplified] = word;
     // tslint:disable-next-line
-    wordDictionary[word.english] = word;
+    wordDictionary[word.english.toLowerCase()] = word;
   }
 
   return wordDictionary;
@@ -737,5 +741,10 @@ export const translateWord = async (
       };
     }, {});
 
-  return (result as unknown) as TranslationsData;
+  const data = {
+    ...((result as unknown) as TranslationsData),
+    pinyin: await convertChineseToPinyin(result.traditional),
+  };
+
+  return data;
 };

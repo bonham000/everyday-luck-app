@@ -217,3 +217,24 @@ export const fetchWordTranslation = async (
     return [""];
   }
 };
+
+/**
+ * Fetch some pinyin for Chinese characters.
+ *
+ * @param chineseCharacters
+ * @returns `Promise<string>` pinyin result
+ */
+export const convertChineseToPinyin = async (
+  chineseCharacters: string,
+): Promise<string> => {
+  try {
+    const base = `https://pinyin-conversion-service-py7hlqkrxa-uc.a.run.app`;
+    const token = CONFIG.PINYIN_CONVERSION_SERVICE_API_KEY;
+    const inputCharacters = encodeURIComponent(chineseCharacters);
+    const url = `${base}/convert?token=${token}&chinese=${inputCharacters}`;
+    const result = await axios.get<string>(url);
+    return result.data;
+  } catch (err) {
+    return "";
+  }
+};
