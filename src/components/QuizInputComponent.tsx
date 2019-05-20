@@ -1,35 +1,12 @@
 import glamorous from "glamorous-native";
 import React from "react";
-import { GestureResponderEvent } from "react-native";
-import { Button, Text, TextInput } from "react-native-paper";
+import { Button, TextInput } from "react-native-paper";
 
 import Shaker from "@src/components/ShakerComponent";
 import { COLORS } from "@src/constants/Colors";
 import { COMPLIMENTS } from "@src/constants/Compliments";
-import { APP_LANGUAGE_SETTING } from "@src/GlobalState";
-import { Word } from "@src/tools/types";
+import { QuizScreenComponentProps } from "@src/tools/types";
 import { randomInRange } from "@src/tools/utils";
-
-/** ========================================================================
- * Types
- * =========================================================================
- */
-
-interface IProps {
-  valid: boolean;
-  revealAnswer: boolean;
-  didReveal: boolean;
-  currentWord: Word;
-  shouldShake: boolean;
-  attempted: boolean;
-  value: string;
-  languageSetting: APP_LANGUAGE_SETTING;
-  setInputRef: (ref: any) => void;
-  handleChange: (value: string) => void;
-  handleProceed: () => (event: GestureResponderEvent) => void;
-  handleToggleRevealAnswer: (event: GestureResponderEvent) => void;
-  handleCheck: (correct: boolean) => void;
-}
 
 /** ========================================================================
  * React Class
@@ -50,7 +27,7 @@ const QuizInput = ({
   handleToggleRevealAnswer,
   didReveal,
   languageSetting,
-}: IProps) => {
+}: QuizScreenComponentProps) => {
   const correctValue = currentWord[languageSetting];
 
   /**
@@ -73,6 +50,7 @@ const QuizInput = ({
         <Shaker style={{ width: "100%" }} shouldShake={shouldShake}>
           <QuizBox>
             <EnglishText>"{currentWord.english}"</EnglishText>
+            <SubText>{currentWord.pinyin}</SubText>
             <TextInput
               mode="outlined"
               error={attempted}
@@ -90,7 +68,7 @@ const QuizInput = ({
         dark
         mode="contained"
         style={{
-          marginTop: 30,
+          marginTop: 75,
           minWidth: 215,
           backgroundColor: revealAnswer
             ? COLORS.actionButtonMint
@@ -135,47 +113,34 @@ const QuizBox = glamorous.view({
 const TextInputStyles = {
   width: "95%",
   fontSize: 34,
-  marginTop: 6,
+  marginTop: 12,
   backgroundColor: "rgb(231,237,240)",
 };
 
-const EnglishText = ({ children }: { children: ReadonlyArray<string> }) => (
-  <Text
-    style={{
-      fontSize: 20,
-      marginTop: 15,
-      marginBottom: 15,
-      fontWeight: "bold",
-    }}
-  >
-    {children}
-  </Text>
-);
+const EnglishText = glamorous.text({
+  fontSize: 24,
+  marginTop: 15,
+  marginBottom: 15,
+  fontWeight: "bold",
+});
 
-const MandarinText = ({ children }: { children: string }) => (
-  <Text
-    style={{
-      fontSize: 40,
-      marginTop: 15,
-      marginBottom: 15,
-      fontWeight: "bold",
-    }}
-  >
-    {children}
-  </Text>
-);
+const MandarinText = glamorous.text({
+  fontSize: 40,
+  marginTop: 15,
+  marginBottom: 15,
+  fontWeight: "bold",
+});
 
-const PinyinText = ({ children }: { children: string }) => (
-  <Text
-    style={{
-      fontSize: 22,
-      marginBottom: 15,
-      fontWeight: "bold",
-    }}
-  >
-    {children}
-  </Text>
-);
+const PinyinText = glamorous.text({
+  fontSize: 22,
+  marginBottom: 15,
+  fontWeight: "bold",
+});
+
+const SubText = glamorous.text({
+  fontSize: 18,
+  marginBottom: 15,
+});
 
 /** ========================================================================
  * Helpers & Styles

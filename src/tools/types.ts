@@ -1,3 +1,7 @@
+import { GestureResponderEvent } from "react-native";
+
+import { APP_LANGUAGE_SETTING, QUIZ_TYPE } from "@src/GlobalState";
+
 /** ========================================================================
  * Result & Option Types
  * =========================================================================
@@ -78,6 +82,24 @@ export interface LessonScreenParams {
   isFinalLesson: boolean;
   type: LessonSummaryType;
   isFinalUnlockedLesson: boolean;
+}
+
+export interface QuizScreenComponentProps {
+  valid: boolean;
+  revealAnswer: boolean;
+  didReveal: boolean;
+  currentWord: Word;
+  shouldShake: boolean;
+  attempted: boolean;
+  value: string;
+  lesson: Lesson;
+  quizType: QUIZ_TYPE;
+  languageSetting: APP_LANGUAGE_SETTING;
+  setInputRef: (ref: any) => void;
+  handleChange: (value: string) => void;
+  handleCheck: (correct: boolean) => void;
+  handleProceed: () => (event: GestureResponderEvent) => void;
+  handleToggleRevealAnswer: (event: GestureResponderEvent) => void;
 }
 
 /** ========================================================================

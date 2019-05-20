@@ -12,7 +12,13 @@ import Shaker from "@src/components/ShakerComponent";
 import { COLORS } from "@src/constants/Colors";
 import { QUIZ_TYPE } from "@src/GlobalState";
 import { audioRecordingsClass } from "@src/tools/audio-dictionary";
-import { AudioItem, HSKList, Lesson, OptionType, Word } from "@src/tools/types";
+import {
+  AudioItem,
+  Lesson,
+  OptionType,
+  QuizScreenComponentProps,
+  Word,
+} from "@src/tools/types";
 import {
   flattenLessonSet,
   getAlternateChoices,
@@ -25,22 +31,7 @@ import {
  * =========================================================================
  */
 
-interface IProps extends GlobalStateProps {
-  valid: boolean;
-  revealAnswer: boolean;
-  didReveal: boolean;
-  currentWord: Word;
-  shouldShake: boolean;
-  attempted: boolean;
-  value: string;
-  lesson: HSKList;
-  quizType: QUIZ_TYPE;
-  setInputRef: () => void;
-  handleChange: () => void;
-  handleProceed: () => (event: GestureResponderEvent) => void;
-  handleToggleRevealAnswer: (event: GestureResponderEvent) => void;
-  handleCheck: (correct: boolean) => (event: GestureResponderEvent) => void;
-}
+interface IProps extends GlobalStateProps, QuizScreenComponentProps {}
 
 interface IState {
   choices: Lesson;
@@ -161,6 +152,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
                 ? correctWord
                 : currentWord.english}
             </QuizPromptText>
+            <QuizSubText>{currentWord.pinyin}</QuizSubText>
           </TitleContainer>
         )}
         <Shaker style={{ width: "100%" }} shouldShake={shouldShake}>
@@ -262,7 +254,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
   };
 
   prefetchLessonSoundData = async () => {
-    const words = this.props.lesson.content.map((word: Word) => {
+    const words = this.props.lesson.map((word: Word) => {
       return word[this.props.languageSetting];
     });
 
@@ -414,6 +406,12 @@ const QuizPromptText = ({
     {children}
   </Text>
 );
+
+const QuizSubText = glamorous.text({
+  fontSize: 22,
+  marginTop: 12,
+  marginBottom: 12,
+});
 
 const Choice = ({
   children,

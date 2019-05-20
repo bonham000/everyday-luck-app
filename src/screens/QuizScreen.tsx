@@ -148,12 +148,12 @@ class QuizScreen extends React.Component<IProps, IState> {
   getQuizComponent = () => {
     const {
       valid,
+      quizType,
       didReveal,
       attempted,
       wordContent,
       shouldShake,
       revealAnswer,
-      quizType: randomQuizType,
       currentWordIndex,
     } = this.state;
 
@@ -177,10 +177,10 @@ class QuizScreen extends React.Component<IProps, IState> {
       handleToggleRevealAnswer: this.handleToggleRevealAnswer,
     };
 
-    return randomQuizType === QUIZ_TYPE.QUIZ_TEXT ? (
-      <QuizInput {...quizProps} />
+    return quizType === QUIZ_TYPE.QUIZ_TEXT ? (
+      <QuizInput {...quizProps} quizType={quizType} />
     ) : (
-      <MultipleChoiceComponent {...quizProps} quizType={randomQuizType} />
+      <MultipleChoiceComponent {...quizProps} quizType={quizType} />
     );
   };
 
