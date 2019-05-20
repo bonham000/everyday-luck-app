@@ -232,7 +232,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
   };
 
   fetchSoundDataForWord = async () => {
-    const word = this.props.currentWord[this.props.languageSetting];
+    const word = this.props.currentWord.traditional;
     const soundData = audioRecordingsClass.getAudioRecordingsForWord(word);
     switch (soundData.type) {
       case OptionType.OK:
