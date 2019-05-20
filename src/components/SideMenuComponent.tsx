@@ -49,24 +49,24 @@ class SideMenuComponent extends React.Component<IProps, {}> {
             source={require("../assets/icon.png")}
           />
         </View>
-        <Item onPress={this.createNavigationHandler(ROUTE_NAMES.ABOUT)}>
-          🎋
-          {"  "}
-          About this App
-        </Item>
         <Item onPress={this.createNavigationHandler(ROUTE_NAMES.TRANSLATION)}>
           📔
           {"  "}
-          Translation Tool
+          Translation
         </Item>
         <Item onPress={this.createNavigationHandler(ROUTE_NAMES.SETTINGS)}>
           🎗
           {"  "}
-          App Settings
+          Settings
         </Item>
         <Item onPress={this.handleResetScores}>
           ⛱{"  "}
-          Reset Scores
+          Reset
+        </Item>
+        <Item onPress={this.createNavigationHandler(ROUTE_NAMES.ABOUT)}>
+          🎋
+          {"  "}
+          About
         </Item>
         <Item onPress={this.handleLogout}>🎡 Logout</Item>
         {user && (

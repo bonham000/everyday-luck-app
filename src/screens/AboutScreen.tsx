@@ -37,7 +37,7 @@ class AboutScreen extends React.Component<IProps, {}> {
           into a series of small challenges which can be mastered with a little
           practice each day.
         </DescriptionText>
-        <Emoji>✨✨✨</Emoji>
+        <Emoji>🌌🌃🌆🌇</Emoji>
         <LinkText onPress={this.openAboutLink}>
           This app is open source
         </LinkText>

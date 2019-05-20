@@ -98,6 +98,8 @@ const defaultScoreState = {
   },
 };
 
+const TOAST_TIMEOUT = 4000; /* 4 seconds */
+
 /** ========================================================================
  * React Class
  * =========================================================================
@@ -355,7 +357,7 @@ class RootContainer extends React.Component<{}, IState> {
         this.timeout = setTimeout(() => {
           this.clearToast();
           this.abortTryingToClose();
-        }, 2000);
+        }, TOAST_TIMEOUT);
       },
     );
   };
@@ -472,7 +474,7 @@ class RootContainer extends React.Component<{}, IState> {
   handleResetScores = () => {
     Alert.alert(
       "Are you sure?",
-      "All existing progress will be erased! This is irreversible 🤯",
+      "All existing progress will be erased and you will have to start over! This is irreversible 🤯",
       [
         {
           text: "Cancel",

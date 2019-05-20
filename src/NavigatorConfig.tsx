@@ -90,7 +90,7 @@ const createAppNavigationStack = (userLoggedIn: boolean) => {
           <QuizScreen {...props} quizType={QUIZ_TYPE.QUIZ_TEXT} />
         ),
         navigationOptions: {
-          title: "Quiz 🇨🇳",
+          title: "Characters Quiz 🇨🇳",
           headerBackTitle: null,
         },
       },
@@ -159,7 +159,7 @@ const createAppNavigationStack = (userLoggedIn: boolean) => {
       [ROUTE_NAMES.ABOUT]: {
         screen: AboutScreen,
         navigationOptions: {
-          title: "About 🎏",
+          title: "About 🏹",
           headerBackTitle: null,
         },
       },
