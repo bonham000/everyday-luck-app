@@ -12,17 +12,10 @@ import Shaker from "@src/components/ShakerComponent";
 import { COLORS } from "@src/constants/Colors";
 import { QUIZ_TYPE } from "@src/GlobalState";
 import { audioRecordingsClass } from "@src/tools/audio-dictionary";
-import {
-  AudioItem,
-  Lesson,
-  OptionType,
-  QuizScreenComponentProps,
-  Word,
-} from "@src/tools/types";
+import { Lesson, OptionType, QuizScreenComponentProps } from "@src/tools/types";
 import {
   flattenLessonSet,
   getAlternateChoices,
-  getAudioFileUrl,
   randomInRange,
 } from "@src/tools/utils";
 
@@ -40,8 +33,6 @@ interface IState {
   playedOnce: boolean;
   currentSoundAudio: ReadonlyArray<Audio.Sound>;
   currentSoundFileUri: string;
-  bufferingSoundFile: boolean;
-  wordAudioMap: { [key: string]: ReadonlyArray<Audio.Sound> };
 }
 
 /** ========================================================================
@@ -54,13 +45,11 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
     super(props);
 
     this.state = {
-      wordAudioMap: {},
       playedOnce: false,
       playbackError: false,
       loadingSoundData: true,
-      bufferingSoundFile: false,
-      currentSoundAudio: [new Audio.Sound()],
       currentSoundFileUri: "",
+      currentSoundAudio: [new Audio.Sound()],
       choices: this.deriveAlternateChoices(),
     };
   }
@@ -68,7 +57,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
   componentDidMount(): void {
     if (this.props.quizType === QUIZ_TYPE.PRONUNCIATION) {
       this.fetchSoundDataForWord();
-      this.prefetchLessonSoundData();
+      this.props.prefetchLessonSoundData(this.props.lesson);
     }
   }
 
@@ -81,20 +70,14 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
           choices: this.deriveAlternateChoices(),
         });
       } else {
-        if (this.state.playbackError) {
-          return this.setState({
-            loadingSoundData: false,
-            choices: this.deriveAlternateChoices(),
-          });
-        }
-        const { wordAudioMap } = this.state;
         const word = this.props.currentWord.traditional;
-        if (word in wordAudioMap && wordAudioMap[word] !== null) {
+        const soundFile = this.props.getSoundFileForWord(word);
+        if (soundFile) {
           this.setState({
             playedOnce: false,
             loadingSoundData: false,
+            currentSoundAudio: soundFile,
             choices: this.deriveAlternateChoices(),
-            currentSoundAudio: wordAudioMap[word],
           });
         } else {
           this.setState(
@@ -130,8 +113,6 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
               <Text>
                 {this.state.loadingSoundData
                   ? "Loading Sound File..."
-                  : this.state.bufferingSoundFile
-                  ? "Preparing sound file"
                   : "Press to Speak!"}
               </Text>
             </VoiceButton>
@@ -233,74 +214,29 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
 
   fetchSoundDataForWord = async () => {
     const word = this.props.currentWord.traditional;
-    const soundData = audioRecordingsClass.getAudioRecordingsForWord(word);
-    switch (soundData.type) {
-      case OptionType.OK:
-        const sounds = await this.fetchSoundFilesForWord(soundData.data);
-        if (sounds !== null) {
-          const currentSoundAudio = sounds as ReadonlyArray<Audio.Sound>;
-          return this.setState({
-            currentSoundAudio,
-            loadingSoundData: false,
-          });
-        } else {
-          return this.setState({ playbackError: true });
-        }
-
-      case OptionType.EMPTY:
-        console.log("No sound file uri found!!!");
-        return this.setState({ playbackError: true });
-    }
-  };
-
-  prefetchLessonSoundData = async () => {
-    const words = this.props.lesson.map((word: Word) => {
-      return word[this.props.languageSetting];
-    });
-
-    const wordAudioMap = (await Promise.all(
-      words.map(async (word: string) => {
-        const soundData = audioRecordingsClass.getAudioRecordingsForWord(word);
-        if (soundData.type === OptionType.OK) {
-          const sounds = await this.fetchSoundFilesForWord(soundData.data);
-          return { word, soundObjects: sounds };
-        } else {
-          return null;
-        }
-      }),
-    ))
-      .filter(Boolean)
-      .reduce((map, recordingData) => {
-        if (recordingData) {
-          const { word, soundObjects } = recordingData;
-          return {
-            ...map,
-            [word]: soundObjects,
-          };
-        } else {
-          return map;
-        }
-      }, {});
-
-    this.setState({ wordAudioMap });
-  };
-
-  fetchSoundFilesForWord = async (soundData: ReadonlyArray<AudioItem>) => {
-    return Promise.all(
-      soundData
-        .map(async audioItem => {
-          const soundObject = new Audio.Sound();
-          const filePath = audioItem.filePath;
-          if (filePath) {
-            const uri = getAudioFileUrl(filePath);
-            await soundObject.loadAsync({ uri });
-            return soundObject;
+    const existingSoundFile = this.props.getSoundFileForWord(word);
+    if (!existingSoundFile) {
+      const soundData = audioRecordingsClass.getAudioRecordingsForWord(word);
+      switch (soundData.type) {
+        case OptionType.OK:
+          const sounds = await this.props.fetchSoundFilesForWord(
+            soundData.data,
+          );
+          if (sounds !== null) {
+            const currentSoundAudio = sounds as ReadonlyArray<Audio.Sound>;
+            return this.setState({
+              currentSoundAudio,
+              loadingSoundData: false,
+            });
           } else {
-            return null;
+            return this.setState({ playbackError: true });
           }
-        })
-        .filter(Boolean),
-    );
+
+        case OptionType.EMPTY:
+          console.log("No sound file uri found!!!");
+          return this.setState({ playbackError: true });
+      }
+    }
   };
 
   deriveAlternateChoices = () => {

@@ -1,4 +1,4 @@
-import { Asset, Updates } from "expo";
+import { Asset, Audio, Updates } from "expo";
 import React from "react";
 import { Alert, AppState, BackHandler, View } from "react-native";
 import { createAppContainer } from "react-navigation";
@@ -28,13 +28,21 @@ import {
   GoogleSigninUser,
   setAppLanguageSetting,
 } from "@src/tools/store";
-import { HSKListSet } from "@src/tools/types";
+import {
+  AudioItem,
+  HSKListSet,
+  Lesson,
+  OptionType,
+  Word,
+} from "@src/tools/types";
 import {
   createWordDictionaryFromLessons,
   formatUserLanguageSetting,
   getAlternateLanguageSetting,
+  getAudioFileUrl,
 } from "@src/tools/utils";
 import { GlobalStateValues } from "./components/GlobalStateProvider";
+import { audioRecordingsClass } from "./tools/audio-dictionary";
 
 /** ========================================================================
  * Types
@@ -50,6 +58,7 @@ interface IState extends GlobalStateValues {
   updating: boolean;
   tryingToCloseApp: boolean;
   transparentLoading: boolean;
+  wordAudioMap: { [key: string]: ReadonlyArray<Audio.Sound> };
 }
 
 const defaultScoreState = {
@@ -108,6 +117,7 @@ class RootContainer extends React.Component<{}, IState> {
       loading: true,
       toastMessage: "",
       updating: false,
+      wordAudioMap: {},
       wordDictionary: {},
       tryingToCloseApp: false,
       transparentLoading: false,
@@ -217,6 +227,9 @@ class RootContainer extends React.Component<{}, IState> {
             setToastMessage: this.setToastMessage,
             handleResetScores: this.handleResetScores,
             handleSwitchLanguage: this.handleSwitchLanguage,
+            getSoundFileForWord: this.getSoundFileForWord,
+            prefetchLessonSoundData: this.prefetchLessonSoundData,
+            fetchSoundFilesForWord: this.fetchSoundFilesForWord,
             handleUpdateAppDifficultySetting: this
               .handleUpdateAppDifficultySetting,
           }}
@@ -493,6 +506,72 @@ class RootContainer extends React.Component<{}, IState> {
         }, 1250);
       },
     );
+  };
+
+  getSoundFileForWord = (traditionalCharacters: string) => {
+    return this.state.wordAudioMap[traditionalCharacters];
+  };
+
+  prefetchLessonSoundData = async (lesson: Lesson) => {
+    const words = lesson
+      .map((word: Word) => {
+        return word.traditional;
+      })
+      .filter(word => {
+        return !(word in this.state.wordAudioMap);
+      });
+
+    const wordAudioMap = (await Promise.all(
+      words.map(async (word: string) => {
+        const soundData = audioRecordingsClass.getAudioRecordingsForWord(word);
+        if (soundData.type === OptionType.OK) {
+          const sounds = await this.fetchSoundFilesForWord(soundData.data);
+          return { word, soundObjects: sounds };
+        } else {
+          return null;
+        }
+      }),
+    ))
+      .filter(Boolean)
+      .reduce((map, recordingData) => {
+        if (recordingData) {
+          const { word, soundObjects } = recordingData;
+          return {
+            ...map,
+            [word]: soundObjects,
+          };
+        } else {
+          return map;
+        }
+      }, {});
+
+    this.setState(prevState => ({
+      wordAudioMap: {
+        ...prevState.wordAudioMap,
+        ...wordAudioMap,
+      },
+    }));
+  };
+
+  fetchSoundFilesForWord = async (
+    soundData: ReadonlyArray<AudioItem>,
+  ): Promise<ReadonlyArray<Audio.Sound>> => {
+    const result = await Promise.all(
+      soundData
+        .map(async audioItem => {
+          const soundObject = new Audio.Sound();
+          const filePath = audioItem.filePath;
+          if (filePath) {
+            const uri = getAudioFileUrl(filePath);
+            await soundObject.loadAsync({ uri });
+            return soundObject;
+          } else {
+            return null;
+          }
+        })
+        .filter(Boolean),
+    );
+    return result as ReadonlyArray<Audio.Sound>;
   };
 
   canCloseApp = () => {

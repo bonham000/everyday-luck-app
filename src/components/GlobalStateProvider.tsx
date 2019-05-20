@@ -7,7 +7,8 @@ import GlobalState, {
   WordDictionary,
 } from "@src/GlobalState";
 import { GoogleSigninUser } from "@src/tools/store";
-import { HSKListSet } from "@src/tools/types";
+import { AudioItem, HSKListSet, Lesson, Word } from "@src/tools/types";
+import { Audio } from "expo";
 
 /** ========================================================================
  * Types
@@ -36,6 +37,13 @@ export interface GlobalStateProps extends GlobalStateValues {
   handleUpdateAppDifficultySetting: (
     setting: APP_DIFFICULTY_SETTING,
   ) => Promise<void>;
+  getSoundFileForWord: (
+    traditionalCharacters: string,
+  ) => ReadonlyArray<Audio.Sound>;
+  prefetchLessonSoundData: (lesson: Lesson) => Promise<void>;
+  fetchSoundFilesForWord: (
+    soundData: ReadonlyArray<AudioItem>,
+  ) => Promise<ReadonlyArray<Audio.Sound>>;
 }
 
 interface IProps {

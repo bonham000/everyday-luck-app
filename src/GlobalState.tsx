@@ -1,7 +1,8 @@
 import React from "react";
 
 import { GoogleSigninUser } from "@src/tools/store";
-import { HSKListSet, Word } from "@src/tools/types";
+import { AudioItem, HSKListSet, Lesson, Word } from "@src/tools/types";
+import { Audio } from "expo";
 
 /** ========================================================================
  * Context for toast message
@@ -80,6 +81,18 @@ const GlobalState = React.createContext({
   },
   onSignin: (user: GoogleSigninUser) => {
     // Handle action on signin
+  },
+  getSoundFileForWord: (traditionalCharacters: string) => {
+    // Return sound file for given word
+  },
+  prefetchLessonSoundData: async (lesson: Lesson) => {
+    // Handle pre-fetching sound data for lesson
+  },
+  fetchSoundFilesForWord: async (
+    soundData: ReadonlyArray<AudioItem>,
+  ): Promise<ReadonlyArray<Audio.Sound>> => {
+    // Handle fetching sound file for word
+    return [];
   },
 });
 
