@@ -2,18 +2,10 @@
 
 # Create an empty placeholder env file
 echo "
-const SENTRY_DSN = \"\";
-const SENTRY_AUTH_TOKEN = \"\";
-const ANDROID_CLIENT_ID = \"\";
-const IOS_CLIENT_ID = \"\";
-const DRAGON_URI = \"\";
-const FORVO_API_KEY = \"\";
-
-export {
-  SENTRY_DSN,
-  SENTRY_AUTH_TOKEN,
-  ANDROID_CLIENT_ID,
-  IOS_CLIENT_ID,
-  DRAGON_URI,
-  FORVO_API_KEY,
- };" > env.ts
+export const SENTRY_DSN = \"\";
+export const SENTRY_AUTH_TOKEN = \"\";
+export const ANDROID_CLIENT_ID = \"\";
+export const IOS_CLIENT_ID = \"\";
+export const DRAGON_URI = \"\";
+export const FORVO_API_KEY = \"\";
+export const GOOGLE_TRANSLATE_API_KEY = \"\";" > env.ts
