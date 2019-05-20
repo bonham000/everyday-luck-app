@@ -47,10 +47,10 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
     this.state = {
       playedOnce: false,
       playbackError: false,
-      loadingSoundData: true,
       currentSoundFileUri: "",
       currentSoundAudio: [new Audio.Sound()],
       choices: this.deriveAlternateChoices(),
+      loadingSoundData: !!this.fetchSoundFileForCurrentWordIfExists(),
     };
   }
 
@@ -70,8 +70,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
           choices: this.deriveAlternateChoices(),
         });
       } else {
-        const word = this.props.currentWord.traditional;
-        const soundFile = this.props.getSoundFileForWord(word);
+        const soundFile = this.fetchSoundFileForCurrentWordIfExists();
         if (soundFile) {
           this.setState({
             playedOnce: false,
@@ -185,6 +184,11 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
     );
   }
 
+  fetchSoundFileForCurrentWordIfExists = () => {
+    const word = this.props.currentWord.traditional;
+    return this.props.getSoundFileForWord(word);
+  };
+
   handlePronounceWord = async () => {
     if (!this.state.loadingSoundData) {
       try {
@@ -213,9 +217,9 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
   };
 
   fetchSoundDataForWord = async () => {
-    const word = this.props.currentWord.traditional;
-    const existingSoundFile = this.props.getSoundFileForWord(word);
+    const existingSoundFile = this.fetchSoundFileForCurrentWordIfExists();
     if (!existingSoundFile) {
+      const word = this.props.currentWord.traditional;
       const soundData = audioRecordingsClass.getAudioRecordingsForWord(word);
       switch (soundData.type) {
         case OptionType.OK:

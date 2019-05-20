@@ -75,6 +75,7 @@ class LessonSummaryScreen extends React.Component<IProps, {}> {
               onPress={this.handleNavigateToSection(ROUTE_NAMES.QUIZ)}
             >
               <Text>Start the Quiz!</Text>
+              <Text>⛵</Text>
             </ActionBlock>
           </React.Fragment>
         ) : (
