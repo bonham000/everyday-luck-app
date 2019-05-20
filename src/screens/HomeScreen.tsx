@@ -49,8 +49,13 @@ class HomeScreen extends React.Component<IProps, {}> {
       lessons,
       finalUnlockedListIndex,
       appDifficultySetting,
+      userScoreStatus,
     );
-    const reviewSet = getReviewLessonSet(lessons, finalUnlockedListIndex);
+    const reviewSet = getReviewLessonSet(
+      lessons,
+      finalUnlockedListIndex,
+      userScoreStatus,
+    );
     return (
       <Container>
         <Text style={TextStyles}>Choose a lesson to start studying</Text>

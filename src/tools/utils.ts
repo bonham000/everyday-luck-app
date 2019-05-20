@@ -358,43 +358,68 @@ export const getDrawerLockedState = (navigation: any): DrawerLockMode => {
  *
  * @param lists HSKListSet of content
  * @param unlockedLessonIndex final unlocked lesson index
+ * @param appDifficultySetting user difficulty setting
+ * @param userScoreStatus user scores
  * @returns random lesson containing 25 items
  */
 export const getDailyChallengeQuizSet = (
   lists: HSKListSet,
   unlockedLessonIndex: number,
   appDifficultySetting: APP_DIFFICULTY_SETTING,
+  userScoreStatus: ScoreStatus,
 ): Lesson => {
-  /**
-   * TODO: Only return unlocked list content.
-   */
   const quizSize = convertAppDifficultyToLessonSize(appDifficultySetting);
-  return knuthShuffle(
-    lists
-      .slice(0, unlockedLessonIndex + 1)
-      .map(list => list.content.slice())
-      .reduce((flattened, lesson) => [...flattened, ...lesson]),
-  ).slice(0, quizSize);
+  const allWordContent = getAllUnlockedWordContent(
+    lists,
+    unlockedLessonIndex,
+    userScoreStatus,
+  );
+  return knuthShuffle(allWordContent).slice(0, quizSize);
 };
 
 /**
  * Derive random lesson set for game mode.
  *
- * @param lessons HSKListSet of content
+ * @param lists HSKListSet of content
  * @param unlockedLessonIndex final unlocked lesson index
+ * @param userScoreStatus user scores
  * @returns merged review content of all unlocked lessons
  */
 export const getReviewLessonSet = (
   lists: HSKListSet,
   unlockedLessonIndex: number,
+  userScoreStatus: ScoreStatus,
 ) => {
-  /**
-   * TODO: Only return unlocked list content.
-   */
-  return lists
-    .slice(0, unlockedLessonIndex + 1)
+  return getAllUnlockedWordContent(lists, unlockedLessonIndex, userScoreStatus);
+};
+
+/**
+ * Helper which reduces all the HSK list content to only those
+ * words which the use has already completed, and returns these
+ * as a single flattened array.
+ *
+ * @param lists HSKListSet of content
+ * @param unlockedLessonIndex final unlocked lesson index
+ * @param userScoreStatus user scores
+ * @returns merged word lists of all unlocked words
+ */
+const getAllUnlockedWordContent = (
+  lists: HSKListSet,
+  unlockedLessonIndex: number,
+  userScoreStatus: ScoreStatus,
+): ReadonlyArray<Word> => {
+  const completedLists = lists
+    .slice(0, unlockedLessonIndex)
     .map(list => list.content)
     .reduce((flattened, lesson) => flattened.concat(lesson));
+  const finalUnlockedList = lists[unlockedLessonIndex];
+  const finalListScore = mapListIndexToListScores(
+    unlockedLessonIndex,
+    userScoreStatus,
+  );
+  const completedWords = finalListScore.number_words_completed;
+  const finalListWords = finalUnlockedList.content.slice(0, completedWords);
+  return completedLists.concat(finalListWords);
 };
 
 const API_RATE_LIMIT_REACHED = "API_RATE_LIMIT_REACHED";
