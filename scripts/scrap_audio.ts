@@ -194,7 +194,7 @@ const fetchMp3Files = () => {
     console.log("- Initializing mp3 downloads process...");
     downloadQueue.initializeDownloads();
   } else {
-    console.log("- No un-fetched files found\n");
+    console.log("- No un-fetched files found - exiting!\n");
   }
 };
 
@@ -203,8 +203,8 @@ const updateAudioRecordingsData = async () => {
   await scrapAudioRecordings();
 };
 
-/* Scrap audio data - */
+/* - Scrap audio data */
 // updateAudioRecordingsData();
 
-/* Download mp3s */
-fetchMp3Files();
+/* - Download mp3s for scraped data */
+// fetchMp3Files();
