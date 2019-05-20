@@ -14,6 +14,7 @@ import { QUIZ_TYPE } from "@src/GlobalState";
 import { audioRecordingsClass } from "@src/tools/audio-dictionary";
 import { Lesson, OptionType, QuizScreenComponentProps } from "@src/tools/types";
 import {
+  capitalize,
   flattenLessonSet,
   getAlternateChoices,
   randomInRange,
@@ -50,7 +51,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
       currentSoundFileUri: "",
       currentSoundAudio: [new Audio.Sound()],
       choices: this.deriveAlternateChoices(),
-      loadingSoundData: !!this.fetchSoundFileForCurrentWordIfExists(),
+      loadingSoundData: !this.fetchSoundFileForCurrentWordIfExists(),
     };
   }
 
@@ -120,6 +121,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
               <QuizPromptText quizType={quizType}>
                 {`"${currentWord.english}"`}
               </QuizPromptText>
+              <QuizSubText>{currentWord.pinyin}</QuizSubText>
               <Text style={{ marginTop: 15 }}>
                 (Could not load audio file...)
               </Text>
@@ -158,7 +160,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
                           choice.english
                         }`
                       : quizType === QUIZ_TYPE.ENGLISH
-                      ? choice.english
+                      ? capitalize(choice.english)
                       : choice[languageSetting]}
                   </QuizAnswerText>
                 </Choice>

@@ -157,7 +157,9 @@ export const getAlternateChoices = (
       const { english_alternate_choices } = word;
       const alternateEnglishWords =
         english_alternate_choices.length < 4
-          ? ENGLISH_WORDS.filter(englishWord => englishWord in wordDictionary)
+          ? ENGLISH_WORDS.filter(
+              englishWord => englishWord.toLowerCase() in wordDictionary,
+            )
           : english_alternate_choices;
 
       choices = [
@@ -166,7 +168,7 @@ export const getAlternateChoices = (
           .slice(0, 4)
           .map(choice => ({
             english: choice,
-            ...wordDictionary[choice],
+            ...wordDictionary[choice.toLowerCase()],
           })),
       ];
 

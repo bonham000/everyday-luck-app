@@ -999,6 +999,12 @@ const ENGLISH_WORDS: ReadonlyArray<string> = [
   "young",
   "your",
   "yourself",
-];
+].map(word => {
+  /* Capitalize all the words */
+  return word
+    .slice(0, 1)
+    .toUpperCase()
+    .concat(word.toLowerCase().slice(1));
+});
 
 export default ENGLISH_WORDS;

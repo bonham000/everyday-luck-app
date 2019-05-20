@@ -54,7 +54,7 @@ class HomeScreen extends React.Component<IProps, {}> {
     return (
       <Container>
         <Text style={TextStyles}>Choose a lesson to start studying</Text>
-        <Text style={{ marginTop: 6, marginBottom: 12 }}>
+        <Text style={{ marginTop: 6, marginBottom: 18 }}>
           {totalWords.toLocaleString()} words total
         </Text>
         {this.renderListSets()}
