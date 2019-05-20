@@ -727,9 +727,16 @@ export const translateWord = async (
     };
   });
 
-  const translations = (await Promise.all(translationQueue)).concat({
-    [source]: word,
-  });
+  const result = (await Promise.all(translationQueue))
+    .concat({
+      [source]: word,
+    })
+    .reduce((translations, translationResult) => {
+      return {
+        ...translations,
+        ...translationResult,
+      };
+    }, {});
 
-  return (translations as unknown) as TranslationsData;
+  return (result as unknown) as TranslationsData;
 };
