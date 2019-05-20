@@ -10,7 +10,11 @@ import {
 } from "@src/components/GlobalStateProvider";
 import { COLORS } from "@src/constants/Colors";
 import { LessonScreenParams, Word } from "@src/tools/types";
-import { filterBySearchTerm, mapWordsForList } from "@src/tools/utils";
+import {
+  filterBySearchTerm,
+  mapWordsForList,
+  randomInRange,
+} from "@src/tools/utils";
 
 /** ========================================================================
  * Types
@@ -67,10 +71,17 @@ class ViewAllScreen extends React.Component<IProps, IState> {
   renderItem = ({ item }: { item: Word; index: number }): any => {
     const content = item[this.props.languageSetting];
     return (
-      <WordBox onPress={this.copyHandler(content)}>
-        <WordText style={{ fontSize: 32, padding: 8 }}>{content}</WordText>
-        <WordText>{item.pinyin}</WordText>
-        <WordText>"{item.english}"</WordText>
+      <WordBox onPress={this.copyHandler(content, item.traditional)}>
+        <WordText style={{ fontSize: 20 }}>"{item.english}"</WordText>
+        <WordText style={{ fontSize: 20 }}>
+          {item.pinyin} <SmallText>(pinyin)</SmallText>
+        </WordText>
+        <WordText style={{ fontSize: 40 }}>
+          {item.simplified} <SmallText>(simplified)</SmallText>
+        </WordText>
+        <WordText style={{ fontSize: 40 }}>
+          {item.traditional} <SmallText>(traditional)</SmallText>
+        </WordText>
       </WordBox>
     );
   };
@@ -85,12 +96,27 @@ class ViewAllScreen extends React.Component<IProps, IState> {
     return lesson.filter(filterWords).map(mapWordsForList);
   };
 
-  copyHandler = (mandarin: string) => () => {
+  copyHandler = (mandarin: string, traditional: string) => () => {
     try {
       Clipboard.setString(mandarin);
+      this.maybePronounceWord(traditional);
       this.props.setToastMessage(`${mandarin} copied!`);
     } catch (_) {
       return;
+    }
+  };
+
+  maybePronounceWord = async (word: string) => {
+    try {
+      const soundFiles = this.props.getSoundFileForWord(word);
+      const length = soundFiles.length;
+      const randomIdx = randomInRange(0, length);
+      const soundObject = soundFiles[randomIdx];
+      await soundObject.replayAsync({
+        positionMillis: 0,
+      });
+    } catch (err) {
+      console.log("Error replaying sound file?");
     }
   };
 }
@@ -111,6 +137,10 @@ const WordBox = glamorous.touchableOpacity({
 const WordText = glamorous.text({
   padding: 4,
   paddingLeft: 8,
+});
+
+const SmallText = glamorous.text({
+  fontSize: 14,
 });
 
 const SearchBarStyles = {
