@@ -135,6 +135,9 @@ class DownloadQueue {
             saveAudioRecordingsFile(this.dictionary);
           }
         });
+    } else {
+      console.log("All items finished - saving updated dictionary.");
+      saveAudioRecordingsFile(this.dictionary);
     }
   };
 
