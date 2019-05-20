@@ -153,7 +153,7 @@ export const getAlternateChoices = (
       const { english_alternate_choices } = word;
       const alternateEnglishWords =
         english_alternate_choices.length < 4
-          ? ENGLISH_WORDS
+          ? ENGLISH_WORDS.filter(englishWord => englishWord in wordDictionary)
           : english_alternate_choices;
 
       choices = [
@@ -174,7 +174,7 @@ export const getAlternateChoices = (
         option.pinyin !== word.pinyin &&
         option.simplified !== word.simplified &&
         option.traditional !== word.traditional &&
-        option.traditional.length <= word.traditional.length + 2
+        option.traditional.length === word.traditional.length
       ) {
         chosen.add(idx);
         choices = choices.concat(option);
