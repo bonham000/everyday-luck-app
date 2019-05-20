@@ -48,7 +48,7 @@ class ViewAllScreen extends React.Component<IProps, IState> {
       <Searchbar
         autoFocus
         style={SearchBarStyles}
-        placeholder="Filter list"
+        placeholder="Filter list (enter Chinese or English)"
         value={this.state.searchValue}
         onChangeText={this.handleSearch}
       />

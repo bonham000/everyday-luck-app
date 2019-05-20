@@ -95,7 +95,7 @@ class FlashcardsScreen extends React.Component<IProps, IState> {
             <BackText>{card.pinyin}</BackText>
             <BackText
               style={{
-                fontSize: 22,
+                fontSize: 30,
                 marginTop: 18,
               }}
             >
@@ -210,14 +210,14 @@ const FlipSideView = glamorous.view({
 });
 
 const FaceText = glamorous.text({
-  fontSize: 75,
+  fontSize: 100,
   textAlign: "center",
   width: width - 40,
   color: COLORS.primaryRed,
 });
 
 const BackText = glamorous.text({
-  fontSize: 32,
+  fontSize: 40,
   textAlign: "center",
   width: width - 40,
   color: COLORS.primaryBlue,

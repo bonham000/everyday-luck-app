@@ -96,9 +96,10 @@ export const knuthShuffle = <T>(array: ReadonlyArray<T>): ReadonlyArray<T> => {
  */
 export const filterBySearchTerm = (searchValue: string) => (word: Word) => {
   const term = searchValue.toLowerCase();
-  const { traditional, pinyin, english } = word;
+  const { simplified, traditional, pinyin, english } = word;
   return (
     traditional.toLowerCase().includes(term) ||
+    simplified.toLowerCase().includes(term) ||
     pinyin.toLowerCase().includes(term) ||
     english.toLowerCase().includes(term)
   );

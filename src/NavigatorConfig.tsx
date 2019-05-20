@@ -60,10 +60,11 @@ const createAppNavigationStack = (userLoggedIn: boolean) => {
         }) => {
           const index = navigation.getParam("lessonIndex");
           const type = navigation.getParam("type");
+          const listIndex = navigation.getParam("listIndex");
           return {
             title:
               type === "LESSON"
-                ? `Lesson ${Number(index) + 1} Summary 🎎`
+                ? `HSK List ${listIndex + 1} - Quiz ${Number(index) + 1} 🔖`
                 : type === "SUMMARY"
                 ? "Review All 🔮"
                 : "Daily Quiz! 🏖",
@@ -80,7 +81,7 @@ const createAppNavigationStack = (userLoggedIn: boolean) => {
         }) => {
           const listKey = navigation.getParam("listKey");
           return {
-            title: `HSK List ${listKey}`,
+            title: `HSK Level ${listKey}`,
             headerBackTitle: null,
           };
         },
@@ -130,16 +131,9 @@ const createAppNavigationStack = (userLoggedIn: boolean) => {
       },
       [ROUTE_NAMES.VIEW_ALL]: {
         screen: ViewAllScreen,
-        navigationOptions: ({
-          navigation,
-        }: {
-          navigation: NavigationScreenProp<{}>;
-        }) => {
-          const title = navigation.getParam("headerTitle", undefined);
-          return {
-            title: title || "All Words ⛩",
-            headerBackTitle: null,
-          };
+        navigationOptions: {
+          title: "Review All Words 📕",
+          headerBackTitle: null,
         },
       },
       [ROUTE_NAMES.TRANSLATION]: {
