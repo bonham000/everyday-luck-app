@@ -515,6 +515,7 @@ class RootContainer extends React.Component<{}, IState> {
   };
 
   prefetchLessonSoundData = async (lesson: Lesson) => {
+    return;
     const words = lesson
       .map((word: Word) => {
         return word.traditional;

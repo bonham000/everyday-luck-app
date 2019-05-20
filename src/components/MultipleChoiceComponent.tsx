@@ -75,6 +75,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
         if (soundFile) {
           this.setState({
             playedOnce: false,
+            playbackError: false,
             loadingSoundData: false,
             currentSoundAudio: soundFile,
             choices: this.deriveAlternateChoices(),
@@ -83,6 +84,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
           this.setState(
             {
               playedOnce: false,
+              playbackError: false,
               loadingSoundData: true,
               choices: this.deriveAlternateChoices(),
             },
@@ -228,6 +230,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
           const sounds = await this.props.fetchSoundFilesForWord(
             soundData.data,
           );
+
           if (sounds !== null) {
             const currentSoundAudio = sounds as ReadonlyArray<Audio.Sound>;
             return this.setState({
