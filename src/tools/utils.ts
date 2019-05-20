@@ -409,10 +409,13 @@ const getAllUnlockedWordContent = (
   unlockedLessonIndex: number,
   userScoreStatus: ScoreStatus,
 ): ReadonlyArray<Word> => {
-  const completedLists = lists
-    .slice(0, unlockedLessonIndex)
-    .map(list => list.content)
-    .reduce((flattened, lesson) => flattened.concat(lesson));
+  const completedLists =
+    unlockedLessonIndex > 0
+      ? lists
+          .slice(0, unlockedLessonIndex)
+          .map(list => list.content)
+          .reduce((flattened, lesson) => flattened.concat(lesson))
+      : [];
   const finalUnlockedList = lists[unlockedLessonIndex];
   const finalListScore = mapListIndexToListScores(
     unlockedLessonIndex,
