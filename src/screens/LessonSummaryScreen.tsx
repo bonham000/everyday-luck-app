@@ -68,35 +68,50 @@ class LessonSummaryScreen extends React.Component<IProps, {}> {
         {type !== "DAILY_QUIZ" && (
           <Text style={SectionTextStyles}>Practice</Text>
         )}
-        <LineBreak />
-        <ActionBlock onPress={this.handleNavigateToSection(ROUTE_NAMES.QUIZ)}>
-          <Text>Characters Quiz</Text>
-          {quizText && isLesson && <Text>💯</Text>}
-        </ActionBlock>
-        <ActionBlock
-          onPress={this.handleNavigateToSection(
-            ROUTE_NAMES.MULTIPLE_CHOICE_MANDARIN,
-          )}
-        >
-          <Text>Mandarin Recognition</Text>
-          {mcMandarin && isLesson && <Text>💯</Text>}
-        </ActionBlock>
-        <ActionBlock
-          onPress={this.handleNavigateToSection(
-            ROUTE_NAMES.MULTIPLE_CHOICE_ENGLISH,
-          )}
-        >
-          <Text>English Recognition</Text>
-          {mcEnglish && isLesson && <Text>💯</Text>}
-        </ActionBlock>
-        <ActionBlock
-          onPress={this.handleNavigateToSection(
-            ROUTE_NAMES.MULTIPLE_CHOICE_VOICE,
-          )}
-        >
-          <Text>Mandarin Pronunciation</Text>
-          {mandarinPronunciation && isLesson && <Text>💯</Text>}
-        </ActionBlock>
+        {type === "DAILY_QUIZ" ? (
+          <React.Fragment>
+            <LineBreak />
+            <ActionBlock
+              onPress={this.handleNavigateToSection(ROUTE_NAMES.QUIZ)}
+            >
+              <Text>Start the Quiz!</Text>
+            </ActionBlock>
+          </React.Fragment>
+        ) : (
+          <React.Fragment>
+            <LineBreak />
+            <ActionBlock
+              onPress={this.handleNavigateToSection(ROUTE_NAMES.QUIZ)}
+            >
+              <Text>Characters Quiz</Text>
+              {quizText && isLesson && <Text>💯</Text>}
+            </ActionBlock>
+            <ActionBlock
+              onPress={this.handleNavigateToSection(
+                ROUTE_NAMES.MULTIPLE_CHOICE_MANDARIN,
+              )}
+            >
+              <Text>Mandarin Recognition</Text>
+              {mcMandarin && isLesson && <Text>💯</Text>}
+            </ActionBlock>
+            <ActionBlock
+              onPress={this.handleNavigateToSection(
+                ROUTE_NAMES.MULTIPLE_CHOICE_ENGLISH,
+              )}
+            >
+              <Text>English Recognition</Text>
+              {mcEnglish && isLesson && <Text>💯</Text>}
+            </ActionBlock>
+            <ActionBlock
+              onPress={this.handleNavigateToSection(
+                ROUTE_NAMES.MULTIPLE_CHOICE_VOICE,
+              )}
+            >
+              <Text>Mandarin Pronunciation</Text>
+              {mandarinPronunciation && isLesson && <Text>💯</Text>}
+            </ActionBlock>
+          </React.Fragment>
+        )}
         {type !== "DAILY_QUIZ" ? (
           <React.Fragment>
             <Text style={SectionTextStyles}>Study</Text>
@@ -115,11 +130,18 @@ class LessonSummaryScreen extends React.Component<IProps, {}> {
             </ActionBlock>
           </React.Fragment>
         ) : (
-          <Text style={{ textAlign: "center", width: "85%", marginTop: 15 }}>
-            Practice makes perfect! The <Bold>Daily Challenge</Bold> will prompt
-            you each day with a quiz on the content you've already learned.
-            Reviewing like this will ensure you don't forget!
-          </Text>
+          <React.Fragment>
+            <Text style={{ textAlign: "center", width: "85%", marginTop: 15 }}>
+              Practice makes perfect! The <Bold>Daily Challenge</Bold> will
+              prompt you each day with a quiz on the content you've already
+              learned.
+            </Text>
+
+            <Text style={{ textAlign: "center", width: "85%", marginTop: 15 }}>
+              The 4 quiz options will be mixed randomly within the quiz for a
+              more interesting challenge - enjoy!
+            </Text>
+          </React.Fragment>
         )}
       </Container>
     );
