@@ -9,6 +9,7 @@ import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import {
   APP_DIFFICULTY_SETTING,
   APP_LANGUAGE_SETTING,
+  DIFFICULTY_TO_LESSON_SIZE_MAP,
   ListScore,
   QUIZ_TYPE,
   ScoreStatus,
@@ -535,16 +536,7 @@ export const delay = (time: number = 500) => {
 export const convertAppDifficultyToLessonSize = (
   setting: APP_DIFFICULTY_SETTING,
 ) => {
-  switch (setting) {
-    case APP_DIFFICULTY_SETTING.EASY:
-      return 10;
-    case APP_DIFFICULTY_SETTING.MEDIUM:
-      return 25;
-    case APP_DIFFICULTY_SETTING.HARD:
-      return 50;
-    default:
-      return 25;
-  }
+  return DIFFICULTY_TO_LESSON_SIZE_MAP[setting];
 };
 
 /**

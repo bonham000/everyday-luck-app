@@ -147,7 +147,7 @@ const createAppNavigationStack = (userLoggedIn: boolean) => {
       [ROUTE_NAMES.SETTINGS]: {
         screen: SettingsScreen,
         navigationOptions: {
-          title: "Settings ⚙",
+          title: "Settings 🏗",
           headerBackTitle: null,
         },
       },

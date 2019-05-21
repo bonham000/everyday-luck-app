@@ -103,6 +103,7 @@ class QuizScreen extends React.Component<IProps, IState> {
       initalizing,
       quizFinished,
       progressCount,
+      wordCompletedCache,
     } = this.state;
 
     if (initalizing) {
@@ -118,7 +119,7 @@ class QuizScreen extends React.Component<IProps, IState> {
           {quizFinished ? null : (
             <React.Fragment>
               <ProgressText>
-                Question: {progressCount + 1} / {lesson.length} complete,{" "}
+                Question: {wordCompletedCache.size} / {lesson.length} complete,{" "}
                 {skipCount} skipped, {failCount} failed
               </ProgressText>
               {this.getQuizComponent()}

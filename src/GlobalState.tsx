@@ -42,6 +42,15 @@ export enum APP_DIFFICULTY_SETTING {
   HARD = "HARD",
 }
 
+/**
+ * Lesson Quiz Sizes based on the app difficulty
+ */
+export const DIFFICULTY_TO_LESSON_SIZE_MAP = {
+  [APP_DIFFICULTY_SETTING.EASY]: 10,
+  [APP_DIFFICULTY_SETTING.MEDIUM]: 20,
+  [APP_DIFFICULTY_SETTING.HARD]: 30,
+};
+
 export enum QUIZ_TYPE {
   ENGLISH = "mc_english",
   MANDARIN = "mc_mandarin",

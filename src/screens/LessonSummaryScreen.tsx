@@ -90,18 +90,20 @@ class LessonSummaryScreen extends React.Component<IProps, {}> {
           <React.Fragment>
             <LineBreak />
             <ActionBlock
-              onPress={this.handleNavigateToSection(ROUTE_NAMES.QUIZ)}
-            >
-              <Text>Characters Quiz</Text>
-              {quizText && isLesson && <Text>💯</Text>}
-            </ActionBlock>
-            <ActionBlock
               onPress={this.handleNavigateToSection(
                 ROUTE_NAMES.MULTIPLE_CHOICE_MANDARIN,
               )}
             >
               <Text>Mandarin Recognition</Text>
               {mcMandarin && isLesson && <Text>💯</Text>}
+            </ActionBlock>
+            <ActionBlock
+              onPress={this.handleNavigateToSection(
+                ROUTE_NAMES.MULTIPLE_CHOICE_VOICE,
+              )}
+            >
+              <Text>Mandarin Pronunciation</Text>
+              {mandarinPronunciation && isLesson && <Text>💯</Text>}
             </ActionBlock>
             <ActionBlock
               onPress={this.handleNavigateToSection(
@@ -112,12 +114,10 @@ class LessonSummaryScreen extends React.Component<IProps, {}> {
               {mcEnglish && isLesson && <Text>💯</Text>}
             </ActionBlock>
             <ActionBlock
-              onPress={this.handleNavigateToSection(
-                ROUTE_NAMES.MULTIPLE_CHOICE_VOICE,
-              )}
+              onPress={this.handleNavigateToSection(ROUTE_NAMES.QUIZ)}
             >
-              <Text>Mandarin Pronunciation</Text>
-              {mandarinPronunciation && isLesson && <Text>💯</Text>}
+              <Text>Characters Quiz</Text>
+              {quizText && isLesson && <Text>💯</Text>}
             </ActionBlock>
           </React.Fragment>
         )}
