@@ -313,12 +313,16 @@ class RootContainer extends React.Component<{}, IState> {
     }
   };
 
-  setLessonScore = async (updatedScoreStatus: ScoreStatus, exp: number) => {
-    const { userId } = this.state;
+  setLessonScore = async (
+    updatedScoreStatus: ScoreStatus,
+    lessonExperience: number,
+  ) => {
+    const { userId, experience } = this.state;
 
     if (userId) {
       await updateUserScores(userId, updatedScoreStatus);
-      const updatedUser = await updateUserExperience(userId, exp);
+      const updatedExperience = experience + lessonExperience;
+      const updatedUser = await updateUserExperience(userId, updatedExperience);
 
       if (updatedUser) {
         const { experience_points, score_history } = updatedUser;
