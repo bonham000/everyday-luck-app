@@ -23,6 +23,11 @@ const theme = {
   },
 };
 
+/** ========================================================================
+ * Mandarin App
+ * =========================================================================
+ */
+
 export default class extends React.Component {
   render(): JSX.Element {
     return (

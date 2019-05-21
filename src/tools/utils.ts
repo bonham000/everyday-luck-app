@@ -14,25 +14,16 @@ import {
   ScoreStatus,
   WordDictionary,
 } from "@src/GlobalState";
-import {
-  convertChineseToPinyin,
-  fetchWordPronunciation,
-  fetchWordTranslation,
-} from "@src/tools/api";
+import { convertChineseToPinyin, fetchWordTranslation } from "@src/tools/api";
 import CONFIG from "@src/tools/config";
 import {
-  AudioItem,
   ENGLISH,
   HSKListSet,
   languageCode,
   Lesson,
   LessonSet,
   LessonSummaryType,
-  Option,
-  OptionType,
-  ResultType,
   SIMPLIFIED_CHINESE,
-  SoundFileResponse,
   TRADITIONAL_CHINESE,
   TranslationsData,
   Word,
@@ -426,35 +417,6 @@ const getAllUnlockedWordContent = (
   return completedLists.concat(finalListWords);
 };
 
-const API_RATE_LIMIT_REACHED = "API_RATE_LIMIT_REACHED";
-
-/**
- * Parse a response from the Forzo API and return audio file uri,
- * wrapped in an Option result type in case no result can be found.
- *
- * @response SoundFileResponse
- * @returns `Option<string>` with uri
- */
-export const transformSoundFileResponse = (
-  response: SoundFileResponse,
-): Option<ReadonlyArray<AudioItem>> => {
-  if (Array.isArray(response)) {
-    return {
-      message: API_RATE_LIMIT_REACHED,
-      type: OptionType.EMPTY,
-    };
-  } else {
-    // @ts-ignore
-    const sortedByHits = response.items.sort((a: AudioItem, b: AudioItem) =>
-      a.hits > b.hits ? -1 : 1,
-    );
-    return {
-      data: sortedByHits,
-      type: OptionType.OK,
-    };
-  }
-};
-
 /**
  * Parse the app language setting in a human readable way.
  *
@@ -501,79 +463,6 @@ const batchList = <T>(
   }
 
   return result;
-};
-
-/**
- * Helper to prefetch audio recordings for a words list.
- *
- * @param words
- * @returns word audio map of results
- */
-export const prefetchWordsList = async (words: ReadonlyArray<string>) => {
-  const total = words.length;
-  let processed = 0;
-
-  console.log(`\nStarting to process words list ---`);
-  console.log(`Processing ${total} words:\n`);
-
-  let failureCount = 0;
-  const failedThreshold = 5;
-
-  const processWord = async (word: string) => {
-    console.log(`- Processing ${word}`);
-    const pronunciationResult = await fetchWordPronunciation(word);
-    switch (pronunciationResult.type) {
-      case ResultType.OK:
-        const uriResult = transformSoundFileResponse(pronunciationResult.data);
-        if (uriResult.type === OptionType.OK) {
-          processed++;
-          console.log(
-            `- Processing completed - ${
-              uriResult.data.length
-            } results obtained`,
-          );
-          return { word, soundData: uriResult.data };
-        } else {
-          failureCount++;
-          return null;
-        }
-      case ResultType.ERROR:
-        failureCount++;
-        return null;
-    }
-  };
-
-  const results: ReadonlyArray<{
-    word: string;
-    soundData: ReadonlyArray<AudioItem>;
-  }> = [];
-
-  for (const word of words) {
-    if (failureCount > failedThreshold) {
-      console.log("Errors encountered - aborting!");
-      break;
-    }
-
-    await delay(100);
-    const audioResult = await processWord(word);
-    // @ts-ignore
-    results.push(audioResult);
-  }
-
-  const flattenedResults = results.reduce((wordMap, uriResult) => {
-    if (uriResult) {
-      return {
-        ...wordMap,
-        [uriResult.word]: uriResult.soundData,
-      };
-    }
-
-    return wordMap;
-  }, {});
-
-  console.log(`\nProcessed a total of ${processed} out of ${total} words -`);
-
-  return flattenedResults;
 };
 
 /**

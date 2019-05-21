@@ -15,12 +15,12 @@ import { formatUserLanguageSetting, randomInRange } from "@src/tools/utils";
 
 const QuizInput = ({
   valid,
+  value,
   revealAnswer,
   currentWord,
   shouldShake,
   attempted,
   setInputRef,
-  value,
   handleChange,
   handleCheck,
   handleProceed,
