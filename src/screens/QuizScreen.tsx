@@ -102,7 +102,6 @@ class QuizScreen extends React.Component<IProps, IState> {
       skipCount,
       initalizing,
       quizFinished,
-      progressCount,
       wordCompletedCache,
     } = this.state;
 
