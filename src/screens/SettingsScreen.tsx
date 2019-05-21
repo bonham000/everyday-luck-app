@@ -161,13 +161,6 @@ const DifficultSettingBlockText = glamorous.text(
   }),
 );
 
-const TextInputStyles = {
-  width: "90%",
-  fontSize: 34,
-  marginTop: 6,
-  backgroundColor: "rgb(231,237,240)",
-};
-
 /** ========================================================================
  * Export
  * =========================================================================

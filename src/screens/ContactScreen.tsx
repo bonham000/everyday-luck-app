@@ -1,6 +1,5 @@
 import glamorous from "glamorous-native";
 import React from "react";
-import { StyleSheet } from "react-native";
 import { Button, TextInput } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
