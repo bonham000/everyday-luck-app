@@ -160,9 +160,9 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
                 >
                   <QuizAnswerText
                     valid={valid}
+                    quizType={quizType}
                     attempted={attempted}
                     shouldReveal={shouldReveal}
-                    quizType={quizType}
                   >
                     {shouldReveal
                       ? `${choice[languageSetting]} - ${choice.pinyin} - ${
@@ -384,7 +384,11 @@ const QuizAnswerText = ({
   <QuizAnswer
     style={{
       color: !valid && attempted ? "white" : "black",
-      fontWeight: shouldReveal ? "400" : "bold",
+      fontWeight: shouldReveal
+        ? "400"
+        : quizType === QUIZ_TYPE.ENGLISH
+        ? "300"
+        : "bold",
       fontSize: shouldReveal ? 15 : quizType === QUIZ_TYPE.ENGLISH ? 22 : 45,
     }}
   >

@@ -27,7 +27,7 @@ const TransparentLoadingComponent = () => (
       right: 0,
       zIndex: 50,
       opacity: 0.65,
-      backgroundColor: COLORS.white,
+      backgroundColor: COLORS.lightWhite,
     }}
   >
     <ActivityIndicator size="large" color={COLORS.primaryRed} />
@@ -38,6 +38,7 @@ const WelcomeText = glamorous.text({
   marginTop: 55,
   fontSize: 45,
   fontWeight: "bold",
+  color: COLORS.darkText,
 });
 
 const Container = glamorous.view({

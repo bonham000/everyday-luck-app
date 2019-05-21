@@ -63,6 +63,17 @@ class SettingsScreen extends React.Component<IProps, {}> {
           APP_DIFFICULTY_SETTING.HARD,
         ].map(this.renderDifficultyBlock)}
         <LineBreak />
+        <SectionTitle>Experience Points</SectionTitle>
+        <InfoText>
+          You currently have <Bold>{this.props.experience}</Bold> experience
+          points.
+        </InfoText>
+        <InfoText>
+          You can use these experience points on any quiz challenge to reclaim a
+          question if you answer it incorrectly. You will still be prompted to
+          answer the same question again later in the quiz, but this can help
+          you to recover from missed words.
+        </InfoText>
       </Container>
     );
   }
