@@ -136,11 +136,6 @@ const PinyinText = glamorous.text({
   fontWeight: "bold",
 });
 
-const SubText = glamorous.text({
-  fontSize: 18,
-  marginBottom: 15,
-});
-
 /** ========================================================================
  * Helpers & Styles
  * =========================================================================
