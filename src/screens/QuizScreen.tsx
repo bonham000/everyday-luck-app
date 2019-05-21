@@ -82,7 +82,10 @@ class QuizScreen extends React.Component<IProps, IState> {
         initalizing: false,
         wordCompletedCache: new Set([currentWordIndex]),
       },
-      this.focusInput,
+      () => {
+        // tslint:disable-next-line
+        this.timer = setTimeout(this.focusInput, 250);
+      },
     );
   }
 

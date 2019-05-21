@@ -6,7 +6,7 @@ import Shaker from "@src/components/ShakerComponent";
 import { COLORS } from "@src/constants/Colors";
 import { COMPLIMENTS } from "@src/constants/Compliments";
 import { QuizScreenComponentProps } from "@src/tools/types";
-import { randomInRange } from "@src/tools/utils";
+import { formatUserLanguageSetting, randomInRange } from "@src/tools/utils";
 
 /** ========================================================================
  * React Class
@@ -50,16 +50,15 @@ const QuizInput = ({
         <Shaker style={{ width: "100%" }} shouldShake={shouldShake}>
           <QuizBox>
             <EnglishText>"{currentWord.english}"</EnglishText>
-            <SubText>{currentWord.pinyin}</SubText>
             <TextInput
               mode="outlined"
+              value={value}
               error={attempted}
               ref={setInputRef}
               style={TextInputStyles}
-              value={value}
               onChangeText={handleChange}
-              label="Translate the English to Mandarin please"
               onSubmitEditing={handleCheckAnswer}
+              label={`Enter ${formatUserLanguageSetting(languageSetting)}`}
             />
           </QuizBox>
         </Shaker>
@@ -68,8 +67,8 @@ const QuizInput = ({
         dark
         mode="contained"
         style={{
-          marginTop: 75,
-          minWidth: 215,
+          marginTop: 25,
+          minWidth: 225,
           backgroundColor: revealAnswer
             ? COLORS.actionButtonMint
             : !valid && attempted
@@ -104,8 +103,8 @@ const QuizInput = ({
  */
 
 const QuizBox = glamorous.view({
+  height: 150,
   marginTop: 25,
-  height: 125,
   width: "100%",
   alignItems: "center",
 });
