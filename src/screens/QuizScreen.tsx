@@ -118,7 +118,7 @@ class QuizScreen extends React.Component<IProps, IState> {
           {quizFinished ? null : (
             <React.Fragment>
               <ProgressText>
-                Progress: {progressCount} / {lesson.length} complete,{" "}
+                Question: {progressCount + 1} / {lesson.length} complete,{" "}
                 {skipCount} skipped, {failCount} failed
               </ProgressText>
               {this.getQuizComponent()}
