@@ -12,7 +12,7 @@ import {
 } from "@src/tools/utils";
 import glamorous from "glamorous-native";
 import React from "react";
-import { StyleSheet, Text, ViewStyle } from "react-native";
+import { Clipboard, Keyboard, StyleSheet, Text, ViewStyle } from "react-native";
 import { Button, Switch, TextInput } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
@@ -104,7 +104,11 @@ class TranslationScreen extends React.Component<IProps, IState> {
             Translation Results:
           </SectionTitle>
           {data.map(([language, translation]) => (
-            <TranslationTextResult text={translation} language={language} />
+            <TranslationTextResult
+              text={translation}
+              language={language}
+              copyHandler={this.copyHandler(translation)}
+            />
           ))}
         </TranslationResults>
       );
@@ -138,15 +142,27 @@ class TranslationScreen extends React.Component<IProps, IState> {
        * Word may already exist in local dictionary!
        */
       if (wordExistsInDictionary) {
-        this.setState({
-          translationResults: wordExistsInDictionary,
-        });
+        this.setState(
+          {
+            translationResults: wordExistsInDictionary,
+          },
+          Keyboard.dismiss,
+        );
       } else {
         const translationResults = await translateWord(input, sourceCode);
-        this.setState({ translationResults });
+        this.setState({ translationResults }, Keyboard.dismiss);
       }
     } else {
       this.props.setToastMessage("Please enter a word to translate");
+    }
+  };
+
+  copyHandler = (text: string) => () => {
+    try {
+      Clipboard.setString(text);
+      this.props.setToastMessage(`${text} copied!`);
+    } catch (_) {
+      return;
     }
   };
 }
@@ -190,7 +206,7 @@ const InfoText = glamorous.text({
   textAlign: "center",
 });
 
-const TranslationTextContainer = glamorous.view({
+const TranslationTextContainer = glamorous.touchableOpacity({
   marginBottom: 15,
   flexDirection: "row",
   alignItems: "center",
@@ -200,13 +216,15 @@ const TranslationTextContainer = glamorous.view({
 const TranslationTextResult = ({
   text,
   language,
+  copyHandler,
 }: {
   text: string;
   language: keyof TranslationsData;
+  copyHandler: () => void;
 }) => {
   const romanized = language === "english" || language === "pinyin";
   return (
-    <TranslationTextContainer>
+    <TranslationTextContainer onPress={copyHandler}>
       <Text style={{ fontSize: romanized ? 28 : 42 }}>{text}</Text>
       <Text style={{ fontSize: 18, marginLeft: 12 }}>
         ({capitalize(language)})

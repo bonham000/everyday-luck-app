@@ -404,7 +404,7 @@ class QuizScreen extends React.Component<IProps, IState> {
             lessonCompleted
               ? `Great - keep going! 很好! You earned ${experiencePoints} experience points!`
               : firstPass
-              ? "Congratulations! 恭喜恭喜！"
+              ? `Congratulations! You gained ${experiencePoints} experience points!`
               : "All words completed, 好！",
             [
               {

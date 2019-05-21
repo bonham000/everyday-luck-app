@@ -39,11 +39,11 @@ class AboutScreen extends React.Component<IProps, {}> {
           practice each day.
         </DescriptionText>
         <Emoji>🌌🌃🌆🌇</Emoji>
-        <LinkText onPress={this.openHSKLink}>Learn more about the HSK</LinkText>
-        <LinkText onPress={this.openAboutLink}>
-          This app is open source
-        </LinkText>
         <LinkText onPress={this.navigateToContact}>Contact</LinkText>
+        <LinkText onPress={this.openAboutLink}>
+          This app is Open Source
+        </LinkText>
+        <LinkText onPress={this.openHSKLink}>Learn more about the HSK</LinkText>
       </Container>
     );
   }
@@ -99,9 +99,9 @@ const Emoji = glamorous.text({
 });
 
 const LinkText = glamorous.text({
-  fontSize: 15,
+  fontSize: 16,
   marginTop: 28,
-  fontWeight: "300",
+  fontWeight: "500",
   color: COLORS.primaryBlue,
 });
 
