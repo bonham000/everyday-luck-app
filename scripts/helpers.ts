@@ -77,12 +77,14 @@ export class DownloadQueue {
           }
         });
     } else {
-      console.log("All items finished - saving updated dictionary.");
+      console.log("\nAll items finished - saving updated dictionary.");
       saveAudioRecordingsFile(this.dictionary);
     }
   };
 
   initializeDownloads = () => {
+    console.log("\nInitializing download queue");
+    console.log(`Preparing to download ${this.queue.length} mp3 files...`);
     this.initializeDictionary();
     this.downloadMp3Async();
   };
@@ -228,12 +230,9 @@ export const getDictionaryObject = () => {
  * @data dictionary data to save
  */
 export const saveAudioRecordingsFile = (data: IAudioRecordingsDictionary) => {
-  console.log("\nWriting JSON result...");
-  fs.writeFileSync(
-    "src/assets/audio-result.json",
-    JSON.stringify(data),
-    "utf8",
-  );
+  const PATH = "src/assets/audio-result.json";
+  console.log(`\nWriting JSON dictionary to file: ${PATH}`);
+  fs.writeFileSync(PATH, JSON.stringify(data), "utf8");
   console.log("\nFinished!\n");
 };
 

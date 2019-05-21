@@ -79,7 +79,6 @@ const fetchMp3Files = () => {
   }
 
   if (tasks > 0) {
-    console.log("- Initializing mp3 downloads process...");
     downloadQueue.initializeDownloads();
   } else {
     console.log("- No un-fetched files found - exiting!\n");
@@ -100,4 +99,4 @@ const updateAudioRecordingsData = async () => {
 // updateAudioRecordingsData();
 
 /* [2] Download mp3s for scraped data */
-fetchMp3Files();
+// fetchMp3Files();

@@ -82,6 +82,8 @@ class GoogleSigninScreen extends React.Component<IProps, IState> {
             scopes: ["profile", "email"],
           });
 
+          console.log(result);
+
           if (result.type === "success") {
             const { user } = result;
             await saveLocalUser(user);
