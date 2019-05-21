@@ -5,6 +5,7 @@ import { NavigationScreenProp } from "react-navigation";
 
 import { Bold } from "@src/components/SharedComponents";
 import { COLORS } from "@src/constants/Colors";
+import { ROUTE_NAMES } from "@src/constants/RouteNames";
 
 /** ========================================================================
  * Types
@@ -38,10 +39,11 @@ class AboutScreen extends React.Component<IProps, {}> {
           practice each day.
         </DescriptionText>
         <Emoji>🌌🌃🌆🌇</Emoji>
+        <LinkText onPress={this.openHSKLink}>Learn more about the HSK</LinkText>
         <LinkText onPress={this.openAboutLink}>
           This app is open source
         </LinkText>
-        <LinkText onPress={this.openHSKLink}>Learn more about the HSK</LinkText>
+        <LinkText onPress={this.navigateToContact}>Contact</LinkText>
       </Container>
     );
   }
@@ -64,6 +66,10 @@ class AboutScreen extends React.Component<IProps, {}> {
     } catch (_) {
       return;
     }
+  };
+
+  navigateToContact = () => {
+    this.props.navigation.navigate(ROUTE_NAMES.CONTACT);
   };
 }
 

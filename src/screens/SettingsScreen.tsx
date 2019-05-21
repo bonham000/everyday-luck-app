@@ -1,7 +1,7 @@
 import glamorous from "glamorous-native";
 import React from "react";
 import { ScrollView, StyleSheet } from "react-native";
-import { Button, Text, TextInput } from "react-native-paper";
+import { Button, Text } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
 import {
@@ -27,24 +27,12 @@ interface IProps extends GlobalStateProps {
   navigation: NavigationScreenProp<{}>;
 }
 
-interface IState {
-  input: string;
-}
-
 /** ========================================================================
  * React Class
  * =========================================================================
  */
 
-class SettingsScreen extends React.Component<IProps, IState> {
-  constructor(props: IProps) {
-    super(props);
-
-    this.state = {
-      input: "",
-    };
-  }
-
+class SettingsScreen extends React.Component<IProps, {}> {
   render(): JSX.Element {
     const { languageSetting } = this.props;
     return (
@@ -75,28 +63,6 @@ class SettingsScreen extends React.Component<IProps, IState> {
           APP_DIFFICULTY_SETTING.HARD,
         ].map(this.renderDifficultyBlock)}
         <LineBreak />
-        <SectionTitle>Contact the Developer</SectionTitle>
-        <InfoText>
-          Found a bug, have feedback, or just want to say hello? Get in touch
-          with the developer by sending a quick message here.
-        </InfoText>
-        <TextInput
-          multiline
-          mode="outlined"
-          value={this.state.input}
-          style={TextInputStyles}
-          onChangeText={this.handleChange}
-          label="Type a message"
-          onSubmitEditing={this.handleSubmitForm}
-        />
-        <Button
-          dark
-          mode="contained"
-          onPress={this.handleSubmitForm}
-          style={{ marginTop: 15, marginBottom: 15 }}
-        >
-          Submit Feedback
-        </Button>
       </Container>
     );
   }
@@ -115,30 +81,6 @@ class SettingsScreen extends React.Component<IProps, IState> {
         {selected && <Text>✅</Text>}
       </DifficultSettingBlock>
     );
-  };
-
-  handleChange = (input: string) => {
-    this.setState({ input });
-  };
-
-  handleSubmitForm = () => {
-    if (this.state.input) {
-      /**
-       * TODO: Implement sending message.
-       */
-      this.setState(
-        {
-          input: "",
-        },
-        () => {
-          this.props.setToastMessage(
-            "Message sent, thank you for the feedback! You should expect a reply in a few days time.",
-          );
-        },
-      );
-    } else {
-      this.props.setToastMessage("Please enter a message");
-    }
   };
 
   setAppDifficulty = (setting: APP_DIFFICULTY_SETTING) => () => {
