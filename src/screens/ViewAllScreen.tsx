@@ -109,12 +109,14 @@ class ViewAllScreen extends React.Component<IProps, IState> {
   maybePronounceWord = async (word: string) => {
     try {
       const soundFiles = this.props.getSoundFileForWord(word);
-      const length = soundFiles.length;
-      const randomIdx = randomInRange(0, length);
-      const soundObject = soundFiles[randomIdx];
-      await soundObject.replayAsync({
-        positionMillis: 0,
-      });
+      if (soundFiles) {
+        const length = soundFiles.length;
+        const randomIdx = randomInRange(0, length);
+        const soundObject = soundFiles[randomIdx];
+        await soundObject.replayAsync({
+          positionMillis: 0,
+        });
+      }
     } catch (err) {
       console.log("Error replaying sound file?");
     }

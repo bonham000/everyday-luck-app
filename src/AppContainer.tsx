@@ -1,6 +1,6 @@
 import { Asset, Audio, Updates } from "expo";
 import React from "react";
-import { Alert, AppState, BackHandler, View } from "react-native";
+import { Alert, AppState, BackHandler, Platform, View } from "react-native";
 import { createAppContainer } from "react-navigation";
 
 import ErrorComponent from "@src/components/ErrorComponent";
@@ -515,7 +515,12 @@ class RootContainer extends React.Component<{}, IState> {
   };
 
   prefetchLessonSoundData = async (lesson: Lesson) => {
-    return;
+    if (Platform.OS === "android") {
+      return console.log(
+        "Pre-fetching audio files is not supported for Android.",
+      );
+    }
+
     const words = lesson
       .map((word: Word) => {
         return word.traditional;
