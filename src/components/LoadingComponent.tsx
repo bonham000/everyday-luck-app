@@ -3,7 +3,6 @@ import React from "react";
 import { ActivityIndicator } from "react-native";
 
 import { COLORS } from "@src/constants/Colors";
-import { Text } from "react-native-paper";
 
 /** ========================================================================
  * Component
