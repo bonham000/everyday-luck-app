@@ -76,13 +76,15 @@ class GoogleSigninScreen extends React.Component<IProps, IState> {
       },
       async () => {
         try {
+          /**
+           * TODO: This includes access token data which can be used to authenticate
+           * future requests.
+           */
           const result: Google.LogInResult = await Google.logInAsync({
             androidClientId: ANDROID_CLIENT_ID,
             iosClientId: IOS_CLIENT_ID,
             scopes: ["profile", "email"],
           });
-
-          console.log(result);
 
           if (result.type === "success") {
             const { user } = result;
