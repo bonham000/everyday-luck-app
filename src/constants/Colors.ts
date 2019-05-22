@@ -6,6 +6,7 @@ export const COLORS = {
   lightWhite: "rgb(231, 237, 240)",
   lightDark: "rgba(45,45,45,0.05)",
   darkText: "rgb(45,45,45)",
+  fadedText: "rgb(60,60,60)",
   inactive: "rgb(125,125,125)",
   primaryRed: "rgb(200,8,20)",
   primaryBlue: "#3498db",

@@ -95,13 +95,16 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
                     attempted={attempted}
                     shouldReveal={shouldReveal}
                   >
-                    {shouldReveal
-                      ? `${choice[languageSetting]} - ${choice.pinyin} - ${
-                          choice.english
-                        }`
-                      : quizType === QUIZ_TYPE.ENGLISH
-                      ? capitalize(choice.english)
-                      : choice[languageSetting]}
+                    {shouldReveal ? (
+                      <Text>
+                        <Text>{choice[languageSetting]}</Text>
+                        {choice.pinyin} - {choice.english}
+                      </Text>
+                    ) : quizType === QUIZ_TYPE.ENGLISH ? (
+                      capitalize(choice.english)
+                    ) : (
+                      choice[languageSetting]
+                    )}
                   </QuizAnswerText>
                 </Choice>
               );
@@ -247,7 +250,7 @@ const QuizAnswerText = ({
   shouldReveal,
   quizType,
 }: {
-  children: string;
+  children: string | Element;
   valid: boolean;
   attempted: boolean;
   shouldReveal: boolean;
@@ -282,16 +285,11 @@ const QuizAnswer = glamorous.text({
   marginBottom: 15,
 });
 
-const FallbackTextContainer = glamorous.view({
-  alignItems: "center",
-  justifyContent: "center",
-});
-
 const QuizPromptText = ({
   children,
   quizType,
 }: {
-  children: string;
+  children: string | Element;
   quizType: QUIZ_TYPE;
 }) => (
   <Text
@@ -311,16 +309,18 @@ const QuizSubText = glamorous.text({
 });
 
 const AudioEscapeBlock = glamorous.touchableOpacity({
-  right: 25,
-  bottom: 25,
+  right: 15,
+  bottom: 15,
   height: 50,
-  width: 125,
+  width: 150,
   position: "absolute",
+  alignItems: "center",
+  justifyContent: "center",
 });
 
 const AudioEscapeText = glamorous.text({
   fontSize: 14,
-  color: COLORS.darkText,
+  color: COLORS.fadedText,
 });
 
 const Choice = ({
@@ -342,10 +342,10 @@ const Choice = ({
     dark
     mode="contained"
     style={{
-      marginTop: 12,
       width: "90%",
-      height: quizType === QUIZ_TYPE.ENGLISH ? 50 : 75,
       justifyContent: "center",
+      marginBottom: 12,
+      height: quizType === QUIZ_TYPE.ENGLISH ? 50 : 75,
       backgroundColor: valid
         ? isCorrect
           ? COLORS.actionButtonMint
