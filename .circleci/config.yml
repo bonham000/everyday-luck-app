@@ -1,5 +1,15 @@
 version: 2
 jobs:
+  stargazer:
+    working_directory: ~/mandarin
+    docker:
+      - image: circleci/node:8.14
+    steps:
+      - checkout
+      - run:
+          name: Deploy with Surge
+          command: yarn stargazer:deploy
+
   publish:
     working_directory: ~/mandarin
     docker:
@@ -48,6 +58,9 @@ jobs:
           command: yarn run publish
 workflows:
   version: 2
+  deploy_stargazer:
+    jobs:
+      - stargazer
   test_and_publish_update:
     jobs:
       - publish
