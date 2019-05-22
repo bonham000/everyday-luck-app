@@ -95,6 +95,14 @@ class LessonSummaryScreen extends React.Component<IProps, {}> {
             <LineBreak />
             <ActionBlock
               onPress={this.handleNavigateToSection(
+                ROUTE_NAMES.MULTIPLE_CHOICE_ENGLISH,
+              )}
+            >
+              <Text>English Recognition</Text>
+              {mcEnglish && isLesson && <Text>💯</Text>}
+            </ActionBlock>
+            <ActionBlock
+              onPress={this.handleNavigateToSection(
                 ROUTE_NAMES.MULTIPLE_CHOICE_MANDARIN,
               )}
             >
@@ -108,14 +116,6 @@ class LessonSummaryScreen extends React.Component<IProps, {}> {
             >
               <Text>Mandarin Pronunciation</Text>
               {mandarinPronunciation && isLesson && <Text>💯</Text>}
-            </ActionBlock>
-            <ActionBlock
-              onPress={this.handleNavigateToSection(
-                ROUTE_NAMES.MULTIPLE_CHOICE_ENGLISH,
-              )}
-            >
-              <Text>English Recognition</Text>
-              {mcEnglish && isLesson && <Text>💯</Text>}
             </ActionBlock>
             <ActionBlock
               onPress={this.handleNavigateToSection(ROUTE_NAMES.QUIZ)}
