@@ -4,7 +4,7 @@ import { StyleSheet } from "react-native";
 import { Text } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
-import { Bold } from "@src/components/SharedComponents";
+import { Bold, Container } from "@src/components/SharedComponents";
 import { COLORS } from "@src/constants/Colors";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import {
@@ -185,13 +185,6 @@ class LessonSummaryScreen extends React.Component<IProps, {}> {
  * Helpers & Styles
  * =========================================================================
  */
-
-const Container = glamorous.view({
-  flex: 1,
-  paddingTop: 35,
-  alignItems: "center",
-  backgroundColor: "rgb(231,237,240)",
-});
 
 const TextStyles = {
   fontSize: 16,

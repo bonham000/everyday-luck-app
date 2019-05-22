@@ -1,10 +1,11 @@
 import glamorous from "glamorous-native";
 import React from "react";
-import { Alert, Dimensions, ScrollView, View } from "react-native";
+import { Alert, Dimensions, ScrollView } from "react-native";
 import Swiper from "react-native-deck-swiper";
 import FlipCard from "react-native-flip-card";
 import { NavigationScreenProp } from "react-navigation";
 
+import { BasicContainer } from "@src/components/SharedComponents";
 import { COLORS } from "@src/constants/Colors";
 import {
   GlobalStateContextProps,
@@ -52,7 +53,7 @@ class FlashcardsScreen extends React.Component<IProps, IState> {
 
   render(): JSX.Element {
     return (
-      <View style={{ flex: 1, backgroundColor: COLORS.lightWhite }}>
+      <BasicContainer>
         <Swiper
           infinite
           marginTop={32}
@@ -75,7 +76,7 @@ class FlashcardsScreen extends React.Component<IProps, IState> {
           Progress: {this.state.completed} / {this.state.lesson.length}{" "}
           completed
         </ProgressText>
-      </View>
+      </BasicContainer>
     );
   }
 

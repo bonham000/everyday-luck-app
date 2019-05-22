@@ -16,7 +16,6 @@ export const COLORS = {
   actionButtonMint: "#1abc9c",
   actionButtonYellow: "#FFAB85",
   wordCardBorder: "rgba(25,25,25,0.5)",
-  wordCardBackground: "rgb(231, 237, 240)",
   line: "rgba(25,25,25,0.85)",
   lineLight: "rgba(1,1,1,0.5)",
   lessonBlock: "#3498db",
@@ -24,4 +23,9 @@ export const COLORS = {
   lockedLessonBlock: "rgb(215,215,215)",
   dark: "rgb(15,15,15)",
   white: "rgb(250,250,250)",
+
+  /**
+   * Background
+   */
+  background: "rgb(231, 237, 240)",
 };

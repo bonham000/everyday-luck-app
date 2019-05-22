@@ -5,6 +5,7 @@ import { Image } from "react-native";
 import { NavigationScreenProp } from "react-navigation";
 
 import { LoadingComponent } from "@src/components/LoadingComponent";
+import { Container } from "@src/components/SharedComponents";
 import { COLORS } from "@src/constants/Colors";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import {
@@ -111,13 +112,6 @@ class GoogleSigninScreen extends React.Component<IProps, IState> {
  * Helpers & Styles
  * =========================================================================
  */
-
-const Container = glamorous.view({
-  flex: 1,
-  alignItems: "center",
-  justifyContent: "center",
-  backgroundColor: "rgb(231,237,240)",
-});
 
 const AppTitle = glamorous.text({
   marginTop: -125,

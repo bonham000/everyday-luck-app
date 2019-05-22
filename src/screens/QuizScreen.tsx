@@ -8,6 +8,7 @@ import { NavigationScreenProp } from "react-navigation";
 
 import MultipleChoiceComponent from "@src/components/MultipleChoiceComponent";
 import QuizInput from "@src/components/QuizInputComponent";
+import { Container } from "@src/components/SharedComponents";
 import { COLORS } from "@src/constants/Colors";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import {
@@ -117,7 +118,7 @@ class QuizScreen extends React.Component<IProps, IState> {
 
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-        <Container>
+        <Container style={{ paddingTop: 8 }}>
           <Confetti untilStopped duration={1500} ref={this.setConfettiRef} />
           {quizFinished ? null : (
             <React.Fragment>
@@ -507,13 +508,6 @@ class QuizScreen extends React.Component<IProps, IState> {
  * Helpers & Styles
  * =========================================================================
  */
-
-const Container = glamorous.view({
-  flex: 1,
-  paddingTop: 8,
-  alignItems: "center",
-  backgroundColor: "rgb(231,237,240)",
-});
 
 const ProgressText = glamorous.text({
   fontSize: 10,

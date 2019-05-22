@@ -3,6 +3,7 @@ import React from "react";
 import { ActivityIndicator } from "react-native";
 
 import { COLORS } from "@src/constants/Colors";
+import { Container } from "./SharedComponents";
 
 /** ========================================================================
  * Component
@@ -38,12 +39,6 @@ const WelcomeText = glamorous.text({
   fontSize: 45,
   fontWeight: "bold",
   color: COLORS.darkText,
-});
-
-const Container = glamorous.view({
-  flex: 1,
-  alignItems: "center",
-  justifyContent: "center",
 });
 
 /** ========================================================================

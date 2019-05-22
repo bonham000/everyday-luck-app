@@ -1,4 +1,10 @@
-import { Bold } from "@src/components/SharedComponents";
+import glamorous from "glamorous-native";
+import React from "react";
+import { Clipboard, Keyboard, StyleSheet, Text, ViewStyle } from "react-native";
+import { Button, Switch, TextInput } from "react-native-paper";
+import { NavigationScreenProp } from "react-navigation";
+
+import { Bold, Container } from "@src/components/SharedComponents";
 import { COLORS } from "@src/constants/Colors";
 import {
   GlobalStateContextProps,
@@ -10,11 +16,6 @@ import {
   formatUserLanguageSetting,
   translateWord,
 } from "@src/tools/utils";
-import glamorous from "glamorous-native";
-import React from "react";
-import { Clipboard, Keyboard, StyleSheet, Text, ViewStyle } from "react-native";
-import { Button, Switch, TextInput } from "react-native-paper";
-import { NavigationScreenProp } from "react-navigation";
 
 /** ========================================================================
  * Types
@@ -171,14 +172,6 @@ class TranslationScreen extends React.Component<IProps, IState> {
  * Helpers & Styles
  * =========================================================================
  */
-
-const Container = glamorous.view({
-  flex: 1,
-  paddingTop: 25,
-  alignItems: "center",
-  backgroundColor: "rgb(231,237,240)",
-});
-
 const ToggleLanguageContainer = glamorous.view({
   height: 75,
   flexDirection: "row",

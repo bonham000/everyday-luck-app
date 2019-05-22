@@ -4,6 +4,7 @@ import { Clipboard, FlatList, Keyboard } from "react-native";
 import { Searchbar } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
+import { BasicContainer } from "@src/components/SharedComponents";
 import { COLORS } from "@src/constants/Colors";
 import {
   GlobalStateContextProps,
@@ -55,7 +56,7 @@ class ViewAllScreen extends React.Component<IProps, IState> {
     );
 
     return (
-      <Container>
+      <BasicContainer>
         {SearchBar}
         <FlatList
           onScroll={Keyboard.dismiss}
@@ -64,7 +65,7 @@ class ViewAllScreen extends React.Component<IProps, IState> {
           renderItem={this.renderItem}
           keyExtractor={(item: Word) => item.traditional}
         />
-      </Container>
+      </BasicContainer>
     );
   }
 
@@ -107,9 +108,10 @@ class ViewAllScreen extends React.Component<IProps, IState> {
   };
 }
 
-const Container = glamorous.view({
-  flex: 1,
-});
+/** ========================================================================
+ * Helpers & Styles
+ * =========================================================================
+ */
 
 const WordBox = glamorous.touchableOpacity({
   padding: 8,
@@ -117,7 +119,7 @@ const WordBox = glamorous.touchableOpacity({
   paddingLeft: 12,
   borderBottomWidth: 1,
   borderBottomColor: COLORS.wordCardBorder,
-  backgroundColor: COLORS.wordCardBackground,
+  backgroundColor: COLORS.background,
 });
 
 const WordText = glamorous.text({

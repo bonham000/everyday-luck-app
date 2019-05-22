@@ -3,7 +3,7 @@ import glamorous from "glamorous-native";
 import React from "react";
 import { NavigationScreenProp } from "react-navigation";
 
-import { Bold } from "@src/components/SharedComponents";
+import { Bold, Container } from "@src/components/SharedComponents";
 import { COLORS } from "@src/constants/Colors";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 
@@ -77,13 +77,6 @@ class AboutScreen extends React.Component<IProps, {}> {
  * Helpers & Styles
  * =========================================================================
  */
-
-const Container = glamorous.view({
-  flex: 1,
-  paddingTop: 25,
-  alignItems: "center",
-  backgroundColor: COLORS.wordCardBackground,
-});
 
 const DescriptionText = glamorous.text({
   marginTop: 18,

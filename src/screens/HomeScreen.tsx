@@ -1,9 +1,10 @@
 import glamorous from "glamorous-native";
 import React from "react";
-import { ScrollView, TextStyle } from "react-native";
+import { TextStyle } from "react-native";
 import { Text } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
+import { ScrollContainer } from "@src/components/SharedComponents";
 import { COLORS } from "@src/constants/Colors";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import {
@@ -57,7 +58,7 @@ class HomeScreen extends React.Component<IProps, {}> {
       userScoreStatus,
     );
     return (
-      <Container>
+      <ScrollContainer>
         <Text style={TextStyles}>Choose a lesson to start studying</Text>
         <Text style={{ marginTop: 6, marginBottom: 18 }}>
           {totalWords.toLocaleString()} words total
@@ -76,7 +77,7 @@ class HomeScreen extends React.Component<IProps, {}> {
           <Text style={{ fontWeight: "600" }}>Review All Unlocked Content</Text>
           <Text>🏖</Text>
         </ReviewLink>
-      </Container>
+      </ScrollContainer>
     );
   }
 
@@ -159,20 +160,6 @@ class HomeScreen extends React.Component<IProps, {}> {
  * Helpers & Styles
  * =========================================================================
  */
-
-const Container = (props: { children: any }) => (
-  <ScrollView
-    contentContainerStyle={{
-      flexGrow: 1,
-      width: "100%",
-      paddingTop: 25,
-      paddingBottom: 150,
-      alignItems: "center",
-    }}
-  >
-    {props.children}
-  </ScrollView>
-);
 
 const LessonBlock = glamorous.touchableOpacity({
   width: "90%",

@@ -3,6 +3,7 @@ import React from "react";
 import { Button, TextInput } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
+import { Container } from "@src/components/SharedComponents";
 import { COLORS } from "@src/constants/Colors";
 import {
   GlobalStateContextProps,
@@ -95,13 +96,6 @@ class ContactScreen extends React.Component<IProps, IState> {
  * =========================================================================
  */
 
-const Container = glamorous.view({
-  flex: 1,
-  paddingTop: 25,
-  alignItems: "center",
-  backgroundColor: COLORS.wordCardBackground,
-});
-
 const SectionTitle = glamorous.text({
   fontSize: 22,
   fontWeight: "bold",
@@ -120,7 +114,7 @@ const TextInputStyles = {
   width: "90%",
   fontSize: 34,
   marginTop: 6,
-  backgroundColor: "rgb(231,237,240)",
+  backgroundColor: COLORS.background,
 };
 
 /** ========================================================================

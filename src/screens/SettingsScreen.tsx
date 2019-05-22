@@ -1,10 +1,10 @@
 import glamorous from "glamorous-native";
 import React from "react";
-import { ScrollView, StyleSheet } from "react-native";
+import { StyleSheet } from "react-native";
 import { Button, Text } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
-import { Bold } from "@src/components/SharedComponents";
+import { Bold, ScrollContainer } from "@src/components/SharedComponents";
 import { COLORS } from "@src/constants/Colors";
 import { APP_DIFFICULTY_SETTING } from "@src/providers/GlobalStateContext";
 import {
@@ -36,7 +36,7 @@ class SettingsScreen extends React.Component<IProps, {}> {
   render(): JSX.Element {
     const { languageSetting } = this.props;
     return (
-      <Container>
+      <ScrollContainer>
         <SectionTitle>Language Setting</SectionTitle>
         <Text>
           Your current language setting is:{" "}
@@ -74,7 +74,7 @@ class SettingsScreen extends React.Component<IProps, {}> {
           answer the same question again later in the quiz, but this can help
           you to recover from missed words.
         </InfoText>
-      </Container>
+      </ScrollContainer>
     );
   }
 
@@ -107,21 +107,6 @@ class SettingsScreen extends React.Component<IProps, {}> {
  * Helpers & Styles
  * =========================================================================
  */
-
-const Container = (props: { children: any }) => (
-  <ScrollView
-    contentContainerStyle={{
-      flexGrow: 1,
-      width: "100%",
-      paddingTop: 15,
-      paddingBottom: 50,
-      alignItems: "center",
-      backgroundColor: "rgb(231,237,240)",
-    }}
-  >
-    {props.children}
-  </ScrollView>
-);
 
 const SectionTitle = glamorous.text({
   fontSize: 22,
