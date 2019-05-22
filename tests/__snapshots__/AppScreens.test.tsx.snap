@@ -1,0 +1,4311 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App Screen Components Each screen component renders with props provided: About Screen 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "rgb(231, 237, 240)",
+        "flex": 1,
+        "paddingTop": 25,
+      },
+    ]
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontSize": 18,
+          "fontWeight": "400",
+          "marginTop": 18,
+          "textAlign": "center",
+          "width": "90%",
+        },
+      ]
+    }
+  >
+    This app uses the vocabulary content from the
+     
+    <Text
+      style={
+        Array [
+          Object {
+            "fontWeight": "bold",
+          },
+        ]
+      }
+    >
+      Hanyu Shuiping Kaoshi
+    </Text>
+     (Chinese Proficiency Test). This test is the standardized test of Standard Chinese language proficiency of China for non-native speakers such as foreign students and overseas Chinese.
+  </Text>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontSize": 18,
+          "fontWeight": "400",
+          "marginTop": 18,
+          "textAlign": "center",
+          "width": "90%",
+        },
+      ]
+    }
+  >
+    There are 6 levels total, which comprise a total of 5,000 words and about 2,500 characters. The goal of the app is to break these lessons into a series of small challenges which can be mastered with a little practice each day.
+  </Text>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontSize": 34,
+          "marginTop": 22,
+        },
+      ]
+    }
+  >
+    🌌🌃🌆🌇
+  </Text>
+  <Text
+    onPress={[Function]}
+    style={
+      Array [
+        Object {
+          "color": "#3498db",
+          "fontSize": 16,
+          "fontWeight": "500",
+          "marginTop": 28,
+        },
+      ]
+    }
+  >
+    Contact
+  </Text>
+  <Text
+    onPress={[Function]}
+    style={
+      Array [
+        Object {
+          "color": "#3498db",
+          "fontSize": 16,
+          "fontWeight": "500",
+          "marginTop": 28,
+        },
+      ]
+    }
+  >
+    This app is Open Source
+  </Text>
+  <Text
+    onPress={[Function]}
+    style={
+      Array [
+        Object {
+          "color": "#3498db",
+          "fontSize": 16,
+          "fontWeight": "500",
+          "marginTop": 28,
+        },
+      ]
+    }
+  >
+    Learn more about the HSK
+  </Text>
+</View>
+`;
+
+exports[`App Screen Components Each screen component renders with props provided: Characters Quiz 1`] = `
+<View
+  accessible={false}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "rgb(231, 237, 240)",
+        "flex": 1,
+        "paddingTop": 25,
+      },
+      Object {
+        "paddingTop": 8,
+      },
+    ]
+  }
+>
+  <View
+    style={
+      Object {
+        "left": 0,
+        "position": "absolute",
+        "right": 0,
+        "top": 0,
+      }
+    }
+  />
+  <Text
+    style={
+      Array [
+        Object {
+          "fontSize": 10,
+          "justifyContent": "center",
+        },
+      ]
+    }
+  >
+    Question: 
+    1
+     / 
+    1
+     complete,
+     
+    0
+     skipped, 
+    0
+     failed
+  </Text>
+  <View
+    shouldShake={false}
+    style={
+      Object {
+        "transform": Array [
+          Object {
+            "translateY": 0,
+          },
+          Object {
+            "translateX": 0,
+          },
+        ],
+        "width": "100%",
+      }
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "height": 150,
+            "marginTop": 25,
+            "width": "100%",
+          },
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontSize": 24,
+              "fontWeight": "bold",
+              "marginBottom": 15,
+              "marginTop": 15,
+            },
+          ]
+        }
+      >
+        "
+        I, me
+        "
+      </Text>
+      <View
+        style={
+          Array [
+            undefined,
+            Object {
+              "backgroundColor": "rgb(231,237,240)",
+              "fontSize": 34,
+              "marginTop": 12,
+              "width": "95%",
+            },
+          ]
+        }
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "bottom": 0,
+                "left": 0,
+                "position": "absolute",
+                "right": 0,
+                "top": 6,
+              },
+              Object {
+                "borderColor": "rgba(0, 0, 0, 0.54)",
+                "borderRadius": 4,
+                "borderWidth": 1,
+              },
+            ]
+          }
+        />
+        <Text
+          numberOfLines={1}
+          pointerEvents="none"
+          style={
+            Array [
+              Object {
+                "color": "#000000",
+                "fontFamily": "Helvetica Neue",
+                "textAlign": "left",
+                "writingDirection": "ltr",
+              },
+              Object {
+                "backgroundColor": "rgb(231,237,240)",
+                "color": "transparent",
+                "fontFamily": "Helvetica Neue",
+                "fontSize": 12,
+                "left": 8,
+                "opacity": 0,
+                "paddingHorizontal": 4,
+                "position": "absolute",
+                "top": 0,
+                "transform": Array [
+                  Object {
+                    "scaleX": 0,
+                  },
+                ],
+              },
+            ]
+          }
+        >
+          Enter Simplified Chinese
+        </Text>
+        <View
+          pointerEvents="none"
+          style={
+            Array [
+              Object {
+                "bottom": 0,
+                "left": 0,
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+              },
+              Object {
+                "opacity": 1,
+              },
+            ]
+          }
+        >
+          <Text
+            numberOfLines={1}
+            onLayout={[Function]}
+            style={
+              Array [
+                Object {
+                  "color": "#000000",
+                  "fontFamily": "Helvetica Neue",
+                  "textAlign": "left",
+                  "writingDirection": "ltr",
+                },
+                Object {
+                  "color": "#6200ee",
+                  "fontFamily": "Helvetica Neue",
+                  "fontSize": 16,
+                  "left": 0,
+                  "opacity": 0,
+                  "paddingHorizontal": 12,
+                  "position": "absolute",
+                  "top": 25,
+                  "transform": Array [
+                    Object {
+                      "translateX": 0,
+                    },
+                    Object {
+                      "translateY": 0,
+                    },
+                    Object {
+                      "scale": 1,
+                    },
+                    Object {
+                      "translateX": -0,
+                    },
+                  ],
+                },
+              ]
+            }
+          >
+            Enter Simplified Chinese
+          </Text>
+          <Text
+            numberOfLines={1}
+            style={
+              Array [
+                Object {
+                  "color": "#000000",
+                  "fontFamily": "Helvetica Neue",
+                  "textAlign": "left",
+                  "writingDirection": "ltr",
+                },
+                Object {
+                  "color": "rgba(0, 0, 0, 0.54)",
+                  "fontFamily": "Helvetica Neue",
+                  "fontSize": 16,
+                  "left": 0,
+                  "opacity": 1,
+                  "paddingHorizontal": 12,
+                  "position": "absolute",
+                  "top": 25,
+                  "transform": Array [
+                    Object {
+                      "translateX": 0,
+                    },
+                    Object {
+                      "translateY": 0,
+                    },
+                    Object {
+                      "scale": 1,
+                    },
+                    Object {
+                      "translateX": -0,
+                    },
+                  ],
+                },
+              ]
+            }
+          >
+            Enter Simplified Chinese
+          </Text>
+        </View>
+        <TextInput
+          allowFontScaling={true}
+          editable={true}
+          multiline={false}
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          onFocus={[Function]}
+          onSubmitEditing={[Function]}
+          placeholder=""
+          placeholderTextColor="rgba(0, 0, 0, 0.54)"
+          selectionColor="#6200ee"
+          style={
+            Array [
+              Object {
+                "flexGrow": 1,
+                "fontSize": 16,
+                "margin": 0,
+                "minHeight": 58,
+                "paddingHorizontal": 12,
+                "textAlign": "left",
+              },
+              Object {
+                "minHeight": 64,
+                "paddingBottom": 16,
+                "paddingTop": 20,
+              },
+              Object {
+                "color": "#000000",
+                "fontFamily": "Helvetica Neue",
+                "textAlignVertical": "center",
+              },
+            ]
+          }
+          underlineColorAndroid="transparent"
+          value=""
+        />
+      </View>
+    </View>
+  </View>
+  <View
+    style={
+      Object {
+        "backgroundColor": "#3498db",
+        "borderColor": "transparent",
+        "borderRadius": 4,
+        "borderStyle": "solid",
+        "borderWidth": 0,
+        "elevation": 2,
+        "marginTop": 25,
+        "minWidth": 225,
+        "shadowColor": "#000000",
+        "shadowOffset": Object {
+          "height": NaN,
+          "width": 0,
+        },
+        "shadowOpacity": 0.24,
+        "shadowRadius": 2,
+      }
+    }
+  >
+    <View
+      accessibilityRole="button"
+      accessible={true}
+      isTVSelectable={true}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "borderRadius": 4,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "justifyContent": "center",
+          }
+        }
+      >
+        <Text
+          numberOfLines={1}
+          style={
+            Array [
+              Object {
+                "color": "#000000",
+                "fontFamily": "Helvetica Neue",
+                "textAlign": "left",
+                "writingDirection": "ltr",
+              },
+              Array [
+                Object {
+                  "letterSpacing": 1,
+                  "marginHorizontal": 16,
+                  "marginVertical": 9,
+                  "textAlign": "center",
+                },
+                undefined,
+                Object {
+                  "color": "#ffffff",
+                  "fontFamily": "HelveticaNeue-Medium",
+                },
+                Object {
+                  "fontFamily": "HelveticaNeue-Medium",
+                },
+              ],
+            ]
+          }
+        >
+          CHECK ANSWER!
+        </Text>
+      </View>
+    </View>
+  </View>
+  <View
+    pointerEvents="box-none"
+    style={
+      Array [
+        Array [
+          Object {
+            "backgroundColor": "transparent",
+            "bottom": 0,
+            "left": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          },
+          Object {
+            "elevation": undefined,
+            "justifyContent": "flex-end",
+            "zIndex": 100,
+          },
+        ],
+        undefined,
+      ]
+    }
+  >
+    <View
+      pointerEvents="none"
+      style={
+        Object {
+          "backgroundColor": "transparent",
+          "bottom": 0,
+          "elevation": undefined,
+          "justifyContent": "flex-end",
+          "left": 0,
+          "opacity": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+          "zIndex": 100,
+        }
+      }
+    />
+    <View
+      pointerEvents="box-none"
+      style={
+        Array [
+          Array [
+            Object {
+              "backgroundColor": "transparent",
+              "bottom": 0,
+              "left": 0,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+            },
+            Object {
+              "elevation": undefined,
+              "justifyContent": "flex-end",
+              "zIndex": 100,
+            },
+          ],
+          Object {
+            "alignItems": "flex-start",
+          },
+          Object {
+            "paddingVertical": 30,
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "marginHorizontal": 30,
+              "zIndex": 100,
+            },
+            Object {
+              "elevation": 5,
+              "shadowColor": "#000",
+              "shadowOffset": Object {
+                "height": 5,
+                "width": 0,
+              },
+              "shadowOpacity": 0.35,
+              "shadowRadius": 3,
+            },
+            undefined,
+          ]
+        }
+      >
+        <View
+          accessible={true}
+          isTVSelectable={true}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "backgroundColor": "rgba(231, 76, 60, 1)",
+                "borderRadius": 28,
+                "height": 56,
+                "width": 56,
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "borderRadius": 28,
+                  "height": 56,
+                  "justifyContent": "center",
+                  "transform": Array [
+                    Object {
+                      "scale": 1,
+                    },
+                    Object {
+                      "rotate": "0deg",
+                    },
+                  ],
+                  "width": 56,
+                }
+              }
+            >
+              <Text
+                style={
+                  Object {
+                    "backgroundColor": "transparent",
+                    "color": "rgba(255, 255, 255, 1)",
+                    "fontSize": 24,
+                    "marginTop": -4,
+                  }
+                }
+              >
+                +
+              </Text>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`App Screen Components Each screen component renders with props provided: Contact Screen 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "rgb(231, 237, 240)",
+        "flex": 1,
+        "paddingTop": 25,
+      },
+    ]
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontSize": 22,
+          "fontWeight": "bold",
+          "marginBottom": 5,
+          "marginTop": 5,
+        },
+      ]
+    }
+  >
+    Contact
+  </Text>
+  <Text
+    style={
+      Array [
+        Object {
+          "marginBottom": 12,
+          "marginTop": 12,
+          "textAlign": "center",
+          "width": "80%",
+        },
+      ]
+    }
+  >
+    Found a bug, have feedback, or just want to say hello? Get in touch with the developer by sending a quick message here.
+  </Text>
+  <View
+    style={
+      Array [
+        undefined,
+        Object {
+          "backgroundColor": "rgb(231, 237, 240)",
+          "fontSize": 34,
+          "marginTop": 6,
+          "width": "90%",
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "bottom": 0,
+            "left": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 6,
+          },
+          Object {
+            "borderColor": "rgba(0, 0, 0, 0.54)",
+            "borderRadius": 4,
+            "borderWidth": 1,
+          },
+        ]
+      }
+    />
+    <Text
+      numberOfLines={1}
+      pointerEvents="none"
+      style={
+        Array [
+          Object {
+            "color": "#000000",
+            "fontFamily": "Helvetica Neue",
+            "textAlign": "left",
+            "writingDirection": "ltr",
+          },
+          Object {
+            "backgroundColor": "rgb(231, 237, 240)",
+            "color": "transparent",
+            "fontFamily": "Helvetica Neue",
+            "fontSize": 12,
+            "left": 8,
+            "opacity": 0,
+            "paddingHorizontal": 4,
+            "position": "absolute",
+            "top": 0,
+            "transform": Array [
+              Object {
+                "scaleX": 0,
+              },
+            ],
+          },
+        ]
+      }
+    >
+      Type a message
+    </Text>
+    <View
+      pointerEvents="none"
+      style={
+        Array [
+          Object {
+            "bottom": 0,
+            "left": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          },
+          Object {
+            "opacity": 1,
+          },
+        ]
+      }
+    >
+      <Text
+        numberOfLines={1}
+        onLayout={[Function]}
+        style={
+          Array [
+            Object {
+              "color": "#000000",
+              "fontFamily": "Helvetica Neue",
+              "textAlign": "left",
+              "writingDirection": "ltr",
+            },
+            Object {
+              "color": "#6200ee",
+              "fontFamily": "Helvetica Neue",
+              "fontSize": 16,
+              "left": 0,
+              "opacity": 0,
+              "paddingHorizontal": 12,
+              "position": "absolute",
+              "top": 25,
+              "transform": Array [
+                Object {
+                  "translateX": 0,
+                },
+                Object {
+                  "translateY": 0,
+                },
+                Object {
+                  "scale": 1,
+                },
+                Object {
+                  "translateX": -0,
+                },
+              ],
+            },
+          ]
+        }
+      >
+        Type a message
+      </Text>
+      <Text
+        numberOfLines={1}
+        style={
+          Array [
+            Object {
+              "color": "#000000",
+              "fontFamily": "Helvetica Neue",
+              "textAlign": "left",
+              "writingDirection": "ltr",
+            },
+            Object {
+              "color": "rgba(0, 0, 0, 0.54)",
+              "fontFamily": "Helvetica Neue",
+              "fontSize": 16,
+              "left": 0,
+              "opacity": 1,
+              "paddingHorizontal": 12,
+              "position": "absolute",
+              "top": 25,
+              "transform": Array [
+                Object {
+                  "translateX": 0,
+                },
+                Object {
+                  "translateY": 0,
+                },
+                Object {
+                  "scale": 1,
+                },
+                Object {
+                  "translateX": -0,
+                },
+              ],
+            },
+          ]
+        }
+      >
+        Type a message
+      </Text>
+    </View>
+    <TextInput
+      allowFontScaling={true}
+      editable={true}
+      multiline={true}
+      onBlur={[Function]}
+      onChangeText={[Function]}
+      onFocus={[Function]}
+      onSubmitEditing={[Function]}
+      placeholder=""
+      placeholderTextColor="rgba(0, 0, 0, 0.54)"
+      selectionColor="#6200ee"
+      style={
+        Array [
+          Object {
+            "flexGrow": 1,
+            "fontSize": 16,
+            "margin": 0,
+            "minHeight": 58,
+            "paddingHorizontal": 12,
+            "textAlign": "left",
+          },
+          Object {
+            "minHeight": 64,
+            "paddingBottom": 16,
+            "paddingTop": 20,
+          },
+          Object {
+            "color": "#000000",
+            "fontFamily": "Helvetica Neue",
+            "textAlignVertical": "top",
+          },
+        ]
+      }
+      underlineColorAndroid="transparent"
+      value=""
+    />
+  </View>
+  <View
+    style={
+      Object {
+        "backgroundColor": "#6200ee",
+        "borderColor": "transparent",
+        "borderRadius": 4,
+        "borderStyle": "solid",
+        "borderWidth": 0,
+        "elevation": 2,
+        "marginTop": 35,
+        "minWidth": 64,
+        "shadowColor": "#000000",
+        "shadowOffset": Object {
+          "height": NaN,
+          "width": 0,
+        },
+        "shadowOpacity": 0.24,
+        "shadowRadius": 2,
+      }
+    }
+  >
+    <View
+      accessibilityRole="button"
+      accessible={true}
+      isTVSelectable={true}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "borderRadius": 4,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "justifyContent": "center",
+          }
+        }
+      >
+        <Text
+          numberOfLines={1}
+          style={
+            Array [
+              Object {
+                "color": "#000000",
+                "fontFamily": "Helvetica Neue",
+                "textAlign": "left",
+                "writingDirection": "ltr",
+              },
+              Array [
+                Object {
+                  "letterSpacing": 1,
+                  "marginHorizontal": 16,
+                  "marginVertical": 9,
+                  "textAlign": "center",
+                },
+                undefined,
+                Object {
+                  "color": "#ffffff",
+                  "fontFamily": "HelveticaNeue-Medium",
+                },
+                Object {
+                  "fontFamily": "HelveticaNeue-Medium",
+                },
+              ],
+            ]
+          }
+        >
+          SUBMIT FEEDBACK
+        </Text>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`App Screen Components Each screen component renders with props provided: Flashcards Screen 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "rgb(231, 237, 240)",
+        "flex": 1,
+      },
+    ]
+  }
+>
+  <View
+    pointerEvents="auto"
+    style={
+      Array [
+        Object {
+          "alignItems": "stretch",
+          "bottom": 0,
+          "left": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+        },
+        Object {
+          "backgroundColor": "rgb(231, 237, 240)",
+          "marginBottom": 0,
+          "marginTop": 32,
+        },
+        Object {},
+      ]
+    }
+  >
+    <View
+      pointerEvents="box-none"
+      style={
+        Array [
+          Object {
+            "bottom": 0,
+            "left": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          },
+          Object {
+            "zIndex": -1,
+          },
+        ]
+      }
+    />
+    <View
+      onMoveShouldSetResponder={[Function]}
+      onMoveShouldSetResponderCapture={[Function]}
+      onResponderEnd={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderReject={[Function]}
+      onResponderRelease={[Function]}
+      onResponderStart={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      onStartShouldSetResponderCapture={[Function]}
+      style={
+        Object {
+          "flex": 1,
+          "height": 1302,
+          "left": 0,
+          "opacity": 1,
+          "position": "absolute",
+          "top": 0,
+          "transform": Array [
+            Object {
+              "translateX": 0,
+            },
+            Object {
+              "translateY": 0,
+            },
+            Object {
+              "rotate": "0deg",
+            },
+          ],
+          "width": 750,
+          "zIndex": 3,
+        }
+      }
+    />
+  </View>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontSize": 10,
+          "marginTop": 8,
+          "textAlign": "center",
+        },
+      ]
+    }
+  >
+    Progress: 
+    0
+     / 
+    1
+     
+    completed
+  </Text>
+</View>
+`;
+
+exports[`App Screen Components Each screen component renders with props provided: Google Sign In 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "rgb(231, 237, 240)",
+        "flex": 1,
+        "paddingTop": 25,
+      },
+      Object {
+        "justifyContent": "center",
+      },
+    ]
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontSize": 32,
+          "fontWeight": "bold",
+          "marginTop": -125,
+        },
+      ]
+    }
+  >
+    很多漢字
+  </Text>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontSize": 20,
+          "marginTop": 16,
+        },
+      ]
+    }
+  >
+    "Hěnduō hànzì"
+  </Text>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontSize": 16,
+          "marginBottom": 25,
+          "marginTop": 25,
+        },
+      ]
+    }
+  >
+    This is an app for learning Chinese
+  </Text>
+  <View
+    accessible={true}
+    isTVSelectable={true}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#4285f4",
+        "borderRadius": 1,
+        "flexDirection": "row",
+        "height": 50,
+        "opacity": 1,
+        "width": 240,
+      }
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "#fff",
+            "borderRadius": 1,
+            "height": 47,
+            "justifyContent": "center",
+            "marginLeft": 1,
+            "width": 47,
+          },
+        ]
+      }
+    >
+      <Image
+        source={1}
+        style={
+          Object {
+            "height": 25,
+            "width": 25,
+          }
+        }
+      />
+    </View>
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "white",
+            "fontSize": 18,
+            "fontWeight": "500",
+            "lineHeight": 48,
+            "textAlign": "center",
+            "width": 191,
+          },
+        ]
+      }
+    >
+      Sign in with Google
+    </Text>
+  </View>
+</View>
+`;
+
+exports[`App Screen Components Each screen component renders with props provided: Home Screen 1`] = `null`;
+
+exports[`App Screen Components Each screen component renders with props provided: Lesson Summary Screen 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "rgb(231, 237, 240)",
+        "flex": 1,
+        "paddingTop": 25,
+      },
+    ]
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "color": "#000000",
+          "fontFamily": "Helvetica Neue",
+          "textAlign": "left",
+          "writingDirection": "ltr",
+        },
+        Object {
+          "fontSize": 16,
+          "fontWeight": "bold",
+          "marginBottom": 16,
+          "textAlign": "center",
+          "width": "88%",
+        },
+      ]
+    }
+  >
+    Lesson Summary
+  </Text>
+  <Text
+    style={
+      Array [
+        Object {
+          "color": "#000000",
+          "fontFamily": "Helvetica Neue",
+          "textAlign": "left",
+          "writingDirection": "ltr",
+        },
+        Object {
+          "marginBottom": 12,
+        },
+      ]
+    }
+  >
+    1 total words to practice in this lesson
+  </Text>
+  <Text
+    style={
+      Array [
+        Object {
+          "color": "#000000",
+          "fontFamily": "Helvetica Neue",
+          "textAlign": "left",
+          "writingDirection": "ltr",
+        },
+        Object {
+          "fontSize": 14,
+          "marginTop": 16,
+          "textAlign": "left",
+          "width": "88%",
+        },
+      ]
+    }
+  >
+    Practice
+  </Text>
+  <View
+    style={
+      Array [
+        Object {
+          "backgroundColor": "black",
+          "height": 0.5,
+          "marginBottom": 12,
+          "marginTop": 12,
+          "width": "85%",
+        },
+      ]
+    }
+  />
+  <View
+    accessible={true}
+    isTVSelectable={true}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#3498db",
+        "flexDirection": "row",
+        "height": 50,
+        "justifyContent": "space-between",
+        "margin": 6,
+        "opacity": 1,
+        "padding": 12,
+        "width": "90%",
+      }
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#000000",
+            "fontFamily": "Helvetica Neue",
+            "textAlign": "left",
+            "writingDirection": "ltr",
+          },
+          undefined,
+        ]
+      }
+    >
+      English Recognition
+    </Text>
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#000000",
+            "fontFamily": "Helvetica Neue",
+            "textAlign": "left",
+            "writingDirection": "ltr",
+          },
+          undefined,
+        ]
+      }
+    >
+      💯
+    </Text>
+  </View>
+  <View
+    accessible={true}
+    isTVSelectable={true}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#3498db",
+        "flexDirection": "row",
+        "height": 50,
+        "justifyContent": "space-between",
+        "margin": 6,
+        "opacity": 1,
+        "padding": 12,
+        "width": "90%",
+      }
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#000000",
+            "fontFamily": "Helvetica Neue",
+            "textAlign": "left",
+            "writingDirection": "ltr",
+          },
+          undefined,
+        ]
+      }
+    >
+      Mandarin Recognition
+    </Text>
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#000000",
+            "fontFamily": "Helvetica Neue",
+            "textAlign": "left",
+            "writingDirection": "ltr",
+          },
+          undefined,
+        ]
+      }
+    >
+      💯
+    </Text>
+  </View>
+  <View
+    accessible={true}
+    isTVSelectable={true}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#3498db",
+        "flexDirection": "row",
+        "height": 50,
+        "justifyContent": "space-between",
+        "margin": 6,
+        "opacity": 1,
+        "padding": 12,
+        "width": "90%",
+      }
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#000000",
+            "fontFamily": "Helvetica Neue",
+            "textAlign": "left",
+            "writingDirection": "ltr",
+          },
+          undefined,
+        ]
+      }
+    >
+      Mandarin Pronunciation
+    </Text>
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#000000",
+            "fontFamily": "Helvetica Neue",
+            "textAlign": "left",
+            "writingDirection": "ltr",
+          },
+          undefined,
+        ]
+      }
+    >
+      💯
+    </Text>
+  </View>
+  <View
+    accessible={true}
+    isTVSelectable={true}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#3498db",
+        "flexDirection": "row",
+        "height": 50,
+        "justifyContent": "space-between",
+        "margin": 6,
+        "opacity": 1,
+        "padding": 12,
+        "width": "90%",
+      }
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#000000",
+            "fontFamily": "Helvetica Neue",
+            "textAlign": "left",
+            "writingDirection": "ltr",
+          },
+          undefined,
+        ]
+      }
+    >
+      Characters Quiz
+    </Text>
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#000000",
+            "fontFamily": "Helvetica Neue",
+            "textAlign": "left",
+            "writingDirection": "ltr",
+          },
+          undefined,
+        ]
+      }
+    >
+      💯
+    </Text>
+  </View>
+  <Text
+    style={
+      Array [
+        Object {
+          "color": "#000000",
+          "fontFamily": "Helvetica Neue",
+          "textAlign": "left",
+          "writingDirection": "ltr",
+        },
+        Object {
+          "fontSize": 14,
+          "marginTop": 16,
+          "textAlign": "left",
+          "width": "88%",
+        },
+      ]
+    }
+  >
+    Study
+  </Text>
+  <View
+    style={
+      Array [
+        Object {
+          "backgroundColor": "black",
+          "height": 0.5,
+          "marginBottom": 12,
+          "marginTop": 12,
+          "width": "85%",
+        },
+      ]
+    }
+  />
+  <View
+    accessible={true}
+    isTVSelectable={true}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#1abc9c",
+        "flexDirection": "row",
+        "height": 50,
+        "justifyContent": "space-between",
+        "margin": 6,
+        "opacity": 1,
+        "padding": 12,
+        "width": "90%",
+      }
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#000000",
+            "fontFamily": "Helvetica Neue",
+            "textAlign": "left",
+            "writingDirection": "ltr",
+          },
+          undefined,
+        ]
+      }
+    >
+      Flashcards
+    </Text>
+  </View>
+  <View
+    accessible={true}
+    isTVSelectable={true}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#1abc9c",
+        "flexDirection": "row",
+        "height": 50,
+        "justifyContent": "space-between",
+        "margin": 6,
+        "opacity": 1,
+        "padding": 12,
+        "width": "90%",
+      }
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#000000",
+            "fontFamily": "Helvetica Neue",
+            "textAlign": "left",
+            "writingDirection": "ltr",
+          },
+          undefined,
+        ]
+      }
+    >
+      Review All Content
+    </Text>
+  </View>
+</View>
+`;
+
+exports[`App Screen Components Each screen component renders with props provided: List Summary Screen 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "rgb(231,237,240)",
+        "flex": 1,
+        "paddingLeft": 15,
+        "paddingRight": 15,
+        "paddingTop": 25,
+        "width": "100%",
+      },
+    ]
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontSize": 16,
+          "fontWeight": "bold",
+          "marginBottom": 16,
+          "textAlign": "center",
+          "width": "100%",
+        },
+      ]
+    }
+  >
+    Choose a lesson to start studying
+  </Text>
+</View>
+`;
+
+exports[`App Screen Components Each screen component renders with props provided: Settings Screen 1`] = `null`;
+
+exports[`App Screen Components Each screen component renders with props provided: Translation Screen 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "rgb(231, 237, 240)",
+        "flex": 1,
+        "paddingTop": 25,
+      },
+    ]
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontSize": 22,
+          "fontWeight": "bold",
+          "marginBottom": 5,
+          "marginTop": 5,
+        },
+      ]
+    }
+  >
+    Translation Tool
+  </Text>
+  <Text
+    style={
+      Array [
+        Object {
+          "marginBottom": 5,
+          "marginTop": 5,
+          "textAlign": "center",
+          "width": "80%",
+        },
+      ]
+    }
+  >
+    Translate between English and Chinese
+  </Text>
+  <View
+    style={
+      Array [
+        undefined,
+        Object {
+          "backgroundColor": "rgb(231,237,240)",
+          "fontSize": 34,
+          "marginTop": 6,
+          "width": "90%",
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "bottom": 0,
+            "left": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 6,
+          },
+          Object {
+            "borderColor": "rgba(0, 0, 0, 0.54)",
+            "borderRadius": 4,
+            "borderWidth": 1,
+          },
+        ]
+      }
+    />
+    <Text
+      numberOfLines={1}
+      pointerEvents="none"
+      style={
+        Array [
+          Object {
+            "color": "#000000",
+            "fontFamily": "Helvetica Neue",
+            "textAlign": "left",
+            "writingDirection": "ltr",
+          },
+          Object {
+            "backgroundColor": "rgb(231,237,240)",
+            "color": "transparent",
+            "fontFamily": "Helvetica Neue",
+            "fontSize": 12,
+            "left": 8,
+            "opacity": 0,
+            "paddingHorizontal": 4,
+            "position": "absolute",
+            "top": 0,
+            "transform": Array [
+              Object {
+                "scaleX": 0,
+              },
+            ],
+          },
+        ]
+      }
+    >
+      Enter text to translate
+    </Text>
+    <View
+      pointerEvents="none"
+      style={
+        Array [
+          Object {
+            "bottom": 0,
+            "left": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          },
+          Object {
+            "opacity": 1,
+          },
+        ]
+      }
+    >
+      <Text
+        numberOfLines={1}
+        onLayout={[Function]}
+        style={
+          Array [
+            Object {
+              "color": "#000000",
+              "fontFamily": "Helvetica Neue",
+              "textAlign": "left",
+              "writingDirection": "ltr",
+            },
+            Object {
+              "color": "#6200ee",
+              "fontFamily": "Helvetica Neue",
+              "fontSize": 16,
+              "left": 0,
+              "opacity": 0,
+              "paddingHorizontal": 12,
+              "position": "absolute",
+              "top": 25,
+              "transform": Array [
+                Object {
+                  "translateX": 0,
+                },
+                Object {
+                  "translateY": 0,
+                },
+                Object {
+                  "scale": 1,
+                },
+                Object {
+                  "translateX": -0,
+                },
+              ],
+            },
+          ]
+        }
+      >
+        Enter text to translate
+      </Text>
+      <Text
+        numberOfLines={1}
+        style={
+          Array [
+            Object {
+              "color": "#000000",
+              "fontFamily": "Helvetica Neue",
+              "textAlign": "left",
+              "writingDirection": "ltr",
+            },
+            Object {
+              "color": "rgba(0, 0, 0, 0.54)",
+              "fontFamily": "Helvetica Neue",
+              "fontSize": 16,
+              "left": 0,
+              "opacity": 1,
+              "paddingHorizontal": 12,
+              "position": "absolute",
+              "top": 25,
+              "transform": Array [
+                Object {
+                  "translateX": 0,
+                },
+                Object {
+                  "translateY": 0,
+                },
+                Object {
+                  "scale": 1,
+                },
+                Object {
+                  "translateX": -0,
+                },
+              ],
+            },
+          ]
+        }
+      >
+        Enter text to translate
+      </Text>
+    </View>
+    <TextInput
+      allowFontScaling={true}
+      editable={true}
+      multiline={false}
+      onBlur={[Function]}
+      onChangeText={[Function]}
+      onFocus={[Function]}
+      onSubmitEditing={[Function]}
+      placeholder=""
+      placeholderTextColor="rgba(0, 0, 0, 0.54)"
+      selectionColor="#6200ee"
+      style={
+        Array [
+          Object {
+            "flexGrow": 1,
+            "fontSize": 16,
+            "margin": 0,
+            "minHeight": 58,
+            "paddingHorizontal": 12,
+            "textAlign": "left",
+          },
+          Object {
+            "minHeight": 64,
+            "paddingBottom": 16,
+            "paddingTop": 20,
+          },
+          Object {
+            "color": "#000000",
+            "fontFamily": "Helvetica Neue",
+            "textAlignVertical": "center",
+          },
+        ]
+      }
+      underlineColorAndroid="transparent"
+      value=""
+    />
+  </View>
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "height": 75,
+        },
+      ]
+    }
+  >
+    <RCTSwitch
+      onChange={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      onTintColor="rgb(200,8,20)"
+      style={
+        Object {
+          "height": 31,
+          "width": 51,
+        }
+      }
+      value={false}
+    />
+    <Text
+      style={
+        Object {
+          "marginLeft": 12,
+        }
+      }
+    >
+      Translating from:
+       
+      <Text
+        style={
+          Array [
+            Object {
+              "fontWeight": "bold",
+            },
+          ]
+        }
+      >
+        English
+      </Text>
+    </Text>
+  </View>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#6200ee",
+        "borderColor": "transparent",
+        "borderRadius": 4,
+        "borderStyle": "solid",
+        "borderWidth": 0,
+        "elevation": 2,
+        "height": 40,
+        "justifyContent": "center",
+        "marginBottom": 15,
+        "marginTop": 15,
+        "minWidth": 64,
+        "shadowColor": "#000000",
+        "shadowOffset": Object {
+          "height": NaN,
+          "width": 0,
+        },
+        "shadowOpacity": 0.24,
+        "shadowRadius": 2,
+        "width": "65%",
+      }
+    }
+  >
+    <View
+      accessibilityRole="button"
+      accessible={true}
+      isTVSelectable={true}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "borderRadius": 4,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "justifyContent": "center",
+          }
+        }
+      >
+        <Text
+          numberOfLines={1}
+          style={
+            Array [
+              Object {
+                "color": "#000000",
+                "fontFamily": "Helvetica Neue",
+                "textAlign": "left",
+                "writingDirection": "ltr",
+              },
+              Array [
+                Object {
+                  "letterSpacing": 1,
+                  "marginHorizontal": 16,
+                  "marginVertical": 9,
+                  "textAlign": "center",
+                },
+                undefined,
+                Object {
+                  "color": "#ffffff",
+                  "fontFamily": "HelveticaNeue-Medium",
+                },
+                Object {
+                  "fontFamily": "HelveticaNeue-Medium",
+                },
+              ],
+            ]
+          }
+        >
+          TRANSLATE
+        </Text>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`App Screen Components Each screen component renders with props provided: View All Screen 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "rgb(231, 237, 240)",
+        "flex": 1,
+      },
+    ]
+  }
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#ffffff",
+        "borderRadius": 4,
+        "borderTopColor": "rgba(45,45,45,0.05)",
+        "borderTopWidth": 1,
+        "elevation": 4,
+        "flexDirection": "row",
+        "shadowColor": "#000000",
+        "shadowOffset": Object {
+          "height": 3,
+          "width": 0,
+        },
+        "shadowOpacity": 0.24,
+        "shadowRadius": 4,
+      }
+    }
+  >
+    <View
+      accessibilityRole="button"
+      accessible={true}
+      hitSlop={
+        Object {
+          "bottom": 6,
+          "left": 6,
+          "right": 6,
+          "top": 6,
+        }
+      }
+      isTVSelectable={true}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "borderRadius": 18,
+            "height": 36,
+            "justifyContent": "center",
+            "margin": 6,
+            "width": 36,
+          },
+          undefined,
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={null}
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "justifyContent": "center",
+              },
+              Object {
+                "height": 24,
+                "width": 24,
+              },
+            ]
+          }
+        >
+          <View
+            style={
+              Object {
+                "bottom": 0,
+                "left": 0,
+                "opacity": 1,
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+                "transform": Array [
+                  Object {
+                    "rotate": "0deg",
+                  },
+                ],
+              }
+            }
+          >
+            <Text />
+          </View>
+        </View>
+      </View>
+    </View>
+    <TextInput
+      accessibilityRole="search"
+      accessibilityTraits="search"
+      allowFontScaling={true}
+      autoFocus={true}
+      keyboardAppearance="light"
+      onChangeText={[Function]}
+      placeholder="Filter list (enter Chinese or English)"
+      placeholderTextColor="rgba(0, 0, 0, 0.54)"
+      returnKeyType="search"
+      selectionColor="#6200ee"
+      style={
+        Array [
+          Object {
+            "alignSelf": "stretch",
+            "flex": 1,
+            "fontSize": 18,
+            "paddingLeft": 8,
+            "textAlign": "left",
+          },
+          Object {
+            "color": "#000000",
+            "fontFamily": "Helvetica Neue",
+          },
+        ]
+      }
+      underlineColorAndroid="transparent"
+      value=""
+    />
+  </View>
+</View>
+`;
+
+exports[`App Screen Components Render with props: About Screen 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "rgb(231, 237, 240)",
+        "flex": 1,
+        "paddingTop": 25,
+      },
+    ]
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontSize": 18,
+          "fontWeight": "400",
+          "marginTop": 18,
+          "textAlign": "center",
+          "width": "90%",
+        },
+      ]
+    }
+  >
+    This app uses the vocabulary content from the
+     
+    <Text
+      style={
+        Array [
+          Object {
+            "fontWeight": "bold",
+          },
+        ]
+      }
+    >
+      Hanyu Shuiping Kaoshi
+    </Text>
+     (Chinese Proficiency Test). This test is the standardized test of Standard Chinese language proficiency of China for non-native speakers such as foreign students and overseas Chinese.
+  </Text>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontSize": 18,
+          "fontWeight": "400",
+          "marginTop": 18,
+          "textAlign": "center",
+          "width": "90%",
+        },
+      ]
+    }
+  >
+    There are 6 levels total, which comprise a total of 5,000 words and about 2,500 characters. The goal of the app is to break these lessons into a series of small challenges which can be mastered with a little practice each day.
+  </Text>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontSize": 34,
+          "marginTop": 22,
+        },
+      ]
+    }
+  >
+    🌌🌃🌆🌇
+  </Text>
+  <Text
+    onPress={[Function]}
+    style={
+      Array [
+        Object {
+          "color": "#3498db",
+          "fontSize": 16,
+          "fontWeight": "500",
+          "marginTop": 28,
+        },
+      ]
+    }
+  >
+    Contact
+  </Text>
+  <Text
+    onPress={[Function]}
+    style={
+      Array [
+        Object {
+          "color": "#3498db",
+          "fontSize": 16,
+          "fontWeight": "500",
+          "marginTop": 28,
+        },
+      ]
+    }
+  >
+    This app is Open Source
+  </Text>
+  <Text
+    onPress={[Function]}
+    style={
+      Array [
+        Object {
+          "color": "#3498db",
+          "fontSize": 16,
+          "fontWeight": "500",
+          "marginTop": 28,
+        },
+      ]
+    }
+  >
+    Learn more about the HSK
+  </Text>
+</View>
+`;
+
+exports[`App Screen Components Render with props: Characters Quiz 1`] = `
+<View
+  accessible={false}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "rgb(231, 237, 240)",
+        "flex": 1,
+        "paddingTop": 25,
+      },
+      Object {
+        "paddingTop": 8,
+      },
+    ]
+  }
+>
+  <View
+    style={
+      Object {
+        "left": 0,
+        "position": "absolute",
+        "right": 0,
+        "top": 0,
+      }
+    }
+  />
+  <Text
+    style={
+      Array [
+        Object {
+          "fontSize": 10,
+          "justifyContent": "center",
+        },
+      ]
+    }
+  >
+    Question: 
+    1
+     / 
+    1
+     complete,
+     
+    0
+     skipped, 
+    0
+     failed
+  </Text>
+  <View
+    shouldShake={false}
+    style={
+      Object {
+        "transform": Array [
+          Object {
+            "translateY": 0,
+          },
+          Object {
+            "translateX": 0,
+          },
+        ],
+        "width": "100%",
+      }
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "height": 150,
+            "marginTop": 25,
+            "width": "100%",
+          },
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontSize": 24,
+              "fontWeight": "bold",
+              "marginBottom": 15,
+              "marginTop": 15,
+            },
+          ]
+        }
+      >
+        "
+        I, me
+        "
+      </Text>
+      <View
+        style={
+          Array [
+            undefined,
+            Object {
+              "backgroundColor": "rgb(231,237,240)",
+              "fontSize": 34,
+              "marginTop": 12,
+              "width": "95%",
+            },
+          ]
+        }
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "bottom": 0,
+                "left": 0,
+                "position": "absolute",
+                "right": 0,
+                "top": 6,
+              },
+              Object {
+                "borderColor": "rgba(0, 0, 0, 0.54)",
+                "borderRadius": 4,
+                "borderWidth": 1,
+              },
+            ]
+          }
+        />
+        <Text
+          numberOfLines={1}
+          pointerEvents="none"
+          style={
+            Array [
+              Object {
+                "color": "#000000",
+                "fontFamily": "Helvetica Neue",
+                "textAlign": "left",
+                "writingDirection": "ltr",
+              },
+              Object {
+                "backgroundColor": "rgb(231,237,240)",
+                "color": "transparent",
+                "fontFamily": "Helvetica Neue",
+                "fontSize": 12,
+                "left": 8,
+                "opacity": 0,
+                "paddingHorizontal": 4,
+                "position": "absolute",
+                "top": 0,
+                "transform": Array [
+                  Object {
+                    "scaleX": 0,
+                  },
+                ],
+              },
+            ]
+          }
+        >
+          Enter Simplified Chinese
+        </Text>
+        <View
+          pointerEvents="none"
+          style={
+            Array [
+              Object {
+                "bottom": 0,
+                "left": 0,
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+              },
+              Object {
+                "opacity": 1,
+              },
+            ]
+          }
+        >
+          <Text
+            numberOfLines={1}
+            onLayout={[Function]}
+            style={
+              Array [
+                Object {
+                  "color": "#000000",
+                  "fontFamily": "Helvetica Neue",
+                  "textAlign": "left",
+                  "writingDirection": "ltr",
+                },
+                Object {
+                  "color": "#6200ee",
+                  "fontFamily": "Helvetica Neue",
+                  "fontSize": 16,
+                  "left": 0,
+                  "opacity": 0,
+                  "paddingHorizontal": 12,
+                  "position": "absolute",
+                  "top": 25,
+                  "transform": Array [
+                    Object {
+                      "translateX": 0,
+                    },
+                    Object {
+                      "translateY": 0,
+                    },
+                    Object {
+                      "scale": 1,
+                    },
+                    Object {
+                      "translateX": -0,
+                    },
+                  ],
+                },
+              ]
+            }
+          >
+            Enter Simplified Chinese
+          </Text>
+          <Text
+            numberOfLines={1}
+            style={
+              Array [
+                Object {
+                  "color": "#000000",
+                  "fontFamily": "Helvetica Neue",
+                  "textAlign": "left",
+                  "writingDirection": "ltr",
+                },
+                Object {
+                  "color": "rgba(0, 0, 0, 0.54)",
+                  "fontFamily": "Helvetica Neue",
+                  "fontSize": 16,
+                  "left": 0,
+                  "opacity": 1,
+                  "paddingHorizontal": 12,
+                  "position": "absolute",
+                  "top": 25,
+                  "transform": Array [
+                    Object {
+                      "translateX": 0,
+                    },
+                    Object {
+                      "translateY": 0,
+                    },
+                    Object {
+                      "scale": 1,
+                    },
+                    Object {
+                      "translateX": -0,
+                    },
+                  ],
+                },
+              ]
+            }
+          >
+            Enter Simplified Chinese
+          </Text>
+        </View>
+        <TextInput
+          allowFontScaling={true}
+          editable={true}
+          multiline={false}
+          onBlur={[Function]}
+          onChangeText={[Function]}
+          onFocus={[Function]}
+          onSubmitEditing={[Function]}
+          placeholder=""
+          placeholderTextColor="rgba(0, 0, 0, 0.54)"
+          selectionColor="#6200ee"
+          style={
+            Array [
+              Object {
+                "flexGrow": 1,
+                "fontSize": 16,
+                "margin": 0,
+                "minHeight": 58,
+                "paddingHorizontal": 12,
+                "textAlign": "left",
+              },
+              Object {
+                "minHeight": 64,
+                "paddingBottom": 16,
+                "paddingTop": 20,
+              },
+              Object {
+                "color": "#000000",
+                "fontFamily": "Helvetica Neue",
+                "textAlignVertical": "center",
+              },
+            ]
+          }
+          underlineColorAndroid="transparent"
+          value=""
+        />
+      </View>
+    </View>
+  </View>
+  <View
+    style={
+      Object {
+        "backgroundColor": "#3498db",
+        "borderColor": "transparent",
+        "borderRadius": 4,
+        "borderStyle": "solid",
+        "borderWidth": 0,
+        "elevation": 2,
+        "marginTop": 25,
+        "minWidth": 225,
+        "shadowColor": "#000000",
+        "shadowOffset": Object {
+          "height": NaN,
+          "width": 0,
+        },
+        "shadowOpacity": 0.24,
+        "shadowRadius": 2,
+      }
+    }
+  >
+    <View
+      accessibilityRole="button"
+      accessible={true}
+      isTVSelectable={true}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "borderRadius": 4,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "justifyContent": "center",
+          }
+        }
+      >
+        <Text
+          numberOfLines={1}
+          style={
+            Array [
+              Object {
+                "color": "#000000",
+                "fontFamily": "Helvetica Neue",
+                "textAlign": "left",
+                "writingDirection": "ltr",
+              },
+              Array [
+                Object {
+                  "letterSpacing": 1,
+                  "marginHorizontal": 16,
+                  "marginVertical": 9,
+                  "textAlign": "center",
+                },
+                undefined,
+                Object {
+                  "color": "#ffffff",
+                  "fontFamily": "HelveticaNeue-Medium",
+                },
+                Object {
+                  "fontFamily": "HelveticaNeue-Medium",
+                },
+              ],
+            ]
+          }
+        >
+          CHECK ANSWER!
+        </Text>
+      </View>
+    </View>
+  </View>
+  <View
+    pointerEvents="box-none"
+    style={
+      Array [
+        Array [
+          Object {
+            "backgroundColor": "transparent",
+            "bottom": 0,
+            "left": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          },
+          Object {
+            "elevation": undefined,
+            "justifyContent": "flex-end",
+            "zIndex": 100,
+          },
+        ],
+        undefined,
+      ]
+    }
+  >
+    <View
+      pointerEvents="none"
+      style={
+        Object {
+          "backgroundColor": "transparent",
+          "bottom": 0,
+          "elevation": undefined,
+          "justifyContent": "flex-end",
+          "left": 0,
+          "opacity": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+          "zIndex": 100,
+        }
+      }
+    />
+    <View
+      pointerEvents="box-none"
+      style={
+        Array [
+          Array [
+            Object {
+              "backgroundColor": "transparent",
+              "bottom": 0,
+              "left": 0,
+              "position": "absolute",
+              "right": 0,
+              "top": 0,
+            },
+            Object {
+              "elevation": undefined,
+              "justifyContent": "flex-end",
+              "zIndex": 100,
+            },
+          ],
+          Object {
+            "alignItems": "flex-start",
+          },
+          Object {
+            "paddingVertical": 30,
+          },
+        ]
+      }
+    >
+      <View
+        style={
+          Array [
+            Object {
+              "marginHorizontal": 30,
+              "zIndex": 100,
+            },
+            Object {
+              "elevation": 5,
+              "shadowColor": "#000",
+              "shadowOffset": Object {
+                "height": 5,
+                "width": 0,
+              },
+              "shadowOpacity": 0.35,
+              "shadowRadius": 3,
+            },
+            undefined,
+          ]
+        }
+      >
+        <View
+          accessible={true}
+          isTVSelectable={true}
+          onResponderGrant={[Function]}
+          onResponderMove={[Function]}
+          onResponderRelease={[Function]}
+          onResponderTerminate={[Function]}
+          onResponderTerminationRequest={[Function]}
+          onStartShouldSetResponder={[Function]}
+          style={
+            Object {
+              "opacity": 1,
+            }
+          }
+        >
+          <View
+            style={
+              Object {
+                "backgroundColor": "rgba(231, 76, 60, 1)",
+                "borderRadius": 28,
+                "height": 56,
+                "width": 56,
+              }
+            }
+          >
+            <View
+              style={
+                Object {
+                  "alignItems": "center",
+                  "borderRadius": 28,
+                  "height": 56,
+                  "justifyContent": "center",
+                  "transform": Array [
+                    Object {
+                      "scale": 1,
+                    },
+                    Object {
+                      "rotate": "0deg",
+                    },
+                  ],
+                  "width": 56,
+                }
+              }
+            >
+              <Text
+                style={
+                  Object {
+                    "backgroundColor": "transparent",
+                    "color": "rgba(255, 255, 255, 1)",
+                    "fontSize": 24,
+                    "marginTop": -4,
+                  }
+                }
+              >
+                +
+              </Text>
+            </View>
+          </View>
+        </View>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`App Screen Components Render with props: Contact Screen 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "rgb(231, 237, 240)",
+        "flex": 1,
+        "paddingTop": 25,
+      },
+    ]
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontSize": 22,
+          "fontWeight": "bold",
+          "marginBottom": 5,
+          "marginTop": 5,
+        },
+      ]
+    }
+  >
+    Contact
+  </Text>
+  <Text
+    style={
+      Array [
+        Object {
+          "marginBottom": 12,
+          "marginTop": 12,
+          "textAlign": "center",
+          "width": "80%",
+        },
+      ]
+    }
+  >
+    Found a bug, have feedback, or just want to say hello? Get in touch with the developer by sending a quick message here.
+  </Text>
+  <View
+    style={
+      Array [
+        undefined,
+        Object {
+          "backgroundColor": "rgb(231, 237, 240)",
+          "fontSize": 34,
+          "marginTop": 6,
+          "width": "90%",
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "bottom": 0,
+            "left": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 6,
+          },
+          Object {
+            "borderColor": "rgba(0, 0, 0, 0.54)",
+            "borderRadius": 4,
+            "borderWidth": 1,
+          },
+        ]
+      }
+    />
+    <Text
+      numberOfLines={1}
+      pointerEvents="none"
+      style={
+        Array [
+          Object {
+            "color": "#000000",
+            "fontFamily": "Helvetica Neue",
+            "textAlign": "left",
+            "writingDirection": "ltr",
+          },
+          Object {
+            "backgroundColor": "rgb(231, 237, 240)",
+            "color": "transparent",
+            "fontFamily": "Helvetica Neue",
+            "fontSize": 12,
+            "left": 8,
+            "opacity": 0,
+            "paddingHorizontal": 4,
+            "position": "absolute",
+            "top": 0,
+            "transform": Array [
+              Object {
+                "scaleX": 0,
+              },
+            ],
+          },
+        ]
+      }
+    >
+      Type a message
+    </Text>
+    <View
+      pointerEvents="none"
+      style={
+        Array [
+          Object {
+            "bottom": 0,
+            "left": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          },
+          Object {
+            "opacity": 1,
+          },
+        ]
+      }
+    >
+      <Text
+        numberOfLines={1}
+        onLayout={[Function]}
+        style={
+          Array [
+            Object {
+              "color": "#000000",
+              "fontFamily": "Helvetica Neue",
+              "textAlign": "left",
+              "writingDirection": "ltr",
+            },
+            Object {
+              "color": "#6200ee",
+              "fontFamily": "Helvetica Neue",
+              "fontSize": 16,
+              "left": 0,
+              "opacity": 0,
+              "paddingHorizontal": 12,
+              "position": "absolute",
+              "top": 25,
+              "transform": Array [
+                Object {
+                  "translateX": 0,
+                },
+                Object {
+                  "translateY": 0,
+                },
+                Object {
+                  "scale": 1,
+                },
+                Object {
+                  "translateX": -0,
+                },
+              ],
+            },
+          ]
+        }
+      >
+        Type a message
+      </Text>
+      <Text
+        numberOfLines={1}
+        style={
+          Array [
+            Object {
+              "color": "#000000",
+              "fontFamily": "Helvetica Neue",
+              "textAlign": "left",
+              "writingDirection": "ltr",
+            },
+            Object {
+              "color": "rgba(0, 0, 0, 0.54)",
+              "fontFamily": "Helvetica Neue",
+              "fontSize": 16,
+              "left": 0,
+              "opacity": 1,
+              "paddingHorizontal": 12,
+              "position": "absolute",
+              "top": 25,
+              "transform": Array [
+                Object {
+                  "translateX": 0,
+                },
+                Object {
+                  "translateY": 0,
+                },
+                Object {
+                  "scale": 1,
+                },
+                Object {
+                  "translateX": -0,
+                },
+              ],
+            },
+          ]
+        }
+      >
+        Type a message
+      </Text>
+    </View>
+    <TextInput
+      allowFontScaling={true}
+      editable={true}
+      multiline={true}
+      onBlur={[Function]}
+      onChangeText={[Function]}
+      onFocus={[Function]}
+      onSubmitEditing={[Function]}
+      placeholder=""
+      placeholderTextColor="rgba(0, 0, 0, 0.54)"
+      selectionColor="#6200ee"
+      style={
+        Array [
+          Object {
+            "flexGrow": 1,
+            "fontSize": 16,
+            "margin": 0,
+            "minHeight": 58,
+            "paddingHorizontal": 12,
+            "textAlign": "left",
+          },
+          Object {
+            "minHeight": 64,
+            "paddingBottom": 16,
+            "paddingTop": 20,
+          },
+          Object {
+            "color": "#000000",
+            "fontFamily": "Helvetica Neue",
+            "textAlignVertical": "top",
+          },
+        ]
+      }
+      underlineColorAndroid="transparent"
+      value=""
+    />
+  </View>
+  <View
+    style={
+      Object {
+        "backgroundColor": "#6200ee",
+        "borderColor": "transparent",
+        "borderRadius": 4,
+        "borderStyle": "solid",
+        "borderWidth": 0,
+        "elevation": 2,
+        "marginTop": 35,
+        "minWidth": 64,
+        "shadowColor": "#000000",
+        "shadowOffset": Object {
+          "height": NaN,
+          "width": 0,
+        },
+        "shadowOpacity": 0.24,
+        "shadowRadius": 2,
+      }
+    }
+  >
+    <View
+      accessibilityRole="button"
+      accessible={true}
+      isTVSelectable={true}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "borderRadius": 4,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "justifyContent": "center",
+          }
+        }
+      >
+        <Text
+          numberOfLines={1}
+          style={
+            Array [
+              Object {
+                "color": "#000000",
+                "fontFamily": "Helvetica Neue",
+                "textAlign": "left",
+                "writingDirection": "ltr",
+              },
+              Array [
+                Object {
+                  "letterSpacing": 1,
+                  "marginHorizontal": 16,
+                  "marginVertical": 9,
+                  "textAlign": "center",
+                },
+                undefined,
+                Object {
+                  "color": "#ffffff",
+                  "fontFamily": "HelveticaNeue-Medium",
+                },
+                Object {
+                  "fontFamily": "HelveticaNeue-Medium",
+                },
+              ],
+            ]
+          }
+        >
+          SUBMIT FEEDBACK
+        </Text>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`App Screen Components Render with props: Flashcards Screen 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "rgb(231, 237, 240)",
+        "flex": 1,
+      },
+    ]
+  }
+>
+  <View
+    pointerEvents="auto"
+    style={
+      Array [
+        Object {
+          "alignItems": "stretch",
+          "bottom": 0,
+          "left": 0,
+          "position": "absolute",
+          "right": 0,
+          "top": 0,
+        },
+        Object {
+          "backgroundColor": "rgb(231, 237, 240)",
+          "marginBottom": 0,
+          "marginTop": 32,
+        },
+        Object {},
+      ]
+    }
+  >
+    <View
+      pointerEvents="box-none"
+      style={
+        Array [
+          Object {
+            "bottom": 0,
+            "left": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          },
+          Object {
+            "zIndex": -1,
+          },
+        ]
+      }
+    />
+    <View
+      onMoveShouldSetResponder={[Function]}
+      onMoveShouldSetResponderCapture={[Function]}
+      onResponderEnd={[Function]}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderReject={[Function]}
+      onResponderRelease={[Function]}
+      onResponderStart={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      onStartShouldSetResponderCapture={[Function]}
+      style={
+        Object {
+          "flex": 1,
+          "height": 1302,
+          "left": 0,
+          "opacity": 1,
+          "position": "absolute",
+          "top": 0,
+          "transform": Array [
+            Object {
+              "translateX": 0,
+            },
+            Object {
+              "translateY": 0,
+            },
+            Object {
+              "rotate": "0deg",
+            },
+          ],
+          "width": 750,
+          "zIndex": 3,
+        }
+      }
+    />
+  </View>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontSize": 10,
+          "marginTop": 8,
+          "textAlign": "center",
+        },
+      ]
+    }
+  >
+    Progress: 
+    0
+     / 
+    1
+     
+    completed
+  </Text>
+</View>
+`;
+
+exports[`App Screen Components Render with props: Google Sign In 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "rgb(231, 237, 240)",
+        "flex": 1,
+        "paddingTop": 25,
+      },
+      Object {
+        "justifyContent": "center",
+      },
+    ]
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontSize": 32,
+          "fontWeight": "bold",
+          "marginTop": -125,
+        },
+      ]
+    }
+  >
+    很多漢字
+  </Text>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontSize": 20,
+          "marginTop": 16,
+        },
+      ]
+    }
+  >
+    "Hěnduō hànzì"
+  </Text>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontSize": 16,
+          "marginBottom": 25,
+          "marginTop": 25,
+        },
+      ]
+    }
+  >
+    This is an app for learning Chinese
+  </Text>
+  <View
+    accessible={true}
+    isTVSelectable={true}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#4285f4",
+        "borderRadius": 1,
+        "flexDirection": "row",
+        "height": 50,
+        "opacity": 1,
+        "width": 240,
+      }
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "backgroundColor": "#fff",
+            "borderRadius": 1,
+            "height": 47,
+            "justifyContent": "center",
+            "marginLeft": 1,
+            "width": 47,
+          },
+        ]
+      }
+    >
+      <Image
+        source={1}
+        style={
+          Object {
+            "height": 25,
+            "width": 25,
+          }
+        }
+      />
+    </View>
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "white",
+            "fontSize": 18,
+            "fontWeight": "500",
+            "lineHeight": 48,
+            "textAlign": "center",
+            "width": 191,
+          },
+        ]
+      }
+    >
+      Sign in with Google
+    </Text>
+  </View>
+</View>
+`;
+
+exports[`App Screen Components Render with props: Home Screen 1`] = `null`;
+
+exports[`App Screen Components Render with props: Lesson Summary Screen 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "rgb(231, 237, 240)",
+        "flex": 1,
+        "paddingTop": 25,
+      },
+    ]
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "color": "#000000",
+          "fontFamily": "Helvetica Neue",
+          "textAlign": "left",
+          "writingDirection": "ltr",
+        },
+        Object {
+          "fontSize": 16,
+          "fontWeight": "bold",
+          "marginBottom": 16,
+          "textAlign": "center",
+          "width": "88%",
+        },
+      ]
+    }
+  >
+    Lesson Summary
+  </Text>
+  <Text
+    style={
+      Array [
+        Object {
+          "color": "#000000",
+          "fontFamily": "Helvetica Neue",
+          "textAlign": "left",
+          "writingDirection": "ltr",
+        },
+        Object {
+          "marginBottom": 12,
+        },
+      ]
+    }
+  >
+    1 total words to practice in this lesson
+  </Text>
+  <Text
+    style={
+      Array [
+        Object {
+          "color": "#000000",
+          "fontFamily": "Helvetica Neue",
+          "textAlign": "left",
+          "writingDirection": "ltr",
+        },
+        Object {
+          "fontSize": 14,
+          "marginTop": 16,
+          "textAlign": "left",
+          "width": "88%",
+        },
+      ]
+    }
+  >
+    Practice
+  </Text>
+  <View
+    style={
+      Array [
+        Object {
+          "backgroundColor": "black",
+          "height": 0.5,
+          "marginBottom": 12,
+          "marginTop": 12,
+          "width": "85%",
+        },
+      ]
+    }
+  />
+  <View
+    accessible={true}
+    isTVSelectable={true}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#3498db",
+        "flexDirection": "row",
+        "height": 50,
+        "justifyContent": "space-between",
+        "margin": 6,
+        "opacity": 1,
+        "padding": 12,
+        "width": "90%",
+      }
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#000000",
+            "fontFamily": "Helvetica Neue",
+            "textAlign": "left",
+            "writingDirection": "ltr",
+          },
+          undefined,
+        ]
+      }
+    >
+      English Recognition
+    </Text>
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#000000",
+            "fontFamily": "Helvetica Neue",
+            "textAlign": "left",
+            "writingDirection": "ltr",
+          },
+          undefined,
+        ]
+      }
+    >
+      💯
+    </Text>
+  </View>
+  <View
+    accessible={true}
+    isTVSelectable={true}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#3498db",
+        "flexDirection": "row",
+        "height": 50,
+        "justifyContent": "space-between",
+        "margin": 6,
+        "opacity": 1,
+        "padding": 12,
+        "width": "90%",
+      }
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#000000",
+            "fontFamily": "Helvetica Neue",
+            "textAlign": "left",
+            "writingDirection": "ltr",
+          },
+          undefined,
+        ]
+      }
+    >
+      Mandarin Recognition
+    </Text>
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#000000",
+            "fontFamily": "Helvetica Neue",
+            "textAlign": "left",
+            "writingDirection": "ltr",
+          },
+          undefined,
+        ]
+      }
+    >
+      💯
+    </Text>
+  </View>
+  <View
+    accessible={true}
+    isTVSelectable={true}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#3498db",
+        "flexDirection": "row",
+        "height": 50,
+        "justifyContent": "space-between",
+        "margin": 6,
+        "opacity": 1,
+        "padding": 12,
+        "width": "90%",
+      }
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#000000",
+            "fontFamily": "Helvetica Neue",
+            "textAlign": "left",
+            "writingDirection": "ltr",
+          },
+          undefined,
+        ]
+      }
+    >
+      Mandarin Pronunciation
+    </Text>
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#000000",
+            "fontFamily": "Helvetica Neue",
+            "textAlign": "left",
+            "writingDirection": "ltr",
+          },
+          undefined,
+        ]
+      }
+    >
+      💯
+    </Text>
+  </View>
+  <View
+    accessible={true}
+    isTVSelectable={true}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#3498db",
+        "flexDirection": "row",
+        "height": 50,
+        "justifyContent": "space-between",
+        "margin": 6,
+        "opacity": 1,
+        "padding": 12,
+        "width": "90%",
+      }
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#000000",
+            "fontFamily": "Helvetica Neue",
+            "textAlign": "left",
+            "writingDirection": "ltr",
+          },
+          undefined,
+        ]
+      }
+    >
+      Characters Quiz
+    </Text>
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#000000",
+            "fontFamily": "Helvetica Neue",
+            "textAlign": "left",
+            "writingDirection": "ltr",
+          },
+          undefined,
+        ]
+      }
+    >
+      💯
+    </Text>
+  </View>
+  <Text
+    style={
+      Array [
+        Object {
+          "color": "#000000",
+          "fontFamily": "Helvetica Neue",
+          "textAlign": "left",
+          "writingDirection": "ltr",
+        },
+        Object {
+          "fontSize": 14,
+          "marginTop": 16,
+          "textAlign": "left",
+          "width": "88%",
+        },
+      ]
+    }
+  >
+    Study
+  </Text>
+  <View
+    style={
+      Array [
+        Object {
+          "backgroundColor": "black",
+          "height": 0.5,
+          "marginBottom": 12,
+          "marginTop": 12,
+          "width": "85%",
+        },
+      ]
+    }
+  />
+  <View
+    accessible={true}
+    isTVSelectable={true}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#1abc9c",
+        "flexDirection": "row",
+        "height": 50,
+        "justifyContent": "space-between",
+        "margin": 6,
+        "opacity": 1,
+        "padding": 12,
+        "width": "90%",
+      }
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#000000",
+            "fontFamily": "Helvetica Neue",
+            "textAlign": "left",
+            "writingDirection": "ltr",
+          },
+          undefined,
+        ]
+      }
+    >
+      Flashcards
+    </Text>
+  </View>
+  <View
+    accessible={true}
+    isTVSelectable={true}
+    onResponderGrant={[Function]}
+    onResponderMove={[Function]}
+    onResponderRelease={[Function]}
+    onResponderTerminate={[Function]}
+    onResponderTerminationRequest={[Function]}
+    onStartShouldSetResponder={[Function]}
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#1abc9c",
+        "flexDirection": "row",
+        "height": 50,
+        "justifyContent": "space-between",
+        "margin": 6,
+        "opacity": 1,
+        "padding": 12,
+        "width": "90%",
+      }
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#000000",
+            "fontFamily": "Helvetica Neue",
+            "textAlign": "left",
+            "writingDirection": "ltr",
+          },
+          undefined,
+        ]
+      }
+    >
+      Review All Content
+    </Text>
+  </View>
+</View>
+`;
+
+exports[`App Screen Components Render with props: List Summary Screen 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "rgb(231,237,240)",
+        "flex": 1,
+        "paddingLeft": 15,
+        "paddingRight": 15,
+        "paddingTop": 25,
+        "width": "100%",
+      },
+    ]
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontSize": 16,
+          "fontWeight": "bold",
+          "marginBottom": 16,
+          "textAlign": "center",
+          "width": "100%",
+        },
+      ]
+    }
+  >
+    Choose a lesson to start studying
+  </Text>
+</View>
+`;
+
+exports[`App Screen Components Render with props: Settings Screen 1`] = `null`;
+
+exports[`App Screen Components Render with props: Translation Screen 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "rgb(231, 237, 240)",
+        "flex": 1,
+        "paddingTop": 25,
+      },
+    ]
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontSize": 22,
+          "fontWeight": "bold",
+          "marginBottom": 5,
+          "marginTop": 5,
+        },
+      ]
+    }
+  >
+    Translation Tool
+  </Text>
+  <Text
+    style={
+      Array [
+        Object {
+          "marginBottom": 5,
+          "marginTop": 5,
+          "textAlign": "center",
+          "width": "80%",
+        },
+      ]
+    }
+  >
+    Translate between English and Chinese
+  </Text>
+  <View
+    style={
+      Array [
+        undefined,
+        Object {
+          "backgroundColor": "rgb(231,237,240)",
+          "fontSize": 34,
+          "marginTop": 6,
+          "width": "90%",
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "bottom": 0,
+            "left": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 6,
+          },
+          Object {
+            "borderColor": "rgba(0, 0, 0, 0.54)",
+            "borderRadius": 4,
+            "borderWidth": 1,
+          },
+        ]
+      }
+    />
+    <Text
+      numberOfLines={1}
+      pointerEvents="none"
+      style={
+        Array [
+          Object {
+            "color": "#000000",
+            "fontFamily": "Helvetica Neue",
+            "textAlign": "left",
+            "writingDirection": "ltr",
+          },
+          Object {
+            "backgroundColor": "rgb(231,237,240)",
+            "color": "transparent",
+            "fontFamily": "Helvetica Neue",
+            "fontSize": 12,
+            "left": 8,
+            "opacity": 0,
+            "paddingHorizontal": 4,
+            "position": "absolute",
+            "top": 0,
+            "transform": Array [
+              Object {
+                "scaleX": 0,
+              },
+            ],
+          },
+        ]
+      }
+    >
+      Enter text to translate
+    </Text>
+    <View
+      pointerEvents="none"
+      style={
+        Array [
+          Object {
+            "bottom": 0,
+            "left": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          },
+          Object {
+            "opacity": 1,
+          },
+        ]
+      }
+    >
+      <Text
+        numberOfLines={1}
+        onLayout={[Function]}
+        style={
+          Array [
+            Object {
+              "color": "#000000",
+              "fontFamily": "Helvetica Neue",
+              "textAlign": "left",
+              "writingDirection": "ltr",
+            },
+            Object {
+              "color": "#6200ee",
+              "fontFamily": "Helvetica Neue",
+              "fontSize": 16,
+              "left": 0,
+              "opacity": 0,
+              "paddingHorizontal": 12,
+              "position": "absolute",
+              "top": 25,
+              "transform": Array [
+                Object {
+                  "translateX": 0,
+                },
+                Object {
+                  "translateY": 0,
+                },
+                Object {
+                  "scale": 1,
+                },
+                Object {
+                  "translateX": -0,
+                },
+              ],
+            },
+          ]
+        }
+      >
+        Enter text to translate
+      </Text>
+      <Text
+        numberOfLines={1}
+        style={
+          Array [
+            Object {
+              "color": "#000000",
+              "fontFamily": "Helvetica Neue",
+              "textAlign": "left",
+              "writingDirection": "ltr",
+            },
+            Object {
+              "color": "rgba(0, 0, 0, 0.54)",
+              "fontFamily": "Helvetica Neue",
+              "fontSize": 16,
+              "left": 0,
+              "opacity": 1,
+              "paddingHorizontal": 12,
+              "position": "absolute",
+              "top": 25,
+              "transform": Array [
+                Object {
+                  "translateX": 0,
+                },
+                Object {
+                  "translateY": 0,
+                },
+                Object {
+                  "scale": 1,
+                },
+                Object {
+                  "translateX": -0,
+                },
+              ],
+            },
+          ]
+        }
+      >
+        Enter text to translate
+      </Text>
+    </View>
+    <TextInput
+      allowFontScaling={true}
+      editable={true}
+      multiline={false}
+      onBlur={[Function]}
+      onChangeText={[Function]}
+      onFocus={[Function]}
+      onSubmitEditing={[Function]}
+      placeholder=""
+      placeholderTextColor="rgba(0, 0, 0, 0.54)"
+      selectionColor="#6200ee"
+      style={
+        Array [
+          Object {
+            "flexGrow": 1,
+            "fontSize": 16,
+            "margin": 0,
+            "minHeight": 58,
+            "paddingHorizontal": 12,
+            "textAlign": "left",
+          },
+          Object {
+            "minHeight": 64,
+            "paddingBottom": 16,
+            "paddingTop": 20,
+          },
+          Object {
+            "color": "#000000",
+            "fontFamily": "Helvetica Neue",
+            "textAlignVertical": "center",
+          },
+        ]
+      }
+      underlineColorAndroid="transparent"
+      value=""
+    />
+  </View>
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "flexDirection": "row",
+          "height": 75,
+        },
+      ]
+    }
+  >
+    <RCTSwitch
+      onChange={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      onTintColor="rgb(200,8,20)"
+      style={
+        Object {
+          "height": 31,
+          "width": 51,
+        }
+      }
+      value={false}
+    />
+    <Text
+      style={
+        Object {
+          "marginLeft": 12,
+        }
+      }
+    >
+      Translating from:
+       
+      <Text
+        style={
+          Array [
+            Object {
+              "fontWeight": "bold",
+            },
+          ]
+        }
+      >
+        English
+      </Text>
+    </Text>
+  </View>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#6200ee",
+        "borderColor": "transparent",
+        "borderRadius": 4,
+        "borderStyle": "solid",
+        "borderWidth": 0,
+        "elevation": 2,
+        "height": 40,
+        "justifyContent": "center",
+        "marginBottom": 15,
+        "marginTop": 15,
+        "minWidth": 64,
+        "shadowColor": "#000000",
+        "shadowOffset": Object {
+          "height": NaN,
+          "width": 0,
+        },
+        "shadowOpacity": 0.24,
+        "shadowRadius": 2,
+        "width": "65%",
+      }
+    }
+  >
+    <View
+      accessibilityRole="button"
+      accessible={true}
+      isTVSelectable={true}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "borderRadius": 4,
+        }
+      }
+    >
+      <View
+        style={
+          Object {
+            "alignItems": "center",
+            "flexDirection": "row",
+            "justifyContent": "center",
+          }
+        }
+      >
+        <Text
+          numberOfLines={1}
+          style={
+            Array [
+              Object {
+                "color": "#000000",
+                "fontFamily": "Helvetica Neue",
+                "textAlign": "left",
+                "writingDirection": "ltr",
+              },
+              Array [
+                Object {
+                  "letterSpacing": 1,
+                  "marginHorizontal": 16,
+                  "marginVertical": 9,
+                  "textAlign": "center",
+                },
+                undefined,
+                Object {
+                  "color": "#ffffff",
+                  "fontFamily": "HelveticaNeue-Medium",
+                },
+                Object {
+                  "fontFamily": "HelveticaNeue-Medium",
+                },
+              ],
+            ]
+          }
+        >
+          TRANSLATE
+        </Text>
+      </View>
+    </View>
+  </View>
+</View>
+`;
+
+exports[`App Screen Components Render with props: View All Screen 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "rgb(231, 237, 240)",
+        "flex": 1,
+      },
+    ]
+  }
+>
+  <View
+    style={
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "#ffffff",
+        "borderRadius": 4,
+        "borderTopColor": "rgba(45,45,45,0.05)",
+        "borderTopWidth": 1,
+        "elevation": 4,
+        "flexDirection": "row",
+        "shadowColor": "#000000",
+        "shadowOffset": Object {
+          "height": 3,
+          "width": 0,
+        },
+        "shadowOpacity": 0.24,
+        "shadowRadius": 4,
+      }
+    }
+  >
+    <View
+      accessibilityRole="button"
+      accessible={true}
+      hitSlop={
+        Object {
+          "bottom": 6,
+          "left": 6,
+          "right": 6,
+          "top": 6,
+        }
+      }
+      isTVSelectable={true}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Array [
+          Object {
+            "alignItems": "center",
+            "borderRadius": 18,
+            "height": 36,
+            "justifyContent": "center",
+            "margin": 6,
+            "width": 36,
+          },
+          undefined,
+          undefined,
+        ]
+      }
+    >
+      <View
+        style={null}
+      >
+        <View
+          style={
+            Array [
+              Object {
+                "alignItems": "center",
+                "justifyContent": "center",
+              },
+              Object {
+                "height": 24,
+                "width": 24,
+              },
+            ]
+          }
+        >
+          <View
+            style={
+              Object {
+                "bottom": 0,
+                "left": 0,
+                "opacity": 1,
+                "position": "absolute",
+                "right": 0,
+                "top": 0,
+                "transform": Array [
+                  Object {
+                    "rotate": "0deg",
+                  },
+                ],
+              }
+            }
+          >
+            <Text />
+          </View>
+        </View>
+      </View>
+    </View>
+    <TextInput
+      accessibilityRole="search"
+      accessibilityTraits="search"
+      allowFontScaling={true}
+      autoFocus={true}
+      keyboardAppearance="light"
+      onChangeText={[Function]}
+      placeholder="Filter list (enter Chinese or English)"
+      placeholderTextColor="rgba(0, 0, 0, 0.54)"
+      returnKeyType="search"
+      selectionColor="#6200ee"
+      style={
+        Array [
+          Object {
+            "alignSelf": "stretch",
+            "flex": 1,
+            "fontSize": 18,
+            "paddingLeft": 8,
+            "textAlign": "left",
+          },
+          Object {
+            "color": "#000000",
+            "fontFamily": "Helvetica Neue",
+          },
+        ]
+      }
+      underlineColorAndroid="transparent"
+      value=""
+    />
+  </View>
+</View>
+`;

@@ -29,7 +29,7 @@ const GoogleUser = {
   name: "Seanie X",
 };
 
-const MockLesson: ReadonlyArray<Word> = [
+const MockLessonBase: ReadonlyArray<Word> = [
   {
     simplified: "我",
     traditional: "我",
@@ -66,6 +66,13 @@ const MockLesson: ReadonlyArray<Word> = [
     english_alternate_choices: [""],
   },
 ];
+
+/**
+ * Truncate the mock lessons in the test environment to avoid issues with the
+ * QuizScreen randomly selected a word index.
+ */
+const MockLesson =
+  process.env.NODE_ENV === "test" ? MockLessonBase.slice(0, 1) : MockLessonBase;
 
 const MockLessons: ReadonlyArray<HSKList> = [
   {

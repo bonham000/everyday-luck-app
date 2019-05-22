@@ -90,6 +90,7 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
       const { list, content } = hskList;
       return (
         <LessonBlock
+          key={hskList.list}
           style={{
             backgroundColor: isLocked
               ? COLORS.lockedLessonBlock

@@ -82,6 +82,7 @@ export class SettingsScreenComponent extends React.Component<IProps, {}> {
     const selected = setting === this.props.appDifficultySetting;
     return (
       <DifficultSettingBlock
+        key={setting}
         selected={selected}
         onPress={this.setAppDifficulty(setting)}
       >
