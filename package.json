@@ -68,6 +68,7 @@
     "prettier": "^1.15.3",
     "react-native-confetti": "^0.1.0",
     "react-native-stargazer": "^1.0.6",
+    "surge": "^0.20.5",
     "ts-jest": "^23.10.5",
     "tslint": "^5.12.1",
     "tslint-immutable": "^5.1.0",
