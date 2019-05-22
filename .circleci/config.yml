@@ -8,7 +8,9 @@ jobs:
       - checkout
       - run:
           name: Deploy with Surge
-          command: yarn stargazer:deploy
+          command: |
+            yarn add global surge
+            yarn stargazer:deploy
 
   publish:
     working_directory: ~/mandarin
