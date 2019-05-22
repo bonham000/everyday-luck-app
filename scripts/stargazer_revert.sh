@@ -1,3 +1,4 @@
+
 #!/bin/bash
 
 # Rename App_Temp.tsx back to App.tsx to revert Stargazer setup
