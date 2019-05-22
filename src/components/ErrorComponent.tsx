@@ -9,7 +9,7 @@ import { Container } from "@src/components/SharedComponents";
  */
 
 const ErrorComponent = () => (
-  <Container>
+  <Container style={{ justifyContent: "center" }}>
     <Text>Everything is broken... 🎭</Text>
   </Container>
 );

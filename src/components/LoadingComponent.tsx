@@ -11,7 +11,9 @@ import { Container } from "./SharedComponents";
  */
 
 const LoadingComponent = ({ transparent }: { transparent?: boolean }) => (
-  <Container style={{ opacity: transparent ? 0.5 : 1 }}>
+  <Container
+    style={{ opacity: transparent ? 0.5 : 1, justifyContent: "center" }}
+  >
     <ActivityIndicator size="large" color={COLORS.primaryRed} />
     <WelcomeText>大家好</WelcomeText>
   </Container>
