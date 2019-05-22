@@ -15,6 +15,7 @@ import {
   Word,
 } from "@src/tools/types";
 import { createWordDictionaryFromLessons } from "@src/tools/utils";
+import lessonData from "./tools/lessonData";
 
 /** ========================================================================
  * Global State
@@ -29,43 +30,7 @@ const GoogleUser = {
   name: "Seanie X",
 };
 
-const MockLessonBase: ReadonlyArray<Word> = [
-  {
-    simplified: "我",
-    traditional: "我",
-    pinyin: "wǒ",
-    english: "I, me",
-    english_alternate_choices: [""],
-  },
-  {
-    simplified: "我们",
-    traditional: "我們",
-    pinyin: "wǒmen",
-    english: "we, us (pl.)",
-    english_alternate_choices: [""],
-  },
-  {
-    simplified: "你",
-    traditional: "你",
-    pinyin: "nǐ",
-    english: "you",
-    english_alternate_choices: [""],
-  },
-  {
-    simplified: "你们",
-    traditional: "你們",
-    pinyin: "nǐmen",
-    english: "you (pl.)",
-    english_alternate_choices: [""],
-  },
-  {
-    simplified: "他",
-    traditional: "他",
-    pinyin: "tā",
-    english: "he, him",
-    english_alternate_choices: [""],
-  },
-];
+const MockLessonBase: ReadonlyArray<Word> = lessonData;
 
 /**
  * Truncate the mock lessons in the test environment to avoid issues with the

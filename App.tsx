@@ -1,17 +1,14 @@
 import React from "react";
 import { Provider as ReactNativePaperProvider } from "react-native-paper";
-import { useScreens } from "react-native-screens";
-import Sentry from "sentry-expo";
+import Stargazer from "react-native-stargazer";
 
-import App from "@src/AppContainer";
 import { APP_THEME } from "@src/constants/Theme";
-
-useScreens();
-
-Sentry.config(String(process.env.SENTRY_DSN)).install();
+import { ROUTES } from "@src/NavigatorConfig";
+import CONFIG from "@src/tools/config";
+import stargazerRoutes from "./tests/StargazerRouteConfig";
 
 /** ========================================================================
- * Mandarin App
+ * Stargazer App
  * =========================================================================
  */
 
@@ -19,7 +16,11 @@ export default class extends React.Component {
   render(): JSX.Element {
     return (
       <ReactNativePaperProvider theme={APP_THEME}>
-        <App />
+        <Stargazer
+          appRouteConfig={ROUTES}
+          routeConfig={stargazerRoutes}
+          stargazerServerUrl={CONFIG.STARGAZER_SERVER_URL}
+        />
       </ReactNativePaperProvider>
     );
   }
