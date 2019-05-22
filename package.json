@@ -17,7 +17,7 @@
     "prettier:fix": "prettier --config .prettierrc --write './{src,test}/**/*.{ts,tsx,json}'",
     "prettier:check": "prettier --config .prettierrc --list-different './{src,test}/**/*.{ts,tsx}'",
     "format": "npm run prettier:fix && npm run tslint:fix",
-    "test:jest": "jest",
+    "test:jest": "jest --silent",
     "test:watch": "jest --watch",
     "test:update-snapshots": "npm test -- -u",
     "test:format": "npm run prettier:check && npm run tslint && npm run tsc",
