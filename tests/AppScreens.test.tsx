@@ -1,7 +1,12 @@
 import React from "react";
 import renderer from "react-test-renderer";
 
-import { MockLessonScreenParams, MockListScreenParams } from "./data";
+import * as utils from "@src/tools/utils";
+import {
+  MockLessonScreenParams,
+  MockListScreenParams,
+  MockMultipleChoiceOptions,
+} from "./data";
 import stargazerConfig from "./StargazerRouteConfig";
 
 // @ts-ignore — for someone reason Jest throws an error React is not defined?
@@ -39,6 +44,12 @@ const snapshotScreenComponent = (
 };
 
 describe("App Screen Components", () => {
+  /**
+   * Mock this function for the test environment.
+   */
+  const spy = jest.spyOn(utils, "getAlternateChoices");
+  spy.mockReturnValue(MockMultipleChoiceOptions);
+
   test("Each screen component renders with props provided", () => {
     for (const config of stargazerConfig) {
       const { name, screen } = config;

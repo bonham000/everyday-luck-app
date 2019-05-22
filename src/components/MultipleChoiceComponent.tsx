@@ -88,6 +88,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
                   attempted={attempted}
                   isCorrect={isCorrect}
                   quizType={quizType}
+                  key={choice.traditional}
                   onPress={this.handleSelectAnswer(isCorrect)}
                 >
                   <QuizAnswerText

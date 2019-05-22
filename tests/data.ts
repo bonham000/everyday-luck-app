@@ -32,6 +32,8 @@ const GoogleUser = {
 
 const MockLessonBase: ReadonlyArray<Word> = lessonData;
 
+export const MockMultipleChoiceOptions = lessonData.slice(0, 4);
+
 /**
  * Truncate the mock lessons in the test environment to avoid issues with the
  * QuizScreen randomly selected a word index.

@@ -213,7 +213,7 @@ const LessonBlockText = glamorous.text(
       : {
           color: "black",
           fontWeight: "500",
-          textDecorationLine: "normal",
+          textDecorationLine: "none",
         }) as TextStyle,
 );
 

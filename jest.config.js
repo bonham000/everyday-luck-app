@@ -9,6 +9,7 @@ module.exports = {
     "^.+\\.jsx?$": "<rootDir>/node_modules/babel-jest",
     "^.+\\.tsx?$": "ts-jest",
   },
+  setupFiles: ["<rootDir>/tests/setup.ts"],
   testPathIgnorePatterns: [
     "<rootDir>/src/",
     "<rootDir>/build/",
