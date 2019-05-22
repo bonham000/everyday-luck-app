@@ -3,6 +3,9 @@
   "main": "node_modules/expo/AppEntry.js",
   "private": true,
   "scripts": {
+    "stargazer:init": "stargazer:init",
+    "stargazer:view": "stargazer:view",
+    "stargazer:server": "stargazer:server",
     "start": "expo start",
     "tsc": "tsc",
     "tslint": "tslint --project tsconfig.json -c tslint.json",
@@ -61,6 +64,7 @@
     "jest-expo": "^32.0.0",
     "prettier": "^1.15.3",
     "react-native-confetti": "^0.1.0",
+    "react-native-stargazer": "^1.0.3",
     "ts-jest": "^23.10.5",
     "tslint": "^5.12.1",
     "tslint-immutable": "^5.1.0",
