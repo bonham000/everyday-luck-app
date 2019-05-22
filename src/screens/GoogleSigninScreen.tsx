@@ -38,7 +38,10 @@ const IOS_CLIENT_ID = CONFIG.IOS_CLIENT_ID;
  * =========================================================================
  */
 
-class GoogleSigninScreen extends React.Component<IProps, IState> {
+export class GoogleSigninScreenComponent extends React.Component<
+  IProps,
+  IState
+> {
   constructor(props: IProps) {
     super(props);
 
@@ -181,4 +184,4 @@ const GoogleIcon = () => (
  * =========================================================================
  */
 
-export default withGlobalState(GoogleSigninScreen);
+export default withGlobalState(GoogleSigninScreenComponent);

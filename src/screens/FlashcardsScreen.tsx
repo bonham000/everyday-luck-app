@@ -36,7 +36,7 @@ export const { width, height } = Dimensions.get("window");
  * =========================================================================
  */
 
-class FlashcardsScreen extends React.Component<IProps, IState> {
+export class FlashcardsScreenComponent extends React.Component<IProps, IState> {
   swiper: any = null;
 
   constructor(props: IProps) {
@@ -274,4 +274,4 @@ const CARD_OVERLAY_LABELS = {
  * =========================================================================
  */
 
-export default withGlobalState(FlashcardsScreen);
+export default withGlobalState(FlashcardsScreenComponent);

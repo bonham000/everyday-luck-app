@@ -32,7 +32,7 @@ interface IProps extends GlobalStateContextProps {
  * =========================================================================
  */
 
-class SettingsScreen extends React.Component<IProps, {}> {
+export class SettingsScreenComponent extends React.Component<IProps, {}> {
   render(): JSX.Element {
     const { languageSetting } = this.props;
     return (
@@ -162,4 +162,4 @@ const DifficultSettingBlockText = glamorous.text(
  * =========================================================================
  */
 
-export default withGlobalState(SettingsScreen);
+export default withGlobalState(SettingsScreenComponent);

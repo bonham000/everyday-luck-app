@@ -28,7 +28,7 @@ interface IState {
  * =========================================================================
  */
 
-class ContactScreen extends React.Component<IProps, IState> {
+export class ContactScreenComponent extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
 
@@ -122,4 +122,4 @@ const TextInputStyles = {
  * =========================================================================
  */
 
-export default withGlobalState(ContactScreen);
+export default withGlobalState(ContactScreenComponent);

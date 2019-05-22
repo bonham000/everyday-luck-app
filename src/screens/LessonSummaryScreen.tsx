@@ -32,7 +32,7 @@ interface IProps extends GlobalStateContextProps, SoundRecordingProps {
  * =========================================================================
  */
 
-class LessonSummaryScreen extends React.Component<IProps, {}> {
+export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
   componentDidMount(): void {
     /**
      * Go ahead and prefetch sound data for this lesson.
@@ -225,4 +225,6 @@ const LineBreak = glamorous.view({
  * =========================================================================
  */
 
-export default withGlobalState(withSoundRecordingProvider(LessonSummaryScreen));
+export default withGlobalState(
+  withSoundRecordingProvider(LessonSummaryScreenComponent),
+);

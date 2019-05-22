@@ -35,7 +35,7 @@ interface IState {
  * =========================================================================
  */
 
-class ViewAllScreen extends React.Component<IProps, IState> {
+export class ViewAllScreenComponent extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
 
@@ -141,4 +141,6 @@ const SearchBarStyles = {
  * =========================================================================
  */
 
-export default withGlobalState(withSoundRecordingProvider(ViewAllScreen));
+export default withGlobalState(
+  withSoundRecordingProvider(ViewAllScreenComponent),
+);

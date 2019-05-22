@@ -37,7 +37,10 @@ interface IState {
  * =========================================================================
  */
 
-class TranslationScreen extends React.Component<IProps, IState> {
+export class TranslationScreenComponent extends React.Component<
+  IProps,
+  IState
+> {
   constructor(props: IProps) {
     super(props);
 
@@ -253,4 +256,4 @@ const ButtonStyles: ViewStyle = {
  * =========================================================================
  */
 
-export default withGlobalState(TranslationScreen);
+export default withGlobalState(TranslationScreenComponent);

@@ -21,7 +21,7 @@ interface IProps {
  * =========================================================================
  */
 
-class AboutScreen extends React.Component<IProps, {}> {
+export class AboutScreenComponent extends React.Component<IProps, {}> {
   render(): JSX.Element {
     return (
       <Container>
@@ -103,4 +103,4 @@ const LinkText = glamorous.text({
  * =========================================================================
  */
 
-export default AboutScreen;
+export default AboutScreenComponent;

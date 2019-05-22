@@ -64,7 +64,7 @@ interface IState {
  * =========================================================================
  */
 
-class QuizScreen extends React.Component<IProps, IState> {
+export class QuizScreenComponent extends React.Component<IProps, IState> {
   CONFETTI_REF: any = null;
   INPUT_REF: any = null;
   timer: any = null;
@@ -525,4 +525,4 @@ const ActionIconStyle = {
  * =========================================================================
  */
 
-export default withGlobalState(QuizScreen);
+export default withGlobalState(QuizScreenComponent);

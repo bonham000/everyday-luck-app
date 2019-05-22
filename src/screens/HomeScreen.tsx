@@ -38,7 +38,7 @@ interface IProps extends GlobalStateContextProps {
  * =========================================================================
  */
 
-class HomeScreen extends React.Component<IProps, {}> {
+export class HomeScreenComponent extends React.Component<IProps, {}> {
   render(): JSX.Element {
     const { lessons, userScoreStatus, appDifficultySetting } = this.props;
     const finalUnlockedListIndex = getFinalUnlockedListKey(userScoreStatus);
@@ -221,4 +221,4 @@ const LessonBlockText = glamorous.text(
  * =========================================================================
  */
 
-export default withGlobalState(HomeScreen);
+export default withGlobalState(HomeScreenComponent);

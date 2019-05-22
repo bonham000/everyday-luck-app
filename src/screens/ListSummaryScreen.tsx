@@ -35,7 +35,7 @@ interface IProps extends GlobalStateContextProps {
  * =========================================================================
  */
 
-class ListSummaryScreen extends React.Component<IProps, {}> {
+export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
   render(): JSX.Element {
     const hskList = this.props.navigation.getParam("hskList");
     return (
@@ -188,4 +188,4 @@ const LessonBlockText = glamorous.text(
  * =========================================================================
  */
 
-export default withGlobalState(ListSummaryScreen);
+export default withGlobalState(ListSummaryScreenComponent);

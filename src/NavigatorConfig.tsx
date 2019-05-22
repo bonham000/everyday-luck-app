@@ -11,16 +11,16 @@ import {
 import SideMenuComponent from "@src/components/SideMenuComponent";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import { QUIZ_TYPE } from "@src/providers/GlobalStateContext";
-import AboutScreen from "@src/screens/AboutScreen";
-import ContactScreen from "@src/screens/ContactScreen";
-import FlashcardsScreen from "@src/screens/FlashcardsScreen";
+import AboutScreenComponent from "@src/screens/AboutScreen";
+import ContactScreenComponent from "@src/screens/ContactScreen";
+import FlashcardsScreenComponent from "@src/screens/FlashcardsScreen";
 import GoogleSignInScreen from "@src/screens/GoogleSigninScreen";
 import HomeScreen from "@src/screens/HomeScreen";
 import LessonSummaryScreen from "@src/screens/LessonSummaryScreen";
-import ListSummaryScreen from "@src/screens/ListSummaryScreen";
-import QuizScreen from "@src/screens/QuizScreen";
-import SettingsScreen from "@src/screens/SettingsScreen";
-import TranslationScreen from "@src/screens/TranslationScreen";
+import ListSummaryScreenComponent from "@src/screens/ListSummaryScreen";
+import QuizScreenComponent from "@src/screens/QuizScreen";
+import SettingsScreenComponent from "@src/screens/SettingsScreen";
+import TranslationScreenComponent from "@src/screens/TranslationScreen";
 import ViewAllScreen from "@src/screens/ViewAllScreen";
 import { LessonScreenParams, ListScreenParams } from "@src/tools/types";
 import { getDrawerLockedState } from "@src/tools/utils";
@@ -74,7 +74,7 @@ const ROUTES: NavigationScreenRouteConfig = {
     },
   },
   [ROUTE_NAMES.LIST_SUMMARY]: {
-    screen: ListSummaryScreen,
+    screen: ListSummaryScreenComponent,
     navigationOptions: ({
       navigation,
     }: {
@@ -89,7 +89,7 @@ const ROUTES: NavigationScreenRouteConfig = {
   },
   [ROUTE_NAMES.QUIZ]: {
     screen: (props: NavigationScreenProp<{}>) => (
-      <QuizScreen {...props} quizType={QUIZ_TYPE.QUIZ_TEXT} />
+      <QuizScreenComponent {...props} quizType={QUIZ_TYPE.QUIZ_TEXT} />
     ),
     navigationOptions: {
       title: "Characters Quiz 🇨🇳",
@@ -98,7 +98,7 @@ const ROUTES: NavigationScreenRouteConfig = {
   },
   [ROUTE_NAMES.MULTIPLE_CHOICE_MANDARIN]: {
     screen: (props: NavigationScreenProp<{}>) => (
-      <QuizScreen {...props} quizType={QUIZ_TYPE.MANDARIN} />
+      <QuizScreenComponent {...props} quizType={QUIZ_TYPE.MANDARIN} />
     ),
     navigationOptions: {
       title: "Mandarin Recognition 🇨🇳",
@@ -107,7 +107,7 @@ const ROUTES: NavigationScreenRouteConfig = {
   },
   [ROUTE_NAMES.MULTIPLE_CHOICE_ENGLISH]: {
     screen: (props: NavigationScreenProp<{}>) => (
-      <QuizScreen {...props} quizType={QUIZ_TYPE.ENGLISH} />
+      <QuizScreenComponent {...props} quizType={QUIZ_TYPE.ENGLISH} />
     ),
     navigationOptions: {
       title: "English Recognition 🗽",
@@ -116,7 +116,7 @@ const ROUTES: NavigationScreenRouteConfig = {
   },
   [ROUTE_NAMES.MULTIPLE_CHOICE_VOICE]: {
     screen: (props: NavigationScreenProp<{}>) => (
-      <QuizScreen {...props} quizType={QUIZ_TYPE.PRONUNCIATION} />
+      <QuizScreenComponent {...props} quizType={QUIZ_TYPE.PRONUNCIATION} />
     ),
     navigationOptions: {
       title: "Mandarin Pronunciation 🗣",
@@ -124,7 +124,7 @@ const ROUTES: NavigationScreenRouteConfig = {
     },
   },
   [ROUTE_NAMES.FLASHCARDS]: {
-    screen: FlashcardsScreen,
+    screen: FlashcardsScreenComponent,
     navigationOptions: {
       title: "Flashcards 👨‍🚀",
       headerBackTitle: null,
@@ -138,28 +138,28 @@ const ROUTES: NavigationScreenRouteConfig = {
     },
   },
   [ROUTE_NAMES.TRANSLATION]: {
-    screen: TranslationScreen,
+    screen: TranslationScreenComponent,
     navigationOptions: {
       title: "Translation 📔",
       headerBackTitle: null,
     },
   },
   [ROUTE_NAMES.SETTINGS]: {
-    screen: SettingsScreen,
+    screen: SettingsScreenComponent,
     navigationOptions: {
       title: "Settings 🏗",
       headerBackTitle: null,
     },
   },
   [ROUTE_NAMES.ABOUT]: {
-    screen: AboutScreen,
+    screen: AboutScreenComponent,
     navigationOptions: {
       title: "About 🏹",
       headerBackTitle: null,
     },
   },
   [ROUTE_NAMES.CONTACT]: {
-    screen: ContactScreen,
+    screen: ContactScreenComponent,
     navigationOptions: {
       title: "Contact 👨‍💻",
       headerBackTitle: null,
