@@ -33,6 +33,7 @@ const ScrollContainer = (props: { children: any }) => (
       paddingTop: 25,
       paddingBottom: 150,
       alignItems: "center",
+      backgroundColor: COLORS.background,
     }}
   >
     {props.children}
