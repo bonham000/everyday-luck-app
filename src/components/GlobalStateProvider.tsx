@@ -15,8 +15,6 @@ import { Audio } from "expo";
  * =========================================================================
  */
 
-export type ComponentProp = (args: any) => JSX.Element;
-
 export interface GlobalStateValues {
   user?: GoogleSigninUser;
   lessons: HSKListSet;
