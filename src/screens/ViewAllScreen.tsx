@@ -8,6 +8,10 @@ import {
   GlobalStateProps,
   withGlobalState,
 } from "@src/components/GlobalStateProvider";
+import {
+  SoundRecordingProps,
+  withSoundRecordingProvider,
+} from "@src/components/SoundRecordingProvider";
 import { COLORS } from "@src/constants/Colors";
 import { LessonScreenParams, Word } from "@src/tools/types";
 import {
@@ -21,7 +25,7 @@ import {
  * =========================================================================
  */
 
-interface IProps extends GlobalStateProps {
+interface IProps extends GlobalStateProps, SoundRecordingProps {
   navigation: NavigationScreenProp<LessonScreenParams>;
 }
 
@@ -99,26 +103,10 @@ class ViewAllScreen extends React.Component<IProps, IState> {
   copyHandler = (mandarin: string, traditional: string) => () => {
     try {
       Clipboard.setString(mandarin);
-      this.maybePronounceWord(traditional);
+      this.props.pronounceWord(traditional);
       this.props.setToastMessage(`${mandarin} copied!`);
     } catch (_) {
       return;
-    }
-  };
-
-  maybePronounceWord = async (word: string) => {
-    try {
-      const soundFiles = this.props.getSoundFileForWord(word);
-      if (soundFiles) {
-        const length = soundFiles.length;
-        const randomIdx = randomInRange(0, length);
-        const soundObject = soundFiles[randomIdx];
-        await soundObject.replayAsync({
-          positionMillis: 0,
-        });
-      }
-    } catch (err) {
-      console.log("Error replaying sound file?");
     }
   };
 }
@@ -155,4 +143,4 @@ const SearchBarStyles = {
  * =========================================================================
  */
 
-export default withGlobalState(ViewAllScreen);
+export default withGlobalState(withSoundRecordingProvider(ViewAllScreen));

@@ -9,6 +9,10 @@ import {
   withGlobalState,
 } from "@src/components/GlobalStateProvider";
 import { Bold } from "@src/components/SharedComponents";
+import {
+  SoundRecordingProps,
+  withSoundRecordingProvider,
+} from "@src/components/SoundRecordingProvider";
 import { COLORS } from "@src/constants/Colors";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import { LessonScreenParams } from "@src/tools/types";
@@ -19,7 +23,7 @@ import { getLessonSummaryStatus } from "@src/tools/utils";
  * =========================================================================
  */
 
-interface IProps extends GlobalStateProps {
+interface IProps extends GlobalStateProps, SoundRecordingProps {
   navigation: NavigationScreenProp<{}, LessonScreenParams>;
 }
 
@@ -228,4 +232,4 @@ const LineBreak = glamorous.view({
  * =========================================================================
  */
 
-export default withGlobalState(LessonSummaryScreen);
+export default withGlobalState(withSoundRecordingProvider(LessonSummaryScreen));

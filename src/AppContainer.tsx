@@ -35,6 +35,8 @@ import {
   getAlternateLanguageSetting,
 } from "@src/tools/utils";
 import { GlobalStateValues } from "./components/GlobalStateProvider";
+import SoundRecordingProvider from "./components/SoundRecordingProvider";
+import SoundRecordingComponent from "./components/SoundRecordingProvider";
 
 /** ========================================================================
  * Types
@@ -223,10 +225,12 @@ class RootContainer extends React.Component<{}, IState> {
               .handleUpdateAppDifficultySetting,
           }}
         >
-          <AppPureComponent
-            userLoggedIn={Boolean(this.state.user)}
-            assignNavigatorRef={this.assignNavRef}
-          />
+          <SoundRecordingComponent>
+            <AppPureComponent
+              userLoggedIn={Boolean(this.state.user)}
+              assignNavigatorRef={this.assignNavRef}
+            />
+          </SoundRecordingComponent>
         </GlobalContext.Provider>
       </View>
     );

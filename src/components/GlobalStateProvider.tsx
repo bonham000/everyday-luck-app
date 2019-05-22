@@ -35,13 +35,6 @@ export interface GlobalStateProps extends GlobalStateValues {
   handleUpdateAppDifficultySetting: (
     setting: APP_DIFFICULTY_SETTING,
   ) => Promise<void>;
-  getSoundFileForWord: (
-    traditionalCharacters: string,
-  ) => ReadonlyArray<Audio.Sound>;
-  prefetchLessonSoundData: (lesson: Lesson) => Promise<void>;
-  fetchSoundFilesForWord: (
-    soundData: ReadonlyArray<AudioItem>,
-  ) => Promise<ReadonlyArray<Audio.Sound>>;
 }
 
 interface IProps {

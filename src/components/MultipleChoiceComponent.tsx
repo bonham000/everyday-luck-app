@@ -9,6 +9,10 @@ import {
   withGlobalState,
 } from "@src/components/GlobalStateProvider";
 import Shaker from "@src/components/ShakerComponent";
+import {
+  SoundRecordingProps,
+  withSoundRecordingProvider,
+} from "@src/components/SoundRecordingProvider";
 import { COLORS } from "@src/constants/Colors";
 import { QUIZ_TYPE } from "@src/GlobalState";
 import { audioRecordingsClass } from "@src/tools/audio-dictionary";
@@ -31,16 +35,13 @@ import {
  * =========================================================================
  */
 
-interface IProps extends GlobalStateProps, QuizScreenComponentProps {}
+interface IProps
+  extends GlobalStateProps,
+    QuizScreenComponentProps,
+    SoundRecordingProps {}
 
 interface IState {
   choices: Lesson;
-  playbackError: boolean;
-  loadingSoundData: boolean;
-  playedOnce: boolean;
-  soundFileAndroid?: Audio.Sound;
-  currentSoundAudio: ReadonlyArray<Audio.Sound>;
-  currentSoundFileUri: string;
 }
 
 /** ========================================================================
@@ -53,19 +54,14 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
     super(props);
 
     this.state = {
-      playedOnce: false,
-      playbackError: false,
-      currentSoundFileUri: "",
-      currentSoundAudio: [new Audio.Sound()],
       choices: this.deriveAlternateChoices(),
-      loadingSoundData: !this.fetchSoundFileForCurrentWordIfExists(),
     };
   }
 
   componentDidMount(): void {
     if (this.props.quizType === QUIZ_TYPE.PRONUNCIATION) {
-      this.fetchSoundFilesForWord();
-      this.props.prefetchLessonSoundData(this.props.lesson);
+      // this.fetchSoundFilesForWord();
+      // this.props.prefetchLessonSoundData(this.props.lesson);
     }
   }
 
@@ -78,26 +74,9 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
           choices: this.deriveAlternateChoices(),
         });
       } else {
-        const soundFile = this.fetchSoundFileForCurrentWordIfExists();
-        if (soundFile) {
-          this.setState({
-            playedOnce: false,
-            playbackError: false,
-            loadingSoundData: false,
-            currentSoundAudio: soundFile,
-            choices: this.deriveAlternateChoices(),
-          });
-        } else {
-          this.setState(
-            {
-              playedOnce: false,
-              playbackError: false,
-              loadingSoundData: true,
-              choices: this.deriveAlternateChoices(),
-            },
-            this.fetchSoundFilesForWord,
-          );
-        }
+        this.setState({
+          choices: this.deriveAlternateChoices(),
+        });
       }
     }
   }
@@ -117,10 +96,12 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
     return (
       <React.Fragment>
         {quizType === QUIZ_TYPE.PRONUNCIATION ? (
-          !this.state.playbackError ? (
-            <VoiceButton onPress={this.handlePronounceWord}>
+          !this.props.playbackError ? (
+            <VoiceButton
+              onPress={() => this.props.pronounceWord(currentWord.traditional)}
+            >
               <Text>
-                {this.state.loadingSoundData
+                {this.props.loadingSoundData
                   ? "Loading Sound File..."
                   : "Press to Speak!"}
               </Text>
@@ -195,139 +176,6 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
     );
   }
 
-  fetchSoundFileForCurrentWordIfExists = () => {
-    const word = this.props.currentWord.traditional;
-    return this.props.getSoundFileForWord(word);
-  };
-
-  getCurrentSoundFile = () => {
-    if (Platform.OS === "android") {
-      return this.state.soundFileAndroid;
-    } else {
-      const audioIndex = this.getRandomWordIndex();
-      return this.state.currentSoundAudio[audioIndex];
-    }
-  };
-
-  handlePronounceWord = async () => {
-    if (!this.state.loadingSoundData) {
-      try {
-        const currentSoundFile = this.getCurrentSoundFile();
-        if (currentSoundFile) {
-          if (this.state.playedOnce) {
-            try {
-              await currentSoundFile.replayAsync({
-                positionMillis: 0,
-              });
-            } catch (err) {
-              console.log("Error replaying sound file...");
-            }
-          } else {
-            await currentSoundFile.playAsync();
-          }
-          this.setState({ playedOnce: true });
-        } else {
-          throw new Error("No sound file found!");
-        }
-      } catch (error) {
-        console.log("Failed to play sound file!", error);
-        this.setState({
-          playbackError: true,
-        });
-      }
-    }
-  };
-
-  fetchSoundFilesForWord = async () => {
-    if (Platform.OS === "android") {
-      this.updateAndFetchSoundFileAndroid();
-    } else {
-      this.fetchSoundFilesForWordiOS();
-    }
-  };
-
-  fetchSoundFilesForWordiOS = async () => {
-    const existingSoundFile = this.fetchSoundFileForCurrentWordIfExists();
-    if (!existingSoundFile) {
-      const word = this.props.currentWord.traditional;
-      const soundData = audioRecordingsClass.getAudioRecordingsForWord(word);
-      switch (soundData.type) {
-        case OptionType.OK:
-          const sounds = await this.props.fetchSoundFilesForWord(
-            soundData.data,
-          );
-
-          if (sounds !== null) {
-            const currentSoundAudio = sounds as ReadonlyArray<Audio.Sound>;
-            return this.setState({
-              currentSoundAudio,
-              loadingSoundData: false,
-            });
-          } else {
-            return this.setState({ playbackError: true });
-          }
-
-        case OptionType.EMPTY:
-          console.log("No sound file uri found!!!");
-          return this.setState({ playbackError: true });
-      }
-    }
-  };
-
-  updateAndFetchSoundFileAndroid = async () => {
-    const { soundFileAndroid } = this.state;
-    if (soundFileAndroid) {
-      await soundFileAndroid.unloadAsync();
-      this.setState(
-        {
-          soundFileAndroid,
-        },
-        () => {
-          this.fetchSoundDataForWordAndroid();
-        },
-      );
-    } else {
-      this.fetchSoundDataForWordAndroid();
-    }
-  };
-
-  fetchSoundDataForWordAndroid = async () => {
-    const word = this.props.currentWord.traditional;
-    const soundData = audioRecordingsClass.getAudioRecordingsForWord(word);
-    switch (soundData.type) {
-      case OptionType.OK:
-        const soundFileAndroid = await this.fetchSoundFileAndroid(
-          soundData.data,
-        );
-
-        if (soundFileAndroid !== null) {
-          return this.setState({
-            soundFileAndroid,
-            loadingSoundData: false,
-          });
-        } else {
-          return this.setState({ playbackError: true });
-        }
-
-      case OptionType.EMPTY:
-        console.log("No sound file uri found!!!");
-        return this.setState({ playbackError: true });
-    }
-  };
-
-  fetchSoundFileAndroid = async (soundData: ReadonlyArray<AudioItem>) => {
-    const audioIndex = this.getRandomWordIndex(0, soundData.length);
-    const filePath = soundData[audioIndex].filePath;
-    if (filePath) {
-      const soundObject = new Audio.Sound();
-      const uri = getAudioFileUrl(filePath);
-      await soundObject.loadAsync({ uri });
-      return soundObject;
-    } else {
-      return null;
-    }
-  };
-
   deriveAlternateChoices = () => {
     return getAlternateChoices(
       this.props.currentWord,
@@ -341,13 +189,6 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
     if (!this.props.attempted) {
       this.props.handleCheck(isCorrect);
     }
-  };
-
-  getRandomWordIndex = (
-    min = 0,
-    max = this.state.currentSoundAudio.length,
-  ): number => {
-    return randomInRange(min, max);
   };
 }
 
@@ -486,4 +327,4 @@ const Choice = ({
  * =========================================================================
  */
 
-export default withGlobalState(MultipleChoiceInput);
+export default withGlobalState(withSoundRecordingProvider(MultipleChoiceInput));
