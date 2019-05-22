@@ -8,7 +8,7 @@ import { Bold } from "@src/components/SharedComponents";
 import { COLORS } from "@src/constants/Colors";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import {
-  GlobalStateProps,
+  GlobalStateContextProps,
   withGlobalState,
 } from "@src/providers/GlobalStateProvider";
 import {
@@ -23,7 +23,7 @@ import { getLessonSummaryStatus } from "@src/tools/utils";
  * =========================================================================
  */
 
-interface IProps extends GlobalStateProps, SoundRecordingProps {
+interface IProps extends GlobalStateContextProps, SoundRecordingProps {
   navigation: NavigationScreenProp<{}, LessonScreenParams>;
 }
 

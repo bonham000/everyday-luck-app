@@ -8,7 +8,7 @@ import { LoadingComponent } from "@src/components/LoadingComponent";
 import { COLORS } from "@src/constants/Colors";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import {
-  GlobalStateProps,
+  GlobalStateContextProps,
   withGlobalState,
 } from "@src/providers/GlobalStateProvider";
 import CONFIG from "@src/tools/config";
@@ -20,7 +20,7 @@ import { resetNavigation } from "@src/tools/utils";
  * =========================================================================
  */
 
-interface IProps extends GlobalStateProps {
+interface IProps extends GlobalStateContextProps {
   navigation: NavigationScreenProp<{}>;
 }
 

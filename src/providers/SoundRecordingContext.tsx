@@ -3,7 +3,7 @@ import React from "react";
 import { Lesson } from "@src/tools/types";
 
 /** ========================================================================
- * Context for SoundRecordingProvider
+ * Types and Config
  * =========================================================================
  */
 
@@ -17,6 +17,11 @@ export interface AudioMetadataCache {
   [key: string]: AudioMetadata;
 }
 
+/** ========================================================================
+ * Context for SoundRecordingProvider
+ * =========================================================================
+ */
+
 const SoundRecordingContext = React.createContext({
   playbackError: false,
   loadingSoundData: false,
@@ -28,5 +33,10 @@ const SoundRecordingContext = React.createContext({
     // Handle pre-fetching sound data for lesson
   },
 });
+
+/** ========================================================================
+ * Export
+ * =========================================================================
+ */
 
 export default SoundRecordingContext;

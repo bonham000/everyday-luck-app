@@ -5,7 +5,7 @@ import { NavigationScreenProp, SafeAreaView } from "react-navigation";
 
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import {
-  GlobalStateProps,
+  GlobalStateContextProps,
   withGlobalState,
 } from "@src/providers/GlobalStateProvider";
 import { logoutLocalUser } from "@src/tools/store";
@@ -16,7 +16,7 @@ import { formatUserLanguageSetting, resetNavigation } from "@src/tools/utils";
  * =========================================================================
  */
 
-interface IProps extends GlobalStateProps {
+interface IProps extends GlobalStateContextProps {
   navigation: NavigationScreenProp<{}>;
 }
 

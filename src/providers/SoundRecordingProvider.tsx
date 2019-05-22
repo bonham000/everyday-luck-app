@@ -23,10 +23,6 @@ export interface SoundRecordingProps {
   handlePronounceWord: (traditionalCharacters: string) => Promise<void>;
 }
 
-interface IProps {
-  Component: ComponentType<any>;
-}
-
 interface IState {
   playbackError: boolean;
   loadingSoundData: boolean;
@@ -39,7 +35,7 @@ interface IState {
  * =========================================================================
  */
 
-class SoundRecordingComponent extends React.Component<{}, IState> {
+class SoundRecordingProvider extends React.Component<{}, IState> {
   constructor(props: {}) {
     super(props);
 
@@ -321,22 +317,15 @@ export const updateAudioMetadataCache = (
  * =========================================================================
  */
 
-// tslint:disable-next-line
-class SoundRecordingProvider extends React.Component<IProps, IState> {
-  render(): JSX.Element | null {
-    const { Component, ...rest } = this.props;
+const withSoundRecordingProvider = (component: ComponentType<any>) => {
+  return (props: any) => {
+    const Component = component;
     return (
       <SoundRecordingContext.Consumer>
-        {value => <Component {...rest} {...value} />}
+        {value => <Component {...props} {...value} />}
       </SoundRecordingContext.Consumer>
     );
-  }
-}
-
-const withSoundRecordingProvider = (component: ComponentType<any>) => {
-  return (props: any) => (
-    <SoundRecordingProvider {...props} Component={component} />
-  );
+  };
 };
 
 /** ========================================================================
@@ -346,4 +335,4 @@ const withSoundRecordingProvider = (component: ComponentType<any>) => {
 
 export { withSoundRecordingProvider };
 
-export default SoundRecordingComponent;
+export default SoundRecordingProvider;

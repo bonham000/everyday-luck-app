@@ -7,7 +7,7 @@ import { NavigationScreenProp } from "react-navigation";
 
 import { COLORS } from "@src/constants/Colors";
 import {
-  GlobalStateProps,
+  GlobalStateContextProps,
   withGlobalState,
 } from "@src/providers/GlobalStateProvider";
 import { Lesson, LessonScreenParams, Word } from "@src/tools/types";
@@ -18,7 +18,7 @@ import { knuthShuffle } from "@src/tools/utils";
  * =========================================================================
  */
 
-interface IProps extends GlobalStateProps {
+interface IProps extends GlobalStateContextProps {
   navigation: NavigationScreenProp<LessonScreenParams>;
 }
 

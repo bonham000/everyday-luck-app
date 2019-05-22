@@ -1,7 +1,7 @@
 import { Bold } from "@src/components/SharedComponents";
 import { COLORS } from "@src/constants/Colors";
 import {
-  GlobalStateProps,
+  GlobalStateContextProps,
   withGlobalState,
 } from "@src/providers/GlobalStateProvider";
 import { languageCode, TranslationsData } from "@src/tools/types";
@@ -21,7 +21,7 @@ import { NavigationScreenProp } from "react-navigation";
  * =========================================================================
  */
 
-interface IProps extends GlobalStateProps {
+interface IProps extends GlobalStateContextProps {
   navigation: NavigationScreenProp<{}>;
 }
 

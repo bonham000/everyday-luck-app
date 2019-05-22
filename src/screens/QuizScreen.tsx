@@ -16,7 +16,7 @@ import {
   ScoreStatus,
 } from "@src/providers/GlobalStateContext";
 import {
-  GlobalStateProps,
+  GlobalStateContextProps,
   withGlobalState,
 } from "@src/providers/GlobalStateProvider";
 import { LessonScreenParams, Word } from "@src/tools/types";
@@ -34,7 +34,7 @@ import {
  * =========================================================================
  */
 
-interface IProps extends GlobalStateProps {
+interface IProps extends GlobalStateContextProps {
   navigation: NavigationScreenProp<{}, LessonScreenParams>;
   quizType: QUIZ_TYPE;
 }

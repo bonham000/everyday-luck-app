@@ -6,7 +6,7 @@ import { NavigationScreenProp } from "react-navigation";
 
 import { COLORS } from "@src/constants/Colors";
 import {
-  GlobalStateProps,
+  GlobalStateContextProps,
   withGlobalState,
 } from "@src/providers/GlobalStateProvider";
 import {
@@ -21,7 +21,7 @@ import { filterBySearchTerm, mapWordsForList } from "@src/tools/utils";
  * =========================================================================
  */
 
-interface IProps extends GlobalStateProps, SoundRecordingProps {
+interface IProps extends GlobalStateContextProps, SoundRecordingProps {
   navigation: NavigationScreenProp<LessonScreenParams>;
 }
 

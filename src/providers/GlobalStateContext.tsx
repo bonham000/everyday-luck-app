@@ -4,9 +4,10 @@ import { GoogleSigninUser } from "@src/tools/store";
 import { HSKListSet, Word } from "@src/tools/types";
 
 /** ========================================================================
- * Context for toast message
+ * Types and Config
  * =========================================================================
  */
+
 export interface ListScore {
   list_key: string;
   list_index: number;
@@ -64,7 +65,12 @@ export const QuizTypeOptions: ReadonlyArray<QUIZ_TYPE> = [
   QUIZ_TYPE.PRONUNCIATION,
 ];
 
-const GlobalState = React.createContext({
+/** ========================================================================
+ * Global State Context
+ * =========================================================================
+ */
+
+const GlobalStateContext = React.createContext({
   experience: 0,
   user: {},
   lessons: [] as HSKListSet,
@@ -92,4 +98,9 @@ const GlobalState = React.createContext({
   },
 });
 
-export default GlobalState;
+/** ========================================================================
+ * Export
+ * =========================================================================
+ */
+
+export default GlobalStateContext;

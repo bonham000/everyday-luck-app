@@ -14,7 +14,7 @@ import {
   QUIZ_TYPE,
 } from "@src/providers/GlobalStateContext";
 import {
-  GlobalStateProps,
+  GlobalStateContextProps,
   withGlobalState,
 } from "@src/providers/GlobalStateProvider";
 import {
@@ -34,7 +34,7 @@ import {
  */
 
 interface IProps
-  extends GlobalStateProps,
+  extends GlobalStateContextProps,
     QuizScreenComponentProps,
     SoundRecordingProps {}
 

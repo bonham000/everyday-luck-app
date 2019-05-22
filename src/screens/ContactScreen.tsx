@@ -5,7 +5,7 @@ import { NavigationScreenProp } from "react-navigation";
 
 import { COLORS } from "@src/constants/Colors";
 import {
-  GlobalStateProps,
+  GlobalStateContextProps,
   withGlobalState,
 } from "@src/providers/GlobalStateProvider";
 
@@ -14,7 +14,7 @@ import {
  * =========================================================================
  */
 
-interface IProps extends GlobalStateProps {
+interface IProps extends GlobalStateContextProps {
   navigation: NavigationScreenProp<{}>;
 }
 

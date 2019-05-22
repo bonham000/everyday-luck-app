@@ -8,7 +8,7 @@ import { Bold } from "@src/components/SharedComponents";
 import { COLORS } from "@src/constants/Colors";
 import { APP_DIFFICULTY_SETTING } from "@src/providers/GlobalStateContext";
 import {
-  GlobalStateProps,
+  GlobalStateContextProps,
   withGlobalState,
 } from "@src/providers/GlobalStateProvider";
 import {
@@ -23,7 +23,7 @@ import {
  * =========================================================================
  */
 
-interface IProps extends GlobalStateProps {
+interface IProps extends GlobalStateContextProps {
   navigation: NavigationScreenProp<{}>;
 }
 

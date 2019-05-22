@@ -8,6 +8,7 @@ import {
   LoadingComponent,
   TransparentLoadingComponent,
 } from "@src/components/LoadingComponent";
+import { CustomToast } from "@src/components/ToastComponent";
 import { DEFAULT_SCORE_STATE } from "@src/constants/Scores";
 import createAppNavigator from "@src/NavigatorConfig";
 import GlobalContext, {
@@ -16,8 +17,7 @@ import GlobalContext, {
   ScoreStatus,
 } from "@src/providers/GlobalStateContext";
 import { GlobalStateValues } from "@src/providers/GlobalStateProvider";
-import SoundRecordingComponent from "@src/providers/SoundRecordingProvider";
-import { CustomToast } from "@src/providers/ToastProvider";
+import SoundRecordingProvider from "@src/providers/SoundRecordingProvider";
 import {
   fetchLessonSet,
   findOrCreateUser,
@@ -253,12 +253,12 @@ class RootContainer extends RootContainerBase<{}> {
               .handleUpdateAppDifficultySetting,
           }}
         >
-          <SoundRecordingComponent>
+          <SoundRecordingProvider>
             <RenderAppOnce
               userLoggedIn={Boolean(this.state.user)}
               assignNavigatorRef={this.assignNavRef}
             />
-          </SoundRecordingComponent>
+          </SoundRecordingProvider>
         </GlobalContext.Provider>
       </View>
     );
