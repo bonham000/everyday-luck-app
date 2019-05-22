@@ -1,6 +1,10 @@
 import glamorous from "glamorous-native";
 import React from "react";
-import { GestureResponderEvent } from "react-native";
+import {
+  GestureResponderEvent,
+  TextStyle,
+  TouchableOpacity,
+} from "react-native";
 import { Button, Text } from "react-native-paper";
 
 import {
@@ -13,8 +17,8 @@ import {
   withSoundRecordingProvider,
 } from "@src/components/SoundRecordingProvider";
 import { COLORS } from "@src/constants/Colors";
-import { QUIZ_TYPE } from "@src/GlobalState";
-import { Lesson, QuizScreenComponentProps } from "@src/tools/types";
+import { APP_LANGUAGE_SETTING, QUIZ_TYPE } from "@src/GlobalState";
+import { Lesson, QuizScreenComponentProps, Word } from "@src/tools/types";
 import {
   capitalize,
   flattenLessonSet,
@@ -93,19 +97,10 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
                     valid={valid}
                     quizType={quizType}
                     attempted={attempted}
+                    choice={choice}
+                    languageSetting={languageSetting}
                     shouldReveal={shouldReveal}
-                  >
-                    {shouldReveal ? (
-                      <Text>
-                        <Text>{choice[languageSetting]}</Text>
-                        {choice.pinyin} - {choice.english}
-                      </Text>
-                    ) : quizType === QUIZ_TYPE.ENGLISH ? (
-                      capitalize(choice.english)
-                    ) : (
-                      choice[languageSetting]
-                    )}
-                  </QuizAnswerText>
+                  />
                 </Choice>
               );
             })}
@@ -243,46 +238,12 @@ const Container = glamorous.view({
   alignItems: "center",
 });
 
-const QuizAnswerText = ({
-  children,
-  valid,
-  attempted,
-  shouldReveal,
-  quizType,
-}: {
-  children: string | Element;
-  valid: boolean;
-  attempted: boolean;
-  shouldReveal: boolean;
-  quizType: QUIZ_TYPE;
-}) => (
-  <QuizAnswer
-    style={{
-      color: !valid && attempted ? "white" : "black",
-      fontWeight: shouldReveal
-        ? "400"
-        : quizType === QUIZ_TYPE.ENGLISH
-        ? "300"
-        : "bold",
-      fontSize: shouldReveal ? 15 : quizType === QUIZ_TYPE.ENGLISH ? 22 : 45,
-    }}
-  >
-    {children}
-  </QuizAnswer>
-);
-
 const VoiceButton = glamorous.touchableOpacity({
   width: "85%",
   height: 55,
   alignItems: "center",
   justifyContent: "center",
   backgroundColor: COLORS.actionButtonYellow,
-});
-
-const QuizAnswer = glamorous.text({
-  color: "black",
-  marginTop: 15,
-  marginBottom: 15,
 });
 
 const QuizPromptText = ({
@@ -338,13 +299,13 @@ const Choice = ({
   quizType: QUIZ_TYPE;
   onPress: (event: GestureResponderEvent) => void;
 }) => (
-  <Button
-    dark
-    mode="contained"
+  <TouchableOpacity
     style={{
       width: "90%",
-      justifyContent: "center",
       marginBottom: 12,
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "center",
       height: quizType === QUIZ_TYPE.ENGLISH ? 50 : 75,
       backgroundColor: valid
         ? isCorrect
@@ -359,8 +320,49 @@ const Choice = ({
     onPress={onPress}
   >
     {children}
-  </Button>
+  </TouchableOpacity>
 );
+
+const QuizAnswerText = ({
+  shouldReveal,
+  quizType,
+  choice,
+  languageSetting,
+}: {
+  shouldReveal: boolean;
+  quizType: QUIZ_TYPE;
+  choice: Word;
+  languageSetting: APP_LANGUAGE_SETTING;
+}) => {
+  const textStyles: TextStyle = {
+    color: "black",
+    fontWeight: shouldReveal
+      ? "400"
+      : quizType === QUIZ_TYPE.ENGLISH
+      ? "300"
+      : "bold",
+    fontSize: shouldReveal ? 15 : quizType === QUIZ_TYPE.ENGLISH ? 22 : 45,
+  };
+
+  if (shouldReveal) {
+    return (
+      <React.Fragment>
+        <Text style={{ fontSize: 30, paddingRight: 12 }}>
+          {choice[languageSetting]}
+        </Text>
+        <Text style={textStyles}>
+          {choice.pinyin} - {choice.english}
+        </Text>
+      </React.Fragment>
+    );
+  }
+
+  return quizType === QUIZ_TYPE.ENGLISH ? (
+    <Text style={textStyles}>{capitalize(choice.english)}</Text>
+  ) : (
+    <Text style={textStyles}>{choice[languageSetting]}</Text>
+  );
+};
 
 /** ========================================================================
  * Export
