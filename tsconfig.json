@@ -27,6 +27,13 @@
     }
   },
   "exclude": ["node_modules", "build"],
-  "include": ["src/**/*", "scripts/**/*", "global.d.ts", "App.tsx"],
+  "include": [
+    "src/**/*",
+    "tests/**/*",
+    "scripts/**/*",
+    "global.d.ts",
+    "App.tsx",
+    "StargazerApp.tsx"
+  ],
   "types": ["typePatches"]
 }

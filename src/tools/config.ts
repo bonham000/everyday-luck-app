@@ -7,6 +7,7 @@ import {
   PINYIN_CONVERSION_SERVICE_API_KEY,
   SENTRY_AUTH_TOKEN,
   SENTRY_DSN,
+  STARGAZER_SERVER_URL,
 } from "../../env";
 
 /** ========================================================================
@@ -26,6 +27,8 @@ const CONFIG = {
     PINYIN_CONVERSION_SERVICE_API_KEY,
   GOOGLE_TRANSLATE_API_KEY:
     process.env.GOOGLE_TRANSLATE_API_KEY || GOOGLE_TRANSLATE_API_KEY,
+  STARGAZER_SERVER_URL:
+    process.env.STARGAZER_SERVER_URL || STARGAZER_SERVER_URL,
 };
 
 /** ========================================================================

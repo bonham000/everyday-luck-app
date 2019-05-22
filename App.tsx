@@ -9,6 +9,11 @@ import Sentry from "sentry-expo";
 import App from "@src/AppContainer";
 import { COLORS } from "@src/constants/Colors";
 
+/** ========================================================================
+ * Config
+ * =========================================================================
+ */
+
 useScreens();
 
 Sentry.config(String(process.env.SENTRY_DSN)).install();
