@@ -3,11 +3,11 @@ import React from "react";
 import { Image, Keyboard, TouchableOpacity, View } from "react-native";
 import { NavigationScreenProp, SafeAreaView } from "react-navigation";
 
+import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import {
   GlobalStateProps,
   withGlobalState,
-} from "@src/components/GlobalStateProvider";
-import { ROUTE_NAMES } from "@src/constants/RouteNames";
+} from "@src/providers/GlobalStateProvider";
 import { logoutLocalUser } from "@src/tools/store";
 import { formatUserLanguageSetting, resetNavigation } from "@src/tools/utils";
 

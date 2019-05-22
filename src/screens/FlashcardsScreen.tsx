@@ -5,11 +5,11 @@ import Swiper from "react-native-deck-swiper";
 import FlipCard from "react-native-flip-card";
 import { NavigationScreenProp } from "react-navigation";
 
+import { COLORS } from "@src/constants/Colors";
 import {
   GlobalStateProps,
   withGlobalState,
-} from "@src/components/GlobalStateProvider";
-import { COLORS } from "@src/constants/Colors";
+} from "@src/providers/GlobalStateProvider";
 import { Lesson, LessonScreenParams, Word } from "@src/tools/types";
 import { knuthShuffle } from "@src/tools/utils";
 

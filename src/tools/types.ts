@@ -1,6 +1,9 @@
 import { GestureResponderEvent } from "react-native";
 
-import { APP_LANGUAGE_SETTING, QUIZ_TYPE } from "@src/GlobalState";
+import {
+  APP_LANGUAGE_SETTING,
+  QUIZ_TYPE,
+} from "@src/providers/GlobalStateContext";
 
 /** ========================================================================
  * Result & Option Types

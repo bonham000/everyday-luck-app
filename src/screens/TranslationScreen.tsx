@@ -1,9 +1,9 @@
+import { Bold } from "@src/components/SharedComponents";
+import { COLORS } from "@src/constants/Colors";
 import {
   GlobalStateProps,
   withGlobalState,
-} from "@src/components/GlobalStateProvider";
-import { Bold } from "@src/components/SharedComponents";
-import { COLORS } from "@src/constants/Colors";
+} from "@src/providers/GlobalStateProvider";
 import { languageCode, TranslationsData } from "@src/tools/types";
 import {
   capitalize,

@@ -5,7 +5,7 @@ import GlobalState, {
   APP_LANGUAGE_SETTING,
   ScoreStatus,
   WordDictionary,
-} from "@src/GlobalState";
+} from "@src/providers/GlobalStateContext";
 import { GoogleSigninUser } from "@src/tools/store";
 import { HSKListSet } from "@src/tools/types";
 

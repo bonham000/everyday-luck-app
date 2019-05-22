@@ -1,6 +1,9 @@
 import axios from "axios";
 
-import { APP_DIFFICULTY_SETTING, ScoreStatus } from "@src/GlobalState";
+import {
+  APP_DIFFICULTY_SETTING,
+  ScoreStatus,
+} from "@src/providers/GlobalStateContext";
 import CONFIG from "@src/tools/config";
 import {
   GoogleTranslateResponse,

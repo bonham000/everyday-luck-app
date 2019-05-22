@@ -4,13 +4,13 @@ import React from "react";
 import { Image } from "react-native";
 import { NavigationScreenProp } from "react-navigation";
 
-import {
-  GlobalStateProps,
-  withGlobalState,
-} from "@src/components/GlobalStateProvider";
 import { LoadingComponent } from "@src/components/LoadingComponent";
 import { COLORS } from "@src/constants/Colors";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
+import {
+  GlobalStateProps,
+  withGlobalState,
+} from "@src/providers/GlobalStateProvider";
 import CONFIG from "@src/tools/config";
 import { saveLocalUser } from "@src/tools/store";
 import { resetNavigation } from "@src/tools/utils";

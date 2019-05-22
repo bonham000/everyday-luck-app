@@ -18,7 +18,7 @@ import QuizScreen from "@src/screens/QuizScreen";
 import ViewAllScreen from "@src/screens/ViewAllScreen";
 import { LessonScreenParams, ListScreenParams } from "@src/tools/types";
 import { getDrawerLockedState } from "@src/tools/utils";
-import { QUIZ_TYPE } from "./GlobalState";
+import { QUIZ_TYPE } from "./providers/GlobalStateContext";
 import ContactScreen from "./screens/ContactScreen";
 import ListSummaryScreen from "./screens/ListSummaryScreen";
 import SettingsScreen from "./screens/SettingsScreen";

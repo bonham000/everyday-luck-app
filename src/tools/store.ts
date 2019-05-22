@@ -1,4 +1,4 @@
-import { APP_LANGUAGE_SETTING } from "@src/GlobalState";
+import { APP_LANGUAGE_SETTING } from "@src/providers/GlobalStateContext";
 import { AsyncStorage } from "react-native";
 
 /** ========================================================================

@@ -4,13 +4,13 @@ import { ScrollView, StyleSheet } from "react-native";
 import { Button, Text } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
+import { Bold } from "@src/components/SharedComponents";
+import { COLORS } from "@src/constants/Colors";
+import { APP_DIFFICULTY_SETTING } from "@src/providers/GlobalStateContext";
 import {
   GlobalStateProps,
   withGlobalState,
-} from "@src/components/GlobalStateProvider";
-import { Bold } from "@src/components/SharedComponents";
-import { COLORS } from "@src/constants/Colors";
-import { APP_DIFFICULTY_SETTING } from "@src/GlobalState";
+} from "@src/providers/GlobalStateProvider";
 import {
   capitalize,
   convertAppDifficultyToLessonSize,

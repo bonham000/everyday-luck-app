@@ -7,17 +7,20 @@ import {
 } from "react-native";
 import { Button, Text } from "react-native-paper";
 
+import Shaker from "@src/components/ShakerComponent";
+import { COLORS } from "@src/constants/Colors";
+import {
+  APP_LANGUAGE_SETTING,
+  QUIZ_TYPE,
+} from "@src/providers/GlobalStateContext";
 import {
   GlobalStateProps,
   withGlobalState,
-} from "@src/components/GlobalStateProvider";
-import Shaker from "@src/components/ShakerComponent";
+} from "@src/providers/GlobalStateProvider";
 import {
   SoundRecordingProps,
   withSoundRecordingProvider,
-} from "@src/components/SoundRecordingProvider";
-import { COLORS } from "@src/constants/Colors";
-import { APP_LANGUAGE_SETTING, QUIZ_TYPE } from "@src/GlobalState";
+} from "@src/providers/SoundRecordingProvider";
 import { Lesson, QuizScreenComponentProps, Word } from "@src/tools/types";
 import {
   capitalize,

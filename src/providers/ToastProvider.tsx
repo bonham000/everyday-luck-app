@@ -1,40 +1,10 @@
 import glamorous from "glamorous-native";
 import React from "react";
 
-import GlobalState from "@src/GlobalState";
-
-/** ========================================================================
- * Types
- * =========================================================================
- */
-
-interface Args {
-  setToastMessage: (message: string) => void;
-}
-
-type ComponentProp = (args: Args) => JSX.Element;
-
-interface IProps {
-  Component: ComponentProp;
-}
-
 /** ========================================================================
  * React Class
  * =========================================================================
  */
-
-class ToastProvider extends React.Component<IProps, {}> {
-  render(): JSX.Element {
-    const { Component, ...rest } = this.props;
-    return (
-      <GlobalState.Consumer>
-        {value => (
-          <Component {...rest} setToastMessage={value.setToastMessage} />
-        )}
-      </GlobalState.Consumer>
-    );
-  }
-}
 
 const CustomToast = ({
   message,
@@ -90,5 +60,3 @@ const ToastText = glamorous.text({
  */
 
 export { CustomToast };
-
-export default ToastProvider;

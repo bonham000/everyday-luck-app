@@ -6,15 +6,19 @@ import ActionButton from "react-native-action-button";
 import Confetti from "react-native-confetti";
 import { NavigationScreenProp } from "react-navigation";
 
-import {
-  GlobalStateProps,
-  withGlobalState,
-} from "@src/components/GlobalStateProvider";
 import MultipleChoiceComponent from "@src/components/MultipleChoiceComponent";
 import QuizInput from "@src/components/QuizInputComponent";
 import { COLORS } from "@src/constants/Colors";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
-import { QUIZ_TYPE, QuizTypeOptions, ScoreStatus } from "@src/GlobalState";
+import {
+  QUIZ_TYPE,
+  QuizTypeOptions,
+  ScoreStatus,
+} from "@src/providers/GlobalStateContext";
+import {
+  GlobalStateProps,
+  withGlobalState,
+} from "@src/providers/GlobalStateProvider";
 import { LessonScreenParams, Word } from "@src/tools/types";
 import {
   convertAppDifficultyToLessonSize,

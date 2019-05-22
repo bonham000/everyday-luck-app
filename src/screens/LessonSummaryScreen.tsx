@@ -4,17 +4,17 @@ import { StyleSheet } from "react-native";
 import { Text } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
+import { Bold } from "@src/components/SharedComponents";
+import { COLORS } from "@src/constants/Colors";
+import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import {
   GlobalStateProps,
   withGlobalState,
-} from "@src/components/GlobalStateProvider";
-import { Bold } from "@src/components/SharedComponents";
+} from "@src/providers/GlobalStateProvider";
 import {
   SoundRecordingProps,
   withSoundRecordingProvider,
-} from "@src/components/SoundRecordingProvider";
-import { COLORS } from "@src/constants/Colors";
-import { ROUTE_NAMES } from "@src/constants/RouteNames";
+} from "@src/providers/SoundRecordingProvider";
 import { LessonScreenParams } from "@src/tools/types";
 import { getLessonSummaryStatus } from "@src/tools/utils";
 

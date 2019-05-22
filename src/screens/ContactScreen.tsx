@@ -3,11 +3,11 @@ import React from "react";
 import { Button, TextInput } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
+import { COLORS } from "@src/constants/Colors";
 import {
   GlobalStateProps,
   withGlobalState,
-} from "@src/components/GlobalStateProvider";
-import { COLORS } from "@src/constants/Colors";
+} from "@src/providers/GlobalStateProvider";
 
 /** ========================================================================
  * Types

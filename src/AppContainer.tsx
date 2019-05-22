@@ -4,20 +4,20 @@ import { Alert, AppState, BackHandler, View } from "react-native";
 import { createAppContainer } from "react-navigation";
 
 import ErrorComponent from "@src/components/ErrorComponent";
-import { GlobalStateValues } from "@src/components/GlobalStateProvider";
 import {
   LoadingComponent,
   TransparentLoadingComponent,
 } from "@src/components/LoadingComponent";
-import SoundRecordingComponent from "@src/components/SoundRecordingProvider";
-import { CustomToast } from "@src/components/ToastProvider";
 import { DEFAULT_SCORE_STATE } from "@src/constants/Scores";
+import createAppNavigator from "@src/NavigatorConfig";
 import GlobalContext, {
   APP_DIFFICULTY_SETTING,
   APP_LANGUAGE_SETTING,
   ScoreStatus,
-} from "@src/GlobalState";
-import createAppNavigator from "@src/NavigatorConfig";
+} from "@src/providers/GlobalStateContext";
+import { GlobalStateValues } from "@src/providers/GlobalStateProvider";
+import SoundRecordingComponent from "@src/providers/SoundRecordingProvider";
+import { CustomToast } from "@src/providers/ToastProvider";
 import {
   fetchLessonSet,
   findOrCreateUser,

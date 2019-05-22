@@ -14,7 +14,7 @@ import {
   QUIZ_TYPE,
   ScoreStatus,
   WordDictionary,
-} from "@src/GlobalState";
+} from "@src/providers/GlobalStateContext";
 import { convertChineseToPinyin, fetchWordTranslation } from "@src/tools/api";
 import CONFIG from "@src/tools/config";
 import {

@@ -5,7 +5,7 @@ import { Platform } from "react-native";
 import SoundRecordingContext, {
   AudioMetadata,
   AudioMetadataCache,
-} from "@src/SoundRecordingState";
+} from "@src/providers/SoundRecordingContext";
 import { audioRecordingsClass } from "@src/tools/audio-dictionary";
 import { AudioItem, Lesson, OptionType, Word } from "@src/tools/types";
 import { getAudioFileUrl, randomInRange } from "@src/tools/utils";
