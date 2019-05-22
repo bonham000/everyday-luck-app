@@ -23,7 +23,7 @@ import { filterBySearchTerm, mapWordsForList } from "@src/tools/utils";
  */
 
 interface IProps extends GlobalStateContextProps, SoundRecordingProps {
-  navigation: NavigationScreenProp<LessonScreenParams>;
+  navigation: NavigationScreenProp<{}, LessonScreenParams>;
 }
 
 interface IState {

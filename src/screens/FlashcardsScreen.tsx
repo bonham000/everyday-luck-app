@@ -20,7 +20,7 @@ import { knuthShuffle } from "@src/tools/utils";
  */
 
 interface IProps extends GlobalStateContextProps {
-  navigation: NavigationScreenProp<LessonScreenParams>;
+  navigation: NavigationScreenProp<{}, LessonScreenParams>;
 }
 
 interface IState {
