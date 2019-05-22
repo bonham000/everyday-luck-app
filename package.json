@@ -3,7 +3,7 @@
   "main": "node_modules/expo/AppEntry.js",
   "private": true,
   "scripts": {
-    "stargazer": "yarn stargazer:setup && npx ttab 'yarn start' && yarn stargazer:server",
+    "stargazer": "yarn stargazer:setup && npx ttab 'yarn stargazer:server' && yarn start",
     "stargazer:setup": "./scripts/stargazer_init.sh",
     "stargazer:revert": "./scripts/stargazer_revert.sh",
     "stargazer:init": "stargazer:init",
