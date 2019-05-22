@@ -364,7 +364,7 @@ class QuizScreen extends React.Component<IProps, IState> {
     if (perfectScore) {
       lessonCompleted = isLessonComplete(updatedScoreStatus);
 
-      if (lessonCompleted) {
+      if (lessonCompleted && lessonType === "LESSON") {
         updatedScoreStatus = {
           ...updatedScoreStatus,
           [listScoreKey]: {
