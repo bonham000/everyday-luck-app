@@ -82,45 +82,45 @@ const stargazerConfig: ReadonlyArray<StargazerRouteConfigObject> = [
     ),
     paramsForNextScreen: MockLessonScreenParams,
   },
-  {
-    name: "English Multiple Choice",
-    screenName: ROUTE_NAMES.MULTIPLE_CHOICE_ENGLISH,
-    screen: (props: StargazerRouteProps<LessonScreenParams>) => (
-      <QuizScreenComponent
-        navigation={props.navigation}
-        quizType={QUIZ_TYPE.ENGLISH}
-        {...MockGlobalStateProps}
-        {...MockSoundRecordingProps}
-      />
-    ),
-    paramsForNextScreen: MockLessonScreenParams,
-  },
-  {
-    name: "Chinese Multiple Choice",
-    screenName: ROUTE_NAMES.MULTIPLE_CHOICE_MANDARIN,
-    screen: (props: StargazerRouteProps<LessonScreenParams>) => (
-      <QuizScreenComponent
-        navigation={props.navigation}
-        quizType={QUIZ_TYPE.MANDARIN}
-        {...MockGlobalStateProps}
-        {...MockSoundRecordingProps}
-      />
-    ),
-    paramsForNextScreen: MockLessonScreenParams,
-  },
-  {
-    name: "Audio Multiple Choice",
-    screenName: ROUTE_NAMES.MULTIPLE_CHOICE_VOICE,
-    screen: (props: StargazerRouteProps<LessonScreenParams>) => (
-      <QuizScreenComponent
-        navigation={props.navigation}
-        quizType={QUIZ_TYPE.PRONUNCIATION}
-        {...MockGlobalStateProps}
-        {...MockSoundRecordingProps}
-      />
-    ),
-    paramsForNextScreen: MockLessonScreenParams,
-  },
+  // {
+  //   name: "English Multiple Choice",
+  //   screenName: ROUTE_NAMES.MULTIPLE_CHOICE_ENGLISH,
+  //   screen: (props: StargazerRouteProps<LessonScreenParams>) => (
+  //     <QuizScreenComponent
+  //       navigation={props.navigation}
+  //       quizType={QUIZ_TYPE.ENGLISH}
+  //       {...MockGlobalStateProps}
+  //       {...MockSoundRecordingProps}
+  //     />
+  //   ),
+  //   paramsForNextScreen: MockLessonScreenParams,
+  // },
+  // {
+  //   name: "Chinese Multiple Choice",
+  //   screenName: ROUTE_NAMES.MULTIPLE_CHOICE_MANDARIN,
+  //   screen: (props: StargazerRouteProps<LessonScreenParams>) => (
+  //     <QuizScreenComponent
+  //       navigation={props.navigation}
+  //       quizType={QUIZ_TYPE.MANDARIN}
+  //       {...MockGlobalStateProps}
+  //       {...MockSoundRecordingProps}
+  //     />
+  //   ),
+  //   paramsForNextScreen: MockLessonScreenParams,
+  // },
+  // {
+  //   name: "Audio Multiple Choice",
+  //   screenName: ROUTE_NAMES.MULTIPLE_CHOICE_VOICE,
+  //   screen: (props: StargazerRouteProps<LessonScreenParams>) => (
+  //     <QuizScreenComponent
+  //       navigation={props.navigation}
+  //       quizType={QUIZ_TYPE.PRONUNCIATION}
+  //       {...MockGlobalStateProps}
+  //       {...MockSoundRecordingProps}
+  //     />
+  //   ),
+  //   paramsForNextScreen: MockLessonScreenParams,
+  // },
   {
     name: "Characters Quiz",
     screenName: ROUTE_NAMES.QUIZ,

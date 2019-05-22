@@ -58,7 +58,7 @@ export class GoogleSigninScreenComponent extends React.Component<
     }
 
     return (
-      <Container>
+      <Container style={{ justifyContent: "center" }}>
         <AppTitle>很多漢字</AppTitle>
         <AppSubtitle>"Hěnduō hànzì"</AppSubtitle>
         <DescriptionText>This is an app for learning Chinese</DescriptionText>

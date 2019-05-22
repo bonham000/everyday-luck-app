@@ -2,6 +2,8 @@ import fs from "fs";
 
 import translateText from "./translate";
 
+import { SIMPLIFIED_CHINESE } from "@src/tools/types";
+import { translateWord } from "@src/tools/utils";
 import vocabularyList2 from "./lists/02";
 import vocabularyList3 from "./lists/03";
 import vocabularyList4 from "./lists/04";
@@ -30,7 +32,8 @@ const createItemLiteral = (
 const translateSimplifiedCharactersToTraditional = async (
   simplified: string,
 ) => {
-  return translateText(simplified);
+  const result = await translateWord(simplified, SIMPLIFIED_CHINESE);
+  return result.traditional;
 };
 
 const parseList = async (vocabulary: ReadonlyArray<string>) => {
