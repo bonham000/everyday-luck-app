@@ -8,11 +8,11 @@ import { BasicContainer } from "@src/components/SharedComponents";
 import { COLORS } from "@src/constants/Theme";
 import {
   GlobalStateContextProps,
-  withGlobalState,
+  withGlobalStateContext,
 } from "@src/providers/GlobalStateProvider";
 import {
   SoundRecordingProps,
-  withSoundRecordingProvider,
+  withSoundRecordingContext,
 } from "@src/providers/SoundRecordingProvider";
 import { LessonScreenParams, Word } from "@src/tools/types";
 import { filterBySearchTerm, mapWordsForList } from "@src/tools/utils";
@@ -141,6 +141,6 @@ const SearchBarStyles = {
  * =========================================================================
  */
 
-export default withGlobalState(
-  withSoundRecordingProvider(ViewAllScreenComponent),
+export default withGlobalStateContext(
+  withSoundRecordingContext(ViewAllScreenComponent),
 );

@@ -7,7 +7,7 @@ import { Container } from "@src/components/SharedComponents";
 import { COLORS } from "@src/constants/Theme";
 import {
   GlobalStateContextProps,
-  withGlobalState,
+  withGlobalStateContext,
 } from "@src/providers/GlobalStateProvider";
 
 /** ========================================================================
@@ -122,4 +122,4 @@ const TextInputStyles = {
  * =========================================================================
  */
 
-export default withGlobalState(ContactScreenComponent);
+export default withGlobalStateContext(ContactScreenComponent);

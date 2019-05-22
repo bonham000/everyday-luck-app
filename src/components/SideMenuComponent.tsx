@@ -6,7 +6,7 @@ import { NavigationScreenProp, SafeAreaView } from "react-navigation";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import {
   GlobalStateContextProps,
-  withGlobalState,
+  withGlobalStateContext,
 } from "@src/providers/GlobalStateProvider";
 import { logoutLocalUser } from "@src/tools/store";
 import { formatUserLanguageSetting, resetNavigation } from "@src/tools/utils";
@@ -145,4 +145,4 @@ const Bold = glamorous.text({
  * =========================================================================
  */
 
-export default withGlobalState(SideMenuComponent);
+export default withGlobalStateContext(SideMenuComponent);

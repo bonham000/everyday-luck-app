@@ -18,8 +18,12 @@ import {
 } from "@src/providers/GlobalStateContext";
 import {
   GlobalStateContextProps,
-  withGlobalState,
+  withGlobalStateContext,
 } from "@src/providers/GlobalStateProvider";
+import {
+  SoundRecordingProps,
+  withSoundRecordingContext,
+} from "@src/providers/SoundRecordingProvider";
 import { LessonScreenParams, Word } from "@src/tools/types";
 import {
   convertAppDifficultyToLessonSize,
@@ -35,7 +39,7 @@ import {
  * =========================================================================
  */
 
-interface IProps extends GlobalStateContextProps {
+interface IProps extends GlobalStateContextProps, SoundRecordingProps {
   navigation: NavigationScreenProp<{}, LessonScreenParams>;
   quizType: QUIZ_TYPE;
 }
@@ -189,7 +193,13 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     return quizType === QUIZ_TYPE.QUIZ_TEXT ? (
       <QuizInput {...quizProps} quizType={quizType} />
     ) : (
-      <MultipleChoiceComponent {...quizProps} quizType={quizType} />
+      <MultipleChoiceComponent
+        {...this.props}
+        {...quizProps}
+        quizType={quizType}
+        lessons={this.props.lessons}
+        handlePronounceWord={this.props.handlePronounceWord}
+      />
     );
   };
 
@@ -526,4 +536,6 @@ const ActionIconStyle = {
  * =========================================================================
  */
 
-export default withGlobalState(QuizScreenComponent);
+export default withGlobalStateContext(
+  withSoundRecordingContext(QuizScreenComponent),
+);

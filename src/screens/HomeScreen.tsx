@@ -9,7 +9,7 @@ import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import { COLORS } from "@src/constants/Theme";
 import {
   GlobalStateContextProps,
-  withGlobalState,
+  withGlobalStateContext,
 } from "@src/providers/GlobalStateProvider";
 import {
   Lesson,
@@ -222,4 +222,4 @@ const LessonBlockText = glamorous.text(
  * =========================================================================
  */
 
-export default withGlobalState(HomeScreenComponent);
+export default withGlobalStateContext(HomeScreenComponent);

@@ -9,7 +9,7 @@ import { BasicContainer } from "@src/components/SharedComponents";
 import { COLORS } from "@src/constants/Theme";
 import {
   GlobalStateContextProps,
-  withGlobalState,
+  withGlobalStateContext,
 } from "@src/providers/GlobalStateProvider";
 import { Lesson, LessonScreenParams, Word } from "@src/tools/types";
 import { knuthShuffle } from "@src/tools/utils";
@@ -274,4 +274,4 @@ const CARD_OVERLAY_LABELS = {
  * =========================================================================
  */
 
-export default withGlobalState(FlashcardsScreenComponent);
+export default withGlobalStateContext(FlashcardsScreenComponent);

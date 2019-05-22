@@ -8,7 +8,7 @@ import { Bold, Container } from "@src/components/SharedComponents";
 import { COLORS } from "@src/constants/Theme";
 import {
   GlobalStateContextProps,
-  withGlobalState,
+  withGlobalStateContext,
 } from "@src/providers/GlobalStateProvider";
 import { languageCode, TranslationsData } from "@src/tools/types";
 import {
@@ -256,4 +256,4 @@ const ButtonStyles: ViewStyle = {
  * =========================================================================
  */
 
-export default withGlobalState(TranslationScreenComponent);
+export default withGlobalStateContext(TranslationScreenComponent);

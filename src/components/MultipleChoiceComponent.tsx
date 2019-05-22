@@ -13,14 +13,8 @@ import {
   APP_LANGUAGE_SETTING,
   QUIZ_TYPE,
 } from "@src/providers/GlobalStateContext";
-import {
-  GlobalStateContextProps,
-  withGlobalState,
-} from "@src/providers/GlobalStateProvider";
-import {
-  SoundRecordingProps,
-  withSoundRecordingProvider,
-} from "@src/providers/SoundRecordingProvider";
+import { GlobalStateContextProps } from "@src/providers/GlobalStateProvider";
+import { SoundRecordingProps } from "@src/providers/SoundRecordingProvider";
 import { Lesson, QuizScreenComponentProps, Word } from "@src/tools/types";
 import {
   capitalize,
@@ -370,4 +364,4 @@ const QuizAnswerText = ({
  * =========================================================================
  */
 
-export default withGlobalState(withSoundRecordingProvider(MultipleChoiceInput));
+export default MultipleChoiceInput;

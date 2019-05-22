@@ -9,7 +9,7 @@ import { COLORS } from "@src/constants/Theme";
 import { APP_DIFFICULTY_SETTING } from "@src/providers/GlobalStateContext";
 import {
   GlobalStateContextProps,
-  withGlobalState,
+  withGlobalStateContext,
 } from "@src/providers/GlobalStateProvider";
 import {
   capitalize,
@@ -163,4 +163,4 @@ const DifficultSettingBlockText = glamorous.text(
  * =========================================================================
  */
 
-export default withGlobalState(SettingsScreenComponent);
+export default withGlobalStateContext(SettingsScreenComponent);

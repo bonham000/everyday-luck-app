@@ -10,7 +10,7 @@ import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import { COLORS } from "@src/constants/Theme";
 import {
   GlobalStateContextProps,
-  withGlobalState,
+  withGlobalStateContext,
 } from "@src/providers/GlobalStateProvider";
 import CONFIG from "@src/tools/config";
 import { saveLocalUser } from "@src/tools/store";
@@ -184,4 +184,4 @@ const GoogleIcon = () => (
  * =========================================================================
  */
 
-export default withGlobalState(GoogleSigninScreenComponent);
+export default withGlobalStateContext(GoogleSigninScreenComponent);

@@ -317,7 +317,7 @@ export const updateAudioMetadataCache = (
  * =========================================================================
  */
 
-const withSoundRecordingProvider = (component: ComponentType<any>) => {
+const withSoundRecordingContext = (component: ComponentType<any>) => {
   return (props: any) => {
     const Component = component;
     return (
@@ -333,6 +333,6 @@ const withSoundRecordingProvider = (component: ComponentType<any>) => {
  * =========================================================================
  */
 
-export { withSoundRecordingProvider };
+export { withSoundRecordingContext };
 
 export default SoundRecordingProvider;

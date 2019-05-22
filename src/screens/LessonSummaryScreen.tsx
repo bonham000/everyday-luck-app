@@ -9,11 +9,11 @@ import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import { COLORS } from "@src/constants/Theme";
 import {
   GlobalStateContextProps,
-  withGlobalState,
+  withGlobalStateContext,
 } from "@src/providers/GlobalStateProvider";
 import {
   SoundRecordingProps,
-  withSoundRecordingProvider,
+  withSoundRecordingContext,
 } from "@src/providers/SoundRecordingProvider";
 import { LessonScreenParams } from "@src/tools/types";
 import { getLessonSummaryStatus } from "@src/tools/utils";
@@ -225,6 +225,6 @@ const LineBreak = glamorous.view({
  * =========================================================================
  */
 
-export default withGlobalState(
-  withSoundRecordingProvider(LessonSummaryScreenComponent),
+export default withGlobalStateContext(
+  withSoundRecordingContext(LessonSummaryScreenComponent),
 );
