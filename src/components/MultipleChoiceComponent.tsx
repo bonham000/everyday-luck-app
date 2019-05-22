@@ -132,7 +132,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
               </QuizPromptText>
               <QuizSubText>{currentWord.pinyin}</QuizSubText>
               <Text style={{ marginTop: 15 }}>
-                (Could not load audio file...)
+                (Could not find audio file...)
               </Text>
             </FallbackTextContainer>
           )
