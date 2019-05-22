@@ -14,11 +14,7 @@ import {
 } from "@src/components/SoundRecordingProvider";
 import { COLORS } from "@src/constants/Colors";
 import { LessonScreenParams, Word } from "@src/tools/types";
-import {
-  filterBySearchTerm,
-  mapWordsForList,
-  randomInRange,
-} from "@src/tools/utils";
+import { filterBySearchTerm, mapWordsForList } from "@src/tools/utils";
 
 /** ========================================================================
  * Types
@@ -103,7 +99,7 @@ class ViewAllScreen extends React.Component<IProps, IState> {
   copyHandler = (mandarin: string, traditional: string) => () => {
     try {
       Clipboard.setString(mandarin);
-      this.props.pronounceWord(traditional);
+      this.props.handlePronounceWord(traditional);
       this.props.setToastMessage(`${mandarin} copied!`);
     } catch (_) {
       return;

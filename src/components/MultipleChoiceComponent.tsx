@@ -1,7 +1,6 @@
-import { Audio } from "expo";
 import glamorous from "glamorous-native";
 import React from "react";
-import { GestureResponderEvent, Platform } from "react-native";
+import { GestureResponderEvent } from "react-native";
 import { Button, Text } from "react-native-paper";
 
 import {
@@ -15,19 +14,11 @@ import {
 } from "@src/components/SoundRecordingProvider";
 import { COLORS } from "@src/constants/Colors";
 import { QUIZ_TYPE } from "@src/GlobalState";
-import { audioRecordingsClass } from "@src/tools/audio-dictionary";
-import {
-  AudioItem,
-  Lesson,
-  OptionType,
-  QuizScreenComponentProps,
-} from "@src/tools/types";
+import { Lesson, QuizScreenComponentProps } from "@src/tools/types";
 import {
   capitalize,
   flattenLessonSet,
   getAlternateChoices,
-  getAudioFileUrl,
-  randomInRange,
 } from "@src/tools/utils";
 
 /** ========================================================================
@@ -81,52 +72,79 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
     }
   }
 
+  getSoundPlayControl = () => {
+    const {
+      quizType,
+      currentWord,
+      languageSetting,
+      audioMetadataCache,
+    } = this.props;
+
+    if (quizType === QUIZ_TYPE.PRONUNCIATION) {
+      const { traditional } = currentWord;
+      const soundFileCache = audioMetadataCache[traditional];
+      const soundLoading = soundFileCache ? soundFileCache.loading : false;
+      const soundLoadingError = soundFileCache
+        ? soundFileCache.playbackError
+        : false;
+
+      if (soundLoadingError) {
+        return (
+          <FallbackTextContainer>
+            <QuizPromptText quizType={quizType}>
+              {`"${currentWord.english}"`}
+            </QuizPromptText>
+            <QuizSubText>{currentWord.pinyin}</QuizSubText>
+            <Text style={{ marginTop: 15 }}>
+              (Could not find audio file...)
+            </Text>
+          </FallbackTextContainer>
+        );
+      } else {
+        return (
+          <VoiceButton
+            onPress={() => {
+              if (!soundLoading) {
+                this.props.handlePronounceWord(traditional);
+              }
+            }}
+          >
+            <Text>
+              {soundLoading
+                ? "Loading and playing sound file..."
+                : "Press to Speak!"}
+            </Text>
+          </VoiceButton>
+        );
+      }
+    } else {
+      const correctWord = currentWord[languageSetting];
+      return (
+        <TitleContainer>
+          <QuizPromptText quizType={quizType}>
+            {quizType === QUIZ_TYPE.ENGLISH ? correctWord : currentWord.english}
+          </QuizPromptText>
+          <QuizSubText>{currentWord.pinyin}</QuizSubText>
+        </TitleContainer>
+      );
+    }
+  };
+
   render(): JSX.Element {
     const {
       valid,
+      quizType,
+      attempted,
       currentWord,
       shouldShake,
-      attempted,
       handleProceed,
       languageSetting,
-      quizType,
     } = this.props;
     const shouldReveal = valid || attempted;
     const correctWord = currentWord[languageSetting];
     return (
       <React.Fragment>
-        {quizType === QUIZ_TYPE.PRONUNCIATION ? (
-          !this.props.playbackError ? (
-            <VoiceButton
-              onPress={() => this.props.pronounceWord(currentWord.traditional)}
-            >
-              <Text>
-                {this.props.loadingSoundData
-                  ? "Loading Sound File..."
-                  : "Press to Speak!"}
-              </Text>
-            </VoiceButton>
-          ) : (
-            <FallbackTextContainer>
-              <QuizPromptText quizType={quizType}>
-                {`"${currentWord.english}"`}
-              </QuizPromptText>
-              <QuizSubText>{currentWord.pinyin}</QuizSubText>
-              <Text style={{ marginTop: 15 }}>
-                (Could not find audio file...)
-              </Text>
-            </FallbackTextContainer>
-          )
-        ) : (
-          <TitleContainer>
-            <QuizPromptText quizType={quizType}>
-              {quizType === QUIZ_TYPE.ENGLISH
-                ? correctWord
-                : currentWord.english}
-            </QuizPromptText>
-            <QuizSubText>{currentWord.pinyin}</QuizSubText>
-          </TitleContainer>
-        )}
+        {this.getSoundPlayControl()}
         <Shaker style={{ width: "100%" }} shouldShake={shouldShake}>
           <Container>
             {this.state.choices.map(choice => {

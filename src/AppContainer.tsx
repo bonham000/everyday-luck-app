@@ -4,10 +4,12 @@ import { Alert, AppState, BackHandler, View } from "react-native";
 import { createAppContainer } from "react-navigation";
 
 import ErrorComponent from "@src/components/ErrorComponent";
+import { GlobalStateValues } from "@src/components/GlobalStateProvider";
 import {
   LoadingComponent,
   TransparentLoadingComponent,
 } from "@src/components/LoadingComponent";
+import SoundRecordingComponent from "@src/components/SoundRecordingProvider";
 import { CustomToast } from "@src/components/ToastProvider";
 import GlobalContext, {
   APP_DIFFICULTY_SETTING,
@@ -34,9 +36,6 @@ import {
   formatUserLanguageSetting,
   getAlternateLanguageSetting,
 } from "@src/tools/utils";
-import { GlobalStateValues } from "./components/GlobalStateProvider";
-import SoundRecordingProvider from "./components/SoundRecordingProvider";
-import SoundRecordingComponent from "./components/SoundRecordingProvider";
 
 /** ========================================================================
  * Types

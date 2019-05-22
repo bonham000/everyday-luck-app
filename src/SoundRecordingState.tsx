@@ -7,10 +7,21 @@ import { Lesson } from "@src/tools/types";
  * =========================================================================
  */
 
+export interface AudioMetadata {
+  loading: boolean;
+  playedOnce: boolean;
+  playbackError: boolean;
+}
+
+export interface AudioMetadataCache {
+  [key: string]: AudioMetadata;
+}
+
 const SoundRecordingContext = React.createContext({
   playbackError: false,
   loadingSoundData: false,
-  pronounceWord: (traditionalCharacters: string) => {
+  audioMetadataCache: {},
+  handlePronounceWord: (traditionalCharacters: string) => {
     // Handle pronouncing word
   },
   prefetchLessonSoundData: async (lesson: Lesson) => {
