@@ -1,7 +1,7 @@
 import fs from "fs";
 import https from "https";
 
-import { fetchWordPronunciation } from "@src/tools/api";
+import { fetchLessonSet, fetchWordPronunciation } from "@src/tools/api";
 import { IAudioRecordingsDictionary } from "@src/tools/audio-dictionary";
 import {
   AudioItem,
@@ -10,7 +10,7 @@ import {
   ResultType,
   SoundFileResponse,
 } from "@src/tools/types";
-import { delay } from "@src/tools/utils";
+import { delay, flattenLessonSet } from "@src/tools/utils";
 
 /** ========================================================================
  * Download Queue to handle downloading mp3 files
@@ -209,6 +209,14 @@ export const transformSoundFileResponse = (
       type: OptionType.OK,
     };
   }
+};
+
+/**
+ * Fetch all the lesson words.
+ */
+export const fetchLessonWords = async () => {
+  const lessonSet = await fetchLessonSet();
+  return lessonSet ? flattenLessonSet(lessonSet) : null;
 };
 
 /** ========================================================================

@@ -1,8 +1,7 @@
-import { fetchLessonSet } from "@src/tools/api";
-import { flattenLessonSet } from "@src/tools/utils";
 import {
   createAudioDirectoryIfNotExists,
   DownloadQueue,
+  fetchLessonWords,
   getDictionaryObject,
   prefetchWordsList,
   saveAudioRecordingsFile,
@@ -19,18 +18,15 @@ const downloadQueue = new DownloadQueue();
  * Scrap audio recordings for any words not recorded yet.
  */
 const scrapAudioRecordings = async () => {
-  const lessonSet = await fetchLessonSet();
-
-  if (!lessonSet) {
-    return console.log("Could not fetch lessons!");
+  const lessons = await fetchLessonWords();
+  if (!lessons) {
+    return console.log("Failed to fetch lessons!");
   }
 
   const dictionary = getDictionaryObject();
-  const flattenedLessons = flattenLessonSet(lessonSet);
+  console.log(`A total of ${lessons.length} words exist.`);
 
-  console.log(`A total of ${flattenedLessons.length} words exist.`);
-
-  const wordsToFetch = flattenedLessons
+  const wordsToFetch = lessons
     .filter(word => {
       const existing = dictionary[word.traditional];
       return !existing;
