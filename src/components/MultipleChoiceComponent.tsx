@@ -96,8 +96,8 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
                   <QuizAnswerText
                     choice={choice}
                     quizType={quizType}
-                    languageSetting={languageSetting}
                     shouldReveal={shouldReveal}
+                    languageSetting={languageSetting}
                   />
                 </Choice>
               );

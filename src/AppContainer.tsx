@@ -11,6 +11,7 @@ import {
 } from "@src/components/LoadingComponent";
 import SoundRecordingComponent from "@src/components/SoundRecordingProvider";
 import { CustomToast } from "@src/components/ToastProvider";
+import { DEFAULT_SCORE_STATE } from "@src/constants/Scores";
 import GlobalContext, {
   APP_DIFFICULTY_SETTING,
   APP_LANGUAGE_SETTING,
@@ -53,55 +54,19 @@ interface IState extends GlobalStateValues {
   transparentLoading: boolean;
 }
 
-const defaultScoreState = {
-  mc_english: false,
-  mc_mandarin: false,
-  quiz_text: false,
-  mandarin_pronunciation: false,
-  list_02_score: {
-    complete: false,
-    list_index: 0,
-    list_key: "1-2",
-    number_words_completed: 0,
-  },
-  list_03_score: {
-    complete: false,
-    list_index: 1,
-    list_key: "3",
-    number_words_completed: 0,
-  },
-  list_04_score: {
-    complete: false,
-    list_index: 2,
-    list_key: "4",
-    number_words_completed: 0,
-  },
-  list_05_score: {
-    complete: false,
-    list_index: 3,
-    list_key: "5",
-    number_words_completed: 0,
-  },
-  list_06_score: {
-    complete: false,
-    list_index: 4,
-    list_key: "6",
-    number_words_completed: 0,
-  },
-};
-
 const TOAST_TIMEOUT = 4000; /* 4 seconds */
 
 /** ========================================================================
- * React Class
+ * Root Container Base Component
  * =========================================================================
  */
 
-class RootContainer extends React.Component<{}, IState> {
+// tslint:disable-next-line
+class RootContainerBase<Props> extends React.Component<Props, IState> {
   timeout: any = null;
   navigationRef: any = null;
 
-  constructor(props: {}) {
+  constructor(props: Props) {
     super(props);
 
     this.state = {
@@ -115,12 +80,76 @@ class RootContainer extends React.Component<{}, IState> {
       tryingToCloseApp: false,
       transparentLoading: false,
       appState: AppState.currentState,
-      userScoreStatus: defaultScoreState,
-      appDifficultySetting: APP_DIFFICULTY_SETTING.MEDIUM,
+      userScoreStatus: DEFAULT_SCORE_STATE,
       languageSetting: APP_LANGUAGE_SETTING.SIMPLIFIED,
+      appDifficultySetting: APP_DIFFICULTY_SETTING.MEDIUM,
     };
   }
 
+  canCloseApp = () => {
+    try {
+      return this.navigationRef.state.nav.routes[0].routes.length === 1;
+    } catch (_) {
+      return true;
+    }
+  };
+
+  handleAppStateChange = (nextAppState: string) => {
+    if (
+      this.state.appState.match(/inactive|background/) &&
+      nextAppState === "active"
+    ) {
+      this.checkForAppUpdate();
+    }
+
+    this.setState({ appState: nextAppState });
+  };
+
+  checkForAppUpdate = async (): Promise<void> => {
+    try {
+      const { isAvailable } = await Updates.checkForUpdateAsync();
+      if (isAvailable) {
+        Alert.alert(
+          "Update Available!",
+          "Confirm to update now 🛰",
+          [
+            { text: "Cancel", onPress: () => null, style: "cancel" },
+            { text: "OK", onPress: this.updateApp },
+          ],
+          { cancelable: false },
+        );
+      }
+    } catch (err) {
+      return;
+    }
+  };
+
+  updateApp = () => {
+    try {
+      this.setState(
+        {
+          updating: true,
+        },
+        async () => {
+          await Updates.fetchUpdateAsync();
+          Updates.reloadFromCache();
+        },
+      );
+    } catch (err) {
+      this.setState({
+        updating: false,
+        toastMessage: "Update failed...",
+      });
+    }
+  };
+}
+
+/** ========================================================================
+ * React Class
+ * =========================================================================
+ */
+
+class RootContainer extends RootContainerBase<{}> {
   async componentDidMount(): Promise<void> {
     this.getInitialScoreState();
 
@@ -225,7 +254,7 @@ class RootContainer extends React.Component<{}, IState> {
           }}
         >
           <SoundRecordingComponent>
-            <AppPureComponent
+            <RenderAppOnce
               userLoggedIn={Boolean(this.state.user)}
               assignNavigatorRef={this.assignNavRef}
             />
@@ -440,27 +469,34 @@ class RootContainer extends React.Component<{}, IState> {
           transparentLoading: true,
         },
         async () => {
-          const result = await updateAppDifficultySetting(
-            userId,
-            appDifficultySetting,
-          );
-          if (result) {
-            this.setState(
-              {
-                appDifficultySetting,
-                transparentLoading: false,
-              },
-              () => this.setToastMessage("App difficulty updated"),
-            );
-          } else {
-            this.setState(
-              {
-                transparentLoading: false,
-              },
-              () => this.setToastMessage("Update failed, please try again..."),
-            );
-          }
+          this.updateAppDifficulty(userId, appDifficultySetting);
         },
+      );
+    }
+  };
+
+  updateAppDifficulty = async (
+    userId: string,
+    appDifficultySetting: APP_DIFFICULTY_SETTING,
+  ) => {
+    const result = await updateAppDifficultySetting(
+      userId,
+      appDifficultySetting,
+    );
+    if (result) {
+      this.setState(
+        {
+          appDifficultySetting,
+          transparentLoading: false,
+        },
+        () => this.setToastMessage("App difficulty updated"),
+      );
+    } else {
+      this.setState(
+        {
+          transparentLoading: false,
+        },
+        () => this.setToastMessage("Update failed, please try again..."),
       );
     }
   };
@@ -494,7 +530,7 @@ class RootContainer extends React.Component<{}, IState> {
         this.timeout = setTimeout(async () => {
           const { userId } = this.state;
           if (userId) {
-            await updateUserScores(userId, defaultScoreState);
+            await updateUserScores(userId, DEFAULT_SCORE_STATE);
             await updateUserExperience(userId, 0);
           }
           this.setToastMessage("Scores reset!");
@@ -503,63 +539,6 @@ class RootContainer extends React.Component<{}, IState> {
       },
     );
   };
-
-  canCloseApp = () => {
-    try {
-      return this.navigationRef.state.nav.routes[0].routes.length === 1;
-    } catch (_) {
-      return true;
-    }
-  };
-
-  handleAppStateChange = (nextAppState: string) => {
-    if (
-      this.state.appState.match(/inactive|background/) &&
-      nextAppState === "active"
-    ) {
-      this.checkForAppUpdate();
-    }
-
-    this.setState({ appState: nextAppState });
-  };
-
-  checkForAppUpdate = async (): Promise<void> => {
-    try {
-      const { isAvailable } = await Updates.checkForUpdateAsync();
-      if (isAvailable) {
-        Alert.alert(
-          "Update Available!",
-          "Confirm to update now 🛰",
-          [
-            { text: "Cancel", onPress: () => null, style: "cancel" },
-            { text: "OK", onPress: this.updateApp },
-          ],
-          { cancelable: false },
-        );
-      }
-    } catch (err) {
-      return;
-    }
-  };
-
-  updateApp = () => {
-    try {
-      this.setState(
-        {
-          updating: true,
-        },
-        async () => {
-          await Updates.fetchUpdateAsync();
-          Updates.reloadFromCache();
-        },
-      );
-    } catch (err) {
-      this.setState({
-        updating: false,
-        toastMessage: "Update failed...",
-      });
-    }
-  };
 }
 
 /** ========================================================================
@@ -567,12 +546,14 @@ class RootContainer extends React.Component<{}, IState> {
  * =========================================================================
  */
 
+interface RenderAppOnceProps {
+  assignNavigatorRef: (ref: any) => void;
+  userLoggedIn: boolean;
+}
+
 // tslint:disable-next-line
-class AppPureComponent extends React.Component<
-  { assignNavigatorRef: (ref: any) => void; userLoggedIn: boolean },
-  {}
-> {
-  shouldComponentUpdate(_: any): boolean {
+class RenderAppOnce extends React.Component<RenderAppOnceProps, {}> {
+  shouldComponentUpdate(_: RenderAppOnceProps): boolean {
     return false;
   }
 

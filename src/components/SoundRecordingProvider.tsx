@@ -19,8 +19,8 @@ export interface SoundRecordingProps {
   playbackError: boolean;
   loadingSoundData: boolean;
   audioMetadataCache: AudioMetadataCache;
-  handlePronounceWord: (traditionalCharacters: string) => Promise<void>;
   prefetchLessonSoundData: (lesson: Lesson) => Promise<void>;
+  handlePronounceWord: (traditionalCharacters: string) => Promise<void>;
 }
 
 interface IProps {
