@@ -1,7 +1,5 @@
 import fs from "fs";
 
-import translateText from "./translate";
-
 import { SIMPLIFIED_CHINESE } from "@src/tools/types";
 import { translateWord } from "@src/tools/utils";
 import vocabularyList2 from "./lists/02";
@@ -94,7 +92,7 @@ const processListAndTranslateSimplifiedToTraditional = async (
   const translated = await Promise.all(
     list.map(async line => {
       const [simplified, ...rest] = line.split(" ");
-      const translation = await translateText(simplified);
+      const translation = await translateWord(simplified, SIMPLIFIED_CHINESE);
       const reconstruct = [simplified, translation, ...rest].join(" ");
       return reconstruct;
     }),
