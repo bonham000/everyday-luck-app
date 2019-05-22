@@ -68,6 +68,13 @@ class SoundRecordingComponent extends React.Component<{}, IState> {
   }
 
   handlePronounceWord = async (traditionalCharacters: string) => {
+    /**
+     * The logic diverges on iOS and Android because the Android Audio API
+     * is shit and cannot load multiple audio files at once.
+     *
+     * On iOS, we keep a cache of any audio files that are needed so they
+     * can be played more quickly.
+     */
     this.setState(
       updateAudioMetadataCache(traditionalCharacters, {
         loading: true,
@@ -138,8 +145,7 @@ class SoundRecordingComponent extends React.Component<{}, IState> {
   handlePronounceWordAndroid = async (soundData: Audio.Sound) => {
     if (soundData) {
       try {
-        await soundData.playAsync();
-        await soundData.unloadAsync();
+        await soundData.replayAsync({ positionMillis: 0 });
       } catch (err) {
         throw new Error("Failed to play sound");
       }
@@ -151,17 +157,25 @@ class SoundRecordingComponent extends React.Component<{}, IState> {
    */
 
   fetchAndPlayWordiOS = async (word: string) => {
-    let soundFiles = this.state.wordAudioMap[word];
-    if (!soundFiles) {
-      const fetchDirectly = this.getSoundFilesForWord(word);
-      if (fetchDirectly) {
-        soundFiles = await this.fetchSoundFilesForWord(fetchDirectly);
+    /**
+     * Use the cache files first - if the file is not cached yet just
+     * fetch it directly to avoid waiting for the cached files to all be
+     * fetched.
+     *
+     * This may result in a duplicated file request... but will not block
+     * the user waiting for the first file to download.
+     */
+    let cachedSoundFiles = this.state.wordAudioMap[word];
+    if (!cachedSoundFiles) {
+      const manuallyFetch = this.getSoundFilesForWord(word);
+      if (manuallyFetch) {
+        cachedSoundFiles = await this.fetchSoundFilesForWord(manuallyFetch);
       }
     }
 
-    if (soundFiles) {
-      const randomIdx = randomInRange(0, soundFiles.length);
-      const soundFile = soundFiles[randomIdx];
+    if (cachedSoundFiles) {
+      const randomIdx = randomInRange(0, cachedSoundFiles.length);
+      const soundFile = cachedSoundFiles[randomIdx];
       await this.handlePronounceWordiOS(soundFile);
     } else {
       throw new Error("Failed to find sound files");
@@ -201,6 +215,12 @@ class SoundRecordingComponent extends React.Component<{}, IState> {
         "Pre-fetching audio files is not supported for Android.",
       );
     }
+
+    /**
+     * Fetch all the sound files for the given lesson and fetch their
+     * audio content. Save this in the wordAudioMap cache in local
+     * state so these files can be played immediately when needed.
+     */
 
     const words = lesson
       .map((word: Word) => {

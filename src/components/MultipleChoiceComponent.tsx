@@ -49,13 +49,6 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
     };
   }
 
-  componentDidMount(): void {
-    if (this.props.quizType === QUIZ_TYPE.PRONUNCIATION) {
-      // this.fetchSoundFilesForWord();
-      // this.props.prefetchLessonSoundData(this.props.lesson);
-    }
-  }
-
   componentDidUpdate(nextProps: IProps): void {
     if (
       nextProps.currentWord.traditional !== this.props.currentWord.traditional
