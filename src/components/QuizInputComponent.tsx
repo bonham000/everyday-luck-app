@@ -3,8 +3,8 @@ import React from "react";
 import { Button, TextInput } from "react-native-paper";
 
 import Shaker from "@src/components/ShakerComponent";
-import { COLORS } from "@src/constants/Colors";
 import { COMPLIMENTS } from "@src/constants/Compliments";
+import { COLORS } from "@src/constants/Theme";
 import { QuizScreenComponentProps } from "@src/tools/types";
 import { formatUserLanguageSetting, randomInRange } from "@src/tools/utils";
 

@@ -2,7 +2,7 @@ import glamorous from "glamorous-native";
 import React from "react";
 import { ScrollView } from "react-native";
 
-import { COLORS } from "@src/constants/Colors";
+import { COLORS } from "@src/constants/Theme";
 
 /** ========================================================================
  * Components

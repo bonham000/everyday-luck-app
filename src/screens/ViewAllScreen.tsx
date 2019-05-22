@@ -5,7 +5,7 @@ import { Searchbar } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
 import { BasicContainer } from "@src/components/SharedComponents";
-import { COLORS } from "@src/constants/Colors";
+import { COLORS } from "@src/constants/Theme";
 import {
   GlobalStateContextProps,
   withGlobalState,

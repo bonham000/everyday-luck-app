@@ -7,7 +7,14 @@ import {
 import { GlobalStateContextProps } from "@src/providers/GlobalStateProvider";
 import { SoundRecordingProps } from "@src/providers/SoundRecordingProvider";
 import { GoogleSigninUser } from "@src/tools/store";
-import { Lesson, LessonScreenParams, ListScreenParams } from "@src/tools/types";
+import {
+  HSKList,
+  Lesson,
+  LessonScreenParams,
+  ListScreenParams,
+  Word,
+} from "@src/tools/types";
+import { createWordDictionaryFromLessons } from "@src/tools/utils";
 
 /** ========================================================================
  * Global State
@@ -22,12 +29,61 @@ const GoogleUser = {
   name: "Seanie X",
 };
 
+const MockLesson: ReadonlyArray<Word> = [
+  {
+    simplified: "我",
+    traditional: "我",
+    pinyin: "wǒ",
+    english: "I, me",
+    english_alternate_choices: [""],
+  },
+  {
+    simplified: "我们",
+    traditional: "我們",
+    pinyin: "wǒmen",
+    english: "we, us (pl.)",
+    english_alternate_choices: [""],
+  },
+  {
+    simplified: "你",
+    traditional: "你",
+    pinyin: "nǐ",
+    english: "you",
+    english_alternate_choices: [""],
+  },
+  {
+    simplified: "你们",
+    traditional: "你們",
+    pinyin: "nǐmen",
+    english: "you (pl.)",
+    english_alternate_choices: [""],
+  },
+  {
+    simplified: "他",
+    traditional: "他",
+    pinyin: "tā",
+    english: "he, him",
+    english_alternate_choices: [""],
+  },
+];
+
+const MockLessons: ReadonlyArray<HSKList> = [
+  {
+    list: "1-2",
+    content: MockLesson,
+  },
+  {
+    list: "3",
+    content: MockLesson,
+  },
+];
+
 export const MockGlobalStateProps: GlobalStateContextProps = {
   user: GoogleUser,
-  lessons: [],
+  lessons: MockLessons,
   userScoreStatus: DEFAULT_SCORE_STATE,
   experience: 54234,
-  wordDictionary: {},
+  wordDictionary: createWordDictionaryFromLessons(MockLessons),
   languageSetting: APP_LANGUAGE_SETTING.SIMPLIFIED,
   appDifficultySetting: APP_DIFFICULTY_SETTING.EASY,
   setToastMessage: (toastMessage: string) => {
@@ -77,13 +133,13 @@ export const MockSoundRecordingProps: SoundRecordingProps = {
 
 export const MockListScreenParams: ListScreenParams = {
   listKey: "1-2",
-  hskList: [],
+  hskList: [MockLesson],
   listIndex: 0,
   type: "LESSON",
 };
 
 export const MockLessonScreenParams: LessonScreenParams = {
-  lesson: [],
+  lesson: MockLesson,
   listIndex: 0,
   lessonIndex: 0,
   isFinalLesson: false,

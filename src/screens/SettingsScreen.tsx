@@ -5,7 +5,7 @@ import { Button, Text } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
 import { Bold, ScrollContainer } from "@src/components/SharedComponents";
-import { COLORS } from "@src/constants/Colors";
+import { COLORS } from "@src/constants/Theme";
 import { APP_DIFFICULTY_SETTING } from "@src/providers/GlobalStateContext";
 import {
   GlobalStateContextProps,

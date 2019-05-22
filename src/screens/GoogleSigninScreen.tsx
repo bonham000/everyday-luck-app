@@ -6,8 +6,8 @@ import { NavigationScreenProp } from "react-navigation";
 
 import { LoadingComponent } from "@src/components/LoadingComponent";
 import { Container } from "@src/components/SharedComponents";
-import { COLORS } from "@src/constants/Colors";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
+import { COLORS } from "@src/constants/Theme";
 import {
   GlobalStateContextProps,
   withGlobalState,

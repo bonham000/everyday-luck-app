@@ -4,8 +4,8 @@ import { FlatList, TextStyle } from "react-native";
 import { Text } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
-import { COLORS } from "@src/constants/Colors";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
+import { COLORS } from "@src/constants/Theme";
 import {
   GlobalStateContextProps,
   withGlobalState,

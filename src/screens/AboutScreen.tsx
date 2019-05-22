@@ -4,8 +4,8 @@ import React from "react";
 import { NavigationScreenProp } from "react-navigation";
 
 import { Bold, Container } from "@src/components/SharedComponents";
-import { COLORS } from "@src/constants/Colors";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
+import { COLORS } from "@src/constants/Theme";
 
 /** ========================================================================
  * Types

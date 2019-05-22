@@ -1,8 +1,11 @@
+import { DefaultTheme } from "react-native-paper";
+
 /** ========================================================================
  * Color constants
  * =========================================================================
  */
-export const COLORS = {
+
+const COLORS = {
   lightWhite: "rgb(231, 237, 240)",
   lightDark: "rgba(45,45,45,0.05)",
   darkText: "rgb(45,45,45)",
@@ -29,3 +32,25 @@ export const COLORS = {
    */
   background: "rgb(231, 237, 240)",
 };
+
+/** ========================================================================
+ * React Native Paper Theme Configuration
+ * =========================================================================
+ */
+
+const APP_THEME = {
+  ...DefaultTheme,
+  roundness: 2,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: COLORS.primaryBlue,
+    accent: COLORS.primaryRed,
+  },
+};
+
+/** ========================================================================
+ * Export
+ * =========================================================================
+ */
+
+export { COLORS, APP_THEME };

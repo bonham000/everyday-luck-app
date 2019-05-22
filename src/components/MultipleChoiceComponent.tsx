@@ -8,7 +8,7 @@ import {
 import { Button, Text } from "react-native-paper";
 
 import Shaker from "@src/components/ShakerComponent";
-import { COLORS } from "@src/constants/Colors";
+import { COLORS } from "@src/constants/Theme";
 import {
   APP_LANGUAGE_SETTING,
   QUIZ_TYPE,
