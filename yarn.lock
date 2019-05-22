@@ -6620,10 +6620,10 @@ react-native-sentry@^0.40.2:
     "@sentry/wizard" "^0.12.1"
     raven-js "^3.24.2"
 
-react-native-stargazer@^1.0.3:
-  version "1.0.3"
-  resolved "https://registry.yarnpkg.com/react-native-stargazer/-/react-native-stargazer-1.0.3.tgz#b5a648d05622ce43c5b281240b893ca1f69cb24c"
-  integrity sha512-0fDxg4KVubOvwPtPnc5bphK1bD/NP/7KdLpUvvNd+DBENxBXVf9+TM2LxSO6CMY7TROFk5sK5eVePSmsXTAL6w==
+react-native-stargazer@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/react-native-stargazer/-/react-native-stargazer-1.0.4.tgz#cf44188627d5038bbcd8523fb6b6716bbf59e454"
+  integrity sha512-tkYTRreoXkKn4H8vFnks3j0UMH+4t6cISQu7qktSR1hhcVUrbg/lXUZJKLzjSUM6fzLiKjF2b4NzoI7DYj+LXQ==
   dependencies:
     serve "11.0.0"
 
