@@ -128,6 +128,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
               </ProgressText>
               {this.getQuizComponent()}
               <ActionButton
+                zIndex={100}
                 position="left"
                 buttonColor={COLORS.actionButtonRed}
               >
