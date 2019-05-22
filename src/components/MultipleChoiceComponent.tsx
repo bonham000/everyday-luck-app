@@ -33,6 +33,7 @@ interface IProps
 
 interface IState {
   choices: Lesson;
+  audioEscapeHatchOn: boolean;
 }
 
 /** ========================================================================
@@ -45,6 +46,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
     super(props);
 
     this.state = {
+      audioEscapeHatchOn: false,
       choices: this.deriveAlternateChoices(),
     };
   }
@@ -53,75 +55,12 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
     if (
       nextProps.currentWord.traditional !== this.props.currentWord.traditional
     ) {
-      if (this.props.quizType !== QUIZ_TYPE.PRONUNCIATION) {
-        return this.setState({
-          choices: this.deriveAlternateChoices(),
-        });
-      } else {
-        this.setState({
-          choices: this.deriveAlternateChoices(),
-        });
-      }
+      this.setState({
+        audioEscapeHatchOn: false,
+        choices: this.deriveAlternateChoices(),
+      });
     }
   }
-
-  getSoundPlayControl = () => {
-    const {
-      quizType,
-      currentWord,
-      languageSetting,
-      audioMetadataCache,
-    } = this.props;
-
-    if (quizType === QUIZ_TYPE.PRONUNCIATION) {
-      const { traditional } = currentWord;
-      const soundFileCache = audioMetadataCache[traditional];
-      const soundLoading = soundFileCache ? soundFileCache.loading : false;
-      const soundLoadingError = soundFileCache
-        ? soundFileCache.playbackError
-        : false;
-
-      if (soundLoadingError) {
-        return (
-          <FallbackTextContainer>
-            <QuizPromptText quizType={quizType}>
-              {`"${currentWord.english}"`}
-            </QuizPromptText>
-            <QuizSubText>{currentWord.pinyin}</QuizSubText>
-            <Text style={{ marginTop: 15 }}>
-              (Could not find audio file...)
-            </Text>
-          </FallbackTextContainer>
-        );
-      } else {
-        return (
-          <VoiceButton
-            onPress={() => {
-              if (!soundLoading) {
-                this.props.handlePronounceWord(traditional);
-              }
-            }}
-          >
-            <Text>
-              {soundLoading
-                ? "Loading and playing sound file..."
-                : "Press to Speak!"}
-            </Text>
-          </VoiceButton>
-        );
-      }
-    } else {
-      const correctWord = currentWord[languageSetting];
-      return (
-        <TitleContainer>
-          <QuizPromptText quizType={quizType}>
-            {quizType === QUIZ_TYPE.ENGLISH ? correctWord : currentWord.english}
-          </QuizPromptText>
-          <QuizSubText>{currentWord.pinyin}</QuizSubText>
-        </TitleContainer>
-      );
-    }
-  };
 
   render(): JSX.Element {
     const {
@@ -169,6 +108,11 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
             })}
           </Container>
         </Shaker>
+        {quizType === QUIZ_TYPE.PRONUNCIATION && (
+          <AudioEscapeBlock onPress={this.activateAudioEscapeHatch}>
+            <AudioEscapeText>Sound not loading?</AudioEscapeText>
+          </AudioEscapeBlock>
+        )}
         {shouldReveal ? (
           <Button
             dark
@@ -187,6 +131,75 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
     );
   }
 
+  getSoundPlayControl = () => {
+    const {
+      quizType,
+      currentWord,
+      languageSetting,
+      audioMetadataCache,
+    } = this.props;
+
+    /**
+     * Regular quiz type:
+     */
+    if (quizType !== QUIZ_TYPE.PRONUNCIATION) {
+      const correctWord = currentWord[languageSetting];
+      return (
+        <TitleContainer>
+          <QuizPromptText quizType={quizType}>
+            {quizType === QUIZ_TYPE.ENGLISH ? correctWord : currentWord.english}
+          </QuizPromptText>
+          <QuizSubText>{currentWord.pinyin}</QuizSubText>
+        </TitleContainer>
+      );
+    }
+
+    /**
+     * Render audio pronunciation quiz:
+     */
+    const { traditional } = currentWord;
+    const soundFileCache = audioMetadataCache[traditional];
+    const soundLoading = soundFileCache ? soundFileCache.loading : false;
+    const soundLoadingError = soundFileCache
+      ? soundFileCache.playbackError
+      : false;
+
+    if (soundLoadingError || this.state.audioEscapeHatchOn) {
+      return (
+        <TitleContainer>
+          <QuizPromptText quizType={quizType}>
+            {`"${currentWord.english}"`}
+          </QuizPromptText>
+          <QuizSubText>{currentWord.pinyin}</QuizSubText>
+          {!this.state.audioEscapeHatchOn && (
+            <Text style={{ marginTop: 15 }}>
+              (Could not find audio file...)
+            </Text>
+          )}
+        </TitleContainer>
+      );
+    } else {
+      return (
+        <TitleContainer>
+          <VoiceButton
+            onPress={() => {
+              if (!soundLoading) {
+                /* Block press if sound is already loading */
+                this.props.handlePronounceWord(traditional);
+              }
+            }}
+          >
+            <Text>
+              {soundLoading
+                ? "Loading and playing sound file..."
+                : "Press to Speak!"}
+            </Text>
+          </VoiceButton>
+        </TitleContainer>
+      );
+    }
+  };
+
   deriveAlternateChoices = () => {
     return getAlternateChoices(
       this.props.currentWord,
@@ -201,6 +214,10 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
       this.props.handleCheck(isCorrect);
     }
   };
+
+  activateAudioEscapeHatch = () => {
+    this.setState({ audioEscapeHatchOn: true });
+  };
 }
 
 /** ========================================================================
@@ -210,9 +227,12 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
 
 const TitleContainer = glamorous.view({
   marginTop: 25,
+  marginBottom: 25,
   padding: 12,
+  height: 80,
   width: "100%",
   alignItems: "center",
+  justifyContent: "center",
 });
 
 const Container = glamorous.view({
@@ -249,8 +269,6 @@ const QuizAnswerText = ({
 );
 
 const VoiceButton = glamorous.touchableOpacity({
-  marginTop: 25,
-  marginBottom: 25,
   width: "85%",
   height: 55,
   alignItems: "center",
@@ -265,8 +283,6 @@ const QuizAnswer = glamorous.text({
 });
 
 const FallbackTextContainer = glamorous.view({
-  marginTop: 25,
-  marginBottom: 15,
   alignItems: "center",
   justifyContent: "center",
 });
@@ -292,6 +308,19 @@ const QuizSubText = glamorous.text({
   fontSize: 22,
   marginTop: 12,
   marginBottom: 12,
+});
+
+const AudioEscapeBlock = glamorous.touchableOpacity({
+  right: 25,
+  bottom: 25,
+  height: 50,
+  width: 125,
+  position: "absolute",
+});
+
+const AudioEscapeText = glamorous.text({
+  fontSize: 14,
+  color: COLORS.darkText,
 });
 
 const Choice = ({
