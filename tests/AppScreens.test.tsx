@@ -3,9 +3,9 @@ import renderer from "react-test-renderer";
 
 import * as utils from "@src/tools/utils";
 import {
-  MockLessonScreenParams,
-  MockListScreenParams,
-  MockMultipleChoiceOptions,
+  MOCK_LESSON_SCREEN_PARAMS,
+  MOCK_LIST_SCREEN_PARAMS,
+  MOCK_MULTIPLE_CHOICE_OPTIONS,
 } from "./data";
 import stargazerConfig from "./StargazerRouteConfig";
 
@@ -16,8 +16,8 @@ global.React = React; // tslint:disable-line
  * Catch all mock navigation params.
  */
 const params = {
-  ...MockLessonScreenParams,
-  ...MockListScreenParams,
+  ...MOCK_LESSON_SCREEN_PARAMS,
+  ...MOCK_LIST_SCREEN_PARAMS,
 };
 
 /**
@@ -48,7 +48,7 @@ describe("App Screen Components", () => {
    * Mock this function for the test environment.
    */
   const spy = jest.spyOn(utils, "getAlternateChoices");
-  spy.mockReturnValue(MockMultipleChoiceOptions);
+  spy.mockReturnValue(MOCK_MULTIPLE_CHOICE_OPTIONS);
 
   test("Each screen component renders with props provided", () => {
     for (const config of stargazerConfig) {

@@ -14,7 +14,7 @@ import {
   Word,
 } from "@src/tools/types";
 import { createWordDictionaryFromLessons } from "@src/tools/utils";
-import lessonData from "./tools/lessonData";
+import { MOCK_LESSON_DATA } from "./tools/lessonData";
 
 /** ========================================================================
  * Words/Lessons Mock Data
@@ -29,7 +29,7 @@ export const MOCK_WORD: Word = {
   english_alternate_choices: [""],
 };
 
-export const WORD_SET: ReadonlyArray<Word> = [
+export const MOCK_WORD_SET: ReadonlyArray<Word> = [
   {
     simplified: "啊",
     traditional: "啊",
@@ -114,7 +114,7 @@ export const DEFAULT_SCORE_STATE = {
  * =========================================================================
  */
 
-const GoogleUser = {
+const MOCK_GOOGLE_USER = {
   email: "sean.smith.2009@gmail.com",
   familyName: "Smith",
   givenName: "Sean",
@@ -122,34 +122,36 @@ const GoogleUser = {
   name: "Seanie X",
 };
 
-const MockLessonBase: ReadonlyArray<Word> = lessonData;
+const MOCK_LESSON_BASE: ReadonlyArray<Word> = MOCK_LESSON_DATA;
 
-export const MockMultipleChoiceOptions = lessonData.slice(0, 4);
+export const MOCK_MULTIPLE_CHOICE_OPTIONS = MOCK_LESSON_DATA.slice(0, 4);
 
 /**
  * Truncate the mock lessons in the test environment to avoid issues with the
  * QuizScreen randomly selected a word index.
  */
-const MockLesson =
-  process.env.NODE_ENV === "test" ? MockLessonBase.slice(0, 1) : MockLessonBase;
+const MOCK_LESSON =
+  process.env.NODE_ENV === "test"
+    ? MOCK_LESSON_BASE.slice(0, 1)
+    : MOCK_LESSON_BASE;
 
-const MockLessons: ReadonlyArray<HSKList> = [
+const MOCK_LESSONS: ReadonlyArray<HSKList> = [
   {
     list: "1-2",
-    content: MockLesson,
+    content: MOCK_LESSON,
   },
   {
     list: "3",
-    content: MockLesson,
+    content: MOCK_LESSON,
   },
 ];
 
-export const MockGlobalStateProps: GlobalStateContextProps = {
-  user: GoogleUser,
-  lessons: MockLessons,
+export const MOCK_GLOBAL_STATE_PROPS: GlobalStateContextProps = {
+  user: MOCK_GOOGLE_USER,
+  lessons: MOCK_LESSONS,
   userScoreStatus: DEFAULT_SCORE_STATE,
   experience: 54234,
-  wordDictionary: createWordDictionaryFromLessons(MockLessons),
+  wordDictionary: createWordDictionaryFromLessons(MOCK_LESSONS),
   languageSetting: APP_LANGUAGE_SETTING.SIMPLIFIED,
   appDifficultySetting: APP_DIFFICULTY_SETTING.EASY,
   setToastMessage: (toastMessage: string) => {
@@ -180,7 +182,7 @@ export const MockGlobalStateProps: GlobalStateContextProps = {
  * =========================================================================
  */
 
-export const MockSoundRecordingProps: SoundRecordingProps = {
+export const MOCK_SOUND_RECORDING_PROPS: SoundRecordingProps = {
   playbackError: false,
   loadingSoundData: false,
   audioMetadataCache: {},
@@ -197,15 +199,15 @@ export const MockSoundRecordingProps: SoundRecordingProps = {
  * =========================================================================
  */
 
-export const MockListScreenParams: ListScreenParams = {
+export const MOCK_LIST_SCREEN_PARAMS: ListScreenParams = {
   listKey: "1-2",
-  hskList: [MockLesson],
+  hskList: [MOCK_LESSON],
   listIndex: 0,
   type: "LESSON",
 };
 
-export const MockLessonScreenParams: LessonScreenParams = {
-  lesson: MockLesson,
+export const MOCK_LESSON_SCREEN_PARAMS: LessonScreenParams = {
+  lesson: MOCK_LESSON,
   listIndex: 0,
   lessonIndex: 0,
   isFinalLesson: false,

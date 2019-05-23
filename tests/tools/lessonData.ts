@@ -1,4 +1,6 @@
-export default [
+import { Word } from "@src/tools/types";
+
+export const MOCK_LESSON_DATA: ReadonlyArray<Word> = [
   {
     simplified: "我",
     traditional: "我",

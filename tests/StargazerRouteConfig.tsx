@@ -1,4 +1,5 @@
 import React from "react";
+import { StargazerRouteConfigObject } from "react-native-stargazer";
 import { NavigationScreenProp } from "react-navigation";
 
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
@@ -15,13 +16,12 @@ import { SettingsScreenComponent } from "@src/screens/SettingsScreen";
 import { TranslationScreenComponent } from "@src/screens/TranslationScreen";
 import { ViewAllScreenComponent } from "@src/screens/ViewAllScreen";
 import { LessonScreenParams, ListScreenParams } from "@src/tools/types";
-import { StargazerRouteConfigObject } from "react-native-stargazer";
 import {
-  MockGlobalStateProps,
-  MockLessonScreenParams,
-  MockListScreenParams,
-  MockSoundRecordingProps,
-} from "./data";
+  MOCK_GLOBAL_STATE_PROPS,
+  MOCK_LESSON_SCREEN_PARAMS,
+  MOCK_LIST_SCREEN_PARAMS,
+  MOCK_SOUND_RECORDING_PROPS,
+} from "@tests/data";
 
 /** ========================================================================
  * Stargazer Route Config
@@ -43,7 +43,7 @@ const stargazerConfig: ReadonlyArray<StargazerRouteConfigObject> = [
     screen: (props: StargazerRouteProps) => (
       <GoogleSigninScreenComponent
         navigation={props.navigation}
-        {...MockGlobalStateProps}
+        {...MOCK_GLOBAL_STATE_PROPS}
       />
     ),
   },
@@ -53,10 +53,10 @@ const stargazerConfig: ReadonlyArray<StargazerRouteConfigObject> = [
     screen: (props: StargazerRouteProps) => (
       <HomeScreenComponent
         navigation={props.navigation}
-        {...MockGlobalStateProps}
+        {...MOCK_GLOBAL_STATE_PROPS}
       />
     ),
-    paramsForNextScreen: MockLessonScreenParams,
+    paramsForNextScreen: MOCK_LESSON_SCREEN_PARAMS,
   },
   {
     name: "Lesson Summary Screen",
@@ -64,11 +64,11 @@ const stargazerConfig: ReadonlyArray<StargazerRouteConfigObject> = [
     screen: (props: StargazerRouteProps<LessonScreenParams>) => (
       <LessonSummaryScreenComponent
         navigation={props.navigation}
-        {...MockGlobalStateProps}
-        {...MockSoundRecordingProps}
+        {...MOCK_GLOBAL_STATE_PROPS}
+        {...MOCK_SOUND_RECORDING_PROPS}
       />
     ),
-    paramsForNextScreen: MockListScreenParams,
+    paramsForNextScreen: MOCK_LIST_SCREEN_PARAMS,
   },
   {
     name: "List Summary Screen",
@@ -76,11 +76,11 @@ const stargazerConfig: ReadonlyArray<StargazerRouteConfigObject> = [
     screen: (props: StargazerRouteProps<ListScreenParams>) => (
       <ListSummaryScreenComponent
         navigation={props.navigation}
-        {...MockGlobalStateProps}
-        {...MockSoundRecordingProps}
+        {...MOCK_GLOBAL_STATE_PROPS}
+        {...MOCK_SOUND_RECORDING_PROPS}
       />
     ),
-    paramsForNextScreen: MockLessonScreenParams,
+    paramsForNextScreen: MOCK_LESSON_SCREEN_PARAMS,
   },
   {
     name: "English Multiple Choice",
@@ -89,11 +89,11 @@ const stargazerConfig: ReadonlyArray<StargazerRouteConfigObject> = [
       <QuizScreenComponent
         navigation={props.navigation}
         quizType={QUIZ_TYPE.ENGLISH}
-        {...MockGlobalStateProps}
-        {...MockSoundRecordingProps}
+        {...MOCK_GLOBAL_STATE_PROPS}
+        {...MOCK_SOUND_RECORDING_PROPS}
       />
     ),
-    paramsForNextScreen: MockLessonScreenParams,
+    paramsForNextScreen: MOCK_LESSON_SCREEN_PARAMS,
   },
   {
     name: "Chinese Multiple Choice",
@@ -102,11 +102,11 @@ const stargazerConfig: ReadonlyArray<StargazerRouteConfigObject> = [
       <QuizScreenComponent
         navigation={props.navigation}
         quizType={QUIZ_TYPE.MANDARIN}
-        {...MockGlobalStateProps}
-        {...MockSoundRecordingProps}
+        {...MOCK_GLOBAL_STATE_PROPS}
+        {...MOCK_SOUND_RECORDING_PROPS}
       />
     ),
-    paramsForNextScreen: MockLessonScreenParams,
+    paramsForNextScreen: MOCK_LESSON_SCREEN_PARAMS,
   },
   {
     name: "Audio Multiple Choice",
@@ -115,11 +115,11 @@ const stargazerConfig: ReadonlyArray<StargazerRouteConfigObject> = [
       <QuizScreenComponent
         navigation={props.navigation}
         quizType={QUIZ_TYPE.PRONUNCIATION}
-        {...MockGlobalStateProps}
-        {...MockSoundRecordingProps}
+        {...MOCK_GLOBAL_STATE_PROPS}
+        {...MOCK_SOUND_RECORDING_PROPS}
       />
     ),
-    paramsForNextScreen: MockLessonScreenParams,
+    paramsForNextScreen: MOCK_LESSON_SCREEN_PARAMS,
   },
   {
     name: "Characters Quiz",
@@ -128,11 +128,11 @@ const stargazerConfig: ReadonlyArray<StargazerRouteConfigObject> = [
       <QuizScreenComponent
         navigation={props.navigation}
         quizType={QUIZ_TYPE.QUIZ_TEXT}
-        {...MockGlobalStateProps}
-        {...MockSoundRecordingProps}
+        {...MOCK_GLOBAL_STATE_PROPS}
+        {...MOCK_SOUND_RECORDING_PROPS}
       />
     ),
-    paramsForNextScreen: MockLessonScreenParams,
+    paramsForNextScreen: MOCK_LESSON_SCREEN_PARAMS,
   },
   {
     name: "Flashcards Screen",
@@ -140,10 +140,10 @@ const stargazerConfig: ReadonlyArray<StargazerRouteConfigObject> = [
     screen: (props: StargazerRouteProps<LessonScreenParams>) => (
       <FlashcardsScreenComponent
         navigation={props.navigation}
-        {...MockGlobalStateProps}
+        {...MOCK_GLOBAL_STATE_PROPS}
       />
     ),
-    paramsForNextScreen: MockLessonScreenParams,
+    paramsForNextScreen: MOCK_LESSON_SCREEN_PARAMS,
   },
   {
     name: "View All Screen",
@@ -151,8 +151,8 @@ const stargazerConfig: ReadonlyArray<StargazerRouteConfigObject> = [
     screen: (props: StargazerRouteProps<LessonScreenParams>) => (
       <ViewAllScreenComponent
         navigation={props.navigation}
-        {...MockGlobalStateProps}
-        {...MockSoundRecordingProps}
+        {...MOCK_GLOBAL_STATE_PROPS}
+        {...MOCK_SOUND_RECORDING_PROPS}
       />
     ),
   },
@@ -162,7 +162,7 @@ const stargazerConfig: ReadonlyArray<StargazerRouteConfigObject> = [
     screen: (props: StargazerRouteProps) => (
       <TranslationScreenComponent
         navigation={props.navigation}
-        {...MockGlobalStateProps}
+        {...MOCK_GLOBAL_STATE_PROPS}
       />
     ),
   },
@@ -172,7 +172,7 @@ const stargazerConfig: ReadonlyArray<StargazerRouteConfigObject> = [
     screen: (props: StargazerRouteProps) => (
       <SettingsScreenComponent
         navigation={props.navigation}
-        {...MockGlobalStateProps}
+        {...MOCK_GLOBAL_STATE_PROPS}
       />
     ),
   },
@@ -189,7 +189,7 @@ const stargazerConfig: ReadonlyArray<StargazerRouteConfigObject> = [
     screen: (props: StargazerRouteProps) => (
       <ContactScreenComponent
         navigation={props.navigation}
-        {...MockGlobalStateProps}
+        {...MOCK_GLOBAL_STATE_PROPS}
       />
     ),
   },
