@@ -9,7 +9,6 @@ import {
   TransparentLoadingComponent,
 } from "@src/components/LoadingComponent";
 import { CustomToast } from "@src/components/ToastComponent";
-import { DEFAULT_SCORE_STATE } from "@src/constants/Scores";
 import createAppNavigator from "@src/NavigatorConfig";
 import GlobalContext, {
   APP_DIFFICULTY_SETTING,
@@ -37,6 +36,7 @@ import {
   formatUserLanguageSetting,
   getAlternateLanguageSetting,
 } from "@src/tools/utils";
+import { DEFAULT_SCORE_STATE } from "@tests/data";
 
 /** ========================================================================
  * Types

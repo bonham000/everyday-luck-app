@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`utils getListScoreKeyFromIndex 1`] = `"list_02_score"`;
+
+exports[`utils getListScoreKeyFromIndex 2`] = `"list_03_score"`;
+
+exports[`utils getListScoreKeyFromIndex 3`] = `"list_04_score"`;
+
+exports[`utils getListScoreKeyFromIndex 4`] = `"list_05_score"`;
+
+exports[`utils getListScoreKeyFromIndex 5`] = `"list_06_score"`;
+
+exports[`utils mapWordsForList 1`] = `
+Object {
+  "english": "aunt",
+  "english_alternate_choices": Array [
+    "",
+  ],
+  "key": "阿姨",
+  "pinyin": "āyí",
+  "simplified": "阿姨",
+  "traditional": "阿姨",
+}
+`;
+
+exports[`utils resetNavigation 1`] = `
+Object {
+  "actions": Array [
+    Object {
+      "routeName": "HOME",
+      "type": "Navigation/NAVIGATE",
+    },
+  ],
+  "index": 0,
+  "type": "Navigation/RESET",
+}
+`;

@@ -1,4 +1,3 @@
-import { DEFAULT_SCORE_STATE } from "@src/constants/Scores";
 import {
   APP_DIFFICULTY_SETTING,
   APP_LANGUAGE_SETTING,
@@ -16,6 +15,99 @@ import {
 } from "@src/tools/types";
 import { createWordDictionaryFromLessons } from "@src/tools/utils";
 import lessonData from "./tools/lessonData";
+
+/** ========================================================================
+ * Words/Lessons Mock Data
+ * =========================================================================
+ */
+
+export const MOCK_WORD: Word = {
+  simplified: "阿姨",
+  traditional: "阿姨",
+  pinyin: "āyí",
+  english: "aunt",
+  english_alternate_choices: [""],
+};
+
+export const WORD_SET: ReadonlyArray<Word> = [
+  {
+    simplified: "啊",
+    traditional: "啊",
+    pinyin: "a",
+    english: "ah",
+    english_alternate_choices: [""],
+  },
+  {
+    simplified: "矮",
+    traditional: "矮",
+    pinyin: "ǎi",
+    english: "short",
+    english_alternate_choices: [""],
+  },
+  {
+    simplified: "爱好",
+    traditional: "愛好",
+    pinyin: "àihào",
+    english: "hobby",
+    english_alternate_choices: [""],
+  },
+  {
+    simplified: "安静",
+    traditional: "安靜",
+    pinyin: "ānjìng",
+    english: "Be quiet",
+    english_alternate_choices: [""],
+  },
+  {
+    simplified: "把",
+    traditional: "把",
+    pinyin: "bǎ",
+    english: "hold",
+    english_alternate_choices: [""],
+  },
+];
+
+/** ========================================================================
+ * User Score Status
+ * =========================================================================
+ */
+
+export const DEFAULT_SCORE_STATE = {
+  mc_english: false,
+  mc_mandarin: false,
+  quiz_text: false,
+  mandarin_pronunciation: false,
+  list_02_score: {
+    complete: false,
+    list_index: 0,
+    list_key: "1-2",
+    number_words_completed: 0,
+  },
+  list_03_score: {
+    complete: false,
+    list_index: 1,
+    list_key: "3",
+    number_words_completed: 0,
+  },
+  list_04_score: {
+    complete: false,
+    list_index: 2,
+    list_key: "4",
+    number_words_completed: 0,
+  },
+  list_05_score: {
+    complete: false,
+    list_index: 3,
+    list_key: "5",
+    number_words_completed: 0,
+  },
+  list_06_score: {
+    complete: false,
+    list_index: 4,
+    list_key: "6",
+    number_words_completed: 0,
+  },
+};
 
 /** ========================================================================
  * Global State
