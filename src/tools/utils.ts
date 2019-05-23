@@ -516,18 +516,6 @@ export const createWordDictionaryFromLessons = (
 };
 
 /**
- * Arbitrary delay function to pause for some given time.
- *
- * @param time to delay
- * @returns execution after the given delay has occurred
- */
-export const delay = (time: number = 500) => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => resolve("delayed!"), time);
-  });
-};
-
-/**
  * Get the lesson size for the given app difficulty setting.
  *
  * @param setting current app difficulty setting

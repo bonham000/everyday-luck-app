@@ -1,7 +1,14 @@
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
-import { APP_LANGUAGE_SETTING } from "@src/providers/GlobalStateContext";
 import {
+  APP_DIFFICULTY_SETTING,
+  APP_LANGUAGE_SETTING,
+} from "@src/providers/GlobalStateContext";
+import {
+  capitalize,
+  convertAppDifficultyToLessonSize,
   formatUserLanguageSetting,
+  getAlternateLanguageSetting,
+  getAudioFileUrl,
   getListScoreKeyFromIndex,
   isLessonComplete,
   mapWordsForList,
@@ -52,5 +59,50 @@ describe("utils", () => {
     expect(
       formatUserLanguageSetting(APP_LANGUAGE_SETTING.TRADITIONAL),
     ).toMatchInlineSnapshot(`"Traditional Chinese"`);
+  });
+
+  test("getAlternateLanguageSetting", () => {
+    expect(getAlternateLanguageSetting(APP_LANGUAGE_SETTING.TRADITIONAL)).toBe(
+      APP_LANGUAGE_SETTING.SIMPLIFIED,
+    );
+    expect(getAlternateLanguageSetting(APP_LANGUAGE_SETTING.SIMPLIFIED)).toBe(
+      APP_LANGUAGE_SETTING.TRADITIONAL,
+    );
+  });
+
+  test("getAudioFileUrl", () => {
+    let result = getAudioFileUrl("我-1");
+    expect(result).toMatchInlineSnapshot(
+      `"http://localhost:8000/static/%E6%88%91-1.mp3"`,
+    );
+
+    result = getAudioFileUrl("蛋糕-5");
+    expect(result).toMatchInlineSnapshot(
+      `"http://localhost:8000/static/%E8%9B%8B%E7%B3%95-5.mp3"`,
+    );
+
+    result = getAudioFileUrl("對不起-3");
+    expect(result).toMatchInlineSnapshot(
+      `"http://localhost:8000/static/%E5%B0%8D%E4%B8%8D%E8%B5%B7-3.mp3"`,
+    );
+  });
+
+  test("convertAppDifficultyToLessonSize", () => {
+    expect(
+      convertAppDifficultyToLessonSize(APP_DIFFICULTY_SETTING.EASY),
+    ).toMatchInlineSnapshot(`10`);
+    expect(
+      convertAppDifficultyToLessonSize(APP_DIFFICULTY_SETTING.MEDIUM),
+    ).toMatchInlineSnapshot(`20`);
+    expect(
+      convertAppDifficultyToLessonSize(APP_DIFFICULTY_SETTING.HARD),
+    ).toMatchInlineSnapshot(`30`);
+  });
+
+  test("capitalize", () => {
+    expect(capitalize("hello hello hello")).toBe("Hello hello hello");
+    expect(capitalize("Hello HELLO HELLO")).toBe("Hello hello hello");
+    expect(capitalize("HELLO hello hello")).toBe("Hello hello hello");
+    expect(capitalize("hELLO hello hello")).toBe("Hello hello hello");
   });
 });

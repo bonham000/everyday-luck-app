@@ -10,7 +10,7 @@ import {
   ResultType,
   SoundFileResponse,
 } from "@src/tools/types";
-import { delay, flattenLessonSet } from "@src/tools/utils";
+import { flattenLessonSet } from "@src/tools/utils";
 
 /** ========================================================================
  * Download Queue to handle downloading mp3 files
@@ -255,4 +255,16 @@ export const createAudioDirectoryIfNotExists = () => {
       throw err;
     }
   }
+};
+
+/**
+ * Arbitrary delay function to pause for some given time.
+ *
+ * @param time to delay
+ * @returns execution after the given delay has occurred
+ */
+export const delay = (time: number = 500) => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => resolve("delayed!"), time);
+  });
 };
