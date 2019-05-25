@@ -8,7 +8,7 @@ import {
   updateUserExperience,
   updateUserScores,
 } from "@src/tools/api";
-import { UserResponse } from "@src/tools/types";
+import { UserAsyncResponse } from "@src/tools/types";
 import { assertUnreachable } from "@src/tools/utils";
 import { AsyncStorage } from "react-native";
 
@@ -115,7 +115,7 @@ export const createSerializedUserScoresHandler = (
  */
 export const deserializeAndRunRequest = async (
   serializedRequest: GenericRequestHandler,
-): UserResponse => {
+): UserAsyncResponse => {
   switch (serializedRequest.type) {
     case REQUEST_HANDLER_TYPE.APP_DIFFICULTY:
       return updateAppDifficultySetting(

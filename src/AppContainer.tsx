@@ -47,6 +47,7 @@ import {
   formatUserLanguageSetting,
   getAlternateLanguageSetting,
   isNetworkConnected,
+  transformGoogleSignInResultToUserData,
   transformUserToLocalUserData,
 } from "@src/tools/utils";
 import { DEFAULT_SCORE_STATE } from "@tests/data";
@@ -148,21 +149,31 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
     this.setState({ appState: nextAppState });
   };
 
-  handleAppBackgroundingEvent = async () => {
-    const { offlineRequestQueue } = this.state;
-    if (offlineRequestQueue.length) {
-      console.log("App backgrounded... serializing request queue data");
-      await serializeRequestQueue(offlineRequestQueue);
-    }
-  };
-
   handleAppForegroundingEvent = () => {
     this.checkForAppUpdate();
   };
 
+  handleAppBackgroundingEvent = async () => {
+    // Handle any app backgrounding side effects here
+  };
+
+  serializeAndPersistAppState = async () => {
+    console.log("Serializing app state");
+    const { offlineRequestQueue } = this.state;
+    if (offlineRequestQueue.length) {
+      await serializeRequestQueue(offlineRequestQueue);
+    }
+    await this.serializeAndPersistUser();
+  };
+
   handlingRestoringOfflineRequestQueue = async () => {
     const queue = await deserializeRequestQueue();
-
+    /**
+     * If app is online enqueue and process all the stored requests.
+     *
+     * Otherwise, just add them to local state to be processed whenever network
+     * connectivity is restored.
+     */
     if (this.state.networkConnected) {
       if (queue.length) {
         console.log("Queued requests found and app online - processing now");
@@ -198,6 +209,9 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
   };
 
   maybeProcessOfflineRequests = async () => {
+    /**
+     * Dequeue and process any requests if they exist.
+     */
     const { offlineRequestQueue } = this.state;
     if (offlineRequestQueue.length) {
       this.setToastMessage(
@@ -230,25 +244,8 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
     if (callbackOnCompletion) {
       callbackOnCompletion();
     }
-  };
 
-  checkForAppUpdate = async (): Promise<void> => {
-    try {
-      const { isAvailable } = await Updates.checkForUpdateAsync();
-      if (isAvailable) {
-        Alert.alert(
-          "Update Available!",
-          "Confirm to update now 🛰",
-          [
-            { text: "Cancel", onPress: () => null, style: "cancel" },
-            { text: "OK", onPress: this.updateApp },
-          ],
-          { cancelable: false },
-        );
-      }
-    } catch (err) {
-      return;
-    }
+    this.serializeAndPersistAppState();
   };
 
   serializeAndPersistUser = async () => {
@@ -271,6 +268,25 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
         userScoreStatus: maybePersistedUser.score_history,
         appDifficultySetting: maybePersistedUser.app_difficulty_setting,
       });
+    }
+  };
+
+  checkForAppUpdate = async (): Promise<void> => {
+    try {
+      const { isAvailable } = await Updates.checkForUpdateAsync();
+      if (isAvailable) {
+        Alert.alert(
+          "Update Available!",
+          "Confirm to update now 🛰",
+          [
+            { text: "Cancel", onPress: () => null, style: "cancel" },
+            { text: "OK", onPress: this.updateApp },
+          ],
+          { cancelable: false },
+        );
+      }
+    } catch (err) {
+      return;
     }
   };
 
@@ -356,10 +372,9 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
 }
 
 /** ========================================================================
- * React Class
+ * Main App Class
  * =========================================================================
  */
-
 class RootContainer extends RootContainerBase<{}> {
   async componentDidMount(): Promise<void> {
     this.getInitialScoreState();
@@ -421,7 +436,7 @@ class RootContainer extends RootContainerBase<{}> {
     this.clearTimer();
   }
 
-  render(): JSX.Element | null {
+  render(): JSX.Element {
     const {
       user,
       error,
@@ -441,8 +456,6 @@ class RootContainer extends RootContainerBase<{}> {
       return <LoadingComponent />;
     }
 
-    const lessonSet = lessons as HSKListSet;
-
     return (
       <View style={{ flex: 1 }}>
         {transparentLoading && <TransparentLoadingComponent />}
@@ -453,11 +466,11 @@ class RootContainer extends RootContainerBase<{}> {
         <GlobalContext.Provider
           value={{
             user,
+            lessons,
             experience,
             wordDictionary,
             languageSetting,
             userScoreStatus,
-            lessons: lessonSet,
             appDifficultySetting,
             onSignin: this.handleSignin,
             setLessonScore: this.setLessonScore,
@@ -508,24 +521,28 @@ class RootContainer extends RootContainerBase<{}> {
     const maybePersistedUser = await getPersistedUser();
     if (maybePersistedUser && maybePersistedUser.email) {
       /**
-       * Restore user:
+       * Restore user session:
        *
        * - fetch from server if network is isConnected
        * - otherwise try to restore from local data
        */
       if (this.state.networkConnected) {
-        const user = await findOrCreateUser(maybePersistedUser.email);
+        const user = await findOrCreateUser(maybePersistedUser);
         if (user) {
           this.setState({
             loading: false,
             transparentLoading: false,
             user: transformUserToLocalUserData(user),
             experience: user.experience_points,
-            userScoreStatus: user.score_history,
+            userScoreStatus: JSON.parse(user.score_history),
             appDifficultySetting: user.app_difficulty_setting,
           });
         }
       } else {
+        /**
+         * Fallback to local user data, if it exists. This allows the app
+         * to be used offline.
+         */
         this.setupUserSessionFromPersistedUserData(maybePersistedUser);
       }
     }
@@ -537,8 +554,14 @@ class RootContainer extends RootContainerBase<{}> {
   };
 
   handleSignin = async (user: GoogleSigninUser) => {
+    /**
+     * Transform received user data from Google and find or create the associated
+     * user on the app server. If the user data doesn't exist or is invalid, throw
+     * an error which will be caught and handled by the GoogleSigninScreen.
+     */
     if (user && user.email) {
-      const userResult = await findOrCreateUser(user.email);
+      const userData = transformGoogleSignInResultToUserData(user);
+      const userResult = await findOrCreateUser(userData);
       if (userResult) {
         this.setState(
           {
@@ -546,10 +569,11 @@ class RootContainer extends RootContainerBase<{}> {
           },
           this.serializeAndPersistUser,
         );
+      } else {
+        throw new Error("Failed to initialize user");
       }
     } else {
-      // TODO: Handle missing email...
-      console.log("User found with no email...");
+      throw new Error("Failed to initialize user");
     }
   };
 
@@ -612,6 +636,11 @@ class RootContainer extends RootContainerBase<{}> {
   };
 
   requestMiddlewareHandler = async (serializedRequestData: RequestQueue) => {
+    /**
+     * Top level handler for network request updates. If the app is online, the request
+     * is made. Otherwise, the request is enqueue to be processed later when network
+     * connectivity is reestablished.
+     */
     if (this.state.networkConnected) {
       this.processRequestQueue(serializedRequestData);
     } else {
@@ -657,24 +686,23 @@ class RootContainer extends RootContainerBase<{}> {
               transparentLoading: false,
               userScoreStatus: DEFAULT_SCORE_STATE,
             },
-            () => {
-              const { user } = this.state;
-              if (user && user.uuid) {
-                const userId = user.uuid;
-                this.setToastMessage("Scores reset!");
-                this.requestMiddlewareHandler([
-                  createSerializedUserExperienceHandler(userId, 0),
-                  createSerializedUserScoresHandler(
-                    userId,
-                    DEFAULT_SCORE_STATE,
-                  ),
-                ]);
-              }
-            },
+            this.handleResetScoresSuccess,
           );
         }, 1250);
       },
     );
+  };
+
+  handleResetScoresSuccess = async () => {
+    const { user } = this.state;
+    if (user && user.uuid) {
+      const userId = user.uuid;
+      this.setToastMessage("Scores reset!");
+      this.requestMiddlewareHandler([
+        createSerializedUserExperienceHandler(userId, 0),
+        createSerializedUserScoresHandler(userId, DEFAULT_SCORE_STATE),
+      ]);
+    }
   };
 
   handleSwitchLanguage = () => {

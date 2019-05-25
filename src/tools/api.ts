@@ -14,8 +14,9 @@ import {
   Result,
   ResultType,
   SoundFileResponse,
-  User,
-  UserResponse,
+  UserAsyncResponse,
+  UserDataBase,
+  UserJson,
 } from "@src/tools/types";
 
 /** ========================================================================
@@ -26,11 +27,14 @@ import {
 /**
  * Find or create a user given their email.
  */
-export const findOrCreateUser = async (email: string): UserResponse => {
+export const findOrCreateUser = async (
+  user: UserDataBase,
+): UserAsyncResponse => {
   try {
-    const result = await axios.post<User>(`${CONFIG.DRAGON_URI}/users`, {
-      email,
-    });
+    const result = await axios.post<UserJson>(
+      `${CONFIG.DRAGON_URI}/users`,
+      user,
+    );
     return result.data;
   } catch (err) {
     console.log("Error fetching user: ", err);
@@ -44,9 +48,9 @@ export const findOrCreateUser = async (email: string): UserResponse => {
 export const updateUserScores = async (
   userId: string,
   userScores: ScoreStatus,
-): UserResponse => {
+): UserAsyncResponse => {
   try {
-    const result = await axios.post<User>(
+    const result = await axios.post<UserJson>(
       `${CONFIG.DRAGON_URI}/set-scores/${userId}`,
       userScores,
     );
@@ -63,9 +67,9 @@ export const updateUserScores = async (
 export const updateUserExperience = async (
   userId: string,
   userExperience: number,
-): UserResponse => {
+): UserAsyncResponse => {
   try {
-    const result = await axios.post<User>(
+    const result = await axios.post<UserJson>(
       `${CONFIG.DRAGON_URI}/experience/${userId}`,
       {
         experience_points: String(userExperience),
@@ -84,9 +88,9 @@ export const updateUserExperience = async (
 export const updateAppDifficultySetting = async (
   userId: string,
   appDifficultySetting: APP_DIFFICULTY_SETTING,
-): UserResponse => {
+): UserAsyncResponse => {
   try {
-    const result = await axios.post<User>(
+    const result = await axios.post<UserJson>(
       `${CONFIG.DRAGON_URI}/difficulty/${userId}`,
       { app_difficulty_setting: appDifficultySetting },
     );

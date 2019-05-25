@@ -19,6 +19,7 @@ import { convertChineseToPinyin, fetchWordTranslation } from "@src/tools/api";
 import CONFIG from "@src/tools/config";
 import {
   ENGLISH,
+  GoogleSigninUser,
   HSKListSet,
   languageCode,
   Lesson,
@@ -29,6 +30,8 @@ import {
   TranslationsData,
   User,
   UserData,
+  UserDataBase,
+  UserJson,
   Word,
 } from "@src/tools/types";
 import { ConnectionInfo } from "react-native";
@@ -670,7 +673,30 @@ export const isNetworkConnected = (type: ConnectionInfo["type"]): boolean => {
  * @param user `User` data
  * returns `UserData` formatted user data
  */
-export const transformUserToLocalUserData = (user: User): UserData => {
+export const transformGoogleSignInResultToUserData = (
+  user: GoogleSigninUser,
+): UserDataBase => {
+  const userData: UserDataBase = {
+    email: user.email,
+    name: user.name,
+    family_name: user.familyName,
+    given_name: user.givenName,
+    photo_url: user.photoUrl,
+  };
+
+  return userData;
+};
+
+/**
+ * Extract the specific properties from the full user data to store
+ * on the local user data.
+ *
+ * @param user `User` data
+ * returns `UserData` formatted user data
+ */
+export const transformUserToLocalUserData = (
+  user: UserJson | User,
+): UserData => {
   const userData: UserData = {
     uuid: user.uuid,
     email: user.email,

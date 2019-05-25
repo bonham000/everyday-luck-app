@@ -61,8 +61,7 @@ export interface GoogleSigninUser {
   photoUrl?: string;
 }
 
-export interface UserData {
-  uuid: string;
+export interface UserDataBase {
   email: string;
   name: string;
   family_name: string;
@@ -70,7 +69,11 @@ export interface UserData {
   photo_url?: string;
 }
 
-export interface User {
+export interface UserData extends UserDataBase {
+  uuid: string;
+}
+
+export interface BaseUser {
   uuid: string;
   email: string;
   name: string;
@@ -78,11 +81,18 @@ export interface User {
   given_name: string;
   photo_url?: string;
   experience_points: number;
-  score_history: ScoreStatus;
   app_difficulty_setting: APP_DIFFICULTY_SETTING;
 }
 
-export type UserResponse = Promise<User | undefined>;
+export interface UserJson extends BaseUser {
+  score_history: string;
+}
+
+export interface User extends BaseUser {
+  score_history: ScoreStatus;
+}
+
+export type UserAsyncResponse = Promise<UserJson | undefined>;
 
 /** ========================================================================
  * Global App Types
