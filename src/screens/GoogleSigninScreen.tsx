@@ -12,8 +12,8 @@ import {
   GlobalStateContextProps,
   withGlobalStateContext,
 } from "@src/providers/GlobalStateProvider";
+import { saveLocalUser } from "@src/tools/async-store";
 import CONFIG from "@src/tools/config";
-import { saveLocalUser } from "@src/tools/store";
 import { resetNavigation } from "@src/tools/utils";
 
 /** ========================================================================

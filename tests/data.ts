@@ -5,7 +5,7 @@ import {
 } from "@src/providers/GlobalStateContext";
 import { GlobalStateContextProps } from "@src/providers/GlobalStateProvider";
 import { SoundRecordingProps } from "@src/providers/SoundRecordingProvider";
-import { GoogleSigninUser } from "@src/tools/store";
+import { GoogleSigninUser } from "@src/tools/async-store";
 import {
   HSKList,
   Lesson,

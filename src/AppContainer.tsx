@@ -27,18 +27,20 @@ import { GlobalStateValues } from "@src/providers/GlobalStateProvider";
 import SoundRecordingProvider from "@src/providers/SoundRecordingProvider";
 import { fetchLessonSet, findOrCreateUser } from "@src/tools/api";
 import {
-  createSerializedAppDifficultyHandler,
-  createSerializedUserExperienceHandler,
-  createSerializedUserScoresHandler,
-  deserializeAndRunRequest,
-  GenericRequestHandler,
-} from "@src/tools/offline-utils";
-import {
   getAppLanguageSetting,
   getLocalUser,
   GoogleSigninUser,
   setAppLanguageSetting,
-} from "@src/tools/store";
+} from "@src/tools/async-store";
+import {
+  createSerializedAppDifficultyHandler,
+  createSerializedUserExperienceHandler,
+  createSerializedUserScoresHandler,
+  deserializeAndRunRequest,
+  deserializeRequestQueue,
+  GenericRequestHandler,
+  serializeRequestQueue,
+} from "@src/tools/offline-utils";
 import { HSKListSet } from "@src/tools/types";
 import {
   createWordDictionaryFromLessons,
@@ -114,11 +116,13 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
      * Get initial network state and add a listener for network changes.
      */
     const networkState = await NetInfo.getConnectionInfo();
-    this.setState({
-      networkConnected: isNetworkConnected(networkState.type),
-    });
+    this.setState(
+      {
+        networkConnected: isNetworkConnected(networkState.type),
+      },
+      this.restoreRequestQueueIfExists,
+    );
 
-    console.log(networkState);
     console.log(
       `Initial network state: ${isNetworkConnected(networkState.type)}`,
     );
@@ -128,6 +132,23 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
       "connectionChange",
       this.handleConnectivityChange,
     );
+  };
+
+  restoreRequestQueueIfExists = async () => {
+    const queue = await deserializeRequestQueue();
+    if (queue.length) {
+      if (this.state.networkConnected) {
+        console.log("Queued requests found and app online - processing now");
+        this.processRequestQueue(queue);
+      } else {
+        console.log(
+          "Queued requests found and app offline - enqueueing to process later",
+        );
+        this.setState({
+          offlineRequestQueue: queue,
+        });
+      }
+    }
   };
 
   handleAppStateChange = (nextAppState: string) => {
@@ -144,7 +165,11 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
   };
 
   handleAppBackgroundingEvent = async () => {
-    console.log("App backgrounded...");
+    const { offlineRequestQueue } = this.state;
+    if (offlineRequestQueue.length) {
+      console.log("App backgrounded... serializing request queue data");
+      await serializeRequestQueue(offlineRequestQueue);
+    }
   };
 
   handleAppForegroundingEvent = () => {
@@ -158,19 +183,24 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
         "Offline progress found. Saving updates...",
         Infinity,
       );
-      for (const serializedRequestData of offlineRequestQueue) {
-        console.log("Processing request...");
-        await deserializeAndRunRequest(serializedRequestData);
-      }
+      this.processRequestQueue(offlineRequestQueue);
       this.setState(
         {
           offlineRequestQueue: [],
         },
-        () => {
+        async () => {
+          await serializeRequestQueue([]);
           this.clearToast();
           this.setToastMessage("All progress saved!");
         },
       );
+    }
+  };
+
+  processRequestQueue = async (queue: ReadonlyArray<GenericRequestHandler>) => {
+    for (const serializedRequestData of queue) {
+      console.log("Processing request...");
+      await deserializeAndRunRequest(serializedRequestData);
     }
   };
 
@@ -397,7 +427,9 @@ class RootContainer extends RootContainerBase<{}> {
 
   getInitialScoreState = async () => {
     /**
-     * Fetch image assets
+     * Fetch image assets.
+     *
+     * TODO: Bundle this asset.
      */
     await Asset.fromModule(
       require("@src/assets/google_icon.png"),
@@ -523,10 +555,7 @@ class RootContainer extends RootContainerBase<{}> {
     serializedRequestData: ReadonlyArray<GenericRequestHandler>,
   ) => {
     if (this.state.networkConnected) {
-      console.log("Request(s) received - app online processing now");
-      for (const serializedRequest of serializedRequestData) {
-        await deserializeAndRunRequest(serializedRequest);
-      }
+      this.processRequestQueue(serializedRequestData);
     } else {
       console.log(
         "Request received - app offline, enqueueing to process later",

@@ -6,7 +6,7 @@ import GlobalStateContext, {
   ScoreStatus,
   WordDictionary,
 } from "@src/providers/GlobalStateContext";
-import { GoogleSigninUser } from "@src/tools/store";
+import { GoogleSigninUser } from "@src/tools/async-store";
 import { HSKListSet } from "@src/tools/types";
 
 /** ========================================================================

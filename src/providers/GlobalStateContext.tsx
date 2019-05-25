@@ -1,6 +1,6 @@
 import React from "react";
 
-import { GoogleSigninUser } from "@src/tools/store";
+import { GoogleSigninUser } from "@src/tools/async-store";
 import { HSKListSet, Word } from "@src/tools/types";
 
 /** ========================================================================

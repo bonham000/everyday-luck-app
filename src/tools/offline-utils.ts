@@ -1,3 +1,4 @@
+import { ASYNC_STORE_KEYS } from "@src/constants/AsyncStoreKeys";
 import {
   APP_DIFFICULTY_SETTING,
   ScoreStatus,
@@ -7,6 +8,7 @@ import {
   updateUserExperience,
   updateUserScores,
 } from "@src/tools/api";
+import { AsyncStorage } from "react-native";
 import { assertUnreachable } from "./utils";
 
 /** ========================================================================
@@ -103,5 +105,34 @@ export const deserializeAndRunRequest = async (
       );
     default:
       return assertUnreachable(serializedRequest);
+  }
+};
+
+/** ========================================================================
+ * Async Storage Helper Methods
+ * =========================================================================
+ */
+
+export const deserializeRequestQueue = async () => {
+  try {
+    const result = await AsyncStorage.getItem(
+      ASYNC_STORE_KEYS.OFFLINE_REQUEST_QUEUE,
+    );
+    return JSON.parse(result);
+  } catch (err) {
+    return;
+  }
+};
+
+export const serializeRequestQueue = async (
+  data: ReadonlyArray<GenericRequestHandler>,
+) => {
+  try {
+    await AsyncStorage.setItem(
+      ASYNC_STORE_KEYS.OFFLINE_REQUEST_QUEUE,
+      JSON.stringify(data),
+    );
+  } catch (err) {
+    return;
   }
 };
