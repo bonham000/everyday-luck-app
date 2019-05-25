@@ -312,7 +312,7 @@ export interface DeriveLessonContentArgs {
  * @param userScoreStatus user scores
  * @returns random lesson containing 25 items
  */
-export const getDailyChallengeQuizSet = (
+export const getRandomQuizChallenge = (
   args: DeriveLessonContentArgs,
 ): Lesson => {
   const quizSize = convertAppDifficultyToLessonSize(args.appDifficultySetting);

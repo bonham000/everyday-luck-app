@@ -68,7 +68,9 @@ const ROUTES: NavigationScreenRouteConfig = {
             ? `HSK List ${listIndex + 1} - Quiz ${Number(index) + 1} 🔖`
             : type === "SUMMARY"
             ? "Review All 🔮"
-            : "Daily Quiz! 🏖",
+            : type === "DAILY_QUIZ"
+            ? "Daily Quiz! 🏖"
+            : "HSL Level Challenge 🦊",
         headerBackTitle: null,
       };
     },

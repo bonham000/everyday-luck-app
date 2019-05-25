@@ -26,6 +26,7 @@ const COLORS = {
   lockedLessonBlock: "rgb(215,215,215)",
   dark: "rgb(15,15,15)",
   white: "rgb(250,250,250)",
+  lessonBlockDefault: "rgb(225,225,225)",
 
   /**
    * Background

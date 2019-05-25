@@ -44,7 +44,6 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
   render(): JSX.Element {
     const { navigation, userScoreStatus } = this.props;
     const type = navigation.getParam("type");
-    const lesson = navigation.getParam("lesson");
     const listIndex = navigation.getParam("listIndex");
     const isFinalUnlockedLesson = navigation.getParam("isFinalUnlockedLesson");
     const isLesson = type === "LESSON";
@@ -58,29 +57,16 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
       userScoreStatus,
       listIndex,
     );
+    const IS_DAILY_QUIZ = type === "DAILY_QUIZ";
+    const IS_OPT_OUT_CHALLENGE = type === "OPT_OUT_CHALLENGE";
+    const NON_RANDOM_QUIZ =
+      type !== "DAILY_QUIZ" && type !== "OPT_OUT_CHALLENGE";
     return (
       <Container>
-        <Text style={TextStyles}>
-          {type === "LESSON"
-            ? "Lesson Summary"
-            : type === "SUMMARY"
-            ? "Content Summary"
-            : "Daily Challenge!!! 🏟"}
-        </Text>
-        <Text style={{ marginBottom: 12 }}>
-          {type === "LESSON"
-            ? `${lesson.length} total words to practice in this lesson`
-            : type === "SUMMARY"
-            ? "This is a summary of all unlocked content"
-            : `There are ${lesson.length} random words selected for you!`}
-        </Text>
-        {type === "SUMMARY" && (
-          <Text>There are {lesson.length} words to review</Text>
-        )}
-        {type !== "DAILY_QUIZ" && (
-          <Text style={SectionTextStyles}>Practice</Text>
-        )}
-        {type === "DAILY_QUIZ" ? (
+        {this.renderTitleText()}
+        {this.renderSubText()}
+        {NON_RANDOM_QUIZ && <Text style={SectionTextStyles}>Practice</Text>}
+        {IS_DAILY_QUIZ && (
           <React.Fragment>
             <LineBreak />
             <ActionBlock
@@ -90,7 +76,19 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
               <Text>⛵</Text>
             </ActionBlock>
           </React.Fragment>
-        ) : (
+        )}
+        {IS_OPT_OUT_CHALLENGE && (
+          <React.Fragment>
+            <LineBreak />
+            <ActionBlock
+              onPress={this.handleNavigateToSection(ROUTE_NAMES.QUIZ)}
+            >
+              <Text>Accept the challenge!</Text>
+              <Text>💥</Text>
+            </ActionBlock>
+          </React.Fragment>
+        )}
+        {NON_RANDOM_QUIZ && (
           <React.Fragment>
             <LineBreak />
             <ActionBlock
@@ -125,7 +123,7 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
             </ActionBlock>
           </React.Fragment>
         )}
-        {type !== "DAILY_QUIZ" ? (
+        {NON_RANDOM_QUIZ && (
           <React.Fragment>
             <Text style={SectionTextStyles}>Study</Text>
             <LineBreak />
@@ -142,23 +140,87 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
               <Text>Review All Content</Text>
             </ActionBlock>
           </React.Fragment>
-        ) : (
+        )}
+        {IS_DAILY_QUIZ && (
           <React.Fragment>
-            <Text style={{ textAlign: "center", width: "85%", marginTop: 15 }}>
+            <InfoText>
               Practice makes perfect! The <Bold>Daily Challenge</Bold> will
               prompt you each day with a quiz on the content you've already
               learned.
-            </Text>
+            </InfoText>
 
-            <Text style={{ textAlign: "center", width: "85%", marginTop: 15 }}>
+            <InfoText>
               The 4 quiz options will be mixed randomly within the quiz for a
               more interesting challenge - enjoy!
-            </Text>
+            </InfoText>
+          </React.Fragment>
+        )}
+        {IS_OPT_OUT_CHALLENGE && (
+          <React.Fragment>
+            <InfoText>
+              Some intermediate Chinese learners will already have mastered some
+              of the basic content and this gives them an option to skip through
+              the earlier lessons quickly.
+            </InfoText>
+
+            <InfoText>
+              You must pass the quiz with a perfect score and the quiz is
+              reshuffled on each attempt, so you will have to know of all the
+              content at this level pretty well to pass. Good luck!
+            </InfoText>
           </React.Fragment>
         )}
       </Container>
     );
   }
+
+  renderTitleText = () => {
+    const type = this.props.navigation.getParam("type");
+    return (
+      <React.Fragment>
+        {type === "LESSON" && <Text style={TextStyles}>Lesson Summary</Text>}
+        {type === "SUMMARY" && <Text style={TextStyles}>Content Summary</Text>}
+        {type === "DAILY_QUIZ" && (
+          <Text style={TextStyles}>Daily Challenge!!! 🏟</Text>
+        )}
+        {type === "OPT_OUT_CHALLENGE" && (
+          <Text style={TextStyles}>Test Out Challenge</Text>
+        )}
+      </React.Fragment>
+    );
+  };
+
+  renderSubText = () => {
+    const type = this.props.navigation.getParam("type");
+    const lesson = this.props.navigation.getParam("lesson");
+    const COUNT = lesson.length;
+    return (
+      <React.Fragment>
+        {type === "LESSON" && (
+          <Text style={SubTextStyles}>
+            {COUNT} total words to practice in this lesson
+          </Text>
+        )}
+        {type === "SUMMARY" && (
+          <Text style={SubTextStyles}>
+            This is a summary of all unlocked content. There are {COUNT} to
+            review.
+          </Text>
+        )}
+        {type === "DAILY_QUIZ" && (
+          <Text style={SubTextStyles}>
+            There are {COUNT} random words selected for you!
+          </Text>
+        )}
+        {type === "OPT_OUT_CHALLENGE" && (
+          <Text style={SubTextStyles}>
+            There are {COUNT} random words selected. If you can pass the quiz
+            with a perfect score you will unlock the next HSK Level!
+          </Text>
+        )}
+      </React.Fragment>
+    );
+  };
 
   handleNavigateToSection = (routeName: ROUTE_NAMES) => () => {
     const type = this.props.navigation.getParam("type");
@@ -194,6 +256,13 @@ const TextStyles = {
   marginBottom: 16,
 };
 
+const SubTextStyles = {
+  fontSize: 16,
+  width: "85%",
+  textAlign: "center",
+  marginBottom: 16,
+};
+
 const SectionTextStyles = {
   fontSize: 14,
   marginTop: 16,
@@ -218,6 +287,12 @@ const LineBreak = glamorous.view({
   marginBottom: 12,
   backgroundColor: "black",
   height: StyleSheet.hairlineWidth,
+});
+
+const InfoText = glamorous.text({
+  textAlign: "center",
+  width: "85%",
+  marginTop: 15,
 });
 
 /** ========================================================================

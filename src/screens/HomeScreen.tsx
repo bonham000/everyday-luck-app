@@ -20,8 +20,8 @@ import {
 import {
   DeriveLessonContentArgs,
   formatHskListContent,
-  getDailyChallengeQuizSet,
   getFinalUnlockedListKey,
+  getRandomQuizChallenge,
   getReviewLessonSet,
 } from "@src/tools/utils";
 
@@ -53,7 +53,7 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
       appDifficultySetting,
       userScoreStatus,
     };
-    const dailyQuizSet = getDailyChallengeQuizSet(args);
+    const dailyQuizSet = getRandomQuizChallenge(args);
     const reviewSet = getReviewLessonSet(args);
     return (
       <ScrollContainer>

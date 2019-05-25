@@ -401,6 +401,12 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
         };
       }
 
+      if (lessonType === "OPT_OUT_CHALLENGE") {
+        /**
+         * TODO: Handle opt-out challenge success.
+         */
+      }
+
       this.props.setLessonScore(updatedScoreStatus, experiencePoints);
     }
 

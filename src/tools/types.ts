@@ -116,7 +116,11 @@ export type Lesson = ReadonlyArray<Word>;
 export type LessonSet = ReadonlyArray<Lesson>;
 export type HSKListSet = ReadonlyArray<HSKList>;
 
-export type LessonSummaryType = "SUMMARY" | "DAILY_QUIZ" | "LESSON";
+export type LessonSummaryType =
+  | "SUMMARY"
+  | "DAILY_QUIZ"
+  | "LESSON"
+  | "OPT_OUT_CHALLENGE";
 
 export interface ListScreenParams {
   listKey: string;

@@ -6,6 +6,7 @@ import { NavigationScreenProp } from "react-navigation";
 
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import { COLORS } from "@src/constants/Theme";
+import { APP_DIFFICULTY_SETTING } from "@src/providers/GlobalStateContext";
 import {
   GlobalStateContextProps,
   withGlobalStateContext,
@@ -17,7 +18,10 @@ import {
   ListScreenParams,
 } from "@src/tools/types";
 import {
+  convertAppDifficultyToLessonSize,
+  DeriveLessonContentArgs,
   determineFinalUnlockedLesson,
+  getRandomQuizChallenge,
   mapListIndexToListScores,
 } from "@src/tools/utils";
 
@@ -29,6 +33,11 @@ import {
 interface IProps extends GlobalStateContextProps {
   navigation: NavigationScreenProp<{}, ListScreenParams>;
 }
+
+/**
+ * Default the opt-out level to HARD. You've gotta be good to opt out!
+ */
+const OPT_OUT_LEVEL = APP_DIFFICULTY_SETTING.HARD;
 
 /** ========================================================================
  * React Class
@@ -50,10 +59,11 @@ export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
         <OptOutBlock>
           <SubText>
             Already mastered this HSK Level? Prove your knowledge to opt-out and
-            unlock the next level immediately.
+            unlock the next level immediately (
+            {convertAppDifficultyToLessonSize(OPT_OUT_LEVEL)} questions)
           </SubText>
           <LessonBlock
-            onPress={this.testOut}
+            onPress={this.handleTestOut}
             style={{
               backgroundColor: COLORS.actionButtonYellow,
             }}
@@ -61,16 +71,12 @@ export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
             <LessonBlockText isLocked={false}>
               Test out of this HSK Level
             </LessonBlockText>
-            <Text>🏆</Text>
+            <Text>🍎</Text>
           </LessonBlock>
         </OptOutBlock>
       </Container>
     );
   }
-
-  testOut = () => {
-    console.log("Impl");
-  };
 
   renderItem = ({ item, index }: { item: Lesson; index: number }): any => {
     const lesson = item;
@@ -153,6 +159,35 @@ export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
     };
     this.props.navigation.navigate(ROUTE_NAMES.LESSON_SUMMARY, params);
   };
+
+  handleTestOut = () => {
+    const { lessons, userScoreStatus } = this.props;
+    const listIndex = this.props.navigation.getParam("listIndex");
+    const args: DeriveLessonContentArgs = {
+      lists: lessons,
+      unlockedLessonIndex: listIndex,
+      appDifficultySetting: OPT_OUT_LEVEL,
+      userScoreStatus,
+    };
+    const randomQuizSet = getRandomQuizChallenge(args);
+    this.openLessonSummarySpecial(randomQuizSet, "OPT_OUT_CHALLENGE")();
+  };
+
+  openLessonSummarySpecial = (
+    lesson: Lesson,
+    type: LessonSummaryType,
+  ) => () => {
+    const params: LessonScreenParams = {
+      type,
+      lesson,
+      listIndex: Infinity,
+      lessonIndex: Infinity,
+      isFinalLesson: false,
+      isFinalUnlockedLesson: false,
+    };
+
+    this.props.navigation.navigate(ROUTE_NAMES.LESSON_SUMMARY, params);
+  };
 }
 
 /** ========================================================================
@@ -163,7 +198,7 @@ export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
 const Container = glamorous.view({
   flex: 1,
   width: "100%",
-  backgroundColor: "rgb(231,237,240)",
+  backgroundColor: COLORS.background,
 });
 
 const FlatListStyles = { paddingBottom: 50, paddingLeft: 15, paddingRight: 15 };
@@ -176,7 +211,7 @@ const LessonBlock = glamorous.touchableOpacity({
   flexDirection: "row",
   alignItems: "center",
   justifyContent: "space-between",
-  backgroundColor: "rgb(225,225,225)",
+  backgroundColor: COLORS.lessonBlockDefault,
 });
 
 const TitleText = glamorous.text({
@@ -201,7 +236,7 @@ const OptOutBlock = glamorous.view({
   paddingLeft: 15,
   paddingRight: 15,
   borderTopWidth: 1,
-  borderTopColor: COLORS.darkText,
+  borderTopColor: COLORS.fadedText,
 });
 
 const LessonBlockText = glamorous.text(
