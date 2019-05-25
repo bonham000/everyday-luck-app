@@ -43,7 +43,6 @@ export class SettingsScreenComponent extends React.Component<IProps, {}> {
           <Bold>{formatUserLanguageSetting(languageSetting)}</Bold>
         </Text>
         <Button
-          dark
           mode="contained"
           onPress={this.handleSetLanguageOptions}
           style={{ marginTop: 15, marginBottom: 15 }}

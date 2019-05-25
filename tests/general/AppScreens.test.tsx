@@ -6,8 +6,8 @@ import {
   MOCK_LESSON_SCREEN_PARAMS,
   MOCK_LIST_SCREEN_PARAMS,
   MOCK_MULTIPLE_CHOICE_OPTIONS,
-} from "../data";
-import stargazerConfig from "./StargazerRouteConfig";
+} from "@tests/data";
+import stargazerConfig from "@tests/general/StargazerRouteConfig";
 
 // @ts-ignore — for someone reason Jest throws an error React is not defined?
 global.React = React; // tslint:disable-line
