@@ -25,13 +25,14 @@ import GlobalContext, {
 } from "@src/providers/GlobalStateContext";
 import { GlobalStateValues } from "@src/providers/GlobalStateProvider";
 import SoundRecordingProvider from "@src/providers/SoundRecordingProvider";
+import { fetchLessonSet, findOrCreateUser } from "@src/tools/api";
 import {
-  fetchLessonSet,
-  findOrCreateUser,
-  updateAppDifficultySetting,
-  updateUserExperience,
-  updateUserScores,
-} from "@src/tools/api";
+  createSerializedAppDifficultyHandler,
+  createSerializedUserExperienceHandler,
+  createSerializedUserScoresHandler,
+  deserializeAndRunRequest,
+  GenericRequestHandler,
+} from "@src/tools/offline-utils";
 import {
   getAppLanguageSetting,
   getLocalUser,
@@ -52,8 +53,6 @@ import { DEFAULT_SCORE_STATE } from "@tests/data";
  * =========================================================================
  */
 
-type GenericRequestFunction = (args?: any) => Promise<any>;
-
 interface IState extends GlobalStateValues {
   userId?: string;
   error: boolean;
@@ -64,7 +63,7 @@ interface IState extends GlobalStateValues {
   tryingToCloseApp: boolean;
   transparentLoading: boolean;
   networkConnected: boolean;
-  offlineRequestQueue: ReadonlyArray<GenericRequestFunction>;
+  offlineRequestQueue: ReadonlyArray<GenericRequestHandler>;
 }
 
 const TOAST_TIMEOUT = 4000; /* 4 seconds */
@@ -159,9 +158,9 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
         "Offline progress found. Saving updates...",
         Infinity,
       );
-      for (const requestFn of offlineRequestQueue) {
+      for (const serializedRequestData of offlineRequestQueue) {
         console.log("Processing request...");
-        await requestFn();
+        await deserializeAndRunRequest(serializedRequestData);
       }
       this.setState(
         {
@@ -477,10 +476,10 @@ class RootContainer extends RootContainerBase<{}> {
           userScoreStatus: updatedScoreStatus,
         },
         () => {
-          this.requestMiddlewareHandler(async () => {
-            await updateUserExperience(userId, updatedExperience);
-            await updateUserScores(userId, updatedScoreStatus);
-          });
+          this.requestMiddlewareHandler([
+            createSerializedUserExperienceHandler(userId, updatedExperience),
+            createSerializedUserScoresHandler(userId, updatedScoreStatus),
+          ]);
         },
       );
     }
@@ -513,23 +512,27 @@ class RootContainer extends RootContainerBase<{}> {
       },
       () => {
         this.setToastMessage("App difficulty updated");
-        this.requestMiddlewareHandler(() =>
-          updateAppDifficultySetting(userId, appDifficultySetting),
-        );
+        this.requestMiddlewareHandler([
+          createSerializedAppDifficultyHandler(userId, appDifficultySetting),
+        ]);
       },
     );
   };
 
-  requestMiddlewareHandler = (asyncRequestFunction: GenericRequestFunction) => {
+  requestMiddlewareHandler = async (
+    serializedRequestData: ReadonlyArray<GenericRequestHandler>,
+  ) => {
     if (this.state.networkConnected) {
-      console.log("Request received - app online processing now");
-      asyncRequestFunction();
+      console.log("Request(s) received - app online processing now");
+      for (const serializedRequest of serializedRequestData) {
+        await deserializeAndRunRequest(serializedRequest);
+      }
     } else {
       console.log(
         "Request received - app offline, enqueueing to process later",
       );
       this.setState(({ offlineRequestQueue }) => ({
-        offlineRequestQueue: offlineRequestQueue.concat(asyncRequestFunction),
+        offlineRequestQueue: [...offlineRequestQueue, ...serializedRequestData],
       }));
     }
   };
@@ -568,14 +571,17 @@ class RootContainer extends RootContainerBase<{}> {
               userScoreStatus: DEFAULT_SCORE_STATE,
             },
             () => {
-              this.setToastMessage("Scores reset!");
-              this.requestMiddlewareHandler(async () => {
-                const { userId } = this.state;
-                if (userId) {
-                  await updateUserExperience(userId, 0);
-                  await updateUserScores(userId, DEFAULT_SCORE_STATE);
-                }
-              });
+              const { userId } = this.state;
+              if (userId) {
+                this.setToastMessage("Scores reset!");
+                this.requestMiddlewareHandler([
+                  createSerializedUserExperienceHandler(userId, 0),
+                  createSerializedUserScoresHandler(
+                    userId,
+                    DEFAULT_SCORE_STATE,
+                  ),
+                ]);
+              }
             },
           );
         }, 1250);
