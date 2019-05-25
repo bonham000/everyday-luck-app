@@ -1,5 +1,6 @@
 import axios from "axios";
 
+import HSK_LISTS from "@src/lessons";
 import {
   APP_DIFFICULTY_SETTING,
   ScoreStatus,
@@ -119,15 +120,8 @@ export const updateAppDifficultySetting = async (
 /**
  * Fetch lesson content.
  */
-export const fetchLessonSet = async (): Promise<HSKListSet | null> => {
-  const URL = `${CONFIG.DRAGON_URI}/lessons`;
-  try {
-    const result = await axios.get<HSKListSet>(URL);
-    return result.data;
-  } catch (err) {
-    console.log(`Failed to fetch lessons at url: ${URL}`);
-    return null;
-  }
+export const fetchLessonSet = (): HSKListSet => {
+  return HSK_LISTS;
 };
 
 const getForvoUrl = (word: string) => {

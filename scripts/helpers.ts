@@ -5,6 +5,7 @@ import { fetchLessonSet, fetchWordPronunciation } from "@src/tools/api";
 import { IAudioRecordingsDictionary } from "@src/tools/audio-dictionary";
 import {
   AudioItem,
+  Lesson,
   Option,
   OptionType,
   ResultType,
@@ -214,9 +215,9 @@ export const transformSoundFileResponse = (
 /**
  * Fetch all the lesson words.
  */
-export const fetchLessonWords = async () => {
-  const lessonSet = await fetchLessonSet();
-  return lessonSet ? flattenLessonSet(lessonSet) : null;
+export const fetchLessonWords = async (): Promise<Lesson> => {
+  const lessons = fetchLessonSet();
+  return flattenLessonSet(lessons);
 };
 
 /** ========================================================================

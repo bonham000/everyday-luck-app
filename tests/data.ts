@@ -1,3 +1,4 @@
+import HSK_LISTS from "@src/lessons";
 import {
   APP_DIFFICULTY_SETTING,
   APP_LANGUAGE_SETTING,
@@ -14,7 +15,7 @@ import {
   Word,
 } from "@src/tools/types";
 import { createWordDictionaryFromLessons } from "@src/tools/utils";
-import { MOCK_LESSON_DATA } from "./tools/lessonData";
+import lessonData from "src/lessons/02";
 
 /** ========================================================================
  * Words/Lessons Mock Data
@@ -29,43 +30,25 @@ export const MOCK_WORD: Word = {
   english_alternate_choices: [""],
 };
 
-export const MOCK_WORD_SET: ReadonlyArray<Word> = [
-  {
-    simplified: "啊",
-    traditional: "啊",
-    pinyin: "a",
-    english: "ah",
-    english_alternate_choices: [""],
-  },
-  {
-    simplified: "矮",
-    traditional: "矮",
-    pinyin: "ǎi",
-    english: "short",
-    english_alternate_choices: [""],
-  },
-  {
-    simplified: "爱好",
-    traditional: "愛好",
-    pinyin: "àihào",
-    english: "hobby",
-    english_alternate_choices: [""],
-  },
-  {
-    simplified: "安静",
-    traditional: "安靜",
-    pinyin: "ānjìng",
-    english: "Be quiet",
-    english_alternate_choices: [""],
-  },
-  {
-    simplified: "把",
-    traditional: "把",
-    pinyin: "bǎ",
-    english: "hold",
-    english_alternate_choices: [""],
-  },
-];
+export const MOCK_LESSON_DATA: Lesson = lessonData.content;
+
+const MOCK_LESSON_BASE: Lesson = MOCK_LESSON_DATA;
+
+export const MOCK_MULTIPLE_CHOICE_OPTIONS: Lesson = MOCK_LESSON_DATA.slice(
+  0,
+  4,
+);
+
+/**
+ * Truncate the mock lessons in the test environment to avoid issues with the
+ * QuizScreen randomly selected a word index.
+ */
+const MOCK_LESSON =
+  process.env.NODE_ENV === "test"
+    ? MOCK_LESSON_BASE.slice(0, 1)
+    : MOCK_LESSON_BASE;
+
+const MOCK_LESSONS: ReadonlyArray<HSKList> = HSK_LISTS;
 
 /** ========================================================================
  * User Score Status
@@ -121,30 +104,6 @@ const MOCK_GOOGLE_USER = {
   id: "asdf7f98asd7f0s7ads0",
   name: "Seanie X",
 };
-
-const MOCK_LESSON_BASE: ReadonlyArray<Word> = MOCK_LESSON_DATA;
-
-export const MOCK_MULTIPLE_CHOICE_OPTIONS = MOCK_LESSON_DATA.slice(0, 4);
-
-/**
- * Truncate the mock lessons in the test environment to avoid issues with the
- * QuizScreen randomly selected a word index.
- */
-const MOCK_LESSON =
-  process.env.NODE_ENV === "test"
-    ? MOCK_LESSON_BASE.slice(0, 1)
-    : MOCK_LESSON_BASE;
-
-const MOCK_LESSONS: ReadonlyArray<HSKList> = [
-  {
-    list: "1-2",
-    content: MOCK_LESSON,
-  },
-  {
-    list: "3",
-    content: MOCK_LESSON,
-  },
-];
 
 export const MOCK_GLOBAL_STATE_PROPS: GlobalStateContextProps = {
   user: MOCK_GOOGLE_USER,

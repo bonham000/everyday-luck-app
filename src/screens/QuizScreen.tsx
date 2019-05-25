@@ -104,7 +104,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     let calls = 0;
     while (calls < 2) {
       console.log(`Sending request... adding ${500} exp`);
-      await this.props.setLessonScore(this.props.userScoreStatus, 500);
+      this.props.setLessonScore(this.props.userScoreStatus, 500);
       calls++;
     }
   };

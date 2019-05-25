@@ -438,23 +438,17 @@ class RootContainer extends RootContainerBase<{}> {
     /**
      * Fetch lessons
      */
-    const lessons = await fetchLessonSet();
+    const lessons = fetchLessonSet();
 
-    if (!lessons) {
-      this.setState({
-        error: true,
-      });
-    } else {
-      const wordDictionary = createWordDictionaryFromLessons(lessons);
-      this.setState(
-        {
-          lessons,
-          wordDictionary,
-          languageSetting: await getAppLanguageSetting(),
-        },
-        this.setupUserSession,
-      );
-    }
+    const wordDictionary = createWordDictionaryFromLessons(lessons);
+    this.setState(
+      {
+        lessons,
+        wordDictionary,
+        languageSetting: await getAppLanguageSetting(),
+      },
+      this.setupUserSession,
+    );
   };
 
   setupUserSession = async () => {

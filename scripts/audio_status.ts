@@ -6,9 +6,6 @@ import { fetchLessonWords, getDictionaryObject } from "./helpers";
  */
 const generateStatusMessage = async () => {
   const lessons = await fetchLessonWords();
-  if (!lessons) {
-    return console.log("Failed to fetch lessons!");
-  }
 
   let totalAudioFiles = 0;
   let tasks: ReadonlyArray<string> = [];
