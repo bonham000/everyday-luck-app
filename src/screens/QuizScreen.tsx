@@ -139,15 +139,22 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
                 buttonColor={COLORS.actionButtonRed}
               >
                 <ActionButton.Item
-                  buttonColor={COLORS.actionButtonPurple}
+                  title="Revert failed answer"
+                  buttonColor={COLORS.actionButtonMint}
+                  onPress={this.handleRevertAnswer}
+                >
+                  <Ionicons name="md-construct" style={ActionIconStyle} />
+                </ActionButton.Item>
+                <ActionButton.Item
                   title="Skip this one"
+                  buttonColor={COLORS.actionButtonPurple}
                   onPress={this.handleProceed(true)}
                 >
                   <Ionicons name="md-key" style={ActionIconStyle} />
                 </ActionButton.Item>
                 <ActionButton.Item
-                  buttonColor={COLORS.actionButtonYellow}
                   title="Restart Quiz"
+                  buttonColor={COLORS.actionButtonYellow}
                   onPress={this.resetQuiz}
                 >
                   <Ionicons name="ios-refresh" style={ActionIconStyle} />
@@ -252,6 +259,10 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
       value,
       shouldShake: false,
     });
+  };
+
+  handleRevertAnswer = () => {
+    console.log("TODO: Implement revert answer");
   };
 
   handleCheckAnswer = (correct: boolean) => {
