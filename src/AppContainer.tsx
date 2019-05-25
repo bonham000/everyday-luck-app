@@ -1,6 +1,14 @@
 import { Asset, Updates } from "expo";
 import React from "react";
-import { Alert, AppState, BackHandler, View } from "react-native";
+import {
+  Alert,
+  AppState,
+  BackHandler,
+  ConnectionInfo,
+  ConnectionType,
+  NetInfo,
+  View,
+} from "react-native";
 import { createAppContainer } from "react-navigation";
 
 import ErrorComponent from "@src/components/ErrorComponent";
@@ -35,6 +43,7 @@ import {
   createWordDictionaryFromLessons,
   formatUserLanguageSetting,
   getAlternateLanguageSetting,
+  isNetworkConnected,
 } from "@src/tools/utils";
 import { DEFAULT_SCORE_STATE } from "@tests/data";
 
@@ -54,6 +63,7 @@ interface IState extends GlobalStateValues {
   updating: boolean;
   tryingToCloseApp: boolean;
   transparentLoading: boolean;
+  networkConnected: boolean;
   offlineRequestQueue: ReadonlyArray<GenericRequestFunction>;
 }
 
@@ -68,6 +78,7 @@ const TOAST_TIMEOUT = 4000; /* 4 seconds */
 class RootContainerBase<Props> extends React.Component<Props, IState> {
   timeout: any = null;
   navigationRef: any = null;
+  networkConnectivityUnsubscribeHandler: any = null;
 
   constructor(props: Props) {
     super(props);
@@ -83,6 +94,7 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
       offlineRequestQueue: [],
       tryingToCloseApp: false,
       transparentLoading: false,
+      networkConnected: true,
       appState: AppState.currentState,
       userScoreStatus: DEFAULT_SCORE_STATE,
       languageSetting: APP_LANGUAGE_SETTING.SIMPLIFIED,
@@ -96,6 +108,27 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
     } catch (_) {
       return true;
     }
+  };
+
+  setupNetworkListener = async () => {
+    /**
+     * Get initial network state and add a listener for network changes.
+     */
+    const networkState = await NetInfo.getConnectionInfo();
+    this.setState({
+      networkConnected: isNetworkConnected(networkState.type),
+    });
+
+    console.log(networkState);
+    console.log(
+      `Initial network state: ${isNetworkConnected(networkState.type)}`,
+    );
+
+    // tslint:disable-next-line
+    this.networkConnectivityUnsubscribeHandler = NetInfo.addEventListener(
+      "connectionChange",
+      this.handleConnectivityChange,
+    );
   };
 
   handleAppStateChange = (nextAppState: string) => {
@@ -117,7 +150,6 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
 
   handleAppForegroundingEvent = () => {
     this.checkForAppUpdate();
-    this.maybeProcessOfflineRequests();
   };
 
   maybeProcessOfflineRequests = async () => {
@@ -218,6 +250,25 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
       this.clearTimer,
     );
   };
+
+  handleConnectivityChange = (
+    connectionInfo: ConnectionInfo | ConnectionType,
+  ) => {
+    let onlineStatus: boolean;
+    if (typeof connectionInfo === "string") {
+      onlineStatus = isNetworkConnected(connectionInfo);
+    } else {
+      onlineStatus = isNetworkConnected(connectionInfo.type);
+    }
+
+    console.log(`Network change - network online: ${onlineStatus}`);
+
+    this.setState({ networkConnected: onlineStatus }, () => {
+      if (onlineStatus) {
+        this.maybeProcessOfflineRequests();
+      }
+    });
+  };
 }
 
 /** ========================================================================
@@ -228,6 +279,11 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
 class RootContainer extends RootContainerBase<{}> {
   async componentDidMount(): Promise<void> {
     this.getInitialScoreState();
+
+    /**
+     * Initialize network listener and setup initial network state.
+     */
+    this.setupNetworkListener();
 
     /**
      * Manage state to assign a toast warning if user tries to
@@ -413,7 +469,6 @@ class RootContainer extends RootContainerBase<{}> {
     lessonExperience: number,
   ) => {
     const { userId, experience } = this.state;
-
     if (userId) {
       const updatedExperience = experience + lessonExperience;
       this.setState(
@@ -466,7 +521,7 @@ class RootContainer extends RootContainerBase<{}> {
   };
 
   requestMiddlewareHandler = (asyncRequestFunction: GenericRequestFunction) => {
-    if (this.state.appState === "active") {
+    if (this.state.networkConnected) {
       console.log("Request received - app online processing now");
       asyncRequestFunction();
     } else {
@@ -506,15 +561,23 @@ class RootContainer extends RootContainerBase<{}> {
       () => {
         // tslint:disable-next-line
         this.timeout = setTimeout(async () => {
-          this.getInitialScoreState();
-          this.setToastMessage("Scores reset!");
-          this.requestMiddlewareHandler(async () => {
-            const { userId } = this.state;
-            if (userId) {
-              await updateUserExperience(userId, 0);
-              await updateUserScores(userId, DEFAULT_SCORE_STATE);
-            }
-          });
+          this.setState(
+            {
+              experience: 0,
+              transparentLoading: false,
+              userScoreStatus: DEFAULT_SCORE_STATE,
+            },
+            () => {
+              this.setToastMessage("Scores reset!");
+              this.requestMiddlewareHandler(async () => {
+                const { userId } = this.state;
+                if (userId) {
+                  await updateUserExperience(userId, 0);
+                  await updateUserScores(userId, DEFAULT_SCORE_STATE);
+                }
+              });
+            },
+          );
         }, 1250);
       },
     );

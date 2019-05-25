@@ -96,16 +96,15 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
         this.timer = setTimeout(this.focusInput, 250);
       },
     );
+
+    this.mockApiCalls();
   }
 
-  mockApiCalls = () => {
-    const exp = this.props.experience;
+  mockApiCalls = async () => {
     let calls = 0;
-    let newExp = exp;
-    while (calls < 10) {
-      newExp += 500;
-      console.log("Sending request...");
-      this.props.setLessonScore(this.props.userScoreStatus, newExp);
+    while (calls < 2) {
+      console.log(`Sending request... adding ${500} exp`);
+      await this.props.setLessonScore(this.props.userScoreStatus, 500);
       calls++;
     }
   };

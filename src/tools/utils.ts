@@ -29,6 +29,7 @@ import {
   TranslationsData,
   Word,
 } from "@src/tools/types";
+import { ConnectionInfo } from "react-native";
 
 /**
  * Helper to assert unreachable code.
@@ -647,4 +648,15 @@ export const translateWord = async (
   };
 
   return data;
+};
+
+/**
+ * Parse network status result to determine if the network is currently
+ * online or not.
+ *
+ * @param type ConnectionInfo type result
+ * @param true if the network is online
+ */
+export const isNetworkConnected = (type: ConnectionInfo["type"]): boolean => {
+  return type !== "none";
 };

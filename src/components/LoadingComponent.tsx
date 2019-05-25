@@ -29,6 +29,7 @@ const TransparentLoadingComponent = () => (
       right: 0,
       zIndex: 50,
       opacity: 0.65,
+      justifyContent: "center",
       backgroundColor: COLORS.lightWhite,
     }}
   >
