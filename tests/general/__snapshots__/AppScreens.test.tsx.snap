@@ -3200,12 +3200,16 @@ exports[`App Screen Components Each screen component renders with props provided
           "writingDirection": "ltr",
         },
         Object {
-          "marginBottom": 12,
+          "fontSize": 16,
+          "marginBottom": 16,
+          "textAlign": "center",
+          "width": "85%",
         },
       ]
     }
   >
-    1 total words to practice in this lesson
+    1
+     total words to practice in this lesson
   </Text>
   <Text
     style={
@@ -3575,11 +3579,8 @@ exports[`App Screen Components Each screen component renders with props provided
   style={
     Array [
       Object {
-        "backgroundColor": "rgb(231,237,240)",
+        "backgroundColor": "rgb(231, 237, 240)",
         "flex": 1,
-        "paddingLeft": 15,
-        "paddingRight": 15,
-        "paddingTop": 25,
         "width": "100%",
       },
     ]
@@ -3591,7 +3592,8 @@ exports[`App Screen Components Each screen component renders with props provided
         Object {
           "fontSize": 16,
           "fontWeight": "bold",
-          "marginBottom": 16,
+          "marginBottom": 15,
+          "marginTop": 15,
           "textAlign": "center",
           "width": "100%",
         },
@@ -3604,6 +3606,8 @@ exports[`App Screen Components Each screen component renders with props provided
     contentContainerStyle={
       Object {
         "paddingBottom": 50,
+        "paddingLeft": 15,
+        "paddingRight": 15,
       }
     }
     data={
@@ -3705,6 +3709,90 @@ exports[`App Screen Components Each screen component renders with props provided
       </View>
     </View>
   </RCTScrollView>
+  <View
+    style={
+      Array [
+        Object {
+          "borderTopColor": "rgb(60,60,60)",
+          "borderTopWidth": 1,
+          "paddingBottom": 25,
+          "paddingLeft": 15,
+          "paddingRight": 15,
+          "paddingTop": 15,
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "fontSize": 13,
+            "marginBottom": 6,
+            "textAlign": "center",
+            "width": "100%",
+          },
+        ]
+      }
+    >
+      Already mastered this HSK Level? Prove your knowledge to opt-out and unlock the next level immediately (
+      30
+       questions)
+    </Text>
+    <View
+      accessible={true}
+      isTVSelectable={true}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#FFAB85",
+          "borderRadius": 5,
+          "flexDirection": "row",
+          "height": 50,
+          "justifyContent": "space-between",
+          "margin": 4,
+          "opacity": 1,
+          "padding": 12,
+        }
+      }
+    >
+      <Text
+        isLocked={false}
+        style={
+          Array [
+            Object {
+              "color": "black",
+              "fontWeight": "500",
+              "textDecorationLine": "none",
+            },
+          ]
+        }
+      >
+        Test out of this HSK Level
+      </Text>
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#000000",
+              "fontFamily": "Helvetica Neue",
+              "textAlign": "left",
+              "writingDirection": "ltr",
+            },
+            undefined,
+          ]
+        }
+      >
+        🍎
+      </Text>
+    </View>
+  </View>
 </View>
 `;
 
