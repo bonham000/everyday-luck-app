@@ -30,11 +30,6 @@ export interface UserResponseData {
 
 type UserResponse = Promise<UserResponseData | undefined>;
 
-const HEADERS = {
-  Accept: "application/json",
-  "Content-Type": "application/json",
-};
-
 /** ========================================================================
  * API Methods
  * =========================================================================
@@ -51,13 +46,11 @@ export const findOrCreateUser = async (email: string): UserResponse => {
       score_history: {},
     };
 
-    const response = await fetch(`${CONFIG.DRAGON_URI}/users`, {
-      method: "POST",
-      body: JSON.stringify(maybeUser),
-      headers: HEADERS,
-    });
-    const result = await response.json();
-    return result;
+    const result = await axios.post<UserResponseData>(
+      `${CONFIG.DRAGON_URI}/users`,
+      maybeUser,
+    );
+    return result.data;
   } catch (err) {
     console.log("Error fetching user: ", err);
     return;
@@ -72,13 +65,11 @@ export const updateUserScores = async (
   userScores: ScoreStatus,
 ): UserResponse => {
   try {
-    const response = await fetch(`${CONFIG.DRAGON_URI}/set-scores/${userId}`, {
-      method: "POST",
-      body: JSON.stringify(userScores),
-      headers: HEADERS,
-    });
-    const result = await response.json();
-    return result;
+    const result = await axios.post<UserResponseData>(
+      `${CONFIG.DRAGON_URI}/set-scores/${userId}`,
+      userScores,
+    );
+    return result.data;
   } catch (err) {
     console.log(err);
     return;
@@ -93,15 +84,13 @@ export const updateUserExperience = async (
   userExperience: number,
 ): UserResponse => {
   try {
-    const response = await fetch(`${CONFIG.DRAGON_URI}/experience/${userId}`, {
-      method: "POST",
-      body: JSON.stringify({
+    const result = await axios.post<UserResponseData>(
+      `${CONFIG.DRAGON_URI}/experience/${userId}`,
+      {
         experience_points: String(userExperience),
-      }),
-      headers: HEADERS,
-    });
-    const result = await response.json();
-    return result;
+      },
+    );
+    return result.data;
   } catch (err) {
     console.log(err);
     return;
