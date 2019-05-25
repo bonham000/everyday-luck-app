@@ -200,39 +200,29 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
         shouldNotExpire: true,
         message: "Offline progress found. Saving updates...",
       });
-      this.processRequestQueue(offlineRequestQueue);
+      await this.processRequestQueue(offlineRequestQueue);
+      this.setState(
+        {
+          offlineRequestQueue: [],
+          processingOfflineRequestQueue: false,
+        },
+        async () => {
+          await serializeRequestQueue([]);
+          this.clearToast();
+          this.setToastMessage("All updates saved!");
+        },
+      );
     }
   };
 
-  processRequestQueue = (queue: RequestQueue) => {
+  processRequestQueue = async (queue: RequestQueue) => {
     /**
      * Network re-connection events can fire multiple times - keep a flag
      * to only process the request queue on time.
      */
-    if (!this.state.processingOfflineRequestQueue) {
-      this.setState(
-        {
-          processingOfflineRequestQueue: true,
-        },
-        async () => {
-          for (const serializedRequestData of queue) {
-            console.log(`Processing request... ${serializedRequestData.type}`);
-            await deserializeAndRunRequest(serializedRequestData);
-          }
-
-          this.setState(
-            {
-              offlineRequestQueue: [],
-              processingOfflineRequestQueue: false,
-            },
-            async () => {
-              await serializeRequestQueue([]);
-              this.clearToast();
-              this.setToastMessage("All updates saved!");
-            },
-          );
-        },
-      );
+    for (const serializedRequestData of queue) {
+      console.log(`Processing request... ${serializedRequestData.type}`);
+      await deserializeAndRunRequest(serializedRequestData);
     }
   };
 
@@ -249,8 +239,13 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
     console.log(`Network change - network online: ${isConnected}`);
 
     this.setState({ networkConnected: isConnected }, () => {
-      if (isConnected) {
-        this.maybeProcessOfflineRequests();
+      if (isConnected && !this.state.processingOfflineRequestQueue) {
+        this.setState(
+          {
+            processingOfflineRequestQueue: true,
+          },
+          this.maybeProcessOfflineRequests,
+        );
       } else {
         this.setToastMessage(
           "Network connectivity lost... any updates will be saved when network is restored.",
