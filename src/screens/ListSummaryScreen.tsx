@@ -70,7 +70,7 @@ export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
               <LessonBlockText isLocked={false}>
                 Test out of this HSK Level
               </LessonBlockText>
-              <Text>🍎</Text>
+              <Text>👨‍🎓👩‍🎓</Text>
             </LessonBlock>
           </OptOutBlock>
         )}
