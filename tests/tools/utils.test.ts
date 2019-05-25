@@ -1,4 +1,3 @@
-import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import {
   APP_DIFFICULTY_SETTING,
   APP_LANGUAGE_SETTING,
@@ -12,16 +11,10 @@ import {
   getListScoreKeyFromIndex,
   isLessonComplete,
   mapWordsForList,
-  resetNavigation,
 } from "@src/tools/utils";
 import { DEFAULT_SCORE_STATE, MOCK_WORD } from "@tests/data";
 
 describe("utils", () => {
-  test("resetNavigation", () => {
-    const result = resetNavigation(ROUTE_NAMES.HOME);
-    expect(result).toMatchSnapshot();
-  });
-
   test("mapWordsForList", () => {
     const result = mapWordsForList(MOCK_WORD);
     expect(result).toMatchSnapshot();
