@@ -1,22 +1,15 @@
+import { AsyncStorage } from "react-native";
+
 import { ASYNC_STORE_KEYS } from "@src/constants/AsyncStoreKeys";
 import { APP_LANGUAGE_SETTING } from "@src/providers/GlobalStateContext";
-import { AsyncStorage } from "react-native";
+import { User } from "@src/tools/types";
 
 /** ========================================================================
  * User authentication for local session
  * =========================================================================
  */
 
-export interface GoogleSigninUser {
-  email?: string;
-  familyName: string;
-  givenName: string;
-  id: string;
-  name: string;
-  photoUrl?: string;
-}
-
-export const getLocalUser = async () => {
+export const getPersistedUser = async (): Promise<User | undefined> => {
   try {
     const result = await AsyncStorage.getItem(ASYNC_STORE_KEYS.USER_KEY);
     return JSON.parse(result);
@@ -25,7 +18,7 @@ export const getLocalUser = async () => {
   }
 };
 
-export const saveLocalUser = async (user: GoogleSigninUser) => {
+export const saveUserToAsyncStorage = async (user: User) => {
   try {
     await AsyncStorage.setItem(ASYNC_STORE_KEYS.USER_KEY, JSON.stringify(user));
   } catch (err) {
@@ -33,7 +26,7 @@ export const saveLocalUser = async (user: GoogleSigninUser) => {
   }
 };
 
-export const logoutLocalUser = async () => {
+export const logoutUserLocal = async () => {
   try {
     await AsyncStorage.removeItem(ASYNC_STORE_KEYS.USER_KEY);
   } catch (err) {

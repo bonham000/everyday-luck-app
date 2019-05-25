@@ -14,22 +14,9 @@ import {
   Result,
   ResultType,
   SoundFileResponse,
+  User,
+  UserResponse,
 } from "@src/tools/types";
-
-/** ========================================================================
- * Types & Config
- * =========================================================================
- */
-
-export interface UserResponseData {
-  uuid: string;
-  email: string;
-  experience_points: number;
-  score_history: string;
-  app_difficulty_setting: APP_DIFFICULTY_SETTING;
-}
-
-export type UserResponse = Promise<UserResponseData | undefined>;
 
 /** ========================================================================
  * API Methods
@@ -41,16 +28,9 @@ export type UserResponse = Promise<UserResponseData | undefined>;
  */
 export const findOrCreateUser = async (email: string): UserResponse => {
   try {
-    const maybeUser = {
+    const result = await axios.post<User>(`${CONFIG.DRAGON_URI}/users`, {
       email,
-      experience_points: 0,
-      score_history: {},
-    };
-
-    const result = await axios.post<UserResponseData>(
-      `${CONFIG.DRAGON_URI}/users`,
-      maybeUser,
-    );
+    });
     return result.data;
   } catch (err) {
     console.log("Error fetching user: ", err);
@@ -66,7 +46,7 @@ export const updateUserScores = async (
   userScores: ScoreStatus,
 ): UserResponse => {
   try {
-    const result = await axios.post<UserResponseData>(
+    const result = await axios.post<User>(
       `${CONFIG.DRAGON_URI}/set-scores/${userId}`,
       userScores,
     );
@@ -85,7 +65,7 @@ export const updateUserExperience = async (
   userExperience: number,
 ): UserResponse => {
   try {
-    const result = await axios.post<UserResponseData>(
+    const result = await axios.post<User>(
       `${CONFIG.DRAGON_URI}/experience/${userId}`,
       {
         experience_points: String(userExperience),
@@ -106,7 +86,7 @@ export const updateAppDifficultySetting = async (
   appDifficultySetting: APP_DIFFICULTY_SETTING,
 ): UserResponse => {
   try {
-    const result = await axios.post<UserResponseData>(
+    const result = await axios.post<User>(
       `${CONFIG.DRAGON_URI}/difficulty/${userId}`,
       { app_difficulty_setting: appDifficultySetting },
     );

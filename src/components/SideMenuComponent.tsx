@@ -8,7 +8,7 @@ import {
   GlobalStateContextProps,
   withGlobalStateContext,
 } from "@src/providers/GlobalStateProvider";
-import { logoutLocalUser } from "@src/tools/async-store";
+import { logoutUserLocal } from "@src/tools/async-store";
 import { formatUserLanguageSetting, resetNavigation } from "@src/tools/utils";
 
 /** ========================================================================
@@ -96,7 +96,7 @@ class SideMenuComponent extends React.Component<IProps, {}> {
 
   handleLogout = async () => {
     try {
-      await logoutLocalUser();
+      await logoutUserLocal();
       this.props.navigation.dispatch(resetNavigation(ROUTE_NAMES.SIGNIN));
     } catch (err) {
       return;

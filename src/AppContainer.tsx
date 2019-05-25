@@ -28,8 +28,8 @@ import SoundRecordingProvider from "@src/providers/SoundRecordingProvider";
 import { fetchLessonSet, findOrCreateUser } from "@src/tools/api";
 import {
   getAppLanguageSetting,
-  getLocalUser,
-  GoogleSigninUser,
+  getPersistedUser,
+  saveUserToAsyncStorage,
   setAppLanguageSetting,
 } from "@src/tools/async-store";
 import {
@@ -41,12 +41,13 @@ import {
   RequestQueue,
   serializeRequestQueue,
 } from "@src/tools/offline-utils";
-import { HSKListSet } from "@src/tools/types";
+import { GoogleSigninUser, HSKListSet, User } from "@src/tools/types";
 import {
   createWordDictionaryFromLessons,
   formatUserLanguageSetting,
   getAlternateLanguageSetting,
   isNetworkConnected,
+  transformUserToLocalUserData,
 } from "@src/tools/utils";
 import { DEFAULT_SCORE_STATE } from "@tests/data";
 
@@ -56,7 +57,6 @@ import { DEFAULT_SCORE_STATE } from "@tests/data";
  */
 
 interface IState extends GlobalStateValues {
-  userId?: string;
   error: boolean;
   loading: boolean;
   appState: string;
@@ -68,7 +68,7 @@ interface IState extends GlobalStateValues {
   offlineRequestQueue: RequestQueue;
 }
 
-const TOAST_TIMEOUT = 4000; /* 4 seconds */
+const TOAST_TIMEOUT = 5000; /* 5 seconds */
 
 /** ========================================================================
  * Root Container Base Component
@@ -251,6 +251,29 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
     }
   };
 
+  serializeAndPersistUser = async () => {
+    if (this.state.user) {
+      const user: User = {
+        ...this.state.user,
+        experience_points: this.state.experience,
+        score_history: this.state.userScoreStatus,
+        app_difficulty_setting: this.state.appDifficultySetting,
+      };
+      await saveUserToAsyncStorage(user);
+    }
+  };
+
+  setupUserSessionFromPersistedUserData = async (maybePersistedUser: User) => {
+    if (maybePersistedUser) {
+      this.setState({
+        user: transformUserToLocalUserData(maybePersistedUser),
+        experience: maybePersistedUser.experience_points,
+        userScoreStatus: maybePersistedUser.score_history,
+        appDifficultySetting: maybePersistedUser.app_difficulty_setting,
+      });
+    }
+  };
+
   updateApp = () => {
     try {
       this.setState(
@@ -325,7 +348,7 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
         this.maybeProcessOfflineRequests();
       } else {
         this.setToastMessage(
-          "Network connectivity... any updates will be saved when network is restored.",
+          "Network connectivity lost... any updates will be saved when network is restored.",
         );
       }
     });
@@ -419,7 +442,6 @@ class RootContainer extends RootContainerBase<{}> {
     }
 
     const lessonSet = lessons as HSKListSet;
-    const authenticatedUser = user as GoogleSigninUser;
 
     return (
       <View style={{ flex: 1 }}>
@@ -430,13 +452,13 @@ class RootContainer extends RootContainerBase<{}> {
         />
         <GlobalContext.Provider
           value={{
+            user,
             experience,
             wordDictionary,
             languageSetting,
             userScoreStatus,
             lessons: lessonSet,
             appDifficultySetting,
-            user: authenticatedUser,
             onSignin: this.handleSignin,
             setLessonScore: this.setLessonScore,
             setToastMessage: this.setToastMessage,
@@ -448,7 +470,7 @@ class RootContainer extends RootContainerBase<{}> {
         >
           <SoundRecordingProvider>
             <RenderAppOnce
-              userLoggedIn={Boolean(this.state.user)}
+              userLoggedIn={Boolean(user)}
               assignNavigatorRef={this.assignNavRef}
             />
           </SoundRecordingProvider>
@@ -471,7 +493,6 @@ class RootContainer extends RootContainerBase<{}> {
      * Fetch lessons
      */
     const lessons = fetchLessonSet();
-
     const wordDictionary = createWordDictionaryFromLessons(lessons);
     this.setState(
       {
@@ -479,27 +500,33 @@ class RootContainer extends RootContainerBase<{}> {
         wordDictionary,
         languageSetting: await getAppLanguageSetting(),
       },
-      this.setupUserSession,
+      this.initializeUserSession,
     );
   };
 
-  setupUserSession = async () => {
-    const localUser = await getLocalUser();
-
-    if (localUser && localUser.email) {
-      const user = await findOrCreateUser(localUser.email);
-
-      if (user) {
-        const scoreHistory = JSON.parse(user.score_history);
-        this.setState({
-          loading: false,
-          transparentLoading: false,
-          user: localUser,
-          userId: user.uuid,
-          experience: user.experience_points,
-          userScoreStatus: scoreHistory,
-          appDifficultySetting: user.app_difficulty_setting,
-        });
+  initializeUserSession = async () => {
+    const maybePersistedUser = await getPersistedUser();
+    if (maybePersistedUser && maybePersistedUser.email) {
+      /**
+       * Restore user:
+       *
+       * - fetch from server if network is isConnected
+       * - otherwise try to restore from local data
+       */
+      if (this.state.networkConnected) {
+        const user = await findOrCreateUser(maybePersistedUser.email);
+        if (user) {
+          this.setState({
+            loading: false,
+            transparentLoading: false,
+            user: transformUserToLocalUserData(user),
+            experience: user.experience_points,
+            userScoreStatus: user.score_history,
+            appDifficultySetting: user.app_difficulty_setting,
+          });
+        }
+      } else {
+        this.setupUserSessionFromPersistedUserData(maybePersistedUser);
       }
     }
     /**
@@ -513,7 +540,12 @@ class RootContainer extends RootContainerBase<{}> {
     if (user && user.email) {
       const userResult = await findOrCreateUser(user.email);
       if (userResult) {
-        this.setState({ user, userId: userResult.uuid });
+        this.setState(
+          {
+            user: transformUserToLocalUserData(userResult),
+          },
+          this.serializeAndPersistUser,
+        );
       }
     } else {
       // TODO: Handle missing email...
@@ -525,8 +557,9 @@ class RootContainer extends RootContainerBase<{}> {
     updatedScoreStatus: ScoreStatus,
     lessonExperience: number,
   ) => {
-    const { userId, experience } = this.state;
-    if (userId) {
+    const { user, experience } = this.state;
+    if (user && user.uuid) {
+      const userId = user.uuid;
       const updatedExperience = experience + lessonExperience;
       this.setState(
         {
@@ -546,8 +579,9 @@ class RootContainer extends RootContainerBase<{}> {
   handleUpdateAppDifficultySetting = async (
     appDifficultySetting: APP_DIFFICULTY_SETTING,
   ) => {
-    const { userId } = this.state;
-    if (userId) {
+    const { user } = this.state;
+    if (user && user.uuid) {
+      const userId = user.uuid;
       this.setState(
         {
           transparentLoading: true,
@@ -624,8 +658,9 @@ class RootContainer extends RootContainerBase<{}> {
               userScoreStatus: DEFAULT_SCORE_STATE,
             },
             () => {
-              const { userId } = this.state;
-              if (userId) {
+              const { user } = this.state;
+              if (user && user.uuid) {
+                const userId = user.uuid;
                 this.setToastMessage("Scores reset!");
                 this.requestMiddlewareHandler([
                   createSerializedUserExperienceHandler(userId, 0),

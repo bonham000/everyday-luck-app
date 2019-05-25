@@ -6,8 +6,7 @@ import GlobalStateContext, {
   ScoreStatus,
   WordDictionary,
 } from "@src/providers/GlobalStateContext";
-import { GoogleSigninUser } from "@src/tools/async-store";
-import { HSKListSet } from "@src/tools/types";
+import { GoogleSigninUser, HSKListSet, UserData } from "@src/tools/types";
 
 /** ========================================================================
  * Types
@@ -15,10 +14,10 @@ import { HSKListSet } from "@src/tools/types";
  */
 
 export interface GlobalStateValues {
-  user?: GoogleSigninUser;
-  lessons: HSKListSet;
-  userScoreStatus: ScoreStatus;
+  user?: UserData;
   experience: number;
+  userScoreStatus: ScoreStatus;
+  lessons: HSKListSet;
   wordDictionary: WordDictionary;
   languageSetting: APP_LANGUAGE_SETTING;
   appDifficultySetting: APP_DIFFICULTY_SETTING;

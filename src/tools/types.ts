@@ -1,8 +1,10 @@
 import { GestureResponderEvent } from "react-native";
 
 import {
+  APP_DIFFICULTY_SETTING,
   APP_LANGUAGE_SETTING,
   QUIZ_TYPE,
+  ScoreStatus,
 } from "@src/providers/GlobalStateContext";
 
 /** ========================================================================
@@ -44,6 +46,43 @@ export interface Empty {
 }
 
 export type Option<T> = OptionSuccess<T> | Empty;
+
+/** ========================================================================
+ * User Types
+ * =========================================================================
+ */
+
+export interface GoogleSigninUser {
+  email: string;
+  familyName: string;
+  givenName: string;
+  id: string;
+  name: string;
+  photoUrl?: string;
+}
+
+export interface UserData {
+  uuid: string;
+  email: string;
+  name: string;
+  family_name: string;
+  given_name: string;
+  photo_url?: string;
+}
+
+export interface User {
+  uuid: string;
+  email: string;
+  name: string;
+  family_name: string;
+  given_name: string;
+  photo_url?: string;
+  experience_points: number;
+  score_history: ScoreStatus;
+  app_difficulty_setting: APP_DIFFICULTY_SETTING;
+}
+
+export type UserResponse = Promise<User | undefined>;
 
 /** ========================================================================
  * Global App Types

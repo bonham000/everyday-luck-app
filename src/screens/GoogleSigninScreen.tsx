@@ -12,8 +12,9 @@ import {
   GlobalStateContextProps,
   withGlobalStateContext,
 } from "@src/providers/GlobalStateProvider";
-import { saveLocalUser } from "@src/tools/async-store";
+import { saveUserToAsyncStorage } from "@src/tools/async-store";
 import CONFIG from "@src/tools/config";
+import { GoogleSigninUser } from "@src/tools/types";
 import { resetNavigation } from "@src/tools/utils";
 
 /** ========================================================================
@@ -92,9 +93,12 @@ export class GoogleSigninScreenComponent extends React.Component<
 
           if (result.type === "success") {
             const { user } = result;
-            await saveLocalUser(user);
-            await this.props.onSignin(user);
-            this.props.navigation.dispatch(resetNavigation(ROUTE_NAMES.HOME));
+            if (user.email) {
+              await this.props.onSignin(user as GoogleSigninUser);
+              this.props.navigation.dispatch(resetNavigation(ROUTE_NAMES.HOME));
+            } else {
+              throw new Error("No email provided!");
+            }
           } else {
             this.setState({
               loading: false,

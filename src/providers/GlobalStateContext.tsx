@@ -1,7 +1,6 @@
 import React from "react";
 
-import { GoogleSigninUser } from "@src/tools/async-store";
-import { HSKListSet, Word } from "@src/tools/types";
+import { GoogleSigninUser, HSKListSet, UserData, Word } from "@src/tools/types";
 
 /** ========================================================================
  * Types and Config
@@ -72,7 +71,6 @@ export const QuizTypeOptions: ReadonlyArray<QUIZ_TYPE> = [
 
 const GlobalStateContext = React.createContext({
   experience: 0,
-  user: {},
   lessons: [] as HSKListSet,
   userScoreStatus: {},
   wordDictionary: {},

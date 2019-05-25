@@ -27,6 +27,8 @@ import {
   SIMPLIFIED_CHINESE,
   TRADITIONAL_CHINESE,
   TranslationsData,
+  User,
+  UserData,
   Word,
 } from "@src/tools/types";
 import { ConnectionInfo } from "react-native";
@@ -659,4 +661,24 @@ export const translateWord = async (
  */
 export const isNetworkConnected = (type: ConnectionInfo["type"]): boolean => {
   return type !== "none";
+};
+
+/**
+ * Extract the specific properties from the full user data to store
+ * on the local user data.
+ *
+ * @param user `User` data
+ * returns `UserData` formatted user data
+ */
+export const transformUserToLocalUserData = (user: User): UserData => {
+  const userData: UserData = {
+    uuid: user.uuid,
+    email: user.email,
+    name: user.name,
+    family_name: user.family_name,
+    given_name: user.given_name,
+    photo_url: user.photo_url,
+  };
+
+  return userData;
 };

@@ -65,7 +65,8 @@ export class SettingsScreenComponent extends React.Component<IProps, {}> {
         <LineBreak />
         <SectionTitle>Experience Points</SectionTitle>
         <InfoText>
-          You currently have <Bold>{this.props.experience}</Bold> experience
+          You currently have{" "}
+          <Bold>{this.props.experience.toLocaleString()}</Bold> experience
           points.
         </InfoText>
         <InfoText>
