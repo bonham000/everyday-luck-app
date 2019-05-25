@@ -2744,7 +2744,7 @@ exports[`App Screen Components Each screen component renders with props provided
         ]
       }
     >
-      2
+      4,983
        words total
     </Text>
     <View
@@ -2799,7 +2799,7 @@ exports[`App Screen Components Each screen component renders with props provided
         }
       >
         (
-        1
+        293
          words)
       </Text>
     </View>
@@ -2855,7 +2855,175 @@ exports[`App Screen Components Each screen component renders with props provided
         }
       >
         (
-        1
+        301
+         words)
+      </Text>
+    </View>
+    <View
+      accessible={true}
+      isTVSelectable={true}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgb(215,215,215)",
+          "borderRadius": 5,
+          "flexDirection": "row",
+          "height": 50,
+          "justifyContent": "space-between",
+          "margin": 4,
+          "opacity": 1,
+          "padding": 12,
+          "width": "90%",
+        }
+      }
+    >
+      <Text
+        isLocked={true}
+        style={
+          Array [
+            Object {
+              "color": "rgb(125,125,125)",
+              "fontWeight": "500",
+              "textDecorationStyle": "solid",
+            },
+          ]
+        }
+      >
+        HSK Level 
+        4
+      </Text>
+      <Text
+        isLocked={true}
+        style={
+          Array [
+            Object {
+              "color": "rgb(125,125,125)",
+              "fontWeight": "500",
+              "textDecorationStyle": "solid",
+            },
+          ]
+        }
+      >
+        (
+        597
+         words)
+      </Text>
+    </View>
+    <View
+      accessible={true}
+      isTVSelectable={true}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgb(215,215,215)",
+          "borderRadius": 5,
+          "flexDirection": "row",
+          "height": 50,
+          "justifyContent": "space-between",
+          "margin": 4,
+          "opacity": 1,
+          "padding": 12,
+          "width": "90%",
+        }
+      }
+    >
+      <Text
+        isLocked={true}
+        style={
+          Array [
+            Object {
+              "color": "rgb(125,125,125)",
+              "fontWeight": "500",
+              "textDecorationStyle": "solid",
+            },
+          ]
+        }
+      >
+        HSK Level 
+        5
+      </Text>
+      <Text
+        isLocked={true}
+        style={
+          Array [
+            Object {
+              "color": "rgb(125,125,125)",
+              "fontWeight": "500",
+              "textDecorationStyle": "solid",
+            },
+          ]
+        }
+      >
+        (
+        1295
+         words)
+      </Text>
+    </View>
+    <View
+      accessible={true}
+      isTVSelectable={true}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgb(215,215,215)",
+          "borderRadius": 5,
+          "flexDirection": "row",
+          "height": 50,
+          "justifyContent": "space-between",
+          "margin": 4,
+          "opacity": 1,
+          "padding": 12,
+          "width": "90%",
+        }
+      }
+    >
+      <Text
+        isLocked={true}
+        style={
+          Array [
+            Object {
+              "color": "rgb(125,125,125)",
+              "fontWeight": "500",
+              "textDecorationStyle": "solid",
+            },
+          ]
+        }
+      >
+        HSK Level 
+        6
+      </Text>
+      <Text
+        isLocked={true}
+        style={
+          Array [
+            Object {
+              "color": "rgb(125,125,125)",
+              "fontWeight": "500",
+              "textDecorationStyle": "solid",
+            },
+          ]
+        }
+      >
+        (
+        2497
          words)
       </Text>
     </View>

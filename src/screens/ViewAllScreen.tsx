@@ -63,7 +63,9 @@ export class ViewAllScreenComponent extends React.Component<IProps, IState> {
           contentContainerStyle={{ width: "100%" }}
           data={this.getListContent()}
           renderItem={this.renderItem}
-          keyExtractor={(item: Word) => item.traditional}
+          keyExtractor={(item: Word, index: number) =>
+            `${item.traditional}-${index}`
+          }
         />
       </BasicContainer>
     );

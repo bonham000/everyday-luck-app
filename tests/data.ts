@@ -1,4 +1,5 @@
 import HSK_LISTS from "@src/lessons";
+import lessonData from "@src/lessons/02";
 import {
   APP_DIFFICULTY_SETTING,
   APP_LANGUAGE_SETTING,
@@ -15,7 +16,6 @@ import {
   Word,
 } from "@src/tools/types";
 import { createWordDictionaryFromLessons } from "@src/tools/utils";
-import lessonData from "src/lessons/02";
 
 /** ========================================================================
  * Words/Lessons Mock Data
