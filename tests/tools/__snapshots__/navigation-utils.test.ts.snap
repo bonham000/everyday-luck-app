@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`navigation-utils resetNavigation 1`] = `
+Object {
+  "actions": Array [
+    Object {
+      "routeName": "HOME",
+      "type": "Navigation/NAVIGATE",
+    },
+  ],
+  "index": 0,
+  "type": "Navigation/RESET",
+}
+`;

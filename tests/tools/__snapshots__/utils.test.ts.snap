@@ -22,16 +22,3 @@ Object {
   "traditional": "阿姨",
 }
 `;
-
-exports[`utils resetNavigation 1`] = `
-Object {
-  "actions": Array [
-    Object {
-      "routeName": "HOME",
-      "type": "Navigation/NAVIGATE",
-    },
-  ],
-  "index": 0,
-  "type": "Navigation/RESET",
-}
-`;
