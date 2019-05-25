@@ -95,4 +95,4 @@ const updateAudioRecordingsData = async () => {
 updateAudioRecordingsData();
 
 /* [2] Download mp3s for scraped data */
-fetchMp3Files();
+// fetchMp3Files();
