@@ -452,6 +452,19 @@ exports[`App Screen Components Each screen component renders with props provided
     >
       Sound not loading?
     </Text>
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "rgb(60,60,60)",
+            "fontSize": 12,
+            "fontWeight": "bold",
+          },
+        ]
+      }
+    >
+      Recordings courtesy of Forvo
+    </Text>
   </View>
   <View
     pointerEvents="box-none"
@@ -3777,9 +3790,7 @@ exports[`App Screen Components Each screen component renders with props provided
         ]
       }
     >
-      Already mastered this HSK Level? Prove your knowledge to opt-out and unlock the next level immediately (
-      30
-       questions)
+      Already mastered this HSK Level? Prove your knowledge to opt-out and unlock the next level immediately.
     </Text>
     <View
       accessible={true}

@@ -18,7 +18,6 @@ import {
   ListScreenParams,
 } from "@src/tools/types";
 import {
-  convertAppDifficultyToLessonSize,
   DeriveLessonContentArgs,
   determineFinalUnlockedLesson,
   getRandomQuizChallenge,
