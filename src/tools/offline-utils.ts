@@ -1,3 +1,5 @@
+import { AsyncStorage } from "react-native";
+
 import { ASYNC_STORE_KEYS } from "@src/constants/AsyncStoreKeys";
 import {
   APP_DIFFICULTY_SETTING,
@@ -10,7 +12,6 @@ import {
 } from "@src/tools/api";
 import { UserAsyncResponse } from "@src/tools/types";
 import { assertUnreachable } from "@src/tools/utils";
-import { AsyncStorage } from "react-native";
 
 /** ========================================================================
  * Types

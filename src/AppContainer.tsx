@@ -107,21 +107,10 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
     };
   }
 
-  canCloseApp = (): any => {
-    try {
-      if (this.navigationRef) {
-        return this.navigationRef.state.nav.routes[0].routes.length === 1;
-      }
-    } catch (_) {
-      return true;
-    }
-  };
-
   setupNetworkListener = async () => {
     /**
      * Get initial network state and add a listener for network changes.
      */
-
     const networkState = await NetInfo.getConnectionInfo();
 
     const isConnected = isNetworkConnected(networkState.type);
@@ -247,6 +236,29 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
     }
   };
 
+  handleConnectivityChange = (
+    connectionInfo: ConnectionInfo | ConnectionType,
+  ) => {
+    let isConnected: boolean;
+    if (typeof connectionInfo === "string") {
+      isConnected = isNetworkConnected(connectionInfo);
+    } else {
+      isConnected = isNetworkConnected(connectionInfo.type);
+    }
+
+    console.log(`Network change - network online: ${isConnected}`);
+
+    this.setState({ networkConnected: isConnected }, () => {
+      if (isConnected) {
+        this.maybeProcessOfflineRequests();
+      } else {
+        this.setToastMessage(
+          "Network connectivity lost... any updates will be saved when network is restored.",
+        );
+      }
+    });
+  };
+
   serializeAndPersistUser = async () => {
     if (this.state.user) {
       const user: User = {
@@ -354,27 +366,14 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
     });
   };
 
-  handleConnectivityChange = (
-    connectionInfo: ConnectionInfo | ConnectionType,
-  ) => {
-    let isConnected: boolean;
-    if (typeof connectionInfo === "string") {
-      isConnected = isNetworkConnected(connectionInfo);
-    } else {
-      isConnected = isNetworkConnected(connectionInfo.type);
-    }
-
-    console.log(`Network change - network online: ${isConnected}`);
-
-    this.setState({ networkConnected: isConnected }, () => {
-      if (isConnected) {
-        this.maybeProcessOfflineRequests();
-      } else {
-        this.setToastMessage(
-          "Network connectivity lost... any updates will be saved when network is restored.",
-        );
+  canCloseApp = (): any => {
+    try {
+      if (this.navigationRef) {
+        return this.navigationRef.state.nav.routes[0].routes.length === 1;
       }
-    });
+    } catch (_) {
+      return true;
+    }
   };
 }
 
@@ -384,7 +383,10 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
  */
 class RootContainer extends RootContainerBase<{}> {
   async componentDidMount(): Promise<void> {
-    this.getInitialScoreState();
+    /**
+     * Initial user scores.
+     */
+    this.initializeAppState();
 
     /**
      * Initialize network listener and setup initial network state.
@@ -499,7 +501,7 @@ class RootContainer extends RootContainerBase<{}> {
     );
   }
 
-  getInitialScoreState = async () => {
+  initializeAppState = async () => {
     /**
      * Fetch image assets.
      *
