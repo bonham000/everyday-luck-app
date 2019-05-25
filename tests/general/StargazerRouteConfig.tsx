@@ -9,6 +9,7 @@ import { ContactScreenComponent } from "@src/screens/ContactScreen";
 import { FlashcardsScreenComponent } from "@src/screens/FlashcardsScreen";
 import { GoogleSigninScreenComponent } from "@src/screens/GoogleSigninScreen";
 import { HomeScreenComponent } from "@src/screens/HomeScreen";
+import IntroScreenComponent from "@src/screens/IntroScreen";
 import { LessonSummaryScreenComponent } from "@src/screens/LessonSummaryScreen";
 import { ListSummaryScreenComponent } from "@src/screens/ListSummaryScreen";
 import { QuizScreenComponent } from "@src/screens/QuizScreen";
@@ -181,6 +182,13 @@ const stargazerConfig: ReadonlyArray<StargazerRouteConfigObject> = [
     screenName: ROUTE_NAMES.ABOUT,
     screen: (props: StargazerRouteProps) => (
       <AboutScreenComponent navigation={props.navigation} />
+    ),
+  },
+  {
+    name: "Intro Screen",
+    screenName: ROUTE_NAMES.INTRO,
+    screen: (props: StargazerRouteProps) => (
+      <IntroScreenComponent navigation={props.navigation} />
     ),
   },
   {

@@ -3156,6 +3156,48 @@ exports[`App Screen Components Each screen component renders with props provided
 </RCTScrollView>
 `;
 
+exports[`App Screen Components Each screen component renders with props provided: Intro Screen 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "rgb(231, 237, 240)",
+        "flex": 1,
+        "paddingTop": 25,
+      },
+    ]
+  }
+>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontSize": 18,
+          "fontWeight": "400",
+          "marginTop": 18,
+          "textAlign": "center",
+          "width": "90%",
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "fontWeight": "bold",
+          },
+        ]
+      }
+    >
+      TODO:
+    </Text>
+     Add Intro Screen(s).
+  </Text>
+</View>
+`;
+
 exports[`App Screen Components Each screen component renders with props provided: Lesson Summary Screen 1`] = `
 <View
   style={
@@ -3789,7 +3831,7 @@ exports[`App Screen Components Each screen component renders with props provided
           ]
         }
       >
-        🍎
+        👨‍🎓👩‍🎓
       </Text>
     </View>
   </View>
