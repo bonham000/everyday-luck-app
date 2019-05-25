@@ -59,7 +59,7 @@ export class GoogleSigninScreenComponent extends React.Component<
 
     return (
       <Container style={{ justifyContent: "center" }}>
-        <AppTitle>很多漢字</AppTitle>
+        <AppTitle>很多汉字</AppTitle>
         <AppSubtitle>"Hěnduō hànzì"</AppSubtitle>
         <DescriptionText>This is an app for learning Chinese</DescriptionText>
         <GoogleButtonContainer onPress={this.signin}>
@@ -78,39 +78,39 @@ export class GoogleSigninScreenComponent extends React.Component<
       {
         loading: true,
       },
-      async () => {
-        try {
-          /**
-           * TODO: This includes access token data which can be used to authenticate
-           * future requests.
-           */
-          const result: Google.LogInResult = await Google.logInAsync({
-            androidClientId: ANDROID_CLIENT_ID,
-            iosClientId: IOS_CLIENT_ID,
-            scopes: ["profile", "email"],
-          });
-
-          if (result.type === "success") {
-            const { user } = result;
-            if (user.email) {
-              await this.props.onSignin(user as GoogleSigninUser);
-              this.props.navigation.dispatch(resetNavigation(ROUTE_NAMES.HOME));
-            } else {
-              throw new Error("No email provided!");
-            }
-          } else {
-            this.setState({
-              loading: false,
-            });
-          }
-        } catch (err) {
-          this.setState({
-            loading: false,
-            error: true,
-          });
-        }
-      },
+      this.handleSigninResult,
     );
+  };
+
+  handleSigninResult = async () => {
+    try {
+      /**
+       * TODO: This includes access token data which can be used to authenticate
+       * future requests.
+       */
+      const result: Google.LogInResult = await Google.logInAsync({
+        androidClientId: ANDROID_CLIENT_ID,
+        iosClientId: IOS_CLIENT_ID,
+        scopes: ["profile", "email"],
+      });
+
+      if (result.type === "success") {
+        const { user } = result;
+        if (user.email) {
+          await this.props.onSignin(user as GoogleSigninUser);
+          this.props.navigation.dispatch(resetNavigation(ROUTE_NAMES.HOME));
+        } else {
+          throw new Error("No email provided!");
+        }
+      } else {
+        throw new Error("Login failed, cancelled, or rejected");
+      }
+    } catch (err) {
+      this.setState({
+        error: true,
+        loading: false,
+      });
+    }
   };
 }
 

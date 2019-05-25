@@ -223,7 +223,7 @@ const TitleContainer = glamorous.view({
   marginTop: 25,
   marginBottom: 25,
   padding: 12,
-  height: 80,
+  height: 115,
   width: "100%",
   alignItems: "center",
   justifyContent: "center",
@@ -335,7 +335,7 @@ const QuizAnswerText = ({
     fontWeight: shouldReveal
       ? "400"
       : quizType === QUIZ_TYPE.ENGLISH
-      ? "300"
+      ? "400"
       : "bold",
     fontSize: shouldReveal ? 15 : quizType === QUIZ_TYPE.ENGLISH ? 22 : 45,
   };

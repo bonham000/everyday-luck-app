@@ -149,7 +149,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
               >
                 <ActionButton.Item
                   buttonColor={COLORS.actionButtonPurple}
-                  title="Skip this one!"
+                  title="Skip this one"
                   onPress={this.handleProceed(true)}
                 >
                   <Ionicons name="md-key" style={ActionIconStyle} />
