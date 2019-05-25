@@ -175,6 +175,12 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
           shouldNotExpire: true,
           message: "Unsaved progress found - saving now...",
         });
+        this.setState(
+          {
+            offlineRequestQueue: queue,
+          },
+          this.maybeProcessOfflineRequests,
+        );
       }
     } else {
       if (queue.length) {
