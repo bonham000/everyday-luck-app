@@ -98,6 +98,24 @@ const ROUTES: NavigationScreenRouteConfig = {
       headerBackTitle: null,
     },
   },
+  [ROUTE_NAMES.DAILY_CHALLENGE]: {
+    screen: (props: NavigationScreenProp<{}>) => (
+      <QuizScreenComponent {...props} />
+    ),
+    navigationOptions: {
+      title: "Daily Challenge ⛵",
+      headerBackTitle: null,
+    },
+  },
+  [ROUTE_NAMES.HSK_TEST_OUT]: {
+    screen: (props: NavigationScreenProp<{}>) => (
+      <QuizScreenComponent {...props} />
+    ),
+    navigationOptions: {
+      title: "HSK Challenge 💥",
+      headerBackTitle: null,
+    },
+  },
   [ROUTE_NAMES.MULTIPLE_CHOICE_MANDARIN]: {
     screen: (props: NavigationScreenProp<{}>) => (
       <QuizScreenComponent {...props} quizType={QUIZ_TYPE.MANDARIN} />

@@ -46,7 +46,10 @@ const OPT_OUT_LEVEL = APP_DIFFICULTY_SETTING.HARD;
 
 export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
   render(): JSX.Element {
+    const { userScoreStatus } = this.props;
     const hskList = this.props.navigation.getParam("hskList");
+    const listIndex = this.props.navigation.getParam("listIndex");
+    const listScore = mapListIndexToListScores(listIndex, userScoreStatus);
     return (
       <Container>
         <TitleText>Choose a lesson to start studying</TitleText>
@@ -56,24 +59,26 @@ export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
           contentContainerStyle={FlatListStyles}
           keyExtractor={item => `${item[0].traditional}-${item[0].pinyin}`}
         />
-        <OptOutBlock>
-          <SubText>
-            Already mastered this HSK Level? Prove your knowledge to opt-out and
-            unlock the next level immediately (
-            {convertAppDifficultyToLessonSize(OPT_OUT_LEVEL)} questions)
-          </SubText>
-          <LessonBlock
-            onPress={this.handleTestOut}
-            style={{
-              backgroundColor: COLORS.actionButtonYellow,
-            }}
-          >
-            <LessonBlockText isLocked={false}>
-              Test out of this HSK Level
-            </LessonBlockText>
-            <Text>🍎</Text>
-          </LessonBlock>
-        </OptOutBlock>
+        {!listScore.complete && (
+          <OptOutBlock>
+            <SubText>
+              Already mastered this HSK Level? Prove your knowledge to opt-out
+              and unlock the next level immediately (
+              {convertAppDifficultyToLessonSize(OPT_OUT_LEVEL)} questions)
+            </SubText>
+            <LessonBlock
+              onPress={this.handleTestOut}
+              style={{
+                backgroundColor: COLORS.actionButtonYellow,
+              }}
+            >
+              <LessonBlockText isLocked={false}>
+                Test out of this HSK Level
+              </LessonBlockText>
+              <Text>🍎</Text>
+            </LessonBlock>
+          </OptOutBlock>
+        )}
       </Container>
     );
   }
@@ -165,22 +170,28 @@ export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
     const listIndex = this.props.navigation.getParam("listIndex");
     const args: DeriveLessonContentArgs = {
       lists: lessons,
-      unlockedLessonIndex: listIndex,
+      unlockedListIndex: listIndex,
       appDifficultySetting: OPT_OUT_LEVEL,
       userScoreStatus,
+      limitToCurrentList: true,
     };
     const randomQuizSet = getRandomQuizChallenge(args);
-    this.openLessonSummarySpecial(randomQuizSet, "OPT_OUT_CHALLENGE")();
+    this.openLessonSummarySpecial(
+      randomQuizSet,
+      "OPT_OUT_CHALLENGE",
+      listIndex,
+    )();
   };
 
   openLessonSummarySpecial = (
     lesson: Lesson,
     type: LessonSummaryType,
+    listIndex: number,
   ) => () => {
     const params: LessonScreenParams = {
       type,
       lesson,
-      listIndex: Infinity,
+      listIndex,
       lessonIndex: Infinity,
       isFinalLesson: false,
       isFinalUnlockedLesson: false,
@@ -201,7 +212,11 @@ const Container = glamorous.view({
   backgroundColor: COLORS.background,
 });
 
-const FlatListStyles = { paddingBottom: 50, paddingLeft: 15, paddingRight: 15 };
+const FlatListStyles = {
+  paddingBottom: 30,
+  paddingLeft: 15,
+  paddingRight: 15,
+};
 
 const LessonBlock = glamorous.touchableOpacity({
   height: 50,

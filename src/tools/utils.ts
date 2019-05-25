@@ -290,10 +290,12 @@ export const getExperiencePointsForLesson = (
   quizType: QUIZ_TYPE,
   lessonType: LessonSummaryType,
 ): number => {
-  const MIN = 500;
-  let MAX = quizType === QUIZ_TYPE.QUIZ_TEXT ? 1250 : 750;
+  const MIN: number = 500;
+  let MAX: number;
   if (lessonType === "OPT_OUT_CHALLENGE") {
     MAX = 5000;
+  } else {
+    MAX = quizType === QUIZ_TYPE.QUIZ_TEXT ? 1250 : 750;
   }
   const OFFSET = lessonType === "LESSON" ? 500 : 0;
   return randomInRange(MIN, MAX - OFFSET);
@@ -301,19 +303,21 @@ export const getExperiencePointsForLesson = (
 
 export interface DeriveLessonContentArgs {
   lists: HSKListSet;
-  unlockedLessonIndex: number;
+  unlockedListIndex: number;
   userScoreStatus: ScoreStatus;
   appDifficultySetting: APP_DIFFICULTY_SETTING;
+  limitToCurrentList?: boolean;
 }
 
 /**
  * Derive random lesson set for game mode.
  *
- * @param lists HSKListSet of content
- * @param unlockedLessonIndex final unlocked lesson index
+ * @param lists HSKListSet of all content
+ * @param unlockedListIndex final unlocked list index
  * @param appDifficultySetting user difficulty setting
- * @param userScoreStatus user scores
- * @returns random lesson containing 25 items
+ * @param userScoreStatus current user scores
+ * @param limitToCurrentList whether results should be limited to current list or not
+ * @returns randomized lesson content based on the parameters
  */
 export const getRandomQuizChallenge = (
   args: DeriveLessonContentArgs,
@@ -326,9 +330,7 @@ export const getRandomQuizChallenge = (
 /**
  * Derive random lesson set for game mode.
  *
- * @param lists HSKListSet of content
- * @param unlockedLessonIndex final unlocked lesson index
- * @param userScoreStatus user scores
+ * @param `DeriveLessonContentArgs`
  * @returns merged review content of all unlocked lessons
  */
 export const getReviewLessonSet = (args: DeriveLessonContentArgs) => {
@@ -340,9 +342,7 @@ export const getReviewLessonSet = (args: DeriveLessonContentArgs) => {
  * words which the use has already completed, and returns these
  * as a single flattened array.
  *
- * @param lists HSKListSet of content
- * @param unlockedLessonIndex final unlocked lesson index
- * @param userScoreStatus user scores
+ * @param `DeriveLessonContentArgs`
  * @returns merged word lists of all unlocked words
  */
 const getAllUnlockedWordContent = (
@@ -350,21 +350,34 @@ const getAllUnlockedWordContent = (
 ): ReadonlyArray<Word> => {
   const {
     lists,
-    unlockedLessonIndex,
+    unlockedListIndex,
     userScoreStatus,
     appDifficultySetting,
+    limitToCurrentList,
   } = args;
 
+  /**
+   * If limited to current list then just return that list content. This is used for
+   * the HSK opt-out tests which cover just the content specific to that HSK list.
+   */
+  if (limitToCurrentList) {
+    return lists[unlockedListIndex].content;
+  }
+
+  /**
+   * Otherwise gather all the unlocked words the user has completed so far and
+   * flatten and return the results.
+   */
   const completedLists =
-    unlockedLessonIndex > 0
+    unlockedListIndex > 0
       ? lists
-          .slice(0, unlockedLessonIndex)
+          .slice(0, unlockedListIndex)
           .map(list => list.content)
           .reduce((flattened, lesson) => flattened.concat(lesson))
       : [];
-  const finalUnlockedList = lists[unlockedLessonIndex];
+  const finalUnlockedList = lists[unlockedListIndex];
   const finalListScore = mapListIndexToListScores(
-    unlockedLessonIndex,
+    unlockedListIndex,
     userScoreStatus,
   );
   const completedWords = finalListScore.number_words_completed;
@@ -373,6 +386,7 @@ const getAllUnlockedWordContent = (
     0,
     completedWords || lessonSize,
   );
+
   return completedLists.concat(finalListWords);
 };
 
@@ -696,7 +710,7 @@ export const getQuizSuccessToasts = (
   if (lessonCompleted) {
     secondary = `Great - keep going! 很好! You earned ${experience} experience points!`;
   } else if (lessonType === "OPT_OUT_CHALLENGE") {
-    secondary = "Incredible!!! You're a master!";
+    secondary = "The next HSK Level will now be unlocked! 💫💫💫";
   } else if (firstPass) {
     secondary = `Congratulations! You gained ${experience} experience points!`;
   } else {

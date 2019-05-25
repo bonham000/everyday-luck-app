@@ -185,7 +185,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
       attempted,
       value: this.state.value,
       setInputRef: this.setInputRef,
-      handleCheck: this.handleCheck,
+      handleCheck: this.handleCheckAnswer,
       handleChange: this.handleChange,
       handleProceed: this.handleProceed,
       languageSetting: this.props.languageSetting,
@@ -203,6 +203,18 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
         handlePronounceWord={this.props.handlePronounceWord}
       />
     );
+  };
+
+  getQuizComponentType = (): QUIZ_TYPE => {
+    const type = this.props.navigation.getParam("type");
+    const IS_RANDOM_QUIZ =
+      type === "DAILY_QUIZ" || type === "OPT_OUT_CHALLENGE";
+    if (IS_RANDOM_QUIZ) {
+      const randomIdx = this.getRandomWordIndex(0, 4);
+      return QuizTypeOptions[randomIdx];
+    } else {
+      return this.props.quizType;
+    }
   };
 
   getInitialState = () => {
@@ -242,17 +254,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     });
   };
 
-  getQuizComponentType = (): QUIZ_TYPE => {
-    const type = this.props.navigation.getParam("type");
-    if (type === "DAILY_QUIZ") {
-      const randomIdx = this.getRandomWordIndex(0, 4);
-      return QuizTypeOptions[randomIdx];
-    } else {
-      return this.props.quizType;
-    }
-  };
-
-  handleCheck = (correct: boolean) => {
+  handleCheckAnswer = (correct: boolean) => {
     const { value, wordContent, currentWordIndex } = this.state;
 
     let failed = false;
@@ -442,6 +444,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
         ...updatedScoreStatus,
         [listScoreKey]: {
           ...listScore,
+          ...DEFAULT_LESSON_SCORES,
           complete: true,
           number_words_completed: lessons[listIndex].content.length,
         },
@@ -475,6 +478,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
               lessonCompleted,
               isFinalLesson,
               firstPass,
+              lessonType,
             );
           },
         },
@@ -487,9 +491,12 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     lessonCompleted: boolean,
     isFinalLesson: boolean,
     firstPass: boolean,
+    lessonType: LessonSummaryType,
   ) => {
     this.stopConfetti();
-    if (lessonCompleted) {
+    if (lessonType === "OPT_OUT_CHALLENGE") {
+      this.props.navigation.navigate(ROUTE_NAMES.HOME);
+    } else if (lessonCompleted) {
       if (isFinalLesson) {
         this.props.navigation.navigate(ROUTE_NAMES.HOME);
       } else {

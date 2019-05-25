@@ -70,7 +70,9 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
           <React.Fragment>
             <LineBreak />
             <ActionBlock
-              onPress={this.handleNavigateToSection(ROUTE_NAMES.QUIZ)}
+              onPress={this.handleNavigateToSection(
+                ROUTE_NAMES.DAILY_CHALLENGE,
+              )}
             >
               <Text>Start the Quiz!</Text>
               <Text>⛵</Text>
@@ -81,7 +83,7 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
           <React.Fragment>
             <LineBreak />
             <ActionBlock
-              onPress={this.handleNavigateToSection(ROUTE_NAMES.QUIZ)}
+              onPress={this.handleNavigateToSection(ROUTE_NAMES.HSK_TEST_OUT)}
             >
               <Text>Accept the challenge!</Text>
               <Text>💥</Text>

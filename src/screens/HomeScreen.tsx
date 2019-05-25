@@ -49,7 +49,7 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
     );
     const args: DeriveLessonContentArgs = {
       lists: lessons,
-      unlockedLessonIndex,
+      unlockedListIndex: unlockedLessonIndex,
       appDifficultySetting,
       userScoreStatus,
     };
