@@ -11,6 +11,7 @@ import {
 import { logoutUserLocal } from "@src/tools/async-store";
 import { resetNavigation } from "@src/tools/navigation-utils";
 import { formatUserLanguageSetting } from "@src/tools/utils";
+import { Constants } from "expo";
 
 /** ========================================================================
  * Types
@@ -91,6 +92,11 @@ class SideMenuComponent extends React.Component<IProps, {}> {
           style={{ position: "absolute", bottom: 65, left: 6, fontSize: 12 }}
         >
           <Bold>Language:</Bold> {formatUserLanguageSetting(languageSetting)}
+        </Item>
+        <Item
+          style={{ position: "absolute", bottom: 35, left: 6, fontSize: 10 }}
+        >
+          <Bold>Version:</Bold> {Constants.manifest.version}
         </Item>
       </SafeAreaView>
     );

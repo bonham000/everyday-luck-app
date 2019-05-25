@@ -191,7 +191,7 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
           <Text style={TextStyles}>Daily Challenge!!! 🏟</Text>
         )}
         {type === "OPT_OUT_CHALLENGE" && (
-          <Text style={TextStyles}>Test Out Challenge</Text>
+          <Text style={TextStyles}>HSK Level Challenge</Text>
         )}
       </React.Fragment>
     );

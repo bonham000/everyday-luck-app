@@ -58,8 +58,7 @@ export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
           <OptOutBlock>
             <SubText>
               Already mastered this HSK Level? Prove your knowledge to opt-out
-              and unlock the next level immediately (
-              {convertAppDifficultyToLessonSize(OPT_OUT_LEVEL)} questions)
+              and unlock the next level immediately.
             </SubText>
             <LessonBlock
               onPress={this.handleTestOut}

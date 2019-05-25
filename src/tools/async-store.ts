@@ -36,6 +36,8 @@ export const logoutUserLocal = async () => {
 
 /** ========================================================================
  * App Language Setting
+ *
+ * - TODO: Move this data to the user object on the sever.
  * =========================================================================
  */
 
