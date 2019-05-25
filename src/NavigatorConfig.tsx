@@ -22,8 +22,8 @@ import QuizScreenComponent from "@src/screens/QuizScreen";
 import SettingsScreenComponent from "@src/screens/SettingsScreen";
 import TranslationScreenComponent from "@src/screens/TranslationScreen";
 import ViewAllScreen from "@src/screens/ViewAllScreen";
+import { getDrawerLockedState } from "@src/tools/navigation-utils";
 import { LessonScreenParams, ListScreenParams } from "@src/tools/types";
-import { getDrawerLockedState } from "@src/tools/utils";
 
 /** ========================================================================
  * App Routes

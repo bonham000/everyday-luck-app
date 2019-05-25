@@ -9,7 +9,8 @@ import {
   withGlobalStateContext,
 } from "@src/providers/GlobalStateProvider";
 import { logoutUserLocal } from "@src/tools/async-store";
-import { formatUserLanguageSetting, resetNavigation } from "@src/tools/utils";
+import { resetNavigation } from "@src/tools/navigation-utils";
+import { formatUserLanguageSetting } from "@src/tools/utils";
 
 /** ========================================================================
  * Types

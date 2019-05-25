@@ -13,8 +13,8 @@ import {
   withGlobalStateContext,
 } from "@src/providers/GlobalStateProvider";
 import CONFIG from "@src/tools/config";
+import { resetNavigation } from "@src/tools/navigation-utils";
 import { GoogleSigninUser } from "@src/tools/types";
-import { resetNavigation } from "@src/tools/utils";
 
 /** ========================================================================
  * Types
