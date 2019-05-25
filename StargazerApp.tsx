@@ -5,7 +5,7 @@ import Stargazer from "react-native-stargazer";
 import { APP_THEME } from "@src/constants/Theme";
 import { ROUTES } from "@src/NavigatorConfig";
 import CONFIG from "@src/tools/config";
-import stargazerRoutes from "./tests/StargazerRouteConfig";
+import stargazerRoutes from "@tests/general/StargazerRouteConfig";
 
 /** ========================================================================
  * Stargazer App

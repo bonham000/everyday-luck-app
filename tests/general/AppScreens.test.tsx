@@ -6,7 +6,7 @@ import {
   MOCK_LESSON_SCREEN_PARAMS,
   MOCK_LIST_SCREEN_PARAMS,
   MOCK_MULTIPLE_CHOICE_OPTIONS,
-} from "./data";
+} from "../data";
 import stargazerConfig from "./StargazerRouteConfig";
 
 // @ts-ignore — for someone reason Jest throws an error React is not defined?

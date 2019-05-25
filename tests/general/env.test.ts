@@ -1,4 +1,4 @@
-import * as ENV from "../env";
+import * as ENV from "../../env";
 
 describe("Environment Variables Configuration", () => {
   test("Contains the same keys - if this test fails a key was added. Be sure to update the create_env.sh script!", () => {
