@@ -164,9 +164,7 @@ export const deserializeRequestQueue = async (): Promise<RequestQueue> => {
  *
  * @param `RequestQueue`
  */
-export const serializeRequestQueue = async (
-  data: ReadonlyArray<GenericRequestHandler>,
-) => {
+export const serializeRequestQueue = async (data: RequestQueue) => {
   try {
     await AsyncStorage.setItem(
       ASYNC_STORE_KEYS.OFFLINE_REQUEST_QUEUE,

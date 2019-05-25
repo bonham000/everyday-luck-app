@@ -22,6 +22,7 @@ import GlobalContext, {
   APP_DIFFICULTY_SETTING,
   APP_LANGUAGE_SETTING,
   ScoreStatus,
+  ToastMessageArgs,
 } from "@src/providers/GlobalStateContext";
 import { GlobalStateValues } from "@src/providers/GlobalStateProvider";
 import SoundRecordingProvider from "@src/providers/SoundRecordingProvider";
@@ -67,6 +68,7 @@ interface IState extends GlobalStateValues {
   transparentLoading: boolean;
   networkConnected: boolean;
   offlineRequestQueue: RequestQueue;
+  processingOfflineRequestQueue: boolean;
 }
 
 const TOAST_TIMEOUT = 5000; /* 5 seconds */
@@ -98,6 +100,7 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
       transparentLoading: false,
       networkConnected: true,
       appState: AppState.currentState,
+      processingOfflineRequestQueue: false,
       userScoreStatus: DEFAULT_SCORE_STATE,
       languageSetting: APP_LANGUAGE_SETTING.SIMPLIFIED,
       appDifficultySetting: APP_DIFFICULTY_SETTING.MEDIUM,
@@ -179,75 +182,69 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
     if (this.state.networkConnected) {
       if (queue.length) {
         console.log("Queued requests found and app online - processing now");
-        this.setToastMessage(
-          "Unsaved progress found - saving now...",
-          Infinity,
-        );
-        this.processRequestQueue(queue, () => {
-          this.clearToast();
-          this.setToastMessage("All updates complete!");
+        this.setToastMessage({
+          shouldNotExpire: true,
+          message: "Unsaved progress found - saving now...",
         });
       }
     } else {
-      const offlineWarning = () =>
-        this.setToastMessage(
-          "You are offline - any progress will be saved when network is restored.",
-        );
-
       if (queue.length) {
-        console.log(
-          "Queued requests found and app offline - enqueueing to process later",
-        );
-        this.setState(
-          {
-            offlineRequestQueue: queue,
-          },
-          offlineWarning,
-        );
-      } else {
-        offlineWarning();
+        this.setState({
+          offlineRequestQueue: queue,
+        });
       }
+
+      this.setToastMessage(
+        "You are offline - any progress will be saved when network is restored.",
+      );
     }
   };
 
   maybeProcessOfflineRequests = async () => {
     /**
-     * Dequeue and process any requests if they exist.
+     * Dequeue and process any requests if they exist when the network connection
+     * is restored.
      */
     const { offlineRequestQueue } = this.state;
     if (offlineRequestQueue.length) {
-      this.setToastMessage(
-        "Offline progress found. Saving updates...",
-        Infinity,
-      );
+      this.setToastMessage({
+        shouldNotExpire: true,
+        message: "Offline progress found. Saving updates...",
+      });
       this.processRequestQueue(offlineRequestQueue);
-      this.setState(
-        {
-          offlineRequestQueue: [],
-        },
-        async () => {
-          await serializeRequestQueue([]);
-          this.clearToast();
-          this.setToastMessage("All progress saved!");
-        },
-      );
     }
   };
 
-  processRequestQueue = async (
-    queue: RequestQueue,
-    callbackOnCompletion?: () => void,
-  ) => {
-    for (const serializedRequestData of queue) {
-      console.log("Processing request...");
-      await deserializeAndRunRequest(serializedRequestData);
-    }
+  processRequestQueue = (queue: RequestQueue) => {
+    /**
+     * Network re-connection events can fire multiple times - keep a flag
+     * to only process the request queue on time.
+     */
+    if (!this.state.processingOfflineRequestQueue) {
+      this.setState(
+        {
+          processingOfflineRequestQueue: true,
+        },
+        async () => {
+          for (const serializedRequestData of queue) {
+            console.log(`Processing request... ${serializedRequestData.type}`);
+            await deserializeAndRunRequest(serializedRequestData);
+          }
 
-    if (callbackOnCompletion) {
-      callbackOnCompletion();
+          this.setState(
+            {
+              offlineRequestQueue: [],
+              processingOfflineRequestQueue: false,
+            },
+            async () => {
+              await serializeRequestQueue([]);
+              this.clearToast();
+              this.setToastMessage("All updates saved!");
+            },
+          );
+        },
+      );
     }
-
-    this.serializeAndPersistAppState();
   };
 
   serializeAndPersistUser = async () => {
@@ -321,32 +318,40 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
     this.setState({ tryingToCloseApp: false });
   };
 
-  setToastMessage = (
-    toastMessage: string,
-    timeout: number = TOAST_TIMEOUT,
-  ): void => {
+  setToastMessage = (args: string | ToastMessageArgs): void => {
     this.clearTimer();
+    let message: string;
+    let timeout = TOAST_TIMEOUT;
+    let shouldNotExpire = false;
+    if (typeof args === "string") {
+      message = args;
+    } else {
+      message = args.message;
+      timeout = args.timeout || TOAST_TIMEOUT;
+      shouldNotExpire = Boolean(args.shouldNotExpire);
+    }
+
     this.setState(
       {
-        toastMessage,
+        toastMessage: message,
       },
       () => {
-        // tslint:disable-next-line
-        this.timeout = setTimeout(() => {
-          this.clearToast();
-          this.abortTryingToClose();
-        }, timeout);
+        if (!shouldNotExpire) {
+          // tslint:disable-next-line
+          this.timeout = setTimeout(() => {
+            this.clearToast();
+            this.abortTryingToClose();
+          }, timeout);
+        }
       },
     );
   };
 
   clearToast = () => {
-    this.setState(
-      {
-        toastMessage: "",
-      },
-      this.clearTimer,
-    );
+    this.clearTimer();
+    this.setState({
+      toastMessage: "",
+    });
   };
 
   handleConnectivityChange = (

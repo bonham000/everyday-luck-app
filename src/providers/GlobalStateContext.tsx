@@ -64,6 +64,12 @@ export const QuizTypeOptions: ReadonlyArray<QUIZ_TYPE> = [
   QUIZ_TYPE.PRONUNCIATION,
 ];
 
+export interface ToastMessageArgs {
+  message: string;
+  timeout?: number;
+  shouldNotExpire?: boolean;
+}
+
 /** ========================================================================
  * Global State Context
  * =========================================================================
@@ -76,7 +82,7 @@ const GlobalStateContext = React.createContext({
   wordDictionary: {},
   appDifficultySetting: APP_DIFFICULTY_SETTING.MEDIUM,
   languageSetting: APP_LANGUAGE_SETTING.SIMPLIFIED,
-  setToastMessage: (toastMessage: string) => {
+  setToastMessage: (toastMessage: string | ToastMessageArgs) => {
     // Handle setting Toast message
   },
   handleResetScores: () => {
