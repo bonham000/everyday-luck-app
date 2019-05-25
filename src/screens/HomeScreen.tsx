@@ -18,6 +18,7 @@ import {
   ListScreenParams,
 } from "@src/tools/types";
 import {
+  DeriveLessonContentArgs,
   formatHskListContent,
   getDailyChallengeQuizSet,
   getFinalUnlockedListKey,
@@ -41,22 +42,19 @@ interface IProps extends GlobalStateContextProps {
 export class HomeScreenComponent extends React.Component<IProps, {}> {
   render(): JSX.Element {
     const { lessons, userScoreStatus, appDifficultySetting } = this.props;
-    const finalUnlockedListIndex = getFinalUnlockedListKey(userScoreStatus);
+    const unlockedLessonIndex = getFinalUnlockedListKey(userScoreStatus);
     const totalWords = lessons.reduce(
       (total, lesson) => total + lesson.content.length,
       0,
     );
-    const dailyQuizSet = getDailyChallengeQuizSet(
-      lessons,
-      finalUnlockedListIndex,
+    const args: DeriveLessonContentArgs = {
+      lists: lessons,
+      unlockedLessonIndex,
       appDifficultySetting,
       userScoreStatus,
-    );
-    const reviewSet = getReviewLessonSet(
-      lessons,
-      finalUnlockedListIndex,
-      userScoreStatus,
-    );
+    };
+    const dailyQuizSet = getDailyChallengeQuizSet(args);
+    const reviewSet = getReviewLessonSet(args);
     return (
       <ScrollContainer>
         <Text style={TextStyles}>Choose a lesson to start studying</Text>

@@ -352,6 +352,13 @@ export const getDrawerLockedState = (navigation: any): DrawerLockMode => {
   return drawerLockMode;
 };
 
+export interface DeriveLessonContentArgs {
+  lists: HSKListSet;
+  unlockedLessonIndex: number;
+  userScoreStatus: ScoreStatus;
+  appDifficultySetting: APP_DIFFICULTY_SETTING;
+}
+
 /**
  * Derive random lesson set for game mode.
  *
@@ -362,17 +369,10 @@ export const getDrawerLockedState = (navigation: any): DrawerLockMode => {
  * @returns random lesson containing 25 items
  */
 export const getDailyChallengeQuizSet = (
-  lists: HSKListSet,
-  unlockedLessonIndex: number,
-  appDifficultySetting: APP_DIFFICULTY_SETTING,
-  userScoreStatus: ScoreStatus,
+  args: DeriveLessonContentArgs,
 ): Lesson => {
-  const quizSize = convertAppDifficultyToLessonSize(appDifficultySetting);
-  const allWordContent = getAllUnlockedWordContent(
-    lists,
-    unlockedLessonIndex,
-    userScoreStatus,
-  );
+  const quizSize = convertAppDifficultyToLessonSize(args.appDifficultySetting);
+  const allWordContent = getAllUnlockedWordContent(args);
   return knuthShuffle(allWordContent).slice(0, quizSize);
 };
 
@@ -384,12 +384,8 @@ export const getDailyChallengeQuizSet = (
  * @param userScoreStatus user scores
  * @returns merged review content of all unlocked lessons
  */
-export const getReviewLessonSet = (
-  lists: HSKListSet,
-  unlockedLessonIndex: number,
-  userScoreStatus: ScoreStatus,
-) => {
-  return getAllUnlockedWordContent(lists, unlockedLessonIndex, userScoreStatus);
+export const getReviewLessonSet = (args: DeriveLessonContentArgs) => {
+  return getAllUnlockedWordContent(args);
 };
 
 /**
@@ -403,10 +399,15 @@ export const getReviewLessonSet = (
  * @returns merged word lists of all unlocked words
  */
 const getAllUnlockedWordContent = (
-  lists: HSKListSet,
-  unlockedLessonIndex: number,
-  userScoreStatus: ScoreStatus,
+  args: DeriveLessonContentArgs,
 ): ReadonlyArray<Word> => {
+  const {
+    lists,
+    unlockedLessonIndex,
+    userScoreStatus,
+    appDifficultySetting,
+  } = args;
+
   const completedLists =
     unlockedLessonIndex > 0
       ? lists
@@ -420,7 +421,11 @@ const getAllUnlockedWordContent = (
     userScoreStatus,
   );
   const completedWords = finalListScore.number_words_completed;
-  const finalListWords = finalUnlockedList.content.slice(0, completedWords);
+  const lessonSize = convertAppDifficultyToLessonSize(appDifficultySetting);
+  const finalListWords = finalUnlockedList.content.slice(
+    0,
+    completedWords || lessonSize,
+  );
   return completedLists.concat(finalListWords);
 };
 
