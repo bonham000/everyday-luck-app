@@ -175,7 +175,7 @@ exports[`App Screen Components Each screen component renders with props provided
       Array [
         Object {
           "alignItems": "center",
-          "height": 80,
+          "height": 115,
           "justifyContent": "center",
           "marginBottom": 25,
           "marginTop": 25,
@@ -1197,7 +1197,7 @@ exports[`App Screen Components Each screen component renders with props provided
       Array [
         Object {
           "alignItems": "center",
-          "height": 80,
+          "height": 115,
           "justifyContent": "center",
           "marginBottom": 25,
           "marginTop": 25,
@@ -1969,7 +1969,7 @@ exports[`App Screen Components Each screen component renders with props provided
       Array [
         Object {
           "alignItems": "center",
-          "height": 80,
+          "height": 115,
           "justifyContent": "center",
           "marginBottom": 25,
           "marginTop": 25,
@@ -2071,7 +2071,7 @@ exports[`App Screen Components Each screen component renders with props provided
               Object {
                 "color": "black",
                 "fontSize": 22,
-                "fontWeight": "300",
+                "fontWeight": "400",
               },
             ]
           }
@@ -2113,7 +2113,7 @@ exports[`App Screen Components Each screen component renders with props provided
               Object {
                 "color": "black",
                 "fontSize": 22,
-                "fontWeight": "300",
+                "fontWeight": "400",
               },
             ]
           }
@@ -2155,7 +2155,7 @@ exports[`App Screen Components Each screen component renders with props provided
               Object {
                 "color": "black",
                 "fontSize": 22,
-                "fontWeight": "300",
+                "fontWeight": "400",
               },
             ]
           }
@@ -2197,7 +2197,7 @@ exports[`App Screen Components Each screen component renders with props provided
               Object {
                 "color": "black",
                 "fontSize": 22,
-                "fontWeight": "300",
+                "fontWeight": "400",
               },
             ]
           }
@@ -2600,7 +2600,7 @@ exports[`App Screen Components Each screen component renders with props provided
       ]
     }
   >
-    很多漢字
+    很多汉字
   </Text>
   <Text
     style={
