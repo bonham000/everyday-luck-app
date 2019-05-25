@@ -115,40 +115,24 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
     /**
      * Get initial network state and add a listener for network changes.
      */
+
     const networkState = await NetInfo.getConnectionInfo();
+
+    const isConnected = isNetworkConnected(networkState.type);
     this.setState(
       {
-        networkConnected: isNetworkConnected(networkState.type),
+        networkConnected: isConnected,
       },
-      this.restoreRequestQueueIfExists,
+      this.handlingRestoringOfflineRequestQueue,
     );
 
-    console.log(
-      `Initial network state: ${isNetworkConnected(networkState.type)}`,
-    );
+    console.log(`Initial network state: ${isConnected}`);
 
     // tslint:disable-next-line
     this.networkConnectivityUnsubscribeHandler = NetInfo.addEventListener(
       "connectionChange",
       this.handleConnectivityChange,
     );
-  };
-
-  restoreRequestQueueIfExists = async () => {
-    const queue = await deserializeRequestQueue();
-    if (queue.length) {
-      if (this.state.networkConnected) {
-        console.log("Queued requests found and app online - processing now");
-        this.processRequestQueue(queue);
-      } else {
-        console.log(
-          "Queued requests found and app offline - enqueueing to process later",
-        );
-        this.setState({
-          offlineRequestQueue: queue,
-        });
-      }
-    }
   };
 
   handleAppStateChange = (nextAppState: string) => {
@@ -176,6 +160,43 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
     this.checkForAppUpdate();
   };
 
+  handlingRestoringOfflineRequestQueue = async () => {
+    const queue = await deserializeRequestQueue();
+
+    if (this.state.networkConnected) {
+      if (queue.length) {
+        console.log("Queued requests found and app online - processing now");
+        this.setToastMessage(
+          "Unsaved progress found - saving now...",
+          Infinity,
+        );
+        this.processRequestQueue(queue, () => {
+          this.clearToast();
+          this.setToastMessage("All updates complete!");
+        });
+      }
+    } else {
+      const offlineWarning = () =>
+        this.setToastMessage(
+          "You are offline - any progress will be saved when network is restored.",
+        );
+
+      if (queue.length) {
+        console.log(
+          "Queued requests found and app offline - enqueueing to process later",
+        );
+        this.setState(
+          {
+            offlineRequestQueue: queue,
+          },
+          offlineWarning,
+        );
+      } else {
+        offlineWarning();
+      }
+    }
+  };
+
   maybeProcessOfflineRequests = async () => {
     const { offlineRequestQueue } = this.state;
     if (offlineRequestQueue.length) {
@@ -197,10 +218,17 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
     }
   };
 
-  processRequestQueue = async (queue: RequestQueue) => {
+  processRequestQueue = async (
+    queue: RequestQueue,
+    callbackOnCompletion?: () => void,
+  ) => {
     for (const serializedRequestData of queue) {
       console.log("Processing request...");
       await deserializeAndRunRequest(serializedRequestData);
+    }
+
+    if (callbackOnCompletion) {
+      callbackOnCompletion();
     }
   };
 
@@ -283,18 +311,22 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
   handleConnectivityChange = (
     connectionInfo: ConnectionInfo | ConnectionType,
   ) => {
-    let onlineStatus: boolean;
+    let isConnected: boolean;
     if (typeof connectionInfo === "string") {
-      onlineStatus = isNetworkConnected(connectionInfo);
+      isConnected = isNetworkConnected(connectionInfo);
     } else {
-      onlineStatus = isNetworkConnected(connectionInfo.type);
+      isConnected = isNetworkConnected(connectionInfo.type);
     }
 
-    console.log(`Network change - network online: ${onlineStatus}`);
+    console.log(`Network change - network online: ${isConnected}`);
 
-    this.setState({ networkConnected: onlineStatus }, () => {
-      if (onlineStatus) {
+    this.setState({ networkConnected: isConnected }, () => {
+      if (isConnected) {
         this.maybeProcessOfflineRequests();
+      } else {
+        this.setToastMessage(
+          "Network connectivity... any updates will be saved when network is restored.",
+        );
       }
     });
   };
