@@ -44,12 +44,33 @@ export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
         <FlatList
           data={hskList}
           renderItem={this.renderItem}
-          contentContainerStyle={{ paddingBottom: 50 }}
+          contentContainerStyle={FlatListStyles}
           keyExtractor={item => `${item[0].traditional}-${item[0].pinyin}`}
         />
+        <OptOutBlock>
+          <SubText>
+            Already mastered this HSK Level? Prove your knowledge to opt-out and
+            unlock the next level immediately.
+          </SubText>
+          <LessonBlock
+            onPress={this.testOut}
+            style={{
+              backgroundColor: COLORS.actionButtonYellow,
+            }}
+          >
+            <LessonBlockText isLocked={false}>
+              Test out of this HSK Level
+            </LessonBlockText>
+            <Text>🏆</Text>
+          </LessonBlock>
+        </OptOutBlock>
       </Container>
     );
   }
+
+  testOut = () => {
+    console.log("Impl");
+  };
 
   renderItem = ({ item, index }: { item: Lesson; index: number }): any => {
     const lesson = item;
@@ -142,11 +163,10 @@ export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
 const Container = glamorous.view({
   flex: 1,
   width: "100%",
-  paddingTop: 25,
-  paddingLeft: 15,
-  paddingRight: 15,
   backgroundColor: "rgb(231,237,240)",
 });
+
+const FlatListStyles = { paddingBottom: 50, paddingLeft: 15, paddingRight: 15 };
 
 const LessonBlock = glamorous.touchableOpacity({
   height: 50,
@@ -164,7 +184,24 @@ const TitleText = glamorous.text({
   width: "100%",
   fontWeight: "bold",
   textAlign: "center",
-  marginBottom: 16,
+  marginTop: 15,
+  marginBottom: 15,
+});
+
+const SubText = glamorous.text({
+  fontSize: 13,
+  width: "100%",
+  marginBottom: 6,
+  textAlign: "center",
+});
+
+const OptOutBlock = glamorous.view({
+  paddingTop: 15,
+  paddingBottom: 25,
+  paddingLeft: 15,
+  paddingRight: 15,
+  borderTopWidth: 1,
+  borderTopColor: COLORS.darkText,
 });
 
 const LessonBlockText = glamorous.text(
