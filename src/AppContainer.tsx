@@ -43,6 +43,8 @@ import { DEFAULT_SCORE_STATE } from "@tests/data";
  * =========================================================================
  */
 
+type GenericRequestFunction = (args?: any) => Promise<any>;
+
 interface IState extends GlobalStateValues {
   userId?: string;
   error: boolean;
@@ -52,6 +54,7 @@ interface IState extends GlobalStateValues {
   updating: boolean;
   tryingToCloseApp: boolean;
   transparentLoading: boolean;
+  offlineRequestQueue: ReadonlyArray<GenericRequestFunction>;
 }
 
 const TOAST_TIMEOUT = 4000; /* 4 seconds */
@@ -77,6 +80,7 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
       toastMessage: "",
       updating: false,
       wordDictionary: {},
+      offlineRequestQueue: [],
       tryingToCloseApp: false,
       transparentLoading: false,
       appState: AppState.currentState,
@@ -99,10 +103,44 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
       this.state.appState.match(/inactive|background/) &&
       nextAppState === "active"
     ) {
-      this.checkForAppUpdate();
+      this.handleAppForegroundingEvent();
+    } else {
+      this.handleAppBackgroundingEvent();
     }
 
     this.setState({ appState: nextAppState });
+  };
+
+  handleAppBackgroundingEvent = async () => {
+    console.log("App backgrounded...");
+  };
+
+  handleAppForegroundingEvent = () => {
+    this.checkForAppUpdate();
+    this.maybeProcessOfflineRequests();
+  };
+
+  maybeProcessOfflineRequests = async () => {
+    const { offlineRequestQueue } = this.state;
+    if (offlineRequestQueue.length) {
+      this.setToastMessage(
+        "Offline progress found. Saving updates...",
+        Infinity,
+      );
+      for (const requestFn of offlineRequestQueue) {
+        console.log("Processing request...");
+        await requestFn();
+      }
+      this.setState(
+        {
+          offlineRequestQueue: [],
+        },
+        () => {
+          this.clearToast();
+          this.setToastMessage("All progress saved!");
+        },
+      );
+    }
   };
 
   checkForAppUpdate = async (): Promise<void> => {
@@ -141,6 +179,44 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
         toastMessage: "Update failed...",
       });
     }
+  };
+
+  clearTimer = () => {
+    if (this.timeout) {
+      clearTimeout(this.timeout);
+    }
+  };
+
+  abortTryingToClose = () => {
+    this.setState({ tryingToCloseApp: false });
+  };
+
+  setToastMessage = (
+    toastMessage: string,
+    timeout: number = TOAST_TIMEOUT,
+  ): void => {
+    this.clearTimer();
+    this.setState(
+      {
+        toastMessage,
+      },
+      () => {
+        // tslint:disable-next-line
+        this.timeout = setTimeout(() => {
+          this.clearToast();
+          this.abortTryingToClose();
+        }, timeout);
+      },
+    );
+  };
+
+  clearToast = () => {
+    this.setState(
+      {
+        toastMessage: "",
+      },
+      this.clearTimer,
+    );
   };
 }
 
@@ -339,124 +415,20 @@ class RootContainer extends RootContainerBase<{}> {
     const { userId, experience } = this.state;
 
     if (userId) {
-      await updateUserScores(userId, updatedScoreStatus);
       const updatedExperience = experience + lessonExperience;
-      const updatedUser = await updateUserExperience(userId, updatedExperience);
-
-      if (updatedUser) {
-        const { experience_points, score_history } = updatedUser;
-
-        this.setState({
-          experience: experience_points,
-          userScoreStatus: JSON.parse(score_history),
-        });
-      }
-    }
-  };
-
-  assignNavRef = (ref: any) => {
-    // tslint:disable-next-line
-    this.navigationRef = ref;
-  };
-
-  clearTimer = () => {
-    if (this.timeout) {
-      clearTimeout(this.timeout);
-    }
-  };
-
-  abortTryingToClose = () => {
-    this.setState({ tryingToCloseApp: false });
-  };
-
-  setToastMessage = (toastMessage: string): void => {
-    this.clearTimer();
-    this.setState(
-      {
-        toastMessage,
-      },
-      () => {
-        // tslint:disable-next-line
-        this.timeout = setTimeout(() => {
-          this.clearToast();
-          this.abortTryingToClose();
-        }, TOAST_TIMEOUT);
-      },
-    );
-  };
-
-  clearToast = () => {
-    this.setState({
-      toastMessage: "",
-    });
-  };
-
-  handleSwitchLanguage = () => {
-    const { languageSetting } = this.state;
-    const alternate = getAlternateLanguageSetting(languageSetting);
-
-    Alert.alert(
-      `Your current setting is ${formatUserLanguageSetting(
-        this.state.languageSetting,
-      )}`,
-      `Do you want to switch to ${formatUserLanguageSetting(
-        alternate,
-      )}? You can switch back at anytime.`,
-      [
+      this.setState(
         {
-          text: "Cancel",
-          onPress: () => null,
-          style: "cancel",
+          experience: updatedExperience,
+          userScoreStatus: updatedScoreStatus,
         },
-        {
-          text: "OK",
-          onPress: () => this.switchLanguage(),
+        () => {
+          this.requestMiddlewareHandler(async () => {
+            await updateUserExperience(userId, updatedExperience);
+            await updateUserScores(userId, updatedScoreStatus);
+          });
         },
-      ],
-      { cancelable: false },
-    );
-  };
-
-  switchLanguage = () => {
-    switch (this.state.languageSetting) {
-      case APP_LANGUAGE_SETTING.SIMPLIFIED:
-        return this.setState(
-          {
-            languageSetting: APP_LANGUAGE_SETTING.TRADITIONAL,
-          },
-          async () => {
-            this.handleSetLanguageSuccess(APP_LANGUAGE_SETTING.TRADITIONAL);
-          },
-        );
-      case APP_LANGUAGE_SETTING.TRADITIONAL:
-        return this.setState(
-          {
-            languageSetting: APP_LANGUAGE_SETTING.SIMPLIFIED,
-          },
-          async () => {
-            this.handleSetLanguageSuccess(APP_LANGUAGE_SETTING.SIMPLIFIED);
-          },
-        );
-      default:
-        console.log(
-          `Unknown language setting received: ${this.state.languageSetting}`,
-        );
-        return this.setState(
-          {
-            languageSetting: APP_LANGUAGE_SETTING.SIMPLIFIED,
-          },
-          async () => {
-            this.handleSetLanguageSuccess(APP_LANGUAGE_SETTING.SIMPLIFIED);
-          },
-        );
+      );
     }
-  };
-
-  handleSetLanguageSuccess = (languageSetting: APP_LANGUAGE_SETTING) => {
-    setAppLanguageSetting(languageSetting);
-    this.setToastMessage(
-      `Language set to ${formatUserLanguageSetting(languageSetting)}`,
-    );
   };
 
   handleUpdateAppDifficultySetting = async (
@@ -479,25 +451,31 @@ class RootContainer extends RootContainerBase<{}> {
     userId: string,
     appDifficultySetting: APP_DIFFICULTY_SETTING,
   ) => {
-    const result = await updateAppDifficultySetting(
-      userId,
-      appDifficultySetting,
+    this.setState(
+      {
+        appDifficultySetting,
+        transparentLoading: false,
+      },
+      () => {
+        this.setToastMessage("App difficulty updated");
+        this.requestMiddlewareHandler(() =>
+          updateAppDifficultySetting(userId, appDifficultySetting),
+        );
+      },
     );
-    if (result) {
-      this.setState(
-        {
-          appDifficultySetting,
-          transparentLoading: false,
-        },
-        () => this.setToastMessage("App difficulty updated"),
-      );
+  };
+
+  requestMiddlewareHandler = (asyncRequestFunction: GenericRequestFunction) => {
+    if (this.state.appState === "active") {
+      console.log("Request received - app online processing now");
+      asyncRequestFunction();
     } else {
-      this.setState(
-        {
-          transparentLoading: false,
-        },
-        () => this.setToastMessage("Update failed, please try again..."),
+      console.log(
+        "Request received - app offline, enqueueing to process later",
       );
+      this.setState(({ offlineRequestQueue }) => ({
+        offlineRequestQueue: offlineRequestQueue.concat(asyncRequestFunction),
+      }));
     }
   };
 
@@ -528,16 +506,81 @@ class RootContainer extends RootContainerBase<{}> {
       () => {
         // tslint:disable-next-line
         this.timeout = setTimeout(async () => {
-          const { userId } = this.state;
-          if (userId) {
-            await updateUserScores(userId, DEFAULT_SCORE_STATE);
-            await updateUserExperience(userId, 0);
-          }
-          this.setToastMessage("Scores reset!");
           this.getInitialScoreState();
+          this.setToastMessage("Scores reset!");
+          this.requestMiddlewareHandler(async () => {
+            const { userId } = this.state;
+            if (userId) {
+              await updateUserExperience(userId, 0);
+              await updateUserScores(userId, DEFAULT_SCORE_STATE);
+            }
+          });
         }, 1250);
       },
     );
+  };
+
+  handleSwitchLanguage = () => {
+    const { languageSetting } = this.state;
+    const alternate = getAlternateLanguageSetting(languageSetting);
+
+    Alert.alert(
+      `Your current setting is ${formatUserLanguageSetting(
+        this.state.languageSetting,
+      )}`,
+      `Do you want to switch to ${formatUserLanguageSetting(
+        alternate,
+      )}? You can switch back at anytime.`,
+      [
+        {
+          text: "Cancel",
+          onPress: () => null,
+          style: "cancel",
+        },
+        {
+          text: "OK",
+          onPress: () => this.switchLanguage(),
+        },
+      ],
+      { cancelable: false },
+    );
+  };
+
+  switchLanguage = () => {
+    const setLanguage = (languageSetting: APP_LANGUAGE_SETTING) => {
+      return this.setState(
+        {
+          languageSetting,
+        },
+        async () => {
+          this.handleSetLanguageSuccess(languageSetting);
+        },
+      );
+    };
+
+    switch (this.state.languageSetting) {
+      case APP_LANGUAGE_SETTING.SIMPLIFIED:
+        return setLanguage(APP_LANGUAGE_SETTING.TRADITIONAL);
+      case APP_LANGUAGE_SETTING.TRADITIONAL:
+        return setLanguage(APP_LANGUAGE_SETTING.SIMPLIFIED);
+      default:
+        console.log(
+          `Unknown language setting received: ${this.state.languageSetting}`,
+        );
+        return setLanguage(APP_LANGUAGE_SETTING.SIMPLIFIED);
+    }
+  };
+
+  handleSetLanguageSuccess = (languageSetting: APP_LANGUAGE_SETTING) => {
+    setAppLanguageSetting(languageSetting);
+    this.setToastMessage(
+      `Language set to ${formatUserLanguageSetting(languageSetting)}`,
+    );
+  };
+
+  assignNavRef = (ref: any) => {
+    // tslint:disable-next-line
+    this.navigationRef = ref;
   };
 }
 

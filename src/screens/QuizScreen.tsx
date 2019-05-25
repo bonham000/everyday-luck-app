@@ -98,6 +98,18 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     );
   }
 
+  mockApiCalls = () => {
+    const exp = this.props.experience;
+    let calls = 0;
+    let newExp = exp;
+    while (calls < 10) {
+      newExp += 500;
+      console.log("Sending request...");
+      this.props.setLessonScore(this.props.userScoreStatus, newExp);
+      calls++;
+    }
+  };
+
   componentWillUnmount(): void {
     this.stopConfetti();
     if (this.timer) {
