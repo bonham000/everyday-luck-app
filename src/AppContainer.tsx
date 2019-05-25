@@ -41,7 +41,7 @@ import {
   RequestQueue,
   serializeRequestQueue,
 } from "@src/tools/offline-utils";
-import { GoogleSigninUser, HSKListSet, User } from "@src/tools/types";
+import { GoogleSigninUser, User } from "@src/tools/types";
 import {
   createWordDictionaryFromLessons,
   formatUserLanguageSetting,
