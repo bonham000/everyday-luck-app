@@ -56,11 +56,15 @@ const MOCK_LESSONS: ReadonlyArray<HSKList> = HSK_LISTS;
  * =========================================================================
  */
 
-export const DEFAULT_SCORE_STATE = {
+export const DEFAULT_LESSON_SCORES = {
   mc_english: false,
   mc_mandarin: false,
   quiz_text: false,
   mandarin_pronunciation: false,
+};
+
+export const DEFAULT_SCORE_STATE = {
+  ...DEFAULT_LESSON_SCORES,
   list_02_score: {
     complete: false,
     list_index: 0,

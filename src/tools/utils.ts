@@ -291,7 +291,10 @@ export const getExperiencePointsForLesson = (
   lessonType: LessonSummaryType,
 ): number => {
   const MIN = 500;
-  const MAX = quizType === QUIZ_TYPE.QUIZ_TEXT ? 1250 : 750;
+  let MAX = quizType === QUIZ_TYPE.QUIZ_TEXT ? 1250 : 750;
+  if (lessonType === "OPT_OUT_CHALLENGE") {
+    MAX = 5000;
+  }
   const OFFSET = lessonType === "LESSON" ? 500 : 0;
   return randomInRange(MIN, MAX - OFFSET);
 };
@@ -656,4 +659,52 @@ export const transformUserToLocalUserData = (
   };
 
   return userData;
+};
+
+export interface QuizSuccessToasts {
+  primary: string;
+  secondary: string;
+}
+
+/**
+ * Get the quiz success toasts.
+ *
+ * @param lessonCompleted
+ * @param firstPass
+ * @param lessonType
+ * @param experience
+ * @returns `QuizSuccessToasts`
+ */
+export const getQuizSuccessToasts = (
+  lessonCompleted: boolean,
+  firstPass: boolean,
+  lessonType: LessonSummaryType,
+  experience: number,
+): QuizSuccessToasts => {
+  let primary: string = "";
+  if (lessonCompleted) {
+    primary = "The next lesson is unlocked! 🥇";
+  } else if (lessonType === "OPT_OUT_CHALLENGE") {
+    primary = "Incredible!!! You're a master!";
+  } else if (firstPass) {
+    primary = "Amazing! You passed this lesson! 💯";
+  } else {
+    primary = "You finished the quiz!";
+  }
+
+  let secondary: string = "";
+  if (lessonCompleted) {
+    secondary = `Great - keep going! 很好! You earned ${experience} experience points!`;
+  } else if (lessonType === "OPT_OUT_CHALLENGE") {
+    secondary = "Incredible!!! You're a master!";
+  } else if (firstPass) {
+    secondary = `Congratulations! You gained ${experience} experience points!`;
+  } else {
+    secondary = "All words completed, 很好！";
+  }
+
+  return {
+    primary,
+    secondary,
+  };
 };

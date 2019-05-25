@@ -24,15 +24,17 @@ import {
   SoundRecordingProps,
   withSoundRecordingContext,
 } from "@src/providers/SoundRecordingProvider";
-import { LessonScreenParams, Word } from "@src/tools/types";
+import { LessonScreenParams, LessonSummaryType, Word } from "@src/tools/types";
 import {
   convertAppDifficultyToLessonSize,
   getExperiencePointsForLesson,
   getListScoreKeyFromIndex,
+  getQuizSuccessToasts,
   isLessonComplete,
   mapListIndexToListScores,
   randomInRange,
 } from "@src/tools/utils";
+import { DEFAULT_LESSON_SCORES } from "@tests/data";
 
 /** ========================================================================
  * Types
@@ -307,7 +309,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
          * Handle finish as well if user is at end.
          */
         if (wordCompletedCache.size === this.state.wordContent.length) {
-          this.handleFinish();
+          this.handleCompleteQuiz();
         }
       },
     );
@@ -330,7 +332,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
         if (
           this.state.wordCompletedCache.size === this.state.wordContent.length
         ) {
-          return this.handleFinish();
+          return this.handleCompleteQuiz();
         }
 
         this.setState(
@@ -352,8 +354,40 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     );
   };
 
-  handleFinish = () => {
+  handleCompleteQuiz = () => {
     const { userScoreStatus, quizType } = this.props;
+    const isFinalLesson = this.props.navigation.getParam("isFinalLesson");
+    const lessonType = this.props.navigation.getParam("type");
+
+    const perfectScore = this.state.failCount === 0;
+    const firstPass = perfectScore && !userScoreStatus[quizType];
+    const lessonCompleted = false;
+    const experiencePoints = getExperiencePointsForLesson(quizType, lessonType);
+
+    if (perfectScore) {
+      this.handleSettingScoresForLesson();
+    }
+
+    // tslint:disable-next-line
+    this.timer = setTimeout(() => {
+      this.setState(
+        {
+          quizFinished: true,
+        },
+        () =>
+          this.handleSuccessAlert(
+            lessonCompleted,
+            firstPass,
+            lessonType,
+            experiencePoints,
+            isFinalLesson,
+          ),
+      );
+    }, 250);
+  };
+
+  handleSettingScoresForLesson = () => {
+    const { userScoreStatus, quizType, lessons } = this.props;
     const lessonIndex = this.props.navigation.getParam("lessonIndex");
     const listIndex = this.props.navigation.getParam("listIndex");
     const isFinalLesson = this.props.navigation.getParam("isFinalLesson");
@@ -365,8 +399,6 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
 
     const experiencePoints = getExperiencePointsForLesson(quizType, lessonType);
 
-    const perfectScore = this.state.failCount === 0;
-    const firstPass = perfectScore && !userScoreStatus[quizType];
     let lessonCompleted = false;
 
     let updatedScoreStatus: ScoreStatus = {
@@ -377,85 +409,99 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     const listScoreKey = getListScoreKeyFromIndex(listIndex);
     const listScore = mapListIndexToListScores(listIndex, updatedScoreStatus);
 
-    if (perfectScore) {
-      lessonCompleted = isLessonComplete(updatedScoreStatus);
+    lessonCompleted = isLessonComplete(updatedScoreStatus);
 
-      if (lessonCompleted && lessonType === "LESSON") {
-        updatedScoreStatus = {
-          ...updatedScoreStatus,
-          [listScoreKey]: {
-            ...listScore,
-            complete: isFinalLesson,
-            number_words_completed: (lessonIndex + 1) * lessonContentSize,
-          },
-        };
-      }
-
-      if (lessonCompleted) {
-        updatedScoreStatus = {
-          ...updatedScoreStatus,
-          mc_english: false,
-          mc_mandarin: false,
-          quiz_text: false,
-          mandarin_pronunciation: false,
-        };
-      }
-
-      if (lessonType === "OPT_OUT_CHALLENGE") {
-        /**
-         * TODO: Handle opt-out challenge success.
-         */
-      }
-
-      this.props.setLessonScore(updatedScoreStatus, experiencePoints);
+    /**
+     * A lesson is complete.
+     */
+    if (lessonCompleted && lessonType === "LESSON") {
+      updatedScoreStatus = {
+        ...updatedScoreStatus,
+        [listScoreKey]: {
+          ...listScore,
+          complete: isFinalLesson,
+          number_words_completed: (lessonIndex + 1) * lessonContentSize,
+        },
+      };
     }
 
-    // tslint:disable-next-line
-    this.timer = setTimeout(() => {
-      this.setState(
+    if (lessonCompleted) {
+      updatedScoreStatus = {
+        ...updatedScoreStatus,
+        ...DEFAULT_LESSON_SCORES,
+      };
+    }
+
+    /**
+     * User completed one of the HSK opt-out challenges. Update their scores
+     * to complete the entire HSK Level.
+     */
+    if (lessonType === "OPT_OUT_CHALLENGE") {
+      updatedScoreStatus = {
+        ...DEFAULT_LESSON_SCORES,
+        ...updatedScoreStatus,
+        [listScoreKey]: {
+          ...listScore,
+          complete: true,
+          number_words_completed: lessons[listIndex].content.length,
+        },
+      };
+    }
+
+    this.props.setLessonScore(updatedScoreStatus, experiencePoints);
+  };
+
+  handleSuccessAlert = (
+    lessonCompleted: boolean,
+    firstPass: boolean,
+    lessonType: LessonSummaryType,
+    experience: number,
+    isFinalLesson: boolean,
+  ) => {
+    const { primary, secondary } = getQuizSuccessToasts(
+      lessonCompleted,
+      firstPass,
+      lessonType,
+      experience,
+    );
+    Alert.alert(
+      primary,
+      secondary,
+      [
         {
-          quizFinished: true,
+          text: "OK!",
+          onPress: () => {
+            this.handleSuccessConfirmation(
+              lessonCompleted,
+              isFinalLesson,
+              firstPass,
+            );
+          },
         },
-        () => {
-          Alert.alert(
-            lessonCompleted
-              ? "The next lesson is unlocked! 🥇"
-              : firstPass
-              ? "Amazing! You passed this lesson! 💯"
-              : "You finished the quiz!",
-            lessonCompleted
-              ? `Great - keep going! 很好! You earned ${experiencePoints} experience points!`
-              : firstPass
-              ? `Congratulations! You gained ${experiencePoints} experience points!`
-              : "All words completed, 好！",
-            [
-              {
-                text: "OK!",
-                onPress: () => {
-                  this.stopConfetti();
-                  if (lessonCompleted) {
-                    if (isFinalLesson) {
-                      this.props.navigation.navigate(ROUTE_NAMES.HOME);
-                    } else {
-                      if (firstPass) {
-                        this.props.navigation.navigate(
-                          ROUTE_NAMES.LIST_SUMMARY,
-                        );
-                      } else {
-                        this.props.navigation.goBack();
-                      }
-                    }
-                  } else {
-                    this.props.navigation.goBack();
-                  }
-                },
-              },
-            ],
-            { cancelable: false },
-          );
-        },
-      );
-    }, 250);
+      ],
+      { cancelable: false },
+    );
+  };
+
+  handleSuccessConfirmation = (
+    lessonCompleted: boolean,
+    isFinalLesson: boolean,
+    firstPass: boolean,
+  ) => {
+    this.stopConfetti();
+    if (lessonCompleted) {
+      if (isFinalLesson) {
+        this.props.navigation.navigate(ROUTE_NAMES.HOME);
+      } else {
+        if (firstPass) {
+          this.props.navigation.navigate(ROUTE_NAMES.LIST_SUMMARY);
+        } else {
+          this.props.navigation.goBack();
+        }
+      }
+    } else {
+      this.props.navigation.goBack();
+    }
   };
 
   handleToggleRevealAnswer = () => {
