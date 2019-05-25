@@ -147,12 +147,13 @@ export const deserializeAndRunRequest = async (
  *
  * @returns `RequestQueue`
  */
-export const deserializeRequestQueue = async () => {
+export const deserializeRequestQueue = async (): Promise<RequestQueue> => {
   try {
     const result = await AsyncStorage.getItem(
       ASYNC_STORE_KEYS.OFFLINE_REQUEST_QUEUE,
     );
-    return JSON.parse(result);
+    const queue = JSON.parse(result);
+    return queue || [];
   } catch (err) {
     return [];
   }

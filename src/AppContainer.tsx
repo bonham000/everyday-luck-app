@@ -649,9 +649,15 @@ class RootContainer extends RootContainerBase<{}> {
       console.log(
         "Request received - app offline, enqueueing to process later",
       );
-      this.setState(({ offlineRequestQueue }) => ({
-        offlineRequestQueue: [...offlineRequestQueue, ...serializedRequestData],
-      }));
+      this.setState(
+        ({ offlineRequestQueue }) => ({
+          offlineRequestQueue: [
+            ...offlineRequestQueue,
+            ...serializedRequestData,
+          ],
+        }),
+        this.serializeAndPersistAppState,
+      );
     }
   };
 
