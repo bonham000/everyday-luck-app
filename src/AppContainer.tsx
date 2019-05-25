@@ -78,7 +78,7 @@ const TOAST_TIMEOUT = 5000; /* 5 seconds */
 
 // tslint:disable-next-line
 class RootContainerBase<Props> extends React.Component<Props, IState> {
-  timeout: any = null;
+  timeout: NodeJS.Timeout | null = null;
   navigationRef: any = null;
   networkConnectivityUnsubscribeHandler: any = null;
 
@@ -104,9 +104,11 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
     };
   }
 
-  canCloseApp = () => {
+  canCloseApp = (): any => {
     try {
-      return this.navigationRef.state.nav.routes[0].routes.length === 1;
+      if (this.navigationRef) {
+        return this.navigationRef.state.nav.routes[0].routes.length === 1;
+      }
     } catch (_) {
       return true;
     }
