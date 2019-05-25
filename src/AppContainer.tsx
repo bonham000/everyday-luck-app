@@ -38,7 +38,7 @@ import {
   createSerializedUserScoresHandler,
   deserializeAndRunRequest,
   deserializeRequestQueue,
-  GenericRequestHandler,
+  RequestQueue,
   serializeRequestQueue,
 } from "@src/tools/offline-utils";
 import { HSKListSet } from "@src/tools/types";
@@ -65,7 +65,7 @@ interface IState extends GlobalStateValues {
   tryingToCloseApp: boolean;
   transparentLoading: boolean;
   networkConnected: boolean;
-  offlineRequestQueue: ReadonlyArray<GenericRequestHandler>;
+  offlineRequestQueue: RequestQueue;
 }
 
 const TOAST_TIMEOUT = 4000; /* 4 seconds */
@@ -197,7 +197,7 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
     }
   };
 
-  processRequestQueue = async (queue: ReadonlyArray<GenericRequestHandler>) => {
+  processRequestQueue = async (queue: RequestQueue) => {
     for (const serializedRequestData of queue) {
       console.log("Processing request...");
       await deserializeAndRunRequest(serializedRequestData);
@@ -545,9 +545,7 @@ class RootContainer extends RootContainerBase<{}> {
     );
   };
 
-  requestMiddlewareHandler = async (
-    serializedRequestData: ReadonlyArray<GenericRequestHandler>,
-  ) => {
+  requestMiddlewareHandler = async (serializedRequestData: RequestQueue) => {
     if (this.state.networkConnected) {
       this.processRequestQueue(serializedRequestData);
     } else {

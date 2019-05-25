@@ -29,7 +29,7 @@ export interface UserResponseData {
   app_difficulty_setting: APP_DIFFICULTY_SETTING;
 }
 
-type UserResponse = Promise<UserResponseData | undefined>;
+export type UserResponse = Promise<UserResponseData | undefined>;
 
 /** ========================================================================
  * API Methods

@@ -7,6 +7,7 @@ import {
   updateAppDifficultySetting,
   updateUserExperience,
   updateUserScores,
+  UserResponse,
 } from "@src/tools/api";
 import { AsyncStorage } from "react-native";
 import { assertUnreachable } from "./utils";
@@ -45,11 +46,20 @@ export type GenericRequestHandler =
   | UpdateUserExperienceHandler
   | UpdateUserScoresHandler;
 
+export type RequestQueue = ReadonlyArray<GenericRequestHandler>;
+
 /** ========================================================================
  * Helper Methods
  * =========================================================================
  */
 
+/**
+ * Create the serialized handler for updating user app difficulty setting.
+ *
+ * @param userId
+ * @param appDifficultySetting
+ * @returns `UpdateAppDifficultyHandler`
+ */
 export const createSerializedAppDifficultyHandler = (
   userId: string,
   appDifficultySetting: APP_DIFFICULTY_SETTING,
@@ -61,6 +71,13 @@ export const createSerializedAppDifficultyHandler = (
   };
 };
 
+/**
+ * Create the serialized handler for updating user score status.
+ *
+ * @param userId
+ * @param updatedExperience
+ * @returns `UpdateUserExperienceHandler`
+ */
 export const createSerializedUserExperienceHandler = (
   userId: string,
   updatedExperience: number,
@@ -72,6 +89,13 @@ export const createSerializedUserExperienceHandler = (
   };
 };
 
+/**
+ * Create the serialized handler for updating user score status.
+ *
+ * @param userId
+ * @param updatedScoreStatus
+ * @returns `UpdateUserScoresHandler`
+ */
 export const createSerializedUserScoresHandler = (
   userId: string,
   updatedScoreStatus: ScoreStatus,
@@ -83,10 +107,15 @@ export const createSerializedUserScoresHandler = (
   };
 };
 
+/**
+ * Deserialize and execute a request from the request queue.
+ *
+ * @param serializeRequest request data
+ * @returns `UserResponse` data
+ */
 export const deserializeAndRunRequest = async (
   serializedRequest: GenericRequestHandler,
-): Promise<any> => {
-  console.log("Deserializing and running request...");
+): UserResponse => {
   switch (serializedRequest.type) {
     case REQUEST_HANDLER_TYPE.APP_DIFFICULTY:
       return updateAppDifficultySetting(
@@ -113,6 +142,11 @@ export const deserializeAndRunRequest = async (
  * =========================================================================
  */
 
+/**
+ * Deserialize saved request queue if it exists.
+ *
+ * @returns `RequestQueue`
+ */
 export const deserializeRequestQueue = async () => {
   try {
     const result = await AsyncStorage.getItem(
@@ -120,10 +154,15 @@ export const deserializeRequestQueue = async () => {
     );
     return JSON.parse(result);
   } catch (err) {
-    return;
+    return [];
   }
 };
 
+/**
+ * Serialize the request queue and save to local AsyncStorage module.
+ *
+ * @param `RequestQueue`
+ */
 export const serializeRequestQueue = async (
   data: ReadonlyArray<GenericRequestHandler>,
 ) => {
