@@ -42,6 +42,11 @@ export enum APP_DIFFICULTY_SETTING {
 }
 
 /**
+ * Default the opt-out level to HARD. You've gotta be good to opt out!
+ */
+export const OPT_OUT_LEVEL = APP_DIFFICULTY_SETTING.HARD;
+
+/**
  * Lesson Quiz Sizes based on the app difficulty
  */
 export const DIFFICULTY_TO_LESSON_SIZE_MAP = {

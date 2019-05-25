@@ -7,6 +7,7 @@ import { NavigationScreenProp } from "react-navigation";
 import { Bold, Container } from "@src/components/SharedComponents";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import { COLORS } from "@src/constants/Theme";
+import { OPT_OUT_LEVEL } from "@src/providers/GlobalStateContext";
 import {
   GlobalStateContextProps,
   withGlobalStateContext,
@@ -16,7 +17,11 @@ import {
   withSoundRecordingContext,
 } from "@src/providers/SoundRecordingProvider";
 import { LessonScreenParams } from "@src/tools/types";
-import { getLessonSummaryStatus } from "@src/tools/utils";
+import {
+  DeriveLessonContentArgs,
+  getLessonSummaryStatus,
+  getRandomQuizChallenge,
+} from "@src/tools/utils";
 
 /** ========================================================================
  * Types
@@ -83,7 +88,7 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
           <React.Fragment>
             <LineBreak />
             <ActionBlock
-              onPress={this.handleNavigateToSection(ROUTE_NAMES.HSK_TEST_OUT)}
+              onPress={this.handleNavigateToHskTest(ROUTE_NAMES.HSK_TEST_OUT)}
             >
               <Text>Accept the challenge!</Text>
               <Text>💥</Text>
@@ -224,7 +229,7 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
     );
   };
 
-  handleNavigateToSection = (routeName: ROUTE_NAMES) => () => {
+  getNextScreenParams = (): LessonScreenParams => {
     const type = this.props.navigation.getParam("type");
     const lesson = this.props.navigation.getParam("lesson");
     const listIndex = this.props.navigation.getParam("listIndex");
@@ -233,6 +238,7 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
     const isFinalUnlockedLesson = this.props.navigation.getParam(
       "isFinalUnlockedLesson",
     );
+
     const params: LessonScreenParams = {
       type,
       lesson,
@@ -240,6 +246,36 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
       lessonIndex,
       isFinalLesson,
       isFinalUnlockedLesson,
+    };
+
+    return params;
+  };
+
+  handleNavigateToSection = (routeName: ROUTE_NAMES) => () => {
+    const params = this.getNextScreenParams();
+    this.props.navigation.navigate(routeName, params);
+  };
+
+  handleNavigateToHskTest = (routeName: ROUTE_NAMES) => () => {
+    const { lessons, userScoreStatus } = this.props;
+    const listIndex = this.props.navigation.getParam("listIndex");
+
+    /**
+     * Rebuild the random quiz set each time the user accesses it - the
+     * content should always be randomized from the list.
+     */
+    const args: DeriveLessonContentArgs = {
+      lists: lessons,
+      unlockedListIndex: listIndex,
+      appDifficultySetting: OPT_OUT_LEVEL,
+      userScoreStatus,
+      limitToCurrentList: true,
+    };
+    const randomQuizSet = getRandomQuizChallenge(args);
+
+    const params: LessonScreenParams = {
+      ...this.getNextScreenParams(),
+      lesson: randomQuizSet,
     };
     this.props.navigation.navigate(routeName, params);
   };

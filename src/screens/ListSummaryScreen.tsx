@@ -6,7 +6,7 @@ import { NavigationScreenProp } from "react-navigation";
 
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import { COLORS } from "@src/constants/Theme";
-import { APP_DIFFICULTY_SETTING } from "@src/providers/GlobalStateContext";
+import { OPT_OUT_LEVEL } from "@src/providers/GlobalStateContext";
 import {
   GlobalStateContextProps,
   withGlobalStateContext,
@@ -33,11 +33,6 @@ import {
 interface IProps extends GlobalStateContextProps {
   navigation: NavigationScreenProp<{}, ListScreenParams>;
 }
-
-/**
- * Default the opt-out level to HARD. You've gotta be good to opt out!
- */
-const OPT_OUT_LEVEL = APP_DIFFICULTY_SETTING.HARD;
 
 /** ========================================================================
  * React Class
