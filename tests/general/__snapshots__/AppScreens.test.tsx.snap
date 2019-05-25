@@ -4067,7 +4067,8 @@ exports[`App Screen Components Each screen component renders with props provided
         ]
       }
     >
-      You currently have 
+      You currently have
+       
       <Text
         style={
           Array [
@@ -4077,7 +4078,7 @@ exports[`App Screen Components Each screen component renders with props provided
           ]
         }
       >
-        54234
+        54,234
       </Text>
        experience points.
     </Text>

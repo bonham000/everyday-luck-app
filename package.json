@@ -19,7 +19,7 @@
     "format": "npm run prettier:fix && npm run tslint:fix",
     "test:jest": "jest --silent",
     "test:watch": "jest --watch",
-    "test:update-snapshots": "jest --update-snapshot",
+    "test:update-snapshots": "jest --updateSnapshot",
     "test:format": "npm run prettier:check && npm run tslint && npm run tsc",
     "test": "yarn run prettier:check && yarn run tslint && yarn run tsc && yarn run test:jest",
     "test:clear": "jest --clearCache && rm -rf build",

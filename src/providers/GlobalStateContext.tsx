@@ -1,6 +1,6 @@
 import React from "react";
 
-import { GoogleSigninUser, HSKListSet, UserData, Word } from "@src/tools/types";
+import { GoogleSigninUser, HSKListSet, Word } from "@src/tools/types";
 
 /** ========================================================================
  * Types and Config

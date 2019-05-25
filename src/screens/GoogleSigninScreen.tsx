@@ -12,7 +12,6 @@ import {
   GlobalStateContextProps,
   withGlobalStateContext,
 } from "@src/providers/GlobalStateProvider";
-import { saveUserToAsyncStorage } from "@src/tools/async-store";
 import CONFIG from "@src/tools/config";
 import { GoogleSigninUser } from "@src/tools/types";
 import { resetNavigation } from "@src/tools/utils";

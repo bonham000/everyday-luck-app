@@ -7,12 +7,13 @@ import {
 } from "@src/providers/GlobalStateContext";
 import { GlobalStateContextProps } from "@src/providers/GlobalStateProvider";
 import { SoundRecordingProps } from "@src/providers/SoundRecordingProvider";
-import { GoogleSigninUser } from "@src/tools/async-store";
 import {
+  GoogleSigninUser,
   HSKList,
   Lesson,
   LessonScreenParams,
   ListScreenParams,
+  UserData,
   Word,
 } from "@src/tools/types";
 import { createWordDictionaryFromLessons } from "@src/tools/utils";
@@ -97,12 +98,13 @@ export const DEFAULT_SCORE_STATE = {
  * =========================================================================
  */
 
-const MOCK_GOOGLE_USER = {
+const MOCK_GOOGLE_USER: UserData = {
   email: "sean.smith.2009@gmail.com",
-  familyName: "Smith",
-  givenName: "Sean",
-  id: "asdf7f98asd7f0s7ads0",
+  family_name: "Smith",
+  given_name: "Sean",
+  uuid: "asdf7f98asd7f0s7ads0",
   name: "Seanie X",
+  photo_url: "",
 };
 
 export const MOCK_GLOBAL_STATE_PROPS: GlobalStateContextProps = {

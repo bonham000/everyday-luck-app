@@ -7,10 +7,10 @@ import {
   updateAppDifficultySetting,
   updateUserExperience,
   updateUserScores,
-  UserResponse,
 } from "@src/tools/api";
+import { UserResponse } from "@src/tools/types";
+import { assertUnreachable } from "@src/tools/utils";
 import { AsyncStorage } from "react-native";
-import { assertUnreachable } from "./utils";
 
 /** ========================================================================
  * Types
