@@ -29,7 +29,8 @@
     "translate": "export GOOGLE_APPLICATION_CREDENTIALS=google-translation-api-key.json tsc && npx babel-node --presets env build/scripts/translate.js",
     "test-translate-api": "tsc && npx babel-node --presets env build/scripts/test_translate.js",
     "scrap": "tsc && npx babel-node --presets env build/scripts/scrap_audio.js",
-    "audio-status": "tsc && npx babel-node --presets env build/scripts/audio_status.js"
+    "audio-status": "tsc && npx babel-node --presets env build/scripts/audio_status.js",
+    "lessons": "tsc && npx babel-node --presets env build/scripts/lesson_content.js"
   },
   "dependencies": {
     "axios": "^0.18.0",

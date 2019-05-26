@@ -699,7 +699,8 @@ export const getQuizSuccessToasts = (
   if (lessonCompleted) {
     primary = "The next lesson is unlocked! 🥇";
   } else if (lessonType === "OPT_OUT_CHALLENGE") {
-    primary = "Incredible!!! You're a master!";
+    primary =
+      "Incredible!!! You're a master!"; /* TODO: Don't show this if not perfect score */
   } else if (firstPass) {
     primary = "Amazing! You passed this lesson! 💯";
   } else {

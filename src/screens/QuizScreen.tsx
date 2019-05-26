@@ -122,6 +122,10 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
 
     const lesson = this.props.navigation.getParam("lesson");
 
+    /**
+     * TODO: Fix progress text counting for failed answers.
+     */
+
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <Container style={{ paddingTop: 8 }}>
