@@ -41,8 +41,8 @@ interface IProps extends GlobalStateContextProps {
 export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
   render(): JSX.Element {
     const { userScoreStatus } = this.props;
-    const hskList = this.props.navigation.getParam("hskList");
     const listIndex = this.props.navigation.getParam("listIndex");
+    const hskList = this.props.navigation.getParam("hskList");
     const listScore = mapListIndexToListScores(listIndex, userScoreStatus);
     return (
       <Container>
@@ -51,6 +51,8 @@ export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
           data={hskList}
           renderItem={this.renderItem}
           contentContainerStyle={FlatListStyles}
+          /* Pass extraData to force re-render when a new lesson is completed */
+          extraData={listScore.number_words_completed}
           keyExtractor={item => `${item[0].traditional}-${item[0].pinyin}`}
         />
         {!listScore.complete && (
@@ -78,9 +80,9 @@ export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
 
   renderItem = ({ item, index }: { item: Lesson; index: number }): any => {
     const lesson = item;
+    const { appDifficultySetting, userScoreStatus } = this.props;
     const hskList = this.props.navigation.getParam("hskList");
     const listIndex = this.props.navigation.getParam("listIndex");
-    const { appDifficultySetting, userScoreStatus } = this.props;
     const listScore = mapListIndexToListScores(listIndex, userScoreStatus);
     const unlockedLessonIndex = determineFinalUnlockedLesson(
       lesson,

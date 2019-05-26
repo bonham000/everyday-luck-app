@@ -369,16 +369,27 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
 
   handleCompleteQuiz = () => {
     const { userScoreStatus, quizType } = this.props;
-    const isFinalLesson = this.props.navigation.getParam("isFinalLesson");
     const lessonType = this.props.navigation.getParam("type");
+    const isFinalLesson = this.props.navigation.getParam("isFinalLesson");
 
+    /* Is the quiz finished with a perfect score */
     const perfectScore = this.state.failCount === 0;
+    /* Is this the first time the user completed this quiz */
     const firstPass = perfectScore && !userScoreStatus[quizType];
-    const lessonCompleted = false;
+    /* Determine experience points for this lesson */
     const experiencePoints = getExperiencePointsForLesson(quizType, lessonType);
 
+    let lessonCompleted = false;
+    const updatedScoreStatus: ScoreStatus = {
+      ...userScoreStatus,
+      [quizType]: true,
+    };
+
+    /* Is the lesson fully completed */
+    lessonCompleted = isLessonComplete(updatedScoreStatus);
+
     if (perfectScore) {
-      this.handleSettingScoresForLesson();
+      this.handleSettingScoresForLesson(updatedScoreStatus, lessonCompleted);
     }
 
     // tslint:disable-next-line
@@ -396,11 +407,15 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
             isFinalLesson,
           ),
       );
-    }, 250);
+    }, 350);
   };
 
-  handleSettingScoresForLesson = () => {
-    const { userScoreStatus, quizType, lessons } = this.props;
+  handleSettingScoresForLesson = (
+    updatedScores: ScoreStatus,
+    lessonCompleted: boolean,
+  ) => {
+    let updatedScoreStatus = updatedScores;
+    const { quizType, lessons } = this.props;
     const lessonIndex = this.props.navigation.getParam("lessonIndex");
     const listIndex = this.props.navigation.getParam("listIndex");
     const isFinalLesson = this.props.navigation.getParam("isFinalLesson");
@@ -412,17 +427,8 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
 
     const experiencePoints = getExperiencePointsForLesson(quizType, lessonType);
 
-    let lessonCompleted = false;
-
-    let updatedScoreStatus: ScoreStatus = {
-      ...userScoreStatus,
-      [quizType]: true,
-    };
-
     const listScoreKey = getListScoreKeyFromIndex(listIndex);
     const listScore = mapListIndexToListScores(listIndex, updatedScoreStatus);
-
-    lessonCompleted = isLessonComplete(updatedScoreStatus);
 
     /**
      * A lesson is complete.
