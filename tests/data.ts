@@ -112,10 +112,12 @@ const MOCK_GOOGLE_USER: UserData = {
 };
 
 export const MOCK_GLOBAL_STATE_PROPS: GlobalStateContextProps = {
+  experience: 54234,
+  networkConnected: true,
+  updateAvailable: false,
   user: MOCK_GOOGLE_USER,
   lessons: MOCK_LESSONS,
   userScoreStatus: DEFAULT_SCORE_STATE,
-  experience: 54234,
   wordDictionary: createWordDictionaryFromLessons(MOCK_LESSONS),
   languageSetting: APP_LANGUAGE_SETTING.SIMPLIFIED,
   appDifficultySetting: APP_DIFFICULTY_SETTING.EASY,
@@ -126,6 +128,9 @@ export const MOCK_GLOBAL_STATE_PROPS: GlobalStateContextProps = {
     return;
   },
   handleResetScores: () => {
+    return;
+  },
+  handleUpdateApp: () => {
     return;
   },
   handleSwitchLanguage: () => {

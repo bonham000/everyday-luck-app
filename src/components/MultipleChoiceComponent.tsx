@@ -166,9 +166,9 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
      * Some error state: sound file is not available - show the audio fallback UI
      */
     if (
+      !networkConnected ||
       soundLoadingError ||
-      this.state.audioEscapeHatchOn ||
-      !networkConnected
+      this.state.audioEscapeHatchOn
     ) {
       return (
         <TitleContainer>
@@ -186,6 +186,9 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
         </TitleContainer>
       );
     } else {
+      /**
+       * All good - render the audio pronunciation controls:
+       */
       return (
         <TitleContainer>
           <VoiceButton
