@@ -95,6 +95,7 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
       toastMessage: "",
       updating: false,
       wordDictionary: {},
+      updateAvailable: false,
       offlineRequestQueue: [],
       tryingToCloseApp: false,
       transparentLoading: false,
@@ -291,8 +292,12 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
           "Update Available!",
           "Confirm to update now 🛰",
           [
-            { text: "Cancel", onPress: () => null, style: "cancel" },
-            { text: "OK", onPress: this.updateApp },
+            {
+              text: "Cancel",
+              style: "cancel",
+              onPress: () => this.setState({ updateAvailable: true }),
+            },
+            { text: "OK", onPress: this.handleUpdateApp },
           ],
           { cancelable: false },
         );
@@ -302,7 +307,7 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
     }
   };
 
-  updateApp = () => {
+  handleUpdateApp = () => {
     try {
       this.setState(
         {
@@ -457,6 +462,8 @@ class RootContainer extends RootContainerBase<{}> {
       wordDictionary,
       languageSetting,
       userScoreStatus,
+      updateAvailable,
+      networkConnected,
       transparentLoading,
       appDifficultySetting,
     } = this.state;
@@ -479,12 +486,15 @@ class RootContainer extends RootContainerBase<{}> {
             lessons,
             experience,
             wordDictionary,
+            updateAvailable,
+            networkConnected,
             languageSetting,
             userScoreStatus,
             appDifficultySetting,
             onSignin: this.handleSignin,
             setLessonScore: this.setLessonScore,
             setToastMessage: this.setToastMessage,
+            handleUpdateApp: this.handleUpdateApp,
             handleResetScores: this.handleResetScores,
             handleSwitchLanguage: this.handleSwitchLanguage,
             handleUpdateAppDifficultySetting: this

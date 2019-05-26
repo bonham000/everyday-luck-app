@@ -85,10 +85,15 @@ const GlobalStateContext = React.createContext({
   lessons: [] as HSKListSet,
   userScoreStatus: {},
   wordDictionary: {},
+  networkConnected: false,
+  updateAvailable: false,
   appDifficultySetting: APP_DIFFICULTY_SETTING.MEDIUM,
   languageSetting: APP_LANGUAGE_SETTING.SIMPLIFIED,
   setToastMessage: (toastMessage: string | ToastMessageArgs) => {
     // Handle setting Toast message
+  },
+  handleUpdateApp: () => {
+    // Handle resetting scores
   },
   handleResetScores: () => {
     // Handle resetting scores

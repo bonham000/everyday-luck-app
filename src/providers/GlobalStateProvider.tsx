@@ -18,6 +18,8 @@ export interface GlobalStateValues {
   experience: number;
   userScoreStatus: ScoreStatus;
   lessons: HSKListSet;
+  networkConnected: boolean;
+  updateAvailable: boolean;
   wordDictionary: WordDictionary;
   languageSetting: APP_LANGUAGE_SETTING;
   appDifficultySetting: APP_DIFFICULTY_SETTING;
@@ -25,9 +27,10 @@ export interface GlobalStateValues {
 
 export interface GlobalStateContextProps extends GlobalStateValues {
   setToastMessage: (toastMessage: string) => void;
-  openLanguageSelectionMenu: () => void;
+  handleUpdateApp: () => void;
   handleResetScores: () => void;
   handleSwitchLanguage: () => void;
+  openLanguageSelectionMenu: () => void;
   onSignin: (user: GoogleSigninUser) => Promise<void>;
   setLessonScore: (updatedScoreStatus: ScoreStatus, exp: number) => void;
   handleUpdateAppDifficultySetting: (

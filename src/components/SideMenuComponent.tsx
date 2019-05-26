@@ -1,9 +1,17 @@
+import { Constants } from "expo";
 import glamorous from "glamorous-native";
 import React from "react";
-import { Image, Keyboard, TouchableOpacity, View } from "react-native";
+import {
+  Image,
+  Keyboard,
+  StyleSheet,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { NavigationScreenProp, SafeAreaView } from "react-navigation";
 
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
+import { COLORS } from "@src/constants/Theme";
 import {
   GlobalStateContextProps,
   withGlobalStateContext,
@@ -11,7 +19,6 @@ import {
 import { logoutUserLocal } from "@src/tools/async-store";
 import { resetNavigation } from "@src/tools/navigation-utils";
 import { formatUserLanguageSetting } from "@src/tools/utils";
-import { Constants } from "expo";
 
 /** ========================================================================
  * Types
@@ -38,7 +45,13 @@ class SideMenuComponent extends React.Component<IProps, {}> {
   }
 
   render(): JSX.Element {
-    const { user, languageSetting } = this.props;
+    const {
+      user,
+      experience,
+      languageSetting,
+      updateAvailable,
+      handleUpdateApp,
+    } = this.props;
     return (
       <SafeAreaView
         style={{ flex: 1, paddingTop: 75, paddingLeft: 6 }}
@@ -76,28 +89,35 @@ class SideMenuComponent extends React.Component<IProps, {}> {
           About
         </Item>
         <Item onPress={this.handleLogout}>🎡 Logout</Item>
-        {user && (
-          <Item
-            style={{ position: "absolute", bottom: 125, left: 6, fontSize: 12 }}
-          >
-            <Bold>Name:</Bold> {user.name}
-          </Item>
-        )}
-        <Item
-          style={{ position: "absolute", bottom: 95, left: 6, fontSize: 12 }}
-        >
-          <Bold>Experience Points:</Bold> {this.props.experience}
-        </Item>
-        <Item
-          style={{ position: "absolute", bottom: 65, left: 6, fontSize: 12 }}
-        >
-          <Bold>Language:</Bold> {formatUserLanguageSetting(languageSetting)}
-        </Item>
-        <Item
-          style={{ position: "absolute", bottom: 35, left: 6, fontSize: 10 }}
-        >
-          <Bold>Version:</Bold> {Constants.manifest.version}
-        </Item>
+        <BottomBlock>
+          {user && (
+            <SmallItem>
+              <Bold>Name:</Bold> {user.name}
+            </SmallItem>
+          )}
+          <SmallItem>
+            <Bold>Experience Points:</Bold> {experience}
+          </SmallItem>
+          <SmallItem>
+            <Bold>Language:</Bold> {formatUserLanguageSetting(languageSetting)}
+          </SmallItem>
+          <LineBreak />
+          <SmallText style={{ fontSize: 14 }}>
+            <Bold>Version:</Bold> {Constants.manifest.version}{" "}
+            {updateAvailable ? (
+              <React.Fragment>
+                <SmallText style={{ fontSize: 14 }}>
+                  <Bold>- </Bold>
+                </SmallText>
+                <LinkText onPress={handleUpdateApp}>
+                  New Update Available
+                </LinkText>
+              </React.Fragment>
+            ) : (
+              <SmallText style={{ fontSize: 14 }}>(latest)</SmallText>
+            )}
+          </SmallText>
+        </BottomBlock>
       </SafeAreaView>
     );
   }
@@ -136,9 +156,22 @@ class SideMenuComponent extends React.Component<IProps, {}> {
  * =========================================================================
  */
 
+const BottomBlock = glamorous.view({
+  left: 6,
+  bottom: 0,
+  height: 135,
+  position: "absolute",
+});
+
 const Item = ({ children, onPress, style }: any) => (
   <TouchableOpacity onPress={onPress} style={style}>
     <ItemText>{children}</ItemText>
+  </TouchableOpacity>
+);
+
+const SmallItem = ({ children, onPress, style }: any) => (
+  <TouchableOpacity onPress={onPress} style={style}>
+    <SmallText>{children}</SmallText>
   </TouchableOpacity>
 );
 
@@ -150,6 +183,27 @@ const ItemText = glamorous.text({
 
 const Bold = glamorous.text({
   fontWeight: "600",
+});
+
+const SmallText = glamorous.text({
+  fontSize: 16,
+  marginTop: 4,
+  marginLeft: 12,
+});
+
+const LinkText = glamorous.text({
+  fontSize: 14,
+  fontWeight: "500",
+  color: COLORS.primaryBlue,
+});
+
+const LineBreak = glamorous.view({
+  width: "90%",
+  marginTop: 12,
+  marginLeft: 12,
+  marginBottom: 6,
+  backgroundColor: "black",
+  height: StyleSheet.hairlineWidth,
 });
 
 /** ========================================================================

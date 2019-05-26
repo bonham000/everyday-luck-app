@@ -105,7 +105,9 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
         {quizType === QUIZ_TYPE.PRONUNCIATION && (
           <AudioEscapeBlock onPress={this.activateAudioEscapeHatch}>
             <AudioEscapeText>Sound not loading?</AudioEscapeText>
-            <AttributionText>Recordings courtesy of Forvo</AttributionText>
+            <AttributionText>
+              Sound Recordings courtesy of Forvo
+            </AttributionText>
           </AudioEscapeBlock>
         )}
         {shouldReveal ? (
@@ -131,6 +133,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
       quizType,
       currentWord,
       languageSetting,
+      networkConnected,
       audioMetadataCache,
     } = this.props;
 
@@ -159,7 +162,14 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
       ? soundFileCache.playbackError
       : false;
 
-    if (soundLoadingError || this.state.audioEscapeHatchOn) {
+    /**
+     * Some error state: sound file is not available - show the audio fallback UI
+     */
+    if (
+      soundLoadingError ||
+      this.state.audioEscapeHatchOn ||
+      !networkConnected
+    ) {
       return (
         <TitleContainer>
           <QuizPromptText quizType={quizType}>
@@ -167,8 +177,10 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
           </QuizPromptText>
           <QuizSubText>{currentWord.pinyin}</QuizSubText>
           {!this.state.audioEscapeHatchOn && (
-            <Text style={{ marginTop: 15 }}>
-              (Could not find audio file...)
+            <Text style={{ marginTop: 15, color: COLORS.darkText }}>
+              {networkConnected
+                ? "(Could not find audio file...)"
+                : "Network Unavailable"}
             </Text>
           )}
         </TitleContainer>
@@ -270,20 +282,22 @@ const AudioEscapeBlock = glamorous.touchableOpacity({
   right: 15,
   bottom: 15,
   height: 50,
-  width: 150,
+  width: 200,
   position: "absolute",
-  alignItems: "center",
   justifyContent: "center",
 });
 
 const AudioEscapeText = glamorous.text({
+  textAlign: "right",
   fontSize: 14,
+  fontWeight: "bold",
   color: COLORS.fadedText,
 });
 
 const AttributionText = glamorous.text({
-  fontSize: 12,
-  fontWeight: "bold",
+  marginTop: 5,
+  textAlign: "right",
+  fontSize: 11,
   color: COLORS.fadedText,
 });
 
