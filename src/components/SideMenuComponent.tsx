@@ -159,7 +159,7 @@ class SideMenuComponent extends React.Component<IProps, {}> {
 const BottomBlock = glamorous.view({
   left: 6,
   bottom: 0,
-  height: 135,
+  height: 150,
   position: "absolute",
 });
 
