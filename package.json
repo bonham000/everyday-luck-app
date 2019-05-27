@@ -15,6 +15,7 @@
     "tslint": "tslint --project tsconfig.json -c tslint.json",
     "tslint:fix": "tslint --project tsconfig.json -c tslint.json --fix",
     "prettier:fix": "prettier --config .prettierrc --write './{src,test}/**/*.{ts,tsx,json}'",
+    "prettier:fix:scripts": "prettier --config .prettierrc --write './scripts/**/*.{ts,tsx,json}'",
     "prettier:check": "prettier --config .prettierrc --list-different './{src,test}/**/*.{ts,tsx}'",
     "format": "npm run prettier:fix && npm run tslint:fix",
     "test:jest": "jest --silent --runInBand",
@@ -30,7 +31,7 @@
     "test-translate-api": "tsc && npx babel-node --presets env build/scripts/test_translate.js",
     "scrap": "tsc && npx babel-node --presets env build/scripts/scrap_audio.js",
     "audio-status": "tsc && npx babel-node --presets env build/scripts/audio_status.js",
-    "lessons": "tsc && npx babel-node --presets env build/scripts/lesson_content.js"
+    "normalize_lessons": "tsc && npx babel-node --presets env build/scripts/normalize_lessons.js"
   },
   "dependencies": {
     "axios": "^0.18.0",
