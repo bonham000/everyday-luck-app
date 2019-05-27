@@ -10,23 +10,13 @@ describe("HSK_LISTS content", () => {
     }
   });
 
-  test.skip("Lesson content contains unique English words", () => {
+  test("All word English values are capitalized", () => {
     const lessons = HSK_LISTS;
-    const unique = new Set();
-    let duplicate: ReadonlyArray<string> = [];
-
     for (const lesson of lessons) {
       for (const word of lesson.content) {
-        const english = word.english.toLowerCase();
-
-        if (unique.has(english)) {
-          duplicate = duplicate.concat(english);
-        } else {
-          unique.add(english);
-        }
+        const { english } = word;
+        expect(english.charAt(0)).toBe(english.charAt(0).toUpperCase());
       }
     }
-
-    expect(true).toBeTruthy();
   });
 });
