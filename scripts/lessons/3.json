@@ -3,28 +3,28 @@
     "simplified": "阿姨",
     "traditional": "阿姨",
     "pinyin": "āyí",
-    "english": "aunt",
+    "english": "Aunt",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "啊",
     "traditional": "啊",
     "pinyin": "a",
-    "english": "ah",
+    "english": "Ah",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "矮",
     "traditional": "矮",
     "pinyin": "ǎi",
-    "english": "short",
+    "english": "Short",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "爱好",
     "traditional": "愛好",
     "pinyin": "àihào",
-    "english": "hobby",
+    "english": "Hobby",
     "english_alternate_choices": [""]
   },
   {
@@ -38,28 +38,28 @@
     "simplified": "把",
     "traditional": "把",
     "pinyin": "bǎ",
-    "english": "hold",
+    "english": "Hold",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "班",
     "traditional": "班",
     "pinyin": "bān",
-    "english": "class",
+    "english": "Class",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "搬",
     "traditional": "搬",
     "pinyin": "bān",
-    "english": "move",
+    "english": "Move",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "半",
     "traditional": "半",
     "pinyin": "bàn",
-    "english": "half",
+    "english": "Half",
     "english_alternate_choices": [""]
   },
   {
@@ -87,49 +87,49 @@
     "simplified": "包",
     "traditional": "包",
     "pinyin": "bāo",
-    "english": "package",
+    "english": "Package",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "饱",
     "traditional": "飽",
     "pinyin": "bǎo",
-    "english": "full",
+    "english": "Full",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "北方",
     "traditional": "北方",
     "pinyin": "běifāng",
-    "english": "north",
+    "english": "North",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "被",
     "traditional": "被",
     "pinyin": "bèi",
-    "english": "cover",
+    "english": "Cover",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "鼻子",
     "traditional": "鼻子",
     "pinyin": "bízi",
-    "english": "nose",
+    "english": "Nose",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "比",
     "traditional": "比",
     "pinyin": "bǐ",
-    "english": "than",
+    "english": "Than",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "比较",
     "traditional": "比較",
     "pinyin": "bǐjiào",
-    "english": "compare",
+    "english": "Compare",
     "english_alternate_choices": [""]
   },
   {
@@ -150,7 +150,7 @@
     "simplified": "变化",
     "traditional": "變化",
     "pinyin": "biànhuà",
-    "english": "change",
+    "english": "Change",
     "english_alternate_choices": [""]
   },
   {
@@ -164,7 +164,7 @@
     "simplified": "表演",
     "traditional": "表演",
     "pinyin": "biǎoyǎn",
-    "english": "perform",
+    "english": "Perform",
     "english_alternate_choices": [""]
   },
   {
@@ -178,7 +178,7 @@
     "simplified": "宾馆",
     "traditional": "賓館",
     "pinyin": "bīnguǎn",
-    "english": "hotel",
+    "english": "Hotel",
     "english_alternate_choices": [""]
   },
   {
@@ -192,42 +192,42 @@
     "simplified": "才",
     "traditional": "才",
     "pinyin": "cái",
-    "english": "just",
+    "english": "Just",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "菜单",
     "traditional": "菜單",
     "pinyin": "càidān",
-    "english": "menu",
+    "english": "Menu",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "参加",
     "traditional": "參加",
     "pinyin": "cānjiā",
-    "english": "participate in",
+    "english": "Participate in",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "草",
     "traditional": "草",
     "pinyin": "cǎo",
-    "english": "grass",
+    "english": "Grass",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "层",
     "traditional": "層",
     "pinyin": "céng",
-    "english": "layer",
+    "english": "Layer",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "差",
     "traditional": "差",
     "pinyin": "chà",
-    "english": "bad",
+    "english": "Bad",
     "english_alternate_choices": [""]
   },
   {
@@ -241,14 +241,14 @@
     "simplified": "衬衫",
     "traditional": "襯衫",
     "pinyin": "chènshān",
-    "english": "shirt",
+    "english": "Shirt",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "成绩",
     "traditional": "成績",
     "pinyin": "chéngjì",
-    "english": "achievement",
+    "english": "Achievement",
     "english_alternate_choices": [""]
   },
   {
@@ -283,28 +283,28 @@
     "simplified": "除了",
     "traditional": "除了",
     "pinyin": "chúle",
-    "english": "except, besides",
+    "english": "Except, besides",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "春",
     "traditional": "春天",
     "pinyin": "chūn",
-    "english": "spring",
+    "english": "Spring",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "词语",
     "traditional": "詞語",
     "pinyin": "cíyǔ",
-    "english": "terms, words",
+    "english": "Terms, words",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "聪明",
     "traditional": "聰明",
     "pinyin": "cōngming",
-    "english": "clever",
+    "english": "Clever",
     "english_alternate_choices": [""]
   },
   {
@@ -325,7 +325,7 @@
     "simplified": "带",
     "traditional": "帶",
     "pinyin": "dài",
-    "english": "belt",
+    "english": "Belt",
     "english_alternate_choices": [""]
   },
   {
@@ -353,28 +353,28 @@
     "simplified": "灯",
     "traditional": "燈",
     "pinyin": "dēng",
-    "english": "lamp",
+    "english": "Lamp",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "低",
     "traditional": "低",
     "pinyin": "dī",
-    "english": "low",
+    "english": "Low",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "地方",
     "traditional": "地方",
     "pinyin": "dìfang",
-    "english": "local",
+    "english": "Local",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "地铁",
     "traditional": "地鐵",
     "pinyin": "dìtiě",
-    "english": "metro",
+    "english": "Metro",
     "english_alternate_choices": [""]
   },
   {
@@ -388,7 +388,7 @@
     "simplified": "电梯",
     "traditional": "電梯",
     "pinyin": "diàntī",
-    "english": "Elevator.",
+    "english": "Elevator",
     "english_alternate_choices": [""]
   },
   {
@@ -402,14 +402,14 @@
     "simplified": "东",
     "traditional": "東",
     "pinyin": "dōng",
-    "english": "east",
+    "english": "East",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "冬",
     "traditional": "冬季",
     "pinyin": "dōng",
-    "english": "winter",
+    "english": "Winter",
     "english_alternate_choices": [""]
   },
   {
@@ -423,14 +423,14 @@
     "simplified": "短",
     "traditional": "短",
     "pinyin": "duǎn",
-    "english": "short",
+    "english": "Short",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "段",
     "traditional": "段",
     "pinyin": "duàn",
-    "english": "paragraph",
+    "english": "Paragraph",
     "english_alternate_choices": [""]
   },
   {
@@ -444,14 +444,14 @@
     "simplified": "多么",
     "traditional": "多麼",
     "pinyin": "duōme",
-    "english": "such",
+    "english": "Such",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "饿",
     "traditional": "餓",
     "pinyin": "è",
-    "english": "hungry",
+    "english": "Hungry",
     "english_alternate_choices": [""]
   },
   {
@@ -479,21 +479,21 @@
     "simplified": "发现",
     "traditional": "發現",
     "pinyin": "fāxiàn",
-    "english": "find, discover",
+    "english": "Find, discover",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "方便",
     "traditional": "方便",
     "pinyin": "fāngbiàn",
-    "english": "convenient",
+    "english": "Convenient",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "放",
     "traditional": "放",
     "pinyin": "fàng",
-    "english": "discharge",
+    "english": "Discharge",
     "english_alternate_choices": [""]
   },
   {
@@ -507,14 +507,14 @@
     "simplified": "分",
     "traditional": "分",
     "pinyin": "fēn",
-    "english": "minute",
+    "english": "Minute",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "附近",
     "traditional": "附近",
     "pinyin": "fùjìn",
-    "english": "nearby",
+    "english": "Nearby",
     "english_alternate_choices": [""]
   },
   {
@@ -528,56 +528,56 @@
     "simplified": "干净",
     "traditional": "乾淨",
     "pinyin": "gānjìng",
-    "english": "clean",
+    "english": "Clean",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "敢",
     "traditional": "敢",
     "pinyin": "gǎn",
-    "english": "dare",
+    "english": "Dare",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "感冒",
     "traditional": "感冒",
     "pinyin": "gǎnmào",
-    "english": "get a cold",
+    "english": "Get a cold",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "刚才",
     "traditional": "剛才",
     "pinyin": "gāngcái",
-    "english": "just",
+    "english": "Just",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "跟",
     "traditional": "跟",
     "pinyin": "gēn",
-    "english": "with",
+    "english": "With",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "根据",
     "traditional": "根據",
     "pinyin": "gēnjù",
-    "english": "according to",
+    "english": "According to",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "更",
     "traditional": "更",
     "pinyin": "gèng",
-    "english": "more",
+    "english": "More",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "公司",
     "traditional": "公司",
     "pinyin": "gōngsī",
-    "english": "company",
+    "english": "Company",
     "english_alternate_choices": [""]
   },
   {
@@ -605,14 +605,14 @@
     "simplified": "关",
     "traditional": "關",
     "pinyin": "guān",
-    "english": "shut",
+    "english": "Shut",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "关系",
     "traditional": "關係",
     "pinyin": "guānxì",
-    "english": "relationship",
+    "english": "Relationship",
     "english_alternate_choices": [""]
   },
   {
@@ -626,7 +626,7 @@
     "simplified": "关于",
     "traditional": "關於",
     "pinyin": "guānyú",
-    "english": "about",
+    "english": "About",
     "english_alternate_choices": [""]
   },
   {
@@ -640,7 +640,7 @@
     "simplified": "果汁",
     "traditional": "果汁",
     "pinyin": "guǒzhī",
-    "english": "fruit juice",
+    "english": "Fruit juice",
     "english_alternate_choices": [""]
   },
   {
@@ -654,14 +654,14 @@
     "simplified": "过",
     "traditional": "過",
     "pinyin": "guo",
-    "english": "too",
+    "english": "Too",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "还是",
     "traditional": "還是",
     "pinyin": "háishì",
-    "english": "still",
+    "english": "Still",
     "english_alternate_choices": [""]
   },
   {
@@ -675,28 +675,28 @@
     "simplified": "河",
     "traditional": "河",
     "pinyin": "hé",
-    "english": "river",
+    "english": "River",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "黑板",
     "traditional": "黑板",
     "pinyin": "hēibǎn",
-    "english": "blackboard",
+    "english": "Blackboard",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "护照",
     "traditional": "護照",
     "pinyin": "hùzhào",
-    "english": "passport",
+    "english": "Passport",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "花",
     "traditional": "花",
     "pinyin": "huā",
-    "english": "spend (verb)",
+    "english": "Spend (verb)",
     "english_alternate_choices": [""]
   },
   {
@@ -710,14 +710,14 @@
     "simplified": "画",
     "traditional": "畫",
     "pinyin": "huà",
-    "english": "painting",
+    "english": "Painting",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "坏",
     "traditional": "壞",
     "pinyin": "huài",
-    "english": "bad",
+    "english": "Bad",
     "english_alternate_choices": [""]
   },
   {
@@ -731,14 +731,14 @@
     "simplified": "换",
     "traditional": "換",
     "pinyin": "huàn",
-    "english": "change",
+    "english": "Change",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "黄",
     "traditional": "黃",
     "pinyin": "huáng",
-    "english": "yellow",
+    "english": "Yellow",
     "english_alternate_choices": [""]
   },
   {
@@ -752,14 +752,14 @@
     "simplified": "或者",
     "traditional": "或者",
     "pinyin": "huòzhě",
-    "english": "perhaps",
+    "english": "Perhaps",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "几乎",
     "traditional": "幾乎",
     "pinyin": "jīhū",
-    "english": "almost",
+    "english": "Almost",
     "english_alternate_choices": [""]
   },
   {
@@ -773,14 +773,14 @@
     "simplified": "极",
     "traditional": "極",
     "pinyin": "jí",
-    "english": "extremely",
+    "english": "Extremely",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "记得",
     "traditional": "記得",
     "pinyin": "jìde",
-    "english": "remember",
+    "english": "Remember",
     "english_alternate_choices": [""]
   },
   {
@@ -794,14 +794,14 @@
     "simplified": "检查",
     "traditional": "檢查",
     "pinyin": "jiǎnchá",
-    "english": "inspect",
+    "english": "Inspect",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "简单",
     "traditional": "簡單",
     "pinyin": "jiǎndān",
-    "english": "simple",
+    "english": "Simple",
     "english_alternate_choices": [""]
   },
   {
@@ -815,42 +815,42 @@
     "simplified": "见面",
     "traditional": "見面",
     "pinyin": "jiànmiàn",
-    "english": "meet",
+    "english": "Meet",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "讲",
     "traditional": "講",
     "pinyin": "jiǎng",
-    "english": "speak",
+    "english": "Speak",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "教",
     "traditional": "教",
     "pinyin": "jiāo",
-    "english": "teach",
+    "english": "Teach",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "角",
     "traditional": "角",
     "pinyin": "jiǎo",
-    "english": "horn",
+    "english": "Horn",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "脚",
     "traditional": "腳",
     "pinyin": "jiǎo",
-    "english": "foot",
+    "english": "Foot",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "接",
     "traditional": "接",
     "pinyin": "jiē",
-    "english": "pick,get",
+    "english": "Pick,get",
     "english_alternate_choices": [""]
   },
   {
@@ -864,7 +864,7 @@
     "simplified": "结婚",
     "traditional": "結婚",
     "pinyin": "jiéhūn",
-    "english": "marry",
+    "english": "Marry",
     "english_alternate_choices": [""]
   },
   {
@@ -878,14 +878,14 @@
     "simplified": "节目",
     "traditional": "節目",
     "pinyin": "jiémù",
-    "english": "program",
+    "english": "Program",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "节日",
     "traditional": "節日",
     "pinyin": "jiérì",
-    "english": "festival",
+    "english": "Festival",
     "english_alternate_choices": [""]
   },
   {
@@ -899,7 +899,7 @@
     "simplified": "借",
     "traditional": "借",
     "pinyin": "jiè",
-    "english": "borrow",
+    "english": "Borrow",
     "english_alternate_choices": [""]
   },
   {
@@ -920,35 +920,35 @@
     "simplified": "经理",
     "traditional": "經理",
     "pinyin": "jīnglǐ",
-    "english": "manager",
+    "english": "Manager",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "久",
     "traditional": "久",
     "pinyin": "jiǔ",
-    "english": "long",
+    "english": "Long",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "旧",
     "traditional": "舊",
     "pinyin": "jiù",
-    "english": "old,used",
+    "english": "Old,used",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "举行",
     "traditional": "舉行",
     "pinyin": "jǔxíng",
-    "english": "hold",
+    "english": "Hold",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "句子",
     "traditional": "句子",
     "pinyin": "jùzi",
-    "english": "sentence",
+    "english": "Sentence",
     "english_alternate_choices": [""]
   },
   {
@@ -962,7 +962,7 @@
     "simplified": "渴",
     "traditional": "渴",
     "pinyin": "kě",
-    "english": "thirsty",
+    "english": "Thirsty",
     "english_alternate_choices": [""]
   },
   {
@@ -976,7 +976,7 @@
     "simplified": "刻",
     "traditional": "刻",
     "pinyin": "kè",
-    "english": "moment",
+    "english": "Moment",
     "english_alternate_choices": [""]
   },
   {
@@ -997,56 +997,56 @@
     "simplified": "口",
     "traditional": "口",
     "pinyin": "kǒu",
-    "english": "mouth",
+    "english": "Mouth",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "哭",
     "traditional": "哭",
     "pinyin": "kū",
-    "english": "cry",
+    "english": "Cry",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "裤子",
     "traditional": "褲子",
     "pinyin": "kùzi",
-    "english": "trousers",
+    "english": "Trousers",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "筷子",
     "traditional": "筷子",
     "pinyin": "kuàizi",
-    "english": "chopsticks",
+    "english": "Chopsticks",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "蓝",
     "traditional": "藍",
     "pinyin": "lán",
-    "english": "blue",
+    "english": "Blue",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "老",
     "traditional": "老",
     "pinyin": "lǎo",
-    "english": "old",
+    "english": "Old",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "离开",
     "traditional": "離開",
     "pinyin": "líkāi",
-    "english": "leave",
+    "english": "Leave",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "礼物",
     "traditional": "禮物",
     "pinyin": "lǐwù",
-    "english": "gift",
+    "english": "Gift",
     "english_alternate_choices": [""]
   },
   {
@@ -1060,7 +1060,7 @@
     "simplified": "脸",
     "traditional": "臉",
     "pinyin": "liǎn",
-    "english": "face",
+    "english": "Face",
     "english_alternate_choices": [""]
   },
   {
@@ -1081,28 +1081,28 @@
     "simplified": "了解",
     "traditional": "了解",
     "pinyin": "liǎojiě",
-    "english": "understand",
+    "english": "Understand",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "邻居",
     "traditional": "鄰居",
     "pinyin": "línjū",
-    "english": "neighbor",
+    "english": "Neighbor",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "楼",
     "traditional": "樓",
     "pinyin": "lóu",
-    "english": "floor",
+    "english": "Floor",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "绿",
     "traditional": "綠",
     "pinyin": "lǜ",
-    "english": "green",
+    "english": "Green",
     "english_alternate_choices": [""]
   },
   {
@@ -1123,7 +1123,7 @@
     "simplified": "卖",
     "traditional": "賣",
     "pinyin": "mài",
-    "english": "sell",
+    "english": "Sell",
     "english_alternate_choices": [""]
   },
   {
@@ -1144,7 +1144,7 @@
     "simplified": "米",
     "traditional": "米",
     "pinyin": "mǐ",
-    "english": "rice",
+    "english": "Rice",
     "english_alternate_choices": [""]
   },
   {
@@ -1158,56 +1158,56 @@
     "simplified": "面条",
     "traditional": "麵條",
     "pinyin": "miàntiáo",
-    "english": "noodle",
+    "english": "Noodle",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "明白",
     "traditional": "明白",
     "pinyin": "míngbai",
-    "english": "clear",
+    "english": "Clear",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "拿",
     "traditional": "拿",
     "pinyin": "ná",
-    "english": "take",
+    "english": "Take",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "奶奶",
     "traditional": "奶奶",
     "pinyin": "nǎinai",
-    "english": "grandma",
+    "english": "Grandma",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "南",
     "traditional": "南",
     "pinyin": "nán",
-    "english": "south",
+    "english": "South",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "难",
     "traditional": "難",
     "pinyin": "nán",
-    "english": "difficult",
+    "english": "Difficult",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "难过",
     "traditional": "難過",
     "pinyin": "nánguò",
-    "english": "sad",
+    "english": "Sad",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "年级",
     "traditional": "年級",
     "pinyin": "niánjí",
-    "english": "grade",
+    "english": "Grade",
     "english_alternate_choices": [""]
   },
   {
@@ -1221,7 +1221,7 @@
     "simplified": "鸟",
     "traditional": "鳥",
     "pinyin": "niǎo",
-    "english": "bird",
+    "english": "Bird",
     "english_alternate_choices": [""]
   },
   {
@@ -1242,14 +1242,14 @@
     "simplified": "盘子",
     "traditional": "盤子",
     "pinyin": "pánzi",
-    "english": "plate",
+    "english": "Plate",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "胖",
     "traditional": "胖",
     "pinyin": "pàng",
-    "english": "fat",
+    "english": "Fat",
     "english_alternate_choices": [""]
   },
   {
@@ -1277,7 +1277,7 @@
     "simplified": "其实",
     "traditional": "其實",
     "pinyin": "qíshí",
-    "english": "actually",
+    "english": "Actually",
     "english_alternate_choices": [""]
   },
   {
@@ -1291,42 +1291,42 @@
     "simplified": "骑",
     "traditional": "騎",
     "pinyin": "qí",
-    "english": "ride",
+    "english": "Ride",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "奇怪",
     "traditional": "奇怪",
     "pinyin": "qíguài",
-    "english": "strange",
+    "english": "Strange",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "铅笔",
     "traditional": "鉛筆",
     "pinyin": "qiānbǐ",
-    "english": "pencil",
+    "english": "Pencil",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "清楚",
     "traditional": "清楚",
     "pinyin": "qīngchu",
-    "english": "clear",
+    "english": "Clear",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "秋",
     "traditional": "秋",
     "pinyin": "qiū",
-    "english": "autumn",
+    "english": "Autumn",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "裙子",
     "traditional": "裙子",
     "pinyin": "qúnzi",
-    "english": "skirt",
+    "english": "Skirt",
     "english_alternate_choices": [""]
   },
   {
@@ -1347,21 +1347,21 @@
     "simplified": "认为",
     "traditional": "認為",
     "pinyin": "rènwéi",
-    "english": "think",
+    "english": "Think",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "认真",
     "traditional": "認真",
     "pinyin": "rènzhēn",
-    "english": "earnest",
+    "english": "Earnest",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "容易",
     "traditional": "容易",
     "pinyin": "róngyì",
-    "english": "easily",
+    "english": "Easily",
     "english_alternate_choices": [""]
   },
   {
@@ -1375,7 +1375,7 @@
     "simplified": "伞",
     "traditional": "傘",
     "pinyin": "sǎn",
-    "english": "umbrella",
+    "english": "Umbrella",
     "english_alternate_choices": [""]
   },
   {
@@ -1389,56 +1389,56 @@
     "simplified": "生气",
     "traditional": "生氣",
     "pinyin": "shēngqì",
-    "english": "get angry",
+    "english": "Get angry",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "声音",
     "traditional": "聲音",
     "pinyin": "shēngyīn",
-    "english": "voice",
+    "english": "Voice",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "使",
     "traditional": "使",
     "pinyin": "shǐ",
-    "english": "make",
+    "english": "Make",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "世界",
     "traditional": "世界",
     "pinyin": "shìjiè",
-    "english": "world",
+    "english": "World",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "瘦",
     "traditional": "瘦",
     "pinyin": "shòu",
-    "english": "thin",
+    "english": "Thin",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "舒服",
     "traditional": "舒服",
     "pinyin": "shūfu",
-    "english": "comfortable",
+    "english": "Comfortable",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "叔叔",
     "traditional": "叔叔",
     "pinyin": "shūshu",
-    "english": "uncle",
+    "english": "Uncle",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "树",
     "traditional": "樹",
     "pinyin": "shù",
-    "english": "tree",
+    "english": "Tree",
     "english_alternate_choices": [""]
   },
   {
@@ -1459,14 +1459,14 @@
     "simplified": "双",
     "traditional": "雙",
     "pinyin": "shuāng",
-    "english": "double, pair",
+    "english": "Double, pair",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "水平",
     "traditional": "水平",
     "pinyin": "shuǐpíng",
-    "english": "level",
+    "english": "Level",
     "english_alternate_choices": [""]
   },
   {
@@ -1480,21 +1480,21 @@
     "simplified": "虽然",
     "traditional": "雖然",
     "pinyin": "suīrán",
-    "english": "although",
+    "english": "Although",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "太阳",
     "traditional": "太陽",
     "pinyin": "tàiyáng",
-    "english": "sun",
+    "english": "Sun",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "糖",
     "traditional": "糖",
     "pinyin": "táng",
-    "english": "sugar",
+    "english": "Sugar",
     "english_alternate_choices": [""]
   },
   {
@@ -1508,14 +1508,14 @@
     "simplified": "疼",
     "traditional": "疼",
     "pinyin": "téng",
-    "english": "hurt",
+    "english": "Hurt",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "提高",
     "traditional": "提高",
     "pinyin": "tígāo",
-    "english": "increase",
+    "english": "Increase",
     "english_alternate_choices": [""]
   },
   {
@@ -1529,14 +1529,14 @@
     "simplified": "甜",
     "traditional": "甜",
     "pinyin": "tián",
-    "english": "sweet",
+    "english": "Sweet",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "条",
     "traditional": "條",
     "pinyin": "tiáo",
-    "english": "strip",
+    "english": "Strip",
     "english_alternate_choices": [""]
   },
   {
@@ -1564,7 +1564,7 @@
     "simplified": "突然",
     "traditional": "突然",
     "pinyin": "tūrán",
-    "english": "suddenly",
+    "english": "Suddenly",
     "english_alternate_choices": [""]
   },
   {
@@ -1578,56 +1578,56 @@
     "simplified": "腿",
     "traditional": "腿",
     "pinyin": "tuǐ",
-    "english": "leg",
+    "english": "Leg",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "完成",
     "traditional": "完成",
     "pinyin": "wánchéng",
-    "english": "complete",
+    "english": "Complete",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "碗",
     "traditional": "碗",
     "pinyin": "wǎn",
-    "english": "bowl",
+    "english": "Bowl",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "万",
     "traditional": "萬",
     "pinyin": "wàn",
-    "english": "ten thousand",
+    "english": "Ten thousand",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "忘记",
     "traditional": "忘記",
     "pinyin": "wàngjì",
-    "english": "forget",
+    "english": "Forget",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "为",
     "traditional": "為",
     "pinyin": "wèi",
-    "english": "for",
+    "english": "For",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "为了",
     "traditional": "為了",
     "pinyin": "wèile",
-    "english": "in order to",
+    "english": "In order to",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "位",
     "traditional": "地方",
     "pinyin": "wèi",
-    "english": "position",
+    "english": "Position",
     "english_alternate_choices": [""]
   },
   {
@@ -1641,7 +1641,7 @@
     "simplified": "西",
     "traditional": "西",
     "pinyin": "xī",
-    "english": "west",
+    "english": "West",
     "english_alternate_choices": [""]
   },
   {
@@ -1669,14 +1669,14 @@
     "simplified": "夏",
     "traditional": "夏天",
     "pinyin": "xià",
-    "english": "summer",
+    "english": "Summer",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "先",
     "traditional": "先",
     "pinyin": "xiān",
-    "english": "first",
+    "english": "First",
     "english_alternate_choices": [""]
   },
   {
@@ -1690,28 +1690,28 @@
     "simplified": "相同",
     "traditional": "相同",
     "pinyin": "xiāngtóng",
-    "english": "identical",
+    "english": "Identical",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "相信",
     "traditional": "相信",
     "pinyin": "xiāngxìn",
-    "english": "believe",
+    "english": "Believe",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "像",
     "traditional": "像",
     "pinyin": "xiàng",
-    "english": "image",
+    "english": "Image",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "小心",
     "traditional": "小心",
     "pinyin": "xiǎoxīn",
-    "english": "watch out",
+    "english": "Watch out",
     "english_alternate_choices": [""]
   },
   {
@@ -1725,28 +1725,28 @@
     "simplified": "鞋",
     "traditional": "鞋",
     "pinyin": "xié",
-    "english": "shoes",
+    "english": "Shoes",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "新闻",
     "traditional": "新聞",
     "pinyin": "xīnwén",
-    "english": "news",
+    "english": "News",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "新鲜",
     "traditional": "新鮮",
     "pinyin": "xīnxiān",
-    "english": "fresh",
+    "english": "Fresh",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "信",
     "traditional": "信",
     "pinyin": "xìn",
-    "english": "letter",
+    "english": "Letter",
     "english_alternate_choices": [""]
   },
   {
@@ -1788,7 +1788,7 @@
     "simplified": "眼镜",
     "traditional": "眼鏡",
     "pinyin": "yǎnjìng",
-    "english": "glasses",
+    "english": "Glasses",
     "english_alternate_choices": [""]
   },
   {
@@ -1802,7 +1802,7 @@
     "simplified": "爷爷",
     "traditional": "爺爺",
     "pinyin": "yéye",
-    "english": "grandpa",
+    "english": "Grandpa",
     "english_alternate_choices": [""]
   },
   {
@@ -1823,14 +1823,14 @@
     "simplified": "一会儿",
     "traditional": "一會兒",
     "pinyin": "yíhuìr",
-    "english": "a while",
+    "english": "A while",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "一样",
     "traditional": "一樣",
     "pinyin": "yíyàng",
-    "english": "equally",
+    "english": "Equally",
     "english_alternate_choices": [""]
   },
   {
@@ -1844,7 +1844,7 @@
     "simplified": "以前",
     "traditional": "以前",
     "pinyin": "yǐqián",
-    "english": "before",
+    "english": "Before",
     "english_alternate_choices": [""]
   },
   {
@@ -1858,7 +1858,7 @@
     "simplified": "一般",
     "traditional": "一般",
     "pinyin": "yìbān",
-    "english": "commonly",
+    "english": "Commonly",
     "english_alternate_choices": [""]
   },
   {
@@ -1872,7 +1872,7 @@
     "simplified": "一直",
     "traditional": "一直",
     "pinyin": "yìzhí",
-    "english": "always",
+    "english": "Always",
     "english_alternate_choices": [""]
   },
   {
@@ -1907,7 +1907,7 @@
     "simplified": "用",
     "traditional": "用",
     "pinyin": "yòng",
-    "english": "use",
+    "english": "Use",
     "english_alternate_choices": [""]
   },
   {
@@ -1928,14 +1928,14 @@
     "simplified": "又",
     "traditional": "又",
     "pinyin": "yòu",
-    "english": "again",
+    "english": "Again",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "遇到",
     "traditional": "遇到",
     "pinyin": "yùdào",
-    "english": "encounter",
+    "english": "Encounter",
     "english_alternate_choices": [""]
   },
   {
@@ -1956,21 +1956,21 @@
     "simplified": "越",
     "traditional": "越",
     "pinyin": "yuè",
-    "english": "the more",
+    "english": "The more",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "云",
     "traditional": "雲",
     "pinyin": "yún",
-    "english": "cloud",
+    "english": "Cloud",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "站",
     "traditional": "站",
     "pinyin": "zhàn",
-    "english": "station",
+    "english": "Station",
     "english_alternate_choices": [""]
   },
   {
@@ -1984,7 +1984,7 @@
     "simplified": "照顾",
     "traditional": "照顧",
     "pinyin": "zhàogù",
-    "english": "look after",
+    "english": "Look after",
     "english_alternate_choices": [""]
   },
   {
@@ -2005,7 +2005,7 @@
     "simplified": "只",
     "traditional": "只",
     "pinyin": "zhǐ",
-    "english": "only",
+    "english": "Only",
     "english_alternate_choices": [""]
   },
   {
@@ -2019,21 +2019,21 @@
     "simplified": "终于",
     "traditional": "終於",
     "pinyin": "zhōngyú",
-    "english": "finally",
+    "english": "Finally",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "种",
     "traditional": "種",
     "pinyin": "zhǒng",
-    "english": "species",
+    "english": "Species",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "重要",
     "traditional": "重要",
     "pinyin": "zhòngyào",
-    "english": "important",
+    "english": "Important",
     "english_alternate_choices": [""]
   },
   {
@@ -2047,14 +2047,14 @@
     "simplified": "主要",
     "traditional": "主要",
     "pinyin": "zhǔyào",
-    "english": "main",
+    "english": "Main",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "祝",
     "traditional": "祝",
     "pinyin": "zhù",
-    "english": "wish",
+    "english": "Wish",
     "english_alternate_choices": [""]
   },
   {
@@ -2082,21 +2082,21 @@
     "simplified": "总是",
     "traditional": "總是",
     "pinyin": "zǒngshì",
-    "english": "always",
+    "english": "Always",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "最近",
     "traditional": "最近",
     "pinyin": "zuìjìn",
-    "english": "lately",
+    "english": "Lately",
     "english_alternate_choices": [""]
   },
   {
     "simplified": "作业",
     "traditional": "作業",
     "pinyin": "zuòyè",
-    "english": "task",
+    "english": "Task",
     "english_alternate_choices": [""]
   },
   {

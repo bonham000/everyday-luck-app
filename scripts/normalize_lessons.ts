@@ -19,6 +19,7 @@ const saveLessonToJson = (hskList: HSKList) => {
 /**
  * Save all lessons to JSON
  */
+// @ts-ignore
 const writeLessonsToJson = () => {
   for (const lesson of HSK_LISTS) {
     saveLessonToJson(lesson);
@@ -33,6 +34,10 @@ const parseForUniqueContent = () => {
     const updatedLesson = {
       list: lesson.list,
       content: lesson.content.map(word => {
+        if (word.english.includes(".")) {
+          console.log(word.english);
+        }
+
         if (word.english.charAt(0) !== word.english.toUpperCase().charAt(0)) {
           return {
             ...word,
@@ -48,4 +53,4 @@ const parseForUniqueContent = () => {
   }
 };
 
-writeLessonsToJson();
+parseForUniqueContent();
