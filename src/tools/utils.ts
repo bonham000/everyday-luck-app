@@ -45,7 +45,7 @@ export const assertUnreachable = (x: never): never => {
  * @returns random number within given range
  */
 export const randomInRange = (min: number, max: number) => {
-  return Math.floor(Math.random() * (max - min) + min);
+  return Math.floor(Math.random() * (1 + max - min) + min);
 };
 
 /**

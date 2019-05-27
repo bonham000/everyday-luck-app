@@ -11,10 +11,31 @@ import {
   getListScoreKeyFromIndex,
   isLessonComplete,
   mapWordsForList,
+  randomInRange,
 } from "@src/tools/utils";
 import { DEFAULT_SCORE_STATE, MOCK_WORD } from "@tests/data";
 
 describe("utils", () => {
+  test("randomInRange", () => {
+    const ranges: ReadonlyArray<ReadonlyArray<number>> = [
+      [0, 10],
+      [15, 50],
+      [100, 200],
+      [1000, 20000],
+      [-15, 15],
+    ];
+    for (const range of ranges) {
+      const [min, max] = range;
+      let count = 0;
+      while (count < 1000) {
+        const result = randomInRange(min, max);
+        expect(result <= max).toBeTruthy();
+        expect(result >= min).toBeTruthy();
+        count++;
+      }
+    }
+  });
+
   test("mapWordsForList", () => {
     const result = mapWordsForList(MOCK_WORD);
     expect(result).toMatchSnapshot();
