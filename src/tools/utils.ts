@@ -38,44 +38,15 @@ export const assertUnreachable = (x: never): never => {
 };
 
 /**
- * Return a random number for the given range.
+ * Return a random number for the given range, inclusive of the lower
+ * bound. For instance, a range 0..10 can return 0 or 9.
  *
  * @param min Minimum range limit
  * @param max maximum range limit
  * @returns random number within given range
  */
 export const randomInRange = (min: number, max: number) => {
-  return Math.floor(Math.random() * (1 + max - min) + min);
-};
-
-/**
- * Shuffle an array of values.
- *
- * @param array input
- * @returns input array, shuffled
- */
-export const knuthShuffle = <T>(array: ReadonlyArray<T>): ReadonlyArray<T> => {
-  let currentIndex = array.length;
-  let temporaryValue;
-  let randomIndex;
-
-  // While there remain elements to shuffle...
-  while (0 !== currentIndex) {
-    // Pick a remaining element...
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex -= 1;
-
-    // And swap it with the current element.
-    temporaryValue = array[currentIndex];
-    // @ts-ignore
-    // tslint:disable-next-line
-    array[currentIndex] = array[randomIndex];
-    // @ts-ignore
-    // tslint:disable-next-line
-    array[randomIndex] = temporaryValue;
-  }
-
-  return array;
+  return Math.floor(Math.random() * (max - min) + min);
 };
 
 /**
@@ -107,6 +78,36 @@ export const mapWordsForList = (word: Word) => ({
   ...word,
   key: word.traditional,
 });
+
+/**
+ * Shuffle an array of items.
+ *
+ * @param array input
+ * @returns input array, shuffled
+ */
+export const knuthShuffle = <T>(array: ReadonlyArray<T>): ReadonlyArray<T> => {
+  let currentIndex = array.length;
+  let temporaryValue;
+  let randomIndex;
+
+  // While there remain elements to shuffle...
+  while (0 !== currentIndex) {
+    // Pick a remaining element...
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+
+    // And swap it with the current element.
+    temporaryValue = array[currentIndex];
+    // @ts-ignore
+    // tslint:disable-next-line
+    array[currentIndex] = array[randomIndex];
+    // @ts-ignore
+    // tslint:disable-next-line
+    array[randomIndex] = temporaryValue;
+  }
+
+  return array;
+};
 
 /**
  * Derive shuffled multiple choice options given a word and all the
@@ -159,8 +160,7 @@ export const getAlternateChoices = (
         option.english !== word.english &&
         option.pinyin !== word.pinyin &&
         option.simplified !== word.simplified &&
-        option.traditional !== word.traditional &&
-        option.traditional.length === word.traditional.length
+        option.traditional !== word.traditional
       ) {
         chosen.add(idx);
         choices = choices.concat(option);

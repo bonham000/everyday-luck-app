@@ -2,12 +2,15 @@ import HSK_LISTS from "@src/lessons";
 import {
   APP_DIFFICULTY_SETTING,
   APP_LANGUAGE_SETTING,
+  QUIZ_TYPE,
 } from "@src/providers/GlobalStateContext";
 import { Lesson } from "@src/tools/types";
 import {
   capitalize,
   convertAppDifficultyToLessonSize,
+  flattenLessonSet,
   formatUserLanguageSetting,
+  getAlternateChoices,
   getAlternateLanguageSetting,
   getAudioFileUrl,
   getListScoreKeyFromIndex,
@@ -16,7 +19,11 @@ import {
   mapWordsForList,
   randomInRange,
 } from "@src/tools/utils";
-import { DEFAULT_SCORE_STATE, MOCK_WORD } from "@tests/data";
+import {
+  DEFAULT_SCORE_STATE,
+  MOCK_WORD,
+  MOCK_WORD_DICTIONARY,
+} from "@tests/data";
 
 describe("utils", () => {
   test("randomInRange", () => {
@@ -32,7 +39,7 @@ describe("utils", () => {
       let count = 0;
       while (count < 1000) {
         const result = randomInRange(min, max);
-        expect(result <= max).toBeTruthy();
+        expect(result < max).toBeTruthy();
         expect(result >= min).toBeTruthy();
         count++;
       }
@@ -62,6 +69,34 @@ describe("utils", () => {
       while (current < 10) {
         assertListsContainSameContent(words, knuthShuffle(words.slice()));
         current++;
+      }
+    }
+  });
+
+  test("getAlternateChoices", () => {
+    const assertChoicesAreAllUnique = (choices: Lesson) => {
+      const seen = new Set();
+      for (const choice of choices) {
+        seen.add(choice.simplified);
+      }
+      expect(seen.size).toBe(choices.length);
+    };
+
+    const alternates = flattenLessonSet(HSK_LISTS);
+
+    for (const lesson of HSK_LISTS) {
+      const words = lesson.content;
+      for (const word of words) {
+        /**
+         * TODO: Test QUIZ_TYPE.ENGLISH quiz type.
+         */
+        const result = getAlternateChoices(
+          word,
+          alternates,
+          MOCK_WORD_DICTIONARY,
+          QUIZ_TYPE.MANDARIN,
+        );
+        assertChoicesAreAllUnique(result);
       }
     }
   });
