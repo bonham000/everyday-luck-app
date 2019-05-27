@@ -7,24 +7,6 @@ import {
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 
 /**
- * Helper to determine if the user is on the SignIn screen.
- *
- * @param navigationState
- * @returns true if user is on the SignIn screen.
- */
-const isOnSignInScreen = (navigationState: any): boolean => {
-  try {
-    if (navigationState.routes[0].routeName === ROUTE_NAMES.SIGNIN) {
-      return true;
-    } else {
-      return false;
-    }
-  } catch (err) {
-    return false;
-  }
-};
-
-/**
  * Reset the navigation stack to the given route name.
  *
  * @param routeName to reset navigation to
@@ -54,4 +36,22 @@ export const getDrawerLockedState = (navigation: any): DrawerLockMode => {
     ? LOCKED
     : UNLOCKED;
   return drawerLockMode;
+};
+
+/**
+ * Helper to determine if the user is on the SignIn screen.
+ *
+ * @param navigationState
+ * @returns true if user is on the SignIn screen.
+ */
+const isOnSignInScreen = (navigationState: any): boolean => {
+  try {
+    if (navigationState.routes[0].routeName === ROUTE_NAMES.SIGNIN) {
+      return true;
+    } else {
+      return false;
+    }
+  } catch (err) {
+    return false;
+  }
 };

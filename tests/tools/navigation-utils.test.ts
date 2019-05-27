@@ -6,4 +6,11 @@ describe("navigation-utils", () => {
     const result = resetNavigation(ROUTE_NAMES.HOME);
     expect(result).toMatchSnapshot();
   });
+
+  test.skip("getDrawerLockedState", () => {
+    /**
+     * TODO: Add test.
+     */
+    expect(true).toBeTruthy();
+  });
 });
