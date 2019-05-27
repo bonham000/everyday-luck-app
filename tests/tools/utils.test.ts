@@ -2,6 +2,7 @@ import HSK_LISTS from "@src/lessons";
 import {
   APP_DIFFICULTY_SETTING,
   APP_LANGUAGE_SETTING,
+  ListScoreSet,
   QUIZ_TYPE,
 } from "@src/providers/GlobalStateContext";
 import { Lesson } from "@src/tools/types";
@@ -15,11 +16,28 @@ import {
   getAudioFileUrl,
   getListScoreKeyFromIndex,
   isLessonComplete,
+  isNetworkConnected,
   knuthShuffle,
   mapWordsForList,
   randomInRange,
 } from "@src/tools/utils";
 import MOCKS from "@tests/data";
+
+const assertListsContainSameContent = (listA: Lesson, listB: Lesson) => {
+  const counts = new Map();
+
+  for (let i = 0; i < listA.length; i++) {
+    const A = listA[i];
+    const B = listB[i];
+    expect(A.simplified !== B.simplified);
+    counts.set(A.simplified, (+counts.get(A.simplified) || 0) + 1);
+    counts.set(B.simplified, (+counts.get(B.simplified) || 0) + 1);
+  }
+
+  for (const count of counts.values()) {
+    expect(count).toBe(2);
+  }
+};
 
 describe("utils", () => {
   test("randomInRange", () => {
@@ -43,22 +61,6 @@ describe("utils", () => {
   });
 
   test("knuthShuffle", () => {
-    const assertListsContainSameContent = (listA: Lesson, listB: Lesson) => {
-      const counts = new Map();
-
-      for (let i = 0; i < listA.length; i++) {
-        const A = listA[i];
-        const B = listB[i];
-        expect(A.simplified !== B.simplified);
-        counts.set(A.simplified, (+counts.get(A.simplified) || 0) + 1);
-        counts.set(B.simplified, (+counts.get(B.simplified) || 0) + 1);
-      }
-
-      for (const count of counts.values()) {
-        expect(count).toBe(2);
-      }
-    };
-
     for (const lesson of HSK_LISTS) {
       const words = lesson.content;
       let current = 0;
@@ -95,6 +97,20 @@ describe("utils", () => {
         assertChoicesAreAllUnique(result);
       }
     }
+  });
+
+  test("getListScoreKeyFromIndex", () => {
+    const expected: ReadonlyArray<keyof ListScoreSet> = [
+      "list_02_score",
+      "list_03_score",
+      "list_04_score",
+      "list_05_score",
+      "list_06_score",
+    ];
+
+    expected.forEach((key, index) => {
+      expect(getListScoreKeyFromIndex(index)).toBe(key);
+    });
   });
 
   test("mapWordsForList", () => {
@@ -180,5 +196,19 @@ describe("utils", () => {
     expect(capitalize("Hello HELLO HELLO")).toBe("Hello hello hello");
     expect(capitalize("HELLO hello hello")).toBe("Hello hello hello");
     expect(capitalize("hELLO hello hello")).toBe("Hello hello hello");
+  });
+
+  test("flattenLessonSet", () => {
+    assertListsContainSameContent(
+      flattenLessonSet(HSK_LISTS),
+      flattenLessonSet(HSK_LISTS),
+    );
+  });
+
+  test("isNetworkConnected", () => {
+    expect(isNetworkConnected("none")).toBeFalsy();
+    expect(isNetworkConnected("cell")).toBeTruthy();
+    expect(isNetworkConnected("wifi")).toBeTruthy();
+    expect(isNetworkConnected("WIFI")).toBeTruthy();
   });
 });

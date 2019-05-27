@@ -6,6 +6,7 @@ import {
   APP_LANGUAGE_SETTING,
   DIFFICULTY_TO_LESSON_SIZE_MAP,
   ListScore,
+  ListScoreSet,
   QUIZ_TYPE,
   ScoreStatus,
   WordDictionary,
@@ -225,7 +226,7 @@ export const determineFinalUnlockedLesson = (
 /**
  * Index mapping of score keys to list index.
  */
-const SCORES_INDEX_MAP: ReadonlyArray<string> = [
+const SCORES_INDEX_MAP: ReadonlyArray<keyof ListScoreSet> = [
   "list_02_score",
   "list_03_score",
   "list_04_score",
