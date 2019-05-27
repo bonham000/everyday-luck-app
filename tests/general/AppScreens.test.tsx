@@ -2,11 +2,7 @@ import React from "react";
 import renderer from "react-test-renderer";
 
 import * as utils from "@src/tools/utils";
-import {
-  MOCK_LESSON_SCREEN_PARAMS,
-  MOCK_LIST_SCREEN_PARAMS,
-  MOCK_MULTIPLE_CHOICE_OPTIONS,
-} from "@tests/data";
+import MOCKS from "@tests/data";
 import stargazerConfig from "@tests/general/StargazerRouteConfig";
 
 // @ts-ignore — for someone reason Jest throws an error React is not defined?
@@ -16,8 +12,8 @@ global.React = React; // tslint:disable-line
  * Catch all mock navigation params.
  */
 const params = {
-  ...MOCK_LESSON_SCREEN_PARAMS,
-  ...MOCK_LIST_SCREEN_PARAMS,
+  ...MOCKS.LESSON_SCREEN_PARAMS,
+  ...MOCKS.LIST_SCREEN_PARAMS,
 };
 
 /**
@@ -48,7 +44,7 @@ describe("App Screen Components", () => {
    * Mock this function for the test environment.
    */
   const spy = jest.spyOn(utils, "getAlternateChoices");
-  spy.mockReturnValue(MOCK_MULTIPLE_CHOICE_OPTIONS);
+  spy.mockReturnValue(MOCKS.MULTIPLE_CHOICE_OPTIONS);
 
   test("Each screen component renders with props provided", () => {
     for (const config of stargazerConfig) {

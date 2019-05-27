@@ -34,7 +34,7 @@ import {
   mapListIndexToListScores,
   randomInRange,
 } from "@src/tools/utils";
-import { DEFAULT_LESSON_SCORES } from "@tests/data";
+import MOCKS from "@tests/data";
 
 /** ========================================================================
  * Types
@@ -451,7 +451,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     if (lessonCompleted) {
       updatedScoreStatus = {
         ...updatedScoreStatus,
-        ...DEFAULT_LESSON_SCORES,
+        ...MOCKS.DEFAULT_LESSON_SCORES,
       };
     }
 
@@ -461,11 +461,11 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
      */
     if (lessonType === "OPT_OUT_CHALLENGE") {
       updatedScoreStatus = {
-        ...DEFAULT_LESSON_SCORES,
+        ...MOCKS.DEFAULT_LESSON_SCORES,
         ...updatedScoreStatus,
         [listScoreKey]: {
           ...listScore,
-          ...DEFAULT_LESSON_SCORES,
+          ...MOCKS.DEFAULT_LESSON_SCORES,
           complete: true,
           number_words_completed: lessons[listIndex].content.length,
         },

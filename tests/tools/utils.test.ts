@@ -19,11 +19,7 @@ import {
   mapWordsForList,
   randomInRange,
 } from "@src/tools/utils";
-import {
-  DEFAULT_SCORE_STATE,
-  MOCK_WORD,
-  MOCK_WORD_DICTIONARY,
-} from "@tests/data";
+import MOCKS from "@tests/data";
 
 describe("utils", () => {
   test("randomInRange", () => {
@@ -54,8 +50,8 @@ describe("utils", () => {
         const A = listA[i];
         const B = listB[i];
         expect(A.simplified !== B.simplified);
-        counts.set(A.simplified, (counts.get(A.simplified) || 0) + 1);
-        counts.set(B.simplified, (counts.get(B.simplified) || 0) + 1);
+        counts.set(A.simplified, (+counts.get(A.simplified) || 0) + 1);
+        counts.set(B.simplified, (+counts.get(B.simplified) || 0) + 1);
       }
 
       for (const count of counts.values()) {
@@ -93,7 +89,7 @@ describe("utils", () => {
         const result = getAlternateChoices(
           word,
           alternates,
-          MOCK_WORD_DICTIONARY,
+          MOCKS.WORD_DICTIONARY,
           QUIZ_TYPE.MANDARIN,
         );
         assertChoicesAreAllUnique(result);
@@ -102,7 +98,7 @@ describe("utils", () => {
   });
 
   test("mapWordsForList", () => {
-    const result = mapWordsForList(MOCK_WORD);
+    const result = mapWordsForList(MOCKS.WORD);
     expect(result).toMatchSnapshot();
   });
 
@@ -121,7 +117,7 @@ describe("utils", () => {
   });
 
   test("isLessonComplete", () => {
-    expect(isLessonComplete(DEFAULT_SCORE_STATE)).toBeFalsy();
+    expect(isLessonComplete(MOCKS.DEFAULT_SCORE_STATE)).toBeFalsy();
 
     expect({
       mc_english: true,

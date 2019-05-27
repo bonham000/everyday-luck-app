@@ -51,7 +51,7 @@ import {
   transformGoogleSignInResultToUserData,
   transformUserToLocalUserData,
 } from "@src/tools/utils";
-import { DEFAULT_SCORE_STATE } from "@tests/data";
+import MOCKS from "@tests/data";
 
 /** ========================================================================
  * Types
@@ -102,7 +102,7 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
       networkConnected: true,
       appState: AppState.currentState,
       processingOfflineRequestQueue: false,
-      userScoreStatus: DEFAULT_SCORE_STATE,
+      userScoreStatus: MOCKS.DEFAULT_SCORE_STATE,
       languageSetting: APP_LANGUAGE_SETTING.SIMPLIFIED,
       appDifficultySetting: APP_DIFFICULTY_SETTING.MEDIUM,
     };
@@ -710,7 +710,7 @@ class RootContainer extends RootContainerBase<{}> {
             {
               experience: 0,
               transparentLoading: false,
-              userScoreStatus: DEFAULT_SCORE_STATE,
+              userScoreStatus: MOCKS.DEFAULT_SCORE_STATE,
             },
             this.handleResetScoresSuccess,
           );
@@ -726,7 +726,7 @@ class RootContainer extends RootContainerBase<{}> {
       this.setToastMessage("Scores reset!");
       this.requestMiddlewareHandler([
         createSerializedUserExperienceHandler(userId, 0),
-        createSerializedUserScoresHandler(userId, DEFAULT_SCORE_STATE),
+        createSerializedUserScoresHandler(userId, MOCKS.DEFAULT_SCORE_STATE),
       ]);
     }
   };
