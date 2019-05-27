@@ -1,7 +1,9 @@
+import HSK_LISTS from "@src/lessons";
 import {
   APP_DIFFICULTY_SETTING,
   APP_LANGUAGE_SETTING,
 } from "@src/providers/GlobalStateContext";
+import { Lesson } from "@src/tools/types";
 import {
   capitalize,
   convertAppDifficultyToLessonSize,
@@ -10,6 +12,7 @@ import {
   getAudioFileUrl,
   getListScoreKeyFromIndex,
   isLessonComplete,
+  knuthShuffle,
   mapWordsForList,
   randomInRange,
 } from "@src/tools/utils";
@@ -32,6 +35,33 @@ describe("utils", () => {
         expect(result <= max).toBeTruthy();
         expect(result >= min).toBeTruthy();
         count++;
+      }
+    }
+  });
+
+  test("knuthShuffle", () => {
+    const assertListsContainSameContent = (listA: Lesson, listB: Lesson) => {
+      const counts = new Map();
+
+      for (let i = 0; i < listA.length; i++) {
+        const A = listA[i];
+        const B = listB[i];
+        expect(A.simplified !== B.simplified);
+        counts.set(A.simplified, (counts.get(A.simplified) || 0) + 1);
+        counts.set(B.simplified, (counts.get(B.simplified) || 0) + 1);
+      }
+
+      for (const count of counts.values()) {
+        expect(count).toBe(2);
+      }
+    };
+
+    for (const lesson of HSK_LISTS) {
+      const words = lesson.content;
+      let current = 0;
+      while (current < 10) {
+        assertListsContainSameContent(words, knuthShuffle(words.slice()));
+        current++;
       }
     }
   });
