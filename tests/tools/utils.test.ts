@@ -21,7 +21,7 @@ import {
   mapWordsForList,
   randomInRange,
 } from "@src/tools/utils";
-import MOCKS from "@tests/data";
+import MOCKS from "@tests/mocks";
 
 const assertListsContainSameContent = (listA: Lesson, listB: Lesson) => {
   const counts = new Map();

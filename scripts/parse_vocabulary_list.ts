@@ -2,11 +2,11 @@ import fs from "fs";
 
 import { SIMPLIFIED_CHINESE } from "@src/tools/types";
 import { translateWord } from "@src/tools/utils";
-import vocabularyList2 from "./lists/02";
-import vocabularyList3 from "./lists/03";
-import vocabularyList4 from "./lists/04";
-import vocabularyList5 from "./lists/05";
-import vocabularyList6 from "./lists/06";
+import vocabularyList2 from "./original-content/02";
+import vocabularyList3 from "./original-content/03";
+import vocabularyList4 from "./original-content/04";
+import vocabularyList5 from "./original-content/05";
+import vocabularyList6 from "./original-content/06";
 
 // @ts-ignore
 const lists: ReadonlyArray<ReadonlyArray<string>> = [

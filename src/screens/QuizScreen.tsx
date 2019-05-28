@@ -39,7 +39,7 @@ import {
   mapListIndexToListScores,
   randomInRange,
 } from "@src/tools/utils";
-import MOCKS from "@tests/data";
+import MOCKS from "@tests/mocks";
 
 /** ========================================================================
  * Types

@@ -7,7 +7,7 @@ import {
   saveUserToAsyncStorage,
   setOfflineUpdatesFlagState,
 } from "@src/tools/async-store";
-import MOCKS from "@tests/data";
+import MOCKS from "@tests/mocks";
 
 const mockStorage = () => {
   const mockImpl = new MockAsyncStorage();

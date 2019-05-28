@@ -2,8 +2,8 @@ import React from "react";
 import renderer from "react-test-renderer";
 
 import * as utils from "@src/tools/utils";
-import MOCKS from "@tests/data";
 import stargazerConfig from "@tests/general/StargazerRouteConfig";
+import MOCKS from "@tests/mocks";
 
 // @ts-ignore — for someone reason Jest throws an error React is not defined?
 global.React = React; // tslint:disable-line

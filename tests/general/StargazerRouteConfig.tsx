@@ -17,7 +17,7 @@ import { SettingsScreenComponent } from "@src/screens/SettingsScreen";
 import { TranslationScreenComponent } from "@src/screens/TranslationScreen";
 import { ViewAllScreenComponent } from "@src/screens/ViewAllScreen";
 import { LessonScreenParams, ListScreenParams } from "@src/tools/types";
-import MOCKS from "@tests/data";
+import MOCKS from "@tests/mocks";
 
 /** ========================================================================
  * Stargazer Route Config
