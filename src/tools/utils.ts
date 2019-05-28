@@ -164,7 +164,7 @@ export const getAlternateChoices = (
 /**
  * Helper to derive alternate English word choices for a quiz question.
  * Rely or provided alternate words first and fallback back to a random
- * selection.
+ * selection. Ensure only unique English words are chosen.
  *
  * @param word `Word` in quiz
  * @param wordDictionary dictionary of lesson content
@@ -182,14 +182,27 @@ const getEnglishAlternateWords = (
         )
       : english_alternate_choices;
 
+  let idx: number;
+  let option: string;
+  const chosen: Set<string> = new Set([word.english]);
+  let choices: ReadonlyArray<string> = [];
+
+  while (choices.length < 4) {
+    idx = randomInRange(0, alternateEnglishWords.length);
+    option = alternateEnglishWords[idx];
+
+    if (!chosen.has(option)) {
+      chosen.add(option);
+      choices = choices.concat(option);
+    }
+  }
+
   return [
     word,
-    ...knuthShuffle(alternateEnglishWords)
-      .slice(0, 4)
-      .map(choice => ({
-        english: choice,
-        ...wordDictionary[choice],
-      })),
+    ...knuthShuffle(choices).map(choice => ({
+      english: choice,
+      ...wordDictionary[choice.toLowerCase()],
+    })),
   ];
 };
 
