@@ -10,13 +10,19 @@ describe("HSK_LISTS content", () => {
     }
   });
 
-  test("All word English values are capitalized", () => {
+  test("All word English values are capitalized and all simplified characters are unique", () => {
     const lessons = HSK_LISTS;
+    let totalWordLength = 0;
+    const uniqueWordSet = new Set();
     for (const lesson of lessons) {
+      totalWordLength += lesson.content.length;
       for (const word of lesson.content) {
-        const { english } = word;
+        const { english, simplified } = word;
         expect(english.charAt(0)).toBe(english.charAt(0).toUpperCase());
+        uniqueWordSet.add(simplified);
       }
     }
+
+    expect(uniqueWordSet.size).toBe(totalWordLength);
   });
 });

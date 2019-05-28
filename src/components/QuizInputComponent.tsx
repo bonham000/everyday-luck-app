@@ -28,6 +28,10 @@ const QuizInput = ({
   didReveal,
   languageSetting,
 }: QuizScreenComponentProps) => {
+  /**
+   * TODO: Account for overlapping English word definitions when defining the
+   * correct answer...
+   */
   const correctValue = currentWord[languageSetting];
 
   /**
