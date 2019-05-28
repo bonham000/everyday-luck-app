@@ -9,7 +9,7 @@ import {
   NetInfo,
   View,
 } from "react-native";
-import { createAppContainer } from "react-navigation";
+import { createAppContainer, NavigationActions } from "react-navigation";
 
 import ErrorComponent from "@src/components/ErrorComponent";
 import {
@@ -30,6 +30,7 @@ import { findOrCreateUser, updateUser } from "@src/tools/api";
 import {
   getOfflineUpdatesFlagState,
   getPersistedUser,
+  logoutUserLocal,
   saveUserToAsyncStorage,
   setOfflineUpdatesFlagState,
 } from "@src/tools/async-store";
@@ -44,6 +45,7 @@ import {
   transformUserJson,
 } from "@src/tools/utils";
 import MOCKS from "@tests/mocks";
+import { ROUTE_NAMES } from "./constants/RouteNames";
 
 /** ========================================================================
  * Types
@@ -187,6 +189,10 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
         await updateUser(user);
         setOfflineUpdatesFlagState({ shouldProcessRequests: false });
       } catch (err) {
+        /**
+         * TODO: Parse error here and if it's a 401 status log out the
+         * user with a message.
+         */
         console.log(`Could not update user right now`);
         setOfflineUpdatesFlagState({ shouldProcessRequests: true });
       }
@@ -370,6 +376,34 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
       }
     } catch (_) {
       return true;
+    }
+  };
+
+  handleLogoutUser = () => {
+    this.setToastMessage("Your session has ended!");
+    this.setState(
+      {
+        loading: true,
+      },
+      async () => {
+        await logoutUserLocal();
+        await setOfflineUpdatesFlagState({ shouldProcessRequests: false });
+        this.navigateToRoute(ROUTE_NAMES.SIGNIN);
+        this.setState({
+          loading: false,
+          user: undefined,
+        });
+      },
+    );
+  };
+
+  navigateToRoute = (routeName: ROUTE_NAMES) => {
+    const navigationAction = NavigationActions.navigate({
+      routeName,
+    });
+
+    if (this.navigationRef) {
+      this.navigationRef.dispatch(navigationAction);
     }
   };
 }
