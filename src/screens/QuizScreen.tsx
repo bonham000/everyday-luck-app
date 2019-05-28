@@ -31,8 +31,8 @@ import {
   Word,
 } from "@src/tools/types";
 import {
+  calculateExperiencePointsForLesson,
   convertAppDifficultyToLessonSize,
-  getExperiencePointsForLesson,
   getListScoreKeyFromIndex,
   getQuizSuccessToasts,
   isLessonComplete,
@@ -378,7 +378,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
   };
 
   handleCompleteQuiz = () => {
-    const { userScoreStatus, quizType } = this.props;
+    const { userScoreStatus, quizType, appDifficultySetting } = this.props;
     const lessonType = this.props.navigation.getParam("type");
     const isFinalLesson = this.props.navigation.getParam("isFinalLesson");
 
@@ -387,7 +387,13 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     /* Is this the first time the user completed this quiz */
     const firstPass = perfectScore && !userScoreStatus[quizType];
     /* Determine experience points for this lesson */
-    const experiencePoints = getExperiencePointsForLesson(quizType, lessonType);
+    const experiencePoints = calculateExperiencePointsForLesson(
+      firstPass,
+      perfectScore,
+      quizType,
+      lessonType,
+      appDifficultySetting,
+    );
 
     let lessonCompleted = false;
     const updatedScoreStatus: ScoreStatus = {
@@ -399,7 +405,11 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     lessonCompleted = isLessonComplete(updatedScoreStatus);
 
     if (perfectScore) {
-      this.handleSettingScoresForLesson(updatedScoreStatus, lessonCompleted);
+      this.handleSettingScoresForLesson(
+        updatedScoreStatus,
+        lessonCompleted,
+        experiencePoints,
+      );
     }
 
     // tslint:disable-next-line
@@ -415,6 +425,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
             lessonType,
             experiencePoints,
             isFinalLesson,
+            perfectScore,
           ),
       );
     }, 350);
@@ -423,9 +434,10 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
   handleSettingScoresForLesson = (
     updatedScores: ScoreStatus,
     lessonCompleted: boolean,
+    experiencePoints: number,
   ) => {
     let updatedScoreStatus = updatedScores;
-    const { quizType, lessons } = this.props;
+    const { lessons } = this.props;
     const lessonIndex = this.props.navigation.getParam("lessonIndex");
     const listIndex = this.props.navigation.getParam("listIndex");
     const isFinalLesson = this.props.navigation.getParam("isFinalLesson");
@@ -434,8 +446,6 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     const lessonContentSize = convertAppDifficultyToLessonSize(
       this.props.appDifficultySetting,
     );
-
-    const experiencePoints = getExperiencePointsForLesson(quizType, lessonType);
 
     const listScoreKey = getListScoreKeyFromIndex(listIndex);
     const listScore = mapListIndexToListScores(listIndex, updatedScoreStatus);
@@ -487,12 +497,14 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     lessonType: LessonSummaryType,
     experience: number,
     isFinalLesson: boolean,
+    perfectScore: boolean,
   ) => {
     const { primary, secondary } = getQuizSuccessToasts(
       lessonCompleted,
       firstPass,
       lessonType,
       experience,
+      perfectScore,
     );
     Alert.alert(
       primary,

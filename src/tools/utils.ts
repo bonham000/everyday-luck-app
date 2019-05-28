@@ -280,26 +280,52 @@ export const isLessonComplete = (userScoreStatus: ScoreStatus): boolean => {
   );
 };
 
+const DIFFICULTY_MULTIPLIERS = {
+  [APP_DIFFICULTY_SETTING.EASY]: 1,
+  [APP_DIFFICULTY_SETTING.MEDIUM]: 2,
+  [APP_DIFFICULTY_SETTING.HARD]: 3,
+};
+
 /**
- * Determine experience points for completing a lesson. Result is random, within
- * a range.
+ * Determine experience points for completing a lesson. Result is random,
+ * within a range. Adjust for app difficulty setting and if this is the
+ * first completion of this quiz.
  *
  * @param quizType type of completed quiz
  * @returns lessonType lesson type
  */
-export const getExperiencePointsForLesson = (
+export const calculateExperiencePointsForLesson = (
+  firstPass: boolean,
+  perfectScore: boolean,
   quizType: QUIZ_TYPE,
   lessonType: LessonSummaryType,
+  appDifficultySetting: APP_DIFFICULTY_SETTING,
 ): number => {
-  const MIN: number = 500;
+  const MIN: number = 15;
   let MAX: number;
   if (lessonType === "OPT_OUT_CHALLENGE") {
-    MAX = 5000;
+    MAX = 250;
+  } else if (quizType === QUIZ_TYPE.QUIZ_TEXT) {
+    MAX = 30;
   } else {
-    MAX = quizType === QUIZ_TYPE.QUIZ_TEXT ? 1250 : 750;
+    MAX = 15;
   }
-  const OFFSET = lessonType === "LESSON" ? 500 : 0;
-  return randomInRange(MIN, MAX - OFFSET);
+
+  const OFFSET = lessonType === "LESSON" ? 25 : 0;
+  const result = randomInRange(MIN, MAX - OFFSET);
+
+  let multipliedResult = result * DIFFICULTY_MULTIPLIERS[appDifficultySetting];
+
+  /**
+   * Add bonus points for firstPass and perfectScore:
+   */
+  if (firstPass) {
+    multipliedResult += 15;
+  } else if (perfectScore) {
+    multipliedResult += 5;
+  }
+
+  return multipliedResult;
 };
 
 export interface DeriveLessonContentArgs {
@@ -686,24 +712,39 @@ export const getQuizSuccessToasts = (
   firstPass: boolean,
   lessonType: LessonSummaryType,
   experience: number,
+  perfectScore: boolean,
 ): QuizSuccessToasts => {
+  /**
+   * Define primary title string:
+   */
   let primary: string = "";
   if (lessonCompleted) {
     primary = "The next lesson is unlocked! 🥇";
   } else if (lessonType === "OPT_OUT_CHALLENGE") {
-    primary =
-      "Incredible!!! You're a master!"; /* TODO: Don't show this if not perfect score */
+    if (perfectScore) {
+      primary = "Incredible!!! You're a master!";
+    } else {
+      primary = "You passed but not with a perfect score!";
+    }
   } else if (firstPass) {
     primary = "Amazing! You passed this lesson! 💯";
   } else {
     primary = "You finished the quiz!";
   }
 
+  /**
+   * Define secondary title string:
+   */
   let secondary: string = "";
   if (lessonCompleted) {
     secondary = `Great - keep going! 很好! You earned ${experience} experience points!`;
   } else if (lessonType === "OPT_OUT_CHALLENGE") {
-    secondary = "The next HSK Level will now be unlocked! 💫💫💫";
+    if (perfectScore) {
+      secondary = "The next HSK Level will now be unlocked! 💫💫💫";
+    } else {
+      secondary =
+        "You can try again anytime to still unlock the HSK Level, good luck!";
+    }
   } else if (firstPass) {
     secondary = `Congratulations! You gained ${experience} experience points!`;
   } else {

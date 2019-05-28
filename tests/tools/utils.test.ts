@@ -9,6 +9,7 @@ import { Lesson } from "@src/tools/types";
 import {
   capitalize,
   convertAppDifficultyToLessonSize,
+  fetchLessonSet,
   flattenLessonSet,
   formatUserLanguageSetting,
   getAlternateChoices,
@@ -268,8 +269,8 @@ describe("utils", () => {
     expect(true).toBeTruthy();
   });
 
-  test.skip("fetchLessonSet", () => {
-    expect(true).toBeTruthy();
+  test("fetchLessonSet", () => {
+    expect(fetchLessonSet()).toEqual(HSK_LISTS);
   });
 
   test.skip("determineAnyPossibleCorrectAnswerForFreeInput", () => {
