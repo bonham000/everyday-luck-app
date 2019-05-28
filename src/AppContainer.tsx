@@ -268,7 +268,7 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
       return {
         experience: user.experience_points,
         userScoreStatus: user.score_history,
-        languageSetting: APP_LANGUAGE_SETTING.SIMPLIFIED,
+        languageSetting: user.language_setting,
         appDifficultySetting: user.app_difficulty_setting,
       };
     } else {

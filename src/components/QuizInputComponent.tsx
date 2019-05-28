@@ -41,7 +41,7 @@ const QuizInput = ({
    */
   const {
     correct,
-    correctValue,
+    correctWord,
   } = determineAnyPossibleCorrectAnswerForFreeInput(
     value,
     currentWord,
@@ -62,8 +62,8 @@ const QuizInput = ({
     <React.Fragment>
       {valid || revealAnswer ? (
         <QuizBox>
-          <MandarinText>{correctValue}</MandarinText>
-          <PinyinText>{currentWord.pinyin}</PinyinText>
+          <MandarinText>{correctWord[languageSetting]}</MandarinText>
+          <PinyinText>{correctWord.pinyin}</PinyinText>
         </QuizBox>
       ) : (
         <Shaker style={{ width: "100%" }} shouldShake={shouldShake}>

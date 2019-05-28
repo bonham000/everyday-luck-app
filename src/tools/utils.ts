@@ -766,7 +766,7 @@ export const fetchLessonSet = (): HSKListSet => {
 
 interface QuizInputResult {
   correct: boolean;
-  correctValue: string;
+  correctWord: Word;
 }
 
 /**
@@ -798,7 +798,7 @@ export const determineAnyPossibleCorrectAnswerForFreeInput = (
   if (input === word[languageSetting]) {
     return {
       correct: true,
-      correctValue: word[languageSetting],
+      correctWord: word,
     };
   } else if (input in wordDictionary) {
     /**
@@ -809,7 +809,7 @@ export const determineAnyPossibleCorrectAnswerForFreeInput = (
     if (lookup.english === word.english) {
       return {
         correct: true,
-        correctValue: lookup[languageSetting],
+        correctWord: lookup,
       };
     }
   }
@@ -822,6 +822,6 @@ export const determineAnyPossibleCorrectAnswerForFreeInput = (
    */
   return {
     correct: false,
-    correctValue: word[languageSetting],
+    correctWord: word[languageSetting],
   };
 };
