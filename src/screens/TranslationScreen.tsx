@@ -56,6 +56,11 @@ export class TranslationScreenComponent extends React.Component<
       <Container>
         <SectionTitle>Translation Tool</SectionTitle>
         <InfoText>Translate between English and Chinese</InfoText>
+        {!this.props.networkConnected && (
+          <WarningText>
+            The network is disconnected - translations may not be possible now
+          </WarningText>
+        )}
         <TextInput
           mode="outlined"
           value={input}
@@ -202,6 +207,14 @@ const InfoText = glamorous.text({
   textAlign: "center",
 });
 
+const WarningText = glamorous.text({
+  fontSize: 14,
+  marginTop: 5,
+  marginBottom: 5,
+  width: "80%",
+  textAlign: "center",
+});
+
 const TranslationTextContainer = glamorous.touchableOpacity({
   marginBottom: 15,
   flexDirection: "row",
@@ -219,13 +232,17 @@ const TranslationTextResult = ({
   copyHandler: () => void;
 }) => {
   const romanized = language === "english" || language === "pinyin";
-  return (
+  return Boolean(text) ? (
     <TranslationTextContainer onPress={copyHandler}>
       <Text style={{ fontSize: romanized ? 28 : 42 }}>{text}</Text>
       <Text style={{ fontSize: 18, marginLeft: 12 }}>
         ({capitalize(language)})
       </Text>
     </TranslationTextContainer>
+  ) : (
+    <Text style={{ fontSize: 18, marginLeft: 12 }}>
+      ({capitalize(language)}): No results...
+    </Text>
   );
 };
 
