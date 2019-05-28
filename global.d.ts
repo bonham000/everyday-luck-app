@@ -3,6 +3,7 @@ declare module "react-native-deck-swiper";
 declare module "react-native-flip-card";
 declare module "pinyin-convert";
 declare module "react-test-renderer";
+declare module "mock-async-storage";
 
 declare module "*.json" {
   const value: any;

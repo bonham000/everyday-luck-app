@@ -28,10 +28,10 @@ import { GlobalStateValues } from "@src/providers/GlobalStateProvider";
 import SoundRecordingProvider from "@src/providers/SoundRecordingProvider";
 import { findOrCreateUser, updateUser } from "@src/tools/api";
 import {
-  getOfflineRequestFlagState,
+  getOfflineUpdatesFlagState,
   getPersistedUser,
   saveUserToAsyncStorage,
-  setOfflineRequestFlagState,
+  setOfflineUpdatesFlagState,
 } from "@src/tools/async-store";
 import { GoogleSigninUser, User } from "@src/tools/types";
 import {
@@ -170,7 +170,7 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
   };
 
   maybeHandleOfflineUpdates = async () => {
-    const offlineFlag = await getOfflineRequestFlagState();
+    const offlineFlag = await getOfflineUpdatesFlagState();
     if (offlineFlag.shouldProcessRequests) {
       this.performUserUpdate();
     }
@@ -185,10 +185,10 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
         }
 
         await updateUser(user);
-        setOfflineRequestFlagState({ shouldProcessRequests: false });
+        setOfflineUpdatesFlagState({ shouldProcessRequests: false });
       } catch (err) {
         console.log(`Could not update user right now`);
-        setOfflineRequestFlagState({ shouldProcessRequests: true });
+        setOfflineUpdatesFlagState({ shouldProcessRequests: true });
       }
     }
 

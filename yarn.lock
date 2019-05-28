@@ -2506,6 +2506,11 @@ deepmerge@^2.1.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/deepmerge/-/deepmerge-2.2.1.tgz#5d3ff22a01c00f645405a2fbc17d0778a1801170"
 
+deepmerge@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/deepmerge/-/deepmerge-3.2.0.tgz#58ef463a57c08d376547f8869fdc5bcee957f44e"
+  integrity sha512-6+LuZGU7QCNUnAJyX8cIrlzoEgggTM6B7mm+znKOX4t5ltluT9KLjN6g61ECMS0LTsLW7yDpNoxhix5FZcrIow==
+
 default-require-extensions@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/default-require-extensions/-/default-require-extensions-1.0.0.tgz#f37ea15d3e13ffd9b437d33e1a75b5fb97874cb8"
@@ -5336,6 +5341,13 @@ mkdirp@0.x, mkdirp@^0.5.0, mkdirp@^0.5.1:
   resolved "http://registry.npmjs.org/mkdirp/-/mkdirp-0.5.1.tgz#30057438eac6cf7f8c4767f38648d6697d75c903"
   dependencies:
     minimist "0.0.8"
+
+mock-async-storage@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/mock-async-storage/-/mock-async-storage-2.1.0.tgz#d3d68393a29a8451814fd30548e7baa9e8ce55ad"
+  integrity sha512-yoayYL1MHspI8tqk2gLM0ohqjgkylTfc8DxBToJGNfdvYZsj9taJMely0PZ8g2ZwqtZbE9KtdqnLLeXpc3XBZg==
+  dependencies:
+    deepmerge "^3.2.0"
 
 moment-timezone@^0.5.23:
   version "0.5.23"

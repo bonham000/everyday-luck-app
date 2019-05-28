@@ -11,7 +11,7 @@ import { User } from "@src/tools/types";
 export const getPersistedUser = async (): Promise<User | undefined> => {
   try {
     const result = await AsyncStorage.getItem(ASYNC_STORE_KEYS.USER_KEY);
-    return JSON.parse(result);
+    return result ? JSON.parse(result) : undefined;
   } catch (err) {
     return;
   }
@@ -51,7 +51,7 @@ const DEFAULT_FLAG_STATE = {
  *
  * @returns `OfflineUpdatesFlag`
  */
-export const getOfflineRequestFlagState = async (): Promise<
+export const getOfflineUpdatesFlagState = async (): Promise<
   OfflineUpdatesFlag
 > => {
   try {
@@ -70,7 +70,7 @@ export const getOfflineRequestFlagState = async (): Promise<
  *
  * @param `OfflineUpdatesFlag`
  */
-export const setOfflineRequestFlagState = async (data: OfflineUpdatesFlag) => {
+export const setOfflineUpdatesFlagState = async (data: OfflineUpdatesFlag) => {
   try {
     await AsyncStorage.setItem(
       ASYNC_STORE_KEYS.OFFLINE_UPDATES_FLAG,

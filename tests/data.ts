@@ -194,6 +194,7 @@ const LESSON_SCREEN_PARAMS: LessonScreenParams = {
  */
 
 const MOCKS = {
+  USER,
   WORD,
   LESSON_DATA,
   MULTIPLE_CHOICE_OPTIONS,
