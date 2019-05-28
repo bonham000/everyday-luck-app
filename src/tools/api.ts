@@ -58,7 +58,7 @@ export const updateUser = async (user: User): UserAsyncResponse => {
  * =========================================================================
  */
 
-const getForvoUrl = (word: string) => {
+export const getForvoUrl = (word: string) => {
   const encodedWordURI = encodeURIComponent(word);
   const url = `https://apifree.forvo.com/key/${
     CONFIG.FORVO_API_KEY
@@ -102,7 +102,7 @@ export const fetchWordPronunciation = async (
  * @param translateEnglishToChinese boolean indicating if source is English
  * @returns url for Google Translate API
  */
-const buildGoogleTranslationUrl = (
+export const buildGoogleTranslationUrl = (
   word: string,
   source: languageCode,
   target: languageCode,
