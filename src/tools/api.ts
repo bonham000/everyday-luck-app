@@ -153,11 +153,11 @@ export const convertChineseToPinyin = async (
   chineseCharacters: string,
 ): Promise<string> => {
   try {
-    const base = `https://pinyin-conversion-service-py7hlqkrxa-uc.a.run.app`;
+    const base = CONFIG.PINYIN_CONVERSION_SERVICE_URL;
     const token = CONFIG.PINYIN_CONVERSION_SERVICE_API_KEY;
     const inputCharacters = encodeURIComponent(chineseCharacters);
-    const url = `${base}/convert?token=${token}&chinese=${inputCharacters}`;
-    const result = await axios.get<string>(url);
+    const conversionServiceUrl = `${base}/convert?token=${token}&chinese=${inputCharacters}`;
+    const result = await axios.get<string>(conversionServiceUrl);
     return result.data;
   } catch (err) {
     return "";

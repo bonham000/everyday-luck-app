@@ -9,5 +9,6 @@ export const IOS_CLIENT_ID = \"\";
 export const DRAGON_URI = \"\";
 export const FORVO_API_KEY = \"\";
 export const GOOGLE_TRANSLATE_API_KEY = \"\";
+export const PINYIN_CONVERSION_SERVICE_URL = \"\";
 export const PINYIN_CONVERSION_SERVICE_API_KEY = \"\";
 export const STARGAZER_SERVER_URL = \"\";"> env.ts
