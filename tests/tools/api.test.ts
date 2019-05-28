@@ -21,17 +21,17 @@ describe("api utils", () => {
       "traditional",
       "simplified",
     );
-    expect(result).toMatchInlineSnapshot(
-      `"https://translation.googleapis.com/language/translate/v2?key=&source=zh-TW&target=zh-CN&q=%E9%98%BF%E5%A7%A8"`,
-    );
+    expect(
+      result.includes("source=zh-TW&target=zh-CN&q=%E9%98%BF%E5%A7%A8"),
+    ).toBeTruthy();
 
     result = buildGoogleTranslationUrl(
       MOCKS.WORD.simplified,
       "simplified",
       "english",
     );
-    expect(result).toMatchInlineSnapshot(
-      `"https://translation.googleapis.com/language/translate/v2?key=&source=zh-CN&target=en&q=%E9%98%BF%E5%A7%A8"`,
-    );
+    expect(
+      result.includes("source=zh-CN&target=en&q=%E9%98%BF%E5%A7%A8"),
+    ).toBeTruthy();
   });
 });
