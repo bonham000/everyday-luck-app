@@ -72,7 +72,7 @@ describe("utils", () => {
     }
   });
 
-  test.skip("getAlternateChoices", () => {
+  test("getAlternateChoices", () => {
     const assertChoicesAreAllUnique = (choices: Lesson) => {
       const seen = new Set();
       for (const choice of choices) {
@@ -83,17 +83,21 @@ describe("utils", () => {
 
     const alternates = flattenLessonSet(HSK_LISTS);
 
+    const quizTypes: ReadonlyArray<QUIZ_TYPE> = [
+      QUIZ_TYPE.ENGLISH,
+      QUIZ_TYPE.MANDARIN,
+      QUIZ_TYPE.PRONUNCIATION,
+    ];
+
     for (const lesson of HSK_LISTS) {
       const words = lesson.content;
       for (const word of words) {
-        /**
-         * TODO: Test QUIZ_TYPE.ENGLISH quiz type.
-         */
+        const type = quizTypes[randomInRange(0, 3)];
         const result = getAlternateChoices(
           word,
           alternates,
           MOCKS.WORD_DICTIONARY,
-          QUIZ_TYPE.MANDARIN,
+          type,
         );
         assertChoicesAreAllUnique(result);
       }

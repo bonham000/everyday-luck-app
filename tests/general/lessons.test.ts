@@ -21,9 +21,6 @@ describe.only("HSK_LISTS content", () => {
       for (const word of lesson.content) {
         const { english, simplified, traditional } = word;
         expect(english.charAt(0)).toBe(english.charAt(0).toUpperCase());
-        if (uniqueWordSet.has(simplified)) {
-          console.log(simplified);
-        }
         uniqueWordSet.add(simplified);
         /* Validate Chinese is Chinese (i.e. not English): */
         expect(onlyEnglishLetters(simplified)).toBeFalsy();

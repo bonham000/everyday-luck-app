@@ -155,12 +155,17 @@ export const getAlternateChoices = (
       ];
 
       break;
-    } else {
-      if (
-        !chosen.has(idx) &&
-        !areWordsEqual(option, word) &&
-        option.traditional.length === word.traditional.length
-      ) {
+    } else if (!chosen.has(idx) && !areWordsEqual(option, word)) {
+      /**
+       * Try to match choices with a similar length to the selected word,
+       * but only up to words of length 3.
+       */
+      if (option.simplified.length < 4) {
+        if (option.simplified.length === word.simplified.length) {
+          chosen.add(idx);
+          choices = choices.concat(option);
+        }
+      } else {
         chosen.add(idx);
         choices = choices.concat(option);
       }
