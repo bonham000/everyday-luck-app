@@ -15,17 +15,22 @@ import { GoogleSigninUser, HSKListSet, User } from "@src/tools/types";
 
 export interface GlobalStateValues {
   user?: User;
-  experience: number;
-  userScoreStatus: ScoreStatus;
   lessons: HSKListSet;
   networkConnected: boolean;
   updateAvailable: boolean;
   wordDictionary: WordDictionary;
+}
+
+export interface AdditionalProviderProps {
+  experience: number;
+  userScoreStatus: ScoreStatus;
   languageSetting: APP_LANGUAGE_SETTING;
   appDifficultySetting: APP_DIFFICULTY_SETTING;
 }
 
-export interface GlobalStateContextProps extends GlobalStateValues {
+export interface GlobalStateContextProps
+  extends GlobalStateValues,
+    AdditionalProviderProps {
   setToastMessage: (toastMessage: string) => void;
   handleUpdateApp: () => void;
   handleResetScores: () => void;

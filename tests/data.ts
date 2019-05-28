@@ -110,6 +110,7 @@ const USER: User = {
   photo_url: "",
   score_history: DEFAULT_SCORE_STATE,
   experience_points: EXPERIENCE_POINTS,
+  language_setting: APP_LANGUAGE_SETTING.SIMPLIFIED,
   app_difficulty_setting: APP_DIFFICULTY_SETTING.EASY,
 };
 

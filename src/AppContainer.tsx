@@ -28,20 +28,10 @@ import { GlobalStateValues } from "@src/providers/GlobalStateProvider";
 import SoundRecordingProvider from "@src/providers/SoundRecordingProvider";
 import { fetchLessonSet, findOrCreateUser } from "@src/tools/api";
 import {
-  getAppLanguageSetting,
   getPersistedUser,
   saveUserToAsyncStorage,
-  setAppLanguageSetting,
 } from "@src/tools/async-store";
-import {
-  createSerializedAppDifficultyHandler,
-  createSerializedUserExperienceHandler,
-  createSerializedUserScoresHandler,
-  deserializeAndRunRequest,
-  deserializeRequestQueue,
-  RequestQueue,
-  serializeRequestQueue,
-} from "@src/tools/offline-utils";
+import { getOfflineRequestFlagState } from "@src/tools/offline-utils";
 import { GoogleSigninUser, User } from "@src/tools/types";
 import {
   createWordDictionaryFromLessons,
@@ -67,7 +57,6 @@ interface IState extends GlobalStateValues {
   tryingToCloseApp: boolean;
   transparentLoading: boolean;
   networkConnected: boolean;
-  offlineRequestQueue: RequestQueue;
   processingOfflineRequestQueue: boolean;
 }
 
@@ -90,21 +79,16 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
     this.state = {
       error: false,
       lessons: [],
-      experience: 0,
       loading: true,
       toastMessage: "",
       updating: false,
       wordDictionary: {},
       updateAvailable: false,
-      offlineRequestQueue: [],
       tryingToCloseApp: false,
       transparentLoading: false,
       networkConnected: true,
       appState: AppState.currentState,
       processingOfflineRequestQueue: false,
-      userScoreStatus: MOCKS.DEFAULT_SCORE_STATE,
-      languageSetting: APP_LANGUAGE_SETTING.SIMPLIFIED,
-      appDifficultySetting: APP_DIFFICULTY_SETTING.MEDIUM,
     };
   }
 
@@ -117,12 +101,14 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
     const { user } = this.state;
     if (user) {
       return {
+        experience: user.experience_points,
         userScoreStatus: user.score_history,
         languageSetting: APP_LANGUAGE_SETTING.SIMPLIFIED,
         appDifficultySetting: user.app_difficulty_setting,
       };
     } else {
       return {
+        experience: 0,
         userScoreStatus: MOCKS.DEFAULT_SCORE_STATE,
         languageSetting: APP_LANGUAGE_SETTING.SIMPLIFIED,
         appDifficultySetting: APP_DIFFICULTY_SETTING.MEDIUM,
@@ -176,15 +162,11 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
 
   serializeAndPersistAppState = async () => {
     console.log("Serializing app state");
-    const { offlineRequestQueue } = this.state;
-    if (offlineRequestQueue.length) {
-      await serializeRequestQueue(offlineRequestQueue);
-    }
     await this.serializeAndPersistUser();
   };
 
   handlingRestoringOfflineRequestQueue = async () => {
-    const queue = await deserializeRequestQueue();
+    const flag = await getOfflineRequestFlagState();
     /**
      * If app is online enqueue and process all the stored requests.
      *
@@ -192,66 +174,20 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
      * connectivity is restored.
      */
     if (this.state.networkConnected) {
-      if (queue.length) {
+      if (flag.shouldProcessRequests) {
         console.log("Queued requests found and app online - processing now");
         this.setToastMessage({
           shouldNotExpire: true,
           message: "Unsaved progress found - saving now...",
         });
-        this.setState(
-          {
-            offlineRequestQueue: queue,
-          },
-          this.maybeProcessOfflineRequests,
-        );
+        /**
+         * TODO: Try to update the user here.
+         */
       }
     } else {
-      if (queue.length) {
-        this.setState({
-          offlineRequestQueue: queue,
-        });
-      }
-
       this.setToastMessage(
         "You are offline - any progress will be saved when network is restored.",
       );
-    }
-  };
-
-  maybeProcessOfflineRequests = async () => {
-    /**
-     * Dequeue and process any requests if they exist when the network connection
-     * is restored.
-     */
-    const { offlineRequestQueue } = this.state;
-    if (offlineRequestQueue.length) {
-      this.setToastMessage({
-        shouldNotExpire: true,
-        message: "Offline progress found. Saving updates...",
-      });
-      await this.processRequestQueue(offlineRequestQueue);
-      this.setState(
-        {
-          offlineRequestQueue: [],
-          processingOfflineRequestQueue: false,
-        },
-        async () => {
-          await serializeRequestQueue([]);
-          this.clearToast();
-          this.setToastMessage("All updates saved!");
-        },
-      );
-    }
-  };
-
-  processRequestQueue = async (queue: RequestQueue) => {
-    /**
-     * Network re-connection events can fire multiple times - keep a flag
-     * to only process the request queue on time.
-     */
-    for (const serializedRequestData of queue) {
-      console.log(`Processing request... ${serializedRequestData.type}`);
-      await deserializeAndRunRequest(serializedRequestData);
     }
   };
 
@@ -269,12 +205,9 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
 
     this.setState({ networkConnected: isConnected }, () => {
       if (isConnected && !this.state.processingOfflineRequestQueue) {
-        this.setState(
-          {
-            processingOfflineRequestQueue: true,
-          },
-          this.maybeProcessOfflineRequests,
-        );
+        /**
+         * TODO: Try to process requests.
+         */
       } else {
         this.setToastMessage(
           "Network connectivity lost... any updates will be saved when network is restored.",
@@ -285,13 +218,7 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
 
   serializeAndPersistUser = async () => {
     if (this.state.user) {
-      const user: User = {
-        ...this.state.user,
-        experience_points: this.state.experience,
-        score_history: this.state.userScoreStatus,
-        app_difficulty_setting: this.state.appDifficultySetting,
-      };
-      await saveUserToAsyncStorage(user);
+      await saveUserToAsyncStorage(this.state.user);
     }
   };
 
@@ -299,9 +226,6 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
     if (maybePersistedUser) {
       this.setState({
         user: maybePersistedUser,
-        experience: maybePersistedUser.experience_points,
-        userScoreStatus: maybePersistedUser.score_history,
-        appDifficultySetting: maybePersistedUser.app_difficulty_setting,
       });
     }
   };
@@ -480,7 +404,6 @@ class RootContainer extends RootContainerBase<{}> {
       loading,
       lessons,
       updating,
-      experience,
       wordDictionary,
       updateAvailable,
       networkConnected,
@@ -493,6 +416,7 @@ class RootContainer extends RootContainerBase<{}> {
     }
 
     const {
+      experience,
       userScoreStatus,
       languageSetting,
       appDifficultySetting,
@@ -556,7 +480,6 @@ class RootContainer extends RootContainerBase<{}> {
       {
         lessons,
         wordDictionary,
-        languageSetting: await getAppLanguageSetting(),
       },
       this.initializeUserSession,
     );
@@ -578,9 +501,6 @@ class RootContainer extends RootContainerBase<{}> {
             user: transformUserJson(user),
             loading: false,
             transparentLoading: false,
-            experience: user.experience_points,
-            userScoreStatus: JSON.parse(user.score_history),
-            appDifficultySetting: user.app_difficulty_setting,
           });
         }
       } else {
@@ -622,86 +542,67 @@ class RootContainer extends RootContainerBase<{}> {
     }
   };
 
+  handleUpdateUserFields = (
+    data: Partial<User>,
+    optionalSuccessCallback?: (args?: any) => any,
+  ) => {
+    const { user } = this.state;
+    if (user) {
+      this.setState(
+        {
+          user: {
+            ...user,
+            ...data,
+          },
+        },
+        optionalSuccessCallback,
+      );
+    }
+  };
+
   setLessonScore = async (
     updatedScoreStatus: ScoreStatus,
     lessonExperience: number,
   ) => {
-    const { user, experience } = this.state;
-    if (user && user.uuid) {
-      const userId = user.uuid;
+    if (this.state.user) {
+      const { experience_points: experience } = this.state.user;
       const updatedExperience = experience + lessonExperience;
-      this.setState(
-        {
-          experience: updatedExperience,
-          userScoreStatus: updatedScoreStatus,
-        },
-        () => {
-          this.requestMiddlewareHandler([
-            createSerializedUserExperienceHandler(userId, updatedExperience),
-            createSerializedUserScoresHandler(userId, updatedScoreStatus),
-          ]);
-        },
-      );
+      this.handleUpdateUserFields({
+        score_history: updatedScoreStatus,
+        experience_points: updatedExperience,
+      });
     }
   };
 
   handleUpdateAppDifficultySetting = async (
     appDifficultySetting: APP_DIFFICULTY_SETTING,
   ) => {
-    const { user } = this.state;
-    if (user && user.uuid) {
-      const userId = user.uuid;
-      this.setState(
-        {
-          transparentLoading: true,
-        },
-        async () => {
-          this.updateAppDifficulty(userId, appDifficultySetting);
-        },
-      );
-    }
-  };
-
-  updateAppDifficulty = async (
-    userId: string,
-    appDifficultySetting: APP_DIFFICULTY_SETTING,
-  ) => {
     this.setState(
       {
-        appDifficultySetting,
-        transparentLoading: false,
+        transparentLoading: true,
       },
-      () => {
-        this.setToastMessage("App difficulty updated");
-        this.requestMiddlewareHandler([
-          createSerializedAppDifficultyHandler(userId, appDifficultySetting),
-        ]);
+      async () => {
+        this.updateAppDifficulty(appDifficultySetting);
       },
     );
   };
 
-  requestMiddlewareHandler = async (serializedRequestData: RequestQueue) => {
-    /**
-     * Top level handler for network request updates. If the app is online, the request
-     * is made. Otherwise, the request is enqueue to be processed later when network
-     * connectivity is reestablished.
-     */
-    if (this.state.networkConnected) {
-      this.processRequestQueue(serializedRequestData);
-    } else {
-      console.log(
-        "Request received - app offline, enqueueing to process later",
-      );
-      this.setState(
-        ({ offlineRequestQueue }) => ({
-          offlineRequestQueue: [
-            ...offlineRequestQueue,
-            ...serializedRequestData,
-          ],
-        }),
-        this.serializeAndPersistAppState,
-      );
-    }
+  updateAppDifficulty = async (
+    appDifficultySetting: APP_DIFFICULTY_SETTING,
+  ) => {
+    this.handleUpdateUserFields(
+      {
+        app_difficulty_setting: appDifficultySetting,
+      },
+      () => {
+        this.setState(
+          {
+            transparentLoading: false,
+          },
+          () => this.setToastMessage("App difficulty updated"),
+        );
+      },
+    );
   };
 
   handleResetScores = () => {
@@ -731,87 +632,68 @@ class RootContainer extends RootContainerBase<{}> {
       () => {
         // tslint:disable-next-line
         this.timeout = setTimeout(async () => {
-          this.setState(
+          this.handleUpdateUserFields(
             {
-              experience: 0,
-              transparentLoading: false,
-              userScoreStatus: MOCKS.DEFAULT_SCORE_STATE,
+              experience_points: 0,
+              score_history: MOCKS.DEFAULT_SCORE_STATE,
             },
-            this.handleResetScoresSuccess,
+            () => this.setToastMessage("Scores reset!"),
           );
         }, 1250);
       },
     );
   };
 
-  handleResetScoresSuccess = async () => {
+  handleSwitchLanguage = () => {
     const { user } = this.state;
-    if (user && user.uuid) {
-      const userId = user.uuid;
-      this.setToastMessage("Scores reset!");
-      this.requestMiddlewareHandler([
-        createSerializedUserExperienceHandler(userId, 0),
-        createSerializedUserScoresHandler(userId, MOCKS.DEFAULT_SCORE_STATE),
-      ]);
+    if (user) {
+      const { language_setting: languageSetting } = user;
+      const alternate = getAlternateLanguageSetting(languageSetting);
+
+      Alert.alert(
+        `Your current setting is ${formatUserLanguageSetting(languageSetting)}`,
+        `Do you want to switch to ${formatUserLanguageSetting(
+          alternate,
+        )}? You can switch back at anytime.`,
+        [
+          {
+            text: "Cancel",
+            onPress: () => null,
+            style: "cancel",
+          },
+          {
+            text: "OK",
+            onPress: () => this.switchLanguage(languageSetting),
+          },
+        ],
+        { cancelable: false },
+      );
     }
   };
 
-  handleSwitchLanguage = () => {
-    const { languageSetting } = this.state;
-    const alternate = getAlternateLanguageSetting(languageSetting);
-
-    Alert.alert(
-      `Your current setting is ${formatUserLanguageSetting(
-        this.state.languageSetting,
-      )}`,
-      `Do you want to switch to ${formatUserLanguageSetting(
-        alternate,
-      )}? You can switch back at anytime.`,
-      [
-        {
-          text: "Cancel",
-          onPress: () => null,
-          style: "cancel",
-        },
-        {
-          text: "OK",
-          onPress: () => this.switchLanguage(),
-        },
-      ],
-      { cancelable: false },
-    );
-  };
-
-  switchLanguage = () => {
+  switchLanguage = (setting: APP_LANGUAGE_SETTING) => {
     const setLanguage = (languageSetting: APP_LANGUAGE_SETTING) => {
-      return this.setState(
+      return this.handleUpdateUserFields(
         {
-          languageSetting,
+          language_setting: languageSetting,
         },
-        async () => {
-          this.handleSetLanguageSuccess(languageSetting);
+        () => {
+          this.setToastMessage(
+            `Language set to ${formatUserLanguageSetting(languageSetting)}`,
+          );
         },
       );
     };
 
-    switch (this.state.languageSetting) {
+    switch (setting) {
       case APP_LANGUAGE_SETTING.SIMPLIFIED:
         return setLanguage(APP_LANGUAGE_SETTING.TRADITIONAL);
       case APP_LANGUAGE_SETTING.TRADITIONAL:
         return setLanguage(APP_LANGUAGE_SETTING.SIMPLIFIED);
       default:
-        console.log(
-          `Unknown language setting received: ${this.state.languageSetting}`,
-        );
+        console.log(`Unknown language setting received: ${setting}`);
         return setLanguage(APP_LANGUAGE_SETTING.SIMPLIFIED);
     }
-  };
-
-  handleSetLanguageSuccess = (languageSetting: APP_LANGUAGE_SETTING) => {
-    setAppLanguageSetting(languageSetting);
-    this.setToastMessage(
-      `Language set to ${formatUserLanguageSetting(languageSetting)}`,
-    );
   };
 
   assignNavRef = (ref: any) => {

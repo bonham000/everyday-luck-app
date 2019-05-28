@@ -81,6 +81,7 @@ export interface BaseUser {
   given_name: string;
   photo_url?: string;
   experience_points: number;
+  language_setting: APP_LANGUAGE_SETTING;
   app_difficulty_setting: APP_DIFFICULTY_SETTING;
 }
 
