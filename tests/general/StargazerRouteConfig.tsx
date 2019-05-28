@@ -131,6 +131,32 @@ const stargazerConfig: ReadonlyArray<StargazerRouteConfigObject> = [
     paramsForNextScreen: MOCKS.LESSON_SCREEN_PARAMS,
   },
   {
+    name: "Daily Quiz Challenge",
+    screenName: ROUTE_NAMES.DAILY_CHALLENGE,
+    screen: (props: StargazerRouteProps<LessonScreenParams>) => (
+      <QuizScreenComponent
+        navigation={props.navigation}
+        quizType={QUIZ_TYPE.QUIZ_TEXT}
+        {...MOCKS.GLOBAL_STATE_PROPS}
+        {...MOCKS.SOUND_RECORDING_PROPS}
+      />
+    ),
+    paramsForNextScreen: MOCKS.LESSON_SCREEN_PARAMS,
+  },
+  {
+    name: "HSK Quiz Challenge",
+    screenName: ROUTE_NAMES.HSK_TEST_OUT,
+    screen: (props: StargazerRouteProps<LessonScreenParams>) => (
+      <QuizScreenComponent
+        navigation={props.navigation}
+        quizType={QUIZ_TYPE.QUIZ_TEXT}
+        {...MOCKS.GLOBAL_STATE_PROPS}
+        {...MOCKS.SOUND_RECORDING_PROPS}
+      />
+    ),
+    paramsForNextScreen: MOCKS.LESSON_SCREEN_PARAMS,
+  },
+  {
     name: "Flashcards Screen",
     screenName: ROUTE_NAMES.FLASHCARDS,
     screen: (props: StargazerRouteProps<LessonScreenParams>) => (
