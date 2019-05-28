@@ -139,8 +139,8 @@ export const getAlternateChoices = (
       const { english_alternate_choices } = word;
       const alternateEnglishWords =
         english_alternate_choices.length < 4
-          ? ENGLISH_WORDS.filter(
-              englishWord => englishWord.toLowerCase() in wordDictionary,
+          ? ENGLISH_WORDS.map(capitalize).filter(
+              englishWord => englishWord in wordDictionary,
             )
           : english_alternate_choices;
 
@@ -150,7 +150,7 @@ export const getAlternateChoices = (
           .slice(0, 4)
           .map(choice => ({
             english: choice,
-            ...wordDictionary[choice.toLowerCase()],
+            ...wordDictionary[choice],
           })),
       ];
 
@@ -837,6 +837,6 @@ export const determineAnyPossibleCorrectAnswerForFreeInput = (
    */
   return {
     correct: false,
-    correctWord: word[languageSetting],
+    correctWord: word,
   };
 };

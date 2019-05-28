@@ -2881,13 +2881,6 @@ const lesson: HSKList = {
       english_alternate_choices: [""],
     },
     {
-      simplified: "be",
-      traditional: "是",
-      pinyin: "not",
-      english: "Worth the candle; get more kicks than halfpence",
-      english_alternate_choices: [""],
-    },
-    {
       simplified: "得力",
       traditional: "得力",
       pinyin: "délì",
@@ -6122,13 +6115,6 @@ const lesson: HSKList = {
       english_alternate_choices: [""],
     },
     {
-      simplified: "Be",
-      traditional: "是",
-      pinyin: "anxious",
-      english: "To achieve quick success and get instant benefits",
-      english_alternate_choices: [""],
-    },
-    {
       simplified: "急剧",
       traditional: "急劇",
       pinyin: "jíjù",
@@ -6196,14 +6182,6 @@ const lesson: HSKList = {
       traditional: "繼承",
       pinyin: "jìchéng",
       english: "Inherit",
-      english_alternate_choices: [""],
-    },
-    {
-      simplified: "Carry",
-      traditional: "攜帶",
-      pinyin: "forward",
-      english:
-        "The cause pioneered by one's predecessors and forge ahead into the future",
       english_alternate_choices: [""],
     },
     {
@@ -12633,14 +12611,6 @@ const lesson: HSKList = {
       english_alternate_choices: [""],
     },
     {
-      simplified: "Take",
-      traditional: "採取",
-      pinyin: "into",
-      english:
-        "Consideration both needs of the state and the interests of the collectives",
-      english_alternate_choices: [""],
-    },
-    {
       simplified: "统计",
       traditional: "統計",
       pinyin: "tǒngjì",
@@ -16057,10 +16027,10 @@ const lesson: HSKList = {
       english_alternate_choices: [""],
     },
     {
-      simplified: "get",
+      simplified: "得到",
       traditional: "得到",
-      pinyin: "a",
-      english: "Cold",
+      pinyin: "Dédào",
+      english: "Get",
       english_alternate_choices: [""],
     },
     {
@@ -16082,13 +16052,6 @@ const lesson: HSKList = {
       traditional: "照料",
       pinyin: "zhàoliào",
       english: "Take care of",
-      english_alternate_choices: [""],
-    },
-    {
-      simplified: "all",
-      traditional: "所有",
-      pinyin: "the",
-      english: "Same; as before",
       english_alternate_choices: [""],
     },
     {

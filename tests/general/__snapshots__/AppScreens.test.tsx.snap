@@ -160,13 +160,10 @@ exports[`App Screen Components Each screen component renders with props provided
     }
   >
     Question: 
-    1
+    0
      / 
     1
-     
-    complete, 
-    0
-     skipped, 
+     complete, 
     0
      failed
   </Text>
@@ -666,13 +663,10 @@ exports[`App Screen Components Each screen component renders with props provided
     }
   >
     Question: 
-    1
+    0
      / 
     1
-     
-    complete, 
-    0
-     skipped, 
+     complete, 
     0
      failed
   </Text>
@@ -1197,13 +1191,10 @@ exports[`App Screen Components Each screen component renders with props provided
     }
   >
     Question: 
-    1
+    0
      / 
     1
-     
-    complete, 
-    0
-     skipped, 
+     complete, 
     0
      failed
   </Text>
@@ -1969,13 +1960,10 @@ exports[`App Screen Components Each screen component renders with props provided
     }
   >
     Question: 
-    1
+    0
      / 
     1
-     
-    complete, 
-    0
-     skipped, 
+     complete, 
     0
      failed
   </Text>
@@ -2500,13 +2488,10 @@ exports[`App Screen Components Each screen component renders with props provided
     }
   >
     Question: 
-    1
+    0
      / 
     1
-     
-    complete, 
-    0
-     skipped, 
+     complete, 
     0
      failed
   </Text>
@@ -3283,13 +3268,10 @@ exports[`App Screen Components Each screen component renders with props provided
     }
   >
     Question: 
-    1
+    0
      / 
     1
-     
-    complete, 
-    0
-     skipped, 
+     complete, 
     0
      failed
   </Text>
@@ -3821,7 +3803,7 @@ exports[`App Screen Components Each screen component renders with props provided
         ]
       }
     >
-      4,983
+      4,978
        words total
     </Text>
     <View
@@ -4100,7 +4082,7 @@ exports[`App Screen Components Each screen component renders with props provided
         }
       >
         (
-        2497
+        2492
          words)
       </Text>
     </View>

@@ -1,6 +1,8 @@
 import HSK_LISTS from "@src/lessons";
 
-describe("HSK_LISTS content", () => {
+const onlyEnglishLetters = (str: string) => /^[a-zA-Z]+$/.test(str);
+
+describe.only("HSK_LISTS content", () => {
   test("Lesson content doesn't change", () => {
     const lessons = HSK_LISTS;
     expect(lessons.length).toMatchInlineSnapshot(`5`);
@@ -17,9 +19,15 @@ describe("HSK_LISTS content", () => {
     for (const lesson of lessons) {
       totalWordLength += lesson.content.length;
       for (const word of lesson.content) {
-        const { english, simplified } = word;
+        const { english, simplified, traditional } = word;
         expect(english.charAt(0)).toBe(english.charAt(0).toUpperCase());
+        if (uniqueWordSet.has(simplified)) {
+          console.log(simplified);
+        }
         uniqueWordSet.add(simplified);
+        /* Validate Chinese is Chinese (i.e. not English): */
+        expect(onlyEnglishLetters(simplified)).toBeFalsy();
+        expect(onlyEnglishLetters(traditional)).toBeFalsy();
       }
     }
 
