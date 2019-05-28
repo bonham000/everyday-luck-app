@@ -49,7 +49,7 @@ import {
   getAlternateLanguageSetting,
   isNetworkConnected,
   transformGoogleSignInResultToUserData,
-  transformUserToLocalUserData,
+  transformUserJson,
 } from "@src/tools/utils";
 import MOCKS from "@tests/data";
 
@@ -107,6 +107,28 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
       appDifficultySetting: APP_DIFFICULTY_SETTING.MEDIUM,
     };
   }
+
+  mapUserToAppFields = () => {
+    /**
+     * Map these user level values directly to flatten the state
+     * hierarchy to make accessing the fields easy in child
+     * components.
+     */
+    const { user } = this.state;
+    if (user) {
+      return {
+        userScoreStatus: user.score_history,
+        languageSetting: APP_LANGUAGE_SETTING.SIMPLIFIED,
+        appDifficultySetting: user.app_difficulty_setting,
+      };
+    } else {
+      return {
+        userScoreStatus: MOCKS.DEFAULT_SCORE_STATE,
+        languageSetting: APP_LANGUAGE_SETTING.SIMPLIFIED,
+        appDifficultySetting: APP_DIFFICULTY_SETTING.MEDIUM,
+      };
+    }
+  };
 
   setupNetworkListener = async () => {
     /**
@@ -276,7 +298,7 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
   setupUserSessionFromPersistedUserData = async (maybePersistedUser: User) => {
     if (maybePersistedUser) {
       this.setState({
-        user: transformUserToLocalUserData(maybePersistedUser),
+        user: maybePersistedUser,
         experience: maybePersistedUser.experience_points,
         userScoreStatus: maybePersistedUser.score_history,
         appDifficultySetting: maybePersistedUser.app_difficulty_setting,
@@ -460,18 +482,21 @@ class RootContainer extends RootContainerBase<{}> {
       updating,
       experience,
       wordDictionary,
-      languageSetting,
-      userScoreStatus,
       updateAvailable,
       networkConnected,
       transparentLoading,
-      appDifficultySetting,
     } = this.state;
     if (error) {
       return <ErrorComponent />;
     } else if (updating || loading) {
       return <LoadingComponent />;
     }
+
+    const {
+      userScoreStatus,
+      languageSetting,
+      appDifficultySetting,
+    } = this.mapUserToAppFields();
 
     return (
       <View style={{ flex: 1 }}>
@@ -550,9 +575,9 @@ class RootContainer extends RootContainerBase<{}> {
         const user = await findOrCreateUser(maybePersistedUser);
         if (user) {
           this.setState({
+            user: transformUserJson(user),
             loading: false,
             transparentLoading: false,
-            user: transformUserToLocalUserData(user),
             experience: user.experience_points,
             userScoreStatus: JSON.parse(user.score_history),
             appDifficultySetting: user.app_difficulty_setting,
@@ -585,7 +610,7 @@ class RootContainer extends RootContainerBase<{}> {
       if (userResult) {
         this.setState(
           {
-            user: transformUserToLocalUserData(userResult),
+            user: transformUserJson(userResult),
           },
           this.serializeAndPersistUser,
         );

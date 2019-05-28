@@ -6,7 +6,7 @@ import GlobalStateContext, {
   ScoreStatus,
   WordDictionary,
 } from "@src/providers/GlobalStateContext";
-import { GoogleSigninUser, HSKListSet, UserData } from "@src/tools/types";
+import { GoogleSigninUser, HSKListSet, User } from "@src/tools/types";
 
 /** ========================================================================
  * Types
@@ -14,7 +14,7 @@ import { GoogleSigninUser, HSKListSet, UserData } from "@src/tools/types";
  */
 
 export interface GlobalStateValues {
-  user?: UserData;
+  user?: User;
   experience: number;
   userScoreStatus: ScoreStatus;
   lessons: HSKListSet;

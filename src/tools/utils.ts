@@ -25,7 +25,6 @@ import {
   TRADITIONAL_CHINESE,
   TranslationsData,
   User,
-  UserData,
   UserDataBase,
   UserJson,
   Word,
@@ -655,25 +654,16 @@ export const transformGoogleSignInResultToUserData = (
 };
 
 /**
- * Extract the specific properties from the full user data to store
- * on the local user data.
+ * Convert UserJson to User.
  *
- * @param user `User` data
- * returns `UserData` formatted user data
+ * @param userJson `UserJson` data
+ * @returns `User` formatted user data
  */
-export const transformUserToLocalUserData = (
-  user: UserJson | User,
-): UserData => {
-  const userData: UserData = {
-    uuid: user.uuid,
-    email: user.email,
-    name: user.name,
-    family_name: user.family_name,
-    given_name: user.given_name,
-    photo_url: user.photo_url,
+export const transformUserJson = (userJson: UserJson): User => {
+  return {
+    ...userJson,
+    score_history: JSON.parse(userJson.score_history),
   };
-
-  return userData;
 };
 
 export interface QuizSuccessToasts {

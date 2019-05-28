@@ -13,7 +13,7 @@ import {
   Lesson,
   LessonScreenParams,
   ListScreenParams,
-  UserData,
+  User,
   Word,
 } from "@src/tools/types";
 import { createWordDictionaryFromLessons } from "@src/tools/utils";
@@ -99,20 +99,25 @@ const DEFAULT_SCORE_STATE = {
  * =========================================================================
  */
 
-const GOOGLE_USER: UserData = {
+const EXPERIENCE_POINTS = 54234;
+
+const USER: User = {
   email: "sean.smith.2009@gmail.com",
   family_name: "Smith",
   given_name: "Sean",
   uuid: "asdf7f98asd7f0s7ads0",
   name: "Seanie X",
   photo_url: "",
+  score_history: DEFAULT_SCORE_STATE,
+  experience_points: EXPERIENCE_POINTS,
+  app_difficulty_setting: APP_DIFFICULTY_SETTING.EASY,
 };
 
 const GLOBAL_STATE_PROPS: GlobalStateContextProps = {
-  experience: 54234,
+  experience: EXPERIENCE_POINTS,
   networkConnected: true,
   updateAvailable: false,
-  user: GOOGLE_USER,
+  user: USER,
   lessons: LESSONS,
   userScoreStatus: DEFAULT_SCORE_STATE,
   wordDictionary: WORD_DICTIONARY,
