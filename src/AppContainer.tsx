@@ -26,12 +26,15 @@ import GlobalContext, {
 } from "@src/providers/GlobalStateContext";
 import { GlobalStateValues } from "@src/providers/GlobalStateProvider";
 import SoundRecordingProvider from "@src/providers/SoundRecordingProvider";
-import { fetchLessonSet, findOrCreateUser } from "@src/tools/api";
+import { fetchLessonSet, findOrCreateUser, updateUser } from "@src/tools/api";
 import {
   getPersistedUser,
   saveUserToAsyncStorage,
 } from "@src/tools/async-store";
-import { getOfflineRequestFlagState } from "@src/tools/offline-utils";
+import {
+  getOfflineRequestFlagState,
+  setOfflineRequestFlagState,
+} from "@src/tools/offline-utils";
 import { GoogleSigninUser, User } from "@src/tools/types";
 import {
   createWordDictionaryFromLessons,
@@ -57,7 +60,6 @@ interface IState extends GlobalStateValues {
   tryingToCloseApp: boolean;
   transparentLoading: boolean;
   networkConnected: boolean;
-  processingOfflineRequestQueue: boolean;
 }
 
 const TOAST_TIMEOUT = 5000; /* 5 seconds */
@@ -88,33 +90,8 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
       transparentLoading: false,
       networkConnected: true,
       appState: AppState.currentState,
-      processingOfflineRequestQueue: false,
     };
   }
-
-  mapUserToAppFields = () => {
-    /**
-     * Map these user level values directly to flatten the state
-     * hierarchy to make accessing the fields easy in child
-     * components.
-     */
-    const { user } = this.state;
-    if (user) {
-      return {
-        experience: user.experience_points,
-        userScoreStatus: user.score_history,
-        languageSetting: APP_LANGUAGE_SETTING.SIMPLIFIED,
-        appDifficultySetting: user.app_difficulty_setting,
-      };
-    } else {
-      return {
-        experience: 0,
-        userScoreStatus: MOCKS.DEFAULT_SCORE_STATE,
-        languageSetting: APP_LANGUAGE_SETTING.SIMPLIFIED,
-        appDifficultySetting: APP_DIFFICULTY_SETTING.MEDIUM,
-      };
-    }
-  };
 
   setupNetworkListener = async () => {
     /**
@@ -127,7 +104,7 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
       {
         networkConnected: isConnected,
       },
-      this.handlingRestoringOfflineRequestQueue,
+      this.handleRestoringOfflineChangesOnAppLoad,
     );
 
     console.log(`Initial network state: ${isConnected}`);
@@ -160,37 +137,6 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
     // Handle any app backgrounding side effects here
   };
 
-  serializeAndPersistAppState = async () => {
-    console.log("Serializing app state");
-    await this.serializeAndPersistUser();
-  };
-
-  handlingRestoringOfflineRequestQueue = async () => {
-    const flag = await getOfflineRequestFlagState();
-    /**
-     * If app is online enqueue and process all the stored requests.
-     *
-     * Otherwise, just add them to local state to be processed whenever network
-     * connectivity is restored.
-     */
-    if (this.state.networkConnected) {
-      if (flag.shouldProcessRequests) {
-        console.log("Queued requests found and app online - processing now");
-        this.setToastMessage({
-          shouldNotExpire: true,
-          message: "Unsaved progress found - saving now...",
-        });
-        /**
-         * TODO: Try to update the user here.
-         */
-      }
-    } else {
-      this.setToastMessage(
-        "You are offline - any progress will be saved when network is restored.",
-      );
-    }
-  };
-
   handleConnectivityChange = (
     connectionInfo: ConnectionInfo | ConnectionType,
   ) => {
@@ -204,10 +150,8 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
     console.log(`Network change - network online: ${isConnected}`);
 
     this.setState({ networkConnected: isConnected }, () => {
-      if (isConnected && !this.state.processingOfflineRequestQueue) {
-        /**
-         * TODO: Try to process requests.
-         */
+      if (isConnected) {
+        this.maybeHandleOfflineUpdates();
       } else {
         this.setToastMessage(
           "Network connectivity lost... any updates will be saved when network is restored.",
@@ -216,17 +160,119 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
     });
   };
 
+  handleRestoringOfflineChangesOnAppLoad = async () => {
+    if (this.state.networkConnected) {
+      this.maybeHandleOfflineUpdates();
+    } else {
+      this.setToastMessage(
+        "You are offline - any progress will be saved when network is restored.",
+      );
+    }
+  };
+
+  maybeHandleOfflineUpdates = async () => {
+    const offlineFlag = await getOfflineRequestFlagState();
+    if (offlineFlag.shouldProcessRequests) {
+      this.performUserUpdate();
+    }
+  };
+
+  performUserUpdate = async () => {
+    const { user } = this.state;
+    if (user) {
+      try {
+        if (!this.state.networkConnected) {
+          throw new Error("Network is offline - cannot perform update now");
+        }
+
+        await updateUser(user);
+        setOfflineRequestFlagState({ shouldProcessRequests: false });
+      } catch (err) {
+        console.log(`Could not update user right now`);
+        setOfflineRequestFlagState({ shouldProcessRequests: true });
+      }
+    }
+
+    this.serializeAndPersistUser();
+  };
+
   serializeAndPersistUser = async () => {
     if (this.state.user) {
       await saveUserToAsyncStorage(this.state.user);
     }
   };
 
-  setupUserSessionFromPersistedUserData = async (maybePersistedUser: User) => {
-    if (maybePersistedUser) {
-      this.setState({
-        user: maybePersistedUser,
-      });
+  setupUserSessionFromPersistedUserData = async (persistedUser: User) => {
+    if (persistedUser) {
+      this.setState(
+        {
+          loading: false,
+          transparentLoading: false,
+          user: persistedUser,
+        },
+        async () => {
+          await this.maybeHandleOfflineUpdates();
+          this.fetchExistingUser(persistedUser);
+        },
+      );
+    }
+  };
+
+  fetchExistingUser = async (maybePersistedUser: User) => {
+    if (this.state.networkConnected) {
+      const user = await findOrCreateUser(maybePersistedUser);
+      if (user) {
+        this.setState({
+          user: transformUserJson(user),
+        });
+      }
+    }
+  };
+
+  handleUpdateUserFields = (
+    data: Partial<User>,
+    optionalSuccessCallback?: (args?: any) => any,
+  ) => {
+    const { user } = this.state;
+    if (user) {
+      this.setState(
+        {
+          user: {
+            ...user,
+            ...data,
+          },
+        },
+        () => {
+          if (typeof optionalSuccessCallback === "function") {
+            optionalSuccessCallback();
+          }
+          this.performUserUpdate();
+        },
+      );
+    }
+  };
+
+  mapUserToAppFields = () => {
+    /**
+     * Map these user level values directly to flatten the state
+     * hierarchy to make accessing the fields easy in child
+     * components.
+     */
+    const { user } = this.state;
+    if (user) {
+      return {
+        experience: user.experience_points,
+        userScoreStatus: user.score_history,
+        languageSetting: APP_LANGUAGE_SETTING.SIMPLIFIED,
+        appDifficultySetting: user.app_difficulty_setting,
+      };
+    } else {
+      return {
+        experience: 0,
+        userScoreStatus: MOCKS.DEFAULT_SCORE_STATE,
+        languageSetting: APP_LANGUAGE_SETTING.SIMPLIFIED,
+        appDifficultySetting: APP_DIFFICULTY_SETTING.MEDIUM,
+      };
     }
   };
 
@@ -487,35 +533,11 @@ class RootContainer extends RootContainerBase<{}> {
 
   initializeUserSession = async () => {
     const maybePersistedUser = await getPersistedUser();
-    if (maybePersistedUser && maybePersistedUser.email) {
-      /**
-       * Restore user session:
-       *
-       * - fetch from server if network is isConnected
-       * - otherwise try to restore from local data
-       */
-      if (this.state.networkConnected) {
-        const user = await findOrCreateUser(maybePersistedUser);
-        if (user) {
-          this.setState({
-            user: transformUserJson(user),
-            loading: false,
-            transparentLoading: false,
-          });
-        }
-      } else {
-        /**
-         * Fallback to local user data, if it exists. This allows the app
-         * to be used offline.
-         */
-        this.setupUserSessionFromPersistedUserData(maybePersistedUser);
-      }
+    if (maybePersistedUser) {
+      this.setupUserSessionFromPersistedUserData(maybePersistedUser);
+    } else {
+      this.setState({ loading: false, user: undefined });
     }
-    /**
-     * No local user found. Disable loading which will render the
-     * signin screen.
-     */
-    this.setState({ loading: false });
   };
 
   handleSignin = async (user: GoogleSigninUser) => {
@@ -539,24 +561,6 @@ class RootContainer extends RootContainerBase<{}> {
       }
     } else {
       throw new Error("Failed to initialize user");
-    }
-  };
-
-  handleUpdateUserFields = (
-    data: Partial<User>,
-    optionalSuccessCallback?: (args?: any) => any,
-  ) => {
-    const { user } = this.state;
-    if (user) {
-      this.setState(
-        {
-          user: {
-            ...user,
-            ...data,
-          },
-        },
-        optionalSuccessCallback,
-      );
     }
   };
 

@@ -54,8 +54,8 @@ export const updateUser = async (user: User): UserAsyncResponse => {
     const result = await axios.put<UserJson>(`${CONFIG.DRAGON_URI}/user`, user);
     return result.data;
   } catch (err) {
-    console.log(err);
-    return;
+    console.log("Error from PUT to update user", err);
+    throw err;
   }
 };
 
