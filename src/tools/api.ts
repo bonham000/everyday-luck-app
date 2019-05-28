@@ -1,14 +1,8 @@
 import axios from "axios";
 
-import HSK_LISTS from "@src/lessons";
-import {
-  APP_DIFFICULTY_SETTING,
-  ScoreStatus,
-} from "@src/providers/GlobalStateContext";
 import CONFIG from "@src/tools/config";
 import {
   GoogleTranslateResponse,
-  HSKListSet,
   LANGUAGE_CODE_MAP,
   languageCode,
   Result,
@@ -21,7 +15,7 @@ import {
 } from "@src/tools/types";
 
 /** ========================================================================
- * API Methods
+ * User API Methods
  * =========================================================================
  */
 
@@ -59,71 +53,10 @@ export const updateUser = async (user: User): UserAsyncResponse => {
   }
 };
 
-/**
- * Update score status for a user.
+/** ========================================================================
+ * Forvo Pronunciation API Methods:
+ * =========================================================================
  */
-export const updateUserScores = async (
-  userId: string,
-  userScores: ScoreStatus,
-): UserAsyncResponse => {
-  try {
-    const result = await axios.post<UserJson>(
-      `${CONFIG.DRAGON_URI}/set-scores/${userId}`,
-      userScores,
-    );
-    return result.data;
-  } catch (err) {
-    console.log(err);
-    return;
-  }
-};
-
-/**
- * Update experience points for a user.
- */
-export const updateUserExperience = async (
-  userId: string,
-  userExperience: number,
-): UserAsyncResponse => {
-  try {
-    const result = await axios.post<UserJson>(
-      `${CONFIG.DRAGON_URI}/experience/${userId}`,
-      {
-        experience_points: String(userExperience),
-      },
-    );
-    return result.data;
-  } catch (err) {
-    console.log(err);
-    return;
-  }
-};
-
-/**
- * Update app difficulty setting for user.
- */
-export const updateAppDifficultySetting = async (
-  userId: string,
-  appDifficultySetting: APP_DIFFICULTY_SETTING,
-): UserAsyncResponse => {
-  try {
-    const result = await axios.post<UserJson>(
-      `${CONFIG.DRAGON_URI}/difficulty/${userId}`,
-      { app_difficulty_setting: appDifficultySetting },
-    );
-    return result.data;
-  } catch (err) {
-    console.log(err);
-    return;
-  }
-};
-
-/**
- * Fetch lesson content.
- */
-export const fetchLessonSet = (): HSKListSet => {
-  return HSK_LISTS;
-};
 
 const getForvoUrl = (word: string) => {
   const encodedWordURI = encodeURIComponent(word);
@@ -155,6 +88,11 @@ export const fetchWordPronunciation = async (
     };
   }
 };
+
+/** ========================================================================
+ * Language Translation API Methods:
+ * =========================================================================
+ */
 
 /**
  * Build the Google Translate API url based on the provided user options.

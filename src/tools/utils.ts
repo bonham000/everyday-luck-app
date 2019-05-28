@@ -1,6 +1,7 @@
 import { ConnectionInfo } from "react-native";
 
 import ENGLISH_WORDS from "@src/constants/EnglishWords";
+import HSK_LISTS from "@src/lessons";
 import {
   APP_DIFFICULTY_SETTING,
   APP_LANGUAGE_SETTING,
@@ -713,4 +714,11 @@ export const getQuizSuccessToasts = (
     primary,
     secondary,
   };
+};
+
+/**
+ * Fetch lesson content.
+ */
+export const fetchLessonSet = (): HSKListSet => {
+  return HSK_LISTS;
 };

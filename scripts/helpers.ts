@@ -1,7 +1,7 @@
 import fs from "fs";
 import https from "https";
 
-import { fetchLessonSet, fetchWordPronunciation } from "@src/tools/api";
+import { fetchWordPronunciation } from "@src/tools/api";
 import { IAudioRecordingsDictionary } from "@src/tools/audio-dictionary";
 import {
   AudioItem,
@@ -11,7 +11,7 @@ import {
   ResultType,
   SoundFileResponse,
 } from "@src/tools/types";
-import { flattenLessonSet } from "@src/tools/utils";
+import { fetchLessonSet, flattenLessonSet } from "@src/tools/utils";
 
 /** ========================================================================
  * Download Queue to handle downloading mp3 files

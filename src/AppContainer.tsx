@@ -26,18 +26,17 @@ import GlobalContext, {
 } from "@src/providers/GlobalStateContext";
 import { GlobalStateValues } from "@src/providers/GlobalStateProvider";
 import SoundRecordingProvider from "@src/providers/SoundRecordingProvider";
-import { fetchLessonSet, findOrCreateUser, updateUser } from "@src/tools/api";
-import {
-  getPersistedUser,
-  saveUserToAsyncStorage,
-} from "@src/tools/async-store";
+import { findOrCreateUser, updateUser } from "@src/tools/api";
 import {
   getOfflineRequestFlagState,
+  getPersistedUser,
+  saveUserToAsyncStorage,
   setOfflineRequestFlagState,
-} from "@src/tools/offline-utils";
+} from "@src/tools/async-store";
 import { GoogleSigninUser, User } from "@src/tools/types";
 import {
   createWordDictionaryFromLessons,
+  fetchLessonSet,
   formatUserLanguageSetting,
   getAlternateLanguageSetting,
   isNetworkConnected,
