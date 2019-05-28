@@ -211,4 +211,68 @@ describe("utils", () => {
     expect(isNetworkConnected("wifi")).toBeTruthy();
     expect(isNetworkConnected("WIFI")).toBeTruthy();
   });
+
+  test.skip("createWordDictionaryFromLessons", () => {
+    expect(true).toBeTruthy();
+  });
+
+  test.skip("determineFinalUnlockedLesson", () => {
+    expect(true).toBeTruthy();
+  });
+
+  test.skip("filterBySearchTerm", () => {
+    expect(true).toBeTruthy();
+  });
+
+  test.skip("formatHskListContent", () => {
+    expect(true).toBeTruthy();
+  });
+
+  test.skip("getExperiencePointsForLesson", () => {
+    expect(true).toBeTruthy();
+  });
+
+  test.skip("getFinalUnlockedListKey", () => {
+    expect(true).toBeTruthy();
+  });
+
+  test.skip("getLessonSummaryStatus", () => {
+    expect(true).toBeTruthy();
+  });
+
+  test.skip("getRandomQuizChallenge", () => {
+    expect(true).toBeTruthy();
+  });
+
+  test.skip("getReviewLessonSet", () => {
+    expect(true).toBeTruthy();
+  });
+
+  test.skip("mapListIndexToListScores", () => {
+    expect(true).toBeTruthy();
+  });
+
+  test.skip("translateWord", () => {
+    expect(true).toBeTruthy();
+  });
+
+  test.skip("transformGoogleSignInResultToUserData", () => {
+    expect(true).toBeTruthy();
+  });
+
+  test.skip("transformUserJson", () => {
+    expect(true).toBeTruthy();
+  });
+
+  test.skip("getQuizSuccessToasts", () => {
+    expect(true).toBeTruthy();
+  });
+
+  test.skip("fetchLessonSet", () => {
+    expect(true).toBeTruthy();
+  });
+
+  test.skip("determineAnyPossibleCorrectAnswerForFreeInput", () => {
+    expect(true).toBeTruthy();
+  });
 });
