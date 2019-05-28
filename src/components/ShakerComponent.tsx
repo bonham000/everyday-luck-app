@@ -26,7 +26,7 @@ class ShakerComponent extends Component<IProps, {}> {
   }
 
   componentWillReceiveProps(nextProps: IProps): void {
-    if (nextProps.shouldShake) {
+    if (!this.props.shouldShake && nextProps.shouldShake) {
       this.shake();
     }
   }

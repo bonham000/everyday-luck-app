@@ -158,10 +158,8 @@ export const getAlternateChoices = (
     } else {
       if (
         !chosen.has(idx) &&
-        option.english !== word.english &&
-        option.pinyin !== word.pinyin &&
-        option.simplified !== word.simplified &&
-        option.traditional !== word.traditional
+        !areWordsEqual(option, word) &&
+        option.traditional.length === word.traditional.length
       ) {
         chosen.add(idx);
         choices = choices.concat(option);
@@ -170,6 +168,23 @@ export const getAlternateChoices = (
   }
 
   return knuthShuffle(choices);
+};
+
+/**
+ * Compare two different word objects and determine if they are
+ * equivalent or not.
+ *
+ * @param wordA
+ * @param wordB
+ * @returns true if `wordA` and `wordB` are equivalent
+ */
+const areWordsEqual = (wordA: Word, wordB: Word): boolean => {
+  return (
+    wordA.english === wordB.english &&
+    wordA.pinyin === wordB.pinyin &&
+    wordA.simplified === wordB.simplified &&
+    wordA.traditional === wordB.traditional
+  );
 };
 
 /**

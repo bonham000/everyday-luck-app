@@ -62,7 +62,6 @@ interface IState {
   progressCount: number;
   revealAnswer: boolean;
   failedOnce: boolean;
-  skipCount: number;
   failCount: number;
   didReveal: boolean;
   quizFinished: boolean;
@@ -159,14 +158,13 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
   }
 
   renderProgressText = () => {
-    const { failCount, skipCount, wordCompletedCache } = this.state;
+    const { failCount, progressCount } = this.state;
 
     const lesson = this.props.navigation.getParam("lesson");
 
     return (
       <ProgressText>
-        Question: {wordCompletedCache.size - failCount} / {lesson.length}{" "}
-        complete, {skipCount} skipped, {failCount} failed
+        Question: {progressCount} / {lesson.length} complete, {failCount} failed
       </ProgressText>
     );
   };
@@ -244,13 +242,6 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
           <Ionicons name="md-construct" style={ActionIconStyle} />
         </ActionButton.Item>
         <ActionButton.Item
-          title="Skip this one"
-          buttonColor={COLORS.actionButtonPurple}
-          onPress={this.handleProceedToNextQuestion(true)}
-        >
-          <Ionicons name="md-key" style={ActionIconStyle} />
-        </ActionButton.Item>
-        <ActionButton.Item
           title="Restart Quiz"
           buttonColor={COLORS.actionButtonYellow}
           onPress={this.resetQuiz}
@@ -290,20 +281,20 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     if (cost <= experience) {
       Alert.alert(
         "Are you sure?",
-        `This will cost you ${cost} experience points (you have ${experience}) remaining`,
+        `This will cost you ${cost} experience points (you have a total of ${experience} experience).`,
         [
           {
             text: "Cancel",
             style: "cancel",
-            onPress: () => this.handleRevertingFailedAnswer(cost),
+            onPress: () => null,
           },
-          { text: "OK", onPress: () => null },
+          { text: "OK", onPress: () => this.handleRevertingFailedAnswer(cost) },
         ],
         { cancelable: false },
       );
     } else {
       this.props.setToastMessage(
-        `You don't have enough experience points to revert this question!`,
+        `You don't have enough experience points to do that! Sorry! 🙏`,
       );
     }
   };
@@ -315,8 +306,10 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
       }),
       () => {
         this.props.updateExperiencePoints(-cost);
-        this.props.setToastMessage(`Saved! You'll have another chance!`);
-        this.handleProceedToNextQuestion();
+        this.props.setToastMessage(
+          "Saved - you'll have another chance to answer that one! 😇",
+        );
+        this.handleProceedToNextQuestion(true)();
       },
     );
   };
@@ -384,8 +377,8 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     );
   };
 
-  handleProceedToNextQuestion = (didSkip: boolean = false) => () => {
-    const didFail = this.state.failedOnce;
+  handleProceedToNextQuestion = (didFail: boolean = false) => () => {
+    const didFailQuestion = this.state.failedOnce || didFail;
 
     this.setState(
       prevState => ({
@@ -395,7 +388,6 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
         shouldShake: false,
         revealAnswer: false,
         failedOnce: false,
-        skipCount: prevState.skipCount + (didSkip ? 1 : 0),
       }),
       () => {
         if (
@@ -406,7 +398,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
 
         this.setState(
           prevState => {
-            const nextIndex = this.getNextWordIndex(didFail);
+            const nextIndex = this.getNextWordIndex(didFailQuestion);
 
             return {
               currentWordIndex: nextIndex,
