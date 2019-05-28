@@ -476,7 +476,7 @@ class RootContainer extends RootContainerBase<{}> {
     this.clearTimer();
   }
 
-  render(): JSX.Element {
+  render(): JSX.Element | null {
     const {
       user,
       error,
@@ -490,8 +490,10 @@ class RootContainer extends RootContainerBase<{}> {
     } = this.state;
     if (error) {
       return <ErrorComponent />;
-    } else if (updating || loading) {
+    } else if (updating) {
       return <LoadingComponent />;
+    } else if (loading) {
+      return null;
     }
 
     const {

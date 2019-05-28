@@ -45,7 +45,18 @@ export const findOrCreateUser = async (
  */
 export const updateUser = async (user: User): UserAsyncResponse => {
   try {
-    const result = await axios.put<UserJson>(`${CONFIG.DRAGON_URI}/user`, user);
+    /**
+     * score_history has to be a string
+     */
+    const serializedUser = {
+      ...user,
+      score_history: JSON.stringify(user.score_history),
+    };
+
+    const result = await axios.put<UserJson>(
+      `${CONFIG.DRAGON_URI}/users`,
+      serializedUser,
+    );
     return result.data;
   } catch (err) {
     console.log("Error from PUT to update user", err);
