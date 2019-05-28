@@ -467,6 +467,29 @@ class RootContainer extends RootContainerBase<{}> {
       appDifficultySetting,
     } = this.mapUserToAppFields();
 
+    /**
+     * Define the GlobalStateProvider values:
+     */
+    const ProviderValues = {
+      user,
+      lessons,
+      experience,
+      wordDictionary,
+      updateAvailable,
+      networkConnected,
+      languageSetting,
+      userScoreStatus,
+      appDifficultySetting,
+      onSignin: this.handleSignin,
+      setLessonScore: this.setLessonScore,
+      setToastMessage: this.setToastMessage,
+      handleUpdateApp: this.handleUpdateApp,
+      handleResetScores: this.handleResetScores,
+      handleSwitchLanguage: this.handleSwitchLanguage,
+      updateExperiencePoints: this.updateExperiencePoints,
+      handleUpdateAppDifficultySetting: this.handleUpdateAppDifficultySetting,
+    };
+
     return (
       <View style={{ flex: 1 }}>
         {transparentLoading && <TransparentLoadingComponent />}
@@ -474,27 +497,7 @@ class RootContainer extends RootContainerBase<{}> {
           close={this.clearToast}
           message={this.state.toastMessage}
         />
-        <GlobalContext.Provider
-          value={{
-            user,
-            lessons,
-            experience,
-            wordDictionary,
-            updateAvailable,
-            networkConnected,
-            languageSetting,
-            userScoreStatus,
-            appDifficultySetting,
-            onSignin: this.handleSignin,
-            setLessonScore: this.setLessonScore,
-            setToastMessage: this.setToastMessage,
-            handleUpdateApp: this.handleUpdateApp,
-            handleResetScores: this.handleResetScores,
-            handleSwitchLanguage: this.handleSwitchLanguage,
-            handleUpdateAppDifficultySetting: this
-              .handleUpdateAppDifficultySetting,
-          }}
-        >
+        <GlobalContext.Provider value={ProviderValues}>
           <SoundRecordingProvider>
             <RenderAppOnce
               userLoggedIn={Boolean(user)}
@@ -560,6 +563,16 @@ class RootContainer extends RootContainerBase<{}> {
       }
     } else {
       throw new Error("Failed to initialize user");
+    }
+  };
+
+  updateExperiencePoints = (experiencePoints: number) => {
+    if (this.state.user) {
+      const { experience_points: experience } = this.state.user;
+      const updatedExperience = experience + experiencePoints;
+      this.handleUpdateUserFields({
+        experience_points: updatedExperience,
+      });
     }
   };
 

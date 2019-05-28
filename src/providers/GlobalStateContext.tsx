@@ -83,7 +83,7 @@ export interface ToastMessageArgs {
  * =========================================================================
  */
 
-const GlobalStateContext = React.createContext({
+const GlobalStateContextValues = {
   experience: 0,
   lessons: [] as HSKListSet,
   userScoreStatus: {},
@@ -94,30 +94,45 @@ const GlobalStateContext = React.createContext({
   languageSetting: APP_LANGUAGE_SETTING.SIMPLIFIED,
   setToastMessage: (toastMessage: string | ToastMessageArgs) => {
     // Handle setting Toast message
+    return;
   },
   handleUpdateApp: () => {
     // Handle resetting scores
+    return;
   },
   handleResetScores: () => {
     // Handle resetting scores
+    return;
   },
   setLessonScore: (updatedScoreStatus: ScoreStatus, exp: number) => {
     // Handle setting lesson score
+    return;
+  },
+  updateExperiencePoints: (experiencePoints: number) => {
+    // Handle updating experience points
+    return;
   },
   handleUpdateAppDifficultySetting: (setting: APP_DIFFICULTY_SETTING) => {
     // Handle switching app difficulty setting
+    return Promise.resolve();
   },
   handleSwitchLanguage: () => {
     // Handle switching app language setting
+    return;
   },
   onSignin: (user: GoogleSigninUser) => {
     // Handle action on signin
+    return Promise.resolve();
   },
-});
+};
+
+const GlobalStateContext = React.createContext(GlobalStateContextValues);
 
 /** ========================================================================
  * Export
  * =========================================================================
  */
+
+export { GlobalStateContextValues };
 
 export default GlobalStateContext;

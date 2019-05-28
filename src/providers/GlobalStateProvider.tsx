@@ -1,6 +1,6 @@
 import React, { ComponentType } from "react";
 
-import GlobalStateContext, {
+import GlobalStateContextValues, {
   APP_DIFFICULTY_SETTING,
   APP_LANGUAGE_SETTING,
   ScoreStatus,
@@ -35,8 +35,8 @@ export interface GlobalStateContextProps
   handleUpdateApp: () => void;
   handleResetScores: () => void;
   handleSwitchLanguage: () => void;
-  openLanguageSelectionMenu: () => void;
   onSignin: (user: GoogleSigninUser) => Promise<void>;
+  updateExperiencePoints: (experiencePoints: number) => void;
   setLessonScore: (updatedScoreStatus: ScoreStatus, exp: number) => void;
   handleUpdateAppDifficultySetting: (
     setting: APP_DIFFICULTY_SETTING,
@@ -61,9 +61,9 @@ class GlobalStateProvider extends React.Component<IProps, IState> {
     const { Component, ...rest } = this.props;
 
     return (
-      <GlobalStateContext.Consumer>
+      <GlobalStateContextValues.Consumer>
         {value => <Component {...rest} {...value} />}
-      </GlobalStateContext.Consumer>
+      </GlobalStateContextValues.Consumer>
     );
   }
 }

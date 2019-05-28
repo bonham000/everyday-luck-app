@@ -70,6 +70,8 @@ interface IState {
   wordContent: ReadonlyArray<Word>;
 }
 
+const REVERSION_PENALTY = 15;
+
 /** ========================================================================
  * React Class
  * =========================================================================
@@ -86,6 +88,29 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     this.state = this.getInitialState();
   }
 
+  getInitialState = () => {
+    const lesson = this.props.navigation.getParam("lesson");
+    return {
+      value: "",
+      skipCount: 0,
+      failCount: 0,
+      valid: false,
+      initalizing: true,
+      attempted: false,
+      shouldShake: false,
+      currentWordIndex: 0,
+      failedOnce: false,
+      progressCount: 0,
+      didReveal: false,
+      revealAnswer: false,
+      quizFinished: false,
+      wordContent: lesson,
+      encouragementText: "",
+      wordCompletedCache: new Set(),
+      quizType: this.getQuizComponentType(),
+    };
+  };
+
   componentDidMount(): void {
     /**
      * Start the quiz when the component mounts at a
@@ -100,81 +125,63 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
       },
       () => {
         // tslint:disable-next-line
-        this.timer = setTimeout(this.focusInput, 250);
+        this.timer = setTimeout(this.focusTextInput, 250);
       },
     );
   }
 
   componentWillUnmount(): void {
-    this.stopConfetti();
+    this.stopConfettiAnimation();
     if (this.timer) {
       clearTimeout(this.timer);
     }
   }
 
   render(): JSX.Element | null {
-    const {
-      failCount,
-      skipCount,
-      initalizing,
-      quizFinished,
-      wordCompletedCache,
-    } = this.state;
-
-    if (initalizing) {
+    if (this.state.initalizing) {
       return null;
     }
-
-    const lesson = this.props.navigation.getParam("lesson");
-
-    /**
-     * TODO: Fix progress text counting for failed answers.
-     */
 
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <Container style={{ paddingTop: 8 }}>
           <Confetti untilStopped duration={1500} ref={this.setConfettiRef} />
-          {quizFinished ? null : (
+          {!this.state.quizFinished && (
             <React.Fragment>
-              <ProgressText>
-                Question: {wordCompletedCache.size} / {lesson.length} complete,{" "}
-                {skipCount} skipped, {failCount} failed
-              </ProgressText>
+              {this.renderProgressText()}
               {this.getQuizComponent()}
-              <ActionButton
-                zIndex={100}
-                position="left"
-                buttonColor={COLORS.actionButtonRed}
-              >
-                <ActionButton.Item
-                  title="Revert failed answer"
-                  buttonColor={COLORS.actionButtonMint}
-                  onPress={this.handleRevertAnswer}
-                >
-                  <Ionicons name="md-construct" style={ActionIconStyle} />
-                </ActionButton.Item>
-                <ActionButton.Item
-                  title="Skip this one"
-                  buttonColor={COLORS.actionButtonPurple}
-                  onPress={this.handleProceed(true)}
-                >
-                  <Ionicons name="md-key" style={ActionIconStyle} />
-                </ActionButton.Item>
-                <ActionButton.Item
-                  title="Restart Quiz"
-                  buttonColor={COLORS.actionButtonYellow}
-                  onPress={this.resetQuiz}
-                >
-                  <Ionicons name="ios-refresh" style={ActionIconStyle} />
-                </ActionButton.Item>
-              </ActionButton>
+              {this.renderActionButtons()}
             </React.Fragment>
           )}
         </Container>
       </TouchableWithoutFeedback>
     );
   }
+
+  renderProgressText = () => {
+    const { failCount, skipCount, wordCompletedCache } = this.state;
+
+    const lesson = this.props.navigation.getParam("lesson");
+
+    return (
+      <ProgressText>
+        Question: {wordCompletedCache.size - failCount} / {lesson.length}{" "}
+        complete, {skipCount} skipped, {failCount} failed
+      </ProgressText>
+    );
+  };
+
+  getQuizComponentType = (): QUIZ_TYPE => {
+    const type = this.props.navigation.getParam("type");
+    const IS_RANDOM_QUIZ =
+      type === "DAILY_QUIZ" || type === "OPT_OUT_CHALLENGE";
+    if (IS_RANDOM_QUIZ) {
+      const randomIdx = this.getRandomWordIndex(0, 4);
+      return QuizTypeOptions[randomIdx];
+    } else {
+      return this.props.quizType;
+    }
+  };
 
   getQuizComponent = () => {
     const {
@@ -203,7 +210,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
       value: this.state.value,
       setInputRef: this.setInputRef,
       handleChange: this.handleChange,
-      handleProceed: this.handleProceed,
+      handleProceed: this.handleProceedToNextQuestion,
       handleCheck: this.handleCheckAnswer,
       wordDictionary: this.props.wordDictionary,
       languageSetting: this.props.languageSetting,
@@ -222,39 +229,36 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     );
   };
 
-  getQuizComponentType = (): QUIZ_TYPE => {
-    const type = this.props.navigation.getParam("type");
-    const IS_RANDOM_QUIZ =
-      type === "DAILY_QUIZ" || type === "OPT_OUT_CHALLENGE";
-    if (IS_RANDOM_QUIZ) {
-      const randomIdx = this.getRandomWordIndex(0, 4);
-      return QuizTypeOptions[randomIdx];
-    } else {
-      return this.props.quizType;
-    }
-  };
-
-  getInitialState = () => {
-    const lesson = this.props.navigation.getParam("lesson");
-    return {
-      value: "",
-      skipCount: 0,
-      failCount: 0,
-      valid: false,
-      initalizing: true,
-      attempted: false,
-      shouldShake: false,
-      currentWordIndex: 0,
-      failedOnce: false,
-      progressCount: 0,
-      didReveal: false,
-      revealAnswer: false,
-      quizFinished: false,
-      wordContent: lesson,
-      encouragementText: "",
-      wordCompletedCache: new Set(),
-      quizType: this.getQuizComponentType(),
-    };
+  renderActionButtons = () => {
+    return (
+      <ActionButton
+        zIndex={100}
+        position="left"
+        buttonColor={COLORS.actionButtonRed}
+      >
+        <ActionButton.Item
+          title="Revert failed answer"
+          buttonColor={COLORS.actionButtonMint}
+          onPress={this.handleRevertAnswer}
+        >
+          <Ionicons name="md-construct" style={ActionIconStyle} />
+        </ActionButton.Item>
+        <ActionButton.Item
+          title="Skip this one"
+          buttonColor={COLORS.actionButtonPurple}
+          onPress={this.handleProceedToNextQuestion(true)}
+        >
+          <Ionicons name="md-key" style={ActionIconStyle} />
+        </ActionButton.Item>
+        <ActionButton.Item
+          title="Restart Quiz"
+          buttonColor={COLORS.actionButtonYellow}
+          onPress={this.resetQuiz}
+        >
+          <Ionicons name="ios-refresh" style={ActionIconStyle} />
+        </ActionButton.Item>
+      </ActionButton>
+    );
   };
 
   resetQuiz = () => {
@@ -272,7 +276,49 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
   };
 
   handleRevertAnswer = () => {
-    console.log("TODO: Implement revert answer");
+    if (!this.state.failedOnce) {
+      return;
+    }
+
+    const { experience } = this.props;
+    const cost = REVERSION_PENALTY;
+    /**
+     * If the current question is failed decrement the fail count
+     * and proceed to the next question. The user will have another
+     * chance to answer this word correctly.
+     */
+    if (cost <= experience) {
+      Alert.alert(
+        "Are you sure?",
+        `This will cost you ${cost} experience points (you have ${experience}) remaining`,
+        [
+          {
+            text: "Cancel",
+            style: "cancel",
+            onPress: () => this.handleRevertingFailedAnswer(cost),
+          },
+          { text: "OK", onPress: () => null },
+        ],
+        { cancelable: false },
+      );
+    } else {
+      this.props.setToastMessage(
+        `You don't have enough experience points to revert this question!`,
+      );
+    }
+  };
+
+  handleRevertingFailedAnswer = (cost: number) => {
+    this.setState(
+      prevState => ({
+        failCount: prevState.failCount - 1,
+      }),
+      () => {
+        this.props.updateExperiencePoints(-cost);
+        this.props.setToastMessage(`Saved! You'll have another chance!`);
+        this.handleProceedToNextQuestion();
+      },
+    );
   };
 
   handleCheckAnswer = (correct: boolean) => {
@@ -327,7 +373,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
         };
       },
       () => {
-        this.makeItRain();
+        this.startConfettiAnimation();
         /**
          * Handle finish as well if user is at end.
          */
@@ -338,7 +384,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     );
   };
 
-  handleProceed = (didSkip: boolean = false) => () => {
+  handleProceedToNextQuestion = (didSkip: boolean = false) => () => {
     const didFail = this.state.failedOnce;
 
     this.setState(
@@ -369,8 +415,8 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
             };
           },
           () => {
-            this.stopConfetti();
-            this.focusInput();
+            this.stopConfettiAnimation();
+            this.focusTextInput();
           },
         );
       },
@@ -532,7 +578,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     firstPass: boolean,
     lessonType: LessonSummaryType,
   ) => {
-    this.stopConfetti();
+    this.stopConfettiAnimation();
     if (lessonType === "OPT_OUT_CHALLENGE") {
       this.props.navigation.navigate(ROUTE_NAMES.HOME);
     } else if (lessonCompleted) {
@@ -558,7 +604,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
       }),
       () => {
         if (!this.state.revealAnswer) {
-          this.focusInput();
+          this.focusTextInput();
         }
       },
     );
@@ -584,19 +630,19 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     return randomInRange(min, max);
   };
 
-  makeItRain = () => {
+  startConfettiAnimation = () => {
     if (this.CONFETTI_REF) {
       this.CONFETTI_REF.startConfetti();
     }
   };
 
-  stopConfetti = () => {
+  stopConfettiAnimation = () => {
     if (this.CONFETTI_REF) {
       this.CONFETTI_REF.stopConfetti();
     }
   };
 
-  focusInput = () => {
+  focusTextInput = () => {
     if (this.INPUT_REF) {
       this.INPUT_REF.focus();
     }

@@ -3,12 +3,11 @@ import lessonData from "@src/lessons/02";
 import {
   APP_DIFFICULTY_SETTING,
   APP_LANGUAGE_SETTING,
-  ScoreStatus,
+  GlobalStateContextValues,
 } from "@src/providers/GlobalStateContext";
 import { GlobalStateContextProps } from "@src/providers/GlobalStateProvider";
 import { SoundRecordingProps } from "@src/providers/SoundRecordingProvider";
 import {
-  GoogleSigninUser,
   HSKList,
   Lesson,
   LessonScreenParams,
@@ -115,39 +114,16 @@ const USER: User = {
 };
 
 const GLOBAL_STATE_PROPS: GlobalStateContextProps = {
+  ...GlobalStateContextValues,
   experience: EXPERIENCE_POINTS,
   networkConnected: true,
   updateAvailable: false,
   user: USER,
   lessons: LESSONS,
-  userScoreStatus: DEFAULT_SCORE_STATE,
   wordDictionary: WORD_DICTIONARY,
+  userScoreStatus: DEFAULT_SCORE_STATE,
   languageSetting: APP_LANGUAGE_SETTING.SIMPLIFIED,
   appDifficultySetting: APP_DIFFICULTY_SETTING.EASY,
-  setToastMessage: (toastMessage: string) => {
-    return;
-  },
-  openLanguageSelectionMenu: () => {
-    return;
-  },
-  handleResetScores: () => {
-    return;
-  },
-  handleUpdateApp: () => {
-    return;
-  },
-  handleSwitchLanguage: () => {
-    return;
-  },
-  onSignin: async (user: GoogleSigninUser) => {
-    return;
-  },
-  setLessonScore: (updatedScoreStatus: ScoreStatus, exp: number) => {
-    return;
-  },
-  handleUpdateAppDifficultySetting: async (setting: APP_DIFFICULTY_SETTING) => {
-    return;
-  },
 };
 
 /** ========================================================================
