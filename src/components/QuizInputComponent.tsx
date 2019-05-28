@@ -69,7 +69,6 @@ const QuizInput = ({
         <Shaker style={{ width: "100%" }} shouldShake={shouldShake}>
           <QuizBox>
             <EnglishText>"{currentWord.english}"</EnglishText>
-            <MandarinText>{correctValue}</MandarinText>
             <TextInput
               mode="outlined"
               value={value}
