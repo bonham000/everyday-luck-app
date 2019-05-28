@@ -14,6 +14,7 @@ import {
   Result,
   ResultType,
   SoundFileResponse,
+  User,
   UserAsyncResponse,
   UserDataBase,
   UserJson,
@@ -38,6 +39,22 @@ export const findOrCreateUser = async (
     return result.data;
   } catch (err) {
     console.log("Error fetching user: ", err);
+    return;
+  }
+};
+
+/**
+ * Update the user.
+ *
+ * @param user `User` data to update
+ * @returns `UserJson` updated user data
+ */
+export const updateUser = async (user: User): UserAsyncResponse => {
+  try {
+    const result = await axios.put<UserJson>(`${CONFIG.DRAGON_URI}/user`, user);
+    return result.data;
+  } catch (err) {
+    console.log(err);
     return;
   }
 };
