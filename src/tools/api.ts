@@ -48,10 +48,7 @@ export const updateUser = async (user: User): UserAsyncResponse => {
     /**
      * score_history has to be a string
      */
-    const serializedUser = {
-      ...user,
-      score_history: JSON.stringify(user.score_history),
-    };
+    const serializedUser = serializeUser(user);
 
     const result = await axios.put<UserJson>(
       `${CONFIG.DRAGON_URI}/users`,
@@ -62,6 +59,19 @@ export const updateUser = async (user: User): UserAsyncResponse => {
     console.log("Error from PUT to update user", err);
     throw err;
   }
+};
+
+/**
+ * Serialize the user back to a format the server expects
+ *
+ * @param user User object
+ * @returns `UserJson`
+ */
+export const serializeUser = (user: User): UserJson => {
+  return {
+    ...user,
+    score_history: JSON.stringify(user.score_history),
+  };
 };
 
 /** ========================================================================
