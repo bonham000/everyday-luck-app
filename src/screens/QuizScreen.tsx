@@ -24,7 +24,12 @@ import {
   SoundRecordingProps,
   withSoundRecordingContext,
 } from "@src/providers/SoundRecordingProvider";
-import { LessonScreenParams, LessonSummaryType, Word } from "@src/tools/types";
+import {
+  LessonScreenParams,
+  LessonSummaryType,
+  QuizScreenComponentProps,
+  Word,
+} from "@src/tools/types";
 import {
   convertAppDifficultyToLessonSize,
   getExperiencePointsForLesson,
@@ -186,30 +191,31 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     const currentWord = wordContent[currentWordIndex];
     const lesson = this.props.navigation.getParam("lesson");
 
-    const quizProps = {
+    const quizProps: QuizScreenComponentProps = {
       valid,
       lesson,
+      quizType,
       didReveal,
-      revealAnswer,
+      attempted,
       currentWord,
       shouldShake,
-      attempted,
+      revealAnswer,
       value: this.state.value,
       setInputRef: this.setInputRef,
-      handleCheck: this.handleCheckAnswer,
       handleChange: this.handleChange,
       handleProceed: this.handleProceed,
+      handleCheck: this.handleCheckAnswer,
+      wordDictionary: this.props.wordDictionary,
       languageSetting: this.props.languageSetting,
       handleToggleRevealAnswer: this.handleToggleRevealAnswer,
     };
 
     return quizType === QUIZ_TYPE.QUIZ_TEXT ? (
-      <QuizInput {...quizProps} quizType={quizType} />
+      <QuizInput {...quizProps} />
     ) : (
       <MultipleChoiceComponent
         {...this.props}
         {...quizProps}
-        quizType={quizType}
         lessons={this.props.lessons}
         handlePronounceWord={this.props.handlePronounceWord}
       />

@@ -5,6 +5,7 @@ import {
   APP_LANGUAGE_SETTING,
   QUIZ_TYPE,
   ScoreStatus,
+  WordDictionary,
 } from "@src/providers/GlobalStateContext";
 
 /** ========================================================================
@@ -151,6 +152,7 @@ export interface QuizScreenComponentProps {
   value: string;
   lesson: Lesson;
   quizType: QUIZ_TYPE;
+  wordDictionary: WordDictionary;
   languageSetting: APP_LANGUAGE_SETTING;
   setInputRef: (ref: any) => void;
   handleChange: (value: string) => void;

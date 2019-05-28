@@ -6,7 +6,11 @@ import Shaker from "@src/components/ShakerComponent";
 import { COMPLIMENTS } from "@src/constants/Compliments";
 import { COLORS } from "@src/constants/Theme";
 import { QuizScreenComponentProps } from "@src/tools/types";
-import { formatUserLanguageSetting, randomInRange } from "@src/tools/utils";
+import {
+  determineAnyPossibleCorrectAnswerForFreeInput,
+  formatUserLanguageSetting,
+  randomInRange,
+} from "@src/tools/utils";
 
 /** ========================================================================
  * React Class
@@ -16,30 +20,41 @@ import { formatUserLanguageSetting, randomInRange } from "@src/tools/utils";
 const QuizInput = ({
   valid,
   value,
-  revealAnswer,
+  didReveal,
+  attempted,
   currentWord,
   shouldShake,
-  attempted,
   setInputRef,
-  handleChange,
   handleCheck,
+  handleChange,
+  revealAnswer,
   handleProceed,
-  handleToggleRevealAnswer,
-  didReveal,
+  wordDictionary,
   languageSetting,
+  handleToggleRevealAnswer,
 }: QuizScreenComponentProps) => {
   /**
-   * TODO: Account for overlapping English word definitions when defining the
-   * correct answer...
+   * Determine if the user's input is correct.
+   *
+   * NOTE: It's possible they entered Chinese characters which do not match
+   * the provided word but still translate to the provided English phrase.
    */
-  const correctValue = currentWord[languageSetting];
+  const {
+    correct,
+    correctValue,
+  } = determineAnyPossibleCorrectAnswerForFreeInput(
+    value,
+    currentWord,
+    languageSetting,
+    wordDictionary,
+  );
 
   /**
    * Function to check answer on submit.
    */
   const handleCheckAnswer = () => {
     if (value) {
-      handleCheck(value === correctValue);
+      handleCheck(correct);
     }
   };
 
@@ -54,6 +69,7 @@ const QuizInput = ({
         <Shaker style={{ width: "100%" }} shouldShake={shouldShake}>
           <QuizBox>
             <EnglishText>"{currentWord.english}"</EnglishText>
+            <MandarinText>{correctValue}</MandarinText>
             <TextInput
               mode="outlined"
               value={value}

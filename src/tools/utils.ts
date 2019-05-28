@@ -722,3 +722,65 @@ export const getQuizSuccessToasts = (
 export const fetchLessonSet = (): HSKListSet => {
   return HSK_LISTS;
 };
+
+interface QuizInputResult {
+  correct: boolean;
+  correctValue: string;
+}
+
+/**
+ * Given user input and a quiz word, determine if the user input is correct. This
+ * method accounts for the possibility that the user entered Chinese characters
+ * which match the English word but which do not match the provided word, for
+ * instance 认为 and 以为 both translate to the English word "think".
+ *
+ * Without manually
+ * improving the translations (subjective and time consuming), this heuristic
+ * should help avoid the situation where a user could miss these words because
+ * they do not know which Chinese characters are intended.
+ *
+ * @param input user entered string answer
+ * @param word quiz word
+ * @param languageSetting user language setting
+ * @param wordDictionary global word dictionary of all content
+ * @returns `QuizInputResult` indicating correctness of user input
+ */
+export const determineAnyPossibleCorrectAnswerForFreeInput = (
+  input: string,
+  word: Word,
+  languageSetting: APP_LANGUAGE_SETTING,
+  wordDictionary: WordDictionary,
+): QuizInputResult => {
+  /**
+   * The answer matches the provided quiz word.
+   */
+  if (input === word[languageSetting]) {
+    return {
+      correct: true,
+      correctValue: word[languageSetting],
+    };
+  } else if (input in wordDictionary) {
+    /**
+     * The answer doesn't match the provided quiz word, but matches
+     * some other word with the same English meaning.
+     */
+    const lookup = wordDictionary[input];
+    if (lookup.english === word.english) {
+      return {
+        correct: true,
+        correctValue: lookup[languageSetting],
+      };
+    }
+  }
+
+  /**
+   * The answer doesn't match any of our words. If COULD still be correct
+   * and match a word we don't have in our local lesson dictionary, but it's
+   * hard to know that so we have to return that the answer is invalid and
+   * default to the provided word for the correctValue.
+   */
+  return {
+    correct: false,
+    correctValue: word[languageSetting],
+  };
+};
