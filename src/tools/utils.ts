@@ -136,24 +136,10 @@ export const getAlternateChoices = (
     option = alternates[idx];
 
     if (mcType === QUIZ_TYPE.ENGLISH) {
-      const { english_alternate_choices } = word;
-      const alternateEnglishWords =
-        english_alternate_choices.length < 4
-          ? ENGLISH_WORDS.map(capitalize).filter(
-              englishWord => englishWord in wordDictionary,
-            )
-          : english_alternate_choices;
-
-      choices = [
-        word,
-        ...knuthShuffle(alternateEnglishWords)
-          .slice(0, 4)
-          .map(choice => ({
-            english: choice,
-            ...wordDictionary[choice],
-          })),
-      ];
-
+      /**
+       * Use different logic if the lesson is English recognition.
+       */
+      choices = getEnglishAlternateWords(word, wordDictionary);
       break;
     } else if (!chosen.has(idx) && !areWordsEqual(option, word)) {
       /**
@@ -173,6 +159,38 @@ export const getAlternateChoices = (
   }
 
   return knuthShuffle(choices);
+};
+
+/**
+ * Helper to derive alternate English word choices for a quiz question.
+ * Rely or provided alternate words first and fallback back to a random
+ * selection.
+ *
+ * @param word `Word` in quiz
+ * @param wordDictionary dictionary of lesson content
+ * @returns `Lesson` subset of word choices for this quiz question
+ */
+const getEnglishAlternateWords = (
+  word: Word,
+  wordDictionary: WordDictionary,
+): Lesson => {
+  const { english_alternate_choices } = word;
+  const alternateEnglishWords =
+    english_alternate_choices.length < 4
+      ? ENGLISH_WORDS.filter(
+          englishWord => englishWord.toLowerCase() in wordDictionary,
+        )
+      : english_alternate_choices;
+
+  return [
+    word,
+    ...knuthShuffle(alternateEnglishWords)
+      .slice(0, 4)
+      .map(choice => ({
+        english: choice,
+        ...wordDictionary[choice],
+      })),
+  ];
 };
 
 /**
