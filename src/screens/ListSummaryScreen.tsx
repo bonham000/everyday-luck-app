@@ -19,7 +19,7 @@ import {
 } from "@src/tools/types";
 import {
   DeriveLessonContentArgs,
-  determineFinalUnlockedLesson,
+  determineFinalUnlockedLessonInList,
   getRandomQuizChallenge,
   mapListIndexToListScores,
 } from "@src/tools/utils";
@@ -84,7 +84,7 @@ export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
     const hskList = this.props.navigation.getParam("hskList");
     const listIndex = this.props.navigation.getParam("listIndex");
     const listScore = mapListIndexToListScores(listIndex, userScoreStatus);
-    const unlockedLessonIndex = determineFinalUnlockedLesson(
+    const unlockedLessonIndex = determineFinalUnlockedLessonInList(
       lesson,
       listIndex,
       userScoreStatus,

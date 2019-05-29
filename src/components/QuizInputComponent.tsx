@@ -26,6 +26,7 @@ const QuizInput = ({
   shouldShake,
   setInputRef,
   handleCheck,
+  copyHandler,
   handleChange,
   revealAnswer,
   handleProceed,
@@ -58,11 +59,16 @@ const QuizInput = ({
     }
   };
 
+  /**
+   * Get the correct text.
+   */
+  const correctText = correctWord[languageSetting];
+
   return (
     <React.Fragment>
       {valid || revealAnswer ? (
-        <QuizBox>
-          <MandarinText>{correctWord[languageSetting]}</MandarinText>
+        <QuizBox onPress={copyHandler(correctText)}>
+          <MandarinText>{correctText}</MandarinText>
           <PinyinText>{correctWord.pinyin}</PinyinText>
         </QuizBox>
       ) : (
@@ -121,7 +127,7 @@ const QuizInput = ({
  * =========================================================================
  */
 
-const QuizBox = glamorous.view({
+const QuizBox = glamorous.touchableOpacity({
   height: 150,
   marginTop: 25,
   width: "100%",
@@ -132,7 +138,7 @@ const TextInputStyles = {
   width: "95%",
   fontSize: 34,
   marginTop: 12,
-  backgroundColor: "rgb(231,237,240)",
+  backgroundColor: COLORS.background,
 };
 
 const EnglishText = glamorous.text({

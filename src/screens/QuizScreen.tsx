@@ -1,7 +1,12 @@
 import { Ionicons } from "@expo/vector-icons";
 import glamorous from "glamorous-native";
 import React from "react";
-import { Alert, Keyboard, TouchableWithoutFeedback } from "react-native";
+import {
+  Alert,
+  Clipboard,
+  Keyboard,
+  TouchableWithoutFeedback,
+} from "react-native";
 import ActionButton from "react-native-action-button";
 import Confetti from "react-native-confetti";
 import { NavigationScreenProp } from "react-navigation";
@@ -52,6 +57,8 @@ interface IProps extends GlobalStateContextProps, SoundRecordingProps {
 }
 
 interface IState {
+  disableAudio: boolean;
+  autoProceedQuestion: boolean;
   initalizing: boolean;
   value: string;
   attempted: boolean;
@@ -69,7 +76,9 @@ interface IState {
   wordContent: ReadonlyArray<Word>;
 }
 
-const REVERSION_PENALTY = 15;
+const REVERSION_PENALTY = 50;
+
+const AUTO_PROCEED_DELAY = 1000;
 
 /** ========================================================================
  * React Class
@@ -94,6 +103,8 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
       skipCount: 0,
       failCount: 0,
       valid: false,
+      autoProceedQuestion: false,
+      disableAudio: false,
       initalizing: true,
       attempted: false,
       shouldShake: false,
@@ -183,6 +194,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
 
   getQuizComponent = () => {
     const {
+      value,
       valid,
       quizType,
       didReveal,
@@ -190,6 +202,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
       wordContent,
       shouldShake,
       revealAnswer,
+      disableAudio,
       currentWordIndex,
     } = this.state;
 
@@ -197,6 +210,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     const lesson = this.props.navigation.getParam("lesson");
 
     const quizProps: QuizScreenComponentProps = {
+      value,
       valid,
       lesson,
       quizType,
@@ -205,8 +219,9 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
       currentWord,
       shouldShake,
       revealAnswer,
-      value: this.state.value,
+      audioDisabled: disableAudio,
       setInputRef: this.setInputRef,
+      copyHandler: this.copyHandler,
       handleChange: this.handleChange,
       handleProceed: this.handleProceedToNextQuestion,
       handleCheck: this.handleCheckAnswer,
@@ -230,25 +245,68 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
   renderActionButtons = () => {
     return (
       <ActionButton
-        zIndex={100}
+        zIndex={40}
         position="left"
         buttonColor={COLORS.actionButtonRed}
       >
+        {this.props.quizType === QUIZ_TYPE.PRONUNCIATION && (
+          <ActionButton.Item
+            style={{ zIndex: 50 }}
+            onPress={this.toggleDisableAudio}
+            buttonColor={COLORS.actionButtonMint}
+            title={`${this.state.disableAudio ? "Enable" : "Disable"} Audio`}
+          >
+            <Ionicons name="ios-leaf" style={ActionIconStyle} />
+          </ActionButton.Item>
+        )}
         <ActionButton.Item
+          style={{ zIndex: 50 }}
           title="Revert failed answer"
-          buttonColor={COLORS.actionButtonMint}
           onPress={this.handleRevertAnswer}
+          buttonColor={COLORS.actionButtonBlue}
         >
-          <Ionicons name="md-construct" style={ActionIconStyle} />
+          <Ionicons name="ios-key" style={ActionIconStyle} />
         </ActionButton.Item>
         <ActionButton.Item
-          title="Restart Quiz"
-          buttonColor={COLORS.actionButtonYellow}
+          style={{ zIndex: 50 }}
+          onPress={this.toggleAutoProceed}
+          buttonColor={COLORS.actionButtonPurple}
+          title={`${
+            this.state.autoProceedQuestion ? "Disable" : "Enable"
+          } auto next question`}
+        >
+          <Ionicons name="ios-jet" style={ActionIconStyle} />
+        </ActionButton.Item>
+        <ActionButton.Item
+          style={{ zIndex: 50 }}
+          title="Shuffle and restart quiz"
           onPress={this.resetQuiz}
+          buttonColor={COLORS.actionButtonYellow}
         >
           <Ionicons name="ios-refresh" style={ActionIconStyle} />
         </ActionButton.Item>
       </ActionButton>
+    );
+  };
+
+  toggleDisableAudio = () => {
+    this.setState(prevState => ({
+      disableAudio: !prevState.disableAudio,
+    }));
+  };
+
+  toggleAutoProceed = () => {
+    this.setState(
+      prevState => ({
+        autoProceedQuestion: !prevState.autoProceedQuestion,
+      }),
+      () => {
+        if (this.state.autoProceedQuestion) {
+          this.props.setToastMessage(
+            "Questions will automatically advance when answered correctly.",
+          );
+        }
+      },
     );
   };
 
@@ -372,6 +430,12 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
          */
         if (wordCompletedCache.size === this.state.wordContent.length) {
           this.handleCompleteQuiz();
+        } else if (this.state.autoProceedQuestion) {
+          // tslint:disable-next-line
+          this.timer = setTimeout(
+            this.handleProceedToNextQuestion(),
+            AUTO_PROCEED_DELAY,
+          );
         }
       },
     );
@@ -648,6 +712,15 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
   setInputRef = (ref: any) => {
     // tslint:disable-next-line
     this.INPUT_REF = ref;
+  };
+
+  copyHandler = (text: string) => () => {
+    try {
+      Clipboard.setString(text);
+      this.props.setToastMessage(`${text} copied!`);
+    } catch (_) {
+      return;
+    }
   };
 }
 

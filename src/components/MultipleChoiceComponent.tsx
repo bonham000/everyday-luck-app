@@ -132,6 +132,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
     const {
       quizType,
       currentWord,
+      audioDisabled,
       languageSetting,
       networkConnected,
       audioMetadataCache,
@@ -166,10 +167,20 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
      * Some error state: sound file is not available - show the audio fallback UI
      */
     if (
+      audioDisabled ||
       !networkConnected ||
       soundLoadingError ||
       this.state.audioEscapeHatchOn
     ) {
+      let disabledText = "";
+      if (audioDisabled) {
+        disabledText = "(Audio disabled)";
+      } else if (!networkConnected) {
+        disabledText = "Network Unavailable";
+      } else {
+        disabledText = "(Could not find audio file...)";
+      }
+
       return (
         <TitleContainer>
           <QuizPromptText quizType={quizType}>
@@ -178,9 +189,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
           <QuizSubText>{currentWord.pinyin}</QuizSubText>
           {!this.state.audioEscapeHatchOn && (
             <Text style={{ marginTop: 15, color: COLORS.darkText }}>
-              {networkConnected
-                ? "(Could not find audio file...)"
-                : "Network Unavailable"}
+              {disabledText}
             </Text>
           )}
         </TitleContainer>
@@ -367,10 +376,10 @@ const QuizAnswerText = ({
   if (shouldReveal) {
     return (
       <React.Fragment>
-        <Text style={{ fontSize: 30, paddingRight: 12 }}>
+        <Text numberOfLines={1} style={{ fontSize: 30, paddingRight: 12 }}>
           {choice[languageSetting]}
         </Text>
-        <Text style={textStyles}>
+        <Text numberOfLines={1} style={textStyles}>
           {choice.pinyin} - {choice.english}
         </Text>
       </React.Fragment>

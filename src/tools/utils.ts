@@ -251,21 +251,21 @@ export const getFinalUnlockedListKey = (
 /**
  * Determine the final unlocked lesson in an HSK list.
  *
- * @param lesson
+ * @param list
  * @param listIndex
  * @param userScoreStatus
  * @param appDifficultySetting
  * @param returns index of final unlocked lesson
  */
-export const determineFinalUnlockedLesson = (
-  lesson: Lesson,
+export const determineFinalUnlockedLessonInList = (
+  list: Lesson,
   listIndex: number,
   userScoreStatus: ScoreStatus,
   appDifficultySetting: APP_DIFFICULTY_SETTING,
 ): number => {
   const listScore = mapListIndexToListScores(listIndex, userScoreStatus);
   if (listScore.complete) {
-    return lesson.length;
+    return list.length;
   }
 
   const completedWords = listScore.number_words_completed;
@@ -355,11 +355,13 @@ export const calculateExperiencePointsForLesson = (
   const MIN: number = 15;
   let MAX: number;
   if (lessonType === "OPT_OUT_CHALLENGE") {
-    MAX = 250;
+    MAX = 300;
+  } else if (lessonType === "DAILY_QUIZ") {
+    MAX = 125;
   } else if (quizType === QUIZ_TYPE.QUIZ_TEXT) {
-    MAX = 30;
+    MAX = 35;
   } else {
-    MAX = 15;
+    MAX = 20;
   }
 
   const OFFSET = lessonType === "LESSON" ? 25 : 0;
@@ -777,6 +779,8 @@ export const getQuizSuccessToasts = (
     } else {
       primary = "You passed but not with a perfect score!";
     }
+  } else if (lessonType === "DAILY_QUIZ") {
+    primary = "Excellent!!!";
   } else if (firstPass) {
     primary = "Amazing! You passed this lesson! 💯";
   } else {
@@ -795,6 +799,12 @@ export const getQuizSuccessToasts = (
     } else {
       secondary =
         "You can try again anytime to still unlock the HSK Level, good luck!";
+    }
+  } else if (lessonType === "DAILY_QUIZ") {
+    if (perfectScore) {
+      secondary = `You gained ${experience} points!`;
+    } else {
+      secondary = "Great job! Keep trying!";
     }
   } else if (firstPass) {
     secondary = `Congratulations! You gained ${experience} experience points!`;
