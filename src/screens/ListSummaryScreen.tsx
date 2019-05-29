@@ -40,16 +40,24 @@ interface IProps extends GlobalStateContextProps {
 
 export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
   render(): JSX.Element {
-    const { userScoreStatus } = this.props;
+    const { userScoreStatus, appDifficultySetting } = this.props;
     const listIndex = this.props.navigation.getParam("listIndex");
     const hskList = this.props.navigation.getParam("hskList");
     const listScore = mapListIndexToListScores(listIndex, userScoreStatus);
+    const unlockedLessonIndex = determineFinalUnlockedLessonInList(
+      hskList[0],
+      listIndex,
+      userScoreStatus,
+      appDifficultySetting,
+    );
+    const scrollIndex = unlockedLessonIndex > 7 ? unlockedLessonIndex - 3 : 0;
     return (
       <Container>
         <TitleText>Choose a lesson to start studying</TitleText>
         <FlatList
           data={hskList}
           renderItem={this.renderItem}
+          initialScrollIndex={scrollIndex}
           contentContainerStyle={FlatListStyles}
           /* Pass extraData to force re-render when a new lesson is completed */
           extraData={listScore.number_words_completed}
