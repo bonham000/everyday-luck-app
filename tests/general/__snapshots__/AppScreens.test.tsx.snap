@@ -481,7 +481,7 @@ exports[`App Screen Components Each screen component renders with props provided
           Object {
             "elevation": undefined,
             "justifyContent": "flex-end",
-            "zIndex": 100,
+            "zIndex": 40,
           },
         ],
         undefined,
@@ -501,7 +501,7 @@ exports[`App Screen Components Each screen component renders with props provided
           "position": "absolute",
           "right": 0,
           "top": 0,
-          "zIndex": 100,
+          "zIndex": 40,
         }
       }
     />
@@ -521,7 +521,7 @@ exports[`App Screen Components Each screen component renders with props provided
             Object {
               "elevation": undefined,
               "justifyContent": "flex-end",
-              "zIndex": 100,
+              "zIndex": 40,
             },
           ],
           Object {
@@ -538,7 +538,7 @@ exports[`App Screen Components Each screen component renders with props provided
           Array [
             Object {
               "marginHorizontal": 30,
-              "zIndex": 100,
+              "zIndex": 40,
             },
             Object {
               "elevation": 5,
@@ -687,15 +687,22 @@ exports[`App Screen Components Each screen component renders with props provided
     }
   >
     <View
+      accessible={true}
+      isTVSelectable={true}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
       style={
-        Array [
-          Object {
-            "alignItems": "center",
-            "height": 150,
-            "marginTop": 25,
-            "width": "100%",
-          },
-        ]
+        Object {
+          "alignItems": "center",
+          "height": 150,
+          "marginTop": 25,
+          "opacity": 1,
+          "width": "100%",
+        }
       }
     >
       <Text
@@ -719,7 +726,7 @@ exports[`App Screen Components Each screen component renders with props provided
           Array [
             undefined,
             Object {
-              "backgroundColor": "rgb(231,237,240)",
+              "backgroundColor": "rgb(231, 237, 240)",
               "fontSize": 34,
               "marginTop": 12,
               "width": "95%",
@@ -757,7 +764,7 @@ exports[`App Screen Components Each screen component renders with props provided
                 "writingDirection": "ltr",
               },
               Object {
-                "backgroundColor": "rgb(231,237,240)",
+                "backgroundColor": "rgb(231, 237, 240)",
                 "color": "transparent",
                 "fontFamily": "Helvetica Neue",
                 "fontSize": 12,
@@ -1009,7 +1016,7 @@ exports[`App Screen Components Each screen component renders with props provided
           Object {
             "elevation": undefined,
             "justifyContent": "flex-end",
-            "zIndex": 100,
+            "zIndex": 40,
           },
         ],
         undefined,
@@ -1029,7 +1036,7 @@ exports[`App Screen Components Each screen component renders with props provided
           "position": "absolute",
           "right": 0,
           "top": 0,
-          "zIndex": 100,
+          "zIndex": 40,
         }
       }
     />
@@ -1049,7 +1056,7 @@ exports[`App Screen Components Each screen component renders with props provided
             Object {
               "elevation": undefined,
               "justifyContent": "flex-end",
-              "zIndex": 100,
+              "zIndex": 40,
             },
           ],
           Object {
@@ -1066,7 +1073,7 @@ exports[`App Screen Components Each screen component renders with props provided
           Array [
             Object {
               "marginHorizontal": 30,
-              "zIndex": 100,
+              "zIndex": 40,
             },
             Object {
               "elevation": 5,
@@ -1457,7 +1464,7 @@ exports[`App Screen Components Each screen component renders with props provided
           Object {
             "elevation": undefined,
             "justifyContent": "flex-end",
-            "zIndex": 100,
+            "zIndex": 40,
           },
         ],
         undefined,
@@ -1477,7 +1484,7 @@ exports[`App Screen Components Each screen component renders with props provided
           "position": "absolute",
           "right": 0,
           "top": 0,
-          "zIndex": 100,
+          "zIndex": 40,
         }
       }
     />
@@ -1497,7 +1504,7 @@ exports[`App Screen Components Each screen component renders with props provided
             Object {
               "elevation": undefined,
               "justifyContent": "flex-end",
-              "zIndex": 100,
+              "zIndex": 40,
             },
           ],
           Object {
@@ -1514,7 +1521,7 @@ exports[`App Screen Components Each screen component renders with props provided
           Array [
             Object {
               "marginHorizontal": 30,
-              "zIndex": 100,
+              "zIndex": 40,
             },
             Object {
               "elevation": 5,
@@ -1984,15 +1991,22 @@ exports[`App Screen Components Each screen component renders with props provided
     }
   >
     <View
+      accessible={true}
+      isTVSelectable={true}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
       style={
-        Array [
-          Object {
-            "alignItems": "center",
-            "height": 150,
-            "marginTop": 25,
-            "width": "100%",
-          },
-        ]
+        Object {
+          "alignItems": "center",
+          "height": 150,
+          "marginTop": 25,
+          "opacity": 1,
+          "width": "100%",
+        }
       }
     >
       <Text
@@ -2016,7 +2030,7 @@ exports[`App Screen Components Each screen component renders with props provided
           Array [
             undefined,
             Object {
-              "backgroundColor": "rgb(231,237,240)",
+              "backgroundColor": "rgb(231, 237, 240)",
               "fontSize": 34,
               "marginTop": 12,
               "width": "95%",
@@ -2054,7 +2068,7 @@ exports[`App Screen Components Each screen component renders with props provided
                 "writingDirection": "ltr",
               },
               Object {
-                "backgroundColor": "rgb(231,237,240)",
+                "backgroundColor": "rgb(231, 237, 240)",
                 "color": "transparent",
                 "fontFamily": "Helvetica Neue",
                 "fontSize": 12,
@@ -2306,7 +2320,7 @@ exports[`App Screen Components Each screen component renders with props provided
           Object {
             "elevation": undefined,
             "justifyContent": "flex-end",
-            "zIndex": 100,
+            "zIndex": 40,
           },
         ],
         undefined,
@@ -2326,7 +2340,7 @@ exports[`App Screen Components Each screen component renders with props provided
           "position": "absolute",
           "right": 0,
           "top": 0,
-          "zIndex": 100,
+          "zIndex": 40,
         }
       }
     />
@@ -2346,7 +2360,7 @@ exports[`App Screen Components Each screen component renders with props provided
             Object {
               "elevation": undefined,
               "justifyContent": "flex-end",
-              "zIndex": 100,
+              "zIndex": 40,
             },
           ],
           Object {
@@ -2363,7 +2377,7 @@ exports[`App Screen Components Each screen component renders with props provided
           Array [
             Object {
               "marginHorizontal": 30,
-              "zIndex": 100,
+              "zIndex": 40,
             },
             Object {
               "elevation": 5,
@@ -2754,7 +2768,7 @@ exports[`App Screen Components Each screen component renders with props provided
           Object {
             "elevation": undefined,
             "justifyContent": "flex-end",
-            "zIndex": 100,
+            "zIndex": 40,
           },
         ],
         undefined,
@@ -2774,7 +2788,7 @@ exports[`App Screen Components Each screen component renders with props provided
           "position": "absolute",
           "right": 0,
           "top": 0,
-          "zIndex": 100,
+          "zIndex": 40,
         }
       }
     />
@@ -2794,7 +2808,7 @@ exports[`App Screen Components Each screen component renders with props provided
             Object {
               "elevation": undefined,
               "justifyContent": "flex-end",
-              "zIndex": 100,
+              "zIndex": 40,
             },
           ],
           Object {
@@ -2811,7 +2825,7 @@ exports[`App Screen Components Each screen component renders with props provided
           Array [
             Object {
               "marginHorizontal": 30,
-              "zIndex": 100,
+              "zIndex": 40,
             },
             Object {
               "elevation": 5,
@@ -3292,15 +3306,22 @@ exports[`App Screen Components Each screen component renders with props provided
     }
   >
     <View
+      accessible={true}
+      isTVSelectable={true}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
       style={
-        Array [
-          Object {
-            "alignItems": "center",
-            "height": 150,
-            "marginTop": 25,
-            "width": "100%",
-          },
-        ]
+        Object {
+          "alignItems": "center",
+          "height": 150,
+          "marginTop": 25,
+          "opacity": 1,
+          "width": "100%",
+        }
       }
     >
       <Text
@@ -3324,7 +3345,7 @@ exports[`App Screen Components Each screen component renders with props provided
           Array [
             undefined,
             Object {
-              "backgroundColor": "rgb(231,237,240)",
+              "backgroundColor": "rgb(231, 237, 240)",
               "fontSize": 34,
               "marginTop": 12,
               "width": "95%",
@@ -3362,7 +3383,7 @@ exports[`App Screen Components Each screen component renders with props provided
                 "writingDirection": "ltr",
               },
               Object {
-                "backgroundColor": "rgb(231,237,240)",
+                "backgroundColor": "rgb(231, 237, 240)",
                 "color": "transparent",
                 "fontFamily": "Helvetica Neue",
                 "fontSize": 12,
@@ -3614,7 +3635,7 @@ exports[`App Screen Components Each screen component renders with props provided
           Object {
             "elevation": undefined,
             "justifyContent": "flex-end",
-            "zIndex": 100,
+            "zIndex": 40,
           },
         ],
         undefined,
@@ -3634,7 +3655,7 @@ exports[`App Screen Components Each screen component renders with props provided
           "position": "absolute",
           "right": 0,
           "top": 0,
-          "zIndex": 100,
+          "zIndex": 40,
         }
       }
     />
@@ -3654,7 +3675,7 @@ exports[`App Screen Components Each screen component renders with props provided
             Object {
               "elevation": undefined,
               "justifyContent": "flex-end",
-              "zIndex": 100,
+              "zIndex": 40,
             },
           ],
           Object {
@@ -3671,7 +3692,7 @@ exports[`App Screen Components Each screen component renders with props provided
           Array [
             Object {
               "marginHorizontal": 30,
-              "zIndex": 100,
+              "zIndex": 40,
             },
             Object {
               "elevation": 5,
@@ -4732,6 +4753,7 @@ exports[`App Screen Components Each screen component renders with props provided
     getItemCount={[Function]}
     horizontal={false}
     initialNumToRender={10}
+    initialScrollIndex={0}
     keyExtractor={[Function]}
     maxToRenderPerBatch={10}
     numColumns={1}
