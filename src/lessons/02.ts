@@ -123,13 +123,6 @@ const lesson: HSKList = {
       english_alternate_choices: [""],
     },
     {
-      simplified: "您",
-      traditional: "您",
-      pinyin: "nín",
-      english: "You",
-      english_alternate_choices: [""],
-    },
-    {
       simplified: "它",
       traditional: "它",
       pinyin: "tā",
@@ -294,7 +287,7 @@ const lesson: HSKList = {
       simplified: "块",
       traditional: "塊",
       pinyin: "kuài",
-      english: "Piece",
+      english: "Piece, block, bit",
       english_alternate_choices: [""],
     },
     {
@@ -322,7 +315,7 @@ const lesson: HSKList = {
       simplified: "件",
       traditional: "事",
       pinyin: "jiàn",
-      english: "Piece",
+      english: "Piece, thing, fact, matter",
       english_alternate_choices: [""],
     },
     {
@@ -336,14 +329,14 @@ const lesson: HSKList = {
       simplified: "不",
       traditional: "不",
       pinyin: "bù",
-      english: "No",
+      english: "No, do not",
       english_alternate_choices: [""],
     },
     {
       simplified: "没",
       traditional: "沒",
       pinyin: "méi",
-      english: "No",
+      english: "No, not",
       english_alternate_choices: [""],
     },
     {
@@ -442,6 +435,13 @@ const lesson: HSKList = {
       traditional: "就",
       pinyin: "jiǜ",
       english: "At once",
+      english_alternate_choices: [""],
+    },
+    {
+      simplified: "您",
+      traditional: "您",
+      pinyin: "nín",
+      english: "You",
       english_alternate_choices: [""],
     },
     {
@@ -763,14 +763,14 @@ const lesson: HSKList = {
       simplified: "时候",
       traditional: "時候",
       pinyin: "shíhou",
-      english: "Time",
+      english: "Time, moment",
       english_alternate_choices: [""],
     },
     {
       simplified: "早上",
       traditional: "早上",
       pinyin: "zǎoshàng",
-      english: "Morning",
+      english: "Morning, morrow",
       english_alternate_choices: [""],
     },
     {
@@ -791,7 +791,7 @@ const lesson: HSKList = {
       simplified: "时间",
       traditional: "時間",
       pinyin: "shíjiān",
-      english: "Time",
+      english: "Time, period",
       english_alternate_choices: [""],
     },
     {
@@ -1474,6 +1474,13 @@ const lesson: HSKList = {
       english_alternate_choices: [""],
     },
     {
+      simplified: "认识",
+      traditional: "認識",
+      pinyin: "rènshi",
+      english: "Know",
+      english_alternate_choices: [""],
+    },
+    {
       simplified: "打电话",
       traditional: "打電話",
       pinyin: "dǎdiànhuà",
@@ -1485,6 +1492,13 @@ const lesson: HSKList = {
       traditional: "做",
       pinyin: "zuò",
       english: "Do",
+      english_alternate_choices: [""],
+    },
+    {
+      simplified: "高兴",
+      traditional: "高興",
+      pinyin: "gāoxìng",
+      english: "Happy",
       english_alternate_choices: [""],
     },
     {
@@ -1796,13 +1810,6 @@ const lesson: HSKList = {
       english_alternate_choices: [""],
     },
     {
-      simplified: "认识",
-      traditional: "認識",
-      pinyin: "rènshi",
-      english: "Know",
-      english_alternate_choices: [""],
-    },
-    {
       simplified: "觉得",
       traditional: "覺得",
       pinyin: "juédé",
@@ -1821,13 +1828,6 @@ const lesson: HSKList = {
       traditional: "希望",
       pinyin: "xīwàng",
       english: "Hope",
-      english_alternate_choices: [""],
-    },
-    {
-      simplified: "会",
-      traditional: "會",
-      pinyin: "huì",
-      english: "Can",
       english_alternate_choices: [""],
     },
     {
@@ -1905,13 +1905,6 @@ const lesson: HSKList = {
       traditional: "熱",
       pinyin: "rè",
       english: "Hot",
-      english_alternate_choices: [""],
-    },
-    {
-      simplified: "高兴",
-      traditional: "高興",
-      pinyin: "gāoxìng",
-      english: "Happy",
       english_alternate_choices: [""],
     },
     {
@@ -2052,6 +2045,13 @@ const lesson: HSKList = {
       traditional: "快樂",
       pinyin: "kuàilè",
       english: "Happy",
+      english_alternate_choices: [""],
+    },
+    {
+      simplified: "会",
+      traditional: "會",
+      pinyin: "huì",
+      english: "Can",
       english_alternate_choices: [""],
     },
   ],

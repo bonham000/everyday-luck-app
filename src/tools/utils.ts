@@ -584,7 +584,7 @@ export const convertAppDifficultyToLessonSize = (
  * @param appDifficultySetting
  * @returns batched lists based on appropriate app lesson size
  */
-export const formatHskListContent = (
+export const adjustListContentByDifficultySetting = (
   lesson: Lesson,
   appDifficultySetting: APP_DIFFICULTY_SETTING,
 ): LessonSet => {
@@ -855,6 +855,10 @@ export const determineAnyPossibleCorrectAnswerForFreeInput = (
     /**
      * The answer doesn't match the provided quiz word, but matches
      * some other word with the same English meaning.
+     *
+     * It's possible the answer does not match an English key exactly,
+     * but the definitions (word) still overlaps - try to look this up
+     * by matching against all English keys string includes?
      */
     const lookup = wordDictionary[input];
     if (lookup.english === word.english) {

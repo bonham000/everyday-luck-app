@@ -133,7 +133,7 @@ const lesson: HSKList = {
       simplified: "遍",
       traditional: "遍",
       pinyin: "biàn",
-      english: "Times",
+      english: "Times, all over",
       english_alternate_choices: [""],
     },
     {
@@ -812,7 +812,7 @@ const lesson: HSKList = {
       simplified: "丰富",
       traditional: "豐富",
       pinyin: "fēngfù",
-      english: "Rich",
+      english: "Rich, plentiful, abundant",
       english_alternate_choices: [""],
     },
     {
@@ -889,7 +889,7 @@ const lesson: HSKList = {
       simplified: "干燥",
       traditional: "乾燥",
       pinyin: "gānzào",
-      english: "Dry",
+      english: "Dry, arid, dull",
       english_alternate_choices: [""],
     },
     {
@@ -1176,7 +1176,7 @@ const lesson: HSKList = {
       simplified: "号码",
       traditional: "號碼",
       pinyin: "hàomǎ",
-      english: "Number",
+      english: "Number, size",
       english_alternate_choices: [""],
     },
     {
@@ -1463,7 +1463,7 @@ const lesson: HSKList = {
       simplified: "降低",
       traditional: "降低",
       pinyin: "jiàngdī",
-      english: "Reduce",
+      english: "Reduce, cut down",
       english_alternate_choices: [""],
     },
     {
@@ -1590,13 +1590,6 @@ const lesson: HSKList = {
       traditional: "經濟",
       pinyin: "jīngjì",
       english: "Economics",
-      english_alternate_choices: [""],
-    },
-    {
-      simplified: "经历",
-      traditional: "經歷",
-      pinyin: "jīnglì",
-      english: "Experience",
       english_alternate_choices: [""],
     },
     {
@@ -1891,6 +1884,13 @@ const lesson: HSKList = {
       traditional: "厲害",
       pinyin: "lìhai",
       english: "Fierce",
+      english_alternate_choices: [""],
+    },
+    {
+      simplified: "经历",
+      traditional: "經歷",
+      pinyin: "jīnglì",
+      english: "Experience, skill",
       english_alternate_choices: [""],
     },
     {
@@ -2576,14 +2576,7 @@ const lesson: HSKList = {
       simplified: "生活",
       traditional: "生活",
       pinyin: "shēnghuó",
-      english: "Life",
-      english_alternate_choices: [""],
-    },
-    {
-      simplified: "生命",
-      traditional: "生命",
-      pinyin: "shēngmìng",
-      english: "Life",
+      english: "Life, livlihood, activity",
       english_alternate_choices: [""],
     },
     {
@@ -2779,14 +2772,14 @@ const lesson: HSKList = {
       simplified: "数量",
       traditional: "數量",
       pinyin: "shùliàng",
-      english: "Number",
+      english: "Number, quantity, amount",
       english_alternate_choices: [""],
     },
     {
       simplified: "数字",
       traditional: "數字",
       pinyin: "shùzì",
-      english: "Number",
+      english: "Number, figure, digit",
       english_alternate_choices: [""],
     },
     {
@@ -2913,6 +2906,13 @@ const lesson: HSKList = {
       traditional: "態度",
       pinyin: "tàidu",
       english: "Attitude",
+      english_alternate_choices: [""],
+    },
+    {
+      simplified: "生命",
+      traditional: "生命",
+      pinyin: "shēngmìng",
+      english: "Life, anima",
       english_alternate_choices: [""],
     },
     {
@@ -3546,6 +3546,13 @@ const lesson: HSKList = {
       english_alternate_choices: [""],
     },
     {
+      simplified: "座",
+      traditional: "座",
+      pinyin: "zuò",
+      english: "Seat, base, stand",
+      english_alternate_choices: [""],
+    },
+    {
       simplified: "饮料",
       traditional: "飲料",
       pinyin: "yǐnliào",
@@ -3794,14 +3801,7 @@ const lesson: HSKList = {
       simplified: "增加",
       traditional: "增加",
       pinyin: "zēngjiā",
-      english: "Increase",
-      english_alternate_choices: [""],
-    },
-    {
-      simplified: "增长",
-      traditional: "增長",
-      pinyin: "zēngzhǎng",
-      english: "Increase",
+      english: "Increase, addition",
       english_alternate_choices: [""],
     },
     {
@@ -4162,17 +4162,17 @@ const lesson: HSKList = {
       english_alternate_choices: [""],
     },
     {
-      simplified: "座",
-      traditional: "座",
-      pinyin: "zuò",
-      english: "Seat",
-      english_alternate_choices: [""],
-    },
-    {
       simplified: "座位",
       traditional: "座位",
       pinyin: "zuòwèi",
-      english: "Seat",
+      english: "Seat, place, pew",
+      english_alternate_choices: [""],
+    },
+    {
+      simplified: "增长",
+      traditional: "增長",
+      pinyin: "zēngzhǎng",
+      english: "Increase, grow",
       english_alternate_choices: [""],
     },
     {

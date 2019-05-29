@@ -1,4 +1,6 @@
 import HSK_LISTS from "@src/lessons";
+import { APP_DIFFICULTY_SETTING } from "@src/providers/GlobalStateContext";
+import { adjustListContentByDifficultySetting } from "@src/tools/utils";
 
 const onlyEnglishLetters = (str: string) => /^[a-zA-Z]+$/.test(str);
 
@@ -29,5 +31,21 @@ describe.only("HSK_LISTS content", () => {
     }
 
     expect(uniqueWordSet.size).toBe(totalWordLength);
+  });
+
+  test("No lesson quiz can have overlapping English words", () => {
+    for (const list of HSK_LISTS) {
+      const batchedLists = adjustListContentByDifficultySetting(
+        list.content,
+        APP_DIFFICULTY_SETTING.HARD,
+      );
+      for (const lesson of batchedLists) {
+        const uniqueEnglish = new Set();
+        for (const word of lesson) {
+          uniqueEnglish.add(word.english);
+        }
+        expect(uniqueEnglish.size).toBe(lesson.length);
+      }
+    }
   });
 });

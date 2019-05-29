@@ -2384,13 +2384,6 @@ const lesson: HSKList = {
       english_alternate_choices: [""],
     },
     {
-      simplified: "纯洁",
-      traditional: "純潔",
-      pinyin: "chúnjié",
-      english: "Pure",
-      english_alternate_choices: [""],
-    },
-    {
       simplified: "词汇",
       traditional: "詞彙",
       pinyin: "cíhuì",
@@ -2878,6 +2871,13 @@ const lesson: HSKList = {
       traditional: "盜竊",
       pinyin: "dàoqiè",
       english: "Steal; pilfer",
+      english_alternate_choices: [""],
+    },
+    {
+      simplified: "纯洁",
+      traditional: "純潔",
+      pinyin: "chúnjié",
+      english: "Pure, clean and honest",
       english_alternate_choices: [""],
     },
     {
@@ -3812,13 +3812,6 @@ const lesson: HSKList = {
       english_alternate_choices: [""],
     },
     {
-      simplified: "防御",
-      traditional: "防禦",
-      pinyin: "fángyù",
-      english: "Defense",
-      english_alternate_choices: [""],
-    },
-    {
       simplified: "防止",
       traditional: "防止",
       pinyin: "fángzhǐ",
@@ -4393,6 +4386,13 @@ const lesson: HSKList = {
       english_alternate_choices: [""],
     },
     {
+      simplified: "防御",
+      traditional: "防禦",
+      pinyin: "fángyù",
+      english: "Defense",
+      english_alternate_choices: [""],
+    },
+    {
       simplified: "干涉",
       traditional: "干涉",
       pinyin: "gānshè",
@@ -4592,7 +4592,7 @@ const lesson: HSKList = {
       simplified: "格局",
       traditional: "格局",
       pinyin: "géjú",
-      english: "Situation",
+      english: "Pattern, structure, situation",
       english_alternate_choices: [""],
     },
     {
@@ -4683,7 +4683,7 @@ const lesson: HSKList = {
       simplified: "公道",
       traditional: "公道",
       pinyin: "gōngdao",
-      english: "Fair",
+      english: "Fair, justice",
       english_alternate_choices: [""],
     },
     {
@@ -4746,7 +4746,7 @@ const lesson: HSKList = {
       simplified: "公正",
       traditional: "公正",
       pinyin: "gōngzhèng",
-      english: "Fair",
+      english: "Fair, impartial",
       english_alternate_choices: [""],
     },
     {
@@ -5380,6 +5380,13 @@ const lesson: HSKList = {
       english_alternate_choices: [""],
     },
     {
+      simplified: "技巧",
+      traditional: "技巧",
+      pinyin: "jìqiǎo",
+      english: "Skill, technique",
+      english_alternate_choices: [""],
+    },
+    {
       simplified: "呵",
       traditional: "呵",
       pinyin: "hē",
@@ -5880,14 +5887,7 @@ const lesson: HSKList = {
       simplified: "混乱",
       traditional: "混亂",
       pinyin: "hùnluàn",
-      english: "Confusion",
-      english_alternate_choices: [""],
-    },
-    {
-      simplified: "混淆",
-      traditional: "混淆",
-      pinyin: "hùnxiáo",
-      english: "Confusion",
+      english: "Confusion, chaos",
       english_alternate_choices: [""],
     },
     {
@@ -6244,14 +6244,7 @@ const lesson: HSKList = {
       simplified: "技能",
       traditional: "技能",
       pinyin: "jìnéng",
-      english: "Skill",
-      english_alternate_choices: [""],
-    },
-    {
-      simplified: "技巧",
-      traditional: "技巧",
-      pinyin: "jìqiǎo",
-      english: "Skill",
+      english: "Skill, technical ability",
       english_alternate_choices: [""],
     },
     {
@@ -6343,6 +6336,13 @@ const lesson: HSKList = {
       traditional: "堅固",
       pinyin: "jiāngù",
       english: "Strong",
+      english_alternate_choices: [""],
+    },
+    {
+      simplified: "混淆",
+      traditional: "混淆",
+      pinyin: "hùnxiáo",
+      english: "Confusion, garble",
       english_alternate_choices: [""],
     },
     {
@@ -6594,14 +6594,7 @@ const lesson: HSKList = {
       simplified: "奖励",
       traditional: "獎勵",
       pinyin: "jiǎnglì",
-      english: "Reward",
-      english_alternate_choices: [""],
-    },
-    {
-      simplified: "奖赏",
-      traditional: "獎賞",
-      pinyin: "jiǎngshǎng",
-      english: "Reward",
+      english: "Reward, award",
       english_alternate_choices: [""],
     },
     {
@@ -7224,14 +7217,14 @@ const lesson: HSKList = {
       simplified: "局面",
       traditional: "局面",
       pinyin: "júmiàn",
-      english: "Situation",
+      english: "Situation, aspect, phase",
       english_alternate_choices: [""],
     },
     {
       simplified: "局势",
       traditional: "局勢",
       pinyin: "júshì",
-      english: "Situation",
+      english: "Situation, state",
       english_alternate_choices: [""],
     },
     {
@@ -7477,6 +7470,13 @@ const lesson: HSKList = {
       traditional: "考察",
       pinyin: "kǎochá",
       english: "Investigate",
+      english_alternate_choices: [""],
+    },
+    {
+      simplified: "奖赏",
+      traditional: "獎賞",
+      pinyin: "jiǎngshǎng",
+      english: "Reward",
       english_alternate_choices: [""],
     },
     {
@@ -8267,7 +8267,7 @@ const lesson: HSKList = {
       simplified: "领会",
       traditional: "領會",
       pinyin: "lǐnghuì",
-      english: "Understand",
+      english: "Understand, see, grasp",
       english_alternate_choices: [""],
     },
     {
@@ -8288,7 +8288,7 @@ const lesson: HSKList = {
       simplified: "领悟",
       traditional: "領悟",
       pinyin: "lǐngwù",
-      english: "Understand",
+      english: "Understand, realization, apperception",
       english_alternate_choices: [""],
     },
     {
@@ -8981,7 +8981,7 @@ const lesson: HSKList = {
       simplified: "模型",
       traditional: "模型",
       pinyin: "móxíng",
-      english: "Model",
+      english: "Model, mold, pattern, matrix",
       english_alternate_choices: [""],
     },
     {
@@ -10255,7 +10255,7 @@ const lesson: HSKList = {
       simplified: "清澈",
       traditional: "清澈",
       pinyin: "qīngchè",
-      english: "Clear",
+      english: "Clear, clean, fair pure",
       english_alternate_choices: [""],
     },
     {
@@ -10283,14 +10283,7 @@ const lesson: HSKList = {
       simplified: "清理",
       traditional: "清理",
       pinyin: "qīnglǐ",
-      english: "Clear",
-      english_alternate_choices: [""],
-    },
-    {
-      simplified: "清晰",
-      traditional: "清晰",
-      pinyin: "qīngxī",
-      english: "Clear",
+      english: "Clear up, sort out",
       english_alternate_choices: [""],
     },
     {
@@ -10984,6 +10977,13 @@ const lesson: HSKList = {
       traditional: "上進心",
       pinyin: "shàngjìnxīn",
       english: "Desire to advance",
+      english_alternate_choices: [""],
+    },
+    {
+      simplified: "清晰",
+      traditional: "清晰",
+      pinyin: "qīngxī",
+      english: "Clear",
       english_alternate_choices: [""],
     },
     {
@@ -11942,14 +11942,14 @@ const lesson: HSKList = {
       simplified: "思索",
       traditional: "思索",
       pinyin: "sīsuǒ",
-      english: "Thinking",
+      english: "Thinking, ponder",
       english_alternate_choices: [""],
     },
     {
       simplified: "思维",
       traditional: "思維",
       pinyin: "sīwéi",
-      english: "Thinking",
+      english: "Thinking, thought",
       english_alternate_choices: [""],
     },
     {
@@ -12723,13 +12723,6 @@ const lesson: HSKList = {
       english_alternate_choices: [""],
     },
     {
-      simplified: "推测",
-      traditional: "推測",
-      pinyin: "tuīcè",
-      english: "Speculation",
-      english_alternate_choices: [""],
-    },
-    {
       simplified: "推翻",
       traditional: "推翻",
       pinyin: "tuīfān",
@@ -13006,7 +12999,7 @@ const lesson: HSKList = {
       simplified: "威风",
       traditional: "威風",
       pinyin: "wēifēng",
-      english: "Prestige",
+      english: "Prestige, power",
       english_alternate_choices: [""],
     },
     {
@@ -13014,13 +13007,6 @@ const lesson: HSKList = {
       traditional: "威力",
       pinyin: "wēilì",
       english: "Power",
-      english_alternate_choices: [""],
-    },
-    {
-      simplified: "威望",
-      traditional: "威望",
-      pinyin: "wēiwàng",
-      english: "Prestige",
       english_alternate_choices: [""],
     },
     {
@@ -13062,7 +13048,7 @@ const lesson: HSKList = {
       simplified: "维修",
       traditional: "維修",
       pinyin: "wéixiū",
-      english: "Repair",
+      english: "Service, maintain",
       english_alternate_choices: [""],
     },
     {
@@ -13181,7 +13167,7 @@ const lesson: HSKList = {
       simplified: "文献",
       traditional: "文獻",
       pinyin: "wénxiàn",
-      english: "Literature",
+      english: "Literature, document",
       english_alternate_choices: [""],
     },
     {
@@ -13195,7 +13181,7 @@ const lesson: HSKList = {
       simplified: "文艺",
       traditional: "文藝",
       pinyin: "wényì",
-      english: "Literature",
+      english: "Literature and art",
       english_alternate_choices: [""],
     },
     {
@@ -13252,6 +13238,13 @@ const lesson: HSKList = {
       traditional: "無恥",
       pinyin: "wúchǐ",
       english: "Shameless",
+      english_alternate_choices: [""],
+    },
+    {
+      simplified: "推测",
+      traditional: "推測",
+      pinyin: "tuīcè",
+      english: "Speculation, surmise",
       english_alternate_choices: [""],
     },
     {
@@ -13668,6 +13661,13 @@ const lesson: HSKList = {
       english_alternate_choices: [""],
     },
     {
+      simplified: "威望",
+      traditional: "威望",
+      pinyin: "wēiwàng",
+      english: "Prestige",
+      english_alternate_choices: [""],
+    },
+    {
       simplified: "现成",
       traditional: "現成",
       pinyin: "xiànchéng",
@@ -14081,13 +14081,6 @@ const lesson: HSKList = {
       english_alternate_choices: [""],
     },
     {
-      simplified: "兴旺",
-      traditional: "興旺",
-      pinyin: "xīngwàng",
-      english: "Prosperous",
-      english_alternate_choices: [""],
-    },
-    {
       simplified: "行政",
       traditional: "行政",
       pinyin: "xíngzhèng",
@@ -14113,6 +14106,13 @@ const lesson: HSKList = {
       traditional: "性感",
       pinyin: "xìnggǎn",
       english: "Sexy",
+      english_alternate_choices: [""],
+    },
+    {
+      simplified: "依托",
+      traditional: "依托",
+      pinyin: "yītuō",
+      english: "Rely on",
       english_alternate_choices: [""],
     },
     {
@@ -14196,7 +14196,7 @@ const lesson: HSKList = {
       simplified: "修复",
       traditional: "修復",
       pinyin: "xiūfù",
-      english: "Repair",
+      english: "Repair, restore, renovate",
       english_alternate_choices: [""],
     },
     {
@@ -14578,13 +14578,6 @@ const lesson: HSKList = {
       english_alternate_choices: [""],
     },
     {
-      simplified: "言论",
-      traditional: "言論",
-      pinyin: "yánlùn",
-      english: "Speech",
-      english_alternate_choices: [""],
-    },
-    {
       simplified: "炎热",
       traditional: "炎熱",
       pinyin: "yánrè",
@@ -14809,6 +14802,13 @@ const lesson: HSKList = {
       english_alternate_choices: [""],
     },
     {
+      simplified: "兴旺",
+      traditional: "興旺",
+      pinyin: "xīngwàng",
+      english: "Prosperous, thriving, flourishing",
+      english_alternate_choices: [""],
+    },
+    {
       simplified: "野心",
       traditional: "野心",
       pinyin: "yěxīn",
@@ -14848,20 +14848,6 @@ const lesson: HSKList = {
       traditional: "依靠",
       pinyin: "yīkào",
       english: "Rely on; depend on",
-      english_alternate_choices: [""],
-    },
-    {
-      simplified: "依赖",
-      traditional: "依賴",
-      pinyin: "yīlài",
-      english: "Rely on",
-      english_alternate_choices: [""],
-    },
-    {
-      simplified: "依托",
-      traditional: "依托",
-      pinyin: "yītuō",
-      english: "Rely on",
       english_alternate_choices: [""],
     },
     {
@@ -14966,7 +14952,7 @@ const lesson: HSKList = {
       simplified: "以便",
       traditional: "以便",
       pinyin: "yǐbiàn",
-      english: "So that",
+      english: "So that, in order to",
       english_alternate_choices: [""],
     },
     {
@@ -14994,7 +14980,7 @@ const lesson: HSKList = {
       simplified: "以致",
       traditional: "以致",
       pinyin: "yǐzhì",
-      english: "So that",
+      english: "So, so that",
       english_alternate_choices: [""],
     },
     {
@@ -15064,7 +15050,7 @@ const lesson: HSKList = {
       simplified: "意图",
       traditional: "意圖",
       pinyin: "yìtú",
-      english: "Intention",
+      english: "Intention, aim, meaning",
       english_alternate_choices: [""],
     },
     {
@@ -15078,21 +15064,28 @@ const lesson: HSKList = {
       simplified: "意向",
       traditional: "意向",
       pinyin: "yìxiàng",
-      english: "Intention",
+      english: "Intention, intent, purpose",
+      english_alternate_choices: [""],
+    },
+    {
+      simplified: "赞扬",
+      traditional: "讚揚",
+      pinyin: "zànyáng",
+      english: "Praise",
       english_alternate_choices: [""],
     },
     {
       simplified: "意志",
       traditional: "意志",
       pinyin: "yìzhì",
-      english: "Will",
+      english: "Will, determination, willpower",
       english_alternate_choices: [""],
     },
     {
       simplified: "毅力",
       traditional: "毅力",
       pinyin: "yìlì",
-      english: "Will",
+      english: "Will, perserverance, resolve",
       english_alternate_choices: [""],
     },
     {
@@ -15159,6 +15152,13 @@ const lesson: HSKList = {
       english_alternate_choices: [""],
     },
     {
+      simplified: "言论",
+      traditional: "言論",
+      pinyin: "yánlùn",
+      english: "Speech",
+      english_alternate_choices: [""],
+    },
+    {
       simplified: "引导",
       traditional: "引導",
       pinyin: "yǐndǎo",
@@ -15194,10 +15194,24 @@ const lesson: HSKList = {
       english_alternate_choices: [""],
     },
     {
+      simplified: "遭殃",
+      traditional: "遭殃",
+      pinyin: "zāoyāng",
+      english: "Suffer",
+      english_alternate_choices: [""],
+    },
+    {
       simplified: "婴儿",
       traditional: "嬰兒",
       pinyin: "yīng'ér",
       english: "Baby",
+      english_alternate_choices: [""],
+    },
+    {
+      simplified: "战役",
+      traditional: "戰役",
+      pinyin: "zhànyì",
+      english: "Battle",
       english_alternate_choices: [""],
     },
     {
@@ -15352,6 +15366,13 @@ const lesson: HSKList = {
       traditional: "油膩",
       pinyin: "yóunì",
       english: "Greasy",
+      english_alternate_choices: [""],
+    },
+    {
+      simplified: "依赖",
+      traditional: "依賴",
+      pinyin: "yīlài",
+      english: "Rely on, depend",
       english_alternate_choices: [""],
     },
     {
@@ -15561,14 +15582,14 @@ const lesson: HSKList = {
       simplified: "原始",
       traditional: "原始",
       pinyin: "yuánshǐ",
-      english: "Original",
+      english: "Original, primitive",
       english_alternate_choices: [""],
     },
     {
       simplified: "原先",
       traditional: "原先",
       pinyin: "yuánxiān",
-      english: "Original",
+      english: "Original, former",
       english_alternate_choices: [""],
     },
     {
@@ -15701,14 +15722,7 @@ const lesson: HSKList = {
       simplified: "在乎",
       traditional: "在乎",
       pinyin: "zàihu",
-      english: "Care about",
-      english_alternate_choices: [""],
-    },
-    {
-      simplified: "在意",
-      traditional: "在意",
-      pinyin: "zàiyì",
-      english: "Care about",
+      english: "Care about, mind, take to heart",
       english_alternate_choices: [""],
     },
     {
@@ -15729,7 +15743,7 @@ const lesson: HSKList = {
       simplified: "赞叹",
       traditional: "讚歎",
       pinyin: "zàntàn",
-      english: "Praise",
+      english: "Praise, marvel",
       english_alternate_choices: [""],
     },
     {
@@ -15737,13 +15751,6 @@ const lesson: HSKList = {
       traditional: "贊同",
       pinyin: "zàntóng",
       english: "Agree with",
-      english_alternate_choices: [""],
-    },
-    {
-      simplified: "赞扬",
-      traditional: "讚揚",
-      pinyin: "zànyáng",
-      english: "Praise",
       english_alternate_choices: [""],
     },
     {
@@ -15771,14 +15778,7 @@ const lesson: HSKList = {
       simplified: "遭受",
       traditional: "遭受",
       pinyin: "zāoshòu",
-      english: "Suffer",
-      english_alternate_choices: [""],
-    },
-    {
-      simplified: "遭殃",
-      traditional: "遭殃",
-      pinyin: "zāoyāng",
-      english: "Suffer",
+      english: "Suffer, sustain, undergo",
       english_alternate_choices: [""],
     },
     {
@@ -15939,7 +15939,7 @@ const lesson: HSKList = {
       simplified: "战斗",
       traditional: "戰鬥",
       pinyin: "zhàndòu",
-      english: "Battle",
+      english: "Battle, fighting, combat",
       english_alternate_choices: [""],
     },
     {
@@ -15957,31 +15957,24 @@ const lesson: HSKList = {
       english_alternate_choices: [""],
     },
     {
-      simplified: "战役",
-      traditional: "戰役",
-      pinyin: "zhànyì",
-      english: "Battle",
-      english_alternate_choices: [""],
-    },
-    {
       simplified: "占据",
       traditional: "佔據",
       pinyin: "zhànjù",
-      english: "Occupy",
+      english: "Occupy, hold",
       english_alternate_choices: [""],
     },
     {
       simplified: "占领",
       traditional: "佔領",
       pinyin: "zhànlǐng",
-      english: "Occupy",
+      english: "Occupy, capture, seize",
       english_alternate_choices: [""],
     },
     {
       simplified: "占有",
       traditional: "佔有",
       pinyin: "zhànyǒu",
-      english: "Occupy",
+      english: "Have, possess, own, hold",
       english_alternate_choices: [""],
     },
     {
@@ -16051,7 +16044,7 @@ const lesson: HSKList = {
       simplified: "照料",
       traditional: "照料",
       pinyin: "zhàoliào",
-      english: "Take care of",
+      english: "Take care of, tend",
       english_alternate_choices: [""],
     },
     {
@@ -16059,13 +16052,6 @@ const lesson: HSKList = {
       traditional: "照耀",
       pinyin: "zhàoyào",
       english: "Shine",
-      english_alternate_choices: [""],
-    },
-    {
-      simplified: "照应",
-      traditional: "照應",
-      pinyin: "zhàoyìng",
-      english: "Take care of",
       english_alternate_choices: [""],
     },
     {
@@ -16170,7 +16156,7 @@ const lesson: HSKList = {
       simplified: "镇静",
       traditional: "鎮靜",
       pinyin: "zhènjìng",
-      english: "Calm",
+      english: "Calm, poised, self-collected",
       english_alternate_choices: [""],
     },
     {
@@ -16205,7 +16191,7 @@ const lesson: HSKList = {
       simplified: "争端",
       traditional: "爭端",
       pinyin: "zhēngduān",
-      english: "Dispute",
+      english: "Dispute, conflict, controversy",
       english_alternate_choices: [""],
     },
     {
@@ -16234,6 +16220,13 @@ const lesson: HSKList = {
       traditional: "爭議",
       pinyin: "zhēngyì",
       english: "Dispute",
+      english_alternate_choices: [""],
+    },
+    {
+      simplified: "在意",
+      traditional: "在意",
+      pinyin: "zàiyì",
+      english: "Care about, mind, notice",
       english_alternate_choices: [""],
     },
     {
@@ -16506,7 +16499,7 @@ const lesson: HSKList = {
       simplified: "指示",
       traditional: "指示",
       pinyin: "zhǐshì",
-      english: "Instructions",
+      english: "Instructions, indication, directive",
       english_alternate_choices: [""],
     },
     {
@@ -16839,6 +16832,13 @@ const lesson: HSKList = {
       english_alternate_choices: [""],
     },
     {
+      simplified: "照应",
+      traditional: "照應",
+      pinyin: "zhàoyìng",
+      english: "Take care of",
+      english_alternate_choices: [""],
+    },
+    {
       simplified: "拄",
       traditional: "拄",
       pinyin: "zhǔ",
@@ -16926,14 +16926,14 @@ const lesson: HSKList = {
       simplified: "助理",
       traditional: "助理",
       pinyin: "zhùlǐ",
-      english: "Assistant",
+      english: "Assistant manager",
       english_alternate_choices: [""],
     },
     {
       simplified: "助手",
       traditional: "助手",
       pinyin: "zhùshǒu",
-      english: "Assistant",
+      english: "Assistant, helper, aide",
       english_alternate_choices: [""],
     },
     {

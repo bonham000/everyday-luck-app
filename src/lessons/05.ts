@@ -756,7 +756,7 @@ const lesson: HSKList = {
       simplified: "承担",
       traditional: "承擔",
       pinyin: "chéngdān",
-      english: "Bear",
+      english: "Bear, assume, undertake",
       english_alternate_choices: [""],
     },
     {
@@ -764,13 +764,6 @@ const lesson: HSKList = {
       traditional: "承認",
       pinyin: "chéngrèn",
       english: "Admit",
-      english_alternate_choices: [""],
-    },
-    {
-      simplified: "承受",
-      traditional: "承受",
-      pinyin: "chéngshòu",
-      english: "Bear",
       english_alternate_choices: [""],
     },
     {
@@ -1135,6 +1128,13 @@ const lesson: HSKList = {
       traditional: "醋",
       pinyin: "cù",
       english: "Vinegar",
+      english_alternate_choices: [""],
+    },
+    {
+      simplified: "承受",
+      traditional: "承受",
+      pinyin: "chéngshòu",
+      english: "Bear, endure, support",
       english_alternate_choices: [""],
     },
     {
@@ -1932,7 +1932,7 @@ const lesson: HSKList = {
       simplified: "分配",
       traditional: "分配",
       pinyin: "fēnpèi",
-      english: "Distribution",
+      english: "Distribution, allocation, assignment",
       english_alternate_choices: [""],
     },
     {
@@ -2142,7 +2142,7 @@ const lesson: HSKList = {
       simplified: "感想",
       traditional: "印象",
       pinyin: "gǎnxiǎng",
-      english: "Feel",
+      english: "Feel, impression",
       english_alternate_choices: [""],
     },
     {
@@ -2408,7 +2408,7 @@ const lesson: HSKList = {
       simplified: "古代",
       traditional: "古代",
       pinyin: "gǔdài",
-      english: "Ancient",
+      english: "Ancient, antiquity",
       english_alternate_choices: [""],
     },
     {
@@ -2422,7 +2422,7 @@ const lesson: HSKList = {
       simplified: "古老",
       traditional: "古老",
       pinyin: "gǔlǎo",
-      english: "Ancient",
+      english: "Ancient, old",
       english_alternate_choices: [""],
     },
     {
@@ -4214,14 +4214,7 @@ const lesson: HSKList = {
       simplified: "立即",
       traditional: "立即",
       pinyin: "lìjí",
-      english: "Immediately",
-      english_alternate_choices: [""],
-    },
-    {
-      simplified: "立刻",
-      traditional: "立刻",
-      pinyin: "lìkè",
-      english: "Immediately",
+      english: "Immediately, straightaway",
       english_alternate_choices: [""],
     },
     {
@@ -4575,6 +4568,13 @@ const lesson: HSKList = {
       english_alternate_choices: [""],
     },
     {
+      simplified: "立刻",
+      traditional: "立刻",
+      pinyin: "lìkè",
+      english: "Immediately, at once",
+      english_alternate_choices: [""],
+    },
+    {
       simplified: "秘密",
       traditional: "秘密",
       pinyin: "mìmì",
@@ -4599,7 +4599,7 @@ const lesson: HSKList = {
       simplified: "面对",
       traditional: "面對",
       pinyin: "miànduì",
-      english: "Face",
+      english: "Face, confront",
       english_alternate_choices: [""],
     },
     {
@@ -4613,7 +4613,7 @@ const lesson: HSKList = {
       simplified: "面临",
       traditional: "面臨",
       pinyin: "miànlín",
-      english: "Face",
+      english: "Be faced, be faced",
       english_alternate_choices: [""],
     },
     {
@@ -6598,13 +6598,6 @@ const lesson: HSKList = {
       english_alternate_choices: [""],
     },
     {
-      simplified: "体验",
-      traditional: "體驗",
-      pinyin: "tǐyàn",
-      english: "Experience",
-      english_alternate_choices: [""],
-    },
-    {
       simplified: "天空",
       traditional: "天空",
       pinyin: "tiānkōng",
@@ -6825,14 +6818,7 @@ const lesson: HSKList = {
       simplified: "完美",
       traditional: "完美",
       pinyin: "wánměi",
-      english: "Perfect",
-      english_alternate_choices: [""],
-    },
-    {
-      simplified: "完善",
-      traditional: "完善",
-      pinyin: "wánshàn",
-      english: "Perfect",
+      english: "Perfect, ideal",
       english_alternate_choices: [""],
     },
     {
@@ -7270,6 +7256,13 @@ const lesson: HSKList = {
       english_alternate_choices: [""],
     },
     {
+      simplified: "体验",
+      traditional: "體驗",
+      pinyin: "tǐyàn",
+      english: "Experience",
+      english_alternate_choices: [""],
+    },
+    {
       simplified: "想念",
       traditional: "想念",
       pinyin: "xiǎngniàn",
@@ -7316,6 +7309,13 @@ const lesson: HSKList = {
       traditional: "橡皮",
       pinyin: "xiàngpí",
       english: "Rubber",
+      english_alternate_choices: [""],
+    },
+    {
+      simplified: "完善",
+      traditional: "完善",
+      pinyin: "wánshàn",
+      english: "Perfect, complete",
       english_alternate_choices: [""],
     },
     {
@@ -8449,14 +8449,7 @@ const lesson: HSKList = {
       simplified: "整个",
       traditional: "整個",
       pinyin: "zhěnggè",
-      english: "Whole",
-      english_alternate_choices: [""],
-    },
-    {
-      simplified: "整体",
-      traditional: "整體",
-      pinyin: "zhěngtǐ",
-      english: "Whole",
+      english: "Whole, entire, total",
       english_alternate_choices: [""],
     },
     {
@@ -8870,6 +8863,13 @@ const lesson: HSKList = {
       traditional: "字幕",
       pinyin: "zìmù",
       english: "Subtitle",
+      english_alternate_choices: [""],
+    },
+    {
+      simplified: "整体",
+      traditional: "整體",
+      pinyin: "zhěngtǐ",
+      english: "Whole, integrated",
       english_alternate_choices: [""],
     },
     {

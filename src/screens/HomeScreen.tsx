@@ -18,8 +18,8 @@ import {
   ListScreenParams,
 } from "@src/tools/types";
 import {
+  adjustListContentByDifficultySetting,
   DeriveLessonContentArgs,
-  formatHskListContent,
   getFinalUnlockedListKey,
   getRandomQuizChallenge,
   getReviewLessonSet,
@@ -128,7 +128,10 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
     listIndex: number,
     type: LessonSummaryType = "LESSON",
   ) => () => {
-    const hskList = formatHskListContent(list, this.props.appDifficultySetting);
+    const hskList = adjustListContentByDifficultySetting(
+      list,
+      this.props.appDifficultySetting,
+    );
     const params: ListScreenParams = {
       type,
       listKey,
