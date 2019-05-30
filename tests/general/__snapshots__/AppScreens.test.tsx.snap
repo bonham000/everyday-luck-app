@@ -5,114 +5,249 @@ exports[`App Screen Components Each screen component renders with props provided
   style={
     Array [
       Object {
-        "alignItems": "center",
         "backgroundColor": "rgb(231, 237, 240)",
         "flex": 1,
-        "paddingTop": 25,
       },
     ]
   }
 >
-  <Text
+  <View
     style={
       Array [
         Object {
-          "fontSize": 18,
-          "fontWeight": "400",
-          "marginTop": 18,
-          "textAlign": "center",
-          "width": "90%",
+          "flex": 8,
+          "width": "100%",
+        },
+        Object {
+          "alignItems": "center",
+          "justifyContent": "center",
         },
       ]
     }
   >
-    This app uses the vocabulary content from the
-     
     <Text
       style={
         Array [
           Object {
-            "fontWeight": "bold",
+            "fontSize": 18,
+            "fontWeight": "400",
+            "marginTop": 18,
+            "textAlign": "center",
+            "width": "90%",
           },
         ]
       }
     >
-      Hanyu Shuiping Kaoshi
+      <Text
+        style={
+          Array [
+            Object {
+              "fontWeight": "bold",
+            },
+          ]
+        }
+      >
+        Using the App
+      </Text>
     </Text>
-     (Chinese Proficiency Test). This test is the standardized test of Standard Chinese language proficiency of China for non-native speakers such as foreign students and overseas Chinese.
-  </Text>
-  <Text
+    <Text
+      style={
+        Array [
+          Object {
+            "fontSize": 18,
+            "fontWeight": "400",
+            "marginTop": 18,
+            "textAlign": "center",
+            "width": "90%",
+          },
+        ]
+      }
+    >
+      This app uses the vocabulary content from the
+       
+      <Text
+        style={
+          Array [
+            Object {
+              "fontWeight": "bold",
+            },
+          ]
+        }
+      >
+        Hanyu Shuiping Kaoshi
+      </Text>
+       (Chinese Proficiency Test). This test is the standardized test of Standard Chinese language proficiency of China for non-native speakers such as foreign students and overseas Chinese.
+    </Text>
+    <Text
+      style={
+        Array [
+          Object {
+            "fontSize": 18,
+            "fontWeight": "400",
+            "marginTop": 18,
+            "textAlign": "center",
+            "width": "90%",
+          },
+        ]
+      }
+    >
+      There are 6 levels total, which comprise a total of 5,000 words and about 2,500 characters. The goal of the app is to break these lessons into a series of small challenges which can be mastered with a little practice each day.
+    </Text>
+    <Text
+      style={
+        Array [
+          Object {
+            "fontSize": 34,
+            "marginTop": 22,
+          },
+        ]
+      }
+    >
+      🌌🌃🌆🌇
+    </Text>
+    <Text
+      onPress={[Function]}
+      style={
+        Array [
+          Object {
+            "color": "#3498db",
+            "fontSize": 16,
+            "fontWeight": "500",
+            "marginTop": 28,
+          },
+        ]
+      }
+    >
+      Contact
+    </Text>
+    <Text
+      onPress={[Function]}
+      style={
+        Array [
+          Object {
+            "color": "#3498db",
+            "fontSize": 16,
+            "fontWeight": "500",
+            "marginTop": 28,
+          },
+        ]
+      }
+    >
+      This app is Open Source
+    </Text>
+    <Text
+      onPress={[Function]}
+      style={
+        Array [
+          Object {
+            "color": "#3498db",
+            "fontSize": 16,
+            "fontWeight": "500",
+            "marginTop": 28,
+          },
+        ]
+      }
+    >
+      Learn more about the HSK
+    </Text>
+  </View>
+  <View
     style={
       Array [
         Object {
-          "fontSize": 18,
-          "fontWeight": "400",
-          "marginTop": 18,
-          "textAlign": "center",
-          "width": "90%",
+          "alignItems": "center",
+          "flex": 1,
+          "width": "100%",
         },
       ]
     }
   >
-    There are 6 levels total, which comprise a total of 5,000 words and about 2,500 characters. The goal of the app is to break these lessons into a series of small challenges which can be mastered with a little practice each day.
-  </Text>
-  <Text
-    style={
-      Array [
+    <View
+      style={
         Object {
-          "fontSize": 34,
-          "marginTop": 22,
-        },
-      ]
-    }
-  >
-    🌌🌃🌆🌇
-  </Text>
-  <Text
-    onPress={[Function]}
-    style={
-      Array [
-        Object {
-          "color": "#3498db",
-          "fontSize": 16,
-          "fontWeight": "500",
-          "marginTop": 28,
-        },
-      ]
-    }
-  >
-    Contact
-  </Text>
-  <Text
-    onPress={[Function]}
-    style={
-      Array [
-        Object {
-          "color": "#3498db",
-          "fontSize": 16,
-          "fontWeight": "500",
-          "marginTop": 28,
-        },
-      ]
-    }
-  >
-    This app is Open Source
-  </Text>
-  <Text
-    onPress={[Function]}
-    style={
-      Array [
-        Object {
-          "color": "#3498db",
-          "fontSize": 16,
-          "fontWeight": "500",
-          "marginTop": 28,
-        },
-      ]
-    }
-  >
-    Learn more about the HSK
-  </Text>
+          "alignItems": "center",
+          "backgroundColor": "#6200ee",
+          "borderColor": "transparent",
+          "borderRadius": 4,
+          "borderStyle": "solid",
+          "borderWidth": 0,
+          "elevation": 2,
+          "height": 40,
+          "justifyContent": "center",
+          "marginBottom": 15,
+          "marginTop": 15,
+          "minWidth": 64,
+          "shadowColor": "#000000",
+          "shadowOffset": Object {
+            "height": NaN,
+            "width": 0,
+          },
+          "shadowOpacity": 0.24,
+          "shadowRadius": 2,
+          "width": "65%",
+        }
+      }
+    >
+      <View
+        accessibilityRole="button"
+        accessible={true}
+        isTVSelectable={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "borderRadius": 4,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "justifyContent": "center",
+            }
+          }
+        >
+          <Text
+            numberOfLines={1}
+            style={
+              Array [
+                Object {
+                  "color": "#000000",
+                  "fontFamily": "Helvetica Neue",
+                  "textAlign": "left",
+                  "writingDirection": "ltr",
+                },
+                Array [
+                  Object {
+                    "letterSpacing": 1,
+                    "marginHorizontal": 16,
+                    "marginVertical": 9,
+                    "textAlign": "center",
+                  },
+                  undefined,
+                  Object {
+                    "color": "#ffffff",
+                    "fontFamily": "HelveticaNeue-Medium",
+                  },
+                  Object {
+                    "fontFamily": "HelveticaNeue-Medium",
+                  },
+                ],
+              ]
+            }
+          >
+            NEXT!
+          </Text>
+        </View>
+      </View>
+    </View>
+  </View>
 </View>
 `;
 
@@ -3780,7 +3915,7 @@ exports[`App Screen Components Each screen component renders with props provided
       "alignItems": "center",
       "backgroundColor": "rgb(231, 237, 240)",
       "flexGrow": 1,
-      "paddingBottom": 150,
+      "paddingBottom": 50,
       "paddingTop": 25,
       "width": "100%",
     }
@@ -4241,40 +4376,271 @@ exports[`App Screen Components Each screen component renders with props provided
   style={
     Array [
       Object {
-        "alignItems": "center",
         "backgroundColor": "rgb(231, 237, 240)",
         "flex": 1,
-        "paddingTop": 25,
       },
     ]
   }
 >
-  <Text
+  <View
     style={
       Array [
         Object {
-          "fontSize": 18,
-          "fontWeight": "400",
-          "marginTop": 18,
-          "textAlign": "center",
-          "width": "90%",
+          "flex": 8,
+          "width": "100%",
         },
       ]
     }
   >
-    <Text
-      style={
-        Array [
-          Object {
-            "fontWeight": "bold",
-          },
-        ]
+    <RCTScrollView
+      contentContainerStyle={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgb(231, 237, 240)",
+          "flexGrow": 1,
+          "paddingBottom": 50,
+          "paddingTop": 25,
+          "width": "100%",
+        }
       }
     >
-      TODO:
-    </Text>
-     Add Intro Screen(s).
-  </Text>
+      <View>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontSize": 18,
+                "fontWeight": "400",
+                "marginTop": 18,
+                "textAlign": "center",
+                "width": "90%",
+              },
+            ]
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontWeight": "bold",
+                },
+              ]
+            }
+          >
+            About Chinese 中文
+          </Text>
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontSize": 18,
+                "fontWeight": "400",
+                "marginTop": 18,
+                "textAlign": "center",
+                "width": "90%",
+              },
+            ]
+          }
+        >
+          Chinese is a complex family of languages, predominated by the official Beijing dialect of Mandarin, which is the official language of China, Taiwan, and on the four official languages of Singapore.
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontSize": 18,
+                "fontWeight": "400",
+                "marginTop": 18,
+                "textAlign": "center",
+                "width": "90%",
+              },
+            ]
+          }
+        >
+          There are two main writing systems for Chinese:
+           
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontWeight": "bold",
+                },
+              ]
+            }
+          >
+            Traditional
+          </Text>
+           and 
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontWeight": "bold",
+                },
+              ]
+            }
+          >
+            Simplified
+          </Text>
+          . As the names imply, Simplified Chinese (简化字: jiǎnhuàzì) are simplified versions of the often more complex Traditional Chinese characters. These were created and adopted in mainland China to encourage literacy.
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontSize": 18,
+                "fontWeight": "400",
+                "marginTop": 18,
+                "textAlign": "center",
+                "width": "90%",
+              },
+            ]
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontWeight": "bold",
+                },
+              ]
+            }
+          >
+            Pinyin
+          </Text>
+           is the official romanization sysstem for standard Chinese. It represents words like 中文 (Chinese) with the Roman alphabet: Zhōngwén. Pinyin is very useful for teaching and writing Chinese.
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontSize": 18,
+                "fontWeight": "400",
+                "marginTop": 18,
+                "textAlign": "center",
+                "width": "90%",
+              },
+            ]
+          }
+        >
+          For instance, you can enable Chinese language on modern computer devices (phone, computer, etc) to type pinyin and then see a selection of Chinese characters which match what you typed. Then you just select the characters you intended. This is the method we recommend for typing pinyin in the quizzes in this app.
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontSize": 18,
+                "fontWeight": "400",
+                "marginTop": 18,
+                "textAlign": "center",
+                "width": "90%",
+              },
+            ]
+          }
+        >
+          On the next screen, you will see some more information about this app and how it works.
+        </Text>
+      </View>
+    </RCTScrollView>
+  </View>
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "flex": 1,
+          "width": "100%",
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#6200ee",
+          "borderColor": "transparent",
+          "borderRadius": 4,
+          "borderStyle": "solid",
+          "borderWidth": 0,
+          "elevation": 2,
+          "height": 40,
+          "justifyContent": "center",
+          "marginBottom": 15,
+          "marginTop": 15,
+          "minWidth": 64,
+          "shadowColor": "#000000",
+          "shadowOffset": Object {
+            "height": NaN,
+            "width": 0,
+          },
+          "shadowOpacity": 0.24,
+          "shadowRadius": 2,
+          "width": "65%",
+        }
+      }
+    >
+      <View
+        accessibilityRole="button"
+        accessible={true}
+        isTVSelectable={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "borderRadius": 4,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "justifyContent": "center",
+            }
+          }
+        >
+          <Text
+            numberOfLines={1}
+            style={
+              Array [
+                Object {
+                  "color": "#000000",
+                  "fontFamily": "Helvetica Neue",
+                  "textAlign": "left",
+                  "writingDirection": "ltr",
+                },
+                Array [
+                  Object {
+                    "letterSpacing": 1,
+                    "marginHorizontal": 16,
+                    "marginVertical": 9,
+                    "textAlign": "center",
+                  },
+                  undefined,
+                  Object {
+                    "color": "#ffffff",
+                    "fontFamily": "HelveticaNeue-Medium",
+                  },
+                  Object {
+                    "fontFamily": "HelveticaNeue-Medium",
+                  },
+                ],
+              ]
+            }
+          >
+            NEXT!
+          </Text>
+        </View>
+      </View>
+    </View>
+  </View>
 </View>
 `;
 
@@ -4925,7 +5291,7 @@ exports[`App Screen Components Each screen component renders with props provided
       "alignItems": "center",
       "backgroundColor": "rgb(231, 237, 240)",
       "flexGrow": 1,
-      "paddingBottom": 150,
+      "paddingBottom": 50,
       "paddingTop": 25,
       "width": "100%",
     }
@@ -5985,5 +6351,256 @@ exports[`App Screen Components Each screen component renders with props provided
       </View>
     </View>
   </RCTScrollView>
+</View>
+`;
+
+exports[`App Screen Components Each screen component renders with props provided: Welcome Screen 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "rgb(231, 237, 240)",
+        "flex": 1,
+      },
+    ]
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "flex": 8,
+          "width": "100%",
+        },
+        Object {
+          "alignItems": "center",
+          "justifyContent": "center",
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "fontSize": 18,
+            "fontWeight": "400",
+            "marginTop": 18,
+            "textAlign": "center",
+            "width": "90%",
+          },
+        ]
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "fontWeight": "bold",
+            },
+          ]
+        }
+      >
+        Using the App
+      </Text>
+    </Text>
+    <Text
+      style={
+        Array [
+          Object {
+            "fontSize": 18,
+            "fontWeight": "400",
+            "marginTop": 18,
+            "textAlign": "center",
+            "width": "90%",
+          },
+        ]
+      }
+    >
+      This app uses the vocabulary content from the
+       
+      <Text
+        style={
+          Array [
+            Object {
+              "fontWeight": "bold",
+            },
+          ]
+        }
+      >
+        Hanyu Shuiping Kaoshi
+      </Text>
+       (Chinese Proficiency Test). This test is the standardized test of Standard Chinese language proficiency of China for non-native speakers such as foreign students and overseas Chinese.
+    </Text>
+    <Text
+      style={
+        Array [
+          Object {
+            "fontSize": 18,
+            "fontWeight": "400",
+            "marginTop": 18,
+            "textAlign": "center",
+            "width": "90%",
+          },
+        ]
+      }
+    >
+      There are 6 levels total, which comprise a total of 5,000 words and about 2,500 characters. The goal of the app is to break these lessons into a series of small challenges which can be mastered with a little practice each day.
+    </Text>
+    <Text
+      style={
+        Array [
+          Object {
+            "fontSize": 34,
+            "marginTop": 22,
+          },
+        ]
+      }
+    >
+      🌌🌃🌆🌇
+    </Text>
+    <Text
+      onPress={[Function]}
+      style={
+        Array [
+          Object {
+            "color": "#3498db",
+            "fontSize": 16,
+            "fontWeight": "500",
+            "marginTop": 28,
+          },
+        ]
+      }
+    >
+      Contact
+    </Text>
+    <Text
+      onPress={[Function]}
+      style={
+        Array [
+          Object {
+            "color": "#3498db",
+            "fontSize": 16,
+            "fontWeight": "500",
+            "marginTop": 28,
+          },
+        ]
+      }
+    >
+      This app is Open Source
+    </Text>
+    <Text
+      onPress={[Function]}
+      style={
+        Array [
+          Object {
+            "color": "#3498db",
+            "fontSize": 16,
+            "fontWeight": "500",
+            "marginTop": 28,
+          },
+        ]
+      }
+    >
+      Learn more about the HSK
+    </Text>
+  </View>
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "flex": 1,
+          "width": "100%",
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#6200ee",
+          "borderColor": "transparent",
+          "borderRadius": 4,
+          "borderStyle": "solid",
+          "borderWidth": 0,
+          "elevation": 2,
+          "height": 40,
+          "justifyContent": "center",
+          "marginBottom": 15,
+          "marginTop": 15,
+          "minWidth": 64,
+          "shadowColor": "#000000",
+          "shadowOffset": Object {
+            "height": NaN,
+            "width": 0,
+          },
+          "shadowOpacity": 0.24,
+          "shadowRadius": 2,
+          "width": "65%",
+        }
+      }
+    >
+      <View
+        accessibilityRole="button"
+        accessible={true}
+        isTVSelectable={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "borderRadius": 4,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "justifyContent": "center",
+            }
+          }
+        >
+          <Text
+            numberOfLines={1}
+            style={
+              Array [
+                Object {
+                  "color": "#000000",
+                  "fontFamily": "Helvetica Neue",
+                  "textAlign": "left",
+                  "writingDirection": "ltr",
+                },
+                Array [
+                  Object {
+                    "letterSpacing": 1,
+                    "marginHorizontal": 16,
+                    "marginVertical": 9,
+                    "textAlign": "center",
+                  },
+                  undefined,
+                  Object {
+                    "color": "#ffffff",
+                    "fontFamily": "HelveticaNeue-Medium",
+                  },
+                  Object {
+                    "fontFamily": "HelveticaNeue-Medium",
+                  },
+                ],
+              ]
+            }
+          >
+            NEXT!
+          </Text>
+        </View>
+      </View>
+    </View>
+  </View>
 </View>
 `;

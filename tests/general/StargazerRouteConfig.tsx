@@ -199,8 +199,8 @@ const stargazerConfig: ReadonlyArray<StargazerRouteConfigObject> = [
     ),
   },
   {
-    name: "About Screen",
-    screenName: ROUTE_NAMES.ABOUT,
+    name: "Welcome Screen",
+    screenName: ROUTE_NAMES.WELCOME,
     screen: (props: StargazerRouteProps) => (
       <AboutScreenComponent navigation={props.navigation} />
     ),
@@ -210,6 +210,13 @@ const stargazerConfig: ReadonlyArray<StargazerRouteConfigObject> = [
     screenName: ROUTE_NAMES.INTRO,
     screen: (props: StargazerRouteProps) => (
       <IntroScreenComponent navigation={props.navigation} />
+    ),
+  },
+  {
+    name: "About Screen",
+    screenName: ROUTE_NAMES.ABOUT,
+    screen: (props: StargazerRouteProps) => (
+      <AboutScreenComponent navigation={props.navigation} />
     ),
   },
   {
