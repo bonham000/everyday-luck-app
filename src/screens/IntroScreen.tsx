@@ -1,8 +1,16 @@
 import glamorous from "glamorous-native";
 import React from "react";
+import { Button } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
-import { Bold, Container } from "@src/components/SharedComponents";
+import {
+  Bold,
+  ButtonStyles,
+  Screen,
+  ScreenBottom,
+  ScreenTop,
+  ScrollContainer,
+} from "@src/components/SharedComponents";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 
 /** ========================================================================
@@ -22,16 +30,61 @@ interface IProps {
 export class IntroScreenComponent extends React.Component<IProps, {}> {
   render(): JSX.Element {
     return (
-      <Container>
-        <DescriptionText>
-          <Bold>TODO:</Bold> Add Intro Screen(s).
-        </DescriptionText>
-      </Container>
+      <Screen>
+        <ScreenTop>
+          <ScrollContainer>
+            <DescriptionText>
+              <Bold>About Chinese 中文</Bold>
+            </DescriptionText>
+            <DescriptionText>
+              Chinese is a complex family of languages, predominated by the
+              official Beijing dialect of Mandarin, which is the official
+              language of China, Taiwan, and on the four official languages of
+              Singapore.
+            </DescriptionText>
+            <DescriptionText>
+              There are two main writing systems for Chinese:{" "}
+              <Bold>Traditional</Bold> and <Bold>Simplified</Bold>. As the names
+              imply, Simplified Chinese (简化字: jiǎnhuàzì) are simplified
+              versions of the often more complex Traditional Chinese characters.
+              These were created and adopted in mainland China to encourage
+              literacy.
+            </DescriptionText>
+            <DescriptionText>
+              <Bold>Pinyin</Bold> is the official romanization sysstem for
+              standard Chinese. It represents words like 中文 (Chinese) with the
+              Roman alphabet: Zhōngwén. Pinyin is very useful for teaching and
+              writing Chinese.
+            </DescriptionText>
+            <DescriptionText>
+              For instance, you can enable Chinese language on modern computer
+              devices (phone, computer, etc) to type pinyin and then see a
+              selection of Chinese characters which match what you typed. Then
+              you just select the characters you intended. This is the method we
+              recommend for typing pinyin in the quizzes in this app.
+            </DescriptionText>
+            <DescriptionText>
+              On the next screen, you will see some more information about this
+              app and how it works.
+            </DescriptionText>
+          </ScrollContainer>
+        </ScreenTop>
+        <ScreenBottom>
+          <Button
+            dark
+            mode="contained"
+            style={ButtonStyles}
+            onPress={this.handleNavigate}
+          >
+            Next!
+          </Button>
+        </ScreenBottom>
+      </Screen>
     );
   }
 
-  navigateToContact = () => {
-    this.props.navigation.navigate(ROUTE_NAMES.HOME);
+  handleNavigate = () => {
+    this.props.navigation.navigate(ROUTE_NAMES.ABOUT);
   };
 }
 
@@ -47,18 +100,6 @@ const DescriptionText = glamorous.text({
   fontWeight: "400",
   textAlign: "center",
 });
-
-// const Emoji = glamorous.text({
-//   fontSize: 34,
-//   marginTop: 22,
-// });
-
-// const LinkText = glamorous.text({
-//   fontSize: 16,
-//   marginTop: 28,
-//   fontWeight: "500",
-//   color: COLORS.primaryBlue,
-// });
 
 /** ========================================================================
  * Export

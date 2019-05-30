@@ -83,11 +83,6 @@ class SideMenuComponent extends React.Component<IProps, {}> {
           ⛱{"  "}
           Reset
         </Item>
-        <Item onPress={this.createNavigationHandler(ROUTE_NAMES.ABOUT)}>
-          🎋
-          {"  "}
-          About
-        </Item>
         <Item onPress={this.handleLogout}>🎡 Logout</Item>
         <BottomBlock>
           {user && (

@@ -98,7 +98,7 @@ export class GoogleSigninScreenComponent extends React.Component<
         const { user } = result;
         if (user.email) {
           await this.props.onSignin(user as GoogleSigninUser);
-          this.props.navigation.dispatch(resetNavigation(ROUTE_NAMES.HOME));
+          this.props.navigation.dispatch(resetNavigation(ROUTE_NAMES.WELCOME));
         } else {
           throw new Error("No email provided!");
         }
