@@ -174,11 +174,11 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
   maybeHandleOfflineUpdates = async () => {
     const offlineFlag = await getOfflineUpdatesFlagState();
     if (offlineFlag.shouldProcessRequests) {
-      this.performUserUpdate();
+      this.performUserUpdate(offlineFlag.shouldProcessRequests);
     }
   };
 
-  performUserUpdate = async () => {
+  performUserUpdate = async (offlineFlag?: boolean) => {
     const { user } = this.state;
     if (user) {
       try {
@@ -187,14 +187,20 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
         }
 
         await updateUser(user);
-        setOfflineUpdatesFlagState({ shouldProcessRequests: false });
+        await setOfflineUpdatesFlagState({ shouldProcessRequests: false });
+        /**
+         * Alert the user if offline updates were just saved.
+         */
+        if (offlineFlag) {
+          this.setToastMessage("Offline updates saved successfully!");
+        }
       } catch (err) {
         /**
          * TODO: Parse error here and if it's a 401 status log out the
          * user with a message.
          */
         console.log(`Could not update user right now`);
-        setOfflineUpdatesFlagState({ shouldProcessRequests: true });
+        await setOfflineUpdatesFlagState({ shouldProcessRequests: true });
       }
     }
 
