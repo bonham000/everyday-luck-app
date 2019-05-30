@@ -78,7 +78,7 @@ interface IState {
 
 const REVERSION_PENALTY = 50;
 
-const AUTO_PROCEED_DELAY = 1000;
+const AUTO_PROCEED_DELAY = 700;
 
 /** ========================================================================
  * React Class

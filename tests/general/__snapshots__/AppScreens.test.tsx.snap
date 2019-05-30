@@ -2798,7 +2798,7 @@ exports[`App Screen Components Each screen component renders with props provided
             ]
           }
         >
-          We, us (pl.)
+          We, us
         </Text>
       </View>
       <View
@@ -5104,7 +5104,10 @@ exports[`App Screen Components Each screen component renders with props provided
           Object {
             "english": "I, me",
             "english_alternate_choices": Array [
-              "",
+              "They",
+              "He, him",
+              "You",
+              "She, her",
             ],
             "pinyin": "wǒ",
             "simplified": "我",
@@ -6192,7 +6195,10 @@ exports[`App Screen Components Each screen component renders with props provided
         Object {
           "english": "I, me",
           "english_alternate_choices": Array [
-            "",
+            "They",
+            "He, him",
+            "You",
+            "She, her",
           ],
           "key": "我",
           "pinyin": "wǒ",
