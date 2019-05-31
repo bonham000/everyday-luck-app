@@ -45,8 +45,6 @@ const ButtonStyles: ViewStyle = {
   marginBottom: 15,
   height: 40,
   minWidth: 225,
-  alignItems: "center",
-  justifyContent: "center",
 };
 
 const LineBreak = glamorous.view({

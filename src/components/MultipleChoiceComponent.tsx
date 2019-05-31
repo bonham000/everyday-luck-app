@@ -72,6 +72,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
       shouldShake,
       handleProceed,
       languageSetting,
+      autoProceedQuestion,
     } = this.props;
     const shouldReveal = valid || attempted;
     const correctWord = currentWord[languageSetting];
@@ -110,7 +111,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
             </AttributionText>
           </AudioEscapeBlock>
         )}
-        {shouldReveal ? (
+        {shouldReveal && (!autoProceedQuestion || !valid) && (
           <Button
             dark
             mode="contained"
@@ -123,7 +124,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
           >
             Next Question
           </Button>
-        ) : null}
+        )}
       </React.Fragment>
     );
   }

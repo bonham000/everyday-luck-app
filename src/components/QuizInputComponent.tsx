@@ -115,7 +115,7 @@ const QuizInput = ({
           </QuizBox>
         </Shaker>
       )}
-      {!autoProceedQuestion && (
+      {(!autoProceedQuestion || !valid) && (
         <Button
           dark
           mode="contained"
