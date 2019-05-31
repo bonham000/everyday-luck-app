@@ -82,6 +82,7 @@ export interface BaseUser {
   given_name: string;
   photo_url?: string;
   experience_points: number;
+  push_token: string;
 }
 
 export interface UserJson extends BaseUser {

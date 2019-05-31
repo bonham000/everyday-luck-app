@@ -118,6 +118,7 @@ const USER: User = {
   score_history: DEFAULT_SCORE_STATE,
   experience_points: EXPERIENCE_POINTS,
   settings: SETTINGS,
+  push_token: "s7d89a69f69a6d76sa80fsa6f0",
 };
 
 const GLOBAL_STATE_PROPS: GlobalStateContextProps = {

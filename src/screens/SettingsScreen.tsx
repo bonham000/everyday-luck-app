@@ -96,7 +96,9 @@ export class SettingsScreenComponent extends React.Component<IProps, {}> {
   };
 
   setAppDifficulty = (setting: APP_DIFFICULTY_SETTING) => () => {
-    this.props.handleUpdateAppDifficultySetting(setting);
+    this.props.handleUpdateUserSettingsField({
+      app_difficulty_setting: setting,
+    });
   };
 
   handleSetLanguageOptions = () => {
