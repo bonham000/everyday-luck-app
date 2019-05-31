@@ -265,14 +265,16 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
             />
           </ActionButton.Item>
         )}
-        <ActionButton.Item
-          style={{ zIndex: 50 }}
-          title="Revert failed answer"
-          onPress={this.handleRevertAnswer}
-          buttonColor={COLORS.actionButtonBlue}
-        >
-          <Ionicons name="ios-rewind" style={ActionIconStyle} />
-        </ActionButton.Item>
+        {this.state.failedOnce && (
+          <ActionButton.Item
+            style={{ zIndex: 50 }}
+            title="Revert failed answer"
+            onPress={this.handleRevertAnswer}
+            buttonColor={COLORS.actionButtonBlue}
+          >
+            <Ionicons name="ios-rewind" style={ActionIconStyle} />
+          </ActionButton.Item>
+        )}
         <ActionButton.Item
           style={{ zIndex: 50 }}
           onPress={this.toggleAutoProceed}
@@ -297,7 +299,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
 
   toggleDisableAudio = () => {
     this.props.handleUpdateUserSettingsField({
-      disable_audio: this.props.disableAudio,
+      disable_audio: !this.props.disableAudio,
     });
   };
 
