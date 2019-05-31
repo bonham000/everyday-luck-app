@@ -165,7 +165,6 @@ exports[`App Screen Components Each screen component renders with props provided
     <View
       style={
         Object {
-          "alignItems": "center",
           "backgroundColor": "#6200ee",
           "borderColor": "transparent",
           "borderRadius": 4,
@@ -173,7 +172,6 @@ exports[`App Screen Components Each screen component renders with props provided
           "borderWidth": 0,
           "elevation": 2,
           "height": 40,
-          "justifyContent": "center",
           "marginBottom": 15,
           "marginTop": 15,
           "minWidth": 225,
@@ -4557,7 +4555,6 @@ exports[`App Screen Components Each screen component renders with props provided
     <View
       style={
         Object {
-          "alignItems": "center",
           "backgroundColor": "#6200ee",
           "borderColor": "transparent",
           "borderRadius": 4,
@@ -4565,7 +4562,6 @@ exports[`App Screen Components Each screen component renders with props provided
           "borderWidth": 0,
           "elevation": 2,
           "height": 40,
-          "justifyContent": "center",
           "marginBottom": 15,
           "marginTop": 15,
           "minWidth": 225,
@@ -6522,7 +6518,6 @@ exports[`App Screen Components Each screen component renders with props provided
     <View
       style={
         Object {
-          "alignItems": "center",
           "backgroundColor": "#6200ee",
           "borderColor": "transparent",
           "borderRadius": 4,
@@ -6530,7 +6525,6 @@ exports[`App Screen Components Each screen component renders with props provided
           "borderWidth": 0,
           "elevation": 2,
           "height": 40,
-          "justifyContent": "center",
           "marginBottom": 15,
           "marginTop": 15,
           "minWidth": 225,
