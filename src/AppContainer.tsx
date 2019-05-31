@@ -17,6 +17,7 @@ import {
   TransparentLoadingComponent,
 } from "@src/components/LoadingComponent";
 import { CustomToast } from "@src/components/ToastComponent";
+import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import createAppNavigator from "@src/NavigatorConfig";
 import GlobalContext, {
   APP_DIFFICULTY_SETTING,
@@ -35,6 +36,7 @@ import {
   saveUserToAsyncStorage,
   setOfflineUpdatesFlagState,
 } from "@src/tools/async-store";
+import { registerForPushNotificationsAsync } from "@src/tools/notification-utils";
 import { GoogleSigninUser, User } from "@src/tools/types";
 import {
   createWordDictionaryFromLessons,
@@ -46,8 +48,6 @@ import {
   transformUserJson,
 } from "@src/tools/utils";
 import MOCKS from "@tests/mocks";
-import { ROUTE_NAMES } from "./constants/RouteNames";
-import { registerForPushNotificationsAsync } from "./tools/notification-utils";
 
 /** ========================================================================
  * Types
@@ -235,24 +235,31 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
     if (this.state.networkConnected) {
       const user = await findOrCreateUser(maybePersistedUser);
       if (user) {
-        this.setState(
-          {
-            user: transformUserJson(user),
-          },
-          async () => {
-            /**
-             * Try to register this device for push notifications if the
-             * user doesn't have a token setup yet.
-             */
-            if (this.state.user && this.state.user.push_token === "") {
-              const token = await registerForPushNotificationsAsync();
-              this.handleUpdateUserFields({
-                push_token: token,
-              });
-            }
-          },
-        );
+        try {
+          const userData = transformUserJson(user);
+          this.setState(
+            {
+              user: userData,
+            },
+            this.setupPushToken,
+          );
+        } catch (err) {
+          this.handleLogoutUser();
+        }
       }
+    }
+  };
+
+  setupPushToken = async () => {
+    /**
+     * Try to register this device for push notifications if the
+     * user doesn't have a token setup yet.
+     */
+    if (this.state.user && this.state.user.push_token === "") {
+      const token = await registerForPushNotificationsAsync();
+      this.handleUpdateUserFields({
+        push_token: token,
+      });
     }
   };
 
