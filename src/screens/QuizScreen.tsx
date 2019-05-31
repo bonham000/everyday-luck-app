@@ -254,10 +254,15 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
           <ActionButton.Item
             style={{ zIndex: 50 }}
             onPress={this.toggleDisableAudio}
-            buttonColor={COLORS.actionButtonMint}
+            buttonColor={COLORS.actionButtonPurple}
             title={`${this.props.disableAudio ? "Enable" : "Disable"} Audio`}
           >
-            <Ionicons name="ios-leaf" style={ActionIconStyle} />
+            <Ionicons
+              name={
+                this.props.disableAudio ? "ios-volume-off" : "ios-volume-high"
+              }
+              style={ActionIconStyle}
+            />
           </ActionButton.Item>
         )}
         <ActionButton.Item
@@ -266,17 +271,17 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
           onPress={this.handleRevertAnswer}
           buttonColor={COLORS.actionButtonBlue}
         >
-          <Ionicons name="ios-key" style={ActionIconStyle} />
+          <Ionicons name="ios-rewind" style={ActionIconStyle} />
         </ActionButton.Item>
         <ActionButton.Item
           style={{ zIndex: 50 }}
           onPress={this.toggleAutoProceed}
-          buttonColor={COLORS.actionButtonPurple}
+          buttonColor={COLORS.actionButtonMint}
           title={`${
             this.props.autoProceedQuestion ? "Disable" : "Enable"
           } auto next question`}
         >
-          <Ionicons name="ios-jet" style={ActionIconStyle} />
+          <Ionicons name="ios-rocket" style={ActionIconStyle} />
         </ActionButton.Item>
         <ActionButton.Item
           style={{ zIndex: 50 }}

@@ -43,10 +43,10 @@ const ScrollContainer = (props: { children: any }) => (
 const ButtonStyles: ViewStyle = {
   marginTop: 15,
   marginBottom: 15,
-  width: "65%",
   height: 40,
-  justifyContent: "center",
+  minWidth: 225,
   alignItems: "center",
+  justifyContent: "center",
 };
 
 const LineBreak = glamorous.view({
