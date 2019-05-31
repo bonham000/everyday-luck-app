@@ -235,17 +235,12 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
     if (this.state.networkConnected) {
       const user = await findOrCreateUser(maybePersistedUser);
       if (user) {
-        try {
-          const userData = transformUserJson(user);
-          this.setState(
-            {
-              user: userData,
-            },
-            this.setupPushToken,
-          );
-        } catch (err) {
-          this.handleLogoutUser();
-        }
+        this.setState(
+          {
+            user: transformUserJson(user),
+          },
+          this.setupPushToken,
+        );
       }
     }
   };
@@ -322,18 +317,14 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
      */
     const { user } = this.state;
     if (user) {
-      try {
-        return {
-          experience: user.experience_points,
-          disableAudio: user.settings.disable_audio,
-          autoProceedQuestion: user.settings.auto_proceed_question,
-          userScoreStatus: user.score_history,
-          languageSetting: user.settings.language_setting,
-          appDifficultySetting: user.settings.app_difficulty_setting,
-        };
-      } catch (err) {
-        return this.handleLogoutUser();
-      }
+      return {
+        experience: user.experience_points,
+        disableAudio: user.settings.disable_audio,
+        autoProceedQuestion: user.settings.auto_proceed_question,
+        userScoreStatus: user.score_history,
+        languageSetting: user.settings.language_setting,
+        appDifficultySetting: user.settings.app_difficulty_setting,
+      };
     } else {
       return {
         experience: 0,
