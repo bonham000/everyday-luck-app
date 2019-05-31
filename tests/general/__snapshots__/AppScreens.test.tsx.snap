@@ -18,138 +18,149 @@ exports[`App Screen Components Each screen component renders with props provided
           "flex": 8,
           "width": "100%",
         },
-        Object {
-          "alignItems": "center",
-          "justifyContent": "center",
-        },
       ]
     }
   >
-    <Text
-      style={
-        Array [
-          Object {
-            "fontSize": 18,
-            "fontWeight": "400",
-            "marginTop": 18,
-            "textAlign": "center",
-            "width": "90%",
-          },
-        ]
-      }
-    >
-      <Text
-        style={
-          Array [
-            Object {
-              "fontWeight": "bold",
-            },
-          ]
+    <RCTScrollView
+      contentContainerStyle={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgb(231, 237, 240)",
+          "flexGrow": 1,
+          "paddingBottom": 50,
+          "paddingTop": 25,
+          "width": "100%",
         }
-      >
-        Using the App
-      </Text>
-    </Text>
-    <Text
-      style={
-        Array [
-          Object {
-            "fontSize": 18,
-            "fontWeight": "400",
-            "marginTop": 18,
-            "textAlign": "center",
-            "width": "90%",
-          },
-        ]
       }
     >
-      This app uses the vocabulary content from the
-       
-      <Text
-        style={
-          Array [
-            Object {
-              "fontWeight": "bold",
-            },
-          ]
-        }
-      >
-        Hanyu Shuiping Kaoshi
-      </Text>
-       (Chinese Proficiency Test). This test is the standardized test of Standard Chinese language proficiency of China for non-native speakers such as foreign students and overseas Chinese.
-    </Text>
-    <Text
-      style={
-        Array [
-          Object {
-            "fontSize": 18,
-            "fontWeight": "400",
-            "marginTop": 18,
-            "textAlign": "center",
-            "width": "90%",
-          },
-        ]
-      }
-    >
-      There are 6 levels total, which comprise a total of 5,000 words and about 2,500 characters. The goal of the app is to break these lessons into a series of small challenges which can be mastered with a little practice each day.
-    </Text>
-    <Text
-      style={
-        Array [
-          Object {
-            "fontSize": 34,
-            "marginTop": 22,
-          },
-        ]
-      }
-    >
-      🌌🌃🌆🌇
-    </Text>
-    <Text
-      onPress={[Function]}
-      style={
-        Array [
-          Object {
-            "color": "#3498db",
-            "fontSize": 16,
-            "fontWeight": "500",
-            "marginTop": 28,
-          },
-        ]
-      }
-    >
-      Contact
-    </Text>
-    <Text
-      onPress={[Function]}
-      style={
-        Array [
-          Object {
-            "color": "#3498db",
-            "fontSize": 16,
-            "fontWeight": "500",
-            "marginTop": 28,
-          },
-        ]
-      }
-    >
-      This app is Open Source
-    </Text>
-    <Text
-      onPress={[Function]}
-      style={
-        Array [
-          Object {
-            "color": "#3498db",
-            "fontSize": 16,
-            "fontWeight": "500",
-            "marginTop": 28,
-          },
-        ]
-      }
-    >
-      Learn more about the HSK
-    </Text>
+      <View>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontSize": 18,
+                "fontWeight": "400",
+                "marginTop": 18,
+                "textAlign": "center",
+                "width": "90%",
+              },
+            ]
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontWeight": "bold",
+                },
+              ]
+            }
+          >
+            Using the App
+          </Text>
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontSize": 18,
+                "fontWeight": "400",
+                "marginTop": 18,
+                "textAlign": "center",
+                "width": "90%",
+              },
+            ]
+          }
+        >
+          This app uses the vocabulary content from the
+           
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontWeight": "bold",
+                },
+              ]
+            }
+          >
+            Hanyu Shuiping Kaoshi
+          </Text>
+           (Chinese Proficiency Test). This test is the standardized test of Standard Chinese language proficiency of China for non-native speakers such as foreign students and overseas Chinese.
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontSize": 18,
+                "fontWeight": "400",
+                "marginTop": 18,
+                "textAlign": "center",
+                "width": "90%",
+              },
+            ]
+          }
+        >
+          There are 6 levels total, which comprise a total of 5,000 words and about 2,500 characters. The goal of the app is to break these lessons into a series of small challenges which can be mastered with a little practice each day.
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontSize": 34,
+                "marginTop": 22,
+              },
+            ]
+          }
+        >
+          🌌🌃🌆🌇
+        </Text>
+        <Text
+          onPress={[Function]}
+          style={
+            Array [
+              Object {
+                "color": "#3498db",
+                "fontSize": 16,
+                "fontWeight": "500",
+                "marginTop": 28,
+              },
+            ]
+          }
+        >
+          Contact
+        </Text>
+        <Text
+          onPress={[Function]}
+          style={
+            Array [
+              Object {
+                "color": "#3498db",
+                "fontSize": 16,
+                "fontWeight": "500",
+                "marginTop": 28,
+              },
+            ]
+          }
+        >
+          This app is Open Source
+        </Text>
+        <Text
+          onPress={[Function]}
+          style={
+            Array [
+              Object {
+                "color": "#3498db",
+                "fontSize": 16,
+                "fontWeight": "500",
+                "marginTop": 28,
+              },
+            ]
+          }
+        >
+          Learn more about the HSK
+        </Text>
+      </View>
+    </RCTScrollView>
   </View>
   <View
     style={
@@ -6371,138 +6382,149 @@ exports[`App Screen Components Each screen component renders with props provided
           "flex": 8,
           "width": "100%",
         },
-        Object {
-          "alignItems": "center",
-          "justifyContent": "center",
-        },
       ]
     }
   >
-    <Text
-      style={
-        Array [
-          Object {
-            "fontSize": 18,
-            "fontWeight": "400",
-            "marginTop": 18,
-            "textAlign": "center",
-            "width": "90%",
-          },
-        ]
-      }
-    >
-      <Text
-        style={
-          Array [
-            Object {
-              "fontWeight": "bold",
-            },
-          ]
+    <RCTScrollView
+      contentContainerStyle={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgb(231, 237, 240)",
+          "flexGrow": 1,
+          "paddingBottom": 50,
+          "paddingTop": 25,
+          "width": "100%",
         }
-      >
-        Using the App
-      </Text>
-    </Text>
-    <Text
-      style={
-        Array [
-          Object {
-            "fontSize": 18,
-            "fontWeight": "400",
-            "marginTop": 18,
-            "textAlign": "center",
-            "width": "90%",
-          },
-        ]
       }
     >
-      This app uses the vocabulary content from the
-       
-      <Text
-        style={
-          Array [
-            Object {
-              "fontWeight": "bold",
-            },
-          ]
-        }
-      >
-        Hanyu Shuiping Kaoshi
-      </Text>
-       (Chinese Proficiency Test). This test is the standardized test of Standard Chinese language proficiency of China for non-native speakers such as foreign students and overseas Chinese.
-    </Text>
-    <Text
-      style={
-        Array [
-          Object {
-            "fontSize": 18,
-            "fontWeight": "400",
-            "marginTop": 18,
-            "textAlign": "center",
-            "width": "90%",
-          },
-        ]
-      }
-    >
-      There are 6 levels total, which comprise a total of 5,000 words and about 2,500 characters. The goal of the app is to break these lessons into a series of small challenges which can be mastered with a little practice each day.
-    </Text>
-    <Text
-      style={
-        Array [
-          Object {
-            "fontSize": 34,
-            "marginTop": 22,
-          },
-        ]
-      }
-    >
-      🌌🌃🌆🌇
-    </Text>
-    <Text
-      onPress={[Function]}
-      style={
-        Array [
-          Object {
-            "color": "#3498db",
-            "fontSize": 16,
-            "fontWeight": "500",
-            "marginTop": 28,
-          },
-        ]
-      }
-    >
-      Contact
-    </Text>
-    <Text
-      onPress={[Function]}
-      style={
-        Array [
-          Object {
-            "color": "#3498db",
-            "fontSize": 16,
-            "fontWeight": "500",
-            "marginTop": 28,
-          },
-        ]
-      }
-    >
-      This app is Open Source
-    </Text>
-    <Text
-      onPress={[Function]}
-      style={
-        Array [
-          Object {
-            "color": "#3498db",
-            "fontSize": 16,
-            "fontWeight": "500",
-            "marginTop": 28,
-          },
-        ]
-      }
-    >
-      Learn more about the HSK
-    </Text>
+      <View>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontSize": 18,
+                "fontWeight": "400",
+                "marginTop": 18,
+                "textAlign": "center",
+                "width": "90%",
+              },
+            ]
+          }
+        >
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontWeight": "bold",
+                },
+              ]
+            }
+          >
+            Using the App
+          </Text>
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontSize": 18,
+                "fontWeight": "400",
+                "marginTop": 18,
+                "textAlign": "center",
+                "width": "90%",
+              },
+            ]
+          }
+        >
+          This app uses the vocabulary content from the
+           
+          <Text
+            style={
+              Array [
+                Object {
+                  "fontWeight": "bold",
+                },
+              ]
+            }
+          >
+            Hanyu Shuiping Kaoshi
+          </Text>
+           (Chinese Proficiency Test). This test is the standardized test of Standard Chinese language proficiency of China for non-native speakers such as foreign students and overseas Chinese.
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontSize": 18,
+                "fontWeight": "400",
+                "marginTop": 18,
+                "textAlign": "center",
+                "width": "90%",
+              },
+            ]
+          }
+        >
+          There are 6 levels total, which comprise a total of 5,000 words and about 2,500 characters. The goal of the app is to break these lessons into a series of small challenges which can be mastered with a little practice each day.
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontSize": 34,
+                "marginTop": 22,
+              },
+            ]
+          }
+        >
+          🌌🌃🌆🌇
+        </Text>
+        <Text
+          onPress={[Function]}
+          style={
+            Array [
+              Object {
+                "color": "#3498db",
+                "fontSize": 16,
+                "fontWeight": "500",
+                "marginTop": 28,
+              },
+            ]
+          }
+        >
+          Contact
+        </Text>
+        <Text
+          onPress={[Function]}
+          style={
+            Array [
+              Object {
+                "color": "#3498db",
+                "fontSize": 16,
+                "fontWeight": "500",
+                "marginTop": 28,
+              },
+            ]
+          }
+        >
+          This app is Open Source
+        </Text>
+        <Text
+          onPress={[Function]}
+          style={
+            Array [
+              Object {
+                "color": "#3498db",
+                "fontSize": 16,
+                "fontWeight": "500",
+                "marginTop": 28,
+              },
+            ]
+          }
+        >
+          Learn more about the HSK
+        </Text>
+      </View>
+    </RCTScrollView>
   </View>
   <View
     style={
