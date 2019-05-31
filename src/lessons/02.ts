@@ -8,14 +8,14 @@ const lesson: HSKList = {
       traditional: "我",
       pinyin: "wǒ",
       english: "I, me",
-      english_alternate_choices: ["They", "He, him", "You", "She, her"],
+      english_alternate_choices: ["We, us", "He, him", "You", "She, her"],
     },
     {
       simplified: "我们",
       traditional: "我們",
       pinyin: "wǒmen",
       english: "We, us",
-      english_alternate_choices: ["They", "You", "I, me", "He, him"],
+      english_alternate_choices: ["She, her", "You", "I, me", "He, him"],
     },
     {
       simplified: "你",
