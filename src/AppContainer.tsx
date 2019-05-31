@@ -322,14 +322,18 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
      */
     const { user } = this.state;
     if (user) {
-      return {
-        experience: user.experience_points,
-        disableAudio: user.settings.disable_audio,
-        autoProceedQuestion: user.settings.auto_proceed_question,
-        userScoreStatus: user.score_history,
-        languageSetting: user.settings.language_setting,
-        appDifficultySetting: user.settings.app_difficulty_setting,
-      };
+      try {
+        return {
+          experience: user.experience_points,
+          disableAudio: user.settings.disable_audio,
+          autoProceedQuestion: user.settings.auto_proceed_question,
+          userScoreStatus: user.score_history,
+          languageSetting: user.settings.language_setting,
+          appDifficultySetting: user.settings.app_difficulty_setting,
+        };
+      } catch (err) {
+        return this.handleLogoutUser();
+      }
     } else {
       return {
         experience: 0,
