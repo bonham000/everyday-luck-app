@@ -149,6 +149,7 @@ export interface QuizScreenComponentProps {
   lesson: Lesson;
   quizType: QUIZ_TYPE;
   audioDisabled: boolean;
+  autoProceedQuestion: boolean;
   wordDictionary: WordDictionary;
   languageSetting: APP_LANGUAGE_SETTING;
   copyHandler: (text: string) => () => void;

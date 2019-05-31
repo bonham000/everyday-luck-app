@@ -32,6 +32,7 @@ const QuizInput = ({
   handleProceed,
   wordDictionary,
   languageSetting,
+  autoProceedQuestion,
   handleToggleRevealAnswer,
 }: QuizScreenComponentProps) => {
   /**
@@ -64,6 +65,32 @@ const QuizInput = ({
    */
   const correctText = correctWord[languageSetting];
 
+  const buttonText = valid
+    ? `✨ ${COMPLIMENTS[randomInRange(0, COMPLIMENTS.length - 1)]}! ✨`
+    : revealAnswer
+    ? "Hide Answer 🧐"
+    : attempted && didReveal
+    ? "Try again 🔖"
+    : attempted
+    ? `Wrong! Tap to reveal 🙏`
+    : "Check Answer!";
+
+  const buttonStyles = {
+    marginTop: 25,
+    minWidth: 225,
+    backgroundColor: revealAnswer
+      ? COLORS.actionButtonMint
+      : !valid && attempted
+      ? COLORS.primaryRed
+      : COLORS.primaryBlue,
+  };
+
+  const onPressHandler = valid
+    ? handleProceed()
+    : revealAnswer
+    ? handleToggleRevealAnswer
+    : handleCheckAnswer;
+
   return (
     <React.Fragment>
       {valid || revealAnswer ? (
@@ -88,36 +115,16 @@ const QuizInput = ({
           </QuizBox>
         </Shaker>
       )}
-      <Button
-        dark
-        mode="contained"
-        style={{
-          marginTop: 25,
-          minWidth: 225,
-          backgroundColor: revealAnswer
-            ? COLORS.actionButtonMint
-            : !valid && attempted
-            ? COLORS.primaryRed
-            : COLORS.primaryBlue,
-        }}
-        onPress={
-          valid
-            ? handleProceed()
-            : revealAnswer
-            ? handleToggleRevealAnswer
-            : handleCheckAnswer
-        }
-      >
-        {valid
-          ? `✨ ${COMPLIMENTS[randomInRange(0, COMPLIMENTS.length - 1)]}! ✨`
-          : revealAnswer
-          ? "Hide Answer 🧐"
-          : attempted && didReveal
-          ? "Try again 🔖"
-          : attempted
-          ? `Wrong! Tap to reveal 🙏`
-          : "Check Answer!"}
-      </Button>
+      {!autoProceedQuestion && (
+        <Button
+          dark
+          mode="contained"
+          style={buttonStyles}
+          onPress={onPressHandler}
+        >
+          {buttonText}
+        </Button>
+      )}
     </React.Fragment>
   );
 };

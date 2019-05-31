@@ -223,11 +223,12 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
       setInputRef: this.setInputRef,
       copyHandler: this.copyHandler,
       handleChange: this.handleChange,
-      audioDisabled: this.props.disableAudio,
-      handleProceed: this.handleProceedToNextQuestion,
       handleCheck: this.handleCheckAnswer,
+      audioDisabled: this.props.disableAudio,
       wordDictionary: this.props.wordDictionary,
       languageSetting: this.props.languageSetting,
+      handleProceed: this.handleProceedToNextQuestion,
+      autoProceedQuestion: this.props.autoProceedQuestion,
       handleToggleRevealAnswer: this.handleToggleRevealAnswer,
     };
 
