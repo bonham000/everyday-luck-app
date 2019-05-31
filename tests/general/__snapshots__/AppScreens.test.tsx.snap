@@ -176,7 +176,7 @@ exports[`App Screen Components Each screen component renders with props provided
           "justifyContent": "center",
           "marginBottom": 15,
           "marginTop": 15,
-          "minWidth": 64,
+          "minWidth": 225,
           "shadowColor": "#000000",
           "shadowOffset": Object {
             "height": NaN,
@@ -184,7 +184,6 @@ exports[`App Screen Components Each screen component renders with props provided
           },
           "shadowOpacity": 0.24,
           "shadowRadius": 2,
-          "width": "65%",
         }
       }
     >
@@ -4569,7 +4568,7 @@ exports[`App Screen Components Each screen component renders with props provided
           "justifyContent": "center",
           "marginBottom": 15,
           "marginTop": 15,
-          "minWidth": 64,
+          "minWidth": 225,
           "shadowColor": "#000000",
           "shadowOffset": Object {
             "height": NaN,
@@ -4577,7 +4576,6 @@ exports[`App Screen Components Each screen component renders with props provided
           },
           "shadowOpacity": 0.24,
           "shadowRadius": 2,
-          "width": "65%",
         }
       }
     >
@@ -5122,7 +5120,6 @@ exports[`App Screen Components Each screen component renders with props provided
     getItemCount={[Function]}
     horizontal={false}
     initialNumToRender={10}
-    initialScrollIndex={0}
     keyExtractor={[Function]}
     maxToRenderPerBatch={10}
     numColumns={1}
@@ -6536,7 +6533,7 @@ exports[`App Screen Components Each screen component renders with props provided
           "justifyContent": "center",
           "marginBottom": 15,
           "marginTop": 15,
-          "minWidth": 64,
+          "minWidth": 225,
           "shadowColor": "#000000",
           "shadowOffset": Object {
             "height": NaN,
@@ -6544,7 +6541,6 @@ exports[`App Screen Components Each screen component renders with props provided
           },
           "shadowOpacity": 0.24,
           "shadowRadius": 2,
-          "width": "65%",
         }
       }
     >
