@@ -812,7 +812,8 @@ export const getQuizSuccessToasts = (
   } else if (firstPass) {
     secondary = `Congratulations! You gained ${experience} experience points!`;
   } else {
-    secondary = "All words completed, 很好！";
+    secondary =
+      "All words completed, 很好！ Try again to get a perfect score to unlock the next lesson.";
   }
 
   return {

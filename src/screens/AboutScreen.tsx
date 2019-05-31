@@ -10,6 +10,7 @@ import {
   Screen,
   ScreenBottom,
   ScreenTop,
+  ScrollContainer,
 } from "@src/components/SharedComponents";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import { COLORS } from "@src/constants/Theme";
@@ -33,33 +34,35 @@ export class AboutScreenComponent extends React.Component<IProps, {}> {
   render(): JSX.Element {
     return (
       <Screen>
-        <ScreenTop style={{ alignItems: "center", justifyContent: "center" }}>
-          <DescriptionText>
-            <Bold>Using the App</Bold>
-          </DescriptionText>
-          <DescriptionText>
-            This app uses the vocabulary content from the{" "}
-            <Bold>Hanyu Shuiping Kaoshi</Bold> (Chinese Proficiency Test). This
-            test is the standardized test of Standard Chinese language
-            proficiency of China for non-native speakers such as foreign
-            students and overseas Chinese.
-          </DescriptionText>
-          <DescriptionText>
-            There are 6 levels total, which comprise a total of 5,000 words and
-            about 2,500 characters. The goal of the app is to break these
-            lessons into a series of small challenges which can be mastered with
-            a little practice each day.
-          </DescriptionText>
-          <Emoji>🌌🌃🌆🌇</Emoji>
-          <LinkText onPress={this.handleNavigate(ROUTE_NAMES.CONTACT)}>
-            Contact
-          </LinkText>
-          <LinkText onPress={this.openAboutLink}>
-            This app is Open Source
-          </LinkText>
-          <LinkText onPress={this.openHSKLink}>
-            Learn more about the HSK
-          </LinkText>
+        <ScreenTop>
+          <ScrollContainer>
+            <DescriptionText>
+              <Bold>Using the App</Bold>
+            </DescriptionText>
+            <DescriptionText>
+              This app uses the vocabulary content from the{" "}
+              <Bold>Hanyu Shuiping Kaoshi</Bold> (Chinese Proficiency Test).
+              This test is the standardized test of Standard Chinese language
+              proficiency of China for non-native speakers such as foreign
+              students and overseas Chinese.
+            </DescriptionText>
+            <DescriptionText>
+              There are 6 levels total, which comprise a total of 5,000 words
+              and about 2,500 characters. The goal of the app is to break these
+              lessons into a series of small challenges which can be mastered
+              with a little practice each day.
+            </DescriptionText>
+            <Emoji>🌌🌃🌆🌇</Emoji>
+            <LinkText onPress={this.handleNavigate(ROUTE_NAMES.CONTACT)}>
+              Contact
+            </LinkText>
+            <LinkText onPress={this.openAboutLink}>
+              This app is Open Source
+            </LinkText>
+            <LinkText onPress={this.openHSKLink}>
+              Learn more about the HSK
+            </LinkText>
+          </ScrollContainer>
         </ScreenTop>
         <ScreenBottom>
           <Button
