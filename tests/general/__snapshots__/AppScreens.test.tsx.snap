@@ -5109,7 +5109,7 @@ exports[`App Screen Components Each screen component renders with props provided
           Object {
             "english": "I, me",
             "english_alternate_choices": Array [
-              "They",
+              "We, us",
               "He, him",
               "You",
               "She, her",
@@ -6199,7 +6199,7 @@ exports[`App Screen Components Each screen component renders with props provided
         Object {
           "english": "I, me",
           "english_alternate_choices": Array [
-            "They",
+            "We, us",
             "He, him",
             "You",
             "She, her",
