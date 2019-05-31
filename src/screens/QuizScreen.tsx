@@ -57,8 +57,6 @@ interface IProps extends GlobalStateContextProps, SoundRecordingProps {
 }
 
 interface IState {
-  disableAudio: boolean;
-  autoProceedQuestion: boolean;
   initalizing: boolean;
   value: string;
   attempted: boolean;
@@ -206,7 +204,6 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
       wordContent,
       shouldShake,
       revealAnswer,
-      disableAudio,
       currentWordIndex,
     } = this.state;
 
@@ -223,10 +220,10 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
       currentWord,
       shouldShake,
       revealAnswer,
-      audioDisabled: disableAudio,
       setInputRef: this.setInputRef,
       copyHandler: this.copyHandler,
       handleChange: this.handleChange,
+      audioDisabled: this.props.disableAudio,
       handleProceed: this.handleProceedToNextQuestion,
       handleCheck: this.handleCheckAnswer,
       wordDictionary: this.props.wordDictionary,
@@ -258,7 +255,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
             style={{ zIndex: 50 }}
             onPress={this.toggleDisableAudio}
             buttonColor={COLORS.actionButtonMint}
-            title={`${this.state.disableAudio ? "Enable" : "Disable"} Audio`}
+            title={`${this.props.disableAudio ? "Enable" : "Disable"} Audio`}
           >
             <Ionicons name="ios-leaf" style={ActionIconStyle} />
           </ActionButton.Item>
@@ -276,7 +273,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
           onPress={this.toggleAutoProceed}
           buttonColor={COLORS.actionButtonPurple}
           title={`${
-            this.state.autoProceedQuestion ? "Disable" : "Enable"
+            this.props.autoProceedQuestion ? "Disable" : "Enable"
           } auto next question`}
         >
           <Ionicons name="ios-jet" style={ActionIconStyle} />
@@ -435,7 +432,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
          */
         if (wordCompletedCache.size === this.state.wordContent.length) {
           this.handleCompleteQuiz();
-        } else if (this.state.autoProceedQuestion) {
+        } else if (this.props.autoProceedQuestion) {
           // tslint:disable-next-line
           this.timer = setTimeout(
             this.handleProceedToNextQuestion(),

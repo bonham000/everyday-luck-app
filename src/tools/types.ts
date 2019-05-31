@@ -68,21 +68,16 @@ export interface UserDataBase {
   family_name: string;
   given_name: string;
   photo_url?: string;
+  push_token: string;
 }
 
 export interface UserData extends UserDataBase {
   uuid: string;
 }
 
-export interface BaseUser {
+export interface BaseUser extends UserDataBase {
   uuid: string;
-  email: string;
-  name: string;
-  family_name: string;
-  given_name: string;
-  photo_url?: string;
   experience_points: number;
-  push_token: string;
 }
 
 export interface UserJson extends BaseUser {

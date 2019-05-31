@@ -17,7 +17,7 @@
     "updates": {
       "fallbackToCacheTimeout": 450
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": ["src/assets/*"],
     "android": {
       "package": "com.mandarin.app"
     },

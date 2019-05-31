@@ -1,4 +1,4 @@
-import { Asset, Updates } from "expo";
+import { Updates } from "expo";
 import React from "react";
 import {
   Alert,
@@ -47,6 +47,7 @@ import {
 } from "@src/tools/utils";
 import MOCKS from "@tests/mocks";
 import { ROUTE_NAMES } from "./constants/RouteNames";
+import { registerForPushNotificationsAsync } from "./tools/notification-utils";
 
 /** ========================================================================
  * Types
@@ -234,9 +235,23 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
     if (this.state.networkConnected) {
       const user = await findOrCreateUser(maybePersistedUser);
       if (user) {
-        this.setState({
-          user: transformUserJson(user),
-        });
+        this.setState(
+          {
+            user: transformUserJson(user),
+          },
+          async () => {
+            /**
+             * Try to register this device for push notifications if the
+             * user doesn't have a token setup yet.
+             */
+            if (this.state.user && this.state.user.push_token === "") {
+              const token = await registerForPushNotificationsAsync();
+              this.handleUpdateUserFields({
+                push_token: token,
+              });
+            }
+          },
+        );
       }
     }
   };
@@ -253,7 +268,7 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
       };
       const updatedUser = {
         ...user,
-        ...updatedSettings,
+        settings: updatedSettings,
       };
       this.setState(
         {
@@ -590,15 +605,6 @@ class RootContainer extends RootContainerBase<{}> {
 
   initializeAppState = async () => {
     /**
-     * Fetch image assets.
-     *
-     * TODO: Bundle this asset.
-     */
-    await Asset.fromModule(
-      require("@src/assets/google_icon.png"),
-    ).downloadAsync();
-
-    /**
      * Fetch lessons
      */
     const lessons = fetchLessonSet();
@@ -628,7 +634,8 @@ class RootContainer extends RootContainerBase<{}> {
      * an error which will be caught and handled by the GoogleSigninScreen.
      */
     if (user && user.email) {
-      const userData = transformGoogleSignInResultToUserData(user);
+      const pushToken = await registerForPushNotificationsAsync();
+      const userData = transformGoogleSignInResultToUserData(user, pushToken);
       const userResult = await findOrCreateUser(userData);
       if (userResult) {
         this.setState(

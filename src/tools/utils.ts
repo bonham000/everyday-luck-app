@@ -721,6 +721,7 @@ export const isNetworkConnected = (type: ConnectionInfo["type"]): boolean => {
  */
 export const transformGoogleSignInResultToUserData = (
   user: GoogleSigninUser,
+  pushToken: string,
 ): UserDataBase => {
   const userData: UserDataBase = {
     email: user.email,
@@ -728,6 +729,7 @@ export const transformGoogleSignInResultToUserData = (
     family_name: user.familyName,
     given_name: user.givenName,
     photo_url: user.photoUrl,
+    push_token: pushToken,
   };
 
   return userData;
