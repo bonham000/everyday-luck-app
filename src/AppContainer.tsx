@@ -23,6 +23,7 @@ import GlobalContext, {
   APP_LANGUAGE_SETTING,
   ScoreStatus,
   ToastMessageArgs,
+  UserSettings,
 } from "@src/providers/GlobalStateContext";
 import { GlobalStateValues } from "@src/providers/GlobalStateProvider";
 import SoundRecordingProvider from "@src/providers/SoundRecordingProvider";
@@ -240,6 +241,34 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
     }
   };
 
+  handleUpdateUserSettingsField = (
+    data: Partial<UserSettings>,
+    optionalSuccessCallback?: (args?: any) => any,
+  ) => {
+    const { user } = this.state;
+    if (user) {
+      const updatedSettings = {
+        ...user.settings,
+        ...data,
+      };
+      const updatedUser = {
+        ...user,
+        ...updatedSettings,
+      };
+      this.setState(
+        {
+          user: updatedUser,
+        },
+        () => {
+          if (typeof optionalSuccessCallback === "function") {
+            optionalSuccessCallback();
+          }
+          this.performUserUpdate();
+        },
+      );
+    }
+  };
+
   handleUpdateUserFields = (
     data: Partial<User>,
     optionalSuccessCallback?: (args?: any) => any,
@@ -273,13 +302,17 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
     if (user) {
       return {
         experience: user.experience_points,
+        disableAudio: user.settings.disable_audio,
+        autoProceedQuestion: user.settings.auto_proceed_question,
         userScoreStatus: user.score_history,
-        languageSetting: user.language_setting,
-        appDifficultySetting: user.app_difficulty_setting,
+        languageSetting: user.settings.language_setting,
+        appDifficultySetting: user.settings.app_difficulty_setting,
       };
     } else {
       return {
         experience: 0,
+        disableAudio: false,
+        autoProceedQuestion: false,
         userScoreStatus: MOCKS.DEFAULT_SCORE_STATE,
         languageSetting: APP_LANGUAGE_SETTING.SIMPLIFIED,
         appDifficultySetting: APP_DIFFICULTY_SETTING.MEDIUM,
@@ -503,6 +536,8 @@ class RootContainer extends RootContainerBase<{}> {
     }
 
     const {
+      disableAudio,
+      autoProceedQuestion,
       experience,
       userScoreStatus,
       languageSetting,
@@ -516,11 +551,13 @@ class RootContainer extends RootContainerBase<{}> {
       user,
       lessons,
       experience,
+      disableAudio,
       wordDictionary,
       updateAvailable,
       networkConnected,
       languageSetting,
       userScoreStatus,
+      autoProceedQuestion,
       appDifficultySetting,
       onSignin: this.handleSignin,
       setLessonScore: this.setLessonScore,
@@ -529,6 +566,7 @@ class RootContainer extends RootContainerBase<{}> {
       handleResetScores: this.handleResetScores,
       handleSwitchLanguage: this.handleSwitchLanguage,
       updateExperiencePoints: this.updateExperiencePoints,
+      handleUpdateUserSettingsField: this.handleUpdateUserSettingsField,
       handleUpdateAppDifficultySetting: this.handleUpdateAppDifficultySetting,
     };
 
@@ -648,7 +686,7 @@ class RootContainer extends RootContainerBase<{}> {
   updateAppDifficulty = async (
     appDifficultySetting: APP_DIFFICULTY_SETTING,
   ) => {
-    this.handleUpdateUserFields(
+    this.handleUpdateUserSettingsField(
       {
         app_difficulty_setting: appDifficultySetting,
       },
@@ -705,7 +743,7 @@ class RootContainer extends RootContainerBase<{}> {
   handleSwitchLanguage = () => {
     const { user } = this.state;
     if (user) {
-      const { language_setting: languageSetting } = user;
+      const { language_setting: languageSetting } = user.settings;
       const alternate = getAlternateLanguageSetting(languageSetting);
 
       Alert.alert(
@@ -731,7 +769,7 @@ class RootContainer extends RootContainerBase<{}> {
 
   switchLanguage = (setting: APP_LANGUAGE_SETTING) => {
     const setLanguage = (languageSetting: APP_LANGUAGE_SETTING) => {
-      return this.handleUpdateUserFields(
+      return this.handleUpdateUserSettingsField(
         {
           language_setting: languageSetting,
         },

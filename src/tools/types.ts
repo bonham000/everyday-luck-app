@@ -1,10 +1,10 @@
 import { GestureResponderEvent } from "react-native";
 
 import {
-  APP_DIFFICULTY_SETTING,
   APP_LANGUAGE_SETTING,
   QUIZ_TYPE,
   ScoreStatus,
+  UserSettings,
   WordDictionary,
 } from "@src/providers/GlobalStateContext";
 
@@ -82,16 +82,16 @@ export interface BaseUser {
   given_name: string;
   photo_url?: string;
   experience_points: number;
-  language_setting: APP_LANGUAGE_SETTING;
-  app_difficulty_setting: APP_DIFFICULTY_SETTING;
 }
 
 export interface UserJson extends BaseUser {
+  settings: string;
   score_history: string;
 }
 
 export interface User extends BaseUser {
   score_history: ScoreStatus;
+  settings: UserSettings;
 }
 
 export type UserAsyncResponse = Promise<UserJson | undefined>;

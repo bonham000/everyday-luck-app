@@ -4,6 +4,7 @@ import GlobalStateContextValues, {
   APP_DIFFICULTY_SETTING,
   APP_LANGUAGE_SETTING,
   ScoreStatus,
+  UserSettings,
   WordDictionary,
 } from "@src/providers/GlobalStateContext";
 import { GoogleSigninUser, HSKListSet, User } from "@src/tools/types";
@@ -24,6 +25,8 @@ export interface GlobalStateValues {
 export interface AdditionalProviderProps {
   experience: number;
   userScoreStatus: ScoreStatus;
+  disableAudio: boolean;
+  autoProceedQuestion: boolean;
   languageSetting: APP_LANGUAGE_SETTING;
   appDifficultySetting: APP_DIFFICULTY_SETTING;
 }
@@ -41,6 +44,10 @@ export interface GlobalStateContextProps
   handleUpdateAppDifficultySetting: (
     setting: APP_DIFFICULTY_SETTING,
   ) => Promise<void>;
+  handleUpdateUserSettingsField: (
+    data: Partial<UserSettings>,
+    optionalSuccessCallback?: (args?: any) => any,
+  ) => void;
 }
 
 interface IProps {

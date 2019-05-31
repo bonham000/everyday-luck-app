@@ -97,14 +97,15 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
   }
 
   getInitialState = () => {
-    const lesson = this.props.navigation.getParam("lesson");
+    const { autoProceedQuestion, disableAudio, navigation } = this.props;
+    const lesson = navigation.getParam("lesson");
     return {
       value: "",
       skipCount: 0,
       failCount: 0,
       valid: false,
-      autoProceedQuestion: false,
-      disableAudio: false,
+      disableAudio,
+      autoProceedQuestion,
       initalizing: true,
       attempted: false,
       shouldShake: false,
@@ -293,18 +294,19 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
   };
 
   toggleDisableAudio = () => {
-    this.setState(prevState => ({
-      disableAudio: !prevState.disableAudio,
-    }));
+    this.props.handleUpdateUserSettingsField({
+      disable_audio: this.props.disableAudio,
+    });
   };
 
   toggleAutoProceed = () => {
-    this.setState(
-      prevState => ({
-        autoProceedQuestion: !prevState.autoProceedQuestion,
-      }),
+    const currentValue = this.props.autoProceedQuestion;
+    this.props.handleUpdateUserSettingsField(
+      {
+        auto_proceed_question: !currentValue,
+      },
       () => {
-        if (this.state.autoProceedQuestion) {
+        if (!currentValue) {
           this.props.setToastMessage(
             "Questions will automatically advance when answered correctly.",
           );

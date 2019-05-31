@@ -29,6 +29,13 @@ export interface ScoreStatus extends ListScoreSet {
   mandarin_pronunciation: boolean;
 }
 
+export interface UserSettings {
+  disable_audio: boolean;
+  auto_proceed_question: boolean;
+  language_setting: APP_LANGUAGE_SETTING;
+  app_difficulty_setting: APP_DIFFICULTY_SETTING;
+}
+
 export interface WordDictionary {
   [key: string]: Word;
 }
@@ -90,6 +97,8 @@ const GlobalStateContextValues = {
   wordDictionary: {},
   networkConnected: false,
   updateAvailable: false,
+  disableAudio: false,
+  autoProceedQuestion: false,
   appDifficultySetting: APP_DIFFICULTY_SETTING.MEDIUM,
   languageSetting: APP_LANGUAGE_SETTING.SIMPLIFIED,
   setToastMessage: (toastMessage: string | ToastMessageArgs) => {
@@ -123,6 +132,13 @@ const GlobalStateContextValues = {
   onSignin: (user: GoogleSigninUser) => {
     // Handle action on signin
     return Promise.resolve();
+  },
+  handleUpdateUserSettingsField: (
+    data: Partial<UserSettings>,
+    optionalSuccessCallback?: (args?: any) => any,
+  ) => {
+    // Handle updating user settings
+    return;
   },
 };
 

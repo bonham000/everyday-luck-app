@@ -742,6 +742,7 @@ export const transformGoogleSignInResultToUserData = (
 export const transformUserJson = (userJson: UserJson): User => {
   return {
     ...userJson,
+    settings: JSON.parse(userJson.settings),
     score_history: JSON.parse(userJson.score_history),
   };
 };

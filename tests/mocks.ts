@@ -4,6 +4,7 @@ import {
   APP_DIFFICULTY_SETTING,
   APP_LANGUAGE_SETTING,
   GlobalStateContextValues,
+  UserSettings,
 } from "@src/providers/GlobalStateContext";
 import { GlobalStateContextProps } from "@src/providers/GlobalStateProvider";
 import { SoundRecordingProps } from "@src/providers/SoundRecordingProvider";
@@ -100,6 +101,13 @@ const DEFAULT_SCORE_STATE = {
 
 const EXPERIENCE_POINTS = 54234;
 
+const SETTINGS: UserSettings = {
+  disable_audio: false,
+  auto_proceed_question: false,
+  language_setting: APP_LANGUAGE_SETTING.SIMPLIFIED,
+  app_difficulty_setting: APP_DIFFICULTY_SETTING.EASY,
+};
+
 const USER: User = {
   email: "sean.smith.2009@gmail.com",
   family_name: "Smith",
@@ -109,8 +117,7 @@ const USER: User = {
   photo_url: "",
   score_history: DEFAULT_SCORE_STATE,
   experience_points: EXPERIENCE_POINTS,
-  language_setting: APP_LANGUAGE_SETTING.SIMPLIFIED,
-  app_difficulty_setting: APP_DIFFICULTY_SETTING.EASY,
+  settings: SETTINGS,
 };
 
 const GLOBAL_STATE_PROPS: GlobalStateContextProps = {

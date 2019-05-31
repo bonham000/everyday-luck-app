@@ -70,6 +70,7 @@ export const updateUser = async (user: User): UserAsyncResponse => {
 export const serializeUser = (user: User): UserJson => {
   return {
     ...user,
+    settings: JSON.stringify(user.settings),
     score_history: JSON.stringify(user.score_history),
   };
 };
