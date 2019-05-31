@@ -121,10 +121,6 @@ const GlobalStateContextValues = {
     // Handle updating experience points
     return;
   },
-  handleUpdateAppDifficultySetting: (setting: APP_DIFFICULTY_SETTING) => {
-    // Handle switching app difficulty setting
-    return Promise.resolve();
-  },
   handleSwitchLanguage: () => {
     // Handle switching app language setting
     return;

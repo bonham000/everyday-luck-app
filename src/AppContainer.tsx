@@ -567,7 +567,6 @@ class RootContainer extends RootContainerBase<{}> {
       handleSwitchLanguage: this.handleSwitchLanguage,
       updateExperiencePoints: this.updateExperiencePoints,
       handleUpdateUserSettingsField: this.handleUpdateUserSettingsField,
-      handleUpdateAppDifficultySetting: this.handleUpdateAppDifficultySetting,
     };
 
     return (
@@ -668,37 +667,6 @@ class RootContainer extends RootContainerBase<{}> {
         experience_points: updatedExperience,
       });
     }
-  };
-
-  handleUpdateAppDifficultySetting = async (
-    appDifficultySetting: APP_DIFFICULTY_SETTING,
-  ) => {
-    this.setState(
-      {
-        transparentLoading: true,
-      },
-      async () => {
-        this.updateAppDifficulty(appDifficultySetting);
-      },
-    );
-  };
-
-  updateAppDifficulty = async (
-    appDifficultySetting: APP_DIFFICULTY_SETTING,
-  ) => {
-    this.handleUpdateUserSettingsField(
-      {
-        app_difficulty_setting: appDifficultySetting,
-      },
-      () => {
-        this.setState(
-          {
-            transparentLoading: false,
-          },
-          () => this.setToastMessage("App difficulty updated"),
-        );
-      },
-    );
   };
 
   handleResetScores = () => {

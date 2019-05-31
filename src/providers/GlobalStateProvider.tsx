@@ -41,9 +41,6 @@ export interface GlobalStateContextProps
   onSignin: (user: GoogleSigninUser) => Promise<void>;
   updateExperiencePoints: (experiencePoints: number) => void;
   setLessonScore: (updatedScoreStatus: ScoreStatus, exp: number) => void;
-  handleUpdateAppDifficultySetting: (
-    setting: APP_DIFFICULTY_SETTING,
-  ) => Promise<void>;
   handleUpdateUserSettingsField: (
     data: Partial<UserSettings>,
     optionalSuccessCallback?: (args?: any) => any,
