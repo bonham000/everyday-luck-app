@@ -2103,13 +2103,6 @@ const lesson: HSKList = {
       english: "Task",
       english_alternate_choices: [""],
     },
-    {
-      simplified: "作用",
-      traditional: "作用",
-      pinyin: "zuòyòng",
-      english: "Effect",
-      english_alternate_choices: [""],
-    },
   ],
 };
 

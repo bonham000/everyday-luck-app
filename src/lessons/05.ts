@@ -9068,6 +9068,41 @@ const lesson: HSKList = {
       english: "Composition",
       english_alternate_choices: [""],
     },
+    {
+      simplified: "买",
+      traditional: "買",
+      pinyin: "mǎi",
+      english: "Buy",
+      english_alternate_choices: [""],
+    },
+    {
+      simplified: "网红",
+      traditional: "網紅",
+      pinyin: "Wǎng hóng",
+      english: "Internet celebrity",
+      english_alternate_choices: [""],
+    },
+    {
+      simplified: "不要不要的",
+      traditional: "不要不要的",
+      pinyin: "bùyào bùyào de",
+      english: "Extremely",
+      english_alternate_choices: [""],
+    },
+    {
+      simplified: "你懂的",
+      traditional: "你懂的",
+      pinyin: "nǐ dǒng de",
+      english: "You know... (slang)",
+      english_alternate_choices: [""],
+    },
+    {
+      simplified: "狗带",
+      traditional: "狗帶",
+      pinyin: "gǒu dài",
+      english: "Go die! (slang)",
+      english_alternate_choices: [""],
+    },
   ],
 };
 

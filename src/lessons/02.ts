@@ -2054,6 +2054,56 @@ const lesson: HSKList = {
       english: "Can",
       english_alternate_choices: [""],
     },
+
+    {
+      simplified: "打鸡血",
+      traditional: "打雞血",
+      pinyin: "dǎ jī xuè",
+      english: "Become excited",
+      english_alternate_choices: [""],
+    },
+    {
+      simplified: "萌萌哒",
+      traditional: "萌萌噠",
+      pinyin: "méng méng dá",
+      english: "Cute or adorable",
+      english_alternate_choices: [""],
+    },
+    {
+      simplified: "老板",
+      traditional: "老闆",
+      pinyin: "lǎobǎn",
+      english: "Boss",
+      english_alternate_choices: [""],
+    },
+    {
+      simplified: "辣眼睛",
+      traditional: "辣眼睛",
+      pinyin: "là yǎnjīng",
+      english: "Spicy eyes (an eyesore)",
+      english_alternate_choices: [""],
+    },
+    {
+      simplified: "方了",
+      traditional: "方了",
+      pinyin: "fāngle",
+      english: "To panic",
+      english_alternate_choices: [""],
+    },
+    {
+      simplified: "接地气",
+      traditional: "接地氣",
+      pinyin: "Jiēdì qì",
+      english: "Down to Earth",
+      english_alternate_choices: [""],
+    },
+    {
+      simplified: "一脸懵逼",
+      traditional: "一臉懵逼",
+      pinyin: "yī liǎn měng bī",
+      english: "To feel completely lost",
+      english_alternate_choices: [""],
+    },
   ],
 };
 

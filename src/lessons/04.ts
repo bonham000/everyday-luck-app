@@ -4182,6 +4182,27 @@ const lesson: HSKList = {
       english: "Author",
       english_alternate_choices: [""],
     },
+    {
+      simplified: "作用",
+      traditional: "作用",
+      pinyin: "zuòyòng",
+      english: "Effect",
+      english_alternate_choices: [""],
+    },
+    {
+      simplified: "吃瓜群众",
+      traditional: "吃瓜群眾",
+      pinyin: "Chī guā qúnzhòng",
+      english: "Bystanders, gawkers",
+      english_alternate_choices: [""],
+    },
+    {
+      simplified: "土豪",
+      traditional: "土豪",
+      pinyin: "tǔháo",
+      english: "Rich person, upstart",
+      english_alternate_choices: [""],
+    },
   ],
 };
 
