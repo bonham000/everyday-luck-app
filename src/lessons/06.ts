@@ -17483,10 +17483,10 @@ const lesson: HSKList = {
       english_alternate_choices: [""],
     },
     {
-      simplified: "友谊",
-      traditional: "友誼",
-      pinyin: "yǒuyì",
-      english: "Friendship",
+      simplified: "花心",
+      traditional: "花心",
+      pinyin: "huāxīn",
+      english: "Flower heart (cheating)",
       english_alternate_choices: [""],
     },
     {

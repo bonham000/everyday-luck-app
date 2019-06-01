@@ -3967,7 +3967,7 @@ exports[`App Screen Components Each screen component renders with props provided
         ]
       }
     >
-      4,978
+      5,000
        words total
     </Text>
     <View
@@ -4022,7 +4022,7 @@ exports[`App Screen Components Each screen component renders with props provided
         }
       >
         (
-        293
+        300
          words)
       </Text>
     </View>
@@ -4078,7 +4078,7 @@ exports[`App Screen Components Each screen component renders with props provided
         }
       >
         (
-        301
+        300
          words)
       </Text>
     </View>
@@ -4134,7 +4134,7 @@ exports[`App Screen Components Each screen component renders with props provided
         }
       >
         (
-        597
+        600
          words)
       </Text>
     </View>
@@ -4190,7 +4190,7 @@ exports[`App Screen Components Each screen component renders with props provided
         }
       >
         (
-        1295
+        1300
          words)
       </Text>
     </View>
@@ -4246,7 +4246,7 @@ exports[`App Screen Components Each screen component renders with props provided
         }
       >
         (
-        2492
+        2500
          words)
       </Text>
     </View>
@@ -5454,7 +5454,143 @@ exports[`App Screen Components Each screen component renders with props provided
         ]
       }
     >
-      App Difficulty Setting
+      Pronunciation Settings
+    </Text>
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#000000",
+            "fontFamily": "Helvetica Neue",
+            "textAlign": "left",
+            "writingDirection": "ltr",
+          },
+          undefined,
+        ]
+      }
+    >
+      Audio word pronunciation is currently:
+       
+      <Text
+        style={
+          Array [
+            Object {
+              "fontWeight": "bold",
+            },
+          ]
+        }
+      >
+        Enabled
+      </Text>
+    </Text>
+    <View
+      style={
+        Object {
+          "backgroundColor": "#6200ee",
+          "borderColor": "transparent",
+          "borderRadius": 4,
+          "borderStyle": "solid",
+          "borderWidth": 0,
+          "elevation": 2,
+          "marginBottom": 15,
+          "marginTop": 15,
+          "minWidth": 64,
+          "shadowColor": "#000000",
+          "shadowOffset": Object {
+            "height": NaN,
+            "width": 0,
+          },
+          "shadowOpacity": 0.24,
+          "shadowRadius": 2,
+        }
+      }
+    >
+      <View
+        accessibilityRole="button"
+        accessible={true}
+        isTVSelectable={true}
+        onResponderGrant={[Function]}
+        onResponderMove={[Function]}
+        onResponderRelease={[Function]}
+        onResponderTerminate={[Function]}
+        onResponderTerminationRequest={[Function]}
+        onStartShouldSetResponder={[Function]}
+        style={
+          Object {
+            "borderRadius": 4,
+          }
+        }
+      >
+        <View
+          style={
+            Object {
+              "alignItems": "center",
+              "flexDirection": "row",
+              "justifyContent": "center",
+            }
+          }
+        >
+          <Text
+            numberOfLines={1}
+            style={
+              Array [
+                Object {
+                  "color": "#000000",
+                  "fontFamily": "Helvetica Neue",
+                  "textAlign": "left",
+                  "writingDirection": "ltr",
+                },
+                Array [
+                  Object {
+                    "letterSpacing": 1,
+                    "marginHorizontal": 16,
+                    "marginVertical": 9,
+                    "textAlign": "center",
+                  },
+                  undefined,
+                  Object {
+                    "color": "#ffffff",
+                    "fontFamily": "HelveticaNeue-Medium",
+                  },
+                  Object {
+                    "fontFamily": "HelveticaNeue-Medium",
+                  },
+                ],
+              ]
+            }
+          >
+            DISABLE
+             PRONUNCIATION
+          </Text>
+        </View>
+      </View>
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "black",
+            "height": 0.5,
+            "marginBottom": 12,
+            "marginTop": 12,
+            "width": "85%",
+          },
+        ]
+      }
+    />
+    <Text
+      style={
+        Array [
+          Object {
+            "fontSize": 22,
+            "fontWeight": "bold",
+            "marginBottom": 5,
+            "marginTop": 5,
+          },
+        ]
+      }
+    >
+      Quiz Difficulty Setting
     </Text>
     <Text
       style={

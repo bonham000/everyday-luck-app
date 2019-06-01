@@ -4106,10 +4106,10 @@ const lesson: HSKList = {
       english_alternate_choices: [""],
     },
     {
-      simplified: "老板",
-      traditional: "老闆",
-      pinyin: "lǎobǎn",
-      english: "Boss",
+      simplified: "九四",
+      traditional: "九四",
+      pinyin: "jiǔsì",
+      english: "Precisely, exactly (I know)",
       english_alternate_choices: [""],
     },
     {
@@ -9069,10 +9069,10 @@ const lesson: HSKList = {
       english_alternate_choices: [""],
     },
     {
-      simplified: "买",
-      traditional: "買",
-      pinyin: "mǎi",
-      english: "Buy",
+      simplified: "二百五",
+      traditional: "二百五",
+      pinyin: "erbǎiwǔ",
+      english: "Idiot (slang)",
       english_alternate_choices: [""],
     },
     {
