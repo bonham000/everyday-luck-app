@@ -40,7 +40,7 @@ interface IState {
  */
 
 class SoundRecordingProvider extends React.Component<IProps, IState> {
-  constructor(props: {}) {
+  constructor(props: IProps) {
     super(props);
 
     this.state = {
