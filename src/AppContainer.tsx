@@ -594,7 +594,7 @@ class RootContainer extends RootContainerBase<{}> {
           message={this.state.toastMessage}
         />
         <GlobalContext.Provider value={ProviderValues}>
-          <SoundRecordingProvider>
+          <SoundRecordingProvider disableAudio={disableAudio}>
             <RenderAppOnce
               userLoggedIn={Boolean(user)}
               assignNavigatorRef={this.assignNavRef}

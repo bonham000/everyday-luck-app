@@ -23,6 +23,10 @@ export interface SoundRecordingProps {
   handlePronounceWord: (traditionalCharacters: string) => Promise<void>;
 }
 
+interface IProps {
+  disableAudio: boolean;
+}
+
 interface IState {
   playbackError: boolean;
   loadingSoundData: boolean;
@@ -35,7 +39,7 @@ interface IState {
  * =========================================================================
  */
 
-class SoundRecordingProvider extends React.Component<{}, IState> {
+class SoundRecordingProvider extends React.Component<IProps, IState> {
   constructor(props: {}) {
     super(props);
 
@@ -64,6 +68,13 @@ class SoundRecordingProvider extends React.Component<{}, IState> {
   }
 
   handlePronounceWord = async (traditionalCharacters: string) => {
+    /**
+     * Defer to user setting.
+     */
+    if (this.props.disableAudio) {
+      return;
+    }
+
     /**
      * The logic diverges on iOS and Android because the Android Audio API
      * is shit and cannot load multiple audio files at once.

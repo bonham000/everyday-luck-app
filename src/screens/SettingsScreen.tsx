@@ -34,7 +34,7 @@ interface IProps extends GlobalStateContextProps {
 
 export class SettingsScreenComponent extends React.Component<IProps, {}> {
   render(): JSX.Element {
-    const { languageSetting } = this.props;
+    const { languageSetting, disableAudio } = this.props;
     return (
       <ScrollContainer>
         <SectionTitle>Language Setting</SectionTitle>
@@ -50,7 +50,20 @@ export class SettingsScreenComponent extends React.Component<IProps, {}> {
           Switch to {getAlternateLanguageSetting(languageSetting)} Chinese
         </Button>
         <LineBreak />
-        <SectionTitle>App Difficulty Setting</SectionTitle>
+        <SectionTitle>Pronunciation Settings</SectionTitle>
+        <Text>
+          Audio word pronunciation is currently:{" "}
+          <Bold>{disableAudio ? "Disabled" : "Enabled"}</Bold>
+        </Text>
+        <Button
+          mode="contained"
+          onPress={this.handleSetAudioOptions}
+          style={{ marginTop: 15, marginBottom: 15 }}
+        >
+          {disableAudio ? "Enable" : "Disable"} Pronunciation
+        </Button>
+        <LineBreak />
+        <SectionTitle>Quiz Difficulty Setting</SectionTitle>
         <InfoText>
           Change the number of words per lesson. More words will be harder to
           master, but will reward you with more experience points. You can
@@ -103,6 +116,12 @@ export class SettingsScreenComponent extends React.Component<IProps, {}> {
 
   handleSetLanguageOptions = () => {
     this.props.handleSwitchLanguage();
+  };
+
+  handleSetAudioOptions = () => {
+    this.props.handleUpdateUserSettingsField({
+      disable_audio: !this.props.disableAudio,
+    });
   };
 }
 
