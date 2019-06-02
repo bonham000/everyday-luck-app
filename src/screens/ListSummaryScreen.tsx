@@ -42,10 +42,6 @@ export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
   render(): JSX.Element {
     const { userScoreStatus } = this.props;
     const listIndex = this.props.navigation.getParam("listIndex");
-    /**
-     * TODO: Convert hskList to be separated with review lessons
-     * every 5 lessons.
-     */
     const hskList = this.props.navigation.getParam("hskList");
     const listScore = mapListIndexToListScores(listIndex, userScoreStatus);
     return (
