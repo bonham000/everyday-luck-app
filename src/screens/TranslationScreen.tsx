@@ -28,6 +28,7 @@ interface IProps extends GlobalStateContextProps {
 
 interface IState {
   input: string;
+  loadingTranslation: boolean;
   translationResults?: TranslationsData;
   sourceLanguageChinese: boolean;
 }
@@ -46,6 +47,7 @@ export class TranslationScreenComponent extends React.Component<
 
     this.state = {
       input: "",
+      loadingTranslation: false,
       sourceLanguageChinese: false,
     };
   }
@@ -90,7 +92,7 @@ export class TranslationScreenComponent extends React.Component<
           style={ButtonStyles}
           onPress={this.handleTranslate}
         >
-          Translate
+          {this.state.loadingTranslation ? "Translating..." : "Translate"}
         </Button>
         {this.renderTranslationResults()}
       </Container>
@@ -137,30 +139,44 @@ export class TranslationScreenComponent extends React.Component<
     this.setState({ input });
   };
 
-  handleTranslate = async () => {
-    const { input, sourceLanguageChinese } = this.state;
-    if (input !== "") {
-      const sourceCode: languageCode = sourceLanguageChinese
-        ? this.props.languageSetting
-        : "english";
-      const wordExistsInDictionary = this.props.wordDictionary[
-        input.toLowerCase()
-      ];
+  handleTranslate = () => {
+    const { loadingTranslation, input, sourceLanguageChinese } = this.state;
+    if (loadingTranslation) {
+      return;
+    }
 
-      /**
-       * Word may already exist in local dictionary!
-       */
-      if (wordExistsInDictionary) {
-        this.setState(
-          {
-            translationResults: wordExistsInDictionary,
-          },
-          Keyboard.dismiss,
-        );
-      } else {
-        const translationResults = await translateWord(input, sourceCode);
-        this.setState({ translationResults }, Keyboard.dismiss);
-      }
+    if (input !== "") {
+      this.setState(
+        {
+          loadingTranslation: true,
+        },
+        async () => {
+          const sourceCode: languageCode = sourceLanguageChinese
+            ? this.props.languageSetting
+            : "english";
+          const wordExistsInDictionary = this.props.wordDictionary[
+            input.toLowerCase()
+          ];
+
+          /**
+           * Word may already exist in local dictionary!
+           */
+          if (wordExistsInDictionary) {
+            this.setState(
+              {
+                translationResults: wordExistsInDictionary,
+              },
+              Keyboard.dismiss,
+            );
+          } else {
+            const translationResults = await translateWord(input, sourceCode);
+            this.setState(
+              { translationResults, loadingTranslation: false },
+              Keyboard.dismiss,
+            );
+          }
+        },
+      );
     } else {
       this.props.setToastMessage("Please enter a word to translate");
     }
