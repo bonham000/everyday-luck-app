@@ -164,6 +164,7 @@ export class TranslationScreenComponent extends React.Component<
           if (wordExistsInDictionary) {
             this.setState(
               {
+                loadingTranslation: false,
                 translationResults: wordExistsInDictionary,
               },
               Keyboard.dismiss,
