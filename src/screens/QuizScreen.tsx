@@ -173,12 +173,11 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     const lesson = this.props.navigation.getParam("lesson");
 
     const total = lesson.length;
-    const completedNumber = progressCount - failCount;
+    const completedNumber = progressCount;
 
     return (
       <ProgressText>
-        Question: {completedNumber > 0 ? completedNumber : 0} / {total}{" "}
-        complete, {failCount} failed
+        Question: {completedNumber} / {total} complete, {failCount} failed
       </ProgressText>
     );
   };
@@ -423,7 +422,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
   };
 
   handleCorrectAnswer = () => {
-    const { wordCompletedCache } = this.state;
+    const { wordCompletedCache, failedOnce } = this.state;
     this.setState(
       prevState => {
         return {
@@ -431,7 +430,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
           attempted: true,
           shouldShake: false,
           failedOnce: false,
-          progressCount: prevState.progressCount + 1,
+          progressCount: prevState.progressCount + (failedOnce ? 0 : 1),
         };
       },
       () => {
