@@ -177,7 +177,8 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
 
     return (
       <ProgressText>
-        Question: {completedNumber} / {total} complete, {failCount} failed
+        Question: {completedNumber > 0 ? completedNumber : 0} / {total}{" "}
+        complete, {failCount} failed
       </ProgressText>
     );
   };
