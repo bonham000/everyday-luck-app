@@ -248,9 +248,11 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
      */
     if (this.state.user && this.state.user.push_token === "") {
       const token = await registerForPushNotificationsAsync();
-      this.handleUpdateUserFields({
-        push_token: token,
-      });
+      if (token) {
+        this.handleUpdateUserFields({
+          push_token: token,
+        });
+      }
     }
   };
 
@@ -657,6 +659,7 @@ class RootContainer extends RootContainerBase<{}> {
             () => {
               this.setupPushToken();
               this.serializeAndPersistUser();
+              this.setToastMessage("Account transferred successfully!");
             },
           );
         } else {
