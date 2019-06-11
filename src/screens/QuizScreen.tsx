@@ -113,7 +113,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
       didReveal: false,
       revealAnswer: false,
       quizFinished: false,
-      wordContent: lesson,
+      wordContent: knuthShuffle(lesson),
       encouragementText: "",
       wordCompletedCache: new Set(),
       quizType: this.getQuizComponentType(),
@@ -235,13 +235,13 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     return quizType === QUIZ_TYPE.QUIZ_TEXT ? (
       <QuizInput {...quizProps} />
     ) : (
-      <MultipleChoiceComponent
-        {...this.props}
-        {...quizProps}
-        lessons={this.props.lessons}
-        handlePronounceWord={this.props.handlePronounceWord}
-      />
-    );
+        <MultipleChoiceComponent
+          {...this.props}
+          {...quizProps}
+          lessons={this.props.lessons}
+          handlePronounceWord={this.props.handlePronounceWord}
+        />
+      );
   };
 
   renderActionButtons = () => {
@@ -282,7 +282,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
           buttonColor={COLORS.actionButtonMint}
           title={`${
             this.props.autoProceedQuestion ? "Disable" : "Enable"
-          } auto next question`}
+            } auto next question`}
         >
           <Ionicons name="ios-rocket" style={ActionIconStyle} />
         </ActionButton.Item>
@@ -510,7 +510,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     let lessonCompleted = false;
     const updatedScoreStatus: ScoreStatus = {
       ...userScoreStatus,
-      [quizType]: true,
+      [quizType]: perfectScore,
     };
 
     /* Is the lesson fully completed */
