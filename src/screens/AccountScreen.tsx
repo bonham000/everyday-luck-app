@@ -1,7 +1,7 @@
 import glamorous from "glamorous-native";
 import React from "react";
 import { StyleSheet } from "react-native";
-import { Text, TextInput } from "react-native-paper";
+import { TextInput } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
 import { Button, ScrollContainer } from "@src/components/SharedComponents";
