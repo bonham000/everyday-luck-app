@@ -96,7 +96,7 @@ export class GoogleSigninScreenComponent extends React.Component<
         // iosClientId: IOS_CLIENT_ID,
         // androidClientId: ANDROID_CLIENT_ID,
         // androidStandaloneAppClientId: ANDROID_STANDALONE_CLIENT_ID,
-        // scopes: ["profile", "email"],
+        scopes: ["profile", "email"],
       });
 
       if (result.type === "success") {
