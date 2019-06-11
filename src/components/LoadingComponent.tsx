@@ -16,6 +16,8 @@ const LoadingComponent = ({ transparent }: { transparent?: boolean }) => (
   >
     <ActivityIndicator size="large" color={COLORS.primaryRed} />
     <WelcomeText>大家好</WelcomeText>
+    <PinyinText>Dàjiā hǎo!</PinyinText>
+    <EnglishText>"Welcome everyone!"</EnglishText>
   </Container>
 );
 
@@ -40,6 +42,20 @@ const TransparentLoadingComponent = () => (
 const WelcomeText = glamorous.text({
   marginTop: 55,
   fontSize: 45,
+  fontWeight: "bold",
+  color: COLORS.darkText,
+});
+
+const PinyinText = glamorous.text({
+  marginTop: 25,
+  fontSize: 24,
+  fontWeight: "bold",
+  color: COLORS.darkText,
+});
+
+const EnglishText = glamorous.text({
+  marginTop: 15,
+  fontSize: 18,
   fontWeight: "bold",
   color: COLORS.darkText,
 });
