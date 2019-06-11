@@ -31,9 +31,10 @@ interface IState {
   error: boolean;
 }
 
-const IOS_CLIENT_ID = CONFIG.IOS_CLIENT_ID;
-const ANDROID_CLIENT_ID = CONFIG.ANDROID_CLIENT_ID;
-const ANDROID_STANDALONE_CLIENT_ID = CONFIG.ANDROID_STANDALONE_CLIENT_ID;
+const GOOGLE_WEB_API_KEY = CONFIG.GOOGLE_WEB_API_KEY;
+// const IOS_CLIENT_ID = CONFIG.IOS_CLIENT_ID;
+// const ANDROID_CLIENT_ID = CONFIG.ANDROID_CLIENT_ID;
+// const ANDROID_STANDALONE_CLIENT_ID = CONFIG.ANDROID_STANDALONE_CLIENT_ID;
 
 /** ========================================================================
  * React Class
@@ -91,10 +92,11 @@ export class GoogleSigninScreenComponent extends React.Component<
        * future requests.
        */
       const result: Google.LogInResult = await Google.logInAsync({
-        iosClientId: IOS_CLIENT_ID,
-        androidClientId: ANDROID_CLIENT_ID,
-        androidStandaloneAppClientId: ANDROID_STANDALONE_CLIENT_ID,
-        scopes: ["profile", "email"],
+        webClientId: GOOGLE_WEB_API_KEY,
+        // iosClientId: IOS_CLIENT_ID,
+        // androidClientId: ANDROID_CLIENT_ID,
+        // androidStandaloneAppClientId: ANDROID_STANDALONE_CLIENT_ID,
+        // scopes: ["profile", "email"],
       });
 
       if (result.type === "success") {
