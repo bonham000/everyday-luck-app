@@ -92,11 +92,11 @@ export class GoogleSigninScreenComponent extends React.Component<
        * future requests.
        */
       const result: Google.LogInResult = await Google.logInAsync({
-        webClientId: GOOGLE_WEB_API_KEY,
+        // @ts-ignore
+        clientId: GOOGLE_WEB_API_KEY,
         // iosClientId: IOS_CLIENT_ID,
         // androidClientId: ANDROID_CLIENT_ID,
         // androidStandaloneAppClientId: ANDROID_STANDALONE_CLIENT_ID,
-        scopes: ["profile", "email"],
       });
 
       if (result.type === "success") {

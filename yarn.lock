@@ -1045,15 +1045,16 @@
   dependencies:
     "@types/node" "*"
 
-"@types/expo@^31.0.8":
-  version "31.0.8"
-  resolved "https://registry.yarnpkg.com/@types/expo/-/expo-31.0.8.tgz#e5e8b9a88087220e6cfa10a8ec940587eaefcf1d"
-  integrity sha512-FuH7CnyicH2IZxOZHuwkkgUTZDnx4SF0KZ8B6XZ/y1ReEStY98c7ntcdzsO0+gHj4IRjB+ou4j7CvJ2tJKYYjg==
+"@types/expo@^32.0.13":
+  version "32.0.13"
+  resolved "https://registry.yarnpkg.com/@types/expo/-/expo-32.0.13.tgz#c43c9c0ada5e62a466ea427cc922c495345f55a7"
+  integrity sha512-kKU0zpkiyGGB4+A26vT9QmWbQ8/ccu9ui8ek7gDsz8FAk8atAvHQq9WaZpARSNqH6jTn+Ww2tKUo3Mw/cutoQQ==
   dependencies:
     "@types/fbemitter" "*"
     "@types/react" "*"
     "@types/react-native" "*"
     react-native-maps "*"
+    react-native-svg "*"
 
 "@types/expo__vector-icons@^6.2.3":
   version "6.2.3"
@@ -6658,12 +6659,7 @@ react-native-gesture-handler@1.2.1:
     invariant "^2.2.2"
     prop-types "^15.5.10"
 
-react-native-maps@*:
-  version "0.23.0"
-  resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-0.23.0.tgz#edbfdcad0e42190627eb1c8067eaba5965c8f81e"
-  integrity sha512-qxOIQGsDtQXQlSJdXMW1wg8pvLaVYdbiIolB7tZTTgTGgIA/hDxXwZbQZ08c4KDD6/VTk8krfd1APaHkqvh6og==
-
-react-native-maps@0.24.2:
+react-native-maps@*, react-native-maps@0.24.2:
   version "0.24.2"
   resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-0.24.2.tgz#19974f967cb0c2e24dab74ca879118e0932571b2"
   integrity sha512-1iNIDikp2dkCG+8DguaEviYZiMSYyvwqYT7pO2YTZvuFRDSc/P9jXMhTUnSh4wNDlEeQ47OJ09l0pwWVBZ7wxg==
@@ -6724,6 +6720,11 @@ react-native-stargazer@^1.0.6:
   integrity sha512-qj9P3jqTu8gCHalqZA1nU7rP/PcN29ch3g+dah+AGbdlt4hYi3ENYFiQMiu3L5GjAAWhU4rI4Mh+5WZamJgqYA==
   dependencies:
     serve "11.0.0"
+
+react-native-svg@*:
+  version "9.5.1"
+  resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-9.5.1.tgz#eb21fa7eb5d71649620541e6549c6ed425d80240"
+  integrity sha512-cRGfomzG/5LEwuJ6ct3m5yccckeI9aj8BNYwDPVxOeJ84LuJuvk5OqcjlYNeEzOWmWiH+QrFXfpLH1ag04bUeQ==
 
 react-native-svg@9.4.0:
   version "9.4.0"
