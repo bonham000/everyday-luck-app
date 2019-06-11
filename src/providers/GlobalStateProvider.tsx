@@ -40,6 +40,7 @@ export interface GlobalStateContextProps
   handleSwitchLanguage: () => void;
   updateExperiencePoints: (experiencePoints: number) => void;
   setLessonScore: (updatedScoreStatus: ScoreStatus, exp: number) => void;
+  transferUserAccount: (uuid: string) => void;
   handleUpdateUserSettingsField: (
     data: Partial<UserSettings>,
     optionalSuccessCallback?: (args?: any) => any,

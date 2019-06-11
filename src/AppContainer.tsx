@@ -32,6 +32,7 @@ import { createUser, getUser, updateUser } from "@src/tools/api";
 import {
   getOfflineUpdatesFlagState,
   getPersistedUser,
+  logoutUserLocal,
   saveUserToAsyncStorage,
   setOfflineUpdatesFlagState,
 } from "@src/tools/async-store";
@@ -559,6 +560,7 @@ class RootContainer extends RootContainerBase<{}> {
       handleUpdateApp: this.handleUpdateApp,
       handleResetScores: this.handleResetScores,
       handleSwitchLanguage: this.handleSwitchLanguage,
+      transferUserAccount: this.handleTransferUserAccount,
       updateExperiencePoints: this.updateExperiencePoints,
       handleUpdateUserSettingsField: this.handleUpdateUserSettingsField,
     };
@@ -621,6 +623,44 @@ class RootContainer extends RootContainerBase<{}> {
     } else {
       this.setState({ loading: false, user: undefined, error: true });
     }
+  };
+
+  handleTransferUserAccount = (uuid: string) => {
+    if (uuid === "") {
+      return this.setToastMessage("Please enter an ID");
+    } else if (this.state.user && uuid === this.state.user.uuid) {
+      return this.setToastMessage("ID matches your current user");
+    }
+
+    this.setState(
+      {
+        transparentLoading: true,
+      },
+      async () => {
+        const user = await getUser(uuid);
+        if (user) {
+          this.setState(
+            {
+              transparentLoading: false,
+              user: transformUserJson(user),
+            },
+            () => {
+              this.setupPushToken();
+              this.serializeAndPersistUser();
+            },
+          );
+        } else {
+          this.setState(
+            {
+              transparentLoading: false,
+            },
+            () => {
+              this.setToastMessage("User with that ID could not be found");
+            },
+          );
+        }
+      },
+    );
   };
 
   updateExperiencePoints = (experiencePoints: number) => {

@@ -113,6 +113,10 @@ const GlobalStateContextValues = {
     // Handle resetting scores
     return;
   },
+  transferUserAccount: (uuid: string) => {
+    // Handle transferring account
+    return;
+  },
   setLessonScore: (updatedScoreStatus: ScoreStatus, exp: number) => {
     // Handle setting lesson score
     return;

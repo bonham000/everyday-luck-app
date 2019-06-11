@@ -23,6 +23,7 @@ import TranslationScreenComponent from "@src/screens/TranslationScreen";
 import ViewAllScreen from "@src/screens/ViewAllScreen";
 import { getDrawerLockedState } from "@src/tools/navigation-utils";
 import { LessonScreenParams, ListScreenParams } from "@src/tools/types";
+import AccountScreenComponent from "./screens/AccountScreen";
 import IntroScreenComponent from "./screens/IntroScreen";
 import WelcomeScreenComponent from "./screens/WelcomeScreen";
 
@@ -155,6 +156,13 @@ const ROUTES: NavigationScreenRouteConfig = {
     screen: TranslationScreenComponent,
     navigationOptions: {
       title: "Translation 📔",
+      headerBackTitle: null,
+    },
+  },
+  [ROUTE_NAMES.ACCOUNT]: {
+    screen: AccountScreenComponent,
+    navigationOptions: {
+      title: "Account 🏗",
       headerBackTitle: null,
     },
   },

@@ -21,4 +21,5 @@ export enum ROUTE_NAMES {
   ABOUT = "ABOUT",
   CONTACT = "CONTACT",
   SETTINGS = "SETTINGS",
+  ACCOUNT = "ACCOUNT",
 }

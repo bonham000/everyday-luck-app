@@ -73,6 +73,9 @@ class SideMenuComponent extends React.Component<IProps, {}> {
           {"  "}
           Settings
         </Item>
+        <Item onPress={this.createNavigationHandler(ROUTE_NAMES.ACCOUNT)}>
+          🎡 Account
+        </Item>
         <Item onPress={this.createNavigationHandler(ROUTE_NAMES.INTRO)}>
           🛶
           {"  "}
@@ -82,7 +85,6 @@ class SideMenuComponent extends React.Component<IProps, {}> {
           ⛱{"  "}
           Reset
         </Item>
-        <Item onPress={this.clearAccount}>🎡 Account...</Item>
         <BottomBlock>
           {user && (
             <SmallItem>
@@ -124,10 +126,6 @@ class SideMenuComponent extends React.Component<IProps, {}> {
     return () => {
       this.props.navigation.navigate(route);
     };
-  };
-
-  clearAccount = () => {
-    logoutUserLocal();
   };
 
   getDrawerStateFromProps = (props: IProps) => {
