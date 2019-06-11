@@ -16,7 +16,6 @@ import {
   GlobalStateContextProps,
   withGlobalStateContext,
 } from "@src/providers/GlobalStateProvider";
-import { logoutUserLocal } from "@src/tools/async-store";
 import { formatUserLanguageSetting } from "@src/tools/utils";
 
 /** ========================================================================

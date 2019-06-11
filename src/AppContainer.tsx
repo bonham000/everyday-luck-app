@@ -32,7 +32,6 @@ import { createUser, getUser, updateUser } from "@src/tools/api";
 import {
   getOfflineUpdatesFlagState,
   getPersistedUser,
-  logoutUserLocal,
   saveUserToAsyncStorage,
   setOfflineUpdatesFlagState,
 } from "@src/tools/async-store";
