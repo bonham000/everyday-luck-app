@@ -205,7 +205,7 @@ const ROUTES: NavigationScreenRouteConfig = {
 
 const createAppNavigationStack = (firstTimeUser: boolean) => {
   return createStackNavigator(ROUTES, {
-    initialRouteName: firstTimeUser ? ROUTE_NAMES.INTRO : ROUTE_NAMES.HOME,
+    initialRouteName: firstTimeUser ? ROUTE_NAMES.WELCOME : ROUTE_NAMES.HOME,
   });
 };
 

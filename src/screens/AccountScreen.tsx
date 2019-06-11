@@ -9,6 +9,7 @@ import {
   GlobalStateContextProps,
   withGlobalStateContext,
 } from "@src/providers/GlobalStateProvider";
+import { logoutUserLocal } from "@src/tools/async-store";
 
 /** ========================================================================
  * Types
@@ -39,7 +40,7 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
 
   render(): JSX.Element {
     const { accountUuid } = this.state;
-    const uuid = this.props.user && this.props.user.uuid;
+    const uuid = this.props.user ? this.props.user.uuid : "";
     return (
       <ScrollContainer>
         <SectionTitle>Transfer Account</SectionTitle>
@@ -59,12 +60,19 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
         </Button>
         <LineBreak />
         <SectionTitle>Account ID</SectionTitle>
-        <InfoText>{}</InfoText>
+        <InfoText>{uuid}</InfoText>
         <Button
           style={{ marginTop: 15, marginBottom: 15 }}
           onPress={() => (uuid ? this.props.copyToClipboard(uuid) : null)}
         >
           Copy ID
+        </Button>
+        <LineBreak />
+        <Button
+          onPress={this.clearUserData}
+          style={{ marginTop: 15, marginBottom: 15 }}
+        >
+          Clear User Data
         </Button>
       </ScrollContainer>
     );
@@ -76,6 +84,27 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
 
   handleTransferAccount = () => {
     this.props.transferUserAccount(this.state.accountUuid);
+  };
+
+  clearUserData = async () => {
+    await logoutUserLocal();
+    this.props.setToastMessage("Data cleared");
+  };
+
+  dangerouslySetUserScoresManuallyAsync = async () => {
+    const scores = this.props.user!.score_history;
+    const newScores = {
+      ...scores,
+      list_02_score: {
+        list_key: "2",
+        list_index: 0,
+        complete: false,
+        number_words_completed: 130,
+      },
+    };
+
+    await this.props.setLessonScore(newScores, 1243);
+    this.props.setToastMessage("Done!");
   };
 }
 
