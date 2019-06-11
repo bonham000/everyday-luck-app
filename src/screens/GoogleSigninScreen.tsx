@@ -31,7 +31,7 @@ interface IState {
   error: boolean;
 }
 
-const GOOGLE_WEB_API_KEY = CONFIG.GOOGLE_WEB_API_KEY;
+const GOOGLE_WEB_API_KEY = CONFIG.ANDROID_CLIENT_ID;
 // const IOS_CLIENT_ID = CONFIG.IOS_CLIENT_ID;
 // const ANDROID_CLIENT_ID = CONFIG.ANDROID_CLIENT_ID;
 // const ANDROID_STANDALONE_CLIENT_ID = CONFIG.ANDROID_STANDALONE_CLIENT_ID;
@@ -111,6 +111,8 @@ export class GoogleSigninScreenComponent extends React.Component<
         throw new Error("Login failed, cancelled, or rejected");
       }
     } catch (err) {
+      console.log(err);
+
       Sentry.captureException(err);
       this.setState({
         error: true,
