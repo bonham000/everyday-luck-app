@@ -31,8 +31,9 @@ interface IState {
   error: boolean;
 }
 
-const ANDROID_CLIENT_ID = CONFIG.ANDROID_CLIENT_ID;
 const IOS_CLIENT_ID = CONFIG.IOS_CLIENT_ID;
+const ANDROID_CLIENT_ID = CONFIG.ANDROID_CLIENT_ID;
+const ANDROID_STANDALONE_CLIENT_ID = CONFIG.ANDROID_STANDALONE_CLIENT_ID;
 
 /** ========================================================================
  * React Class
@@ -90,8 +91,9 @@ export class GoogleSigninScreenComponent extends React.Component<
        * future requests.
        */
       const result: Google.LogInResult = await Google.logInAsync({
-        androidClientId: ANDROID_CLIENT_ID,
         iosClientId: IOS_CLIENT_ID,
+        androidClientId: ANDROID_CLIENT_ID,
+        androidStandaloneAppClientId: ANDROID_STANDALONE_CLIENT_ID,
         behavior: "web",
         scopes: ["profile", "email"],
       });
