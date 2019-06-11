@@ -3,6 +3,7 @@ import glamorous from "glamorous-native";
 import React from "react";
 import { Image } from "react-native";
 import { NavigationScreenProp } from "react-navigation";
+import Sentry from "sentry-expo";
 
 import { LoadingComponent } from "@src/components/LoadingComponent";
 import { Container } from "@src/components/SharedComponents";
@@ -106,6 +107,7 @@ export class GoogleSigninScreenComponent extends React.Component<
         throw new Error("Login failed, cancelled, or rejected");
       }
     } catch (err) {
+      Sentry.captureException(err);
       this.setState({
         error: true,
         loading: false,
