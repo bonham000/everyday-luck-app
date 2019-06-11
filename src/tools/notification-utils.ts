@@ -1,4 +1,5 @@
-import { Notifications, Permissions } from "expo";
+import { Notifications } from "expo";
+import * as Permissions from "expo-permissions";
 
 /** ========================================================================
  * Push Notification Utils
