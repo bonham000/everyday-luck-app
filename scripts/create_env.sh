@@ -5,6 +5,7 @@ echo "
 export const SENTRY_DSN = \"\";
 export const SENTRY_AUTH_TOKEN = \"\";
 export const ANDROID_CLIENT_ID = \"\";
+export const ANDROID_STANDALONE_CLIENT_ID = \"\";
 export const IOS_CLIENT_ID = \"\";
 export const DRAGON_URI = \"\";
 export const FORVO_API_KEY = \"\";
