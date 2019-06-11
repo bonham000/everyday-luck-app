@@ -10,6 +10,7 @@ describe("Environment Variables Configuration", () => {
         "DRAGON_URI",
         "FORVO_API_KEY",
         "GOOGLE_TRANSLATE_API_KEY",
+        "GOOGLE_WEB_API_KEY",
         "IOS_CLIENT_ID",
         "PINYIN_CONVERSION_SERVICE_API_KEY",
         "PINYIN_CONVERSION_SERVICE_URL",
