@@ -41,6 +41,7 @@ export interface GlobalStateContextProps
   updateExperiencePoints: (experiencePoints: number) => void;
   setLessonScore: (updatedScoreStatus: ScoreStatus, exp: number) => void;
   transferUserAccount: (uuid: string) => void;
+  copyToClipboard: (text: string) => void;
   handleUpdateUserSettingsField: (
     data: Partial<UserSettings>,
     optionalSuccessCallback?: (args?: any) => any,

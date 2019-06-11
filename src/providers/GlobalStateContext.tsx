@@ -113,6 +113,10 @@ const GlobalStateContextValues = {
     // Handle resetting scores
     return;
   },
+  copyToClipboard: (text: string) => {
+    // Handle copy to clipboard
+    return;
+  },
   transferUserAccount: (uuid: string) => {
     // Handle transferring account
     return;

@@ -4,6 +4,7 @@ import {
   Alert,
   AppState,
   BackHandler,
+  Clipboard,
   ConnectionInfo,
   ConnectionType,
   NetInfo,
@@ -439,6 +440,15 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
       this.navigationRef.dispatch(navigationAction);
     }
   };
+
+  copyToClipboard = (text: string) => {
+    try {
+      Clipboard.setString(text);
+      this.setToastMessage(`${text} copied!`);
+    } catch (_) {
+      return;
+    }
+  };
 }
 
 /** ========================================================================
@@ -556,6 +566,7 @@ class RootContainer extends RootContainerBase<{}> {
       appDifficultySetting,
       setLessonScore: this.setLessonScore,
       setToastMessage: this.setToastMessage,
+      copyToClipboard: this.copyToClipboard,
       handleUpdateApp: this.handleUpdateApp,
       handleResetScores: this.handleResetScores,
       handleSwitchLanguage: this.handleSwitchLanguage,

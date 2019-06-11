@@ -39,6 +39,7 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
 
   render(): JSX.Element {
     const { accountUuid } = this.state;
+    const uuid = this.props.user && this.props.user.uuid;
     return (
       <ScrollContainer>
         <SectionTitle>Transfer Account</SectionTitle>
@@ -50,7 +51,6 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
           onSubmitEditing={this.handleTransferAccount}
           label="Enter account id to recover account"
         />
-        <Text />
         <Button
           onPress={this.handleTransferAccount}
           style={{ marginTop: 15, marginBottom: 15 }}
@@ -58,6 +58,14 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
           Transfer Account
         </Button>
         <LineBreak />
+        <SectionTitle>Account ID</SectionTitle>
+        <InfoText>{}</InfoText>
+        <Button
+          style={{ marginTop: 15, marginBottom: 15 }}
+          onPress={() => (uuid ? this.props.copyToClipboard(uuid) : null)}
+        >
+          Copy ID
+        </Button>
       </ScrollContainer>
     );
   }
@@ -97,6 +105,13 @@ const TextInputStyles = {
   marginTop: 6,
   backgroundColor: "rgb(231,237,240)",
 };
+
+const InfoText = glamorous.text({
+  marginTop: 5,
+  marginBottom: 5,
+  width: "80%",
+  textAlign: "center",
+});
 
 /** ========================================================================
  * Export
