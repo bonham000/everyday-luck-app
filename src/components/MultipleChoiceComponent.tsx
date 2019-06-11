@@ -5,9 +5,10 @@ import {
   TextStyle,
   TouchableOpacity,
 } from "react-native";
-import { Button, Text } from "react-native-paper";
+import { Text } from "react-native-paper";
 
 import Shaker from "@src/components/ShakerComponent";
+import { Button } from "@src/components/SharedComponents";
 import { COLORS } from "@src/constants/Theme";
 import {
   APP_LANGUAGE_SETTING,
@@ -113,8 +114,6 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
         )}
         {shouldReveal && (!autoProceedQuestion || !valid) && (
           <Button
-            dark
-            mode="contained"
             style={{
               marginTop: 30,
               minWidth: 215,

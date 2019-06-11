@@ -1,9 +1,9 @@
 import glamorous from "glamorous-native";
 import React from "react";
-import { Button, TextInput } from "react-native-paper";
+import { TextInput } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
-import { Container } from "@src/components/SharedComponents";
+import { Button, Container } from "@src/components/SharedComponents";
 import { COLORS } from "@src/constants/Theme";
 import {
   GlobalStateContextProps,
@@ -54,12 +54,7 @@ export class ContactScreenComponent extends React.Component<IProps, IState> {
           label="Type a message"
           onSubmitEditing={this.handleSubmitForm}
         />
-        <Button
-          dark
-          mode="contained"
-          style={{ marginTop: 35 }}
-          onPress={this.handleSubmitForm}
-        >
+        <Button style={{ marginTop: 35 }} onPress={this.handleSubmitForm}>
           Submit Feedback
         </Button>
       </Container>

@@ -3,11 +3,43 @@ import React from "react";
 import { ScrollView, StyleSheet, ViewStyle } from "react-native";
 
 import { COLORS } from "@src/constants/Theme";
+import { Text } from "react-native-paper";
 
 /** ========================================================================
  * Components
  * =========================================================================
  */
+
+interface ButtonProps {
+  style?: ViewStyle;
+  children: string | ReadonlyArray<string>;
+  onPress: (args?: any) => void;
+}
+
+const Button = (buttonProps: ButtonProps) => {
+  const { style, onPress, children } = buttonProps;
+  return (
+    <ButtonBaseStyles style={style} onPress={onPress}>
+      <Text
+        style={{ fontWeight: "bold", fontSize: 16, color: COLORS.darkText }}
+      >
+        {children}
+      </Text>
+    </ButtonBaseStyles>
+  );
+};
+
+const ButtonBaseStyles = glamorous.touchableOpacity({
+  marginTop: 15,
+  marginBottom: 15,
+  height: 40,
+  minWidth: 225,
+  paddingRight: 15,
+  paddingLeft: 15,
+  alignItems: "center",
+  justifyContent: "center",
+  backgroundColor: COLORS.primaryBlue,
+});
 
 const Bold = glamorous.text({
   fontWeight: "bold",
@@ -40,13 +72,6 @@ const ScrollContainer = (props: { children: any }) => (
   </ScrollView>
 );
 
-const ButtonStyles: ViewStyle = {
-  marginTop: 15,
-  marginBottom: 15,
-  height: 40,
-  minWidth: 225,
-};
-
 const LineBreak = glamorous.view({
   width: "85%",
   marginTop: 12,
@@ -78,10 +103,10 @@ const ScreenBottom = glamorous.view({
 
 export {
   Bold,
+  Button,
   Container,
   BasicContainer,
   ScrollContainer,
-  ButtonStyles,
   LineBreak,
   Screen,
   ScreenTop,

@@ -1,10 +1,10 @@
 import glamorous from "glamorous-native";
 import React from "react";
-import { Clipboard, Keyboard, StyleSheet, Text, ViewStyle } from "react-native";
-import { Button, Switch, TextInput } from "react-native-paper";
+import { Clipboard, Keyboard, StyleSheet, Text } from "react-native";
+import { Switch, TextInput } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
-import { Bold, Container } from "@src/components/SharedComponents";
+import { Bold, Button, Container } from "@src/components/SharedComponents";
 import { COLORS } from "@src/constants/Theme";
 import {
   GlobalStateContextProps,
@@ -93,12 +93,7 @@ export class TranslationScreenComponent extends React.Component<
             </Bold>
           </Text>
         </ToggleLanguageContainer>
-        <Button
-          dark
-          mode="contained"
-          style={ButtonStyles}
-          onPress={this.handleTranslate}
-        >
+        <Button onPress={this.handleTranslate}>
           {this.state.loadingTranslation ? "Translating..." : "Translate"}
         </Button>
         {this.renderTranslationResults()}
@@ -292,15 +287,6 @@ const TextInputStyles = {
   fontSize: 34,
   marginTop: 6,
   backgroundColor: "rgb(231,237,240)",
-};
-
-const ButtonStyles: ViewStyle = {
-  marginTop: 15,
-  marginBottom: 15,
-  width: "65%",
-  height: 40,
-  justifyContent: "center",
-  alignItems: "center",
 };
 
 /** ========================================================================
