@@ -11,8 +11,13 @@ import { APP_THEME } from "@src/constants/Theme";
  * =========================================================================
  */
 
+/* Enable react-native-screens */
 useScreens();
 
+/* Workaround for an issue with screen navigation */
+import "react-native-gesture-handler";
+
+/* Configure Sentry */
 Sentry.config(String(process.env.SENTRY_DSN)).install();
 
 /** ========================================================================
