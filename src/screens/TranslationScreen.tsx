@@ -41,7 +41,7 @@ interface IState {
 export class TranslationScreenComponent extends React.Component<
   IProps,
   IState
-  > {
+> {
   INPUT_REF: any = null;
 
   constructor(props: IProps) {
@@ -275,10 +275,10 @@ const TranslationTextResult = ({
       </Text>
     </TranslationTextContainer>
   ) : (
-      <Text style={{ fontSize: 18, marginLeft: 12 }}>
-        ({capitalize(language)}): No results...
+    <Text style={{ fontSize: 18, marginLeft: 12 }}>
+      ({capitalize(language)}): No results...
     </Text>
-    );
+  );
 };
 
 const LineBreak = glamorous.view({

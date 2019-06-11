@@ -188,7 +188,12 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     const IS_RANDOM_QUIZ =
       type === "DAILY_QUIZ" || type === "OPT_OUT_CHALLENGE";
     if (IS_RANDOM_QUIZ) {
-      const randomIdx = this.getRandomWordIndex(0, 4);
+      /**
+       * If audio pronunciation is disabled exclude it from
+       * from the random quiz type options.
+       */
+      const finalIndex = this.props.disableAudio ? 3 : 4;
+      const randomIdx = this.getRandomWordIndex(0, finalIndex);
       return QuizTypeOptions[randomIdx];
     } else {
       return this.props.quizType;
