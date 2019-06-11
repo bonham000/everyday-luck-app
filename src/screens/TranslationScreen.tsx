@@ -41,7 +41,9 @@ interface IState {
 export class TranslationScreenComponent extends React.Component<
   IProps,
   IState
-> {
+  > {
+  INPUT_REF: any = null;
+
   constructor(props: IProps) {
     super(props);
 
@@ -50,6 +52,10 @@ export class TranslationScreenComponent extends React.Component<
       loadingTranslation: false,
       sourceLanguageChinese: false,
     };
+  }
+
+  componentDidMount(): void {
+    this.focusTextInput();
   }
 
   render(): JSX.Element {
@@ -66,6 +72,7 @@ export class TranslationScreenComponent extends React.Component<
         <TextInput
           mode="outlined"
           value={input}
+          ref={this.setInputRef}
           style={TextInputStyles}
           onChangeText={this.handleChange}
           onSubmitEditing={this.handleTranslate}
@@ -191,6 +198,17 @@ export class TranslationScreenComponent extends React.Component<
       return;
     }
   };
+
+  setInputRef = (ref: any) => {
+    // tslint:disable-next-line
+    this.INPUT_REF = ref;
+  };
+
+  focusTextInput = () => {
+    if (this.INPUT_REF) {
+      this.INPUT_REF.focus();
+    }
+  };
 }
 
 /** ========================================================================
@@ -257,10 +275,10 @@ const TranslationTextResult = ({
       </Text>
     </TranslationTextContainer>
   ) : (
-    <Text style={{ fontSize: 18, marginLeft: 12 }}>
-      ({capitalize(language)}): No results...
+      <Text style={{ fontSize: 18, marginLeft: 12 }}>
+        ({capitalize(language)}): No results...
     </Text>
-  );
+    );
 };
 
 const LineBreak = glamorous.view({
