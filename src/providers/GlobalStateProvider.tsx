@@ -39,7 +39,10 @@ export interface GlobalStateContextProps
   handleResetScores: () => void;
   handleSwitchLanguage: () => void;
   updateExperiencePoints: (experiencePoints: number) => void;
-  setLessonScore: (updatedScoreStatus: ScoreStatus, exp: number) => void;
+  setLessonScore: (
+    updatedScoreStatus: ScoreStatus,
+    exp: number,
+  ) => Promise<void>;
   transferUserAccount: (uuid: string) => void;
   copyToClipboard: (text: string) => void;
   handleUpdateUserSettingsField: (

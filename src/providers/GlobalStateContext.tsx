@@ -121,9 +121,12 @@ const GlobalStateContextValues = {
     // Handle transferring account
     return;
   },
-  setLessonScore: (updatedScoreStatus: ScoreStatus, exp: number) => {
+  setLessonScore: (
+    updatedScoreStatus: ScoreStatus,
+    exp: number,
+  ): Promise<void> => {
     // Handle setting lesson score
-    return;
+    return Promise.resolve();
   },
   updateExperiencePoints: (experiencePoints: number) => {
     // Handle updating experience points
