@@ -4,6 +4,7 @@
 echo "
 export const SENTRY_DSN = \"\";
 export const SENTRY_AUTH_TOKEN = \"\";
+export const GOOGLE_WEB_API_KEY = \"\";
 export const ANDROID_CLIENT_ID = \"\";
 export const ANDROID_STANDALONE_CLIENT_ID = \"\";
 export const IOS_CLIENT_ID = \"\";
