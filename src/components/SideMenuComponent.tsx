@@ -16,8 +16,6 @@ import {
   GlobalStateContextProps,
   withGlobalStateContext,
 } from "@src/providers/GlobalStateProvider";
-import { logoutUserLocal } from "@src/tools/async-store";
-import { resetNavigation } from "@src/tools/navigation-utils";
 import { formatUserLanguageSetting } from "@src/tools/utils";
 
 /** ========================================================================
@@ -83,11 +81,11 @@ class SideMenuComponent extends React.Component<IProps, {}> {
           ⛱{"  "}
           Reset
         </Item>
-        <Item onPress={this.handleLogout}>🎡 Logout</Item>
+        <Item onPress={() => console.log("implement")}>🎡 Account...</Item>
         <BottomBlock>
           {user && (
             <SmallItem>
-              <Bold>Name:</Bold> {user.name}
+              <Bold>Name:</Bold> {user.username}
             </SmallItem>
           )}
           <SmallItem>
@@ -119,15 +117,6 @@ class SideMenuComponent extends React.Component<IProps, {}> {
 
   handleResetScores = () => {
     this.props.handleResetScores();
-  };
-
-  handleLogout = async () => {
-    try {
-      await logoutUserLocal();
-      this.props.navigation.dispatch(resetNavigation(ROUTE_NAMES.SIGNIN));
-    } catch (err) {
-      return;
-    }
   };
 
   createNavigationHandler = (route: ROUTE_NAMES) => {

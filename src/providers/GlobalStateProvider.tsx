@@ -7,7 +7,7 @@ import GlobalStateContextValues, {
   UserSettings,
   WordDictionary,
 } from "@src/providers/GlobalStateContext";
-import { GoogleSigninUser, HSKListSet, User } from "@src/tools/types";
+import { HSKListSet, User } from "@src/tools/types";
 
 /** ========================================================================
  * Types
@@ -38,7 +38,6 @@ export interface GlobalStateContextProps
   handleUpdateApp: () => void;
   handleResetScores: () => void;
   handleSwitchLanguage: () => void;
-  onSignin: (user: GoogleSigninUser) => Promise<void>;
   updateExperiencePoints: (experiencePoints: number) => void;
   setLessonScore: (updatedScoreStatus: ScoreStatus, exp: number) => void;
   handleUpdateUserSettingsField: (
@@ -51,16 +50,12 @@ interface IProps {
   Component: ComponentType<any>;
 }
 
-interface IState {
-  user?: GoogleSigninUser;
-}
-
 /** ========================================================================
  * React Class
  * =========================================================================
  */
 
-class GlobalStateProvider extends React.Component<IProps, IState> {
+class GlobalStateProvider extends React.Component<IProps, {}> {
   render(): JSX.Element | null {
     const { Component, ...rest } = this.props;
 

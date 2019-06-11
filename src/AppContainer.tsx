@@ -28,7 +28,7 @@ import GlobalContext, {
 } from "@src/providers/GlobalStateContext";
 import { GlobalStateValues } from "@src/providers/GlobalStateProvider";
 import SoundRecordingProvider from "@src/providers/SoundRecordingProvider";
-import { findOrCreateUser, updateUser } from "@src/tools/api";
+import { createUser, updateUser } from "@src/tools/api";
 import {
   getOfflineUpdatesFlagState,
   getPersistedUser,
@@ -37,14 +37,13 @@ import {
   setOfflineUpdatesFlagState,
 } from "@src/tools/async-store";
 import { registerForPushNotificationsAsync } from "@src/tools/notification-utils";
-import { GoogleSigninUser, User } from "@src/tools/types";
+import { User } from "@src/tools/types";
 import {
   createWordDictionaryFromLessons,
   fetchLessonSet,
   formatUserLanguageSetting,
   getAlternateLanguageSetting,
   isNetworkConnected,
-  transformGoogleSignInResultToUserData,
   transformUserJson,
 } from "@src/tools/utils";
 import MOCKS from "@tests/mocks";
@@ -233,7 +232,7 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
 
   fetchExistingUser = async (maybePersistedUser: User) => {
     if (this.state.networkConnected) {
-      const user = await findOrCreateUser(maybePersistedUser);
+      const user = await createUser(maybePersistedUser);
       if (user) {
         this.setState(
           {
@@ -435,24 +434,6 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
     }
   };
 
-  handleLogoutUser = () => {
-    this.setToastMessage("Your session has ended!");
-    this.setState(
-      {
-        loading: true,
-      },
-      async () => {
-        await logoutUserLocal();
-        await setOfflineUpdatesFlagState({ shouldProcessRequests: false });
-        this.navigateToRoute(ROUTE_NAMES.SIGNIN);
-        this.setState({
-          loading: false,
-          user: undefined,
-        });
-      },
-    );
-  };
-
   navigateToRoute = (routeName: ROUTE_NAMES) => {
     const navigationAction = NavigationActions.navigate({
       routeName,
@@ -576,7 +557,6 @@ class RootContainer extends RootContainerBase<{}> {
       userScoreStatus,
       autoProceedQuestion,
       appDifficultySetting,
-      onSignin: this.handleSignin,
       setLessonScore: this.setLessonScore,
       setToastMessage: this.setToastMessage,
       handleUpdateApp: this.handleUpdateApp,
@@ -622,35 +602,32 @@ class RootContainer extends RootContainerBase<{}> {
 
   initializeUserSession = async () => {
     const maybePersistedUser = await getPersistedUser();
+    console.log(maybePersistedUser);
+
     if (maybePersistedUser) {
       this.setupUserSessionFromPersistedUserData(maybePersistedUser);
     } else {
-      this.setState({ loading: false, user: undefined });
+      /**
+       * - user does not exist locally:
+       * - create user and save locally
+       */
+      console.log("setup user here...");
+      return this.handleInitialUserCreation();
     }
   };
 
-  handleSignin = async (user: GoogleSigninUser) => {
-    /**
-     * Transform received user data from Google and find or create the associated
-     * user on the app server. If the user data doesn't exist or is invalid, throw
-     * an error which will be caught and handled by the GoogleSigninScreen.
-     */
-    if (user && user.email) {
-      const pushToken = await registerForPushNotificationsAsync();
-      const userData = transformGoogleSignInResultToUserData(user, pushToken);
-      const userResult = await findOrCreateUser(userData);
-      if (userResult) {
-        this.setState(
-          {
-            user: transformUserJson(userResult),
-          },
-          this.serializeAndPersistUser,
-        );
-      } else {
-        throw new Error("Failed to initialize user");
-      }
+  handleInitialUserCreation = async () => {
+    const pushToken = await registerForPushNotificationsAsync();
+    const userResult = await createUser({ push_token: pushToken });
+    if (userResult) {
+      this.setState(
+        {
+          user: transformUserJson(userResult),
+        },
+        this.serializeAndPersistUser,
+      );
     } else {
-      throw new Error("Failed to initialize user");
+      this.setState({ loading: false, user: undefined });
     }
   };
 

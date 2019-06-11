@@ -16,7 +16,6 @@ import { convertChineseToPinyin, fetchWordTranslation } from "@src/tools/api";
 import CONFIG from "@src/tools/config";
 import {
   ENGLISH,
-  GoogleSigninUser,
   HSKListSet,
   languageCode,
   Lesson,
@@ -26,7 +25,6 @@ import {
   TRADITIONAL_CHINESE,
   TranslationsData,
   User,
-  UserDataBase,
   UserJson,
   Word,
 } from "@src/tools/types";
@@ -710,29 +708,6 @@ export const translateWord = async (
  */
 export const isNetworkConnected = (type: ConnectionInfo["type"]): boolean => {
   return type !== "none";
-};
-
-/**
- * Extract the specific properties from the full user data to store
- * on the local user data.
- *
- * @param user `User` data
- * returns `UserData` formatted user data
- */
-export const transformGoogleSignInResultToUserData = (
-  user: GoogleSigninUser,
-  pushToken: string,
-): UserDataBase => {
-  const userData: UserDataBase = {
-    email: user.email,
-    name: user.name,
-    family_name: user.familyName,
-    given_name: user.givenName,
-    photo_url: user.photoUrl,
-    push_token: pushToken,
-  };
-
-  return userData;
 };
 
 /**

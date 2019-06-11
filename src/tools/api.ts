@@ -22,9 +22,7 @@ import {
 /**
  * Find or create a user given their email.
  */
-export const findOrCreateUser = async (
-  user: UserDataBase,
-): UserAsyncResponse => {
+export const createUser = async (user: UserDataBase): UserAsyncResponse => {
   try {
     const result = await axios.post<UserJson>(
       `${CONFIG.DRAGON_URI}/users`,

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { GoogleSigninUser, HSKListSet, Word } from "@src/tools/types";
+import { HSKListSet, Word } from "@src/tools/types";
 
 /** ========================================================================
  * Types and Config
@@ -124,10 +124,6 @@ const GlobalStateContextValues = {
   handleSwitchLanguage: () => {
     // Handle switching app language setting
     return;
-  },
-  onSignin: (user: GoogleSigninUser) => {
-    // Handle action on signin
-    return Promise.resolve();
   },
   handleUpdateUserSettingsField: (
     data: Partial<UserSettings>,

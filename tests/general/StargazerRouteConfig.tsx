@@ -7,7 +7,6 @@ import { QUIZ_TYPE } from "@src/providers/GlobalStateContext";
 import AboutScreenComponent from "@src/screens/AboutScreen";
 import { ContactScreenComponent } from "@src/screens/ContactScreen";
 import { FlashcardsScreenComponent } from "@src/screens/FlashcardsScreen";
-import { GoogleSigninScreenComponent } from "@src/screens/GoogleSigninScreen";
 import { HomeScreenComponent } from "@src/screens/HomeScreen";
 import IntroScreenComponent from "@src/screens/IntroScreen";
 import { LessonSummaryScreenComponent } from "@src/screens/LessonSummaryScreen";
@@ -33,16 +32,6 @@ interface StargazerRouteProps<Params = {}> {
 }
 
 const stargazerConfig: ReadonlyArray<StargazerRouteConfigObject> = [
-  {
-    name: "Google Sign In",
-    screenName: ROUTE_NAMES.SIGNIN,
-    screen: (props: StargazerRouteProps) => (
-      <GoogleSigninScreenComponent
-        navigation={props.navigation}
-        {...MOCKS.GLOBAL_STATE_PROPS}
-      />
-    ),
-  },
   {
     name: "Home Screen",
     screenName: ROUTE_NAMES.HOME,

@@ -53,21 +53,9 @@ export type Option<T> = OptionSuccess<T> | Empty;
  * =========================================================================
  */
 
-export interface GoogleSigninUser {
-  email: string;
-  familyName: string;
-  givenName: string;
-  id: string;
-  name: string;
-  photoUrl?: string;
-}
-
 export interface UserDataBase {
-  email: string;
-  name: string;
-  family_name: string;
-  given_name: string;
-  photo_url?: string;
+  email?: string;
+  username?: string;
   push_token: string;
 }
 
