@@ -355,9 +355,9 @@ export const calculateExperiencePointsForLesson = (
   const MIN: number = 15;
   let MAX: number;
   if (lessonType === "OPT_OUT_CHALLENGE") {
-    MAX = 300;
+    MAX = 1000;
   } else if (lessonType === "DAILY_QUIZ") {
-    MAX = 125;
+    MAX = 500;
   } else if (quizType === QUIZ_TYPE.QUIZ_TEXT) {
     MAX = 35;
   } else {

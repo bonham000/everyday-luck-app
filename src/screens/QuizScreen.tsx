@@ -75,7 +75,7 @@ interface IState {
   wordContent: ReadonlyArray<Word>;
 }
 
-const REVERSION_PENALTY = 50;
+const REVERSION_PENALTY = 250;
 
 const AUTO_PROCEED_DELAY = 700;
 
