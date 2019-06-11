@@ -195,9 +195,9 @@ const ROUTES: NavigationScreenRouteConfig = {
   },
 };
 
-const createAppNavigationStack = (userLoggedIn: boolean) => {
+const createAppNavigationStack = (firstTimeUser: boolean) => {
   return createStackNavigator(ROUTES, {
-    initialRouteName: ROUTE_NAMES.HOME,
+    initialRouteName: firstTimeUser ? ROUTE_NAMES.INTRO : ROUTE_NAMES.HOME,
   });
 };
 
@@ -212,11 +212,11 @@ const MenuIcon = ({ onPress }: { onPress: () => void }) => (
   />
 );
 
-const createNavigatorConfig = (userLoggedIn: boolean) => {
+const createNavigatorConfig = (firstTimeUser: boolean) => {
   return createDrawerNavigator(
     {
       [ROUTE_NAMES.APP]: {
-        screen: createAppNavigationStack(userLoggedIn),
+        screen: createAppNavigationStack(firstTimeUser),
         navigationOptions: ({
           navigation,
         }: {

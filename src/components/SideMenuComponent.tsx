@@ -16,6 +16,7 @@ import {
   GlobalStateContextProps,
   withGlobalStateContext,
 } from "@src/providers/GlobalStateProvider";
+import { logoutUserLocal } from "@src/tools/async-store";
 import { formatUserLanguageSetting } from "@src/tools/utils";
 
 /** ========================================================================
@@ -81,7 +82,7 @@ class SideMenuComponent extends React.Component<IProps, {}> {
           ⛱{"  "}
           Reset
         </Item>
-        <Item onPress={() => console.log("implement")}>🎡 Account...</Item>
+        <Item onPress={this.clearAccount}>🎡 Account...</Item>
         <BottomBlock>
           {user && (
             <SmallItem>
@@ -123,6 +124,10 @@ class SideMenuComponent extends React.Component<IProps, {}> {
     return () => {
       this.props.navigation.navigate(route);
     };
+  };
+
+  clearAccount = () => {
+    logoutUserLocal();
   };
 
   getDrawerStateFromProps = (props: IProps) => {

@@ -28,11 +28,10 @@ import GlobalContext, {
 } from "@src/providers/GlobalStateContext";
 import { GlobalStateValues } from "@src/providers/GlobalStateProvider";
 import SoundRecordingProvider from "@src/providers/SoundRecordingProvider";
-import { createUser, updateUser } from "@src/tools/api";
+import { createUser, getUser, updateUser } from "@src/tools/api";
 import {
   getOfflineUpdatesFlagState,
   getPersistedUser,
-  logoutUserLocal,
   saveUserToAsyncStorage,
   setOfflineUpdatesFlagState,
 } from "@src/tools/async-store";
@@ -59,6 +58,7 @@ interface IState extends GlobalStateValues {
   appState: string;
   toastMessage: string;
   updating: boolean;
+  firstTimeUser: boolean;
   tryingToCloseApp: boolean;
   transparentLoading: boolean;
   networkConnected: boolean;
@@ -87,6 +87,7 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
       toastMessage: "",
       updating: false,
       wordDictionary: {},
+      firstTimeUser: false,
       updateAvailable: false,
       tryingToCloseApp: false,
       transparentLoading: false,
@@ -196,11 +197,6 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
           this.setToastMessage("Offline updates saved successfully!");
         }
       } catch (err) {
-        /**
-         * TODO: Parse error here and if it's a 401 status log out the
-         * user with a message.
-         */
-        console.log(`Could not update user right now`);
         await setOfflineUpdatesFlagState({ shouldProcessRequests: true });
       }
     }
@@ -232,7 +228,7 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
 
   fetchExistingUser = async (maybePersistedUser: User) => {
     if (this.state.networkConnected) {
-      const user = await createUser(maybePersistedUser);
+      const user = await getUser(maybePersistedUser.uuid);
       if (user) {
         this.setState(
           {
@@ -520,6 +516,7 @@ class RootContainer extends RootContainerBase<{}> {
       loading,
       lessons,
       updating,
+      firstTimeUser,
       wordDictionary,
       updateAvailable,
       networkConnected,
@@ -576,7 +573,7 @@ class RootContainer extends RootContainerBase<{}> {
         <GlobalContext.Provider value={ProviderValues}>
           <SoundRecordingProvider disableAudio={disableAudio}>
             <RenderAppOnce
-              userLoggedIn={Boolean(user)}
+              firstTimeUser={firstTimeUser}
               assignNavigatorRef={this.assignNavRef}
             />
           </SoundRecordingProvider>
@@ -602,17 +599,10 @@ class RootContainer extends RootContainerBase<{}> {
 
   initializeUserSession = async () => {
     const maybePersistedUser = await getPersistedUser();
-    console.log(maybePersistedUser);
-
     if (maybePersistedUser) {
       this.setupUserSessionFromPersistedUserData(maybePersistedUser);
     } else {
-      /**
-       * - user does not exist locally:
-       * - create user and save locally
-       */
-      console.log("setup user here...");
-      return this.handleInitialUserCreation();
+      this.handleInitialUserCreation();
     }
   };
 
@@ -622,12 +612,14 @@ class RootContainer extends RootContainerBase<{}> {
     if (userResult) {
       this.setState(
         {
+          loading: false,
+          firstTimeUser: true,
           user: transformUserJson(userResult),
         },
         this.serializeAndPersistUser,
       );
     } else {
-      this.setState({ loading: false, user: undefined });
+      this.setState({ loading: false, user: undefined, error: true });
     }
   };
 
@@ -758,8 +750,8 @@ class RootContainer extends RootContainerBase<{}> {
  */
 
 interface RenderAppOnceProps {
+  firstTimeUser: boolean;
   assignNavigatorRef: (ref: any) => void;
-  userLoggedIn: boolean;
 }
 
 // tslint:disable-next-line
@@ -769,7 +761,7 @@ class RenderAppOnce extends React.Component<RenderAppOnceProps, {}> {
   }
 
   render(): JSX.Element {
-    const AppNavigator = createAppNavigator(this.props.userLoggedIn);
+    const AppNavigator = createAppNavigator(this.props.firstTimeUser);
     const Nav = createAppContainer(AppNavigator);
     return <Nav ref={this.props.assignNavigatorRef} />;
   }
