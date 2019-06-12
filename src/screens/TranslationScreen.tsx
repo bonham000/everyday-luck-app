@@ -1,6 +1,6 @@
 import glamorous from "glamorous-native";
 import React from "react";
-import { Clipboard, Keyboard, StyleSheet, Text } from "react-native";
+import { Keyboard, StyleSheet, Text } from "react-native";
 import { Switch, TextInput } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
@@ -120,7 +120,7 @@ export class TranslationScreenComponent extends React.Component<
             <TranslationTextResult
               text={translation}
               language={language}
-              copyHandler={this.copyHandler(translation)}
+              copyHandler={() => this.props.copyToClipboard(translation)}
             />
           ))}
         </TranslationResults>
@@ -182,15 +182,6 @@ export class TranslationScreenComponent extends React.Component<
       );
     } else {
       this.props.setToastMessage("Please enter a word to translate");
-    }
-  };
-
-  copyHandler = (text: string) => () => {
-    try {
-      Clipboard.setString(text);
-      this.props.setToastMessage(`${text} copied!`);
-    } catch (_) {
-      return;
     }
   };
 

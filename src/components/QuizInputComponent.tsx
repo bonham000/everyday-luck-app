@@ -27,13 +27,13 @@ const QuizInput = ({
   shouldShake,
   setInputRef,
   handleCheck,
-  copyHandler,
   handleChange,
   revealAnswer,
   handleProceed,
   wordDictionary,
   languageSetting,
   autoProceedQuestion,
+  handleCopyToClipboard,
   handleToggleRevealAnswer,
 }: QuizScreenComponentProps) => {
   /**
@@ -95,7 +95,7 @@ const QuizInput = ({
   return (
     <React.Fragment>
       {valid || revealAnswer ? (
-        <QuizBox onPress={copyHandler(correctText)}>
+        <QuizBox onPress={() => handleCopyToClipboard(correctText)}>
           <MandarinText>{correctText}</MandarinText>
           <PinyinText>{correctWord.pinyin}</PinyinText>
         </QuizBox>

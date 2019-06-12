@@ -1,6 +1,6 @@
 import glamorous from "glamorous-native";
 import React from "react";
-import { Clipboard, FlatList, Keyboard } from "react-native";
+import { FlatList, Keyboard } from "react-native";
 import { Searchbar } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
@@ -74,7 +74,7 @@ export class ViewAllScreenComponent extends React.Component<IProps, IState> {
   renderItem = ({ item }: { item: Word; index: number }): any => {
     const content = item[this.props.languageSetting];
     return (
-      <WordBox onPress={this.copyHandler(content, item.traditional)}>
+      <WordBox onPress={this.handlePressItem(content, item.traditional)}>
         <WordText style={{ fontSize: 20 }}>"{item.english}"</WordText>
         <WordText style={{ fontSize: 20 }}>
           {item.pinyin} <SmallText>(pinyin)</SmallText>
@@ -99,14 +99,9 @@ export class ViewAllScreenComponent extends React.Component<IProps, IState> {
     return lesson.filter(filterWords).map(mapWordsForList);
   };
 
-  copyHandler = (mandarin: string, traditional: string) => () => {
-    try {
-      Clipboard.setString(mandarin);
-      this.props.handlePronounceWord(traditional);
-      this.props.setToastMessage(`${mandarin} copied!`);
-    } catch (_) {
-      return;
-    }
+  handlePressItem = (mandarin: string, traditional: string) => () => {
+    this.props.copyToClipboard(mandarin);
+    this.props.handlePronounceWord(traditional);
   };
 }
 

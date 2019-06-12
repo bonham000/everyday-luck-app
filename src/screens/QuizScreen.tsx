@@ -1,12 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import glamorous from "glamorous-native";
 import React from "react";
-import {
-  Alert,
-  Clipboard,
-  Keyboard,
-  TouchableWithoutFeedback,
-} from "react-native";
+import { Alert, Keyboard, TouchableWithoutFeedback } from "react-native";
 import ActionButton from "react-native-action-button";
 import Confetti from "react-native-confetti";
 import { NavigationScreenProp } from "react-navigation";
@@ -227,13 +222,13 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
       shouldShake,
       revealAnswer,
       setInputRef: this.setInputRef,
-      copyHandler: this.copyHandler,
       handleChange: this.handleChange,
       handleCheck: this.handleCheckAnswer,
       audioDisabled: this.props.disableAudio,
       wordDictionary: this.props.wordDictionary,
       languageSetting: this.props.languageSetting,
       handleProceed: this.handleProceedToNextQuestion,
+      handleCopyToClipboard: this.props.copyToClipboard,
       autoProceedQuestion: this.props.autoProceedQuestion,
       handleToggleRevealAnswer: this.handleToggleRevealAnswer,
     };
@@ -728,15 +723,6 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
   setInputRef = (ref: any) => {
     // tslint:disable-next-line
     this.INPUT_REF = ref;
-  };
-
-  copyHandler = (text: string) => () => {
-    try {
-      Clipboard.setString(text);
-      this.props.setToastMessage(`${text} copied!`);
-    } catch (_) {
-      return;
-    }
   };
 }
 

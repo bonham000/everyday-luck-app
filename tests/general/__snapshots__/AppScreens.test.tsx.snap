@@ -247,7 +247,117 @@ exports[`App Screen Components Each screen component renders with props provided
         ]
       }
     >
+      Account ID
+    </Text>
+    <Text
+      style={
+        Array [
+          Object {
+            "marginBottom": 5,
+            "marginTop": 5,
+            "textAlign": "center",
+            "width": "80%",
+          },
+        ]
+      }
+    >
+      If you transfer to a new phone you can use this account ID to restore your progress on the other device.
+    </Text>
+    <Text
+      style={
+        Array [
+          Object {
+            "fontWeight": "bold",
+          },
+        ]
+      }
+    >
+      asdf7f98asd7f0s7ads0
+    </Text>
+    <View
+      accessible={true}
+      isTVSelectable={true}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#3498db",
+          "height": 40,
+          "justifyContent": "center",
+          "marginBottom": 15,
+          "marginTop": 15,
+          "minWidth": 225,
+          "opacity": 1,
+          "paddingLeft": 15,
+          "paddingRight": 15,
+        }
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#000000",
+              "fontFamily": "Helvetica Neue",
+              "textAlign": "left",
+              "writingDirection": "ltr",
+            },
+            Object {
+              "color": "rgb(45,45,45)",
+              "fontSize": 16,
+              "fontWeight": "bold",
+            },
+          ]
+        }
+      >
+        Copy ID
+      </Text>
+    </View>
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "black",
+            "height": 0.5,
+            "marginBottom": 12,
+            "marginTop": 12,
+            "width": "85%",
+          },
+        ]
+      }
+    />
+    <Text
+      style={
+        Array [
+          Object {
+            "fontSize": 22,
+            "fontWeight": "bold",
+            "marginBottom": 5,
+            "marginTop": 5,
+          },
+        ]
+      }
+    >
       Transfer Account
+    </Text>
+    <Text
+      style={
+        Array [
+          Object {
+            "marginBottom": 5,
+            "marginTop": 5,
+            "textAlign": "center",
+            "width": "80%",
+          },
+        ]
+      }
+    >
+      Enter another account ID here to restore that account.
     </Text>
     <View
       style={
@@ -463,7 +573,7 @@ exports[`App Screen Components Each screen component renders with props provided
           "height": 40,
           "justifyContent": "center",
           "marginBottom": 15,
-          "marginTop": 15,
+          "marginTop": 25,
           "minWidth": 225,
           "opacity": 1,
           "paddingLeft": 15,
@@ -516,7 +626,7 @@ exports[`App Screen Components Each screen component renders with props provided
         ]
       }
     >
-      Account ID
+      Clear Data
     </Text>
     <Text
       style={
@@ -530,65 +640,8 @@ exports[`App Screen Components Each screen component renders with props provided
         ]
       }
     >
-      asdf7f98asd7f0s7ads0
+      Clear your account data from this device.
     </Text>
-    <View
-      accessible={true}
-      isTVSelectable={true}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        Object {
-          "alignItems": "center",
-          "backgroundColor": "#3498db",
-          "height": 40,
-          "justifyContent": "center",
-          "marginBottom": 15,
-          "marginTop": 15,
-          "minWidth": 225,
-          "opacity": 1,
-          "paddingLeft": 15,
-          "paddingRight": 15,
-        }
-      }
-    >
-      <Text
-        style={
-          Array [
-            Object {
-              "color": "#000000",
-              "fontFamily": "Helvetica Neue",
-              "textAlign": "left",
-              "writingDirection": "ltr",
-            },
-            Object {
-              "color": "rgb(45,45,45)",
-              "fontSize": 16,
-              "fontWeight": "bold",
-            },
-          ]
-        }
-      >
-        Copy ID
-      </Text>
-    </View>
-    <View
-      style={
-        Array [
-          Object {
-            "backgroundColor": "black",
-            "height": 0.5,
-            "marginBottom": 12,
-            "marginTop": 12,
-            "width": "85%",
-          },
-        ]
-      }
-    />
     <View
       accessible={true}
       isTVSelectable={true}
