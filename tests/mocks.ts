@@ -16,7 +16,10 @@ import {
   User,
   Word,
 } from "@src/tools/types";
-import { createWordDictionaryFromLessons } from "@src/tools/utils";
+import {
+  adjustListContentByDifficultySetting,
+  createWordDictionaryFromLessons,
+} from "@src/tools/utils";
 
 /** ========================================================================
  * Words/Lessons Mock Data
@@ -153,15 +156,20 @@ const SOUND_RECORDING_PROPS: SoundRecordingProps = {
  * =========================================================================
  */
 
+const lists = adjustListContentByDifficultySetting(
+  LESSON,
+  APP_DIFFICULTY_SETTING.EASY,
+);
+
 const LIST_SCREEN_PARAMS: ListScreenParams = {
   listKey: "1-2",
-  hskList: [LESSON],
+  hskList: lists,
   listIndex: 0,
   type: "LESSON",
 };
 
 const LESSON_SCREEN_PARAMS: LessonScreenParams = {
-  lesson: LESSON,
+  lesson: LESSON.slice(0, 10),
   listIndex: 0,
   lessonIndex: 0,
   isFinalLesson: false,

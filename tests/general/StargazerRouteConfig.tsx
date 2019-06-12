@@ -16,6 +16,7 @@ import { QuizScreenComponent } from "@src/screens/QuizScreen";
 import { SettingsScreenComponent } from "@src/screens/SettingsScreen";
 import { TranslationScreenComponent } from "@src/screens/TranslationScreen";
 import { ViewAllScreenComponent } from "@src/screens/ViewAllScreen";
+import { WelcomeScreenComponent } from "@src/screens/WelcomeScreen";
 import { LessonScreenParams, ListScreenParams } from "@src/tools/types";
 import MOCKS from "@tests/mocks";
 
@@ -42,18 +43,6 @@ const stargazerConfig: ReadonlyArray<StargazerRouteConfigObject> = [
         {...MOCKS.GLOBAL_STATE_PROPS}
       />
     ),
-    paramsForNextScreen: MOCKS.LESSON_SCREEN_PARAMS,
-  },
-  {
-    name: "Lesson Summary Screen",
-    screenName: ROUTE_NAMES.LESSON_SUMMARY,
-    screen: (props: StargazerRouteProps<LessonScreenParams>) => (
-      <LessonSummaryScreenComponent
-        navigation={props.navigation}
-        {...MOCKS.GLOBAL_STATE_PROPS}
-        {...MOCKS.SOUND_RECORDING_PROPS}
-      />
-    ),
     paramsForNextScreen: MOCKS.LIST_SCREEN_PARAMS,
   },
   {
@@ -61,6 +50,18 @@ const stargazerConfig: ReadonlyArray<StargazerRouteConfigObject> = [
     screenName: ROUTE_NAMES.LIST_SUMMARY,
     screen: (props: StargazerRouteProps<ListScreenParams>) => (
       <ListSummaryScreenComponent
+        navigation={props.navigation}
+        {...MOCKS.GLOBAL_STATE_PROPS}
+        {...MOCKS.SOUND_RECORDING_PROPS}
+      />
+    ),
+    paramsForNextScreen: MOCKS.LESSON_SCREEN_PARAMS,
+  },
+  {
+    name: "Lesson Summary Screen",
+    screenName: ROUTE_NAMES.LESSON_SUMMARY,
+    screen: (props: StargazerRouteProps<LessonScreenParams>) => (
+      <LessonSummaryScreenComponent
         navigation={props.navigation}
         {...MOCKS.GLOBAL_STATE_PROPS}
         {...MOCKS.SOUND_RECORDING_PROPS}
@@ -202,7 +203,7 @@ const stargazerConfig: ReadonlyArray<StargazerRouteConfigObject> = [
     name: "Welcome Screen",
     screenName: ROUTE_NAMES.WELCOME,
     screen: (props: StargazerRouteProps) => (
-      <AboutScreenComponent navigation={props.navigation} />
+      <WelcomeScreenComponent navigation={props.navigation} />
     ),
   },
   {
