@@ -1,10 +1,14 @@
 import glamorous from "glamorous-native";
 import React from "react";
-import { StyleSheet } from "react-native";
+import { Alert, StyleSheet } from "react-native";
 import { TextInput } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
-import { Button, ScrollContainer } from "@src/components/SharedComponents";
+import {
+  Bold,
+  Button,
+  ScrollContainer,
+} from "@src/components/SharedComponents";
 import {
   GlobalStateContextProps,
   withGlobalStateContext,
@@ -43,7 +47,23 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
     const uuid = this.props.user ? this.props.user.uuid : "";
     return (
       <ScrollContainer>
+        <SectionTitle>Account ID</SectionTitle>
+        <InfoText>
+          If you transfer to a new phone you can use this account ID to restore
+          your progress on the other device.
+        </InfoText>
+        <Bold>{uuid}</Bold>
+        <Button
+          style={{ marginTop: 15, marginBottom: 15 }}
+          onPress={() => (uuid ? this.props.copyToClipboard(uuid) : null)}
+        >
+          Copy ID
+        </Button>
+        <LineBreak />
         <SectionTitle>Transfer Account</SectionTitle>
+        <InfoText>
+          Enter another account ID here to restore that account.
+        </InfoText>
         <TextInput
           mode="outlined"
           value={accountUuid}
@@ -54,22 +74,15 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
         />
         <Button
           onPress={this.handleTransferAccount}
-          style={{ marginTop: 15, marginBottom: 15 }}
+          style={{ marginTop: 25, marginBottom: 15 }}
         >
           Transfer Account
         </Button>
         <LineBreak />
-        <SectionTitle>Account ID</SectionTitle>
-        <InfoText>{uuid}</InfoText>
+        <SectionTitle>Clear Data</SectionTitle>
+        <InfoText>Clear your account data from this device.</InfoText>
         <Button
-          style={{ marginTop: 15, marginBottom: 15 }}
-          onPress={() => (uuid ? this.props.copyToClipboard(uuid) : null)}
-        >
-          Copy ID
-        </Button>
-        <LineBreak />
-        <Button
-          onPress={this.clearUserData}
+          onPress={this.clearUserDataOnDevice}
           style={{ marginTop: 15, marginBottom: 15 }}
         >
           Clear User Data
@@ -83,12 +96,48 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
   };
 
   handleTransferAccount = () => {
-    this.props.transferUserAccount(this.state.accountUuid);
+    if (!this.state.accountUuid) {
+      return this.props.setToastMessage("Please enter an ID");
+    }
+
+    Alert.alert(
+      "Are you sure?",
+      "This will change your account to the submitted ID. Any current progress on this account may be lost.",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+          onPress: () => null,
+        },
+        {
+          text: "OK",
+          onPress: () => this.props.transferUserAccount(this.state.accountUuid),
+        },
+      ],
+      { cancelable: false },
+    );
   };
 
-  clearUserData = async () => {
-    await logoutUserLocal();
-    this.props.setToastMessage("Data cleared");
+  clearUserDataOnDevice = async () => {
+    Alert.alert(
+      "Are you sure?",
+      "This will clear all your data and your account may be lost.",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+          onPress: () => null,
+        },
+        {
+          text: "OK",
+          onPress: async () => {
+            await logoutUserLocal();
+            this.props.setToastMessage("Data cleared");
+          },
+        },
+      ],
+      { cancelable: false },
+    );
   };
 
   dangerouslySetUserScoresManuallyAsync = async () => {

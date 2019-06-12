@@ -159,17 +159,17 @@ const ROUTES: NavigationScreenRouteConfig = {
       headerBackTitle: null,
     },
   },
-  [ROUTE_NAMES.ACCOUNT]: {
-    screen: AccountScreenComponent,
-    navigationOptions: {
-      title: "Account 🏗",
-      headerBackTitle: null,
-    },
-  },
   [ROUTE_NAMES.SETTINGS]: {
     screen: SettingsScreenComponent,
     navigationOptions: {
       title: "Settings 🏗",
+      headerBackTitle: null,
+    },
+  },
+  [ROUTE_NAMES.ACCOUNT]: {
+    screen: AccountScreenComponent,
+    navigationOptions: {
+      title: "Account 🗄",
       headerBackTitle: null,
     },
   },
