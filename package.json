@@ -1,7 +1,13 @@
 {
-  "name": "learn-mandarin",
+  "name": "chinese-learning-app",
   "main": "node_modules/expo/AppEntry.js",
+  "author": "孫瑪思",
   "private": true,
+  "license": "UNLICENSED",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bonham000/mandarin"
+  },
   "scripts": {
     "stargazer": "yarn stargazer:setup && npx ttab 'yarn start' && yarn stargazer:server",
     "stargazer:setup": "./scripts/stargazer_init.sh",

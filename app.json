@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "Mandarin App 🏮",
-    "description": "An app to help you learn Mandarin",
+    "name": "Chinese Learning App",
+    "description": "An app to help you learn Chinese",
     "slug": "mandarin",
     "privacy": "public",
     "sdkVersion": "33.0.0",
@@ -17,7 +17,7 @@
     "updates": {
       "fallbackToCacheTimeout": 450
     },
-    "assetBundlePatterns": ["src/assets/*"],
+    "assetBundlePatterns": ["src/assets/**/*.png"],
     "android": {
       "package": "com.mandarin.app"
     },
