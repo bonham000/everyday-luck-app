@@ -640,7 +640,7 @@ exports[`App Screen Components Each screen component renders with props provided
         ]
       }
     >
-      Clear your account data from this device.
+      This will reset your progress.
     </Text>
     <View
       accessible={true}
@@ -683,7 +683,7 @@ exports[`App Screen Components Each screen component renders with props provided
           ]
         }
       >
-        Clear User Data
+        Clear Score History
       </Text>
     </View>
   </View>

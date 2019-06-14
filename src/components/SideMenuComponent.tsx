@@ -44,7 +44,6 @@ class SideMenuComponent extends React.Component<IProps, {}> {
 
   render(): JSX.Element {
     const {
-      user,
       experience,
       languageSetting,
       updateAvailable,
