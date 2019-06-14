@@ -317,6 +317,18 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
             "Questions will automatically advance when answered correctly.",
           );
         }
+
+        /**
+         * If the current question is already answered proceed to the next
+         * question.
+         */
+        if (this.state.valid) {
+          // tslint:disable-next-line
+          this.timer = setTimeout(
+            this.handleProceedToNextQuestion(),
+            AUTO_PROCEED_DELAY,
+          );
+        }
       },
     );
   };

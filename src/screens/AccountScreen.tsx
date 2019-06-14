@@ -80,12 +80,12 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
         </Button>
         <LineBreak />
         <SectionTitle>Clear Data</SectionTitle>
-        <InfoText>Clear your account data from this device.</InfoText>
+        <InfoText>This will reset your progress.</InfoText>
         <Button
           onPress={this.clearUserDataOnDevice}
           style={{ marginTop: 15, marginBottom: 15 }}
         >
-          Clear User Data
+          Clear Score History
         </Button>
       </ScrollContainer>
     );
@@ -111,7 +111,10 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
         },
         {
           text: "OK",
-          onPress: () => this.props.transferUserAccount(this.state.accountUuid),
+          onPress: () => {
+            this.props.transferUserAccount(this.state.accountUuid);
+            this.setState({ accountUuid: "" }, this.props.navigation.goBack);
+          },
         },
       ],
       { cancelable: false },

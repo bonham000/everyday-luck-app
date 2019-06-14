@@ -65,7 +65,7 @@ class SideMenuComponent extends React.Component<IProps, {}> {
         <Item onPress={this.createNavigationHandler(ROUTE_NAMES.TRANSLATION)}>
           📔
           {"  "}
-          Translation
+          Translate
         </Item>
         <Item onPress={this.createNavigationHandler(ROUTE_NAMES.SETTINGS)}>
           🎗
@@ -85,11 +85,6 @@ class SideMenuComponent extends React.Component<IProps, {}> {
           Reset
         </Item>
         <BottomBlock>
-          {user && (
-            <SmallItem>
-              <Bold>Name:</Bold> {user.username}
-            </SmallItem>
-          )}
           <SmallItem>
             <Bold>Experience Points:</Bold> {experience}
           </SmallItem>

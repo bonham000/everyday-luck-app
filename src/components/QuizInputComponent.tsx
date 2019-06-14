@@ -55,11 +55,7 @@ const QuizInput = ({
   /**
    * Function to check answer on submit.
    */
-  const handleCheckAnswer = () => {
-    if (value) {
-      handleCheck(correct);
-    }
-  };
+  const handleCheckAnswer = () => handleCheck(correct);
 
   /**
    * Get the correct text.
