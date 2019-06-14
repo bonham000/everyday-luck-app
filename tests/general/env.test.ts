@@ -5,6 +5,7 @@ describe("Environment Variables Configuration", () => {
     const vars = Object.keys(ENV).sort();
     expect(vars).toMatchInlineSnapshot(`
       Array [
+        "AMAZON_CLOUD_FRONT",
         "ANDROID_CLIENT_ID",
         "ANDROID_STANDALONE_CLIENT_ID",
         "DRAGON_URI",

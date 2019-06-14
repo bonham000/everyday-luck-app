@@ -536,7 +536,7 @@ export const flattenLessonSet = (lessons: HSKListSet): Lesson => {
  */
 export const getAudioFileUrl = (fileKey: string): string => {
   const encodedFileKey = encodeURIComponent(fileKey);
-  return `${CONFIG.DRAGON_URI}/static/${encodedFileKey}.mp3`;
+  return `${CONFIG.AMAZON_CLOUD_FRONT}/${encodedFileKey}.mp3`;
 };
 
 /**
