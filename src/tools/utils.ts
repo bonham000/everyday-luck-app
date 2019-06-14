@@ -850,7 +850,10 @@ export const determineAnyPossibleCorrectAnswerForFreeInput = (
      * by matching against all English keys string includes?
      */
     const lookup = wordDictionary[input];
-    if (lookup.english === word.english) {
+    if (
+      lookup.english.toLowerCase().includes(word.english.toLowerCase()) ||
+      word.english.toLowerCase().includes(lookup.english.toLowerCase())
+    ) {
       return {
         correct: true,
         correctWord: lookup,

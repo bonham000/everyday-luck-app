@@ -9,18 +9,26 @@ import { Lesson } from "@src/tools/types";
 import {
   capitalize,
   convertAppDifficultyToLessonSize,
+  createWordDictionaryFromLessons,
+  determineAnyPossibleCorrectAnswerForFreeInput,
+  determineFinalUnlockedLessonInList,
   fetchLessonSet,
+  filterBySearchTerm,
   flattenLessonSet,
   formatUserLanguageSetting,
   getAlternateChoices,
   getAlternateLanguageSetting,
   getAudioFileUrl,
+  getFinalUnlockedListKey,
   getListScoreKeyFromIndex,
+  getRandomQuizChallenge,
   isLessonComplete,
   isNetworkConnected,
   knuthShuffle,
   mapWordsForList,
   randomInRange,
+  transformUserJson,
+  translateWord,
 } from "@src/tools/utils";
 import MOCKS from "@tests/mocks";
 
@@ -218,36 +226,222 @@ describe("utils", () => {
     expect(isNetworkConnected("WIFI")).toBeTruthy();
   });
 
-  test.skip("createWordDictionaryFromLessons", () => {
-    expect(true).toBeTruthy();
+  test("createWordDictionaryFromLessons", () => {
+    const result = createWordDictionaryFromLessons(MOCKS.LESSONS);
+    const words = flattenLessonSet(MOCKS.LESSONS);
+    for (const word of words) {
+      expect(word.simplified in result).toBeTruthy();
+      expect(word.traditional in result).toBeTruthy();
+      expect(word.english.toLowerCase() in result).toBeTruthy();
+    }
   });
 
-  test.skip("determineFinalUnlockedLesson", () => {
-    expect(true).toBeTruthy();
+  test("determineFinalUnlockedLesson", () => {
+    let result = determineFinalUnlockedLessonInList(
+      MOCKS.LESSON_DATA,
+      0,
+      MOCKS.DEFAULT_SCORE_STATE,
+      APP_DIFFICULTY_SETTING.EASY,
+    );
+    expect(result).toBe(0);
+
+    result = determineFinalUnlockedLessonInList(
+      MOCKS.LESSON_DATA,
+      0,
+      MOCKS.getMockScoreStatus({
+        list_02_score: {
+          complete: false,
+          list_index: 0,
+          list_key: "1-2",
+          number_words_completed: 80,
+        },
+      }),
+      APP_DIFFICULTY_SETTING.EASY,
+    );
+    expect(result).toBe(8);
+
+    result = determineFinalUnlockedLessonInList(
+      MOCKS.LESSON_DATA,
+      0,
+      MOCKS.getMockScoreStatus({
+        list_02_score: {
+          complete: false,
+          list_index: 0,
+          list_key: "1-2",
+          number_words_completed: 80,
+        },
+      }),
+      APP_DIFFICULTY_SETTING.MEDIUM,
+    );
+    expect(result).toBe(4);
   });
 
-  test.skip("filterBySearchTerm", () => {
-    expect(true).toBeTruthy();
+  test("filterBySearchTerm", () => {
+    const word = MOCKS.WORD;
+
+    let testFn = filterBySearchTerm("阿");
+    expect(testFn(word)).toBeTruthy();
+
+    testFn = filterBySearchTerm("晚安");
+    expect(testFn(word)).toBeFalsy();
+
+    testFn = filterBySearchTerm("姨");
+    expect(testFn(word)).toBeTruthy();
+
+    testFn = filterBySearchTerm("aunt");
+    expect(testFn(word)).toBeTruthy();
+
+    testFn = filterBySearchTerm("āyí");
+    expect(testFn(word)).toBeTruthy();
+
+    testFn = filterBySearchTerm("world");
+    expect(testFn(word)).toBeFalsy();
   });
 
-  test.skip("formatHskListContent", () => {
-    expect(true).toBeTruthy();
+  test("getFinalUnlockedListKey", () => {
+    let result = getFinalUnlockedListKey(MOCKS.DEFAULT_SCORE_STATE);
+    expect(result).toBe(0);
+
+    result = getFinalUnlockedListKey(
+      MOCKS.getMockScoreStatus({
+        list_02_score: {
+          complete: true,
+          list_index: 0,
+          list_key: "1-2",
+          number_words_completed: 80,
+        },
+        list_03_score: {
+          complete: true,
+          list_index: 0,
+          list_key: "3",
+          number_words_completed: 80,
+        },
+      }),
+    );
+    expect(result).toBe(2);
   });
 
-  test.skip("getExperiencePointsForLesson", () => {
-    expect(true).toBeTruthy();
+  test("translateWord", async () => {
+    let result = await translateWord("cake", "english");
+    expect(result).toMatchInlineSnapshot(`
+            Object {
+              "english": "cake",
+              "pinyin": "dàn gāo",
+              "simplified": "蛋糕",
+              "traditional": "蛋糕",
+            }
+        `);
+
+    result = await translateWord("晚安", "simplified");
+    expect(result).toMatchInlineSnapshot(`
+            Object {
+              "english": "good night",
+              "pinyin": "wǎn ān",
+              "simplified": "晚安",
+              "traditional": "晚安",
+            }
+        `);
   });
 
-  test.skip("getFinalUnlockedListKey", () => {
-    expect(true).toBeTruthy();
+  test("transformUserJson", () => {
+    const userJson = {
+      experience_points: 54234,
+      username: "Seanie X",
+      uuid: "asdf7f98asd7f0s7ads0",
+      email: "sean.smith.2009@gmail.com",
+      push_token: "s7d89a69f69a6d76sa80fsa6f0",
+      settings: `{"disable_audio":false,"auto_proceed_question":false,"language_setting":"simplified","app_difficulty_setting":"EASY"}`,
+      score_history: `{"mc_english":false,"mc_mandarin":false,"quiz_text":false,"mandarin_pronunciation":false,"list_02_score":{"complete":false,"list_index":0,"list_key":"1-2","number_words_completed":0},"list_03_score":{"complete":false,"list_index":1,"list_key":"3","number_words_completed":0},"list_04_score":{"complete":false,"list_index":2,"list_key":"4","number_words_completed":0},"list_05_score":{"complete":false,"list_index":3,"list_key":"5","number_words_completed":0},"list_06_score":{"complete":false,"list_index":4,"list_key":"6","number_words_completed":0}}`,
+    };
+
+    const result = transformUserJson(userJson);
+    expect(result).toEqual(MOCKS.USER);
   });
 
-  test.skip("getLessonSummaryStatus", () => {
-    expect(true).toBeTruthy();
+  test("fetchLessonSet", () => {
+    expect(fetchLessonSet()).toEqual(HSK_LISTS);
   });
 
-  test.skip("getRandomQuizChallenge", () => {
-    expect(true).toBeTruthy();
+  test("determineAnyPossibleCorrectAnswerForFreeInput", () => {
+    const correct = {
+      simplified: "富",
+      traditional: "富",
+      pinyin: "fù",
+      english: "Rich",
+      english_alternate_choices: [""],
+    };
+
+    const provided = {
+      simplified: "丰富",
+      traditional: "豐富",
+      pinyin: "fēngfù",
+      english: "Rich, plentiful, abundant",
+      english_alternate_choices: [""],
+    };
+
+    let result = determineAnyPossibleCorrectAnswerForFreeInput(
+      provided.simplified,
+      correct,
+      APP_LANGUAGE_SETTING.SIMPLIFIED,
+      MOCKS.WORD_DICTIONARY,
+    );
+
+    expect(result).toMatchInlineSnapshot(`
+                  Object {
+                    "correct": true,
+                    "correctWord": Object {
+                      "english": "Rich, plentiful, abundant",
+                      "english_alternate_choices": Array [
+                        "",
+                      ],
+                      "pinyin": "fēngfù",
+                      "simplified": "丰富",
+                      "traditional": "豐富",
+                    },
+                  }
+            `);
+
+    result = determineAnyPossibleCorrectAnswerForFreeInput(
+      "晚安",
+      correct,
+      APP_LANGUAGE_SETTING.SIMPLIFIED,
+      MOCKS.WORD_DICTIONARY,
+    );
+
+    expect(result).toMatchInlineSnapshot(`
+                  Object {
+                    "correct": false,
+                    "correctWord": Object {
+                      "english": "Rich",
+                      "english_alternate_choices": Array [
+                        "",
+                      ],
+                      "pinyin": "fù",
+                      "simplified": "富",
+                      "traditional": "富",
+                    },
+                  }
+            `);
+  });
+
+  test("getRandomQuizChallenge", () => {
+    const result = getRandomQuizChallenge({
+      lists: MOCKS.LESSONS,
+      unlockedListIndex: 0,
+      appDifficultySetting: APP_DIFFICULTY_SETTING.MEDIUM,
+      userScoreStatus: MOCKS.getMockScoreStatus({
+        list_02_score: {
+          complete: false,
+          list_index: 0,
+          list_key: "1-2",
+          number_words_completed: 120,
+        },
+      }),
+      limitToCurrentList: true,
+    });
+    expect(result.length).toBe(
+      convertAppDifficultyToLessonSize(APP_DIFFICULTY_SETTING.MEDIUM),
+    );
   });
 
   test.skip("getReviewLessonSet", () => {
@@ -258,15 +452,7 @@ describe("utils", () => {
     expect(true).toBeTruthy();
   });
 
-  test.skip("translateWord", () => {
-    expect(true).toBeTruthy();
-  });
-
-  test.skip("transformGoogleSignInResultToUserData", () => {
-    expect(true).toBeTruthy();
-  });
-
-  test.skip("transformUserJson", () => {
+  test.skip("getLessonSummaryStatus", () => {
     expect(true).toBeTruthy();
   });
 
@@ -274,11 +460,7 @@ describe("utils", () => {
     expect(true).toBeTruthy();
   });
 
-  test("fetchLessonSet", () => {
-    expect(fetchLessonSet()).toEqual(HSK_LISTS);
-  });
-
-  test.skip("determineAnyPossibleCorrectAnswerForFreeInput", () => {
+  test.skip("getExperiencePointsForLesson", () => {
     expect(true).toBeTruthy();
   });
 });

@@ -39,6 +39,7 @@ describe.only("HSK_LISTS content", () => {
         list.content,
         APP_DIFFICULTY_SETTING.HARD,
       );
+
       for (const lesson of batchedLists) {
         const uniqueEnglish = new Set();
         for (const word of lesson) {

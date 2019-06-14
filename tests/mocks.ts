@@ -4,6 +4,7 @@ import {
   APP_DIFFICULTY_SETTING,
   APP_LANGUAGE_SETTING,
   GlobalStateContextValues,
+  ScoreStatus,
   UserSettings,
 } from "@src/providers/GlobalStateContext";
 import { GlobalStateContextProps } from "@src/providers/GlobalStateProvider";
@@ -97,6 +98,11 @@ const DEFAULT_SCORE_STATE = {
   },
 };
 
+const getMockScoreStatus = (overrides: Partial<ScoreStatus>) => ({
+  ...DEFAULT_SCORE_STATE,
+  ...overrides,
+});
+
 /** ========================================================================
  * Global State
  * =========================================================================
@@ -185,6 +191,7 @@ const LESSON_SCREEN_PARAMS: LessonScreenParams = {
 const MOCKS = {
   USER,
   WORD,
+  LESSONS,
   LESSON_DATA,
   MULTIPLE_CHOICE_OPTIONS,
   WORD_DICTIONARY,
@@ -194,6 +201,7 @@ const MOCKS = {
   SOUND_RECORDING_PROPS,
   LIST_SCREEN_PARAMS,
   LESSON_SCREEN_PARAMS,
+  getMockScoreStatus,
 };
 
 export default MOCKS;
