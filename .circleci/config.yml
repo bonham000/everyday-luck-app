@@ -12,6 +12,42 @@ jobs:
             yarn add global surge
             yarn stargazer:deploy
 
+  pr-tests:
+    working_directory: ~/mandarin
+    docker:
+      - image: circleci/node:8.14
+    steps:
+      - checkout
+      # Restore npm cache
+      - restore_cache:
+          name: Restore Yarn Package Cache
+          keys:
+            - yarn-packages-{{ checksum "yarn.lock" }}
+
+      # Install dependencies
+      - run:
+          name: Install dependencies
+          command: yarn install --frozen-lockfile
+
+      # Run tests
+      - run:
+          name: Run tests
+          command: |
+            chmod +x ./scripts/create_env.sh
+            ./scripts/create_env.sh
+            yarn test
+
+      # Persist npm cache
+      - save_cache:
+          name: Save yarn package cache
+          key: yarn-packages-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+
+      - persist_to_workspace:
+          root: ~/mandarin
+          paths: .
+
   publish:
     working_directory: ~/mandarin
     docker:
@@ -58,11 +94,24 @@ jobs:
       - run:
           name: Publish OTA Update
           command: yarn run publish
+
 workflows:
   version: 2
+  pr_tests:
+    jobs:
+      - pr-tests:
+          filters:
+            branches:
+              ignore: master
   deploy_stargazer:
     jobs:
-      - stargazer
+      - stargazer:
+          filters:
+            branches:
+              only: master
   test_and_publish_update:
     jobs:
-      - publish
+      - publish:
+          filters:
+            branches:
+              only: master

@@ -1,11 +1,10 @@
 import glamorous from "glamorous-native";
 import React from "react";
-import { Button } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
 import {
   Bold,
-  ButtonStyles,
+  Button,
   Screen,
   ScreenBottom,
   ScreenTop,
@@ -70,14 +69,7 @@ export class IntroScreenComponent extends React.Component<IProps, {}> {
           </ScrollContainer>
         </ScreenTop>
         <ScreenBottom>
-          <Button
-            dark
-            mode="contained"
-            style={ButtonStyles}
-            onPress={this.handleNavigate}
-          >
-            Next!
-          </Button>
+          <Button onPress={this.handleNavigate}>Next!</Button>
         </ScreenBottom>
       </Screen>
     );

@@ -29,24 +29,22 @@ const UNLOCKED = "unlocked";
  * @returns docker lock state
  */
 export const getDrawerLockedState = (navigation: any): DrawerLockMode => {
-  const isOnSignIn = isOnSignInScreen(navigation.state);
-  const drawerLockMode = isOnSignIn
-    ? LOCKED
-    : navigation.state.index > 0
-    ? LOCKED
-    : UNLOCKED;
+  const drawerLockMode = navigation.state.index > 0 ? LOCKED : UNLOCKED;
   return drawerLockMode;
 };
 
 /**
- * Helper to determine if the user is on the SignIn screen.
+ * Helper to determine if the user is on a given screen.
  *
  * @param navigationState
- * @returns true if user is on the SignIn screen.
+ * @returns true if user is on the provided screen
  */
-const isOnSignInScreen = (navigationState: any): boolean => {
+export const isOnGivenScreen = (
+  navigationState: any,
+  routeName: ROUTE_NAMES,
+): boolean => {
   try {
-    if (navigationState.routes[0].routeName === ROUTE_NAMES.SIGNIN) {
+    if (navigationState.routes[0].routeName === routeName) {
       return true;
     } else {
       return false;

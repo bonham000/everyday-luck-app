@@ -1,12 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
 import glamorous from "glamorous-native";
 import React from "react";
-import {
-  Alert,
-  Clipboard,
-  Keyboard,
-  TouchableWithoutFeedback,
-} from "react-native";
+import { Alert, Keyboard, TouchableWithoutFeedback } from "react-native";
 import ActionButton from "react-native-action-button";
 import Confetti from "react-native-confetti";
 import { NavigationScreenProp } from "react-navigation";
@@ -41,6 +36,7 @@ import {
   getListScoreKeyFromIndex,
   getQuizSuccessToasts,
   isLessonComplete,
+  knuthShuffle,
   mapListIndexToListScores,
   randomInRange,
 } from "@src/tools/utils";
@@ -74,7 +70,7 @@ interface IState {
   wordContent: ReadonlyArray<Word>;
 }
 
-const REVERSION_PENALTY = 50;
+const REVERSION_PENALTY = 250;
 
 const AUTO_PROCEED_DELAY = 700;
 
@@ -113,9 +109,9 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
       didReveal: false,
       revealAnswer: false,
       quizFinished: false,
-      wordContent: lesson,
       encouragementText: "",
       wordCompletedCache: new Set(),
+      wordContent: knuthShuffle(lesson),
       quizType: this.getQuizComponentType(),
     };
   };
@@ -173,7 +169,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     const lesson = this.props.navigation.getParam("lesson");
 
     const total = lesson.length;
-    const completedNumber = progressCount - failCount;
+    const completedNumber = progressCount;
 
     return (
       <ProgressText>
@@ -187,7 +183,12 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     const IS_RANDOM_QUIZ =
       type === "DAILY_QUIZ" || type === "OPT_OUT_CHALLENGE";
     if (IS_RANDOM_QUIZ) {
-      const randomIdx = this.getRandomWordIndex(0, 4);
+      /**
+       * If audio pronunciation is disabled exclude it from
+       * from the random quiz type options.
+       */
+      const finalIndex = this.props.disableAudio ? 3 : 4;
+      const randomIdx = this.getRandomWordIndex(0, finalIndex);
       return QuizTypeOptions[randomIdx];
     } else {
       return this.props.quizType;
@@ -221,13 +222,13 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
       shouldShake,
       revealAnswer,
       setInputRef: this.setInputRef,
-      copyHandler: this.copyHandler,
       handleChange: this.handleChange,
       handleCheck: this.handleCheckAnswer,
       audioDisabled: this.props.disableAudio,
       wordDictionary: this.props.wordDictionary,
       languageSetting: this.props.languageSetting,
       handleProceed: this.handleProceedToNextQuestion,
+      handleCopyToClipboard: this.props.copyToClipboard,
       autoProceedQuestion: this.props.autoProceedQuestion,
       handleToggleRevealAnswer: this.handleToggleRevealAnswer,
     };
@@ -422,7 +423,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
   };
 
   handleCorrectAnswer = () => {
-    const { wordCompletedCache } = this.state;
+    const { wordCompletedCache, failedOnce } = this.state;
     this.setState(
       prevState => {
         return {
@@ -430,7 +431,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
           attempted: true,
           shouldShake: false,
           failedOnce: false,
-          progressCount: prevState.progressCount + 1,
+          progressCount: prevState.progressCount + (failedOnce ? 0 : 1),
         };
       },
       () => {
@@ -510,7 +511,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     let lessonCompleted = false;
     const updatedScoreStatus: ScoreStatus = {
       ...userScoreStatus,
-      [quizType]: true,
+      [quizType]: perfectScore,
     };
 
     /* Is the lesson fully completed */
@@ -722,15 +723,6 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
   setInputRef = (ref: any) => {
     // tslint:disable-next-line
     this.INPUT_REF = ref;
-  };
-
-  copyHandler = (text: string) => () => {
-    try {
-      Clipboard.setString(text);
-      this.props.setToastMessage(`${text} copied!`);
-    } catch (_) {
-      return;
-    }
   };
 }
 

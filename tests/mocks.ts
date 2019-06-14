@@ -16,7 +16,10 @@ import {
   User,
   Word,
 } from "@src/tools/types";
-import { createWordDictionaryFromLessons } from "@src/tools/utils";
+import {
+  adjustListContentByDifficultySetting,
+  createWordDictionaryFromLessons,
+} from "@src/tools/utils";
 
 /** ========================================================================
  * Words/Lessons Mock Data
@@ -109,12 +112,9 @@ const SETTINGS: UserSettings = {
 };
 
 const USER: User = {
-  email: "sean.smith.2009@gmail.com",
-  family_name: "Smith",
-  given_name: "Sean",
   uuid: "asdf7f98asd7f0s7ads0",
-  name: "Seanie X",
-  photo_url: "",
+  username: "Seanie X",
+  email: "sean.smith.2009@gmail.com",
   score_history: DEFAULT_SCORE_STATE,
   experience_points: EXPERIENCE_POINTS,
   settings: SETTINGS,
@@ -156,15 +156,20 @@ const SOUND_RECORDING_PROPS: SoundRecordingProps = {
  * =========================================================================
  */
 
+const lists = adjustListContentByDifficultySetting(
+  LESSON,
+  APP_DIFFICULTY_SETTING.EASY,
+);
+
 const LIST_SCREEN_PARAMS: ListScreenParams = {
   listKey: "1-2",
-  hskList: [LESSON],
+  hskList: lists,
   listIndex: 0,
   type: "LESSON",
 };
 
 const LESSON_SCREEN_PARAMS: LessonScreenParams = {
-  lesson: LESSON,
+  lesson: LESSON.slice(0, 10),
   listIndex: 0,
   lessonIndex: 0,
   isFinalLesson: false,

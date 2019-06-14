@@ -1,10 +1,10 @@
 import glamorous from "glamorous-native";
 import React from "react";
-import { Clipboard, Keyboard, StyleSheet, Text, ViewStyle } from "react-native";
-import { Button, Switch, TextInput } from "react-native-paper";
+import { Keyboard, StyleSheet, Text } from "react-native";
+import { Switch, TextInput } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
-import { Bold, Container } from "@src/components/SharedComponents";
+import { Bold, Button, Container } from "@src/components/SharedComponents";
 import { COLORS } from "@src/constants/Theme";
 import {
   GlobalStateContextProps,
@@ -28,6 +28,7 @@ interface IProps extends GlobalStateContextProps {
 
 interface IState {
   input: string;
+  loadingTranslation: boolean;
   translationResults?: TranslationsData;
   sourceLanguageChinese: boolean;
 }
@@ -41,13 +42,20 @@ export class TranslationScreenComponent extends React.Component<
   IProps,
   IState
 > {
+  INPUT_REF: any = null;
+
   constructor(props: IProps) {
     super(props);
 
     this.state = {
       input: "",
+      loadingTranslation: false,
       sourceLanguageChinese: false,
     };
+  }
+
+  componentDidMount(): void {
+    this.focusTextInput();
   }
 
   render(): JSX.Element {
@@ -64,6 +72,7 @@ export class TranslationScreenComponent extends React.Component<
         <TextInput
           mode="outlined"
           value={input}
+          ref={this.setInputRef}
           style={TextInputStyles}
           onChangeText={this.handleChange}
           onSubmitEditing={this.handleTranslate}
@@ -84,13 +93,8 @@ export class TranslationScreenComponent extends React.Component<
             </Bold>
           </Text>
         </ToggleLanguageContainer>
-        <Button
-          dark
-          mode="contained"
-          style={ButtonStyles}
-          onPress={this.handleTranslate}
-        >
-          Translate
+        <Button onPress={this.handleTranslate}>
+          {this.state.loadingTranslation ? "Translating..." : "Translate"}
         </Button>
         {this.renderTranslationResults()}
       </Container>
@@ -116,7 +120,7 @@ export class TranslationScreenComponent extends React.Component<
             <TranslationTextResult
               text={translation}
               language={language}
-              copyHandler={this.copyHandler(translation)}
+              copyHandler={() => this.props.copyToClipboard(translation)}
             />
           ))}
         </TranslationResults>
@@ -137,41 +141,58 @@ export class TranslationScreenComponent extends React.Component<
     this.setState({ input });
   };
 
-  handleTranslate = async () => {
-    const { input, sourceLanguageChinese } = this.state;
-    if (input !== "") {
-      const sourceCode: languageCode = sourceLanguageChinese
-        ? this.props.languageSetting
-        : "english";
-      const wordExistsInDictionary = this.props.wordDictionary[
-        input.toLowerCase()
-      ];
+  handleTranslate = () => {
+    const { loadingTranslation, input, sourceLanguageChinese } = this.state;
+    if (loadingTranslation) {
+      return;
+    }
 
-      /**
-       * Word may already exist in local dictionary!
-       */
-      if (wordExistsInDictionary) {
-        this.setState(
-          {
-            translationResults: wordExistsInDictionary,
-          },
-          Keyboard.dismiss,
-        );
-      } else {
-        const translationResults = await translateWord(input, sourceCode);
-        this.setState({ translationResults }, Keyboard.dismiss);
-      }
+    if (input !== "") {
+      this.setState(
+        {
+          loadingTranslation: true,
+        },
+        async () => {
+          const sourceCode: languageCode = sourceLanguageChinese
+            ? this.props.languageSetting
+            : "english";
+          const wordExistsInDictionary = this.props.wordDictionary[
+            input.toLowerCase()
+          ];
+
+          /**
+           * Word may already exist in local dictionary!
+           */
+          if (wordExistsInDictionary) {
+            this.setState(
+              {
+                loadingTranslation: false,
+                translationResults: wordExistsInDictionary,
+              },
+              Keyboard.dismiss,
+            );
+          } else {
+            const translationResults = await translateWord(input, sourceCode);
+            this.setState(
+              { translationResults, loadingTranslation: false },
+              Keyboard.dismiss,
+            );
+          }
+        },
+      );
     } else {
       this.props.setToastMessage("Please enter a word to translate");
     }
   };
 
-  copyHandler = (text: string) => () => {
-    try {
-      Clipboard.setString(text);
-      this.props.setToastMessage(`${text} copied!`);
-    } catch (_) {
-      return;
+  setInputRef = (ref: any) => {
+    // tslint:disable-next-line
+    this.INPUT_REF = ref;
+  };
+
+  focusTextInput = () => {
+    if (this.INPUT_REF) {
+      this.INPUT_REF.focus();
     }
   };
 }
@@ -257,15 +278,6 @@ const TextInputStyles = {
   fontSize: 34,
   marginTop: 6,
   backgroundColor: "rgb(231,237,240)",
-};
-
-const ButtonStyles: ViewStyle = {
-  marginTop: 15,
-  marginBottom: 15,
-  width: "65%",
-  height: 40,
-  justifyContent: "center",
-  alignItems: "center",
 };
 
 /** ========================================================================

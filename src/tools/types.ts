@@ -53,21 +53,9 @@ export type Option<T> = OptionSuccess<T> | Empty;
  * =========================================================================
  */
 
-export interface GoogleSigninUser {
-  email: string;
-  familyName: string;
-  givenName: string;
-  id: string;
-  name: string;
-  photoUrl?: string;
-}
-
 export interface UserDataBase {
-  email: string;
-  name: string;
-  family_name: string;
-  given_name: string;
-  photo_url?: string;
+  email?: string;
+  username?: string;
   push_token: string;
 }
 
@@ -152,11 +140,11 @@ export interface QuizScreenComponentProps {
   autoProceedQuestion: boolean;
   wordDictionary: WordDictionary;
   languageSetting: APP_LANGUAGE_SETTING;
-  copyHandler: (text: string) => () => void;
   setInputRef: (ref: any) => void;
   handleChange: (value: string) => void;
   handleCheck: (correct: boolean) => void;
   handleProceed: () => (event: GestureResponderEvent) => void;
+  handleCopyToClipboard: (text: string) => void;
   handleToggleRevealAnswer: (event: GestureResponderEvent) => void;
 }
 

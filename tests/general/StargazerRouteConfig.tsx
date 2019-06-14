@@ -5,9 +5,9 @@ import { NavigationScreenProp } from "react-navigation";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import { QUIZ_TYPE } from "@src/providers/GlobalStateContext";
 import AboutScreenComponent from "@src/screens/AboutScreen";
+import { AccountScreenComponent } from "@src/screens/AccountScreen";
 import { ContactScreenComponent } from "@src/screens/ContactScreen";
 import { FlashcardsScreenComponent } from "@src/screens/FlashcardsScreen";
-import { GoogleSigninScreenComponent } from "@src/screens/GoogleSigninScreen";
 import { HomeScreenComponent } from "@src/screens/HomeScreen";
 import IntroScreenComponent from "@src/screens/IntroScreen";
 import { LessonSummaryScreenComponent } from "@src/screens/LessonSummaryScreen";
@@ -16,6 +16,7 @@ import { QuizScreenComponent } from "@src/screens/QuizScreen";
 import { SettingsScreenComponent } from "@src/screens/SettingsScreen";
 import { TranslationScreenComponent } from "@src/screens/TranslationScreen";
 import { ViewAllScreenComponent } from "@src/screens/ViewAllScreen";
+import { WelcomeScreenComponent } from "@src/screens/WelcomeScreen";
 import { LessonScreenParams, ListScreenParams } from "@src/tools/types";
 import MOCKS from "@tests/mocks";
 
@@ -34,34 +35,12 @@ interface StargazerRouteProps<Params = {}> {
 
 const stargazerConfig: ReadonlyArray<StargazerRouteConfigObject> = [
   {
-    name: "Google Sign In",
-    screenName: ROUTE_NAMES.SIGNIN,
-    screen: (props: StargazerRouteProps) => (
-      <GoogleSigninScreenComponent
-        navigation={props.navigation}
-        {...MOCKS.GLOBAL_STATE_PROPS}
-      />
-    ),
-  },
-  {
     name: "Home Screen",
     screenName: ROUTE_NAMES.HOME,
     screen: (props: StargazerRouteProps) => (
       <HomeScreenComponent
         navigation={props.navigation}
         {...MOCKS.GLOBAL_STATE_PROPS}
-      />
-    ),
-    paramsForNextScreen: MOCKS.LESSON_SCREEN_PARAMS,
-  },
-  {
-    name: "Lesson Summary Screen",
-    screenName: ROUTE_NAMES.LESSON_SUMMARY,
-    screen: (props: StargazerRouteProps<LessonScreenParams>) => (
-      <LessonSummaryScreenComponent
-        navigation={props.navigation}
-        {...MOCKS.GLOBAL_STATE_PROPS}
-        {...MOCKS.SOUND_RECORDING_PROPS}
       />
     ),
     paramsForNextScreen: MOCKS.LIST_SCREEN_PARAMS,
@@ -71,6 +50,18 @@ const stargazerConfig: ReadonlyArray<StargazerRouteConfigObject> = [
     screenName: ROUTE_NAMES.LIST_SUMMARY,
     screen: (props: StargazerRouteProps<ListScreenParams>) => (
       <ListSummaryScreenComponent
+        navigation={props.navigation}
+        {...MOCKS.GLOBAL_STATE_PROPS}
+        {...MOCKS.SOUND_RECORDING_PROPS}
+      />
+    ),
+    paramsForNextScreen: MOCKS.LESSON_SCREEN_PARAMS,
+  },
+  {
+    name: "Lesson Summary Screen",
+    screenName: ROUTE_NAMES.LESSON_SUMMARY,
+    screen: (props: StargazerRouteProps<LessonScreenParams>) => (
+      <LessonSummaryScreenComponent
         navigation={props.navigation}
         {...MOCKS.GLOBAL_STATE_PROPS}
         {...MOCKS.SOUND_RECORDING_PROPS}
@@ -199,10 +190,20 @@ const stargazerConfig: ReadonlyArray<StargazerRouteConfigObject> = [
     ),
   },
   {
+    name: "Account Screen",
+    screenName: ROUTE_NAMES.ACCOUNT,
+    screen: (props: StargazerRouteProps) => (
+      <AccountScreenComponent
+        navigation={props.navigation}
+        {...MOCKS.GLOBAL_STATE_PROPS}
+      />
+    ),
+  },
+  {
     name: "Welcome Screen",
     screenName: ROUTE_NAMES.WELCOME,
     screen: (props: StargazerRouteProps) => (
-      <AboutScreenComponent navigation={props.navigation} />
+      <WelcomeScreenComponent navigation={props.navigation} />
     ),
   },
   {

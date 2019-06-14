@@ -20,11 +20,30 @@ import {
  */
 
 /**
- * Find or create a user given their email.
+ * Get an existing user.
+ *
+ * @param uuid Unique user id
+ * @returns `UserAsyncResponse`
  */
-export const findOrCreateUser = async (
-  user: UserDataBase,
-): UserAsyncResponse => {
+export const getUser = async (uuid: string): UserAsyncResponse => {
+  try {
+    const result = await axios.get<UserJson>(
+      `${CONFIG.DRAGON_URI}/users/${uuid}`,
+    );
+    return result.data;
+  } catch (err) {
+    console.log("Error fetching user: ", err);
+    return;
+  }
+};
+
+/**
+ * Find or create a user given their email.
+ *
+ * @param user `UserDataBase`
+ * @returns `UserAsyncResponse`
+ */
+export const createUser = async (user: UserDataBase): UserAsyncResponse => {
   try {
     const result = await axios.post<UserJson>(
       `${CONFIG.DRAGON_URI}/users`,

@@ -216,7 +216,8 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
         )}
         {type === "DAILY_QUIZ" && (
           <Text style={SubTextStyles}>
-            There are {COUNT} random words selected for you!
+            There are {COUNT} random words selected for you! Practicing daily is
+            the best way to build up experience points!
           </Text>
         )}
         {type === "OPT_OUT_CHALLENGE" && (

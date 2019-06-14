@@ -1,6 +1,6 @@
 import React from "react";
 
-import { GoogleSigninUser, HSKListSet, Word } from "@src/tools/types";
+import { HSKListSet, Word } from "@src/tools/types";
 
 /** ========================================================================
  * Types and Config
@@ -113,9 +113,20 @@ const GlobalStateContextValues = {
     // Handle resetting scores
     return;
   },
-  setLessonScore: (updatedScoreStatus: ScoreStatus, exp: number) => {
-    // Handle setting lesson score
+  copyToClipboard: (text: string) => {
+    // Handle copy to clipboard
     return;
+  },
+  transferUserAccount: (uuid: string) => {
+    // Handle transferring account
+    return;
+  },
+  setLessonScore: (
+    updatedScoreStatus: ScoreStatus,
+    exp: number,
+  ): Promise<void> => {
+    // Handle setting lesson score
+    return Promise.resolve();
   },
   updateExperiencePoints: (experiencePoints: number) => {
     // Handle updating experience points
@@ -124,10 +135,6 @@ const GlobalStateContextValues = {
   handleSwitchLanguage: () => {
     // Handle switching app language setting
     return;
-  },
-  onSignin: (user: GoogleSigninUser) => {
-    // Handle action on signin
-    return Promise.resolve();
   },
   handleUpdateUserSettingsField: (
     data: Partial<UserSettings>,

@@ -16,7 +16,6 @@ import { convertChineseToPinyin, fetchWordTranslation } from "@src/tools/api";
 import CONFIG from "@src/tools/config";
 import {
   ENGLISH,
-  GoogleSigninUser,
   HSKListSet,
   languageCode,
   Lesson,
@@ -26,7 +25,6 @@ import {
   TRADITIONAL_CHINESE,
   TranslationsData,
   User,
-  UserDataBase,
   UserJson,
   Word,
 } from "@src/tools/types";
@@ -355,9 +353,9 @@ export const calculateExperiencePointsForLesson = (
   const MIN: number = 15;
   let MAX: number;
   if (lessonType === "OPT_OUT_CHALLENGE") {
-    MAX = 300;
+    MAX = 1000;
   } else if (lessonType === "DAILY_QUIZ") {
-    MAX = 125;
+    MAX = 500;
   } else if (quizType === QUIZ_TYPE.QUIZ_TEXT) {
     MAX = 35;
   } else {
@@ -538,7 +536,7 @@ export const flattenLessonSet = (lessons: HSKListSet): Lesson => {
  */
 export const getAudioFileUrl = (fileKey: string): string => {
   const encodedFileKey = encodeURIComponent(fileKey);
-  return `${CONFIG.DRAGON_URI}/static/${encodedFileKey}.mp3`;
+  return `${CONFIG.AMAZON_CLOUD_FRONT}/${encodedFileKey}.mp3`;
 };
 
 /**
@@ -710,29 +708,6 @@ export const translateWord = async (
  */
 export const isNetworkConnected = (type: ConnectionInfo["type"]): boolean => {
   return type !== "none";
-};
-
-/**
- * Extract the specific properties from the full user data to store
- * on the local user data.
- *
- * @param user `User` data
- * returns `UserData` formatted user data
- */
-export const transformGoogleSignInResultToUserData = (
-  user: GoogleSigninUser,
-  pushToken: string,
-): UserDataBase => {
-  const userData: UserDataBase = {
-    email: user.email,
-    name: user.name,
-    family_name: user.familyName,
-    given_name: user.givenName,
-    photo_url: user.photoUrl,
-    push_token: pushToken,
-  };
-
-  return userData;
 };
 
 /**

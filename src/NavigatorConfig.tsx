@@ -14,7 +14,6 @@ import { QUIZ_TYPE } from "@src/providers/GlobalStateContext";
 import AboutScreenComponent from "@src/screens/AboutScreen";
 import ContactScreenComponent from "@src/screens/ContactScreen";
 import FlashcardsScreenComponent from "@src/screens/FlashcardsScreen";
-import GoogleSignInScreen from "@src/screens/GoogleSigninScreen";
 import HomeScreen from "@src/screens/HomeScreen";
 import LessonSummaryScreen from "@src/screens/LessonSummaryScreen";
 import ListSummaryScreenComponent from "@src/screens/ListSummaryScreen";
@@ -24,6 +23,7 @@ import TranslationScreenComponent from "@src/screens/TranslationScreen";
 import ViewAllScreen from "@src/screens/ViewAllScreen";
 import { getDrawerLockedState } from "@src/tools/navigation-utils";
 import { LessonScreenParams, ListScreenParams } from "@src/tools/types";
+import AccountScreenComponent from "./screens/AccountScreen";
 import IntroScreenComponent from "./screens/IntroScreen";
 import WelcomeScreenComponent from "./screens/WelcomeScreen";
 
@@ -33,13 +33,6 @@ import WelcomeScreenComponent from "./screens/WelcomeScreen";
  */
 
 const ROUTES: NavigationScreenRouteConfig = {
-  [ROUTE_NAMES.SIGNIN]: {
-    screen: GoogleSignInScreen,
-    navigationOptions: {
-      title: "Welcome 歡迎",
-      headerBackTitle: null,
-    },
-  },
   [ROUTE_NAMES.HOME]: {
     screen: HomeScreen,
     navigationOptions: ({
@@ -173,6 +166,13 @@ const ROUTES: NavigationScreenRouteConfig = {
       headerBackTitle: null,
     },
   },
+  [ROUTE_NAMES.ACCOUNT]: {
+    screen: AccountScreenComponent,
+    navigationOptions: {
+      title: "Account 🗄",
+      headerBackTitle: null,
+    },
+  },
   [ROUTE_NAMES.ABOUT]: {
     screen: AboutScreenComponent,
     navigationOptions: {
@@ -203,9 +203,9 @@ const ROUTES: NavigationScreenRouteConfig = {
   },
 };
 
-const createAppNavigationStack = (userLoggedIn: boolean) => {
+const createAppNavigationStack = (firstTimeUser: boolean) => {
   return createStackNavigator(ROUTES, {
-    initialRouteName: userLoggedIn ? ROUTE_NAMES.HOME : ROUTE_NAMES.SIGNIN,
+    initialRouteName: firstTimeUser ? ROUTE_NAMES.WELCOME : ROUTE_NAMES.HOME,
   });
 };
 
@@ -220,11 +220,11 @@ const MenuIcon = ({ onPress }: { onPress: () => void }) => (
   />
 );
 
-const createNavigatorConfig = (userLoggedIn: boolean) => {
+const createNavigatorConfig = (firstTimeUser: boolean) => {
   return createDrawerNavigator(
     {
       [ROUTE_NAMES.APP]: {
-        screen: createAppNavigationStack(userLoggedIn),
+        screen: createAppNavigationStack(firstTimeUser),
         navigationOptions: ({
           navigation,
         }: {

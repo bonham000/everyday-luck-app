@@ -4,7 +4,6 @@
  */
 export enum ROUTE_NAMES {
   APP = "APP",
-  SIGNIN = "SIGNIN",
   HOME = "HOME",
   LIST_SUMMARY = "LIST_SUMMARY",
   LESSON_SUMMARY = "LESSON_SUMMARY",
@@ -22,4 +21,5 @@ export enum ROUTE_NAMES {
   ABOUT = "ABOUT",
   CONTACT = "CONTACT",
   SETTINGS = "SETTINGS",
+  ACCOUNT = "ACCOUNT",
 }

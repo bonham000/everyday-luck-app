@@ -4,6 +4,7 @@ import {
   Alert,
   AppState,
   BackHandler,
+  Clipboard,
   ConnectionInfo,
   ConnectionType,
   NetInfo,
@@ -28,23 +29,21 @@ import GlobalContext, {
 } from "@src/providers/GlobalStateContext";
 import { GlobalStateValues } from "@src/providers/GlobalStateProvider";
 import SoundRecordingProvider from "@src/providers/SoundRecordingProvider";
-import { findOrCreateUser, updateUser } from "@src/tools/api";
+import { createUser, getUser, updateUser } from "@src/tools/api";
 import {
   getOfflineUpdatesFlagState,
   getPersistedUser,
-  logoutUserLocal,
   saveUserToAsyncStorage,
   setOfflineUpdatesFlagState,
 } from "@src/tools/async-store";
 import { registerForPushNotificationsAsync } from "@src/tools/notification-utils";
-import { GoogleSigninUser, User } from "@src/tools/types";
+import { User } from "@src/tools/types";
 import {
   createWordDictionaryFromLessons,
   fetchLessonSet,
   formatUserLanguageSetting,
   getAlternateLanguageSetting,
   isNetworkConnected,
-  transformGoogleSignInResultToUserData,
   transformUserJson,
 } from "@src/tools/utils";
 import MOCKS from "@tests/mocks";
@@ -60,6 +59,7 @@ interface IState extends GlobalStateValues {
   appState: string;
   toastMessage: string;
   updating: boolean;
+  firstTimeUser: boolean;
   tryingToCloseApp: boolean;
   transparentLoading: boolean;
   networkConnected: boolean;
@@ -88,6 +88,7 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
       toastMessage: "",
       updating: false,
       wordDictionary: {},
+      firstTimeUser: false,
       updateAvailable: false,
       tryingToCloseApp: false,
       transparentLoading: false,
@@ -197,11 +198,6 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
           this.setToastMessage("Offline updates saved successfully!");
         }
       } catch (err) {
-        /**
-         * TODO: Parse error here and if it's a 401 status log out the
-         * user with a message.
-         */
-        console.log(`Could not update user right now`);
         await setOfflineUpdatesFlagState({ shouldProcessRequests: true });
       }
     }
@@ -233,7 +229,7 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
 
   fetchExistingUser = async (maybePersistedUser: User) => {
     if (this.state.networkConnected) {
-      const user = await findOrCreateUser(maybePersistedUser);
+      const user = await getUser(maybePersistedUser.uuid);
       if (user) {
         this.setState(
           {
@@ -252,9 +248,11 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
      */
     if (this.state.user && this.state.user.push_token === "") {
       const token = await registerForPushNotificationsAsync();
-      this.handleUpdateUserFields({
-        push_token: token,
-      });
+      if (token) {
+        this.handleUpdateUserFields({
+          push_token: token,
+        });
+      }
     }
   };
 
@@ -435,24 +433,6 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
     }
   };
 
-  handleLogoutUser = () => {
-    this.setToastMessage("Your session has ended!");
-    this.setState(
-      {
-        loading: true,
-      },
-      async () => {
-        await logoutUserLocal();
-        await setOfflineUpdatesFlagState({ shouldProcessRequests: false });
-        this.navigateToRoute(ROUTE_NAMES.SIGNIN);
-        this.setState({
-          loading: false,
-          user: undefined,
-        });
-      },
-    );
-  };
-
   navigateToRoute = (routeName: ROUTE_NAMES) => {
     const navigationAction = NavigationActions.navigate({
       routeName,
@@ -460,6 +440,15 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
 
     if (this.navigationRef) {
       this.navigationRef.dispatch(navigationAction);
+    }
+  };
+
+  copyToClipboard = (text: string) => {
+    try {
+      Clipboard.setString(text);
+      this.setToastMessage(`${text} copied!`);
+    } catch (_) {
+      return;
     }
   };
 }
@@ -539,6 +528,7 @@ class RootContainer extends RootContainerBase<{}> {
       loading,
       lessons,
       updating,
+      firstTimeUser,
       wordDictionary,
       updateAvailable,
       networkConnected,
@@ -576,12 +566,13 @@ class RootContainer extends RootContainerBase<{}> {
       userScoreStatus,
       autoProceedQuestion,
       appDifficultySetting,
-      onSignin: this.handleSignin,
       setLessonScore: this.setLessonScore,
       setToastMessage: this.setToastMessage,
+      copyToClipboard: this.copyToClipboard,
       handleUpdateApp: this.handleUpdateApp,
       handleResetScores: this.handleResetScores,
       handleSwitchLanguage: this.handleSwitchLanguage,
+      transferUserAccount: this.handleTransferUserAccount,
       updateExperiencePoints: this.updateExperiencePoints,
       handleUpdateUserSettingsField: this.handleUpdateUserSettingsField,
     };
@@ -596,7 +587,7 @@ class RootContainer extends RootContainerBase<{}> {
         <GlobalContext.Provider value={ProviderValues}>
           <SoundRecordingProvider disableAudio={disableAudio}>
             <RenderAppOnce
-              userLoggedIn={Boolean(user)}
+              firstTimeUser={firstTimeUser}
               assignNavigatorRef={this.assignNavRef}
             />
           </SoundRecordingProvider>
@@ -625,33 +616,62 @@ class RootContainer extends RootContainerBase<{}> {
     if (maybePersistedUser) {
       this.setupUserSessionFromPersistedUserData(maybePersistedUser);
     } else {
-      this.setState({ loading: false, user: undefined });
+      this.handleInitialUserCreation();
     }
   };
 
-  handleSignin = async (user: GoogleSigninUser) => {
-    /**
-     * Transform received user data from Google and find or create the associated
-     * user on the app server. If the user data doesn't exist or is invalid, throw
-     * an error which will be caught and handled by the GoogleSigninScreen.
-     */
-    if (user && user.email) {
-      const pushToken = await registerForPushNotificationsAsync();
-      const userData = transformGoogleSignInResultToUserData(user, pushToken);
-      const userResult = await findOrCreateUser(userData);
-      if (userResult) {
-        this.setState(
-          {
-            user: transformUserJson(userResult),
-          },
-          this.serializeAndPersistUser,
-        );
-      } else {
-        throw new Error("Failed to initialize user");
-      }
+  handleInitialUserCreation = async () => {
+    const pushToken = await registerForPushNotificationsAsync();
+    const userResult = await createUser({ push_token: pushToken });
+    if (userResult) {
+      this.setState(
+        {
+          loading: false,
+          firstTimeUser: true,
+          user: transformUserJson(userResult),
+        },
+        this.serializeAndPersistUser,
+      );
     } else {
-      throw new Error("Failed to initialize user");
+      this.setState({ loading: false, user: undefined, error: true });
     }
+  };
+
+  handleTransferUserAccount = (uuid: string) => {
+    if (this.state.user && uuid === this.state.user.uuid) {
+      return this.setToastMessage("ID matches your current user");
+    }
+
+    this.setState(
+      {
+        transparentLoading: true,
+      },
+      async () => {
+        const user = await getUser(uuid);
+        if (user) {
+          this.setState(
+            {
+              transparentLoading: false,
+              user: transformUserJson(user),
+            },
+            () => {
+              this.setupPushToken();
+              this.serializeAndPersistUser();
+              this.setToastMessage("Account transferred successfully!");
+            },
+          );
+        } else {
+          this.setState(
+            {
+              transparentLoading: false,
+            },
+            () => {
+              this.setToastMessage("User with that ID could not be found");
+            },
+          );
+        }
+      },
+    );
   };
 
   updateExperiencePoints = (experiencePoints: number) => {
@@ -781,8 +801,8 @@ class RootContainer extends RootContainerBase<{}> {
  */
 
 interface RenderAppOnceProps {
+  firstTimeUser: boolean;
   assignNavigatorRef: (ref: any) => void;
-  userLoggedIn: boolean;
 }
 
 // tslint:disable-next-line
@@ -792,7 +812,7 @@ class RenderAppOnce extends React.Component<RenderAppOnceProps, {}> {
   }
 
   render(): JSX.Element {
-    const AppNavigator = createAppNavigator(this.props.userLoggedIn);
+    const AppNavigator = createAppNavigator(this.props.firstTimeUser);
     const Nav = createAppContainer(AppNavigator);
     return <Nav ref={this.props.assignNavigatorRef} />;
   }

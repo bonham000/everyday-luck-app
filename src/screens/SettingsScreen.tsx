@@ -1,10 +1,14 @@
 import glamorous from "glamorous-native";
 import React from "react";
 import { StyleSheet } from "react-native";
-import { Button, Text } from "react-native-paper";
+import { Text } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
-import { Bold, ScrollContainer } from "@src/components/SharedComponents";
+import {
+  Bold,
+  Button,
+  ScrollContainer,
+} from "@src/components/SharedComponents";
 import { COLORS } from "@src/constants/Theme";
 import { APP_DIFFICULTY_SETTING } from "@src/providers/GlobalStateContext";
 import {
@@ -43,7 +47,6 @@ export class SettingsScreenComponent extends React.Component<IProps, {}> {
           <Bold>{formatUserLanguageSetting(languageSetting)}</Bold>
         </Text>
         <Button
-          mode="contained"
           onPress={this.handleSetLanguageOptions}
           style={{ marginTop: 15, marginBottom: 15 }}
         >
@@ -56,7 +59,6 @@ export class SettingsScreenComponent extends React.Component<IProps, {}> {
           <Bold>{disableAudio ? "Disabled" : "Enabled"}</Bold>
         </Text>
         <Button
-          mode="contained"
           onPress={this.handleSetAudioOptions}
           style={{ marginTop: 15, marginBottom: 15 }}
         >
