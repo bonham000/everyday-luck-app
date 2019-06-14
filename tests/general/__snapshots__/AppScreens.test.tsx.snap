@@ -1000,13 +1000,13 @@ exports[`App Screen Components Each screen component renders with props provided
     onStartShouldSetResponder={[Function]}
     style={
       Object {
-        "bottom": 15,
+        "bottom": 18,
         "height": 50,
         "justifyContent": "center",
         "opacity": 1,
         "position": "absolute",
         "right": 15,
-        "width": 200,
+        "width": 225,
       }
     }
   >
@@ -1036,7 +1036,7 @@ exports[`App Screen Components Each screen component renders with props provided
         ]
       }
     >
-      Sound Recordings courtesy of Forvo
+      Sound Recordings courtesy of Forvo API
     </Text>
   </View>
   <View
