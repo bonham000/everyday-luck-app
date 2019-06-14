@@ -161,7 +161,8 @@ export class TranslationScreenComponent extends React.Component<
           ];
 
           /**
-           * Word may already exist in local dictionary!
+           * Word may already exist in local dictionary, use
+           * this as a cache and check here first.
            */
           if (wordExistsInDictionary) {
             this.setState(

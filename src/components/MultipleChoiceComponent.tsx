@@ -108,7 +108,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
           <AudioEscapeBlock onPress={this.activateAudioEscapeHatch}>
             <AudioEscapeText>Sound not loading?</AudioEscapeText>
             <AttributionText>
-              Sound Recordings courtesy of Forvo
+              Sound Recordings courtesy of Forvo API
             </AttributionText>
           </AudioEscapeBlock>
         )}
@@ -292,9 +292,9 @@ const QuizSubText = glamorous.text({
 
 const AudioEscapeBlock = glamorous.touchableOpacity({
   right: 15,
-  bottom: 15,
+  bottom: 18,
   height: 50,
-  width: 200,
+  width: 225,
   position: "absolute",
   justifyContent: "center",
 });
