@@ -35,6 +35,7 @@ import {
   convertAppDifficultyToLessonSize,
   getListScoreKeyFromIndex,
   getQuizSuccessToasts,
+  hasUserCompletedAllLists,
   isLessonComplete,
   knuthShuffle,
   mapListIndexToListScores,
@@ -526,6 +527,8 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
       [quizType]: perfectScore,
     };
 
+    const allComplete = hasUserCompletedAllLists(updatedScoreStatus);
+
     /* Is the lesson fully completed */
     lessonCompleted = isLessonComplete(updatedScoreStatus);
 
@@ -551,6 +554,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
             experiencePoints,
             isFinalLesson,
             perfectScore,
+            allComplete,
           ),
       );
     }, 350);
@@ -623,6 +627,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     experience: number,
     isFinalLesson: boolean,
     perfectScore: boolean,
+    allComplete: boolean,
   ) => {
     const { primary, secondary } = getQuizSuccessToasts(
       lessonCompleted,
@@ -630,6 +635,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
       lessonType,
       experience,
       perfectScore,
+      allComplete,
     );
     Alert.alert(
       primary,

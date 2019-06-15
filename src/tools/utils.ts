@@ -749,12 +749,15 @@ export const getQuizSuccessToasts = (
   lessonType: LessonSummaryType,
   experience: number,
   perfectScore: boolean,
+  allComplete: boolean,
 ): QuizSuccessToasts => {
   /**
    * Define primary title string:
    */
   let primary: string = "";
-  if (lessonCompleted) {
+  if (allComplete) {
+    primary = "Extraordinary!!! 🏆";
+  } else if (lessonCompleted) {
     primary = "The next lesson is unlocked! 🥇";
   } else if (lessonType === "OPT_OUT_CHALLENGE") {
     if (perfectScore) {
@@ -774,7 +777,10 @@ export const getQuizSuccessToasts = (
    * Define secondary title string:
    */
   let secondary: string = "";
-  if (lessonCompleted) {
+  if (allComplete) {
+    secondary =
+      "You've completed all the content! You must be fluent by now! Congratulations!!!";
+  } else if (lessonCompleted) {
     secondary = `Great - keep going! 很好! You earned ${experience} experience points!`;
   } else if (lessonType === "OPT_OUT_CHALLENGE") {
     if (perfectScore) {
@@ -899,4 +905,20 @@ export const mapSettingsChangeToAnalyticsEvent = (
   }
 
   return null;
+};
+
+/**
+ * Determine if the user has completed all the content.
+ *
+ * @param scores Score history
+ * @returns true if all lists are complete.
+ */
+export const hasUserCompletedAllLists = (scores: ScoreStatus): boolean => {
+  return (
+    scores.list_02_score.complete &&
+    scores.list_03_score.complete &&
+    scores.list_04_score.complete &&
+    scores.list_05_score.complete &&
+    scores.list_06_score.complete
+  );
 };
