@@ -9,6 +9,7 @@ enum EVENTS {
   SET_APP_LANGUAGE = "SET_APP_LANGUAGE",
   TOGGLE_AUDIO_SETTING = "TOGGLE_AUDIO_SETTING",
   TOGGLE_AUTO_PROCEED_QUIZ = "TOGGLE_AUTO_PROCEED_QUIZ",
+  TRANSLATION_EVENT = "TRANSLATION_EVENT",
 }
 
 /** ========================================================================

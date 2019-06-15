@@ -5,6 +5,7 @@ import { Switch, TextInput } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
 import { Bold, Button, Container } from "@src/components/SharedComponents";
+import EVENTS from "@src/constants/AnalyticsEvents";
 import { COLORS } from "@src/constants/Theme";
 import {
   GlobalStateContextProps,
@@ -176,7 +177,10 @@ export class TranslationScreenComponent extends React.Component<
             const translationResults = await translateWord(input, sourceCode);
             this.setState(
               { translationResults, loadingTranslation: false },
-              Keyboard.dismiss,
+              () => {
+                Keyboard.dismiss();
+                this.props.logAnalyticsEvent(EVENTS.TRANSLATION_EVENT);
+              },
             );
           }
         },

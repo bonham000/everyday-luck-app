@@ -225,6 +225,7 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
         async () => {
           await this.maybeHandleOfflineUpdates();
           this.fetchExistingUser(persistedUser);
+          this.initializeAmplitudeAnalyticsModule();
         },
       );
     }
@@ -469,8 +470,12 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
 
   initializeAmplitudeAnalyticsModule = () => {
     if (this.state.user) {
-      Amplitude.initialize(CONFIG.AMPLITUDE_API_KEY);
-      Amplitude.setUserId(this.state.user.uuid);
+      try {
+        Amplitude.initialize(CONFIG.AMPLITUDE_API_KEY);
+        Amplitude.setUserId(this.state.user.uuid);
+      } catch (err) {
+        return;
+      }
     }
   };
 
@@ -478,7 +483,11 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
     /**
      * Log event to Amplitude
      */
-    Amplitude.logEvent(event);
+    try {
+      Amplitude.logEvent(event);
+    } catch (err) {
+      return;
+    }
   };
 }
 
