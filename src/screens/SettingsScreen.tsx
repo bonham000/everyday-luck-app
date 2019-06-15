@@ -9,7 +9,6 @@ import {
   Button,
   ScrollContainer,
 } from "@src/components/SharedComponents";
-import EVENTS from "@src/constants/AnalyticsEvents";
 import { COLORS } from "@src/constants/Theme";
 import { APP_DIFFICULTY_SETTING } from "@src/providers/GlobalStateContext";
 import {

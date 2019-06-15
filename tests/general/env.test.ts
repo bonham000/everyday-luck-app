@@ -6,6 +6,7 @@ describe("Environment Variables Configuration", () => {
     expect(vars).toMatchInlineSnapshot(`
       Array [
         "AMAZON_CLOUD_FRONT",
+        "AMPLITUDE_API_KEY",
         "DRAGON_URI",
         "FORVO_API_KEY",
         "GOOGLE_TRANSLATE_API_KEY",

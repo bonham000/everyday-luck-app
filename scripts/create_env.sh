@@ -4,6 +4,7 @@
 echo "
 export const SENTRY_DSN = \"\";
 export const SENTRY_AUTH_TOKEN = \"\";
+export const AMPLITUDE_API_KEY = \"\";
 export const DRAGON_URI = \"\";
 export const AMAZON_CLOUD_FRONT = \"\";
 export const FORVO_API_KEY = \"\";
