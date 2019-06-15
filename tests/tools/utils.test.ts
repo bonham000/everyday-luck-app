@@ -7,6 +7,7 @@ import {
 } from "@src/providers/GlobalStateContext";
 import { Lesson } from "@src/tools/types";
 import {
+  calculateExperiencePointsForLesson,
   capitalize,
   convertAppDifficultyToLessonSize,
   createWordDictionaryFromLessons,
@@ -20,13 +21,18 @@ import {
   getAlternateLanguageSetting,
   getAudioFileUrl,
   getFinalUnlockedListKey,
+  getLessonSummaryStatus,
   getListScoreKeyFromIndex,
+  getQuizSuccessToasts,
   getRandomQuizChallenge,
+  getReviewLessonSet,
   isLessonComplete,
   isNetworkConnected,
   knuthShuffle,
+  mapListIndexToListScores,
   mapWordsForList,
   randomInRange,
+  SCORES_INDEX_MAP,
   transformUserJson,
   translateWord,
 } from "@src/tools/utils";
@@ -381,19 +387,19 @@ describe("utils", () => {
     );
 
     expect(result).toMatchInlineSnapshot(`
-                  Object {
-                    "correct": true,
-                    "correctWord": Object {
-                      "english": "Rich, plentiful, abundant",
-                      "english_alternate_choices": Array [
-                        "",
-                      ],
-                      "pinyin": "fēngfù",
-                      "simplified": "丰富",
-                      "traditional": "豐富",
-                    },
-                  }
-            `);
+                                    Object {
+                                      "correct": true,
+                                      "correctWord": Object {
+                                        "english": "Rich, plentiful, abundant",
+                                        "english_alternate_choices": Array [
+                                          "",
+                                        ],
+                                        "pinyin": "fēngfù",
+                                        "simplified": "丰富",
+                                        "traditional": "豐富",
+                                      },
+                                    }
+                        `);
 
     result = determineAnyPossibleCorrectAnswerForFreeInput(
       "晚安",
@@ -403,19 +409,19 @@ describe("utils", () => {
     );
 
     expect(result).toMatchInlineSnapshot(`
-                  Object {
-                    "correct": false,
-                    "correctWord": Object {
-                      "english": "Rich",
-                      "english_alternate_choices": Array [
-                        "",
-                      ],
-                      "pinyin": "fù",
-                      "simplified": "富",
-                      "traditional": "富",
-                    },
-                  }
-            `);
+                                    Object {
+                                      "correct": false,
+                                      "correctWord": Object {
+                                        "english": "Rich",
+                                        "english_alternate_choices": Array [
+                                          "",
+                                        ],
+                                        "pinyin": "fù",
+                                        "simplified": "富",
+                                        "traditional": "富",
+                                      },
+                                    }
+                        `);
   });
 
   test("getRandomQuizChallenge", () => {
@@ -438,23 +444,224 @@ describe("utils", () => {
     );
   });
 
-  test.skip("getReviewLessonSet", () => {
-    expect(true).toBeTruthy();
+  test("getReviewLessonSet", () => {
+    let result = getReviewLessonSet({
+      lists: MOCKS.LESSONS,
+      unlockedListIndex: 0,
+      userScoreStatus: MOCKS.DEFAULT_SCORE_STATE,
+      appDifficultySetting: APP_DIFFICULTY_SETTING.EASY,
+      limitToCurrentList: false,
+    });
+
+    expect(result.length).toBe(10);
+
+    result = getReviewLessonSet({
+      lists: MOCKS.LESSONS,
+      unlockedListIndex: 2,
+      userScoreStatus: MOCKS.DEFAULT_SCORE_STATE,
+      appDifficultySetting: APP_DIFFICULTY_SETTING.EASY,
+      limitToCurrentList: false,
+    });
+
+    expect(result.length).toBe(610);
+
+    result = getReviewLessonSet({
+      lists: MOCKS.LESSONS,
+      unlockedListIndex: 4,
+      userScoreStatus: MOCKS.DEFAULT_SCORE_STATE,
+      appDifficultySetting: APP_DIFFICULTY_SETTING.EASY,
+      limitToCurrentList: false,
+    });
+
+    expect(result.length).toBe(2510);
   });
 
-  test.skip("mapListIndexToListScores", () => {
-    expect(true).toBeTruthy();
+  test("mapListIndexToListScores", () => {
+    SCORES_INDEX_MAP.forEach((score, index) => {
+      expect(
+        mapListIndexToListScores(index, MOCKS.DEFAULT_SCORE_STATE),
+      ).toEqual(MOCKS.DEFAULT_SCORE_STATE[score]);
+    });
   });
 
-  test.skip("getLessonSummaryStatus", () => {
-    expect(true).toBeTruthy();
+  test("getLessonSummaryStatus", () => {
+    let result = getLessonSummaryStatus(false, MOCKS.DEFAULT_SCORE_STATE, 0);
+    expect(result).toMatchInlineSnapshot(`
+                  Object {
+                    "mandarinPronunciation": true,
+                    "mcEnglish": true,
+                    "mcMandarin": true,
+                    "quizText": true,
+                  }
+            `);
+
+    result = getLessonSummaryStatus(true, MOCKS.DEFAULT_SCORE_STATE, 0);
+    expect(result).toMatchInlineSnapshot(`
+                  Object {
+                    "mandarinPronunciation": false,
+                    "mcEnglish": false,
+                    "mcMandarin": false,
+                    "quizText": false,
+                  }
+            `);
+
+    result = getLessonSummaryStatus(true, MOCKS.DEFAULT_SCORE_STATE, 1);
+    expect(result).toMatchInlineSnapshot(`
+                  Object {
+                    "mandarinPronunciation": false,
+                    "mcEnglish": false,
+                    "mcMandarin": false,
+                    "quizText": false,
+                  }
+            `);
+
+    result = getLessonSummaryStatus(
+      true,
+      MOCKS.getMockScoreStatus({
+        mc_english: true,
+        mc_mandarin: true,
+        quiz_text: false,
+        mandarin_pronunciation: true,
+        list_02_score: {
+          complete: false,
+          list_index: 0,
+          list_key: "1-2",
+          number_words_completed: 120,
+        },
+      }),
+      1,
+    );
+    expect(result).toMatchInlineSnapshot(`
+            Object {
+              "mandarinPronunciation": true,
+              "mcEnglish": true,
+              "mcMandarin": true,
+              "quizText": false,
+            }
+        `);
   });
 
-  test.skip("getQuizSuccessToasts", () => {
-    expect(true).toBeTruthy();
+  test("getQuizSuccessToasts", () => {
+    let result = getQuizSuccessToasts(true, true, "LESSON", 158, true);
+    expect(result).toMatchInlineSnapshot(`
+      Object {
+        "primary": "The next lesson is unlocked! 🥇",
+        "secondary": "Great - keep going! 很好! You earned 158 experience points!",
+      }
+    `);
+
+    result = getQuizSuccessToasts(false, true, "LESSON", 158, true);
+    expect(result).toMatchInlineSnapshot(`
+      Object {
+        "primary": "Amazing! You passed this lesson! 💯",
+        "secondary": "Congratulations! You gained 158 experience points!",
+      }
+    `);
+
+    result = getQuizSuccessToasts(true, false, "LESSON", 158, true);
+    expect(result).toMatchInlineSnapshot(`
+      Object {
+        "primary": "The next lesson is unlocked! 🥇",
+        "secondary": "Great - keep going! 很好! You earned 158 experience points!",
+      }
+    `);
+
+    result = getQuizSuccessToasts(false, true, "LESSON", 158, true);
+    expect(result).toMatchInlineSnapshot(`
+      Object {
+        "primary": "Amazing! You passed this lesson! 💯",
+        "secondary": "Congratulations! You gained 158 experience points!",
+      }
+    `);
+
+    result = getQuizSuccessToasts(false, false, "SUMMARY", 158, true);
+    expect(result).toMatchInlineSnapshot(`
+      Object {
+        "primary": "You finished the quiz!",
+        "secondary": "All words completed, 很好！ Try again to get a perfect score to unlock the next lesson.",
+      }
+    `);
+
+    result = getQuizSuccessToasts(false, true, "OPT_OUT_CHALLENGE", 158, false);
+    expect(result).toMatchInlineSnapshot(`
+      Object {
+        "primary": "You passed but not with a perfect score!",
+        "secondary": "You can try again anytime to still unlock the HSK Level, good luck!",
+      }
+    `);
+
+    result = getQuizSuccessToasts(false, true, "DAILY_QUIZ", 158, true);
+    expect(result).toMatchInlineSnapshot(`
+      Object {
+        "primary": "Excellent!!!",
+        "secondary": "You gained 158 points!",
+      }
+    `);
   });
 
-  test.skip("getExperiencePointsForLesson", () => {
-    expect(true).toBeTruthy();
+  test("calculateExperiencePointsForLesson", () => {
+    let result = calculateExperiencePointsForLesson(
+      true,
+      true,
+      QUIZ_TYPE.QUIZ_TEXT,
+      "LESSON",
+      APP_DIFFICULTY_SETTING.EASY,
+    );
+    expect(result < 35).toBeTruthy();
+    expect(result > 15).toBeTruthy();
+
+    result = calculateExperiencePointsForLesson(
+      true,
+      true,
+      QUIZ_TYPE.MANDARIN,
+      "DAILY_QUIZ",
+      APP_DIFFICULTY_SETTING.EASY,
+    );
+
+    expect(result < 500).toBeTruthy();
+    expect(result > 15).toBeTruthy();
+
+    result = calculateExperiencePointsForLesson(
+      true,
+      true,
+      QUIZ_TYPE.MANDARIN,
+      "OPT_OUT_CHALLENGE",
+      APP_DIFFICULTY_SETTING.EASY,
+    );
+
+    expect(result < 1000).toBeTruthy();
+    expect(result > 15).toBeTruthy();
+
+    result = calculateExperiencePointsForLesson(
+      true,
+      true,
+      QUIZ_TYPE.QUIZ_TEXT,
+      "LESSON",
+      APP_DIFFICULTY_SETTING.HARD,
+    );
+    expect(result < 105).toBeTruthy();
+    expect(result > 15).toBeTruthy();
+
+    result = calculateExperiencePointsForLesson(
+      true,
+      true,
+      QUIZ_TYPE.MANDARIN,
+      "DAILY_QUIZ",
+      APP_DIFFICULTY_SETTING.HARD,
+    );
+
+    expect(result < 500).toBeTruthy();
+    expect(result > 15).toBeTruthy();
+
+    result = calculateExperiencePointsForLesson(
+      true,
+      true,
+      QUIZ_TYPE.MANDARIN,
+      "OPT_OUT_CHALLENGE",
+      APP_DIFFICULTY_SETTING.HARD,
+    );
+
+    expect(result < 1000).toBeTruthy();
+    expect(result > 15).toBeTruthy();
   });
 });

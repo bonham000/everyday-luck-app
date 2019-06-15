@@ -277,7 +277,7 @@ export const determineFinalUnlockedLessonInList = (
 /**
  * Index mapping of score keys to list index.
  */
-const SCORES_INDEX_MAP: ReadonlyArray<keyof ListScoreSet> = [
+export const SCORES_INDEX_MAP: ReadonlyArray<keyof ListScoreSet> = [
   "list_02_score",
   "list_03_score",
   "list_04_score",
@@ -367,7 +367,10 @@ export const calculateExperiencePointsForLesson = (
   const OFFSET = lessonType === "LESSON" ? 25 : 0;
   const result = randomInRange(MIN, MAX - OFFSET);
 
-  let multipliedResult = result * DIFFICULTY_MULTIPLIERS[appDifficultySetting];
+  let multipliedResult = result;
+  if (lessonType === "LESSON" || lessonType === "SUMMARY") {
+    multipliedResult = result * DIFFICULTY_MULTIPLIERS[appDifficultySetting];
+  }
 
   /**
    * Add bonus points for firstPass and perfectScore:
