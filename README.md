@@ -2,7 +2,7 @@
 
 》 **天天吉:** Tiāntiān jí -> _"Everyday luck"_
 
-### An app for learning Chinese everyday.
+### An app for learning Chinese everyday
 
 This app uses repetitive-learning and a game-based approach to provide small, portable lessons covering the *Hanyu Shuiping Kaoshi* vocabulary content. The [Hanyu Shuiping Kaoshi](https://en.wikipedia.org/wiki/Hanyu_Shuiping_Kaoshi) is a standardized Chinese proficiency tests which provides a set of vocabulary for learners to practice and learn. There are 5,000 words provided here to learn.
 

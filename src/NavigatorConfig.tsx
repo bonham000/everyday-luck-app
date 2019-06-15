@@ -12,20 +12,20 @@ import SideMenuComponent from "@src/components/SideMenuComponent";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import { QUIZ_TYPE } from "@src/providers/GlobalStateContext";
 import AboutScreenComponent from "@src/screens/AboutScreen";
+import AccountScreenComponent from "@src/screens/AccountScreen";
 import ContactScreenComponent from "@src/screens/ContactScreen";
 import FlashcardsScreenComponent from "@src/screens/FlashcardsScreen";
 import HomeScreen from "@src/screens/HomeScreen";
+import IntroScreenComponent from "@src/screens/IntroScreen";
 import LessonSummaryScreen from "@src/screens/LessonSummaryScreen";
 import ListSummaryScreenComponent from "@src/screens/ListSummaryScreen";
 import QuizScreenComponent from "@src/screens/QuizScreen";
 import SettingsScreenComponent from "@src/screens/SettingsScreen";
 import TranslationScreenComponent from "@src/screens/TranslationScreen";
 import ViewAllScreen from "@src/screens/ViewAllScreen";
+import WelcomeScreenComponent from "@src/screens/WelcomeScreen";
 import { getDrawerLockedState } from "@src/tools/navigation-utils";
 import { LessonScreenParams, ListScreenParams } from "@src/tools/types";
-import AccountScreenComponent from "./screens/AccountScreen";
-import IntroScreenComponent from "./screens/IntroScreen";
-import WelcomeScreenComponent from "./screens/WelcomeScreen";
 
 /** ========================================================================
  * App Routes
