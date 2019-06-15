@@ -6,7 +6,7 @@
 
 This app uses repetitive-learning and a game-based approach to provide small, portable lessons covering the *Hanyu Shuiping Kaoshi* vocabulary content. The [Hanyu Shuiping Kaoshi](https://en.wikipedia.org/wiki/Hanyu_Shuiping_Kaoshi) is a standardized Chinese proficiency tests which provides a set of vocabulary for learners to practice and learn. There are 5,000 words provided here to learn.
 
-The goal of the app is to provide an easy and approchable way to practice learning and reviewing these words everyday. That's where the notion 天天吉 comes into play. You just need a little luck everday to learn Chinese! The name itself also hides a clever joke, if you read "jí" differently as "jú", the name is 天天桔 - "Everyday Orange" or "Everyday Mandarin".
+The goal of the app is to provide an easy and approachable way to practice learning and reviewing these words everyday. That's where the notion 天天吉 comes into play. You just need a little luck everyday to learn Chinese! The name itself also hides a clever joke, if you read "jí" differently as "jú", the name is 天天桔 - "Everyday Orange" or "Everyday Mandarin".
 
 ---
 
