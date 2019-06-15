@@ -10,6 +10,7 @@ enum EVENTS {
   TOGGLE_AUDIO_SETTING = "TOGGLE_AUDIO_SETTING",
   TOGGLE_AUTO_PROCEED_QUIZ = "TOGGLE_AUTO_PROCEED_QUIZ",
   TRANSLATION_EVENT = "TRANSLATION_EVENT",
+  CONTACT_MESSAGE = "CONTACT_MESSAGE",
 }
 
 /** ========================================================================

@@ -66,17 +66,16 @@ export class ContactScreenComponent extends React.Component<IProps, IState> {
   };
 
   handleSubmitForm = () => {
-    if (this.state.input) {
-      /**
-       * TODO: Implement sending message.
-       */
+    const { input } = this.state;
+    if (input) {
       this.setState(
         {
           input: "",
         },
         () => {
+          this.props.logContactEvent(input);
           this.props.setToastMessage(
-            "Message sent, thank you for the feedback! You should expect a reply in a few days time.",
+            "Message sent, thank you for the feedback!!!",
           );
         },
       );

@@ -51,6 +51,7 @@ export interface GlobalStateContextProps
     optionalSuccessCallback?: (args?: any) => any,
   ) => void;
   logAnalyticsEvent: (event: EVENTS) => void;
+  logContactEvent: (message: string) => void;
 }
 
 interface IProps {

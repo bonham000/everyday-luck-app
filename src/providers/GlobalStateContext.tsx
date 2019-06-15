@@ -148,6 +148,10 @@ const GlobalStateContextValues = {
     /* Handle logging event */
     return;
   },
+  logContactEvent: (message: string) => {
+    /* Handle logging event */
+    return;
+  },
 };
 
 const GlobalStateContext = React.createContext(GlobalStateContextValues);
