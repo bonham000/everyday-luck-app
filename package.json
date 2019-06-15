@@ -32,12 +32,7 @@
     "test:clear": "jest --clearCache && rm -rf build",
     "publish": "expo publish --non-interactive",
     "build": "expo build:android",
-    "parse-words": "tsc && npx babel-node --presets env build/vocabulary/parse_vocabulary_list.js",
-    "translate": "export GOOGLE_APPLICATION_CREDENTIALS=google-translation-api-key.json tsc && npx babel-node --presets env build/vocabulary/translate.js",
-    "test-translate-api": "tsc && npx babel-node --presets env build/vocabulary/test_translate.js",
-    "scrap": "tsc && npx babel-node --presets env build/vocabulary/scrap_audio.js",
-    "add-words": "tsc && npx babel-node --presets env build/vocabulary/add_words.js",
-    "audio-status": "tsc && npx babel-node --presets env build/vocabulary/audio_status.js"
+    "audio-status": "tsc && babel-node build/vocabulary/audio_status.js"
   },
   "dependencies": {
     "axios": "^0.18.0",
@@ -48,6 +43,7 @@
     "react": "16.8.3",
     "react-native": "https://github.com/expo/react-native/archive/sdk-33.0.0.tar.gz",
     "react-native-action-button": "^2.8.5",
+    "react-native-confetti": "^0.1.0",
     "react-native-deck-swiper": "^1.5.26",
     "react-native-dialog": "^5.5.0",
     "react-native-flip-card": "^3.5.2",
@@ -76,7 +72,6 @@
     "jest-expo": "^33.0.0",
     "mock-async-storage": "^2.1.0",
     "prettier": "^1.15.3",
-    "react-native-confetti": "^0.1.0",
     "react-native-stargazer": "^1.0.6",
     "schedule": "0.4.0",
     "ts-jest": "24.0.2",
