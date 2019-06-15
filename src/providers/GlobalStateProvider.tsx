@@ -1,5 +1,6 @@
 import React, { ComponentType } from "react";
 
+import EVENTS from "@src/constants/AnalyticsEvents";
 import GlobalStateContextValues, {
   APP_DIFFICULTY_SETTING,
   APP_LANGUAGE_SETTING,
@@ -49,6 +50,7 @@ export interface GlobalStateContextProps
     data: Partial<UserSettings>,
     optionalSuccessCallback?: (args?: any) => any,
   ) => void;
+  logAnalyticsEvent: (event: EVENTS) => void;
 }
 
 interface IProps {

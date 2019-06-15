@@ -38,6 +38,7 @@
     "axios": "^0.18.0",
     "babel-cli": "^6.26.0",
     "expo": "^33.0.0",
+    "expo-analytics-amplitude": "^5.0.1",
     "expo-permissions": "~5.0.1",
     "glamorous-native": "^1.4.2",
     "react": "16.8.3",

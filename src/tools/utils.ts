@@ -1,5 +1,6 @@
 import { ConnectionInfo } from "react-native";
 
+import EVENTS from "@src/constants/AnalyticsEvents";
 import ENGLISH_WORDS from "@src/constants/EnglishWords";
 import HSK_LISTS from "@src/lessons";
 import {
@@ -10,6 +11,7 @@ import {
   ListScoreSet,
   QUIZ_TYPE,
   ScoreStatus,
+  UserSettings,
   WordDictionary,
 } from "@src/providers/GlobalStateContext";
 import { convertChineseToPinyin, fetchWordTranslation } from "@src/tools/api";
@@ -871,4 +873,27 @@ export const determineAnyPossibleCorrectAnswerForFreeInput = (
     correct: false,
     correctWord: word,
   };
+};
+
+/**
+ * Map a user settings change to the associated analytics event.
+ *
+ * @param setting Settings data changed
+ * @returns `EVENTS` Analytics event type to record
+ */
+export const mapSettingsChangeToAnalyticsEvent = (
+  setting: Partial<UserSettings>,
+): EVENTS | null => {
+  switch (setting) {
+    case "disable_audio":
+      return EVENTS.TOGGLE_AUDIO_SETTING;
+    case "auto_proceed_question":
+      return EVENTS.TOGGLE_AUTO_PROCEED_QUIZ;
+    case "language_setting":
+      return EVENTS.SET_APP_LANGUAGE;
+    case "app_difficulty_setting":
+      return EVENTS.SET_APP_DIFFICULTY;
+  }
+
+  return null;
 };

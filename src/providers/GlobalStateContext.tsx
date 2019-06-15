@@ -1,5 +1,6 @@
 import React from "react";
 
+import EVENTS from "@src/constants/AnalyticsEvents";
 import { HSKListSet, Word } from "@src/tools/types";
 
 /** ========================================================================
@@ -102,45 +103,49 @@ const GlobalStateContextValues = {
   appDifficultySetting: APP_DIFFICULTY_SETTING.MEDIUM,
   languageSetting: APP_LANGUAGE_SETTING.SIMPLIFIED,
   setToastMessage: (toastMessage: string | ToastMessageArgs) => {
-    // Handle setting Toast message
+    /* Handle setting Toast message */
     return;
   },
   handleUpdateApp: () => {
-    // Handle resetting scores
+    /* Handle resetting scores */
     return;
   },
   handleResetScores: () => {
-    // Handle resetting scores
+    /* Handle resetting scores */
     return;
   },
   copyToClipboard: (text: string) => {
-    // Handle copy to clipboard
+    /* Handle copy to clipboard */
     return;
   },
   transferUserAccount: (uuid: string) => {
-    // Handle transferring account
+    /* Handle transferring account */
     return;
   },
   setLessonScore: (
     updatedScoreStatus: ScoreStatus,
     exp: number,
   ): Promise<void> => {
-    // Handle setting lesson score
+    /* Handle setting lesson score */
     return Promise.resolve();
   },
   updateExperiencePoints: (experiencePoints: number) => {
-    // Handle updating experience points
+    /* Handle updating experience points */
     return;
   },
   handleSwitchLanguage: () => {
-    // Handle switching app language setting
+    /* Handle switching app language setting */
     return;
   },
   handleUpdateUserSettingsField: (
     data: Partial<UserSettings>,
     optionalSuccessCallback?: (args?: any) => any,
   ) => {
-    // Handle updating user settings
+    /* Handle updating user settings */
+    return;
+  },
+  logAnalyticsEvent: (event: EVENTS) => {
+    /* Handle logging event */
     return;
   },
 };

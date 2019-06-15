@@ -1,4 +1,5 @@
 import { Updates } from "expo";
+import * as Amplitude from "expo-analytics-amplitude";
 import React from "react";
 import {
   Alert,
@@ -18,6 +19,7 @@ import {
   TransparentLoadingComponent,
 } from "@src/components/LoadingComponent";
 import { CustomToast } from "@src/components/ToastComponent";
+import EVENTS from "@src/constants/AnalyticsEvents";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import createAppNavigator from "@src/NavigatorConfig";
 import GlobalContext, {
@@ -36,6 +38,7 @@ import {
   saveUserToAsyncStorage,
   setOfflineUpdatesFlagState,
 } from "@src/tools/async-store";
+import CONFIG from "@src/tools/config";
 import { registerForPushNotificationsAsync } from "@src/tools/notification-utils";
 import { User } from "@src/tools/types";
 import {
@@ -44,6 +47,7 @@ import {
   formatUserLanguageSetting,
   getAlternateLanguageSetting,
   isNetworkConnected,
+  mapSettingsChangeToAnalyticsEvent,
   transformUserJson,
 } from "@src/tools/utils";
 import MOCKS from "@tests/mocks";
@@ -152,7 +156,6 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
     }
 
     console.log(`Network change - network online: ${isConnected}`);
-
     this.setState({ networkConnected: isConnected }, () => {
       if (isConnected) {
         this.maybeHandleOfflineUpdates();
@@ -279,6 +282,18 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
             optionalSuccessCallback();
           }
           this.performUserUpdate();
+
+          /**
+           * Log analytics for whatever change occurred.
+           */
+          for (const key in data) {
+            const event = mapSettingsChangeToAnalyticsEvent(key as Partial<
+              UserSettings
+            >);
+            if (event) {
+              this.logAnalyticsEvent(event);
+            }
+          }
         },
       );
     }
@@ -451,6 +466,20 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
       return;
     }
   };
+
+  initializeAmplitudeAnalyticsModule = () => {
+    if (this.state.user) {
+      Amplitude.initialize(CONFIG.AMPLITUDE_API_KEY);
+      Amplitude.setUserId(this.state.user.uuid);
+    }
+  };
+
+  logAnalyticsEvent = (event: EVENTS) => {
+    /**
+     * Log event to Amplitude
+     */
+    Amplitude.logEvent(event);
+  };
 }
 
 /** ========================================================================
@@ -571,6 +600,7 @@ class RootContainer extends RootContainerBase<{}> {
       copyToClipboard: this.copyToClipboard,
       handleUpdateApp: this.handleUpdateApp,
       handleResetScores: this.handleResetScores,
+      logAnalyticsEvent: this.logAnalyticsEvent,
       handleSwitchLanguage: this.handleSwitchLanguage,
       transferUserAccount: this.handleTransferUserAccount,
       updateExperiencePoints: this.updateExperiencePoints,
@@ -630,7 +660,10 @@ class RootContainer extends RootContainerBase<{}> {
           firstTimeUser: true,
           user: transformUserJson(userResult),
         },
-        this.serializeAndPersistUser,
+        () => {
+          this.serializeAndPersistUser();
+          this.initializeAmplitudeAnalyticsModule();
+        },
       );
     } else {
       this.setState({ loading: false, user: undefined, error: true });
@@ -657,6 +690,7 @@ class RootContainer extends RootContainerBase<{}> {
             () => {
               this.setupPushToken();
               this.serializeAndPersistUser();
+              this.initializeAmplitudeAnalyticsModule();
               this.setToastMessage("Account transferred successfully!");
             },
           );
@@ -696,6 +730,8 @@ class RootContainer extends RootContainerBase<{}> {
         experience_points: updatedExperience,
       });
     }
+
+    this.logAnalyticsEvent(EVENTS.COMPLETED_LESSON);
   };
 
   handleResetScores = () => {
