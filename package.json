@@ -15,7 +15,7 @@
     "stargazer:init": "stargazer:init",
     "stargazer:view": "stargazer:view",
     "stargazer:server": "stargazer:server",
-    "stargazer:deploy": "surge --project ./stargazer-ui --domain chinese-app-stargazer.surge.sh",
+    "stargazer:deploy": "surge --project ./stargazer-ui --domain everyday-luck-stargazer.surge.sh",
     "start": "expo start",
     "tsc": "tsc",
     "tslint": "tslint --project tsconfig.json -c tslint.json",
