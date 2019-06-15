@@ -322,25 +322,19 @@ describe("utils", () => {
   });
 
   test("translateWord", async () => {
+    jest.setTimeout(10000);
+
     let result = await translateWord("cake", "english");
-    expect(result).toMatchInlineSnapshot(`
-            Object {
-              "english": "cake",
-              "pinyin": "dàn gāo",
-              "simplified": "蛋糕",
-              "traditional": "蛋糕",
-            }
-        `);
+    expect(typeof result.english).toBe("string");
+    expect(typeof result.pinyin).toBe("string");
+    expect(typeof result.simplified).toBe("string");
+    expect(typeof result.traditional).toBe("string");
 
     result = await translateWord("晚安", "simplified");
-    expect(result).toMatchInlineSnapshot(`
-            Object {
-              "english": "good night",
-              "pinyin": "wǎn ān",
-              "simplified": "晚安",
-              "traditional": "晚安",
-            }
-        `);
+    expect(typeof result.english).toBe("string");
+    expect(typeof result.pinyin).toBe("string");
+    expect(typeof result.simplified).toBe("string");
+    expect(typeof result.traditional).toBe("string");
   });
 
   test("transformUserJson", () => {
