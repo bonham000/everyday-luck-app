@@ -83,14 +83,17 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
         </Button>
         <LineBreak />
         <SectionTitle>Manually Set Scores</SectionTitle>
-        <InfoText>Override you current scores.</InfoText>
+        <InfoText>
+          Override your current progress. Enter a number of lessons you wish to
+          have completed.
+        </InfoText>
         <TextInput
           mode="outlined"
           value={numberOfLessonsCompleted}
           style={TextInputStyles}
           onChangeText={this.handleChangeNumberOfLessons}
           onSubmitEditing={this.dangerouslySetUserScoresManuallyAsync}
-          label="Set a number of words completed"
+          label="Set a number of lessons completed"
         />
         <Button
           onPress={this.dangerouslySetUserScoresManuallyAsync}
@@ -169,7 +172,7 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
     );
   };
 
-  dangerouslySetUserScoresManuallyAsync = async () => {
+  dangerouslySetUserScoresManuallyAsync = () => {
     const numberOfLessonsCompleted = Number(
       this.state.numberOfLessonsCompleted,
     );
@@ -178,24 +181,41 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
       return this.props.setToastMessage("Please enter a number value");
     }
 
-    const quizSize = convertAppDifficultyToLessonSize(
-      this.props.appDifficultySetting,
+    Alert.alert(
+      "Are you sure?",
+      "This will clear your existing progress.",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+          onPress: () => null,
+        },
+        {
+          text: "OK",
+          onPress: async () => {
+            const quizSize = convertAppDifficultyToLessonSize(
+              this.props.appDifficultySetting,
+            );
+
+            const numberOfWords = quizSize * numberOfLessonsCompleted;
+            const scores = this.props.user!.score_history;
+            const newScores = {
+              ...scores,
+              list_02_score: {
+                list_key: "2",
+                list_index: 0,
+                complete: false,
+                number_words_completed: numberOfWords,
+              },
+            };
+
+            await this.props.setLessonScore(newScores, 1243);
+            this.props.setToastMessage("Done!");
+          },
+        },
+      ],
+      { cancelable: false },
     );
-
-    const numberOfWords = quizSize * numberOfLessonsCompleted;
-    const scores = this.props.user!.score_history;
-    const newScores = {
-      ...scores,
-      list_02_score: {
-        list_key: "2",
-        list_index: 0,
-        complete: false,
-        number_words_completed: numberOfWords,
-      },
-    };
-
-    await this.props.setLessonScore(newScores, 1243);
-    this.props.setToastMessage("Done!");
   };
 }
 

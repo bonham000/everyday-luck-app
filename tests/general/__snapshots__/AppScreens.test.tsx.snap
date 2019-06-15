@@ -640,7 +640,7 @@ exports[`App Screen Components Each screen component renders with props provided
         ]
       }
     >
-      Override you current scores.
+      Override your current progress. Enter a number of lessons you wish to have completed.
     </Text>
     <View
       style={
@@ -703,7 +703,7 @@ exports[`App Screen Components Each screen component renders with props provided
           ]
         }
       >
-        Set a number of words completed
+        Set a number of lessons completed
       </Text>
       <View
         pointerEvents="none"
@@ -760,7 +760,7 @@ exports[`App Screen Components Each screen component renders with props provided
             ]
           }
         >
-          Set a number of words completed
+          Set a number of lessons completed
         </Text>
         <Text
           numberOfLines={1}
@@ -799,7 +799,7 @@ exports[`App Screen Components Each screen component renders with props provided
             ]
           }
         >
-          Set a number of words completed
+          Set a number of lessons completed
         </Text>
       </View>
       <TextInput

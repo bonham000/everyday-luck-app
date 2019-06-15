@@ -667,7 +667,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     if (lessonType === "OPT_OUT_CHALLENGE") {
       this.props.navigation.navigate(ROUTE_NAMES.HOME);
     } else if (lessonCompleted) {
-      if (isFinalLesson) {
+      if (isFinalLesson || lessonType === "DAILY_QUIZ") {
         this.props.navigation.navigate(ROUTE_NAMES.HOME);
       } else {
         if (firstPass) {
