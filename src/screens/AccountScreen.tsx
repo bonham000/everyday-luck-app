@@ -14,6 +14,7 @@ import {
   withGlobalStateContext,
 } from "@src/providers/GlobalStateProvider";
 import { logoutUserLocal } from "@src/tools/async-store";
+import { convertAppDifficultyToLessonSize } from "@src/tools/utils";
 
 /** ========================================================================
  * Types
@@ -26,6 +27,7 @@ interface IProps extends GlobalStateContextProps {
 
 interface IState {
   accountUuid: string;
+  numberOfLessonsCompleted: string;
 }
 
 /** ========================================================================
@@ -39,11 +41,12 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
 
     this.state = {
       accountUuid: "",
+      numberOfLessonsCompleted: "",
     };
   }
 
   render(): JSX.Element {
-    const { accountUuid } = this.state;
+    const { accountUuid, numberOfLessonsCompleted } = this.state;
     const uuid = this.props.user ? this.props.user.uuid : "";
     return (
       <ScrollContainer>
@@ -68,7 +71,7 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
           mode="outlined"
           value={accountUuid}
           style={TextInputStyles}
-          onChangeText={this.handleChange}
+          onChangeText={this.handleChangeAccountUuid}
           onSubmitEditing={this.handleTransferAccount}
           label="Enter account id to recover account"
         />
@@ -77,6 +80,23 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
           style={{ marginTop: 25, marginBottom: 15 }}
         >
           Transfer Account
+        </Button>
+        <LineBreak />
+        <SectionTitle>Manually Set Scores</SectionTitle>
+        <InfoText>Override you current scores.</InfoText>
+        <TextInput
+          mode="outlined"
+          value={numberOfLessonsCompleted}
+          style={TextInputStyles}
+          onChangeText={this.handleChangeNumberOfLessons}
+          onSubmitEditing={this.dangerouslySetUserScoresManuallyAsync}
+          label="Set a number of words completed"
+        />
+        <Button
+          onPress={this.dangerouslySetUserScoresManuallyAsync}
+          style={{ marginTop: 25, marginBottom: 15 }}
+        >
+          Set Scores
         </Button>
         <LineBreak />
         <SectionTitle>Clear Data</SectionTitle>
@@ -91,8 +111,14 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
     );
   }
 
-  handleChange = (accountUuid: string) => {
+  handleChangeAccountUuid = (accountUuid: string) => {
     this.setState({ accountUuid });
+  };
+
+  handleChangeNumberOfLessons = (numberOfLessonsCompleted: string) => {
+    this.setState({
+      numberOfLessonsCompleted,
+    });
   };
 
   handleTransferAccount = () => {
@@ -144,6 +170,19 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
   };
 
   dangerouslySetUserScoresManuallyAsync = async () => {
+    const numberOfLessonsCompleted = Number(
+      this.state.numberOfLessonsCompleted,
+    );
+
+    if (isNaN(numberOfLessonsCompleted)) {
+      return this.props.setToastMessage("Please enter a number value");
+    }
+
+    const quizSize = convertAppDifficultyToLessonSize(
+      this.props.appDifficultySetting,
+    );
+
+    const numberOfWords = quizSize * numberOfLessonsCompleted;
     const scores = this.props.user!.score_history;
     const newScores = {
       ...scores,
@@ -151,7 +190,7 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
         list_key: "2",
         list_index: 0,
         complete: false,
-        number_words_completed: 130,
+        number_words_completed: numberOfWords,
       },
     };
 
