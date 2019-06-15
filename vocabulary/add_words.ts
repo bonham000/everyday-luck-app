@@ -1,4 +1,4 @@
-import { getDictionaryObject } from "./helpers";
+import { getDictionaryObject } from "./vocabulary-helpers";
 
 const checkWordAvailability = (words: ReadonlyArray<string>) => {
   console.log(`\n- Checking for ${words.length} new words\n`);

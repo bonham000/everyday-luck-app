@@ -31,7 +31,7 @@
   "include": [
     "src/**/*",
     "tests/**/*",
-    "scripts/**/*",
+    "vocabulary/**/*",
     "global.d.ts",
     "App.tsx",
     "StargazerApp.tsx"

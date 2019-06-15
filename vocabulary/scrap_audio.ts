@@ -5,7 +5,7 @@ import {
   getDictionaryObject,
   prefetchWordsList,
   saveAudioRecordingsFile,
-} from "./helpers";
+} from "./vocabulary-helpers";
 
 const downloadQueue = new DownloadQueue();
 

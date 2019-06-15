@@ -1,4 +1,4 @@
-import { fetchLessonWords, getDictionaryObject } from "./helpers";
+import { fetchLessonWords, getDictionaryObject } from "./vocabulary-helpers";
 
 /**
  * Print a status message for how many words still need to be

@@ -21,7 +21,7 @@
     "tslint": "tslint --project tsconfig.json -c tslint.json",
     "tslint:fix": "tslint --project tsconfig.json -c tslint.json --fix",
     "prettier:fix": "prettier --config .prettierrc --write './{src,test}/**/*.{ts,tsx,json}'",
-    "prettier:fix:scripts": "prettier --config .prettierrc --write './scripts/**/*.{ts,tsx,json}'",
+    "prettier:fix:vocabulary": "prettier --config .prettierrc --write './vocabulary/**/*.{ts,tsx,json}'",
     "prettier:check": "prettier --config .prettierrc --list-different './{src,test}/**/*.{ts,tsx}'",
     "format": "npm run prettier:fix && npm run tslint:fix",
     "test:jest": "jest --silent --runInBand",
@@ -32,12 +32,12 @@
     "test:clear": "jest --clearCache && rm -rf build",
     "publish": "expo publish --non-interactive",
     "build": "expo build:android",
-    "parse-words": "tsc && npx babel-node --presets env build/scripts/parse_vocabulary_list.js",
-    "translate": "export GOOGLE_APPLICATION_CREDENTIALS=google-translation-api-key.json tsc && npx babel-node --presets env build/scripts/translate.js",
-    "test-translate-api": "tsc && npx babel-node --presets env build/scripts/test_translate.js",
-    "scrap": "tsc && npx babel-node --presets env build/scripts/scrap_audio.js",
-    "add-words": "tsc && npx babel-node --presets env build/scripts/add_words.js",
-    "audio-status": "tsc && npx babel-node --presets env build/scripts/audio_status.js"
+    "parse-words": "tsc && npx babel-node --presets env build/vocabulary/parse_vocabulary_list.js",
+    "translate": "export GOOGLE_APPLICATION_CREDENTIALS=google-translation-api-key.json tsc && npx babel-node --presets env build/vocabulary/translate.js",
+    "test-translate-api": "tsc && npx babel-node --presets env build/vocabulary/test_translate.js",
+    "scrap": "tsc && npx babel-node --presets env build/vocabulary/scrap_audio.js",
+    "add-words": "tsc && npx babel-node --presets env build/vocabulary/add_words.js",
+    "audio-status": "tsc && npx babel-node --presets env build/vocabulary/audio_status.js"
   },
   "dependencies": {
     "axios": "^0.18.0",
