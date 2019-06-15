@@ -15,9 +15,9 @@ const LoadingComponent = ({ transparent }: { transparent?: boolean }) => (
     style={{ opacity: transparent ? 0.5 : 1, justifyContent: "center" }}
   >
     <ActivityIndicator size="large" color={COLORS.primaryRed} />
-    <WelcomeText>大家好</WelcomeText>
-    <PinyinText>Dàjiā hǎo!</PinyinText>
-    <EnglishText>"Welcome everyone!"</EnglishText>
+    <WelcomeText>天天吉</WelcomeText>
+    <PinyinText>Tiāntiān jí!</PinyinText>
+    <EnglishText>"Everyday Luck!"</EnglishText>
   </Container>
 );
 

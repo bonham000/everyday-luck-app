@@ -41,7 +41,7 @@ const ROUTES: NavigationScreenRouteConfig = {
       navigation: NavigationScreenProp<{}>;
     }) => {
       return {
-        title: "App Home 🏰",
+        title: "天天吉 🍊",
         headerBackTitle: null,
         headerLeft: <MenuIcon onPress={navigation.toggleDrawer} />,
       };
