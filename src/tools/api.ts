@@ -233,6 +233,9 @@ export const sendContactRequest = async (email: string, message: string) => {
   }
 };
 
+const TARGET_ADDRESS = "sean.smith.2009@gmail.com";
+const SUBJECT = "天天吉 - personal suggestions and feedback";
+
 /**
  * Get the email data to send to the SendGrid API.
  *
@@ -240,7 +243,6 @@ export const sendContactRequest = async (email: string, message: string) => {
  * @param message text to send
  */
 export const getSendGridEmailData = (email: string, message: string) => {
-  const TARGET_ADDRESS = "sean.smith.2009@gmail.com";
   return {
     personalizations: [
       {
@@ -249,7 +251,7 @@ export const getSendGridEmailData = (email: string, message: string) => {
             email: TARGET_ADDRESS,
           },
         ],
-        subject: "Everyday Luck Feedback Message",
+        subject: SUBJECT,
       },
     ],
     from: {
@@ -257,8 +259,8 @@ export const getSendGridEmailData = (email: string, message: string) => {
     },
     content: [
       {
-        type: "text/plain",
         value: message,
+        type: "text/plain",
       },
     ],
   };

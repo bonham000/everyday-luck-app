@@ -116,7 +116,7 @@ const InfoText = glamorous.text({
 const TextInputStyles = {
   width: "90%",
   fontSize: 34,
-  marginTop: 6,
+  marginTop: 10,
   backgroundColor: COLORS.background,
 };
 

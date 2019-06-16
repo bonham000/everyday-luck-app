@@ -84,7 +84,7 @@ class SideMenuComponent extends React.Component<IProps, {}> {
         </Item>
         <BottomBlock>
           <SmallItem>
-            <Bold>Experience Points:</Bold> {experience}
+            <Bold>Experience Points:</Bold> {experience.toLocaleString()}
           </SmallItem>
           <SmallItem>
             <Bold>Language:</Bold> {formatUserLanguageSetting(languageSetting)}
