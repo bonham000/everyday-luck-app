@@ -73,7 +73,9 @@ export class ContactScreenComponent extends React.Component<IProps, IState> {
           input: "",
         },
         () => {
-          this.props.logContactEvent(input);
+          /**
+           * TODO: Send message...
+           */
           this.props.setToastMessage(
             "Message sent, thank you for the feedback!!!",
           );

@@ -489,22 +489,6 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
       return;
     }
   };
-
-  logContactEvent = (message: string) => {
-    /**
-     * Use an event to record user contact messages...
-     *
-     * TODO: Just send an email or something in the future...
-     */
-    try {
-      Amplitude.logEventWithProperties(EVENTS.CONTACT_MESSAGE, {
-        message,
-        userId: this.state.user ? this.state.user.uuid : "unknown",
-      });
-    } catch (err) {
-      return;
-    }
-  };
 }
 
 /** ========================================================================
@@ -623,7 +607,6 @@ class RootContainer extends RootContainerBase<{}> {
       setLessonScore: this.setLessonScore,
       setToastMessage: this.setToastMessage,
       copyToClipboard: this.copyToClipboard,
-      logContactEvent: this.logContactEvent,
       handleUpdateApp: this.handleUpdateApp,
       handleResetScores: this.handleResetScores,
       logAnalyticsEvent: this.logAnalyticsEvent,
