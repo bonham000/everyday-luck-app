@@ -80,7 +80,7 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
               )}
             >
               <Text>Start the Quiz!</Text>
-              <Text>⛵</Text>
+              <Text>🍀</Text>
             </ActionBlock>
           </React.Fragment>
         )}
@@ -91,7 +91,7 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
               onPress={this.handleNavigateToHskTest(ROUTE_NAMES.HSK_TEST_OUT)}
             >
               <Text>Accept the challenge!</Text>
-              <Text>💥</Text>
+              <Text>🔑</Text>
             </ActionBlock>
           </React.Fragment>
         )}
@@ -155,7 +155,6 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
               prompt you each day with a quiz on the content you've already
               learned.
             </InfoText>
-
             <InfoText>
               The 4 quiz options will be mixed randomly within the quiz for a
               more interesting challenge - enjoy!
@@ -169,12 +168,12 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
               of the basic content and this gives them an option to skip through
               the earlier lessons quickly.
             </InfoText>
-
             <InfoText>
               You must pass the quiz with a perfect score and the quiz is
               reshuffled on each attempt, so you will have to know of all the
-              content at this level pretty well to pass. Good luck!
+              content at this level pretty well to pass.
             </InfoText>
+            <InfoText style={{ fontWeight: "bold" }}>Good luck! 🍀</InfoText>
           </React.Fragment>
         )}
       </Container>
@@ -188,10 +187,10 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
         {type === "LESSON" && <Text style={TextStyles}>Lesson Summary</Text>}
         {type === "SUMMARY" && <Text style={TextStyles}>Content Summary</Text>}
         {type === "DAILY_QUIZ" && (
-          <Text style={TextStyles}>Daily Challenge!!! 🏟</Text>
+          <Text style={TextStyles}>Daily Quiz - 天天桔 🍊</Text>
         )}
         {type === "OPT_OUT_CHALLENGE" && (
-          <Text style={TextStyles}>HSK Level Challenge</Text>
+          <Text style={TextStyles}>HSK Test</Text>
         )}
       </React.Fragment>
     );

@@ -63,17 +63,18 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
         </Text>
         {this.renderListSets()}
         <LineBreak />
+        <Text style={TextStyles}>Practice everyday to gain experience!</Text>
         <ReviewLink
           onPress={this.openLessonSummarySpecial(dailyQuizSet, "DAILY_QUIZ")}
         >
-          <Text style={{ fontWeight: "600" }}>Daily Challenge!</Text>
-          <Text>🏟</Text>
+          <Text style={{ fontWeight: "600" }}>Daily Challenge! 天天桔</Text>
+          <Text>🍊</Text>
         </ReviewLink>
         <ReviewLink
           onPress={this.openLessonSummarySpecial(reviewSet, "SUMMARY")}
         >
           <Text style={{ fontWeight: "600" }}>Review All Unlocked Content</Text>
-          <Text>🏖</Text>
+          <Text>🗃</Text>
         </ReviewLink>
       </ScrollContainer>
     );

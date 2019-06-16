@@ -41,7 +41,7 @@ const ROUTES: NavigationScreenRouteConfig = {
       navigation: NavigationScreenProp<{}>;
     }) => {
       return {
-        title: "天天吉 🍊",
+        title: "天天吉 🍀",
         headerBackTitle: null,
         headerLeft: <MenuIcon onPress={navigation.toggleDrawer} />,
       };
@@ -56,16 +56,16 @@ const ROUTES: NavigationScreenRouteConfig = {
     }) => {
       const index = navigation.getParam("lessonIndex");
       const type = navigation.getParam("type");
-      const listIndex = navigation.getParam("listIndex");
+      const listIndex = navigation.getParam("listIndex") + 1;
       return {
         title:
           type === "LESSON"
-            ? `HSK List ${listIndex + 1} - Quiz ${Number(index) + 1} 🔖`
+            ? `HSK List ${listIndex} - Quiz ${Number(index) + 1} 🗂`
             : type === "SUMMARY"
             ? "Review All 🔮"
             : type === "DAILY_QUIZ"
-            ? "Daily Quiz! 🏖"
-            : "HSL Level Challenge 🦊",
+            ? "Daily Quiz!"
+            : `HSK List ${listIndex} Challenge`,
         headerBackTitle: null,
       };
     },
@@ -89,25 +89,7 @@ const ROUTES: NavigationScreenRouteConfig = {
       <QuizScreenComponent {...props} quizType={QUIZ_TYPE.QUIZ_TEXT} />
     ),
     navigationOptions: {
-      title: "Characters Quiz 🇨🇳",
-      headerBackTitle: null,
-    },
-  },
-  [ROUTE_NAMES.DAILY_CHALLENGE]: {
-    screen: (props: NavigationScreenProp<{}>) => (
-      <QuizScreenComponent {...props} />
-    ),
-    navigationOptions: {
-      title: "Daily Challenge ⛵",
-      headerBackTitle: null,
-    },
-  },
-  [ROUTE_NAMES.HSK_TEST_OUT]: {
-    screen: (props: NavigationScreenProp<{}>) => (
-      <QuizScreenComponent {...props} />
-    ),
-    navigationOptions: {
-      title: "HSK Challenge 💥",
+      title: "Characters Quiz 中文",
       headerBackTitle: null,
     },
   },
@@ -125,7 +107,7 @@ const ROUTES: NavigationScreenRouteConfig = {
       <QuizScreenComponent {...props} quizType={QUIZ_TYPE.ENGLISH} />
     ),
     navigationOptions: {
-      title: "English Recognition 🗽",
+      title: "English Recognition 🇺🇸",
       headerBackTitle: null,
     },
   },
@@ -138,10 +120,28 @@ const ROUTES: NavigationScreenRouteConfig = {
       headerBackTitle: null,
     },
   },
+  [ROUTE_NAMES.DAILY_CHALLENGE]: {
+    screen: (props: NavigationScreenProp<{}>) => (
+      <QuizScreenComponent {...props} />
+    ),
+    navigationOptions: {
+      title: "天天桔 🍊",
+      headerBackTitle: null,
+    },
+  },
+  [ROUTE_NAMES.HSK_TEST_OUT]: {
+    screen: (props: NavigationScreenProp<{}>) => (
+      <QuizScreenComponent {...props} />
+    ),
+    navigationOptions: {
+      title: "HSK Challenge 💥",
+      headerBackTitle: null,
+    },
+  },
   [ROUTE_NAMES.FLASHCARDS]: {
     screen: FlashcardsScreenComponent,
     navigationOptions: {
-      title: "Flashcards 👨‍🚀",
+      title: "Flashcards 🗂",
       headerBackTitle: null,
     },
   },
@@ -162,28 +162,28 @@ const ROUTES: NavigationScreenRouteConfig = {
   [ROUTE_NAMES.SETTINGS]: {
     screen: SettingsScreenComponent,
     navigationOptions: {
-      title: "Settings 🏗",
+      title: "Settings 🔖",
       headerBackTitle: null,
     },
   },
   [ROUTE_NAMES.ACCOUNT]: {
     screen: AccountScreenComponent,
     navigationOptions: {
-      title: "Account 🗄",
+      title: "Account 🗃",
       headerBackTitle: null,
     },
   },
   [ROUTE_NAMES.ABOUT]: {
     screen: AboutScreenComponent,
     navigationOptions: {
-      title: "About 🏹",
+      title: "About 天天吉 🍀",
       headerBackTitle: null,
     },
   },
   [ROUTE_NAMES.WELCOME]: {
     screen: WelcomeScreenComponent,
     navigationOptions: {
-      title: "Welcome!",
+      title: "Welcome - 大家好！",
       headerBackTitle: null,
     },
   },

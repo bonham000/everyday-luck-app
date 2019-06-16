@@ -67,21 +67,17 @@ class SideMenuComponent extends React.Component<IProps, {}> {
           Translate
         </Item>
         <Item onPress={this.createNavigationHandler(ROUTE_NAMES.SETTINGS)}>
-          🎗
+          🔖
           {"  "}
           Settings
         </Item>
         <Item onPress={this.createNavigationHandler(ROUTE_NAMES.ACCOUNT)}>
-          🎡 Account
+          🗃 Account
         </Item>
         <Item onPress={this.createNavigationHandler(ROUTE_NAMES.CONTACT)}>
-          🙋 Contact
+          ⛱ Contact
         </Item>
-        <Item onPress={this.handleResetScores}>
-          ⛱{"  "}
-          Reset
-        </Item>
-        <Item onPress={this.createNavigationHandler(ROUTE_NAMES.INTRO)}>
+        <Item onPress={this.createNavigationHandler(ROUTE_NAMES.WELCOME)}>
           🛶
           {"  "}
           Intro
@@ -114,10 +110,6 @@ class SideMenuComponent extends React.Component<IProps, {}> {
     );
   }
 
-  handleResetScores = () => {
-    this.props.handleResetScores();
-  };
-
   createNavigationHandler = (route: ROUTE_NAMES) => {
     return () => {
       this.props.navigation.navigate(route);
@@ -142,7 +134,7 @@ class SideMenuComponent extends React.Component<IProps, {}> {
 const BottomBlock = glamorous.view({
   left: 6,
   bottom: 0,
-  height: 150,
+  height: 120,
   position: "absolute",
 });
 
