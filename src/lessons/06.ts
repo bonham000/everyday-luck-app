@@ -10640,7 +10640,7 @@ const lesson: HSKList = {
       simplified: "人工",
       traditional: "人工",
       pinyin: "réngōng",
-      english: "artificial",
+      english: "Artificial",
       english_alternate_choices: [""],
     },
     {
