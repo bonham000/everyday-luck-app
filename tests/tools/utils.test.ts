@@ -729,5 +729,11 @@ describe("utils", () => {
 
     result = isEmailValid("asdfasfsafas");
     expect(result).toBeFalsy();
+
+    result = isEmailValid("asdfsa@mail");
+    expect(result).toBeFalsy();
+
+    result = isEmailValid("mail.com");
+    expect(result).toBeFalsy();
   });
 });
