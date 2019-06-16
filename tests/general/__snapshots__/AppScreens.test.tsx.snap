@@ -2472,7 +2472,7 @@ exports[`App Screen Components Each screen component renders with props provided
         Object {
           "backgroundColor": "rgb(231, 237, 240)",
           "fontSize": 34,
-          "marginTop": 6,
+          "marginTop": 10,
           "width": "90%",
         },
       ]
@@ -2669,7 +2669,7 @@ exports[`App Screen Components Each screen component renders with props provided
         Object {
           "backgroundColor": "rgb(231, 237, 240)",
           "fontSize": 34,
-          "marginTop": 6,
+          "marginTop": 10,
           "width": "90%",
         },
       ]
@@ -4913,6 +4913,27 @@ exports[`App Screen Components Each screen component renders with props provided
         ]
       }
     />
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#000000",
+            "fontFamily": "Helvetica Neue",
+            "textAlign": "left",
+            "writingDirection": "ltr",
+          },
+          Object {
+            "fontSize": 16,
+            "fontWeight": "bold",
+            "marginBottom": 16,
+            "textAlign": "center",
+            "width": "88%",
+          },
+        ]
+      }
+    >
+      Practice everyday to gain experience!
+    </Text>
     <View
       accessible={true}
       isTVSelectable={true}
@@ -4951,7 +4972,7 @@ exports[`App Screen Components Each screen component renders with props provided
           ]
         }
       >
-        Daily Challenge!
+        Daily Challenge! 天天桔
       </Text>
       <Text
         style={
@@ -4966,7 +4987,7 @@ exports[`App Screen Components Each screen component renders with props provided
           ]
         }
       >
-        🏟
+        🍊
       </Text>
     </View>
     <View
@@ -5022,7 +5043,7 @@ exports[`App Screen Components Each screen component renders with props provided
           ]
         }
       >
-        🏖
+        🗃
       </Text>
     </View>
   </View>

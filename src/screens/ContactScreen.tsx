@@ -9,8 +9,6 @@ import {
   GlobalStateContextProps,
   withGlobalStateContext,
 } from "@src/providers/GlobalStateProvider";
-import { sendContactRequest } from "@src/tools/api";
-import { isEmailValid } from "@src/tools/utils";
 
 /** ========================================================================
  * Types
