@@ -10640,14 +10640,14 @@ const lesson: HSKList = {
       simplified: "人工",
       traditional: "人工",
       pinyin: "réngōng",
-      english: "Artificial",
+      english: "artificial",
       english_alternate_choices: [""],
     },
     {
       simplified: "人家",
       traditional: "人家",
       pinyin: "rénjiā",
-      english: "Family",
+      english: "Household",
       english_alternate_choices: [""],
     },
     {
@@ -10665,10 +10665,10 @@ const lesson: HSKList = {
       english_alternate_choices: [""],
     },
     {
-      simplified: "61",
-      traditional: "61",
-      pinyin: "",
-      english: "人为 rénwéi artificial",
+      simplified: "亲",
+      traditional: "親",
+      pinyin: "qīn",
+      english: "Dear, kiss",
       english_alternate_choices: [""],
     },
     {

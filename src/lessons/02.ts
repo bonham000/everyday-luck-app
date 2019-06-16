@@ -1629,7 +1629,7 @@ const lesson: HSKList = {
     },
     {
       simplified: "笑",
-      traditional: "洛爾",
+      traditional: "笑",
       pinyin: "xiào",
       english: "Smile",
       english_alternate_choices: [""],

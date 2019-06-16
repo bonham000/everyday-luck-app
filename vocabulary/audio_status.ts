@@ -30,13 +30,25 @@ const generateStatusMessage = async () => {
     }
   }
 
+  const missingAudioFiles: ReadonlyArray<string> = [];
+
+  for (const key of Object.keys(dictionary)) {
+    if (dictionary[key].length === 0) {
+      // @ts-ignore
+      missingAudioFiles.push(key);
+    }
+  }
+
   console.log("\nStatus Report:\n");
   console.log(
-    `\n- Total of number of words to fetch files for: ${toFetch.length}`,
+    `- Total of number of words to fetch files for: ${toFetch.length}`,
   );
   console.log(`- Total of unprocessed words ${tasks.length}`);
   console.log(`\n- Total of number lesson words: ${lessons.length}`);
   console.log(`- Total of number audio files: ${totalAudioFiles}`);
+  console.log(
+    `- Total of words without audio files: ${missingAudioFiles.length}`,
+  );
   console.log("\nFinished!\n");
 };
 

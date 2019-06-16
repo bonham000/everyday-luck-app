@@ -1,5 +1,4 @@
 {
-  "61": [],
   "我": [
     {
       "id": 575318,
@@ -3476,7 +3475,6 @@
       "filePath": "真-2"
     }
   ],
-  "Seizai": [],
   "已經": [
     {
       "id": 3443911,
@@ -133048,5 +133046,73 @@
     }
   ],
   "缺心眼兒": [],
-  "吃貨": []
+  "吃貨": [],
+  "笑": [
+    {
+      "id": 664378,
+      "word": "笑",
+      "original": "笑",
+      "addtime": "2010-07-09 10:04:20",
+      "hits": 1945,
+      "username": "firstjpd",
+      "sex": "m",
+      "country": "China",
+      "code": "zh",
+      "langname": "Mandarin Chinese",
+      "rate": 2,
+      "num_votes": 2,
+      "num_positive_votes": 2,
+      "filePath": "笑-0"
+    },
+    {
+      "id": 2404152,
+      "word": "笑",
+      "original": "笑",
+      "addtime": "2013-08-24 00:16:08",
+      "hits": 1718,
+      "username": "weizhang2009",
+      "sex": "f",
+      "country": "United States",
+      "code": "zh",
+      "langname": "Mandarin Chinese",
+      "rate": 2,
+      "num_votes": 2,
+      "num_positive_votes": 2,
+      "filePath": "笑-1"
+    },
+    {
+      "id": 949000,
+      "word": "笑",
+      "original": "笑",
+      "addtime": "2011-01-04 08:30:45",
+      "hits": 1638,
+      "username": "witenglish",
+      "sex": "m",
+      "country": "China",
+      "code": "zh",
+      "langname": "Mandarin Chinese",
+      "rate": 0,
+      "num_votes": 0,
+      "num_positive_votes": 0,
+      "filePath": "笑-2"
+    }
+  ],
+  "親": [
+    {
+      "id": 1088331,
+      "word": "親",
+      "original": "親",
+      "addtime": "2011-04-05 19:00:08",
+      "hits": 445,
+      "username": "kokowendy",
+      "sex": "f",
+      "country": "China",
+      "code": "zh",
+      "langname": "Mandarin Chinese",
+      "rate": 0,
+      "num_votes": 0,
+      "num_positive_votes": 0,
+      "filePath": "親-0"
+    }
+  ]
 }
