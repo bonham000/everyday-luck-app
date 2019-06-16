@@ -182,7 +182,7 @@ describe("utils", () => {
     );
   });
 
-  test.skip("getAudioFileUrl", () => {
+  test("getAudioFileUrl", () => {
     const formatUrlResult = (url: string) =>
       url.slice(url.indexOf("s3.amazonaws.com"));
     let result = getAudioFileUrl("我-1");

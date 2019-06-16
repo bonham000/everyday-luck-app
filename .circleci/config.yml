@@ -69,12 +69,6 @@ jobs:
       - run:
           name: Run tests
           command: |
-            echo $AMPLITUDE_API_KEY
-            echo $SENDGRID_API_KEY
-            echo $AMAZON_CLOUD_FRONT
-            echo $GOOGLE_TRANSLATE_API_KEY
-            echo $PINYIN_CONVERSION_SERVICE_API_KEY
-            echo $GOOGLE_TRANSLATE_API_KEY
             chmod +x ./scripts/create_env.sh
             ./scripts/create_env.sh
             yarn test
