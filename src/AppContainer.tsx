@@ -31,7 +31,12 @@ import GlobalContext, {
 } from "@src/providers/GlobalStateContext";
 import { GlobalStateValues } from "@src/providers/GlobalStateProvider";
 import SoundRecordingProvider from "@src/providers/SoundRecordingProvider";
-import { createUser, getUser, updateUser } from "@src/tools/api";
+import {
+  createUser,
+  getUser,
+  sendContactRequest,
+  updateUser,
+} from "@src/tools/api";
 import {
   getOfflineUpdatesFlagState,
   getPersistedUser,
@@ -46,6 +51,7 @@ import {
   fetchLessonSet,
   formatUserLanguageSetting,
   getAlternateLanguageSetting,
+  isEmailValid,
   isNetworkConnected,
   mapSettingsChangeToAnalyticsEvent,
   transformUserJson,
@@ -489,6 +495,33 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
       return;
     }
   };
+
+  handleSendContactEmail = (contactEmail: string, message: string) => {
+    if (message === "") {
+      return this.setToastMessage("Please enter a message");
+    } else if (contactEmail === "" || !isEmailValid(contactEmail)) {
+      return this.setToastMessage("Please enter a valid email address");
+    } else {
+      this.setState(
+        {
+          transparentLoading: true,
+        },
+        async () => {
+          await sendContactRequest(contactEmail, message);
+          this.setState(
+            {
+              transparentLoading: false,
+            },
+            () => {
+              this.setToastMessage(
+                "Message sent, thank you for the feedback!!!",
+              );
+            },
+          );
+        },
+      );
+    }
+  };
 }
 
 /** ========================================================================
@@ -613,6 +646,7 @@ class RootContainer extends RootContainerBase<{}> {
       handleSwitchLanguage: this.handleSwitchLanguage,
       transferUserAccount: this.handleTransferUserAccount,
       updateExperiencePoints: this.updateExperiencePoints,
+      handleSendContactEmail: this.handleSendContactEmail,
       handleUpdateUserSettingsField: this.handleUpdateUserSettingsField,
     };
 

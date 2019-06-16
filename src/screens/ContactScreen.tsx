@@ -84,23 +84,12 @@ export class ContactScreenComponent extends React.Component<IProps, IState> {
 
   handleSubmitForm = () => {
     const { message, contactEmail } = this.state;
-    if (message === "") {
-      return this.props.setToastMessage("Please enter a message");
-    } else if (contactEmail === "" || !isEmailValid(contactEmail)) {
-      return this.props.setToastMessage("Please enter a valid email address");
-    }
-
     this.setState(
       {
         message: "",
         contactEmail: "",
       },
-      async () => {
-        await sendContactRequest(contactEmail, message);
-        this.props.setToastMessage(
-          "Message sent, thank you for the feedback!!!",
-        );
-      },
+      () => this.props.handleSendContactEmail(contactEmail, message),
     );
   };
 }
