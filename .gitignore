@@ -9,5 +9,4 @@ build
 .env
 env.ts
 
-google-translation-api-key.json
 App_Temp.tsx
