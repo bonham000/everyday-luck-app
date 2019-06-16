@@ -198,7 +198,15 @@ export const convertChineseToPinyin = async (
     const token = CONFIG.PINYIN_CONVERSION_SERVICE_API_KEY;
     const inputCharacters = encodeURIComponent(chineseCharacters);
     const conversionServiceUrl = `${base}/convert?token=${token}&chinese=${inputCharacters}`;
+
+    /**
+     * TODO: Debugging...
+     */
+    const s = Date.now();
     const result = await axios.get<string>(conversionServiceUrl);
+    const e = Date.now();
+    console.log(`Result received, time taken: ${e - s}, data: ${result.data}`);
+
     return result.data;
   } catch (err) {
     return "";
