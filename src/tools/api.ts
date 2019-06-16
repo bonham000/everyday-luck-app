@@ -212,3 +212,54 @@ export const convertChineseToPinyin = async (
     return "";
   }
 };
+
+/**
+ * Send a contact email using the SendGrid API.
+ *
+ * @param email sender email address
+ * @param message text to send
+ */
+export const sendContactRequest = async (email: string, message: string) => {
+  try {
+    const data = getSendGridEmailData(email, message);
+    const url = "https://api.sendgrid.com/v3/mail/send";
+    await axios.post(url, data, {
+      headers: {
+        Authorization: `Bearer ${CONFIG.SENDGRID_API_KEY}`,
+      },
+    });
+  } catch (err) {
+    return;
+  }
+};
+
+/**
+ * Get the email data to send to the SendGrid API.
+ *
+ * @param email sender email address
+ * @param message text to send
+ */
+export const getSendGridEmailData = (email: string, message: string) => {
+  const TARGET_ADDRESS = "sean.smith.2009@gmail.com";
+  return {
+    personalizations: [
+      {
+        to: [
+          {
+            email: TARGET_ADDRESS,
+          },
+        ],
+        subject: "Everyday Luck Feedback Message",
+      },
+    ],
+    from: {
+      email,
+    },
+    content: [
+      {
+        type: "text/plain",
+        value: message,
+      },
+    ],
+  };
+};

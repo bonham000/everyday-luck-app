@@ -9,6 +9,8 @@ import {
   GlobalStateContextProps,
   withGlobalStateContext,
 } from "@src/providers/GlobalStateProvider";
+import { sendContactRequest } from "@src/tools/api";
+import { isEmailValid } from "@src/tools/utils";
 
 /** ========================================================================
  * Types
@@ -20,7 +22,8 @@ interface IProps extends GlobalStateContextProps {
 }
 
 interface IState {
-  input: string;
+  message: string;
+  contactEmail: string;
 }
 
 /** ========================================================================
@@ -33,7 +36,8 @@ export class ContactScreenComponent extends React.Component<IProps, IState> {
     super(props);
 
     this.state = {
-      input: "",
+      message: "",
+      contactEmail: "",
     };
   }
 
@@ -43,16 +47,24 @@ export class ContactScreenComponent extends React.Component<IProps, IState> {
         <SectionTitle>Contact</SectionTitle>
         <InfoText>
           Found a bug, have feedback, or just want to say hello? Get in touch
-          with the developer by sending a quick message here.
+          with the developer by sending a quick message here. Please leave your
+          email so we can reply to your feedback, if needed.
         </InfoText>
         <TextInput
           multiline
           mode="outlined"
-          value={this.state.input}
-          style={TextInputStyles}
-          onChangeText={this.handleChange}
           label="Type a message"
-          onSubmitEditing={this.handleSubmitForm}
+          style={TextInputStyles}
+          value={this.state.message}
+          onChangeText={this.handleFieldChange("message")}
+        />
+        <TextInput
+          multiline
+          mode="outlined"
+          label="Please add a contact email"
+          style={TextInputStyles}
+          value={this.state.contactEmail}
+          onChangeText={this.handleFieldChange("contactEmail")}
         />
         <Button style={{ marginTop: 35 }} onPress={this.handleSubmitForm}>
           Submit Feedback
@@ -61,29 +73,35 @@ export class ContactScreenComponent extends React.Component<IProps, IState> {
     );
   }
 
-  handleChange = (input: string) => {
-    this.setState({ input });
+  handleFieldChange = (field: "message" | "contactEmail") => (
+    value: string,
+  ) => {
+    this.setState(prevState => ({
+      ...prevState,
+      [field]: value,
+    }));
   };
 
   handleSubmitForm = () => {
-    const { input } = this.state;
-    if (input) {
-      this.setState(
-        {
-          input: "",
-        },
-        () => {
-          /**
-           * TODO: Send message...
-           */
-          this.props.setToastMessage(
-            "Message sent, thank you for the feedback!!!",
-          );
-        },
-      );
-    } else {
-      this.props.setToastMessage("Please enter a message");
+    const { message, contactEmail } = this.state;
+    if (message === "") {
+      return this.props.setToastMessage("Please enter a message");
+    } else if (contactEmail === "" || !isEmailValid(contactEmail)) {
+      return this.props.setToastMessage("Please enter a valid email address");
     }
+
+    this.setState(
+      {
+        message: "",
+        contactEmail: "",
+      },
+      async () => {
+        await sendContactRequest(contactEmail, message);
+        this.props.setToastMessage(
+          "Message sent, thank you for the feedback!!!",
+        );
+      },
+    );
   };
 }
 

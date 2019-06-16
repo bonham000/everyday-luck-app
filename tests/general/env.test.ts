@@ -12,6 +12,7 @@ describe("Environment Variables Configuration", () => {
         "GOOGLE_TRANSLATE_API_KEY",
         "PINYIN_CONVERSION_SERVICE_API_KEY",
         "PINYIN_CONVERSION_SERVICE_URL",
+        "SENDGRID_API_KEY",
         "SENTRY_AUTH_TOKEN",
         "SENTRY_DSN",
         "STARGAZER_SERVER_URL",

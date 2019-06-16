@@ -2463,7 +2463,7 @@ exports[`App Screen Components Each screen component renders with props provided
       ]
     }
   >
-    Found a bug, have feedback, or just want to say hello? Get in touch with the developer by sending a quick message here.
+    Found a bug, have feedback, or just want to say hello? Get in touch with the developer by sending a quick message here. Please leave your email so we can reply to your feedback, if needed.
   </Text>
   <View
     style={
@@ -2632,7 +2632,203 @@ exports[`App Screen Components Each screen component renders with props provided
       onBlur={[Function]}
       onChangeText={[Function]}
       onFocus={[Function]}
-      onSubmitEditing={[Function]}
+      placeholder=""
+      placeholderTextColor="rgba(0, 0, 0, 0.54)"
+      rejectResponderTermination={true}
+      selectionColor="#6200ee"
+      style={
+        Array [
+          Object {
+            "flexGrow": 1,
+            "fontSize": 16,
+            "margin": 0,
+            "minHeight": 58,
+            "paddingHorizontal": 12,
+            "textAlign": "left",
+          },
+          Object {
+            "minHeight": 64,
+            "paddingBottom": 16,
+            "paddingTop": 20,
+          },
+          Object {
+            "color": "#000000",
+            "fontFamily": "Helvetica Neue",
+            "textAlignVertical": "top",
+          },
+        ]
+      }
+      underlineColorAndroid="transparent"
+      value=""
+    />
+  </View>
+  <View
+    style={
+      Array [
+        undefined,
+        Object {
+          "backgroundColor": "rgb(231, 237, 240)",
+          "fontSize": 34,
+          "marginTop": 6,
+          "width": "90%",
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        Array [
+          Object {
+            "bottom": 0,
+            "left": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 6,
+          },
+          Object {
+            "borderColor": "rgba(0, 0, 0, 0.54)",
+            "borderRadius": 4,
+            "borderWidth": 1,
+          },
+        ]
+      }
+    />
+    <Text
+      numberOfLines={1}
+      pointerEvents="none"
+      style={
+        Array [
+          Object {
+            "color": "#000000",
+            "fontFamily": "Helvetica Neue",
+            "textAlign": "left",
+            "writingDirection": "ltr",
+          },
+          Object {
+            "backgroundColor": "rgb(231, 237, 240)",
+            "color": "transparent",
+            "fontFamily": "Helvetica Neue",
+            "fontSize": 12,
+            "left": 8,
+            "opacity": 0,
+            "paddingHorizontal": 4,
+            "position": "absolute",
+            "top": 0,
+            "transform": Array [
+              Object {
+                "scaleX": 0,
+              },
+            ],
+          },
+        ]
+      }
+    >
+      Please add a contact email
+    </Text>
+    <View
+      pointerEvents="none"
+      style={
+        Array [
+          Object {
+            "bottom": 0,
+            "left": 0,
+            "position": "absolute",
+            "right": 0,
+            "top": 0,
+          },
+          Object {
+            "opacity": 1,
+          },
+        ]
+      }
+    >
+      <Text
+        numberOfLines={1}
+        onLayout={[Function]}
+        style={
+          Array [
+            Object {
+              "color": "#000000",
+              "fontFamily": "Helvetica Neue",
+              "textAlign": "left",
+              "writingDirection": "ltr",
+            },
+            Object {
+              "color": "#6200ee",
+              "fontFamily": "Helvetica Neue",
+              "fontSize": 16,
+              "left": 0,
+              "opacity": 0,
+              "paddingHorizontal": 12,
+              "position": "absolute",
+              "top": 25,
+              "transform": Array [
+                Object {
+                  "translateX": 0,
+                },
+                Object {
+                  "translateY": 0,
+                },
+                Object {
+                  "scale": 1,
+                },
+                Object {
+                  "translateX": -0,
+                },
+              ],
+            },
+          ]
+        }
+      >
+        Please add a contact email
+      </Text>
+      <Text
+        numberOfLines={1}
+        style={
+          Array [
+            Object {
+              "color": "#000000",
+              "fontFamily": "Helvetica Neue",
+              "textAlign": "left",
+              "writingDirection": "ltr",
+            },
+            Object {
+              "color": "rgba(0, 0, 0, 0.54)",
+              "fontFamily": "Helvetica Neue",
+              "fontSize": 16,
+              "left": 0,
+              "opacity": 1,
+              "paddingHorizontal": 12,
+              "position": "absolute",
+              "top": 25,
+              "transform": Array [
+                Object {
+                  "translateX": 0,
+                },
+                Object {
+                  "translateY": 0,
+                },
+                Object {
+                  "scale": 1,
+                },
+                Object {
+                  "translateX": -0,
+                },
+              ],
+            },
+          ]
+        }
+      >
+        Please add a contact email
+      </Text>
+    </View>
+    <TextInput
+      allowFontScaling={true}
+      editable={true}
+      multiline={true}
+      onBlur={[Function]}
+      onChangeText={[Function]}
+      onFocus={[Function]}
       placeholder=""
       placeholderTextColor="rgba(0, 0, 0, 0.54)"
       rejectResponderTermination={true}

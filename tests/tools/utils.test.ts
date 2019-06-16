@@ -27,6 +27,7 @@ import {
   getRandomQuizChallenge,
   getReviewLessonSet,
   hasUserCompletedAllLists,
+  isEmailValid,
   isLessonComplete,
   isNetworkConnected,
   knuthShuffle,
@@ -720,5 +721,13 @@ describe("utils", () => {
       }),
     );
     expect(result).toBeTruthy();
+  });
+
+  test("isEmailValid", () => {
+    let result = isEmailValid("sean.smith.2009@gmail.com");
+    expect(result).toBeTruthy();
+
+    result = isEmailValid("asdfasfsafas");
+    expect(result).toBeFalsy();
   });
 });
