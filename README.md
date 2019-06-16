@@ -1,4 +1,4 @@
-# 天天吉 - Everyday Luck
+# 天天吉 - Everyday Luck 🍀
 
 》 **天天吉:** Tiāntiān jí -> _"Everyday luck"_
 
