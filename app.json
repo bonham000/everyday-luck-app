@@ -19,17 +19,9 @@
     },
     "assetBundlePatterns": ["src/assets/**/*.png"],
     "android": {
-      "versionCode": 0,
+      "versionCode": 1,
       "permissions": [],
-      "package": "com.everyday.luck",
-      "splash": {
-        "backgroundColor": "#E3D8D8",
-        "mdpi": "./src/assets/splash-mdpi.png",
-        "hdpi": "./src/assets/splash-hdpi.png",
-        "xhdpi": "./src/assets/splash-xhdpi.png",
-        "xxhdpi": "./src/assets/splash-xxhdpi.png",
-        "xxxhdpi": "./src/assets/splash-xxxhdpi.png"
-      }
+      "package": "com.everyday.luck"
     },
     "ios": {
       "buildNumber": "0",
