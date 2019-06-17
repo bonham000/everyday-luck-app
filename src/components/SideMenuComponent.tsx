@@ -1,4 +1,4 @@
-import { Constants } from "expo";
+import Constants from "expo-constants";
 import glamorous from "glamorous-native";
 import React from "react";
 import {
