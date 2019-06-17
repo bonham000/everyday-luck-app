@@ -1,8 +1,8 @@
 {
   "expo": {
     "name": "Everyday Luck",
-    "description": "An app to help you learn Chinese",
-    "slug": "mandarin",
+    "description": "An app to help you learn Chinese with short lessons everyday",
+    "slug": "everyday-luck",
     "privacy": "public",
     "sdkVersion": "33.0.0",
     "platforms": ["ios", "android"],
@@ -19,10 +19,13 @@
     },
     "assetBundlePatterns": ["src/assets/**/*.png"],
     "android": {
-      "package": "com.mandarin.app"
+      "versionCode": 0,
+      "package": "com.everyday.luck"
     },
     "ios": {
-      "bundleIdentifier": "learn.mandarin.app"
+      "buildNumber": "0",
+      "supportsTablet": false,
+      "bundleIdentifier": "everyday.luck.app"
     },
     "hooks": {
       "postPublish": [
@@ -30,7 +33,7 @@
           "file": "sentry-expo/upload-sourcemaps",
           "config": {
             "organization": "personal-github",
-            "project": "mandarin-app"
+            "project": "everyday-luck-app"
           }
         }
       ]
