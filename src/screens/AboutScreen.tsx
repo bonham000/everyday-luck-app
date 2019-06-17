@@ -36,9 +36,6 @@ export class AboutScreenComponent extends React.Component<IProps, {}> {
         <ScreenTop>
           <ScrollContainer>
             <DescriptionText>
-              <Bold>Using the App</Bold>
-            </DescriptionText>
-            <DescriptionText>
               This app uses the vocabulary content from the{" "}
               <Bold>Hanyu Shuiping Kaoshi</Bold> (Chinese Proficiency Test).
               This test is the standardized test of Standard Chinese language

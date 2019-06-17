@@ -62,7 +62,7 @@ const ScrollContainer = (props: { children: any }) => (
     contentContainerStyle={{
       flexGrow: 1,
       width: "100%",
-      paddingTop: 25,
+      paddingTop: 22,
       paddingBottom: 50,
       alignItems: "center",
       backgroundColor: COLORS.background,

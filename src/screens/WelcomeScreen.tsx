@@ -31,7 +31,7 @@ export class WelcomeScreenComponent extends React.Component<IProps, {}> {
       <Screen>
         <ScreenTop style={{ alignItems: "center", justifyContent: "center" }}>
           <DescriptionText>
-            <Bold>Welcome! 大家好！</Bold>
+            <Bold>Welcome to 天天吉！</Bold>
           </DescriptionText>
           <DescriptionText>
             We are excited you are learning Chinese! We're here to make that

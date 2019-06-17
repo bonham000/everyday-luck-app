@@ -107,7 +107,7 @@ const ROUTES: NavigationScreenRouteConfig = {
       <QuizScreenComponent {...props} quizType={QUIZ_TYPE.ENGLISH} />
     ),
     navigationOptions: {
-      title: "English Recognition 🇺🇸",
+      title: "English Recognition 🗽",
       headerBackTitle: null,
     },
   },
@@ -141,7 +141,7 @@ const ROUTES: NavigationScreenRouteConfig = {
   [ROUTE_NAMES.FLASHCARDS]: {
     screen: FlashcardsScreenComponent,
     navigationOptions: {
-      title: "Flashcards 🗂",
+      title: "Flashcards 🗳",
       headerBackTitle: null,
     },
   },
@@ -176,7 +176,7 @@ const ROUTES: NavigationScreenRouteConfig = {
   [ROUTE_NAMES.ABOUT]: {
     screen: AboutScreenComponent,
     navigationOptions: {
-      title: "About 天天吉 🍀",
+      title: "Using the App 天天吉 🍀",
       headerBackTitle: null,
     },
   },
@@ -190,7 +190,7 @@ const ROUTES: NavigationScreenRouteConfig = {
   [ROUTE_NAMES.INTRO]: {
     screen: IntroScreenComponent,
     navigationOptions: {
-      title: "Intro Primer 🗺",
+      title: "About Chinese 中文",
       headerBackTitle: null,
     },
   },

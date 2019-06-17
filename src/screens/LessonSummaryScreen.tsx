@@ -80,7 +80,7 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
               )}
             >
               <Text>Start the Quiz!</Text>
-              <Text>🍀</Text>
+              <Text>🏟</Text>
             </ActionBlock>
           </React.Fragment>
         )}
