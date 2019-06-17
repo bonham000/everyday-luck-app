@@ -24,11 +24,11 @@
       "package": "com.everyday.luck",
       "splash": {
         "backgroundColor": "#E3D8D8",
-        "mdpi": "./assets/splash-mdpi.png",
-        "hdpi": "./assets/splash-hdpi.png",
-        "xhdpi": "./assets/splash-xhdpi.png",
-        "xxhdpi": "./assets/splash-xxhdpi.png",
-        "xxxhdpi": "./assets/splash-xxxhdpi.png"
+        "mdpi": "./src/assets/splash-mdpi.png",
+        "hdpi": "./src/assets/splash-hdpi.png",
+        "xhdpi": "./src/assets/splash-xhdpi.png",
+        "xxhdpi": "./src/assets/splash-xxhdpi.png",
+        "xxxhdpi": "./src/assets/splash-xxxhdpi.png"
       }
     },
     "ios": {
