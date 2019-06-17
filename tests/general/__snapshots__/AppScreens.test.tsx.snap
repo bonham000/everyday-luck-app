@@ -28,37 +28,12 @@ exports[`App Screen Components Each screen component renders with props provided
           "backgroundColor": "rgb(231, 237, 240)",
           "flexGrow": 1,
           "paddingBottom": 50,
-          "paddingTop": 25,
+          "paddingTop": 22,
           "width": "100%",
         }
       }
     >
       <View>
-        <Text
-          style={
-            Array [
-              Object {
-                "fontSize": 18,
-                "fontWeight": "400",
-                "marginTop": 18,
-                "textAlign": "center",
-                "width": "90%",
-              },
-            ]
-          }
-        >
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontWeight": "bold",
-                },
-              ]
-            }
-          >
-            Using the App
-          </Text>
-        </Text>
         <Text
           style={
             Array [
@@ -229,7 +204,7 @@ exports[`App Screen Components Each screen component renders with props provided
       "backgroundColor": "rgb(231, 237, 240)",
       "flexGrow": 1,
       "paddingBottom": 50,
-      "paddingTop": 25,
+      "paddingTop": 22,
       "width": "100%",
     }
   }
@@ -4574,7 +4549,7 @@ exports[`App Screen Components Each screen component renders with props provided
       "backgroundColor": "rgb(231, 237, 240)",
       "flexGrow": 1,
       "paddingBottom": 50,
-      "paddingTop": 25,
+      "paddingTop": 22,
       "width": "100%",
     }
   }
@@ -5078,37 +5053,12 @@ exports[`App Screen Components Each screen component renders with props provided
           "backgroundColor": "rgb(231, 237, 240)",
           "flexGrow": 1,
           "paddingBottom": 50,
-          "paddingTop": 25,
+          "paddingTop": 22,
           "width": "100%",
         }
       }
     >
       <View>
-        <Text
-          style={
-            Array [
-              Object {
-                "fontSize": 18,
-                "fontWeight": "400",
-                "marginTop": 18,
-                "textAlign": "center",
-                "width": "90%",
-              },
-            ]
-          }
-        >
-          <Text
-            style={
-              Array [
-                Object {
-                  "fontWeight": "bold",
-                },
-              ]
-            }
-          >
-            About Chinese 中文
-          </Text>
-        </Text>
         <Text
           style={
             Array [
@@ -5933,7 +5883,7 @@ exports[`App Screen Components Each screen component renders with props provided
       "backgroundColor": "rgb(231, 237, 240)",
       "flexGrow": 1,
       "paddingBottom": 50,
-      "paddingTop": 25,
+      "paddingTop": 22,
       "width": "100%",
     }
   }
@@ -7070,7 +7020,7 @@ exports[`App Screen Components Each screen component renders with props provided
           ]
         }
       >
-        Welcome! 大家好！
+        Welcome to 天天吉！
       </Text>
     </Text>
     <Text
