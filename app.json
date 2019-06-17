@@ -21,7 +21,15 @@
     "android": {
       "versionCode": 0,
       "permissions": [],
-      "package": "com.everyday.luck"
+      "package": "com.everyday.luck",
+      "splash": {
+        "backgroundColor": "#E3D8D8",
+        "mdpi": "./assets/splash-mdpi.png",
+        "hdpi": "./assets/splash-hdpi.png",
+        "xhdpi": "./assets/splash-xhdpi.png",
+        "xxhdpi": "./assets/splash-xxhdpi.png",
+        "xxxhdpi": "./assets/splash-xxxhdpi.png"
+      }
     },
     "ios": {
       "buildNumber": "0",
