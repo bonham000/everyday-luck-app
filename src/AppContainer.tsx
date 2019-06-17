@@ -44,7 +44,6 @@ import {
   setOfflineUpdatesFlagState,
 } from "@src/tools/async-store";
 import CONFIG from "@src/tools/config";
-import { registerForPushNotificationsAsync } from "@src/tools/notification-utils";
 import { User } from "@src/tools/types";
 import {
   createWordDictionaryFromLessons,
@@ -253,17 +252,20 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
 
   setupPushToken = async () => {
     /**
+     *
+     * TODO: Enable this for push notificatoins support.
+     *
      * Try to register this device for push notifications if the
      * user doesn't have a token setup yet.
      */
-    if (this.state.user && this.state.user.push_token === "") {
-      const token = await registerForPushNotificationsAsync();
-      if (token) {
-        this.handleUpdateUserFields({
-          push_token: token,
-        });
-      }
-    }
+    // if (this.state.user && this.state.user.push_token === "") {
+    //   const token = await registerForPushNotificationsAsync();
+    //   if (token) {
+    //     this.handleUpdateUserFields({
+    //       push_token: token,
+    //     });
+    //   }
+    // }
   };
 
   handleUpdateUserSettingsField = (
@@ -694,8 +696,7 @@ class RootContainer extends RootContainerBase<{}> {
   };
 
   handleInitialUserCreation = async () => {
-    const pushToken = await registerForPushNotificationsAsync();
-    const userResult = await createUser({ push_token: pushToken });
+    const userResult = await createUser({ push_token: "" });
     if (userResult) {
       this.setState(
         {

@@ -20,6 +20,7 @@
     "assetBundlePatterns": ["src/assets/**/*.png"],
     "android": {
       "versionCode": 0,
+      "permissions": [],
       "package": "com.everyday.luck"
     },
     "ios": {
