@@ -114,13 +114,13 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
           Set Scores
         </Button>
         <LineBreak />
-        <SectionTitle>Clear Data</SectionTitle>
-        <InfoText>This will reset your progress.</InfoText>
+        <SectionTitle>Clear Account Data</SectionTitle>
+        <InfoText>This will clear and reset your account data.</InfoText>
         <Button
           onPress={this.clearUserDataOnDevice}
           style={{ marginTop: 15, marginBottom: 15 }}
         >
-          Clear Score History
+          Clear Account Data
         </Button>
       </ScrollContainer>
     );
