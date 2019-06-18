@@ -6480,7 +6480,7 @@ exports[`App Screen Components Each screen component renders with props provided
         Object {
           "backgroundColor": "rgb(231,237,240)",
           "fontSize": 34,
-          "marginTop": 6,
+          "marginTop": 14,
           "width": "90%",
         },
       ]
