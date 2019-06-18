@@ -5693,6 +5693,21 @@ exports[`App Screen Components Each screen component renders with props provided
     >
       Flashcards
     </Text>
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#000000",
+            "fontFamily": "Helvetica Neue",
+            "textAlign": "left",
+            "writingDirection": "ltr",
+          },
+          undefined,
+        ]
+      }
+    >
+      📑
+    </Text>
   </View>
   <View
     accessible={true}
@@ -5731,6 +5746,21 @@ exports[`App Screen Components Each screen component renders with props provided
       }
     >
       Review All Content
+    </Text>
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#000000",
+            "fontFamily": "Helvetica Neue",
+            "textAlign": "left",
+            "writingDirection": "ltr",
+          },
+          undefined,
+        ]
+      }
+    >
+      🗃
     </Text>
   </View>
 </View>
