@@ -141,7 +141,7 @@ const ROUTES: NavigationScreenRouteConfig = {
   [ROUTE_NAMES.FLASHCARDS]: {
     screen: FlashcardsScreenComponent,
     navigationOptions: {
-      title: "Flashcards 🗳",
+      title: "Flashcards 🗂",
       headerBackTitle: null,
     },
   },

@@ -139,12 +139,14 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
               onPress={this.handleNavigateToSection(ROUTE_NAMES.FLASHCARDS)}
             >
               <Text>Flashcards</Text>
+              <Text>📑</Text>
             </ActionBlock>
             <ActionBlock
               style={{ backgroundColor: COLORS.actionButtonMint }}
               onPress={this.handleNavigateToSection(ROUTE_NAMES.VIEW_ALL)}
             >
               <Text>Review All Content</Text>
+              <Text>🗃</Text>
             </ActionBlock>
           </React.Fragment>
         )}

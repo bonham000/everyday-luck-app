@@ -96,9 +96,7 @@ class SideMenuComponent extends React.Component<IProps, {}> {
                 <SmallText style={{ fontSize: 14 }}>
                   <Bold>- </Bold>
                 </SmallText>
-                <LinkText onPress={handleUpdateApp}>
-                  New Update Available
-                </LinkText>
+                <LinkText onPress={handleUpdateApp}>Update App 🛰</LinkText>
               </React.Fragment>
             ) : (
               <SmallText style={{ fontSize: 14 }}>(latest)</SmallText>
