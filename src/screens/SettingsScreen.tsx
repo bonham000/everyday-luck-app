@@ -46,6 +46,11 @@ export class SettingsScreenComponent extends React.Component<IProps, {}> {
           Your current language setting is:{" "}
           <Bold>{formatUserLanguageSetting(languageSetting)}</Bold>
         </Text>
+        <InfoText>
+          Simplified Chinese is the most common version of the written language.
+          However, Traditional Chinese is still used in places like Taiwan, and
+          Hong Kong.
+        </InfoText>
         <Button
           onPress={this.handleSetLanguageOptions}
           style={{ marginTop: 15, marginBottom: 15 }}
