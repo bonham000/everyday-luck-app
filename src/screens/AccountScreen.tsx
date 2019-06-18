@@ -15,6 +15,7 @@ import {
 } from "@src/providers/GlobalStateProvider";
 import { logoutUserLocal } from "@src/tools/async-store";
 import { convertAppDifficultyToLessonSize } from "@src/tools/utils";
+import MOCKS from "@tests/mocks";
 
 /** ========================================================================
  * Types
@@ -82,6 +83,17 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
           Transfer Account
         </Button>
         <LineBreak />
+        <SectionTitle>Reset Scores</SectionTitle>
+        <InfoText>
+          This will reset your score history and you will have to start over.
+        </InfoText>
+        <Button
+          onPress={this.resetProgress}
+          style={{ marginTop: 15, marginBottom: 15 }}
+        >
+          Reset Score History
+        </Button>
+        <LineBreak />
         <SectionTitle>Manually Set Scores</SectionTitle>
         <InfoText>
           Override your current progress. Enter a number of lessons you wish to
@@ -143,6 +155,29 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
           onPress: () => {
             this.props.transferUserAccount(this.state.accountUuid);
             this.setState({ accountUuid: "" }, this.props.navigation.goBack);
+          },
+        },
+      ],
+      { cancelable: false },
+    );
+  };
+
+  resetProgress = async () => {
+    Alert.alert(
+      "Are you sure?",
+      "This will reset your progress and you will have to start over again.",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+          onPress: () => null,
+        },
+        {
+          text: "OK",
+          onPress: async () => {
+            await this.props.setLessonScore(MOCKS.DEFAULT_SCORE_STATE, 0);
+            this.props.setToastMessage("Score reset!");
+            this.props.navigation.goBack();
           },
         },
       ],

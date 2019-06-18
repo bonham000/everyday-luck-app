@@ -46,7 +46,7 @@ export class SettingsScreenComponent extends React.Component<IProps, {}> {
           Your current language setting is:{" "}
           <Bold>{formatUserLanguageSetting(languageSetting)}</Bold>
         </Text>
-        <InfoText>
+        <InfoText style={{ marginTop: 12 }}>
           Simplified Chinese is the most common version of the written language.
           However, Traditional Chinese is still used in places like Taiwan, and
           Hong Kong.
