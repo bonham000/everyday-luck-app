@@ -71,6 +71,7 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
           <Text>🍊</Text>
         </ReviewLink>
         <ReviewLink
+          style={{ marginTop: 6 }}
           onPress={this.openLessonSummarySpecial(reviewSet, "SUMMARY")}
         >
           <Text style={{ fontWeight: "600" }}>Review All Unlocked Content</Text>
@@ -103,7 +104,7 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
             HSK Level {list}
           </LessonBlockText>
           <LessonBlockText isLocked={isLocked}>
-            ({content.length} words)
+            ({content.length.toLocaleString()} words)
           </LessonBlockText>
         </LessonBlock>
       );

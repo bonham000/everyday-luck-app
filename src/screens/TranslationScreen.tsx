@@ -281,7 +281,7 @@ const LineBreak = glamorous.view({
 const TextInputStyles = {
   width: "90%",
   fontSize: 34,
-  marginTop: 6,
+  marginTop: 14,
   backgroundColor: "rgb(231,237,240)",
 };
 
