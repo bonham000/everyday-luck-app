@@ -664,10 +664,10 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     lessonType: LessonSummaryType,
   ) => {
     this.stopConfettiAnimation();
-    if (lessonType === "OPT_OUT_CHALLENGE") {
+    if (lessonType === "OPT_OUT_CHALLENGE" || lessonType === "DAILY_QUIZ") {
       this.props.navigation.navigate(ROUTE_NAMES.HOME);
     } else if (lessonCompleted) {
-      if (isFinalLesson || lessonType === "DAILY_QUIZ") {
+      if (isFinalLesson) {
         this.props.navigation.navigate(ROUTE_NAMES.HOME);
       } else {
         if (firstPass) {

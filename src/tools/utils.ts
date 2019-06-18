@@ -766,7 +766,7 @@ export const getQuizSuccessToasts = (
       primary = "You passed but not with a perfect score!";
     }
   } else if (lessonType === "DAILY_QUIZ") {
-    primary = "Excellent!!!";
+    primary = "非常好！ 👏👏👏";
   } else if (firstPass) {
     primary = "Amazing! You passed this lesson! 💯";
   } else {
@@ -791,9 +791,9 @@ export const getQuizSuccessToasts = (
     }
   } else if (lessonType === "DAILY_QUIZ") {
     if (perfectScore) {
-      secondary = `You gained ${experience} points!`;
+      secondary = `You gained ${experience} points! Keep reviewing to master more vocabulary!`;
     } else {
-      secondary = "Great job! Keep trying!";
+      secondary = "Great job! Keep trying and reviewing more!";
     }
   } else if (firstPass) {
     secondary = `Congratulations! You gained ${experience} experience points!`;
