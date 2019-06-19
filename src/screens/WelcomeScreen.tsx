@@ -66,7 +66,9 @@ export class WelcomeScreenComponent extends React.Component<IProps, {}> {
 
   openPrivacyPolicyLink = async () => {
     try {
-      await WebBrowser.openBrowserAsync("");
+      await WebBrowser.openBrowserAsync(
+        "https://github.com/bonham000/everyday-luck-app/blob/master/PRIVACY_POLICY.md",
+      );
     } catch (_) {
       return;
     }
