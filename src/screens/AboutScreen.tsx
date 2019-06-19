@@ -43,10 +43,20 @@ export class AboutScreenComponent extends React.Component<IProps, {}> {
               students and overseas Chinese.
             </DescriptionText>
             <DescriptionText>
-              There are 6 levels total, which comprise a total of 5,000 words
-              and about 2,500 characters. The goal of the app is to break these
-              lessons into a series of small challenges which can be mastered
-              with a little practice each day.
+              The Hanyu Shuiping Kaoshi is a standardized Chinese proficiency
+              tests which provides a set of vocabulary for learners to practice
+              and learn. This app provides 5,000 words to learn.
+            </DescriptionText>
+            <DescriptionText>
+              The goal of the app is to provide an easy and approachable way to
+              practice learning and reviewing these words everyday. That's where
+              the notion 天天吉 comes into play.
+            </DescriptionText>
+            <DescriptionText>
+              You just need a little luck everyday to learn Chinese! The name
+              itself also hides a clever joke, if you read "jí" differently as
+              "jú", the name is 天天桔 - "Everyday Orange" or "Everyday
+              Mandarin".
             </DescriptionText>
             <Emoji>🌌🌃🌆🌇</Emoji>
             <LinkText onPress={this.handleNavigate(ROUTE_NAMES.CONTACT)}>
