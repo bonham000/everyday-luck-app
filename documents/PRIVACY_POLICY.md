@@ -31,13 +31,13 @@
 <p>Everyday Luck uses the collected data for various purposes:</p>    
 <ul>
   <li>To provide and maintain the Service</li>
-  <li>To notify you about changes to our Service</li>
-  <li>To allow you to participate in interactive features of our Service when you choose to do so</li>
   <li>To provide customer care and support</li>
   <li>To provide analysis or valuable information so that we can improve the Service</li>
   <li>To monitor the usage of the Service</li>
   <li>To detect, prevent and address technical issues</li>
 </ul>
+
+The data collect is anonymous usage data for the purpose of analysis to improve the functionality of the Service for current and future users. We do not collect any personal user information.
 
 <h2>Transfer Of Data</h2>
 
@@ -49,6 +49,7 @@
 <h2>Disclosure Of Data</h2>
 
 <h3>Legal Requirements</h3>
+
 <p>Everyday Luck may disclose your Personal Data in the good faith belief that such action is necessary to:</p>
 <ul>
   <li>To comply with a legal obligation</li>
@@ -57,6 +58,8 @@
   <li>To protect the personal safety of users of the Service or the public</li>
   <li>To protect against legal liability</li>
 </ul>
+
+<p>We do not record any personal data. We will never contact you for any marketing or advertising campaigns and we do not collect any data for these purposes.</p>
 
 <h2>Security Of Data</h2>
 
