@@ -116,7 +116,7 @@ const Emoji = glamorous.text({
 
 const LinkText = glamorous.text({
   fontSize: 16,
-  marginTop: 28,
+  marginTop: 22,
   fontWeight: "500",
   color: COLORS.primaryBlue,
 });

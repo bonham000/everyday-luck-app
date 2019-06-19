@@ -97,7 +97,7 @@ exports[`App Screen Components Each screen component renders with props provided
                 "color": "#3498db",
                 "fontSize": 16,
                 "fontWeight": "500",
-                "marginTop": 28,
+                "marginTop": 22,
               },
             ]
           }
@@ -112,7 +112,7 @@ exports[`App Screen Components Each screen component renders with props provided
                 "color": "#3498db",
                 "fontSize": 16,
                 "fontWeight": "500",
-                "marginTop": 28,
+                "marginTop": 22,
               },
             ]
           }
@@ -127,7 +127,7 @@ exports[`App Screen Components Each screen component renders with props provided
                 "color": "#3498db",
                 "fontSize": 16,
                 "fontWeight": "500",
-                "marginTop": 28,
+                "marginTop": 22,
               },
             ]
           }
