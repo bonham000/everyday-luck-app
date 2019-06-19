@@ -75,7 +75,7 @@ exports[`App Screen Components Each screen component renders with props provided
             ]
           }
         >
-          This test is the standardized test of Standard Chinese language proficiency of China for non-native speakers such as foreign students and overseas Chinese. This app provides 5,000 words to learn from these vocabulary lists.
+          The HSK is the standardized test of Standard Chinese language proficiency of China for non-native speakers such as foreign students and overseas Chinese. This app provides 5,000 words to learn from these vocabulary lists.
         </Text>
         <Text
           style={
@@ -7230,12 +7230,12 @@ exports[`App Screen Components Each screen component renders with props provided
             "width": "90%",
           },
           Object {
-            "width": "60%",
+            "width": "80%",
           },
         ]
       }
     >
-      I have read and agree to the app
+      By pressing Next I confirm I have read and agree to the app
        
       <Text
         onPress={[Function]}
