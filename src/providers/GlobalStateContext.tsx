@@ -148,7 +148,11 @@ const GlobalStateContextValues = {
     /* Handle logging event */
     return;
   },
-  handleSendContactEmail: (contactEmail: string, message: string) => {
+  handleSendContactEmail: (
+    contactEmail: string,
+    message: string,
+    successCallback?: () => void,
+  ) => {
     /* Handle sending email */
     return;
   },

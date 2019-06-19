@@ -82,13 +82,15 @@ export class ContactScreenComponent extends React.Component<IProps, IState> {
 
   handleSubmitForm = () => {
     const { message, contactEmail } = this.state;
-    this.setState(
-      {
-        message: "",
-        contactEmail: "",
-      },
-      () => this.props.handleSendContactEmail(contactEmail, message),
-    );
+    this.props.handleSendContactEmail(contactEmail, message, () => {
+      this.setState(
+        {
+          message: "",
+          contactEmail: "",
+        },
+        this.props.navigation.goBack,
+      );
+    });
   };
 }
 

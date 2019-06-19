@@ -498,7 +498,11 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
     }
   };
 
-  handleSendContactEmail = (contactEmail: string, message: string) => {
+  handleSendContactEmail = (
+    contactEmail: string,
+    message: string,
+    successCallback?: () => void,
+  ) => {
     if (message === "") {
       return this.setToastMessage("Please enter a message");
     } else if (contactEmail === "" || !isEmailValid(contactEmail)) {

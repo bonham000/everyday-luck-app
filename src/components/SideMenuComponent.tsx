@@ -79,7 +79,7 @@ class SideMenuComponent extends React.Component<IProps, {}> {
         </Item>
         <Item onPress={this.createNavigationHandler(ROUTE_NAMES.WELCOME)}>
           ⛱{"  "}
-          Intro
+          About
         </Item>
         <BottomBlock>
           <SmallItem>
