@@ -71,7 +71,7 @@ export class AboutScreenComponent extends React.Component<IProps, {}> {
           </ScrollContainer>
         </ScreenTop>
         <ScreenBottom>
-          <Button onPress={this.navigateHome}>Next!</Button>
+          <Button onPress={this.navigateHome}>Start Learning!</Button>
         </ScreenBottom>
       </Screen>
     );
