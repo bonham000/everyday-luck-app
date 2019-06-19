@@ -37,13 +37,13 @@ export class WelcomeScreenComponent extends React.Component<IProps, {}> {
           </DescriptionText>
           <DescriptionText>
             We are excited you are learning Chinese! We're here to make that
-            easy and fun. This app is free to use and we do not collect any
-            personal user information or data.
+            easy and fun. This app is free to use and we collect no personal
+            data other than some metrics on app usage.
           </DescriptionText>
           <DescriptionText>
-            First we want to give you a quick introduction to the language and
-            how this app works as a learning tool, and then we will get out of
-            your way and let you start studying! Good luck!
+            First we want to give you a quick introduction to Chinese and how
+            this app works as a learning tool, and then we will get out of your
+            way and let you start studying! Good luck!
           </DescriptionText>
           <DescriptionText style={{ width: "60%" }}>
             I have read and agree to the app{" "}

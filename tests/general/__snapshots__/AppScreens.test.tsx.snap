@@ -60,7 +60,7 @@ exports[`App Screen Components Each screen component renders with props provided
           >
             Hanyu Shuiping Kaoshi
           </Text>
-           (Chinese Proficiency Test). This test is the standardized test of Standard Chinese language proficiency of China for non-native speakers such as foreign students and overseas Chinese.
+           (Chinese Proficiency Test).
         </Text>
         <Text
           style={
@@ -75,7 +75,37 @@ exports[`App Screen Components Each screen component renders with props provided
             ]
           }
         >
-          There are 6 levels total, which comprise a total of 5,000 words and about 2,500 characters. The goal of the app is to break these lessons into a series of small challenges which can be mastered with a little practice each day.
+          This test is the standardized test of Standard Chinese language proficiency of China for non-native speakers such as foreign students and overseas Chinese. This app provides 5,000 words to learn from these vocabulary lists.
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontSize": 18,
+                "fontWeight": "400",
+                "marginTop": 18,
+                "textAlign": "center",
+                "width": "90%",
+              },
+            ]
+          }
+        >
+          The goal of the app is to provide an easy and approachable way to practice learning and reviewing these words everyday. That's where the notion 天天吉 comes into play.
+        </Text>
+        <Text
+          style={
+            Array [
+              Object {
+                "fontSize": 18,
+                "fontWeight": "400",
+                "marginTop": 18,
+                "textAlign": "center",
+                "width": "90%",
+              },
+            ]
+          }
+        >
+          You just need a little luck everyday to learn Chinese! The name itself also hides a clever joke, if you read "jí" differently as "jú", the name is 天天桔 - "Everyday Orange" or "Everyday Mandarin".
         </Text>
         <Text
           style={
@@ -189,7 +219,7 @@ exports[`App Screen Components Each screen component renders with props provided
           ]
         }
       >
-        Next!
+        Start Learning!
       </Text>
     </View>
   </View>
@@ -5158,7 +5188,7 @@ exports[`App Screen Components Each screen component renders with props provided
             ]
           }
         >
-          Chinese is a complex family of languages, predominated by the official Beijing dialect of Mandarin, which is the official language of China, Taiwan, and on the four official languages of Singapore.
+          Chinese is a complex family of languages, predominated by the official Beijing dialect of Mandarin, which is the official language of China, Taiwan, and one the four official languages of Singapore.
         </Text>
         <Text
           style={
@@ -5198,7 +5228,7 @@ exports[`App Screen Components Each screen component renders with props provided
           >
             Simplified
           </Text>
-          . As the names imply, Simplified Chinese (简化字: jiǎnhuàzì) are simplified versions of the often more complex Traditional Chinese characters. These were created and adopted in mainland China to encourage literacy.
+          . As the names imply, Simplified Chinese (简化字: jiǎnhuàzì) is a simplified version of the often more complex Traditional Chinese characters. These were recently created and adopted in mainland China to encourage literacy.
         </Text>
         <Text
           style={
@@ -5224,7 +5254,7 @@ exports[`App Screen Components Each screen component renders with props provided
           >
             Pinyin
           </Text>
-           is the official romanization sysstem for standard Chinese. It represents words like 中文 (Chinese) with the Roman alphabet: Zhōngwén. Pinyin is very useful for teaching and writing Chinese.
+           is the official romanization system for standard Chinese. It represents words like 中文 (Chinese) with the Roman alphabet: Zhōngwén. Pinyin is very useful for teaching and writing Chinese.
         </Text>
         <Text
           style={
@@ -7150,6 +7180,9 @@ exports[`App Screen Components Each screen component renders with props provided
             Object {
               "fontWeight": "bold",
             },
+            Object {
+              "fontSize": 22,
+            },
           ]
         }
       >
@@ -7169,7 +7202,7 @@ exports[`App Screen Components Each screen component renders with props provided
         ]
       }
     >
-      We are excited you are learning Chinese! We're here to make that easy and fun.
+      We are excited you are learning Chinese! We're here to make that easy and fun. This app is free to use and we collect no personal data other than some metrics on app usage.
     </Text>
     <Text
       style={
@@ -7184,7 +7217,42 @@ exports[`App Screen Components Each screen component renders with props provided
         ]
       }
     >
-      First we want to give you a quick introduction to the language and how this app works as a learning tool, and then we will get out of your way and let you start studying! Good luck!
+      First we want to give you a quick introduction to Chinese and how this app works as a learning tool, and then we will get out of your way and let you start studying! Good luck!
+    </Text>
+    <Text
+      style={
+        Array [
+          Object {
+            "fontSize": 18,
+            "fontWeight": "400",
+            "marginTop": 18,
+            "textAlign": "center",
+            "width": "90%",
+          },
+          Object {
+            "width": "60%",
+          },
+        ]
+      }
+    >
+      I have read and agree to the app
+       
+      <Text
+        onPress={[Function]}
+        style={
+          Array [
+            Object {
+              "color": "#3498db",
+              "fontSize": 16,
+              "fontWeight": "500",
+              "marginTop": 22,
+            },
+          ]
+        }
+      >
+        Privacy Policy
+      </Text>
+      .
     </Text>
   </View>
   <View
@@ -7194,6 +7262,9 @@ exports[`App Screen Components Each screen component renders with props provided
           "alignItems": "center",
           "flex": 1,
           "width": "100%",
+        },
+        Object {
+          "flex": 1,
         },
       ]
     }

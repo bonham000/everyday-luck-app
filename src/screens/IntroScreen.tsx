@@ -35,19 +35,19 @@ export class IntroScreenComponent extends React.Component<IProps, {}> {
             <DescriptionText>
               Chinese is a complex family of languages, predominated by the
               official Beijing dialect of Mandarin, which is the official
-              language of China, Taiwan, and on the four official languages of
+              language of China, Taiwan, and one the four official languages of
               Singapore.
             </DescriptionText>
             <DescriptionText>
               There are two main writing systems for Chinese:{" "}
               <Bold>Traditional</Bold> and <Bold>Simplified</Bold>. As the names
-              imply, Simplified Chinese (简化字: jiǎnhuàzì) are simplified
-              versions of the often more complex Traditional Chinese characters.
-              These were created and adopted in mainland China to encourage
-              literacy.
+              imply, Simplified Chinese (简化字: jiǎnhuàzì) is a simplified
+              version of the often more complex Traditional Chinese characters.
+              These were recently created and adopted in mainland China to
+              encourage literacy.
             </DescriptionText>
             <DescriptionText>
-              <Bold>Pinyin</Bold> is the official romanization sysstem for
+              <Bold>Pinyin</Bold> is the official romanization system for
               standard Chinese. It represents words like 中文 (Chinese) with the
               Roman alphabet: Zhōngwén. Pinyin is very useful for teaching and
               writing Chinese.

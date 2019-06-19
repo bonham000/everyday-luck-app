@@ -38,14 +38,12 @@ export class AboutScreenComponent extends React.Component<IProps, {}> {
             <DescriptionText>
               This app uses the vocabulary content from the{" "}
               <Bold>Hanyu Shuiping Kaoshi</Bold> (Chinese Proficiency Test).
-              This test is the standardized test of Standard Chinese language
-              proficiency of China for non-native speakers such as foreign
-              students and overseas Chinese.
             </DescriptionText>
             <DescriptionText>
-              The Hanyu Shuiping Kaoshi is a standardized Chinese proficiency
-              tests which provides a set of vocabulary for learners to practice
-              and learn. This app provides 5,000 words to learn.
+              This test is the standardized test of Standard Chinese language
+              proficiency of China for non-native speakers such as foreign
+              students and overseas Chinese. This app provides 5,000 words to
+              learn from these vocabulary lists.
             </DescriptionText>
             <DescriptionText>
               The goal of the app is to provide an easy and approachable way to
