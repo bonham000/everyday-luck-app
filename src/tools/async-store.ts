@@ -34,6 +34,33 @@ export const logoutUserLocal = async () => {
 };
 
 /** ========================================================================
+ * Persistence of user app installation flag
+ * =========================================================================
+ */
+
+export const getUserDocumentsAgreementsFlag = async (): Promise<boolean> => {
+  try {
+    const result = await AsyncStorage.getItem(
+      ASYNC_STORE_KEYS.DOCUMENTS_AGREEMENT,
+    );
+    return result ? JSON.parse(result) : false;
+  } catch (err) {
+    return false;
+  }
+};
+
+export const setUserDocumentsAgreementsFlag = async (agreement: boolean) => {
+  try {
+    await AsyncStorage.setItem(
+      ASYNC_STORE_KEYS.DOCUMENTS_AGREEMENT,
+      JSON.stringify(agreement),
+    );
+  } catch (err) {
+    return;
+  }
+};
+
+/** ========================================================================
  * Offline Flag:
  * =========================================================================
  */

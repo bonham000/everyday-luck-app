@@ -14,18 +14,28 @@ import {
 } from "@src/components/SharedComponents";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import { COLORS } from "@src/constants/Theme";
+import {
+  GlobalStateContextProps,
+  withGlobalStateContext,
+} from "@src/providers/GlobalStateProvider";
+import {
+  getUserDocumentsAgreementsFlag,
+  setUserDocumentsAgreementsFlag,
+} from "@src/tools/async-store";
 
 /** ========================================================================
  * Types
  * =========================================================================
  */
 
-interface IProps {
+interface IProps extends GlobalStateContextProps {
   navigation: NavigationScreenProp<{}>;
 }
 
 interface IState {
+  loading: boolean;
   agreement: boolean;
+  hasPreviouslyAgreed: boolean;
 }
 
 /** ========================================================================
@@ -38,16 +48,31 @@ export class WelcomeScreenComponent extends React.Component<IProps, IState> {
     super(props);
 
     this.state = {
+      loading: true,
       agreement: false,
+      hasPreviouslyAgreed: false,
     };
   }
 
-  render(): JSX.Element {
+  async componentDidMount(): Promise<void> {
+    const agreed = await getUserDocumentsAgreementsFlag();
+    this.setState({
+      loading: false,
+      agreement: agreed,
+      hasPreviouslyAgreed: agreed,
+    });
+  }
+
+  render(): JSX.Element | null {
+    if (this.state.loading) {
+      return null;
+    }
+
     return (
       <Screen>
         <ScreenTop style={{ alignItems: "center", justifyContent: "center" }}>
           <DescriptionText>
-            <Bold style={{ fontSize: 22 }}>Welcome to 天天吉！</Bold>
+            <Bold style={{ fontSize: 26 }}>Welcome to 天天吉 🍀</Bold>
           </DescriptionText>
           <DescriptionText>
             We are excited you are learning Chinese! We're here to make that
@@ -57,17 +82,23 @@ export class WelcomeScreenComponent extends React.Component<IProps, IState> {
           <DescriptionText>
             First we want to give you a quick introduction to Chinese and how
             this app works as a learning tool, and then we will get out of your
-            way and let you start studying! Good luck!
+            way and let you start studying!
           </DescriptionText>
+          <DescriptionText>Good luck!</DescriptionText>
         </ScreenTop>
-        <ScreenBottom style={{ flex: 2 }}>
+        <ScreenBottom style={{ flex: this.state.hasPreviouslyAgreed ? 1 : 2 }}>
           <Button
-            onPress={this.handleNavigate}
-            style={{ marginTop: 8, marginBottom: 8 }}
+            onPress={this.handleNavigateNext}
+            style={{
+              marginTop: 8,
+              marginBottom: 8,
+              backgroundColor: this.state.agreement
+                ? COLORS.primaryBlue
+                : COLORS.lightDark,
+            }}
           >
             Next!
           </Button>
-          <LineBreak />
           {this.renderTermsAgreement()}
         </ScreenBottom>
       </Screen>
@@ -75,30 +106,45 @@ export class WelcomeScreenComponent extends React.Component<IProps, IState> {
   }
 
   renderTermsAgreement = () => {
-    return (
-      <AgreementContainer>
-        <Switch
-          color={COLORS.primaryBlue}
-          value={this.state.agreement}
-          onValueChange={this.handleDocumentsAgreement}
-        />
-        <TermsText>
-          I confirm I have read and agree to the app's{" "}
-          <LinkText onPress={this.openDocumentsLink("PRIVACY_POLICY")}>
-            Privacy Policy
-          </LinkText>{" "}
-          and{" "}
-          <LinkText onPress={this.openDocumentsLink("TERMS_OF_USE")}>
-            Terms of Use
-          </LinkText>
-          .
-        </TermsText>
-      </AgreementContainer>
-    );
+    if (this.state.hasPreviouslyAgreed) {
+      return null;
+    } else {
+      return (
+        <React.Fragment>
+          <LineBreak />
+          <AgreementContainer>
+            <Switch
+              color={COLORS.primaryBlue}
+              value={this.state.agreement}
+              onValueChange={this.handleDocumentsAgreement}
+            />
+            <TermsText>
+              I confirm I have read and agree to the app's{" "}
+              <LinkText onPress={this.openDocumentsLink("PRIVACY_POLICY")}>
+                Privacy Policy
+              </LinkText>{" "}
+              and{" "}
+              <LinkText onPress={this.openDocumentsLink("TERMS_OF_USE")}>
+                Terms of Use
+              </LinkText>
+              .
+            </TermsText>
+          </AgreementContainer>
+        </React.Fragment>
+      );
+    }
   };
 
-  handleNavigate = () => {
-    this.props.navigation.navigate(ROUTE_NAMES.INTRO);
+  handleNavigateNext = async () => {
+    const { agreement } = this.state;
+    if (!agreement) {
+      return this.props.setToastMessage(
+        "Please agree to the Terms of Use and Privacy Policy",
+      );
+    } else {
+      await setUserDocumentsAgreementsFlag(agreement);
+      this.props.navigation.navigate(ROUTE_NAMES.INTRO);
+    }
   };
 
   handleDocumentsAgreement = () => {
@@ -110,7 +156,8 @@ export class WelcomeScreenComponent extends React.Component<IProps, IState> {
   openDocumentsLink = (
     document: "PRIVACY_POLICY" | "TERMS_OF_USE",
   ) => async () => {
-    const base = "https://github.com/bonham000/everyday-luck-app/blob/master/";
+    const base =
+      "https://github.com/bonham000/everyday-luck-app/blob/master/documents/";
     const url = `${base}${document}.md`;
     try {
       await WebBrowser.openBrowserAsync(url);
@@ -158,4 +205,4 @@ const AgreementContainer = glamorous.view({
  * =========================================================================
  */
 
-export default WelcomeScreenComponent;
+export default withGlobalStateContext(WelcomeScreenComponent);
