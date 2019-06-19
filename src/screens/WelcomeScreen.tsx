@@ -45,8 +45,8 @@ export class WelcomeScreenComponent extends React.Component<IProps, {}> {
             this app works as a learning tool, and then we will get out of your
             way and let you start studying! Good luck!
           </DescriptionText>
-          <DescriptionText style={{ width: "60%" }}>
-            I have read and agree to the app{" "}
+          <DescriptionText style={{ width: "80%" }}>
+            By pressing Next I confirm I have read and agree to the app{" "}
             <LinkText onPress={this.openPrivacyPolicyLink}>
               Privacy Policy
             </LinkText>

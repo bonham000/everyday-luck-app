@@ -40,7 +40,7 @@ export class AboutScreenComponent extends React.Component<IProps, {}> {
               <Bold>Hanyu Shuiping Kaoshi</Bold> (Chinese Proficiency Test).
             </DescriptionText>
             <DescriptionText>
-              This test is the standardized test of Standard Chinese language
+              The HSK is the standardized test of Standard Chinese language
               proficiency of China for non-native speakers such as foreign
               students and overseas Chinese. This app provides 5,000 words to
               learn from these vocabulary lists.
