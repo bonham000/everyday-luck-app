@@ -1,18 +1,16 @@
-<h1>TERMS OF USE (MOBILE APP)</h1>
+<h1>TERMS OF USE (EVERYDAY LUCK APP)</h1>
 
 <h2>TERMS OF USE</h2>
 
 By downloading, browsing, accessing or using Everyday Luck mobile application (“Mobile Application”), you agree to be bound by these Terms and Conditions of Use. We reserve the right to amend these terms and conditions at any time. If you disagree with any of these Terms and Conditions of Use, you must immediately discontinue your access to the Mobile Application and your use of the services offered on the Mobile Application. Continued use of the Mobile Application will constitute acceptance of these Terms and Conditions of Use, as may be amended from time to time.
 
+If you do not agree to these Terms and Conditions, you must immediately uninstall the App and discontinue its use. These Terms and Conditions should be read alongside our Privacy Policy.
+
+- Privacy Policy: https://github.com/bonham000/everyday-luck-app/blob/master/documents/PRIVACY_POLICY.md
+
 <h3>DEFINITIONS</h3>
 
 In these Terms and Conditions of Use, the following capitalised terms shall have the following meanings, except where the context otherwise requires:
-
-"Account" means an account created by a User on the Mobile Application as part of Registration.
-
-"Privacy Policy" means the privacy policy set out in Clause 14 of these Terms and Conditions of Use.
-
-"Register" means to create an Account on the Mobile Application and "Registration" means the act of creating such an Account.
 
 "Services" means all the services provided by the Mobile Application to Users, and "Service" means any one of them.
 
@@ -22,11 +20,9 @@ In these Terms and Conditions of Use, the following capitalised terms shall have
 
 - Applicability of terms and conditions: The use of any Services and/or the Mobile Application and the making of any Redemptions are subject to these Terms and Conditions of Use.
 
-- Location: The Mobile Application, the Services and any Redemptions are intended solely for use by Users who access the Mobile Application in Singapore. We make no representation that the Services (or any goods or services) are available or otherwise suitable for use outside of Singapore. Notwithstanding the above, if you access the Mobile Application, use the Services or make any Redemptions from locations outside Singapore, you do so on your own initiative and are responsible for the consequences and for compliance with all applicable laws.
-
 - Scope: The Mobile Application, the Services and any Redemptions are for your non-commercial, personal and educational use only and must not be used for business purposes.
 
-- License to Use Material: By submitting any text or images (including photographs) (“Material”) via the Application, you represent that you are the owner of the Material, or have proper authorization from the owner of the Material to use, reproduce and distribute it. You hereby grant us a worldwide, royalty-free, non-exclusive license to use the Material to promote any products or services.
+- License to Use Material: By submitting any text or images (including photographs) (“Material”) via the Application, you represent that you are the owner of the Material, or have proper authorization from the owner of the Material to use, reproduce and distribute it. You hereby grant us a worldwide, royalty-free, non-exclusive license to use the Material to promote any products or services. The Mobile Application is protected by international intellectual property laws and you agree to abide by them. Without our prior written consent, you may not download, copy or store the Mobile Application content in any form outside of the Mobile Application and you may not modify, publish, transmit, participate in the transfer or sale of, reproduce, create derivative works based on, distribute, or perform any the Mobile Application content.
 
 <h3>LOCATION ALERTS AND NOTIFICATIONS</h3>
 
@@ -43,3 +39,7 @@ In these Terms and Conditions of Use, the following capitalised terms shall have
 - We reserve the right to change, modify, substitute, suspend or remove without notice any information or Services on the Mobile Application from time to time. Your access to the Mobile Application and/or the Services may also be occasionally restricted to allow for repairs, maintenance or the introduction of new facilities or services. We will attempt to restore such access as soon as we reasonably can. For the avoidance of doubt, we reserve the right to withdraw any information or Services from the Mobile Application at any time.
 
 - We reserve the right to block access to and/or to edit or remove any material which in our reasonable opinion may give rise to a breach of these Terms and Conditions of Use.
+
+<h3>Contact</h3>
+
+- If you have any questions about this Privacy Policy, please contact us: By email: sean.smith.2009@gmail.com.

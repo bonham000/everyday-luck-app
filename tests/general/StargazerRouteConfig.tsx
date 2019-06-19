@@ -203,7 +203,10 @@ const stargazerConfig: ReadonlyArray<StargazerRouteConfigObject> = [
     name: "Welcome Screen",
     screenName: ROUTE_NAMES.WELCOME,
     screen: (props: StargazerRouteProps) => (
-      <WelcomeScreenComponent navigation={props.navigation} />
+      <WelcomeScreenComponent
+        navigation={props.navigation}
+        {...MOCKS.GLOBAL_STATE_PROPS}
+      />
     ),
   },
   {
