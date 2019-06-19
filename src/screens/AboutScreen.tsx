@@ -34,7 +34,7 @@ export class AboutScreenComponent extends React.Component<IProps, {}> {
     return (
       <Screen>
         <ScreenTop>
-          <ScrollContainer>
+          <ScrollContainer style={{ paddingTop: 5 }}>
             <DescriptionText>
               This app uses the vocabulary content from the{" "}
               <Bold>Hanyu Shuiping Kaoshi</Bold> (Chinese Proficiency Test).

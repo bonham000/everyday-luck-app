@@ -31,7 +31,7 @@ export class IntroScreenComponent extends React.Component<IProps, {}> {
     return (
       <Screen>
         <ScreenTop>
-          <ScrollContainer>
+          <ScrollContainer style={{ paddingTop: 5 }}>
             <DescriptionText>
               Chinese is a complex family of languages, predominated by the
               official Beijing dialect of Mandarin, which is the official

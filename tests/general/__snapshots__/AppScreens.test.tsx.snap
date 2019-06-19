@@ -28,7 +28,7 @@ exports[`App Screen Components Each screen component renders with props provided
           "backgroundColor": "rgb(231, 237, 240)",
           "flexGrow": 1,
           "paddingBottom": 50,
-          "paddingTop": 22,
+          "paddingTop": 5,
           "width": "100%",
         }
       }
@@ -204,7 +204,7 @@ exports[`App Screen Components Each screen component renders with props provided
       "backgroundColor": "rgb(231, 237, 240)",
       "flexGrow": 1,
       "paddingBottom": 50,
-      "paddingTop": 22,
+      "paddingTop": 25,
       "width": "100%",
     }
   }
@@ -4634,7 +4634,7 @@ exports[`App Screen Components Each screen component renders with props provided
       "backgroundColor": "rgb(231, 237, 240)",
       "flexGrow": 1,
       "paddingBottom": 50,
-      "paddingTop": 22,
+      "paddingTop": 25,
       "width": "100%",
     }
   }
@@ -5139,7 +5139,7 @@ exports[`App Screen Components Each screen component renders with props provided
           "backgroundColor": "rgb(231, 237, 240)",
           "flexGrow": 1,
           "paddingBottom": 50,
-          "paddingTop": 22,
+          "paddingTop": 5,
           "width": "100%",
         }
       }
@@ -5999,7 +5999,7 @@ exports[`App Screen Components Each screen component renders with props provided
       "backgroundColor": "rgb(231, 237, 240)",
       "flexGrow": 1,
       "paddingBottom": 50,
-      "paddingTop": 22,
+      "paddingTop": 25,
       "width": "100%",
     }
   }

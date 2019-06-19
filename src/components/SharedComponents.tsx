@@ -57,15 +57,16 @@ const Container = glamorous.view({
   backgroundColor: COLORS.background,
 });
 
-const ScrollContainer = (props: { children: any }) => (
+const ScrollContainer = (props: { children: any; style?: ViewStyle }) => (
   <ScrollView
     contentContainerStyle={{
       flexGrow: 1,
       width: "100%",
-      paddingTop: 22,
+      paddingTop: 25,
       paddingBottom: 50,
       alignItems: "center",
       backgroundColor: COLORS.background,
+      ...props.style,
     }}
   >
     {props.children}
