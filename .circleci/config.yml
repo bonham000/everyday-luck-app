@@ -102,7 +102,9 @@ workflows:
       - pr-tests:
           filters:
             branches:
-              ignore: master
+              ignore:
+                - master
+                - production
   deploy_stargazer:
     jobs:
       - stargazer:
