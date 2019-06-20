@@ -63,3 +63,4 @@ This and the other projects listed above are all open source on GitHub. Contribu
 ## Credits
 
 * All audio pronunciations are courtesy of the [Forvo Pronunciation API](https://api.forvo.com/).
+* All vocabulary content is from the [Hanyu Shuiping Kaoshi vocabulary lists](https://en.wikipedia.org/wiki/Hanyu_Shuiping_Kaoshi).
