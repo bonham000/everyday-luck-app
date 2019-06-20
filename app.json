@@ -35,6 +35,7 @@
     "ios": {
       "buildNumber": "0",
       "supportsTablet": false,
+      "icon": "./src/assets/ios_icon.png",
       "bundleIdentifier": "everyday.luck.app"
     },
     "hooks": {
