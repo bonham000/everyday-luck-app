@@ -83,6 +83,7 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
           Transfer Account
         </Button>
         <LineBreak />
+        {this.renderManuallySetScoresSection()}
         <SectionTitle>Reset Scores</SectionTitle>
         <InfoText>
           This will reset your score history and you will have to start over.
