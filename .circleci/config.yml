@@ -109,9 +109,9 @@ workflows:
           filters:
             branches:
               only: master
-  test_and_publish_update:
+  deploy_update:
     jobs:
       - publish:
           filters:
             branches:
-              only: master
+              only: production
