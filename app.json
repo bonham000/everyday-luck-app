@@ -19,7 +19,7 @@
     },
     "assetBundlePatterns": ["src/assets/**/*.png"],
     "android": {
-      "versionCode": 5,
+      "versionCode": 6,
       "permissions": [],
       "package": "com.everyday.luck",
       "splash": {
