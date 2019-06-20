@@ -47,7 +47,7 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
   }
 
   render(): JSX.Element {
-    const { accountUuid, numberOfLessonsCompleted } = this.state;
+    const { accountUuid } = this.state;
     const uuid = this.props.user ? this.props.user.uuid : "";
     return (
       <ScrollContainer>
@@ -94,26 +94,6 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
           Reset Score History
         </Button>
         <LineBreak />
-        <SectionTitle>Manually Set Scores</SectionTitle>
-        <InfoText>
-          Override your current progress. Enter a number of lessons you wish to
-          have completed.
-        </InfoText>
-        <TextInput
-          mode="outlined"
-          value={numberOfLessonsCompleted}
-          style={TextInputStyles}
-          onChangeText={this.handleChangeNumberOfLessons}
-          onSubmitEditing={this.dangerouslySetUserScoresManuallyAsync}
-          label="Set a number of lessons completed"
-        />
-        <Button
-          onPress={this.dangerouslySetUserScoresManuallyAsync}
-          style={{ marginTop: 25, marginBottom: 15 }}
-        >
-          Set Scores
-        </Button>
-        <LineBreak />
         <SectionTitle>Clear Account Data</SectionTitle>
         <InfoText>This will clear and reset your account data.</InfoText>
         <Button
@@ -125,6 +105,37 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
       </ScrollContainer>
     );
   }
+
+  renderManuallySetScoresSection = () => {
+    /**
+     * NOTE: Enable this if you need to render this UI to manually
+     * set user scores at some point in the future.
+     */
+    return (
+      <React.Fragment>
+        <SectionTitle>Manually Set Scores</SectionTitle>
+        <InfoText>
+          Override your current progress. Enter a number of lessons you wish to
+          have completed.
+        </InfoText>
+        <TextInput
+          mode="outlined"
+          style={TextInputStyles}
+          value={this.state.numberOfLessonsCompleted}
+          onChangeText={this.handleChangeNumberOfLessons}
+          onSubmitEditing={this.dangerouslySetUserScoresManuallyAsync}
+          label="Set a number of lessons completed"
+        />
+        <Button
+          onPress={this.dangerouslySetUserScoresManuallyAsync}
+          style={{ marginTop: 25, marginBottom: 15 }}
+        >
+          Set Scores
+        </Button>
+        <LineBreak />
+      </React.Fragment>
+    );
+  };
 
   handleChangeAccountUuid = (accountUuid: string) => {
     this.setState({ accountUuid });
