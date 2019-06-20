@@ -47,7 +47,7 @@ Experience points are awarded for completing any of the lesson quizzes, but the 
 
 ## Technical Aspects
 
-The app is built with React Native/TypeScript and Expo and powered by a backend built in Rust and deployed on Google Cloud Run. There are also a few other supporting resources:
+The app is built with React Native/TypeScript and Expo and powered by a backend built in Rust and deployed on the serverless Google Cloud Run platform. There are also a few other supporting resources:
 
 * [**Dragon Backend:**](https://github.com/bonham000/dragon) Basic CRUD user APIs with a SQL database.
 * [**NodeJS Pinyin Translation Service:**](https://github.com/bonham000/pinyin-conversion-service) A service for returning pinyin romanizations for translations.
