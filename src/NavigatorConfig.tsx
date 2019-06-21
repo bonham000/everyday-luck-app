@@ -26,6 +26,7 @@ import ViewAllScreen from "@src/screens/ViewAllScreen";
 import WelcomeScreenComponent from "@src/screens/WelcomeScreen";
 import { getDrawerLockedState } from "@src/tools/navigation-utils";
 import { LessonScreenParams, ListScreenParams } from "@src/tools/types";
+import AboutDetailScreenComponent from "./screens/AboutDetailScreen";
 
 /** ========================================================================
  * App Routes
@@ -173,13 +174,6 @@ const ROUTES: NavigationScreenRouteConfig = {
       headerBackTitle: null,
     },
   },
-  [ROUTE_NAMES.ABOUT]: {
-    screen: AboutScreenComponent,
-    navigationOptions: {
-      title: "Using the App 天天吉 🍀",
-      headerBackTitle: null,
-    },
-  },
   [ROUTE_NAMES.WELCOME]: {
     screen: WelcomeScreenComponent,
     navigationOptions: {
@@ -191,6 +185,20 @@ const ROUTES: NavigationScreenRouteConfig = {
     screen: IntroScreenComponent,
     navigationOptions: {
       title: "About Chinese 中文",
+      headerBackTitle: null,
+    },
+  },
+  [ROUTE_NAMES.ABOUT]: {
+    screen: AboutScreenComponent,
+    navigationOptions: {
+      title: "About the App 天天吉 🍀",
+      headerBackTitle: null,
+    },
+  },
+  [ROUTE_NAMES.ABOUT_DETAIL]: {
+    screen: AboutDetailScreenComponent,
+    navigationOptions: {
+      title: "Using 天天吉",
       headerBackTitle: null,
     },
   },

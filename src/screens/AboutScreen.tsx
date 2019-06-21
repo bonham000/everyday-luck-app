@@ -13,7 +13,6 @@ import {
 } from "@src/components/SharedComponents";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import { COLORS } from "@src/constants/Theme";
-import { resetNavigation } from "@src/tools/navigation-utils";
 
 /** ========================================================================
  * Types
@@ -57,33 +56,19 @@ export class AboutScreenComponent extends React.Component<IProps, {}> {
               Mandarin".
             </DescriptionText>
             <Emoji>🌌🌃🌆🌇</Emoji>
-            <LinkText onPress={this.handleNavigate(ROUTE_NAMES.CONTACT)}>
-              Contact
-            </LinkText>
-            <LinkText onPress={this.openAboutLink}>
-              This app is Open Source
-            </LinkText>
             <LinkText onPress={this.openHSKLink}>
               Learn more about the HSK
             </LinkText>
           </ScrollContainer>
         </ScreenTop>
         <ScreenBottom>
-          <Button onPress={this.navigateHome}>Start Learning!</Button>
+          <Button onPress={this.handleNavigate(ROUTE_NAMES.ABOUT_DETAIL)}>
+            Next!
+          </Button>
         </ScreenBottom>
       </Screen>
     );
   }
-
-  openAboutLink = async () => {
-    try {
-      await WebBrowser.openBrowserAsync(
-        "https://github.com/bonham000/mandarin",
-      );
-    } catch (_) {
-      return;
-    }
-  };
 
   openHSKLink = async () => {
     try {
@@ -97,10 +82,6 @@ export class AboutScreenComponent extends React.Component<IProps, {}> {
 
   handleNavigate = (route: ROUTE_NAMES) => () => {
     this.props.navigation.navigate(route);
-  };
-
-  navigateHome = () => {
-    this.props.navigation.dispatch(resetNavigation(ROUTE_NAMES.HOME));
   };
 }
 

@@ -84,7 +84,9 @@ export class WelcomeScreenComponent extends React.Component<IProps, IState> {
             this app works as a learning tool, and then we will get out of your
             way and let you start studying!
           </DescriptionText>
-          <DescriptionText>Good luck!</DescriptionText>
+          <DescriptionText>
+            <Bold>Good luck!</Bold>
+          </DescriptionText>
         </ScreenTop>
         <ScreenBottom style={{ flex: this.state.hasPreviouslyAgreed ? 1 : 2 }}>
           <Button

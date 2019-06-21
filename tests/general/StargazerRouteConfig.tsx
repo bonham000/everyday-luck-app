@@ -4,6 +4,7 @@ import { NavigationScreenProp } from "react-navigation";
 
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import { QUIZ_TYPE } from "@src/providers/GlobalStateContext";
+import AboutDetailScreenComponent from "@src/screens/AboutDetailScreen";
 import AboutScreenComponent from "@src/screens/AboutScreen";
 import { AccountScreenComponent } from "@src/screens/AccountScreen";
 import { ContactScreenComponent } from "@src/screens/ContactScreen";
@@ -221,6 +222,13 @@ const stargazerConfig: ReadonlyArray<StargazerRouteConfigObject> = [
     screenName: ROUTE_NAMES.ABOUT,
     screen: (props: StargazerRouteProps) => (
       <AboutScreenComponent navigation={props.navigation} />
+    ),
+  },
+  {
+    name: "About Detail Screen",
+    screenName: ROUTE_NAMES.ABOUT_DETAIL,
+    screen: (props: StargazerRouteProps) => (
+      <AboutDetailScreenComponent navigation={props.navigation} />
     ),
   },
   {
