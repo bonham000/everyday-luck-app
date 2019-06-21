@@ -30,7 +30,7 @@ export class AboutDetailScreenComponent extends React.Component<IProps, {}> {
   render(): JSX.Element {
     return (
       <Screen>
-        <ScreenTop>
+        <ScreenTop style={{ alignItems: "center", justifyContent: "center" }}>
           <View style={{ flexDirection: "row", justifyContent: "center" }}>
             <Image
               resizeMode="contain"

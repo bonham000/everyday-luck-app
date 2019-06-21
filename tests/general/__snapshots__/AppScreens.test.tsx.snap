@@ -1,5 +1,154 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`App Screen Components Each screen component renders with props provided: About Detail Screen 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "backgroundColor": "rgb(231, 237, 240)",
+        "flex": 1,
+      },
+    ]
+  }
+>
+  <View
+    style={
+      Array [
+        Object {
+          "flex": 8,
+          "width": "100%",
+        },
+        Object {
+          "alignItems": "center",
+          "justifyContent": "center",
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        Object {
+          "flexDirection": "row",
+          "justifyContent": "center",
+        }
+      }
+    >
+      <Image
+        resizeMode="contain"
+        source={1}
+        style={
+          Object {
+            "height": 100,
+            "width": 100,
+          }
+        }
+      />
+    </View>
+    <Text
+      style={
+        Array [
+          Object {
+            "fontSize": 18,
+            "fontWeight": "400",
+            "marginTop": 18,
+            "textAlign": "center",
+            "width": "90%",
+          },
+        ]
+      }
+    >
+      The HSK content is organized into 6 lists. Each list in the app divides the content into many lessons, which you must complete in order. To complete a lesson, you must complete all 4 quizzes in the lesson with a perfect score.
+    </Text>
+    <Text
+      style={
+        Array [
+          Object {
+            "fontSize": 18,
+            "fontWeight": "400",
+            "marginTop": 18,
+            "textAlign": "center",
+            "width": "90%",
+          },
+        ]
+      }
+    >
+      Passing a quiz earns you experience points which you can use to correct missed answers on a quiz attempt. The best way to earn experience points is to practice the Daily Challenge Quiz (天天桔)！
+    </Text>
+    <Text
+      style={
+        Array [
+          Object {
+            "fontSize": 18,
+            "fontWeight": "400",
+            "marginTop": 18,
+            "textAlign": "center",
+            "width": "90%",
+          },
+        ]
+      }
+    >
+      The Daily Challenge Quiz is a shuffled review of all the words you have studied so far.
+    </Text>
+  </View>
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "flex": 1,
+          "width": "100%",
+        },
+      ]
+    }
+  >
+    <View
+      accessible={true}
+      isTVSelectable={true}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#3498db",
+          "height": 40,
+          "justifyContent": "center",
+          "marginBottom": 15,
+          "marginTop": 15,
+          "minWidth": 225,
+          "opacity": 1,
+          "paddingLeft": 15,
+          "paddingRight": 15,
+        }
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#000000",
+              "fontFamily": "Helvetica Neue",
+              "textAlign": "left",
+              "writingDirection": "ltr",
+            },
+            Object {
+              "color": "rgb(45,45,45)",
+              "fontSize": 16,
+              "fontWeight": "bold",
+            },
+          ]
+        }
+      >
+        Start Learning!
+      </Text>
+    </View>
+  </View>
+</View>
+`;
+
 exports[`App Screen Components Each screen component renders with props provided: About Screen 1`] = `
 <View
   style={
@@ -132,36 +281,6 @@ exports[`App Screen Components Each screen component renders with props provided
             ]
           }
         >
-          Contact
-        </Text>
-        <Text
-          onPress={[Function]}
-          style={
-            Array [
-              Object {
-                "color": "#3498db",
-                "fontSize": 16,
-                "fontWeight": "500",
-                "marginTop": 22,
-              },
-            ]
-          }
-        >
-          This app is Open Source
-        </Text>
-        <Text
-          onPress={[Function]}
-          style={
-            Array [
-              Object {
-                "color": "#3498db",
-                "fontSize": 16,
-                "fontWeight": "500",
-                "marginTop": 22,
-              },
-            ]
-          }
-        >
           Learn more about the HSK
         </Text>
       </View>
@@ -219,7 +338,7 @@ exports[`App Screen Components Each screen component renders with props provided
           ]
         }
       >
-        Start Learning!
+        Next!
       </Text>
     </View>
   </View>
