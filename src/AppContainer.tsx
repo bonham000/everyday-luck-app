@@ -719,10 +719,6 @@ class RootContainer extends RootContainerBase<{}> {
   };
 
   handleTransferUserAccount = (uuid: string) => {
-    if (this.state.user && uuid === this.state.user.uuid) {
-      return this.setToastMessage("ID matches your current user");
-    }
-
     this.setState(
       {
         transparentLoading: true,

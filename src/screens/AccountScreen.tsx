@@ -149,8 +149,12 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
   };
 
   handleTransferAccount = () => {
-    if (!this.state.accountUuid) {
+    const { accountUuid } = this.state;
+
+    if (!accountUuid) {
       return this.props.setToastMessage("Please enter an ID");
+    } else if (this.props.user && this.props.user.uuid === accountUuid) {
+      return this.props.setToastMessage("ID matches your current user already");
     }
 
     Alert.alert(
@@ -165,7 +169,7 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
         {
           text: "OK",
           onPress: () => {
-            this.props.transferUserAccount(this.state.accountUuid);
+            this.props.transferUserAccount(accountUuid);
             this.setState({ accountUuid: "" }, this.props.navigation.goBack);
           },
         },
