@@ -1,10 +1,20 @@
 import glamorous from "glamorous-native";
 import React from "react";
-import { Keyboard, StyleSheet, Text } from "react-native";
+import {
+  Keyboard,
+  StyleSheet,
+  Text,
+  TouchableWithoutFeedback,
+} from "react-native";
 import { Switch, TextInput } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
-import { Bold, Button, Container } from "@src/components/SharedComponents";
+import {
+  Bold,
+  Button,
+  Container,
+  ScrollContainer,
+} from "@src/components/SharedComponents";
 import EVENTS from "@src/constants/AnalyticsEvents";
 import { COLORS } from "@src/constants/Theme";
 import {
@@ -62,43 +72,45 @@ export class TranslationScreenComponent extends React.Component<
   render(): JSX.Element {
     const { input, sourceLanguageChinese } = this.state;
     return (
-      <Container>
-        <SectionTitle>Translation Tool</SectionTitle>
-        <InfoText>Translate between English and Chinese</InfoText>
-        {!this.props.networkConnected && (
-          <WarningText>
-            The network is disconnected - translations may not be possible now
-          </WarningText>
-        )}
-        <TextInput
-          mode="outlined"
-          value={input}
-          ref={this.setInputRef}
-          style={TextInputStyles}
-          onChangeText={this.handleChange}
-          onSubmitEditing={this.handleTranslate}
-          label="Enter text to translate"
-        />
-        <ToggleLanguageContainer>
-          <Switch
-            color={COLORS.primaryRed}
-            value={sourceLanguageChinese}
-            onValueChange={this.handleToggleLanguage}
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+        <ScrollContainer>
+          <SectionTitle>Translation Tool</SectionTitle>
+          <InfoText>Translate between English and Chinese</InfoText>
+          {!this.props.networkConnected && (
+            <WarningText>
+              The network is disconnected - translations may not be possible now
+            </WarningText>
+          )}
+          <TextInput
+            mode="outlined"
+            value={input}
+            ref={this.setInputRef}
+            style={TextInputStyles}
+            onChangeText={this.handleChange}
+            onSubmitEditing={this.handleTranslate}
+            label="Enter text to translate"
           />
-          <Text style={{ marginLeft: 12 }}>
-            Translating from:{" "}
-            <Bold>
-              {sourceLanguageChinese
-                ? formatUserLanguageSetting(this.props.languageSetting)
-                : "English"}
-            </Bold>
-          </Text>
-        </ToggleLanguageContainer>
-        <Button onPress={this.handleTranslate}>
-          {this.state.loadingTranslation ? "Translating..." : "Translate"}
-        </Button>
-        {this.renderTranslationResults()}
-      </Container>
+          <ToggleLanguageContainer>
+            <Switch
+              color={COLORS.primaryRed}
+              value={sourceLanguageChinese}
+              onValueChange={this.handleToggleLanguage}
+            />
+            <Text style={{ marginLeft: 12 }}>
+              Translating from:{" "}
+              <Bold>
+                {sourceLanguageChinese
+                  ? formatUserLanguageSetting(this.props.languageSetting)
+                  : "English"}
+              </Bold>
+            </Text>
+          </ToggleLanguageContainer>
+          <Button onPress={this.handleTranslate}>
+            {this.state.loadingTranslation ? "Translating..." : "Translate"}
+          </Button>
+          {this.renderTranslationResults()}
+        </ScrollContainer>
+      </TouchableWithoutFeedback>
     );
   }
 

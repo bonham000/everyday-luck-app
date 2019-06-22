@@ -1,5 +1,6 @@
 import glamorous from "glamorous-native";
 import React from "react";
+import { Keyboard, TouchableWithoutFeedback } from "react-native";
 import { TextInput } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
@@ -41,33 +42,35 @@ export class ContactScreenComponent extends React.Component<IProps, IState> {
 
   render(): JSX.Element {
     return (
-      <Container>
-        <SectionTitle>Contact</SectionTitle>
-        <InfoText>
-          Found a bug, have feedback, or just want to say hello? Get in touch
-          with the developer by sending a quick message here. Please leave your
-          email so we can reply to your feedback, if needed.
-        </InfoText>
-        <TextInput
-          multiline
-          mode="outlined"
-          label="Type a message"
-          style={TextInputStyles}
-          value={this.state.message}
-          onChangeText={this.handleFieldChange("message")}
-        />
-        <TextInput
-          multiline
-          mode="outlined"
-          label="Please add a contact email"
-          style={TextInputStyles}
-          value={this.state.contactEmail}
-          onChangeText={this.handleFieldChange("contactEmail")}
-        />
-        <Button style={{ marginTop: 35 }} onPress={this.handleSubmitForm}>
-          Submit Feedback
-        </Button>
-      </Container>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+        <Container>
+          <SectionTitle>Contact</SectionTitle>
+          <InfoText>
+            Found a bug, have feedback, or just want to say hello? Get in touch
+            with the developer by sending a quick message here. Please leave
+            your email so we can reply to your feedback, if needed.
+          </InfoText>
+          <TextInput
+            multiline
+            mode="outlined"
+            label="Type a message"
+            style={TextInputStyles}
+            value={this.state.message}
+            onChangeText={this.handleFieldChange("message")}
+          />
+          <TextInput
+            multiline
+            mode="outlined"
+            label="Please add a contact email"
+            style={TextInputStyles}
+            value={this.state.contactEmail}
+            onChangeText={this.handleFieldChange("contactEmail")}
+          />
+          <Button style={{ marginTop: 35 }} onPress={this.handleSubmitForm}>
+            Submit Feedback
+          </Button>
+        </Container>
+      </TouchableWithoutFeedback>
     );
   }
 

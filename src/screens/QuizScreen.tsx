@@ -8,7 +8,7 @@ import { NavigationScreenProp } from "react-navigation";
 
 import MultipleChoiceComponent from "@src/components/MultipleChoiceComponent";
 import QuizInput from "@src/components/QuizInputComponent";
-import { Container } from "@src/components/SharedComponents";
+import { ScrollContainer } from "@src/components/SharedComponents";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import { COLORS } from "@src/constants/Theme";
 import {
@@ -150,16 +150,18 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
 
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
-        <Container style={{ paddingTop: 8 }}>
-          <Confetti untilStopped duration={1500} ref={this.setConfettiRef} />
-          {!this.state.quizFinished && (
-            <React.Fragment>
-              {this.renderProgressText()}
-              {this.getQuizComponent()}
-              {this.renderActionButtons()}
-            </React.Fragment>
-          )}
-        </Container>
+        <React.Fragment>
+          <ScrollContainer style={{ paddingTop: 8 }}>
+            <Confetti untilStopped duration={1500} ref={this.setConfettiRef} />
+            {!this.state.quizFinished && (
+              <React.Fragment>
+                {this.renderProgressText()}
+                {this.getQuizComponent()}
+              </React.Fragment>
+            )}
+          </ScrollContainer>
+          {this.renderActionButtons()}
+        </React.Fragment>
       </TouchableWithoutFeedback>
     );
   }

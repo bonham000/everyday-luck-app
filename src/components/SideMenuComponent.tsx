@@ -2,7 +2,6 @@ import Constants from "expo-constants";
 import glamorous from "glamorous-native";
 import React from "react";
 import {
-  Dimensions,
   Image,
   Keyboard,
   StyleSheet,
@@ -11,6 +10,7 @@ import {
 } from "react-native";
 import { NavigationScreenProp, SafeAreaView } from "react-navigation";
 
+import { SMALL_DEVICE } from "@src/constants/Device";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import { COLORS } from "@src/constants/Theme";
 import {
@@ -27,12 +27,6 @@ import { formatUserLanguageSetting } from "@src/tools/utils";
 interface IProps extends GlobalStateContextProps {
   navigation: NavigationScreenProp<{}>;
 }
-
-const HEIGHT = Dimensions.get("window").height;
-
-console.log(HEIGHT);
-
-const SMALL_DEVICE = HEIGHT < 700;
 
 const ICON_DIMENSION = SMALL_DEVICE ? 60 : 100;
 

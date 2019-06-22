@@ -9,6 +9,7 @@ import { Text } from "react-native-paper";
 
 import Shaker from "@src/components/ShakerComponent";
 import { Button } from "@src/components/SharedComponents";
+import { SMALL_DEVICE } from "@src/constants/Device";
 import { COLORS } from "@src/constants/Theme";
 import {
   APP_LANGUAGE_SETTING,
@@ -245,10 +246,10 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
  */
 
 const TitleContainer = glamorous.view({
-  marginTop: 25,
-  marginBottom: 25,
+  marginTop: SMALL_DEVICE ? 15 : 25,
+  marginBottom: SMALL_DEVICE ? 10 : 25,
   padding: 12,
-  height: 115,
+  height: SMALL_DEVICE ? 90 : 115,
   width: "100%",
   alignItems: "center",
   justifyContent: "center",
@@ -261,7 +262,7 @@ const Container = glamorous.view({
 
 const VoiceButton = glamorous.touchableOpacity({
   width: "85%",
-  height: 55,
+  height: SMALL_DEVICE ? 40 : 55,
   alignItems: "center",
   justifyContent: "center",
   backgroundColor: COLORS.actionButtonYellow,
@@ -273,16 +274,20 @@ const QuizPromptText = ({
 }: {
   children: string | Element;
   quizType: QUIZ_TYPE;
-}) => (
-  <Text
-    style={{
-      fontWeight: "bold",
-      fontSize: quizType === QUIZ_TYPE.ENGLISH ? 52 : 26,
-    }}
-  >
-    {children}
-  </Text>
-);
+}) => {
+  const font = quizType === QUIZ_TYPE.ENGLISH ? 52 : 26;
+  const fontSize = SMALL_DEVICE ? font * 0.8 : font;
+  return (
+    <Text
+      style={{
+        fontWeight: "bold",
+        fontSize,
+      }}
+    >
+      {children}
+    </Text>
+  );
+};
 
 const QuizSubText = glamorous.text({
   fontSize: 22,
@@ -327,30 +332,33 @@ const Choice = ({
   isCorrect: boolean;
   quizType: QUIZ_TYPE;
   onPress: (event: GestureResponderEvent) => void;
-}) => (
-  <TouchableOpacity
-    style={{
-      width: "90%",
-      marginBottom: 12,
-      flexDirection: "row",
-      alignItems: "center",
-      justifyContent: "center",
-      height: quizType === QUIZ_TYPE.ENGLISH ? 50 : 75,
-      backgroundColor: valid
-        ? isCorrect
-          ? COLORS.actionButtonMint
-          : COLORS.lightDark
-        : attempted
-        ? isCorrect
-          ? COLORS.actionButtonMint
-          : COLORS.primaryRed
-        : COLORS.lightDark,
-    }}
-    onPress={onPress}
-  >
-    {children}
-  </TouchableOpacity>
-);
+}) => {
+  const height = quizType === QUIZ_TYPE.ENGLISH ? 50 : 75;
+  return (
+    <TouchableOpacity
+      style={{
+        width: "90%",
+        marginBottom: 12,
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+        height: height - (SMALL_DEVICE ? 15 : 0),
+        backgroundColor: valid
+          ? isCorrect
+            ? COLORS.actionButtonMint
+            : COLORS.lightDark
+          : attempted
+          ? isCorrect
+            ? COLORS.actionButtonMint
+            : COLORS.primaryRed
+          : COLORS.lightDark,
+      }}
+      onPress={onPress}
+    >
+      {children}
+    </TouchableOpacity>
+  );
+};
 
 const QuizAnswerText = ({
   shouldReveal,
@@ -363,6 +371,8 @@ const QuizAnswerText = ({
   choice: Word;
   languageSetting: APP_LANGUAGE_SETTING;
 }) => {
+  const font = shouldReveal ? 15 : quizType === QUIZ_TYPE.ENGLISH ? 22 : 45;
+  const fontSize = SMALL_DEVICE ? font * 0.7 : font;
   const textStyles: TextStyle = {
     color: "black",
     fontWeight: shouldReveal
@@ -370,13 +380,16 @@ const QuizAnswerText = ({
       : quizType === QUIZ_TYPE.ENGLISH
       ? "400"
       : "bold",
-    fontSize: shouldReveal ? 15 : quizType === QUIZ_TYPE.ENGLISH ? 22 : 45,
+    fontSize,
   };
 
   if (shouldReveal) {
     return (
       <React.Fragment>
-        <Text numberOfLines={1} style={{ fontSize: 30, paddingRight: 12 }}>
+        <Text
+          numberOfLines={1}
+          style={{ fontSize: SMALL_DEVICE ? 15 : 30, paddingRight: 12 }}
+        >
           {choice[languageSetting]}
         </Text>
         <Text numberOfLines={1} style={textStyles}>
