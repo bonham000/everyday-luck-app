@@ -4,11 +4,7 @@ import { StyleSheet } from "react-native";
 import { Text } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
-import {
-  Bold,
-  Container,
-  ScrollContainer,
-} from "@src/components/SharedComponents";
+import { Bold, ScrollContainer } from "@src/components/SharedComponents";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import { COLORS } from "@src/constants/Theme";
 import { OPT_OUT_LEVEL } from "@src/providers/GlobalStateContext";

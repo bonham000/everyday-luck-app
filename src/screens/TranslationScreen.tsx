@@ -12,7 +12,6 @@ import { NavigationScreenProp } from "react-navigation";
 import {
   Bold,
   Button,
-  Container,
   ScrollContainer,
 } from "@src/components/SharedComponents";
 import EVENTS from "@src/constants/AnalyticsEvents";
