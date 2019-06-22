@@ -253,7 +253,7 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
   setupPushToken = async () => {
     /**
      *
-     * TODO: Enable this for push notificatoins support.
+     * TODO: Enable this for push notifications support.
      *
      * Try to register this device for push notifications if the
      * user doesn't have a token setup yet.
