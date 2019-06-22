@@ -20,9 +20,7 @@ const Button = (buttonProps: ButtonProps) => {
   const { style, onPress, children } = buttonProps;
   return (
     <ButtonBaseStyles style={style} onPress={onPress}>
-      <Text
-        style={{ fontWeight: "bold", fontSize: 16, color: COLORS.darkText }}
-      >
+      <Text style={{ fontWeight: "bold", fontSize: 16, color: COLORS.white }}>
         {children}
       </Text>
     </ButtonBaseStyles>
