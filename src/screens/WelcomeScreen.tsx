@@ -11,6 +11,7 @@ import {
   Screen,
   ScreenBottom,
   ScreenTop,
+  ScrollContainer,
 } from "@src/components/SharedComponents";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import { COLORS } from "@src/constants/Theme";
@@ -70,25 +71,28 @@ export class WelcomeScreenComponent extends React.Component<IProps, IState> {
 
     return (
       <Screen>
-        <ScreenTop style={{ alignItems: "center", justifyContent: "center" }}>
-          <DescriptionText>
-            <Bold style={{ fontSize: 26 }}>Welcome to 天天吉 🍀</Bold>
-          </DescriptionText>
-          <DescriptionText>
-            We are excited you are learning Chinese! We're here to make that
-            easy and fun. This app is free to use and we collect no personal
-            data other than some metrics on app usage.
-          </DescriptionText>
-          <DescriptionText>
-            First we want to give you a quick introduction to Chinese and how
-            this app works as a learning tool, and then we will get out of your
-            way and let you start studying!
-          </DescriptionText>
-          <DescriptionText>
-            <Bold>Good luck!</Bold>
-          </DescriptionText>
+        <ScreenTop>
+          <ScrollContainer style={{ paddingTop: 5 }}>
+            <DescriptionText>
+              <Bold style={{ fontSize: 26 }}>Welcome to 天天吉 🍀</Bold>
+            </DescriptionText>
+            <DescriptionText>
+              We are excited you are learning Chinese! We're here to make that
+              easy and fun. This app is free to use and we collect no personal
+              data other than some metrics on app usage.
+            </DescriptionText>
+            <DescriptionText>
+              First we want to give you a quick introduction to Chinese and how
+              this app works as a learning tool, and then we will get out of
+              your way and let you start studying!
+            </DescriptionText>
+            <DescriptionText>
+              <Bold>Good luck!</Bold>
+            </DescriptionText>
+            {this.renderTermsAgreement()}
+          </ScrollContainer>
         </ScreenTop>
-        <ScreenBottom style={{ flex: this.state.hasPreviouslyAgreed ? 1 : 2 }}>
+        <ScreenBottom style={{ flex: 1 }}>
           <Button
             onPress={this.handleNavigateNext}
             style={{
@@ -101,7 +105,6 @@ export class WelcomeScreenComponent extends React.Component<IProps, IState> {
           >
             Next!
           </Button>
-          {this.renderTermsAgreement()}
         </ScreenBottom>
       </Screen>
     );

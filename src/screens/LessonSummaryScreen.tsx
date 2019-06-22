@@ -4,7 +4,11 @@ import { StyleSheet } from "react-native";
 import { Text } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
-import { Bold, Container } from "@src/components/SharedComponents";
+import {
+  Bold,
+  Container,
+  ScrollContainer,
+} from "@src/components/SharedComponents";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import { COLORS } from "@src/constants/Theme";
 import { OPT_OUT_LEVEL } from "@src/providers/GlobalStateContext";
@@ -67,7 +71,7 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
     const NON_RANDOM_QUIZ =
       type !== "DAILY_QUIZ" && type !== "OPT_OUT_CHALLENGE";
     return (
-      <Container>
+      <ScrollContainer>
         {this.renderTitleText()}
         {this.renderSubText()}
         {NON_RANDOM_QUIZ && <Text style={SectionTextStyles}>Practice</Text>}
@@ -178,7 +182,7 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
             <InfoText style={{ fontWeight: "bold" }}>Good luck! 🍀</InfoText>
           </React.Fragment>
         )}
-      </Container>
+      </ScrollContainer>
     );
   }
 

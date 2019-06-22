@@ -2,6 +2,7 @@ import Constants from "expo-constants";
 import glamorous from "glamorous-native";
 import React from "react";
 import {
+  Dimensions,
   Image,
   Keyboard,
   StyleSheet,
@@ -27,6 +28,14 @@ interface IProps extends GlobalStateContextProps {
   navigation: NavigationScreenProp<{}>;
 }
 
+const HEIGHT = Dimensions.get("window").height;
+
+console.log(HEIGHT);
+
+const SMALL_DEVICE = HEIGHT < 700;
+
+const ICON_DIMENSION = SMALL_DEVICE ? 60 : 100;
+
 /** ========================================================================
  * React Class
  * =========================================================================
@@ -51,13 +60,13 @@ class SideMenuComponent extends React.Component<IProps, {}> {
     } = this.props;
     return (
       <SafeAreaView
-        style={{ flex: 1, paddingTop: 75, paddingLeft: 6 }}
+        style={{ flex: 1, paddingTop: SMALL_DEVICE ? 35 : 75, paddingLeft: 6 }}
         forceInset={{ top: "always", horizontal: "never" }}
       >
         <View style={{ flexDirection: "row", justifyContent: "center" }}>
           <Image
             resizeMode="contain"
-            style={{ width: 100, height: 100 }}
+            style={{ width: ICON_DIMENSION, height: ICON_DIMENSION }}
             source={require("../assets/icon.png")}
           />
         </View>
