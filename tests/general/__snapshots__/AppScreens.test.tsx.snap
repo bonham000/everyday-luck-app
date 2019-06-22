@@ -146,7 +146,7 @@ exports[`App Screen Components Each screen component renders with props provided
               "writingDirection": "ltr",
             },
             Object {
-              "color": "rgb(45,45,45)",
+              "color": "rgb(250,250,250)",
               "fontSize": 16,
               "fontWeight": "bold",
             },
@@ -342,7 +342,7 @@ exports[`App Screen Components Each screen component renders with props provided
               "writingDirection": "ltr",
             },
             Object {
-              "color": "rgb(45,45,45)",
+              "color": "rgb(250,250,250)",
               "fontSize": 16,
               "fontWeight": "bold",
             },
@@ -443,7 +443,7 @@ exports[`App Screen Components Each screen component renders with props provided
               "writingDirection": "ltr",
             },
             Object {
-              "color": "rgb(45,45,45)",
+              "color": "rgb(250,250,250)",
               "fontSize": 16,
               "fontWeight": "bold",
             },
@@ -726,7 +726,7 @@ exports[`App Screen Components Each screen component renders with props provided
               "writingDirection": "ltr",
             },
             Object {
-              "color": "rgb(45,45,45)",
+              "color": "rgb(250,250,250)",
               "fontSize": 16,
               "fontWeight": "bold",
             },
@@ -811,7 +811,7 @@ exports[`App Screen Components Each screen component renders with props provided
               "writingDirection": "ltr",
             },
             Object {
-              "color": "rgb(45,45,45)",
+              "color": "rgb(250,250,250)",
               "fontSize": 16,
               "fontWeight": "bold",
             },
@@ -896,7 +896,7 @@ exports[`App Screen Components Each screen component renders with props provided
               "writingDirection": "ltr",
             },
             Object {
-              "color": "rgb(45,45,45)",
+              "color": "rgb(250,250,250)",
               "fontSize": 16,
               "fontWeight": "bold",
             },
@@ -1735,7 +1735,7 @@ Array [
                 "writingDirection": "ltr",
               },
               Object {
-                "color": "rgb(45,45,45)",
+                "color": "rgb(250,250,250)",
                 "fontSize": 16,
                 "fontWeight": "bold",
               },
@@ -2819,7 +2819,7 @@ exports[`App Screen Components Each screen component renders with props provided
             "writingDirection": "ltr",
           },
           Object {
-            "color": "rgb(45,45,45)",
+            "color": "rgb(250,250,250)",
             "fontSize": 16,
             "fontWeight": "bold",
           },
@@ -3160,7 +3160,7 @@ Array [
                 "writingDirection": "ltr",
               },
               Object {
-                "color": "rgb(45,45,45)",
+                "color": "rgb(250,250,250)",
                 "fontSize": 16,
                 "fontWeight": "bold",
               },
@@ -4308,7 +4308,7 @@ Array [
                 "writingDirection": "ltr",
               },
               Object {
-                "color": "rgb(45,45,45)",
+                "color": "rgb(250,250,250)",
                 "fontSize": 16,
                 "fontWeight": "bold",
               },
@@ -5152,7 +5152,7 @@ exports[`App Screen Components Each screen component renders with props provided
               "writingDirection": "ltr",
             },
             Object {
-              "color": "rgb(45,45,45)",
+              "color": "rgb(250,250,250)",
               "fontSize": 16,
               "fontWeight": "bold",
             },
@@ -5947,7 +5947,7 @@ exports[`App Screen Components Each screen component renders with props provided
               "writingDirection": "ltr",
             },
             Object {
-              "color": "rgb(45,45,45)",
+              "color": "rgb(250,250,250)",
               "fontSize": 16,
               "fontWeight": "bold",
             },
@@ -6047,7 +6047,7 @@ exports[`App Screen Components Each screen component renders with props provided
               "writingDirection": "ltr",
             },
             Object {
-              "color": "rgb(45,45,45)",
+              "color": "rgb(250,250,250)",
               "fontSize": 16,
               "fontWeight": "bold",
             },
@@ -6633,7 +6633,7 @@ exports[`App Screen Components Each screen component renders with props provided
               "writingDirection": "ltr",
             },
             Object {
-              "color": "rgb(45,45,45)",
+              "color": "rgb(250,250,250)",
               "fontSize": 16,
               "fontWeight": "bold",
             },
