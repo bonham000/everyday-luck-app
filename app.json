@@ -15,7 +15,7 @@
       "backgroundColor": "#e7dddd"
     },
     "updates": {
-      "fallbackToCacheTimeout": 450
+      "fallbackToCacheTimeout": 0
     },
     "assetBundlePatterns": ["src/assets/**/*.png"],
     "android": {
@@ -33,7 +33,7 @@
       }
     },
     "ios": {
-      "buildNumber": "0",
+      "buildNumber": "1",
       "supportsTablet": false,
       "icon": "./src/assets/ios_icon.png",
       "bundleIdentifier": "everyday.luck.app"
