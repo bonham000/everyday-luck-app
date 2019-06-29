@@ -51,7 +51,7 @@
     "react-native-dialog": "^5.5.0",
     "react-native-flip-card": "^3.5.2",
     "react-native-paper": "^2.5.0",
-    "react-native-screens": "^1.0.0-alpha.22",
+    "react-native-screens": "1.0.0-alpha.22",
     "react-navigation": "^3.11.0",
     "sentry-expo": "^1.13.0"
   },

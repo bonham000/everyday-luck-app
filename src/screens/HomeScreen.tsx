@@ -41,20 +41,10 @@ interface IProps extends GlobalStateContextProps {
 
 export class HomeScreenComponent extends React.Component<IProps, {}> {
   render(): JSX.Element {
-    const { lessons, userScoreStatus, appDifficultySetting } = this.props;
-    const unlockedLessonIndex = getFinalUnlockedListKey(userScoreStatus);
-    const totalWords = lessons.reduce(
+    const totalWords = this.props.lessons.reduce(
       (total, lesson) => total + lesson.content.length,
       0,
     );
-    const args: DeriveLessonContentArgs = {
-      lists: lessons,
-      unlockedListIndex: unlockedLessonIndex,
-      appDifficultySetting,
-      userScoreStatus,
-    };
-    const dailyQuizSet = getRandomQuizChallenge(args);
-    const reviewSet = getReviewLessonSet(args);
     return (
       <ScrollContainer>
         <Text style={TextStyles}>Choose a lesson to start studying</Text>
@@ -64,15 +54,13 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
         {this.renderListSets()}
         <LineBreak />
         <Text style={TextStyles}>Practice everyday to gain experience!</Text>
-        <ReviewLink
-          onPress={this.openLessonSummarySpecial(dailyQuizSet, "DAILY_QUIZ")}
-        >
+        <ReviewLink onPress={this.openLessonSummarySpecial("DAILY_QUIZ")}>
           <Text style={{ fontWeight: "600" }}>Daily Challenge! 天天桔</Text>
           <Text>🍊</Text>
         </ReviewLink>
         <ReviewLink
           style={{ marginTop: 6 }}
-          onPress={this.openLessonSummarySpecial(reviewSet, "SUMMARY")}
+          onPress={this.openLessonSummarySpecial("SUMMARY")}
         >
           <Text style={{ fontWeight: "600" }}>Review All Unlocked Content</Text>
           <Text>🗃</Text>
@@ -143,10 +131,19 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
     this.props.navigation.navigate(ROUTE_NAMES.LIST_SUMMARY, params);
   };
 
-  openLessonSummarySpecial = (
-    lesson: Lesson,
-    type: LessonSummaryType,
-  ) => () => {
+  openLessonSummarySpecial = (type: LessonSummaryType) => () => {
+    const { lessons, userScoreStatus, appDifficultySetting } = this.props;
+    const unlockedLessonIndex = getFinalUnlockedListKey(userScoreStatus);
+    const args: DeriveLessonContentArgs = {
+      lists: lessons,
+      unlockedListIndex: unlockedLessonIndex,
+      appDifficultySetting,
+      userScoreStatus,
+    };
+    const dailyQuizSet = getRandomQuizChallenge(args);
+    const reviewSet = getReviewLessonSet(args);
+    const lesson = type === "DAILY_QUIZ" ? dailyQuizSet : reviewSet;
+
     const params: LessonScreenParams = {
       type,
       lesson,
