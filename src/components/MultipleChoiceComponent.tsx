@@ -4,6 +4,7 @@ import {
   GestureResponderEvent,
   TextStyle,
   TouchableOpacity,
+  View,
 } from "react-native";
 import { Text } from "react-native-paper";
 
@@ -385,17 +386,25 @@ const QuizAnswerText = ({
 
   if (shouldReveal) {
     return (
-      <React.Fragment>
+      <View
+        style={{
+          width: "80%",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
         <Text
           numberOfLines={1}
-          style={{ fontSize: SMALL_DEVICE ? 15 : 30, paddingRight: 12 }}
+          allowFontScaling
+          style={{ fontSize: SMALL_DEVICE ? 15 : 30, paddingRight: 10 }}
         >
           {choice[languageSetting]}
         </Text>
-        <Text numberOfLines={1} style={textStyles}>
+        <Text numberOfLines={1} allowFontScaling style={textStyles}>
           {choice.pinyin} - {choice.english}
         </Text>
-      </React.Fragment>
+      </View>
     );
   }
 
