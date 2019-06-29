@@ -703,12 +703,11 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     const allowLast =
       sameAsLast && wordCompletedCache.size === wordContent.length - 1;
 
-    console.log(
-      `currentWordIndex: ${currentWordIndex} - nextWordIndex: ${nextWordIndex}`,
-    );
-    console.log(`sameAsLast: ${sameAsLast}`);
-    console.log(`allowLast: ${allowLast}`);
-
+    /**
+     * NOTE: Only allow last if the last failed word is the only word remaining
+     * in the quiz. Otherwise, do not allow the last word to be chosen as the
+     * next word (this is possibly if the user had failed the last word).
+     */
     if (
       !wordCompletedCache.has(nextWordIndex) &&
       (sameAsLast ? allowLast : true)

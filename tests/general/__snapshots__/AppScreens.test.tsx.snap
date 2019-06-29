@@ -946,10 +946,10 @@ Array [
         }
       >
         Question: 
-        0
+        1
          / 
         1
-         complete, 
+        , 
         0
          failed
       </Text>
@@ -1443,10 +1443,10 @@ Array [
         }
       >
         Question: 
-        0
+        1
          / 
         1
-         complete, 
+        , 
         0
          failed
       </Text>
@@ -1937,10 +1937,10 @@ Array [
         }
       >
         Question: 
-        0
+        1
          / 
         1
-         complete, 
+        , 
         0
          failed
       </Text>
@@ -2868,10 +2868,10 @@ Array [
         }
       >
         Question: 
-        0
+        1
          / 
         1
-         complete, 
+        , 
         0
          failed
       </Text>
@@ -3362,10 +3362,10 @@ Array [
         }
       >
         Question: 
-        0
+        1
          / 
         1
-         complete, 
+        , 
         0
          failed
       </Text>
@@ -4016,10 +4016,10 @@ Array [
         }
       >
         Question: 
-        0
+        1
          / 
         1
-         complete, 
+        , 
         0
          failed
       </Text>
@@ -6129,6 +6129,7 @@ exports[`App Screen Components Each screen component renders with props provided
         style={
           Array [
             Object {
+              "color": "rgb(250,250,250)",
               "fontWeight": "bold",
             },
           ]
@@ -6186,6 +6187,7 @@ exports[`App Screen Components Each screen component renders with props provided
         style={
           Array [
             Object {
+              "color": "rgb(45,45,45)",
               "fontWeight": "normal",
             },
           ]
@@ -6228,6 +6230,7 @@ exports[`App Screen Components Each screen component renders with props provided
         style={
           Array [
             Object {
+              "color": "rgb(45,45,45)",
               "fontWeight": "normal",
             },
           ]
