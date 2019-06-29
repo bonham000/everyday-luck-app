@@ -120,7 +120,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
               minWidth: 215,
               backgroundColor: COLORS.primaryBlue,
             }}
-            onPress={handleProceed()}
+            onPress={handleProceed}
           >
             Next Question
           </Button>

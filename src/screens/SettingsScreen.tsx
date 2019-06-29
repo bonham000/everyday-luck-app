@@ -183,6 +183,7 @@ const DifficultSettingBlockText = glamorous.text(
   {},
   ({ selected }: { selected: boolean }) => ({
     fontWeight: getFontStyle(selected),
+    color: selected ? COLORS.white : COLORS.darkText,
   }),
 );
 

@@ -83,7 +83,7 @@ const QuizInput = ({
   };
 
   const onPressHandler = valid
-    ? handleProceed()
+    ? handleProceed
     : revealAnswer
     ? handleToggleRevealAnswer
     : handleCheckAnswer;

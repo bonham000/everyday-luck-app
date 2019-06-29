@@ -168,15 +168,13 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
 
   renderProgressText = () => {
     const { failCount, progressCount } = this.state;
-
     const lesson = this.props.navigation.getParam("lesson");
-
     const total = lesson.length;
     const completedNumber = progressCount;
 
     return (
       <ProgressText>
-        Question: {completedNumber} / {total} complete, {failCount} failed
+        Question: {completedNumber + 1} / {total}, {failCount} failed
       </ProgressText>
     );
   };
@@ -192,7 +190,12 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
        */
       const finalIndex = this.props.disableAudio ? 3 : 4;
       const randomIdx = this.getRandomWordIndex(0, finalIndex);
-      return QuizTypeOptions[randomIdx];
+      const quizType = QuizTypeOptions[randomIdx];
+      if (this.state === undefined || quizType !== this.state.quizType) {
+        return quizType;
+      } else {
+        return this.getQuizComponentType();
+      }
     } else {
       return this.props.quizType;
     }
@@ -372,7 +375,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
             style: "cancel",
             onPress: () => null,
           },
-          { text: "OK", onPress: () => this.handleRevertingFailedAnswer(cost) },
+          { text: "OK", onPress: () => this.handleRevertFailedAnswer(cost) },
         ],
         { cancelable: false },
       );
@@ -383,7 +386,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     }
   };
 
-  handleRevertingFailedAnswer = (cost: number) => {
+  handleRevertFailedAnswer = (cost: number) => {
     this.setState(
       prevState => ({
         failCount: prevState.failCount - 1,
@@ -393,7 +396,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
         this.props.setToastMessage(
           "Saved - you'll have another chance to answer that one! 😇",
         );
-        this.handleProceedToNextQuestion(true)();
+        this.handleProceedToNextQuestion();
       },
     );
   };
@@ -438,16 +441,12 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
   };
 
   handleCorrectAnswer = () => {
-    const { wordCompletedCache, failedOnce } = this.state;
+    const { wordCompletedCache } = this.state;
     this.setState(
-      prevState => {
-        return {
-          valid: true,
-          attempted: true,
-          shouldShake: false,
-          failedOnce: false,
-          progressCount: prevState.progressCount + (failedOnce ? 0 : 1),
-        };
+      {
+        valid: true,
+        attempted: true,
+        shouldShake: false,
       },
       () => {
         this.startConfettiAnimation();
@@ -459,7 +458,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
         } else if (this.props.autoProceedQuestion) {
           // tslint:disable-next-line
           this.timer = setTimeout(
-            this.handleProceedToNextQuestion(),
+            this.handleProceedToNextQuestion,
             AUTO_PROCEED_DELAY,
           );
         }
@@ -467,18 +466,17 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     );
   };
 
-  handleProceedToNextQuestion = (didFail: boolean = false) => () => {
-    const didFailQuestion = this.state.failedOnce || didFail;
-
+  handleProceedToNextQuestion = () => {
     this.setState(
-      {
+      prevState => ({
         value: "",
         valid: false,
         attempted: false,
         shouldShake: false,
         revealAnswer: false,
         failedOnce: false,
-      },
+        progressCount: prevState.progressCount + (prevState.failedOnce ? 0 : 1),
+      }),
       () => {
         if (
           this.state.wordCompletedCache.size === this.state.wordContent.length
@@ -488,7 +486,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
 
         this.setState(
           prevState => {
-            const nextIndex = this.getNextWordIndex(didFailQuestion);
+            const nextIndex = this.getNextWordIndex();
 
             return {
               currentWordIndex: nextIndex,
@@ -697,16 +695,27 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     );
   };
 
-  getNextWordIndex = (shouldSkipLast: boolean = false): number => {
-    const { wordCompletedCache, wordContent } = this.state;
+  getNextWordIndex = (): number => {
+    const { wordCompletedCache, currentWordIndex, wordContent } = this.state;
     const nextWordIndex = this.getRandomWordIndex();
+    const currentWord = wordContent[currentWordIndex].traditional;
+    const sameAsLast = currentWord === wordContent[nextWordIndex].traditional;
+    const allowLast =
+      sameAsLast && wordCompletedCache.size === wordContent.length - 1;
+
+    console.log(
+      `currentWordIndex: ${currentWordIndex} - nextWordIndex: ${nextWordIndex}`,
+    );
+    console.log(`sameAsLast: ${sameAsLast}`);
+    console.log(`allowLast: ${allowLast}`);
+
     if (
       !wordCompletedCache.has(nextWordIndex) &&
-      (shouldSkipLast || nextWordIndex !== wordContent.length)
+      (sameAsLast ? allowLast : true)
     ) {
       return nextWordIndex;
     } else {
-      return this.getNextWordIndex(shouldSkipLast);
+      return this.getNextWordIndex();
     }
   };
 

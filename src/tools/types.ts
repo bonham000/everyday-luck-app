@@ -140,10 +140,10 @@ export interface QuizScreenComponentProps {
   autoProceedQuestion: boolean;
   wordDictionary: WordDictionary;
   languageSetting: APP_LANGUAGE_SETTING;
+  handleProceed: () => void;
   setInputRef: (ref: any) => void;
   handleChange: (value: string) => void;
   handleCheck: (correct: boolean) => void;
-  handleProceed: () => (event: GestureResponderEvent) => void;
   handleCopyToClipboard: (text: string) => void;
   handleToggleRevealAnswer: (event: GestureResponderEvent) => void;
 }
