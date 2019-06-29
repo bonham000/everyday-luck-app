@@ -93,7 +93,12 @@ jobs:
           command: expo login --username $EXPO_USERNAME --password $EXPO_PASSWORD
       - run:
           name: Publish OTA Update
-          command: yarn run publish
+          command: |
+            # TODO: Enable this for Expo SDK 34 builds and make sure it works
+            # Dynamically generate release channel from the Expo SDK
+            # sudo apt-get install jq
+            # chmod +x ./scripts/release_channel.sh
+            yarn run publish
 
 workflows:
   version: 2
