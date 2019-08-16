@@ -33,7 +33,7 @@
       }
     },
     "ios": {
-      "buildNumber": "5",
+      "buildNumber": "6",
       "supportsTablet": false,
       "icon": "./src/assets/ios_icon.png",
       "bundleIdentifier": "everyday.luck.app"
