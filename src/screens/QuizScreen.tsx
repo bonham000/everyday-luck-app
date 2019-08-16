@@ -331,7 +331,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
         if (this.state.valid) {
           // tslint:disable-next-line
           this.timer = setTimeout(
-            this.handleProceedToNextQuestion(),
+            this.handleProceedToNextQuestion,
             AUTO_PROCEED_DELAY,
           );
         }
