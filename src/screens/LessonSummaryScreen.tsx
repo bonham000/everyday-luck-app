@@ -79,7 +79,9 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
                 ROUTE_NAMES.DAILY_CHALLENGE,
               )}
             >
-              <Text>Start the Quiz!</Text>
+              <Text style={{ color: COLORS.white, fontWeight: "bold" }}>
+                Start the Quiz!
+              </Text>
               <Text>🏟</Text>
             </ActionBlock>
           </React.Fragment>
