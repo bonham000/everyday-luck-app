@@ -94,10 +94,9 @@ jobs:
       - run:
           name: Publish OTA Update
           command: |
-            # TODO: Enable this for Expo SDK 34 builds and make sure it works
             # Dynamically generate release channel from the Expo SDK
-            # sudo apt-get install jq
-            # chmod +x ./scripts/release_channel.sh
+            sudo apt-get install jq
+            chmod +x ./scripts/release_channel.sh
             yarn run publish
 
 workflows:
