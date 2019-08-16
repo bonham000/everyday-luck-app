@@ -9,6 +9,7 @@ import {
   ConnectionInfo,
   ConnectionType,
   NetInfo,
+  StatusBar,
   View,
 } from "react-native";
 import { createAppContainer, NavigationActions } from "react-navigation";
@@ -658,6 +659,7 @@ class RootContainer extends RootContainerBase<{}> {
 
     return (
       <View style={{ flex: 1 }}>
+        <StatusBar barStyle="dark-content" />
         {transparentLoading && <TransparentLoadingComponent />}
         <CustomToast
           close={this.clearToast}
