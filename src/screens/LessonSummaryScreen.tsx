@@ -92,7 +92,9 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
             <ActionBlock
               onPress={this.handleNavigateToHskTest(ROUTE_NAMES.HSK_TEST_OUT)}
             >
-              <Text>Accept the challenge!</Text>
+              <Text style={{ color: COLORS.white, fontWeight: "bold" }}>
+                Accept the challenge!
+              </Text>
               <Text>🔑</Text>
             </ActionBlock>
           </React.Fragment>
