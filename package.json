@@ -40,6 +40,7 @@
     "babel-cli": "^6.26.0",
     "expo": "^34.0.3",
     "expo-analytics-amplitude": "~6.0.0",
+    "expo-av": "~6.0.0",
     "expo-constants": "~6.0.0",
     "expo-permissions": "~6.0.0",
     "glamorous-native": "^1.4.2",

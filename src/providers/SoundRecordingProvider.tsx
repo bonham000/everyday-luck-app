@@ -1,4 +1,4 @@
-import { Audio } from "expo";
+import { Audio } from "expo-av";
 import React, { ComponentType } from "react";
 import { Platform } from "react-native";
 
