@@ -36,7 +36,7 @@
     "audio-status": "tsc && babel-node build/vocabulary/audio_status.js"
   },
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.18.1",
     "babel-cli": "^6.26.0",
     "expo": "^34.0.3",
     "expo-analytics-amplitude": "~6.0.0",
