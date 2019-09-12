@@ -33,6 +33,7 @@
     "publish": ". ./scripts/release_channel.sh && expo publish --non-interactive --release-channel $RELEASE_CHANNEL",
     "build:ios": ". ./scripts/release_channel.sh && expo build:ios --release-channel $RELEASE_CHANNEL",
     "build:android": ". ./scripts/release_channel.sh && expo build:android --release-channel $RELEASE_CHANNEL",
+    "upload:ios": "expo upload:ios",
     "audio-status": "tsc && babel-node build/vocabulary/audio_status.js"
   },
   "dependencies": {
