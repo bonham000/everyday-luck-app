@@ -906,6 +906,92 @@ exports[`App Screen Components Each screen component renders with props provided
         Clear Account Data
       </Text>
     </View>
+    <View
+      style={
+        Array [
+          Object {
+            "backgroundColor": "black",
+            "height": 0.5,
+            "marginBottom": 12,
+            "marginTop": 12,
+            "width": "85%",
+          },
+        ]
+      }
+    />
+    <Text
+      style={
+        Array [
+          Object {
+            "fontSize": 22,
+            "fontWeight": "bold",
+            "marginBottom": 5,
+            "marginTop": 5,
+          },
+        ]
+      }
+    >
+      Set Scores
+    </Text>
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#000000",
+            "fontFamily": "Helvetica Neue",
+            "textAlign": "left",
+            "writingDirection": "ltr",
+          },
+          undefined,
+        ]
+      }
+    >
+      Forcibly unlock all the app lessons. Warning this defeats the purpose of the app as a learning tool! You can undo this at any time by resetting your scores again on this screen.
+    </Text>
+    <View
+      accessible={true}
+      isTVSelectable={true}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#3498db",
+          "height": 40,
+          "justifyContent": "center",
+          "marginBottom": 15,
+          "marginTop": 15,
+          "minWidth": 225,
+          "opacity": 1,
+          "paddingLeft": 15,
+          "paddingRight": 15,
+        }
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#000000",
+              "fontFamily": "Helvetica Neue",
+              "textAlign": "left",
+              "writingDirection": "ltr",
+            },
+            Object {
+              "color": "rgb(250,250,250)",
+              "fontSize": 16,
+              "fontWeight": "bold",
+            },
+          ]
+        }
+      >
+        Complete Lessons
+      </Text>
+    </View>
   </View>
 </RCTScrollView>
 `;
@@ -6311,92 +6397,6 @@ exports[`App Screen Components Each screen component renders with props provided
     >
       You can use these experience points on any quiz challenge to reclaim a question if you answer it incorrectly. You will still be prompted to answer the same question again later in the quiz, but this can help you to recover from missed words.
     </Text>
-    <View
-      style={
-        Array [
-          Object {
-            "backgroundColor": "black",
-            "height": 0.5,
-            "marginBottom": 12,
-            "marginTop": 12,
-            "width": "85%",
-          },
-        ]
-      }
-    />
-    <Text
-      style={
-        Array [
-          Object {
-            "fontSize": 22,
-            "fontWeight": "bold",
-            "marginBottom": 5,
-            "marginTop": 5,
-          },
-        ]
-      }
-    >
-      Set Scores
-    </Text>
-    <Text
-      style={
-        Array [
-          Object {
-            "color": "#000000",
-            "fontFamily": "Helvetica Neue",
-            "textAlign": "left",
-            "writingDirection": "ltr",
-          },
-          undefined,
-        ]
-      }
-    >
-      Forcibly unlock all the app lessons. Warning this defeats the purpose of the app as a learning tool! You can undo this at any time by resetting your scores again on this screen.
-    </Text>
-    <View
-      accessible={true}
-      isTVSelectable={true}
-      onResponderGrant={[Function]}
-      onResponderMove={[Function]}
-      onResponderRelease={[Function]}
-      onResponderTerminate={[Function]}
-      onResponderTerminationRequest={[Function]}
-      onStartShouldSetResponder={[Function]}
-      style={
-        Object {
-          "alignItems": "center",
-          "backgroundColor": "#3498db",
-          "height": 40,
-          "justifyContent": "center",
-          "marginBottom": 15,
-          "marginTop": 15,
-          "minWidth": 225,
-          "opacity": 1,
-          "paddingLeft": 15,
-          "paddingRight": 15,
-        }
-      }
-    >
-      <Text
-        style={
-          Array [
-            Object {
-              "color": "#000000",
-              "fontFamily": "Helvetica Neue",
-              "textAlign": "left",
-              "writingDirection": "ltr",
-            },
-            Object {
-              "color": "rgb(250,250,250)",
-              "fontSize": 16,
-              "fontWeight": "bold",
-            },
-          ]
-        }
-      >
-        Complete Lessons
-      </Text>
-    </View>
   </View>
 </RCTScrollView>
 `;
