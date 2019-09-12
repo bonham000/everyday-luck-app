@@ -1,7 +1,7 @@
 import glamorous from "glamorous-native";
 import React from "react";
 import { Alert, StyleSheet } from "react-native";
-import { Text, TextInput } from "react-native-paper";
+import { TextInput } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
 import {
@@ -94,7 +94,7 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
         >
           Reset Score History
         </Button>
-        <LineBreak />
+        {/* <LineBreak />
         <SectionTitle>Clear Account Data</SectionTitle>
         <InfoText>This will clear and reset your account data.</InfoText>
         <Button
@@ -102,14 +102,14 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
           style={{ marginTop: 15, marginBottom: 15 }}
         >
           Clear Account Data
-        </Button>
+        </Button> */}
         <LineBreak />
-        <SectionTitle>Set Scores</SectionTitle>
-        <Text>
+        <SectionTitle>Complete All Lessons</SectionTitle>
+        <InfoText>
           Forcibly unlock all the app lessons. Warning this defeats the purpose
           of the app as a learning tool! You can undo this at any time by
           resetting your scores again on this screen.
-        </Text>
+        </InfoText>
         <Button
           onPress={this.setCompletedScore}
           style={{ marginTop: 15, marginBottom: 15 }}
@@ -282,10 +282,27 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
     );
   };
 
-  setCompletedScore = async () => {
-    await this.props.setLessonScore(MOCKS.COMPLETED_SCORE_STATE, 10000);
-    this.props.setToastMessage("All Lessons Completed!");
-    this.props.navigation.goBack();
+  setCompletedScore = () => {
+    Alert.alert(
+      "Are you sure?",
+      "You can undo this at any time by choosing to reset your scores on this screen.",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+          onPress: () => null,
+        },
+        {
+          text: "OK",
+          onPress: async () => {
+            await this.props.setLessonScore(MOCKS.COMPLETED_SCORE_STATE, 10000);
+            this.props.setToastMessage("All Lessons Completed!");
+            this.props.navigation.goBack();
+          },
+        },
+      ],
+      { cancelable: false },
+    );
   };
 }
 
