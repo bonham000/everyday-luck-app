@@ -247,7 +247,7 @@ export const getFinalUnlockedListKey = (
       : null;
   }, null);
 
-  return result || 5;
+  return typeof result === "number" ? result : 5;
 };
 
 /**
