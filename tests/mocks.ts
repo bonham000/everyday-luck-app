@@ -98,6 +98,40 @@ const DEFAULT_SCORE_STATE = {
   },
 };
 
+const COMPLETED_SCORE_STATE = {
+  ...DEFAULT_LESSON_SCORES,
+  list_02_score: {
+    complete: true,
+    list_index: 0,
+    list_key: "1-2",
+    number_words_completed: 10000,
+  },
+  list_03_score: {
+    complete: true,
+    list_index: 1,
+    list_key: "3",
+    number_words_completed: 10000,
+  },
+  list_04_score: {
+    complete: true,
+    list_index: 2,
+    list_key: "4",
+    number_words_completed: 10000,
+  },
+  list_05_score: {
+    complete: true,
+    list_index: 3,
+    list_key: "5",
+    number_words_completed: 10000,
+  },
+  list_06_score: {
+    complete: true,
+    list_index: 4,
+    list_key: "6",
+    number_words_completed: 10000,
+  },
+};
+
 const getMockScoreStatus = (overrides: Partial<ScoreStatus>) => ({
   ...DEFAULT_SCORE_STATE,
   ...overrides,
@@ -196,6 +230,7 @@ const MOCKS = {
   MULTIPLE_CHOICE_OPTIONS,
   WORD_DICTIONARY,
   DEFAULT_LESSON_SCORES,
+  COMPLETED_SCORE_STATE,
   DEFAULT_SCORE_STATE,
   GLOBAL_STATE_PROPS,
   SOUND_RECORDING_PROPS,

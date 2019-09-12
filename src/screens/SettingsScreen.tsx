@@ -21,6 +21,7 @@ import {
   formatUserLanguageSetting,
   getAlternateLanguageSetting,
 } from "@src/tools/utils";
+import MOCKS from "@tests/mocks";
 
 /** ========================================================================
  * Types
@@ -94,6 +95,19 @@ export class SettingsScreenComponent extends React.Component<IProps, {}> {
           answer the same question again later in the quiz, but this can help
           you to recover from missed words.
         </InfoText>
+        <LineBreak />
+        <SectionTitle>Set Scores</SectionTitle>
+        <Text>
+          Forcibly unlock all the app lessons. Warning this defeats the purpose
+          of the app as a learning tool! You can undo this at any time by
+          resetting your scores again on this screen.
+        </Text>
+        <Button
+          onPress={this.setCompletedScore}
+          style={{ marginTop: 15, marginBottom: 15 }}
+        >
+          Complete Lessons
+        </Button>
       </ScrollContainer>
     );
   }
@@ -129,6 +143,11 @@ export class SettingsScreenComponent extends React.Component<IProps, {}> {
     this.props.handleUpdateUserSettingsField({
       disable_audio: !this.props.disableAudio,
     });
+  };
+
+  setCompletedScore = () => {
+    this.props.setLessonScore(MOCKS.COMPLETED_SCORE_STATE, 10000);
+    this.props.setToastMessage("All Lessons Completed!");
   };
 }
 

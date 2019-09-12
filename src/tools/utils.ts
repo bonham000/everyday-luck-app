@@ -232,7 +232,7 @@ const areWordsEqual = (wordA: Word, wordB: Word): boolean => {
 export const getFinalUnlockedListKey = (
   userScoreStatus: ScoreStatus,
 ): number => {
-  return [
+  const result = [
     userScoreStatus.list_02_score,
     userScoreStatus.list_03_score,
     userScoreStatus.list_04_score,
@@ -246,6 +246,8 @@ export const getFinalUnlockedListKey = (
       ? current.list_index
       : null;
   }, null);
+
+  return result || 5;
 };
 
 /**

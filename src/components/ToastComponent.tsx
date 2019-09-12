@@ -33,7 +33,7 @@ const CustomToast = ({
 
 const BarContainer = glamorous.touchableOpacity({
   zIndex: 25,
-  marginTop: 42,
+  marginTop: 55,
   width: "100%",
   position: "absolute",
   alignItems: "center",
