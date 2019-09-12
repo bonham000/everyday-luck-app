@@ -1,7 +1,7 @@
 import glamorous from "glamorous-native";
 import React from "react";
 import { Alert, StyleSheet } from "react-native";
-import { TextInput } from "react-native-paper";
+import { Text, TextInput } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
 import {
