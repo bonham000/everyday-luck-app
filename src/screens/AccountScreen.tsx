@@ -103,6 +103,19 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
         >
           Clear Account Data
         </Button>
+        <LineBreak />
+        <SectionTitle>Set Scores</SectionTitle>
+        <Text>
+          Forcibly unlock all the app lessons. Warning this defeats the purpose
+          of the app as a learning tool! You can undo this at any time by
+          resetting your scores again on this screen.
+        </Text>
+        <Button
+          onPress={this.setCompletedScore}
+          style={{ marginTop: 15, marginBottom: 15 }}
+        >
+          Complete Lessons
+        </Button>
       </ScrollContainer>
     );
   }
@@ -267,6 +280,12 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
       ],
       { cancelable: false },
     );
+  };
+
+  setCompletedScore = async () => {
+    await this.props.setLessonScore(MOCKS.COMPLETED_SCORE_STATE, 10000);
+    this.props.setToastMessage("All Lessons Completed!");
+    this.props.navigation.goBack();
   };
 }
 
