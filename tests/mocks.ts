@@ -154,13 +154,10 @@ const SETTINGS: UserSettings = {
 };
 
 const USER: User = {
-  uuid: "asdf7f98asd7f0s7ads0",
-  // username: "Seanie X",
-  // email: "sean.smith.2009@gmail.com",
+  uuid: uuid(),
+  settings: SETTINGS,
   score_history: DEFAULT_SCORE_STATE,
   experience_points: EXPERIENCE_POINTS,
-  settings: SETTINGS,
-  // push_token: "s7d89a69f69a6d76sa80fsa6f0",
 };
 
 export const getNewDefaultUser = () => ({

@@ -44,7 +44,7 @@ import {
   isEmailValid,
   mapSettingsChangeToAnalyticsEvent,
 } from "@src/tools/utils";
-import MOCKS from "@tests/mocks";
+import MOCKS, { getNewDefaultUser } from "@tests/mocks";
 
 /** ========================================================================
  * Types
@@ -539,8 +539,8 @@ class RootContainer extends RootContainerBase<{}> {
   };
 
   handleInitialUserCreation = async () => {
-    /* TODO: default user state? */
-    this.setState({ loading: false, user: undefined, error: true });
+    const defaultUser = getNewDefaultUser();
+    this.setState({ loading: false, error: false, user: defaultUser });
   };
 
   updateExperiencePoints = (experiencePoints: number) => {

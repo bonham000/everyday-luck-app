@@ -4,11 +4,7 @@ import { Alert, StyleSheet } from "react-native";
 import { TextInput } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
-import {
-  Bold,
-  Button,
-  ScrollContainer,
-} from "@src/components/SharedComponents";
+import { Button, ScrollContainer } from "@src/components/SharedComponents";
 import {
   GlobalStateContextProps,
   withGlobalStateContext,
@@ -45,22 +41,8 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
   }
 
   render(): JSX.Element {
-    const uuid = this.props.user ? this.props.user.uuid : "";
     return (
       <ScrollContainer>
-        <SectionTitle>Account ID</SectionTitle>
-        <InfoText>
-          If you transfer to a new phone you can use this account ID to restore
-          your progress on the other device.
-        </InfoText>
-        <Bold>{uuid}</Bold>
-        <Button
-          style={{ marginTop: 15, marginBottom: 15 }}
-          onPress={() => (uuid ? this.props.copyToClipboard(uuid) : null)}
-        >
-          Copy ID
-        </Button>
-        <LineBreak />
         {/* {this.renderManuallySetScoresSection()} */}
         <SectionTitle>Reset Scores</SectionTitle>
         <InfoText>
