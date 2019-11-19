@@ -136,7 +136,6 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
       currentWord,
       audioDisabled,
       languageSetting,
-      networkConnected,
       audioMetadataCache,
     } = this.props;
 
@@ -168,17 +167,10 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
     /**
      * Some error state: sound file is not available - show the audio fallback UI
      */
-    if (
-      audioDisabled ||
-      !networkConnected ||
-      soundLoadingError ||
-      this.state.audioEscapeHatchOn
-    ) {
+    if (audioDisabled || soundLoadingError || this.state.audioEscapeHatchOn) {
       let disabledText = "";
       if (audioDisabled) {
         disabledText = "(Audio disabled)";
-      } else if (!networkConnected) {
-        disabledText = "Network Unavailable";
       } else {
         disabledText = "(Could not find audio file...)";
       }

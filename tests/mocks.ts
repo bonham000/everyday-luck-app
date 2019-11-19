@@ -164,7 +164,6 @@ const USER: User = {
 const GLOBAL_STATE_PROPS: GlobalStateContextProps = {
   ...GlobalStateContextValues,
   experience: EXPERIENCE_POINTS,
-  networkConnected: true,
   updateAvailable: false,
   user: USER,
   lessons: LESSONS,

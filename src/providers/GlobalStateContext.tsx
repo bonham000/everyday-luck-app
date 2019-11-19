@@ -96,7 +96,6 @@ const GlobalStateContextValues = {
   lessons: [] as HSKListSet,
   userScoreStatus: {},
   wordDictionary: {},
-  networkConnected: false,
   updateAvailable: false,
   disableAudio: false,
   autoProceedQuestion: false,
@@ -116,10 +115,6 @@ const GlobalStateContextValues = {
   },
   copyToClipboard: (text: string) => {
     /* Handle copy to clipboard */
-    return;
-  },
-  transferUserAccount: (uuid: string) => {
-    /* Handle transferring account */
     return;
   },
   setLessonScore: (

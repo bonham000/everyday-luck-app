@@ -27,7 +27,6 @@ interface IProps extends GlobalStateContextProps {
 }
 
 interface IState {
-  accountUuid: string;
   numberOfLessonsCompleted: string;
 }
 
@@ -41,13 +40,11 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
     super(props);
 
     this.state = {
-      accountUuid: "",
       numberOfLessonsCompleted: "",
     };
   }
 
   render(): JSX.Element {
-    const { accountUuid } = this.state;
     const uuid = this.props.user ? this.props.user.uuid : "";
     return (
       <ScrollContainer>
@@ -62,25 +59,6 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
           onPress={() => (uuid ? this.props.copyToClipboard(uuid) : null)}
         >
           Copy ID
-        </Button>
-        <LineBreak />
-        <SectionTitle>Transfer Account</SectionTitle>
-        <InfoText>
-          Enter another account ID here to restore that account.
-        </InfoText>
-        <TextInput
-          mode="outlined"
-          value={accountUuid}
-          style={TextInputStyles}
-          onChangeText={this.handleChangeAccountUuid}
-          onSubmitEditing={this.handleTransferAccount}
-          label="Enter account id to recover account"
-        />
-        <Button
-          onPress={this.handleTransferAccount}
-          style={{ marginTop: 25, marginBottom: 15 }}
-        >
-          Transfer Account
         </Button>
         <LineBreak />
         {/* {this.renderManuallySetScoresSection()} */}
@@ -151,44 +129,10 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
     );
   };
 
-  handleChangeAccountUuid = (accountUuid: string) => {
-    this.setState({ accountUuid });
-  };
-
   handleChangeNumberOfLessons = (numberOfLessonsCompleted: string) => {
     this.setState({
       numberOfLessonsCompleted,
     });
-  };
-
-  handleTransferAccount = () => {
-    const { accountUuid } = this.state;
-
-    if (!accountUuid) {
-      return this.props.setToastMessage("Please enter an ID");
-    } else if (this.props.user && this.props.user.uuid === accountUuid) {
-      return this.props.setToastMessage("ID matches your current user already");
-    }
-
-    Alert.alert(
-      "Are you sure?",
-      "This will change your account to the submitted ID. Any current progress on this account may be lost.",
-      [
-        {
-          text: "Cancel",
-          style: "cancel",
-          onPress: () => null,
-        },
-        {
-          text: "OK",
-          onPress: () => {
-            this.props.transferUserAccount(accountUuid);
-            this.setState({ accountUuid: "" }, this.props.navigation.goBack);
-          },
-        },
-      ],
-      { cancelable: false },
-    );
   };
 
   resetProgress = async () => {

@@ -6,9 +6,6 @@ import {
   AppState,
   BackHandler,
   Clipboard,
-  ConnectionInfo,
-  ConnectionType,
-  NetInfo,
   StatusBar,
   View,
 } from "react-native";
@@ -32,17 +29,10 @@ import GlobalContext, {
 } from "@src/providers/GlobalStateContext";
 import { GlobalStateValues } from "@src/providers/GlobalStateProvider";
 import SoundRecordingProvider from "@src/providers/SoundRecordingProvider";
+import { sendContactRequest } from "@src/tools/api";
 import {
-  createUser,
-  getUser,
-  sendContactRequest,
-  updateUser,
-} from "@src/tools/api";
-import {
-  getOfflineUpdatesFlagState,
   getPersistedUser,
   saveUserToAsyncStorage,
-  setOfflineUpdatesFlagState,
 } from "@src/tools/async-store";
 import CONFIG from "@src/tools/config";
 import { User } from "@src/tools/types";
@@ -52,9 +42,7 @@ import {
   formatUserLanguageSetting,
   getAlternateLanguageSetting,
   isEmailValid,
-  isNetworkConnected,
   mapSettingsChangeToAnalyticsEvent,
-  transformUserJson,
 } from "@src/tools/utils";
 import MOCKS from "@tests/mocks";
 
@@ -72,7 +60,6 @@ interface IState extends GlobalStateValues {
   firstTimeUser: boolean;
   tryingToCloseApp: boolean;
   transparentLoading: boolean;
-  networkConnected: boolean;
 }
 
 const TOAST_TIMEOUT = 5000; /* 5 seconds */
@@ -86,7 +73,6 @@ const TOAST_TIMEOUT = 5000; /* 5 seconds */
 class RootContainerBase<Props> extends React.Component<Props, IState> {
   timeout: NodeJS.Timeout | null = null;
   navigationRef: any = null;
-  networkConnectivityUnsubscribeHandler: any = null;
 
   constructor(props: Props) {
     super(props);
@@ -102,115 +88,15 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
       updateAvailable: false,
       tryingToCloseApp: false,
       transparentLoading: false,
-      networkConnected: true,
       appState: AppState.currentState,
     };
   }
-
-  setupNetworkListener = async () => {
-    /**
-     * Get initial network state and add a listener for network changes.
-     */
-    const networkState = await NetInfo.getConnectionInfo();
-
-    const isConnected = isNetworkConnected(networkState.type);
-    this.setState(
-      {
-        networkConnected: isConnected,
-      },
-      this.handleRestoringOfflineChangesOnAppLoad,
-    );
-
-    console.log(`Initial network state: ${isConnected}`);
-
-    // tslint:disable-next-line
-    this.networkConnectivityUnsubscribeHandler = NetInfo.addEventListener(
-      "connectionChange",
-      this.handleConnectivityChange,
-    );
-  };
-
-  handleAppStateChange = (nextAppState: string) => {
-    if (
-      this.state.appState.match(/inactive|background/) &&
-      nextAppState === "active"
-    ) {
-      this.handleAppForegroundingEvent();
-    } else {
-      this.handleAppBackgroundingEvent();
-    }
-
-    this.setState({ appState: nextAppState });
-  };
 
   handleAppForegroundingEvent = () => {
     this.checkForAppUpdate();
   };
 
-  handleAppBackgroundingEvent = async () => {
-    // Handle any app backgrounding side effects here
-  };
-
-  handleConnectivityChange = (
-    connectionInfo: ConnectionInfo | ConnectionType,
-  ) => {
-    let isConnected: boolean;
-    if (typeof connectionInfo === "string") {
-      isConnected = isNetworkConnected(connectionInfo);
-    } else {
-      isConnected = isNetworkConnected(connectionInfo.type);
-    }
-
-    console.log(`Network change - network online: ${isConnected}`);
-    this.setState({ networkConnected: isConnected }, () => {
-      if (isConnected) {
-        this.maybeHandleOfflineUpdates();
-      } else {
-        this.setToastMessage(
-          "Network connectivity lost... any updates will be saved when network is restored.",
-        );
-      }
-    });
-  };
-
-  handleRestoringOfflineChangesOnAppLoad = async () => {
-    if (this.state.networkConnected) {
-      this.maybeHandleOfflineUpdates();
-    } else {
-      this.setToastMessage(
-        "You are offline - any progress will be saved when network is restored.",
-      );
-    }
-  };
-
-  maybeHandleOfflineUpdates = async () => {
-    const offlineFlag = await getOfflineUpdatesFlagState();
-    if (offlineFlag.shouldProcessRequests) {
-      this.performUserUpdate(offlineFlag.shouldProcessRequests);
-    }
-  };
-
-  performUserUpdate = async (offlineFlag?: boolean) => {
-    const { user } = this.state;
-    if (user) {
-      try {
-        if (!this.state.networkConnected) {
-          throw new Error("Network is offline - cannot perform update now");
-        }
-
-        await updateUser(user);
-        await setOfflineUpdatesFlagState({ shouldProcessRequests: false });
-        /**
-         * Alert the user if offline updates were just saved.
-         */
-        if (offlineFlag) {
-          this.setToastMessage("Offline updates saved successfully!");
-        }
-      } catch (err) {
-        await setOfflineUpdatesFlagState({ shouldProcessRequests: true });
-      }
-    }
-
+  performUserUpdate = async () => {
     this.serializeAndPersistUser();
   };
 
@@ -225,48 +111,14 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
       this.setState(
         {
           loading: false,
-          transparentLoading: false,
           user: persistedUser,
+          transparentLoading: false,
         },
         async () => {
-          await this.maybeHandleOfflineUpdates();
-          this.fetchExistingUser(persistedUser);
           this.initializeAmplitudeAnalyticsModule();
         },
       );
     }
-  };
-
-  fetchExistingUser = async (maybePersistedUser: User) => {
-    if (this.state.networkConnected) {
-      const user = await getUser(maybePersistedUser.uuid);
-      if (user) {
-        this.setState(
-          {
-            user: transformUserJson(user),
-          },
-          this.setupPushToken,
-        );
-      }
-    }
-  };
-
-  setupPushToken = async () => {
-    /**
-     *
-     * TODO: Enable this for push notifications support.
-     *
-     * Try to register this device for push notifications if the
-     * user doesn't have a token setup yet.
-     */
-    // if (this.state.user && this.state.user.push_token === "") {
-    //   const token = await registerForPushNotificationsAsync();
-    //   if (token) {
-    //     this.handleUpdateUserFields({
-    //       push_token: token,
-    //     });
-    //   }
-    // }
   };
 
   handleUpdateUserSettingsField = (
@@ -543,11 +395,6 @@ class RootContainer extends RootContainerBase<{}> {
     this.initializeAppState();
 
     /**
-     * Initialize network listener and setup initial network state.
-     */
-    this.setupNetworkListener();
-
-    /**
      * Manage state to assign a toast warning if user tries to
      * press the back button when it will close the app. Show them
      * a toast and allow them to press again to close the app.
@@ -576,11 +423,6 @@ class RootContainer extends RootContainerBase<{}> {
     });
 
     /**
-     * Add listener to AppState to detect app foreground/background actions.
-     */
-    AppState.addEventListener("change", this.handleAppStateChange);
-
-    /**
      * Check for updates when app is first opened.
      */
     this.checkForAppUpdate();
@@ -593,8 +435,6 @@ class RootContainer extends RootContainerBase<{}> {
     BackHandler.removeEventListener("hardwareBackPress", () => {
       return;
     });
-
-    AppState.removeEventListener("change", this.handleAppStateChange);
 
     this.clearTimer();
   }
@@ -609,7 +449,6 @@ class RootContainer extends RootContainerBase<{}> {
       firstTimeUser,
       wordDictionary,
       updateAvailable,
-      networkConnected,
       transparentLoading,
     } = this.state;
     if (error) {
@@ -639,7 +478,6 @@ class RootContainer extends RootContainerBase<{}> {
       disableAudio,
       wordDictionary,
       updateAvailable,
-      networkConnected,
       languageSetting,
       userScoreStatus,
       autoProceedQuestion,
@@ -651,7 +489,6 @@ class RootContainer extends RootContainerBase<{}> {
       handleResetScores: this.handleResetScores,
       logAnalyticsEvent: this.logAnalyticsEvent,
       handleSwitchLanguage: this.handleSwitchLanguage,
-      transferUserAccount: this.handleTransferUserAccount,
       updateExperiencePoints: this.updateExperiencePoints,
       handleSendContactEmail: this.handleSendContactEmail,
       handleUpdateUserSettingsField: this.handleUpdateUserSettingsField,
@@ -702,56 +539,8 @@ class RootContainer extends RootContainerBase<{}> {
   };
 
   handleInitialUserCreation = async () => {
-    const userResult = await createUser({ push_token: "" });
-    if (userResult) {
-      this.setState(
-        {
-          loading: false,
-          firstTimeUser: true,
-          user: transformUserJson(userResult),
-        },
-        () => {
-          this.serializeAndPersistUser();
-          this.initializeAmplitudeAnalyticsModule();
-        },
-      );
-    } else {
-      this.setState({ loading: false, user: undefined, error: true });
-    }
-  };
-
-  handleTransferUserAccount = (uuid: string) => {
-    this.setState(
-      {
-        transparentLoading: true,
-      },
-      async () => {
-        const user = await getUser(uuid);
-        if (user) {
-          this.setState(
-            {
-              transparentLoading: false,
-              user: transformUserJson(user),
-            },
-            () => {
-              this.setupPushToken();
-              this.serializeAndPersistUser();
-              this.initializeAmplitudeAnalyticsModule();
-              this.setToastMessage("Account transferred successfully!");
-            },
-          );
-        } else {
-          this.setState(
-            {
-              transparentLoading: false,
-            },
-            () => {
-              this.setToastMessage("User with that ID could not be found");
-            },
-          );
-        }
-      },
-    );
+    /* TODO: default user state? */
+    this.setState({ loading: false, user: undefined, error: true });
   };
 
   updateExperiencePoints = (experiencePoints: number) => {

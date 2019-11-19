@@ -8,91 +8,7 @@ import {
   Result,
   ResultType,
   SoundFileResponse,
-  User,
-  UserAsyncResponse,
-  UserDataBase,
-  UserJson,
 } from "@src/tools/types";
-
-/** ========================================================================
- * User API Methods
- * =========================================================================
- */
-
-/**
- * Get an existing user.
- *
- * @param uuid Unique user id
- * @returns `UserAsyncResponse`
- */
-export const getUser = async (uuid: string): UserAsyncResponse => {
-  try {
-    const result = await axios.get<UserJson>(
-      `${CONFIG.DRAGON_URI}/users/${uuid}`,
-    );
-    return result.data;
-  } catch (err) {
-    console.log("Error fetching user: ", err);
-    return;
-  }
-};
-
-/**
- * Find or create a user given their email.
- *
- * @param user `UserDataBase`
- * @returns `UserAsyncResponse`
- */
-export const createUser = async (user: UserDataBase): UserAsyncResponse => {
-  try {
-    const result = await axios.post<UserJson>(
-      `${CONFIG.DRAGON_URI}/users`,
-      user,
-    );
-    return result.data;
-  } catch (err) {
-    console.log("Error fetching user: ", err);
-    return;
-  }
-};
-
-/**
- * Update the user.
- *
- * @param user `User` data to update
- * @returns `UserJson` updated user data
- */
-export const updateUser = async (user: User): UserAsyncResponse => {
-  try {
-    /**
-     * score_history has to be a string
-     */
-    const serializedUser = serializeUser(user);
-
-    const result = await axios.put<UserJson>(
-      `${CONFIG.DRAGON_URI}/users`,
-      serializedUser,
-    );
-    return result.data;
-  } catch (err) {
-    console.log("Error from PUT to update user", err);
-    throw err;
-  }
-};
-
-/**
- * Serialize the user back to a format the server expects
- *
- * @param user User object
- * @returns `UserJson`
- */
-export const serializeUser = (user: User): UserJson => {
-  return {
-    ...user,
-    settings: JSON.stringify(user.settings),
-    score_history: JSON.stringify(user.score_history),
-  };
-};
 
 /** ========================================================================
  * Forvo Pronunciation API Methods:
@@ -198,15 +114,7 @@ export const convertChineseToPinyin = async (
     const token = CONFIG.PINYIN_CONVERSION_SERVICE_API_KEY;
     const inputCharacters = encodeURIComponent(chineseCharacters);
     const conversionServiceUrl = `${base}/convert?token=${token}&chinese=${inputCharacters}`;
-
-    /**
-     * TODO: Debugging...
-     */
-    const s = Date.now();
     const result = await axios.get<string>(conversionServiceUrl);
-    const e = Date.now();
-    console.log(`Result received, time taken: ${e - s}, data: ${result.data}`);
-
     return result.data;
   } catch (err) {
     return "";

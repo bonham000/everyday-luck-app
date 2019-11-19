@@ -18,7 +18,6 @@ import { HSKListSet, User } from "@src/tools/types";
 export interface GlobalStateValues {
   user?: User;
   lessons: HSKListSet;
-  networkConnected: boolean;
   updateAvailable: boolean;
   wordDictionary: WordDictionary;
 }
@@ -44,7 +43,6 @@ export interface GlobalStateContextProps
     updatedScoreStatus: ScoreStatus,
     exp: number,
   ) => Promise<void>;
-  transferUserAccount: (uuid: string) => void;
   copyToClipboard: (text: string) => void;
   handleUpdateUserSettingsField: (
     data: Partial<UserSettings>,

@@ -75,11 +75,6 @@ export class TranslationScreenComponent extends React.Component<
         <ScrollContainer>
           <SectionTitle>Translation Tool</SectionTitle>
           <InfoText>Translate between English and Chinese</InfoText>
-          {!this.props.networkConnected && (
-            <WarningText>
-              The network is disconnected - translations may not be possible now
-            </WarningText>
-          )}
           <TextInput
             mode="outlined"
             value={input}
@@ -238,14 +233,6 @@ const SectionTitle = glamorous.text({
 });
 
 const InfoText = glamorous.text({
-  marginTop: 5,
-  marginBottom: 5,
-  width: "80%",
-  textAlign: "center",
-});
-
-const WarningText = glamorous.text({
-  fontSize: 14,
   marginTop: 5,
   marginBottom: 5,
   width: "80%",
