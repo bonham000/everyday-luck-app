@@ -1,3 +1,5 @@
+import uuid from "uuid/v1";
+
 import HSK_LISTS from "@src/lessons";
 import lessonData from "@src/lessons/02";
 import {
@@ -153,13 +155,23 @@ const SETTINGS: UserSettings = {
 
 const USER: User = {
   uuid: "asdf7f98asd7f0s7ads0",
-  username: "Seanie X",
-  email: "sean.smith.2009@gmail.com",
+  // username: "Seanie X",
+  // email: "sean.smith.2009@gmail.com",
   score_history: DEFAULT_SCORE_STATE,
   experience_points: EXPERIENCE_POINTS,
   settings: SETTINGS,
-  push_token: "s7d89a69f69a6d76sa80fsa6f0",
+  // push_token: "s7d89a69f69a6d76sa80fsa6f0",
 };
+
+export const getNewDefaultUser = () => ({
+  uuid: uuid(),
+  email: "",
+  username: "",
+  push_token: "",
+  score_history: DEFAULT_SCORE_STATE,
+  experience_points: 0,
+  settings: SETTINGS,
+});
 
 const GLOBAL_STATE_PROPS: GlobalStateContextProps = {
   ...GlobalStateContextValues,

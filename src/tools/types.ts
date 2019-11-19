@@ -53,17 +53,11 @@ export type Option<T> = OptionSuccess<T> | Empty;
  * =========================================================================
  */
 
-export interface UserDataBase {
-  email?: string;
-  username?: string;
-  push_token: string;
-}
-
-export interface UserData extends UserDataBase {
+export interface UserData {
   uuid: string;
 }
 
-export interface BaseUser extends UserDataBase {
+export interface BaseUser {
   uuid: string;
   experience_points: number;
 }
