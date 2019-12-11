@@ -1,12 +1,11 @@
 import uuid from "uuid/v1";
 
-import HSK_LISTS from "@src/lessons";
+import HSK_LISTS, { ListScoreSet } from "@src/lessons";
 import lessonData from "@src/lessons/02";
 import {
   APP_DIFFICULTY_SETTING,
   APP_LANGUAGE_SETTING,
   GlobalStateContextValues,
-  ScoreStatus,
   UserSettings,
 } from "@src/providers/GlobalStateContext";
 import { GlobalStateContextProps } from "@src/providers/GlobalStateProvider";
@@ -73,36 +72,49 @@ const DEFAULT_SCORE_STATE = {
     list_index: 0,
     list_key: "1-2",
     number_words_completed: 0,
+    ...DEFAULT_LESSON_SCORES,
   },
   list_03_score: {
     complete: false,
     list_index: 1,
     list_key: "3",
     number_words_completed: 0,
+    ...DEFAULT_LESSON_SCORES,
   },
   list_04_score: {
     complete: false,
     list_index: 2,
     list_key: "4",
     number_words_completed: 0,
+    ...DEFAULT_LESSON_SCORES,
   },
   list_05_score: {
     complete: false,
     list_index: 3,
     list_key: "5",
     number_words_completed: 0,
+    ...DEFAULT_LESSON_SCORES,
   },
   list_06_score: {
     complete: false,
     list_index: 4,
     list_key: "6",
     number_words_completed: 0,
+    ...DEFAULT_LESSON_SCORES,
   },
   list_07_score: {
     complete: false,
     list_index: 5,
     list_key: "7",
     number_words_completed: 0,
+    ...DEFAULT_LESSON_SCORES,
+  },
+  list_08_score: {
+    complete: false,
+    list_index: 6,
+    list_key: "8",
+    number_words_completed: 0,
+    ...DEFAULT_LESSON_SCORES,
   },
 };
 
@@ -113,40 +125,53 @@ const COMPLETED_SCORE_STATE = {
     list_index: 0,
     list_key: "1-2",
     number_words_completed: 10000,
+    ...DEFAULT_LESSON_SCORES,
   },
   list_03_score: {
     complete: true,
     list_index: 1,
     list_key: "3",
     number_words_completed: 10000,
+    ...DEFAULT_LESSON_SCORES,
   },
   list_04_score: {
     complete: true,
     list_index: 2,
     list_key: "4",
     number_words_completed: 10000,
+    ...DEFAULT_LESSON_SCORES,
   },
   list_05_score: {
     complete: true,
     list_index: 3,
     list_key: "5",
     number_words_completed: 10000,
+    ...DEFAULT_LESSON_SCORES,
   },
   list_06_score: {
     complete: true,
     list_index: 4,
     list_key: "6",
     number_words_completed: 10000,
+    ...DEFAULT_LESSON_SCORES,
   },
   list_07_score: {
     complete: true,
     list_index: 5,
     list_key: "7",
     number_words_completed: 10000,
+    ...DEFAULT_LESSON_SCORES,
+  },
+  list_08_score: {
+    complete: true,
+    list_index: 6,
+    list_key: "8",
+    number_words_completed: 10000,
+    ...DEFAULT_LESSON_SCORES,
   },
 };
 
-const getMockScoreStatus = (overrides: Partial<ScoreStatus>) => ({
+const getMockScoreStatus = (overrides: Partial<ListScoreSet>) => ({
   ...DEFAULT_SCORE_STATE,
   ...overrides,
 });

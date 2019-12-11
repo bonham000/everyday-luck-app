@@ -1,35 +1,13 @@
 import React from "react";
 
 import EVENTS from "@src/constants/AnalyticsEvents";
+import { ListScoreSet } from "@src/lessons";
 import { HSKListSet, Word } from "@src/tools/types";
 
 /** ========================================================================
  * Types and Config
  * =========================================================================
  */
-
-export interface ListScore {
-  list_key: string;
-  list_index: number;
-  complete: boolean;
-  number_words_completed: number;
-}
-
-export interface ListScoreSet {
-  list_02_score: ListScore;
-  list_03_score: ListScore;
-  list_04_score: ListScore;
-  list_05_score: ListScore;
-  list_06_score: ListScore;
-  list_07_score: ListScore;
-}
-
-export interface ScoreStatus extends ListScoreSet {
-  mc_english: boolean;
-  mc_mandarin: boolean;
-  quiz_text: boolean;
-  mandarin_pronunciation: boolean;
-}
 
 export interface UserSettings {
   disable_audio: boolean;
@@ -119,7 +97,7 @@ const GlobalStateContextValues = {
     return;
   },
   setLessonScore: (
-    updatedScoreStatus: ScoreStatus,
+    updatedScoreStatus: ListScoreSet,
     exp: number,
   ): Promise<void> => {
     /* Handle setting lesson score */

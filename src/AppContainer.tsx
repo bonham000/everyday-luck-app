@@ -23,7 +23,6 @@ import createAppNavigator from "@src/NavigatorConfig";
 import GlobalContext, {
   APP_DIFFICULTY_SETTING,
   APP_LANGUAGE_SETTING,
-  ScoreStatus,
   ToastMessageArgs,
   UserSettings,
 } from "@src/providers/GlobalStateContext";
@@ -45,6 +44,7 @@ import {
   mapSettingsChangeToAnalyticsEvent,
 } from "@src/tools/utils";
 import MOCKS, { getNewDefaultUser } from "@tests/mocks";
+import { ListScoreSet } from "./lessons";
 
 /** ========================================================================
  * Types
@@ -554,7 +554,7 @@ class RootContainer extends RootContainerBase<{}> {
   };
 
   setLessonScore = async (
-    updatedScoreStatus: ScoreStatus,
+    updatedScoreStatus: ListScoreSet,
     lessonExperience: number,
   ) => {
     if (this.state.user) {

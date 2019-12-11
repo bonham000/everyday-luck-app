@@ -2,6 +2,7 @@ import { AsyncStorage } from "react-native";
 
 import { ASYNC_STORE_KEYS } from "@src/constants/AsyncStoreKeys";
 import { User } from "@src/tools/types";
+import MOCKS from "@tests/mocks";
 
 /** ========================================================================
  * Persistence of user to local async store
@@ -11,10 +12,27 @@ import { User } from "@src/tools/types";
 export const getPersistedUser = async (): Promise<User | undefined> => {
   try {
     const result = await AsyncStorage.getItem(ASYNC_STORE_KEYS.USER_KEY);
-    return result ? JSON.parse(result) : undefined;
+    if (result) {
+      const user: User = JSON.parse(result);
+
+      if (
+        Object.keys(user.score_history).length !==
+        Object.keys(MOCKS.DEFAULT_SCORE_STATE).length
+      ) {
+        // tslint:disable-next-line
+        user.score_history = {
+          ...MOCKS.DEFAULT_SCORE_STATE,
+          ...user.score_history,
+        };
+      }
+
+      return user;
+    }
   } catch (err) {
-    return undefined;
+    /* Do nothing */
   }
+
+  return undefined;
 };
 
 export const saveUserToAsyncStorage = async (user: User) => {

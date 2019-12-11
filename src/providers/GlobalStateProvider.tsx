@@ -1,10 +1,10 @@
 import React, { ComponentType } from "react";
 
 import EVENTS from "@src/constants/AnalyticsEvents";
+import { ListScoreSet } from "@src/lessons";
 import GlobalStateContextValues, {
   APP_DIFFICULTY_SETTING,
   APP_LANGUAGE_SETTING,
-  ScoreStatus,
   UserSettings,
   WordDictionary,
 } from "@src/providers/GlobalStateContext";
@@ -24,7 +24,7 @@ export interface GlobalStateValues {
 
 export interface AdditionalProviderProps {
   experience: number;
-  userScoreStatus: ScoreStatus;
+  userScoreStatus: ListScoreSet;
   disableAudio: boolean;
   autoProceedQuestion: boolean;
   languageSetting: APP_LANGUAGE_SETTING;
@@ -40,7 +40,7 @@ export interface GlobalStateContextProps
   handleSwitchLanguage: () => void;
   updateExperiencePoints: (experiencePoints: number) => void;
   setLessonScore: (
-    updatedScoreStatus: ScoreStatus,
+    updatedScoreStatus: ListScoreSet,
     exp: number,
   ) => Promise<void>;
   copyToClipboard: (text: string) => void;

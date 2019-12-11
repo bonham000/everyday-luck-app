@@ -1,8 +1,7 @@
-import HSK_LISTS from "@src/lessons";
+import HSK_LISTS, { ListScoreSet, SCORES_INDEX_MAP } from "@src/lessons";
 import {
   APP_DIFFICULTY_SETTING,
   APP_LANGUAGE_SETTING,
-  ListScoreSet,
   QUIZ_TYPE,
 } from "@src/providers/GlobalStateContext";
 import { Lesson } from "@src/tools/types";
@@ -34,7 +33,6 @@ import {
   mapListIndexToListScores,
   mapWordsForList,
   randomInRange,
-  SCORES_INDEX_MAP,
   translateWord,
 } from "@src/tools/utils";
 import MOCKS from "@tests/mocks";
@@ -153,7 +151,9 @@ describe("utils", () => {
   });
 
   test("isLessonComplete", () => {
-    expect(isLessonComplete(MOCKS.DEFAULT_SCORE_STATE)).toBeFalsy();
+    expect(
+      isLessonComplete(MOCKS.DEFAULT_SCORE_STATE.list_02_score),
+    ).toBeFalsy();
 
     expect({
       mc_english: true,
@@ -261,6 +261,7 @@ describe("utils", () => {
           list_index: 0,
           list_key: "1-2",
           number_words_completed: 80,
+          ...MOCKS.DEFAULT_SCORE_STATE,
         },
       }),
       APP_DIFFICULTY_SETTING.EASY,
@@ -276,6 +277,7 @@ describe("utils", () => {
           list_index: 0,
           list_key: "1-2",
           number_words_completed: 80,
+          ...MOCKS.DEFAULT_SCORE_STATE,
         },
       }),
       APP_DIFFICULTY_SETTING.MEDIUM,
@@ -316,12 +318,14 @@ describe("utils", () => {
           list_index: 0,
           list_key: "1-2",
           number_words_completed: 80,
+          ...MOCKS.DEFAULT_SCORE_STATE,
         },
         list_03_score: {
           complete: true,
           list_index: 0,
           list_key: "3",
           number_words_completed: 80,
+          ...MOCKS.DEFAULT_SCORE_STATE,
         },
       }),
     );
@@ -421,6 +425,7 @@ describe("utils", () => {
           list_index: 0,
           list_key: "1-2",
           number_words_completed: 120,
+          ...MOCKS.DEFAULT_SCORE_STATE,
         },
       }),
       limitToCurrentList: true,
@@ -504,15 +509,15 @@ describe("utils", () => {
     result = getLessonSummaryStatus(
       true,
       MOCKS.getMockScoreStatus({
-        mc_english: true,
-        mc_mandarin: true,
-        quiz_text: false,
-        mandarin_pronunciation: true,
         list_02_score: {
           complete: false,
           list_index: 0,
           list_key: "1-2",
           number_words_completed: 120,
+          mc_english: true,
+          mc_mandarin: true,
+          quiz_text: false,
+          mandarin_pronunciation: true,
         },
       }),
       1,
@@ -677,30 +682,35 @@ describe("utils", () => {
           list_index: 0,
           list_key: "1-2",
           number_words_completed: 0,
+          ...MOCKS.DEFAULT_SCORE_STATE,
         },
         list_03_score: {
           complete: true,
           list_index: 1,
           list_key: "3",
           number_words_completed: 0,
+          ...MOCKS.DEFAULT_SCORE_STATE,
         },
         list_04_score: {
           complete: true,
           list_index: 2,
           list_key: "4",
           number_words_completed: 0,
+          ...MOCKS.DEFAULT_SCORE_STATE,
         },
         list_05_score: {
           complete: true,
           list_index: 3,
           list_key: "5",
           number_words_completed: 0,
+          ...MOCKS.DEFAULT_SCORE_STATE,
         },
         list_06_score: {
           complete: true,
           list_index: 4,
           list_key: "6",
           number_words_completed: 0,
+          ...MOCKS.DEFAULT_SCORE_STATE,
         },
       }),
     );

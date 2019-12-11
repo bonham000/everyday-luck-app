@@ -1,9 +1,9 @@
 import { GestureResponderEvent } from "react-native";
 
+import { ListScoreSet } from "@src/lessons";
 import {
   APP_LANGUAGE_SETTING,
   QUIZ_TYPE,
-  ScoreStatus,
   UserSettings,
   WordDictionary,
 } from "@src/providers/GlobalStateContext";
@@ -68,7 +68,7 @@ export interface UserJson extends BaseUser {
 }
 
 export interface User extends BaseUser {
-  score_history: ScoreStatus;
+  score_history: ListScoreSet;
   settings: UserSettings;
 }
 

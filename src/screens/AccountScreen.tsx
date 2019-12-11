@@ -196,6 +196,10 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
                 list_index: 0,
                 complete: false,
                 number_words_completed: numberOfWords,
+                mc_english: false,
+                mc_mandarin: false,
+                quiz_text: false,
+                mandarin_pronunciation: false,
               },
             };
 

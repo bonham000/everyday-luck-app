@@ -11,11 +11,8 @@ import QuizInput from "@src/components/QuizInputComponent";
 import { ScrollContainer } from "@src/components/SharedComponents";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import { COLORS } from "@src/constants/Theme";
-import {
-  QUIZ_TYPE,
-  QuizTypeOptions,
-  ScoreStatus,
-} from "@src/providers/GlobalStateContext";
+import { ListScoreSet } from "@src/lessons";
+import { QUIZ_TYPE, QuizTypeOptions } from "@src/providers/GlobalStateContext";
 import {
   GlobalStateContextProps,
   withGlobalStateContext,
@@ -506,12 +503,15 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
   handleCompleteQuiz = () => {
     const { userScoreStatus, quizType, appDifficultySetting } = this.props;
     const lessonType = this.props.navigation.getParam("type");
+    const listIndex = this.props.navigation.getParam("listIndex");
     const isFinalLesson = this.props.navigation.getParam("isFinalLesson");
+
+    const listScore = userScoreStatus[getListScoreKeyFromIndex(listIndex)];
 
     /* Is the quiz finished with a perfect score */
     const perfectScore = this.state.failCount === 0;
     /* Is this the first time the user completed this quiz */
-    const firstPass = perfectScore && !userScoreStatus[quizType];
+    const firstPass = perfectScore && !listScore[quizType];
     /* Determine experience points for this lesson */
     const experiencePoints = calculateExperiencePointsForLesson(
       firstPass,
@@ -522,7 +522,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     );
 
     let lessonCompleted = false;
-    const updatedScoreStatus: ScoreStatus = {
+    const updatedScoreStatus: ListScoreSet = {
       ...userScoreStatus,
       [quizType]: perfectScore,
     };
@@ -530,7 +530,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     const allComplete = hasUserCompletedAllLists(updatedScoreStatus);
 
     /* Is the lesson fully completed */
-    lessonCompleted = isLessonComplete(updatedScoreStatus);
+    lessonCompleted = isLessonComplete(listScore);
 
     if (perfectScore) {
       this.handleSettingScoresForLesson(
@@ -561,7 +561,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
   };
 
   handleSettingScoresForLesson = (
-    updatedScores: ScoreStatus,
+    updatedScores: ListScoreSet,
     lessonCompleted: boolean,
     experiencePoints: number,
   ) => {

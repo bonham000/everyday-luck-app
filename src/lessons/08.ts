@@ -1,15 +1,15 @@
 import { HSKList } from "@src/tools/types";
 
 const lesson: HSKList = {
-  list: "7",
+  list: "8",
   locked: false,
-  title: "Custom List",
+  title: "Michelle Week 1",
   content: [
     {
-      simplified: "讚",
-      traditional: "赞",
-      pinyin: "zàn",
-      english: "Awesome",
+      simplified: "服務生",
+      traditional: "服务生",
+      pinyin: "fúwù shēng",
+      english: "Server",
       english_alternate_choices: [""],
     },
   ],

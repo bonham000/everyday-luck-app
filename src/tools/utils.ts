@@ -2,15 +2,16 @@ import { ConnectionInfo } from "react-native";
 
 import EVENTS from "@src/constants/AnalyticsEvents";
 import ENGLISH_WORDS from "@src/constants/EnglishWords";
-import HSK_LISTS from "@src/lessons";
+import HSK_LISTS, {
+  ListScore,
+  ListScoreSet,
+  SCORES_INDEX_MAP,
+} from "@src/lessons";
 import {
   APP_DIFFICULTY_SETTING,
   APP_LANGUAGE_SETTING,
   DIFFICULTY_TO_LESSON_SIZE_MAP,
-  ListScore,
-  ListScoreSet,
   QUIZ_TYPE,
-  ScoreStatus,
   UserSettings,
   WordDictionary,
 } from "@src/providers/GlobalStateContext";
@@ -229,8 +230,31 @@ const areWordsEqual = (wordA: Word, wordB: Word): boolean => {
  * @param userScoreStatus
  * @returns index of final unlocked HSK list
  */
+export const getFinalUnlockedListScores = (
+  userScoreStatus: ListScoreSet,
+): ListScore => {
+  const result = [
+    userScoreStatus.list_02_score,
+    userScoreStatus.list_03_score,
+    userScoreStatus.list_04_score,
+    userScoreStatus.list_05_score,
+    userScoreStatus.list_06_score,
+    // @ts-ignore
+  ].reduce((finalIndex, current) => {
+    return finalIndex ? finalIndex : !current.complete ? current : null;
+  }, null);
+
+  return result;
+};
+
+/**
+ * Determines the unlocked lesson for a user given their score status.
+ *
+ * @param userScoreStatus
+ * @returns index of final unlocked HSK list
+ */
 export const getFinalUnlockedListKey = (
-  userScoreStatus: ScoreStatus,
+  userScoreStatus: ListScoreSet,
 ): number => {
   const result = [
     userScoreStatus.list_02_score,
@@ -238,6 +262,7 @@ export const getFinalUnlockedListKey = (
     userScoreStatus.list_04_score,
     userScoreStatus.list_05_score,
     userScoreStatus.list_06_score,
+
     // @ts-ignore
   ].reduce((finalIndex, current) => {
     return typeof finalIndex === "number"
@@ -262,7 +287,7 @@ export const getFinalUnlockedListKey = (
 export const determineFinalUnlockedLessonInList = (
   list: Lesson,
   listIndex: number,
-  userScoreStatus: ScoreStatus,
+  userScoreStatus: ListScoreSet,
   appDifficultySetting: APP_DIFFICULTY_SETTING,
 ): number => {
   const listScore = mapListIndexToListScores(listIndex, userScoreStatus);
@@ -275,18 +300,6 @@ export const determineFinalUnlockedLessonInList = (
 
   return Math.floor(completedWords / userLessonSize);
 };
-
-/**
- * Index mapping of score keys to list index.
- */
-export const SCORES_INDEX_MAP: ReadonlyArray<keyof ListScoreSet> = [
-  "list_02_score",
-  "list_03_score",
-  "list_04_score",
-  "list_05_score",
-  "list_06_score",
-  "list_07_score",
-];
 
 /**
  * Get the list score key from the given list index.
@@ -307,7 +320,7 @@ export const getListScoreKeyFromIndex = (index: number) => {
  */
 export const mapListIndexToListScores = (
   index: number,
-  userScoreStatus: ScoreStatus,
+  userScoreStatus: ListScoreSet,
 ): ListScore => {
   if (index === Infinity) {
     const result = { complete: false };
@@ -322,15 +335,15 @@ export const mapListIndexToListScores = (
 /**
  * Determine if a lesson is complete.
  *
- * @param userScoreStatus
+ * @param listScore
  * @returns true if lesson has been completed
  */
-export const isLessonComplete = (userScoreStatus: ScoreStatus): boolean => {
+export const isLessonComplete = (listScore: ListScore): boolean => {
   return (
-    userScoreStatus.mc_english &&
-    userScoreStatus.mc_mandarin &&
-    userScoreStatus.quiz_text &&
-    userScoreStatus.mandarin_pronunciation
+    listScore.mc_english &&
+    listScore.mc_mandarin &&
+    listScore.quiz_text &&
+    listScore.mandarin_pronunciation
   );
 };
 
@@ -390,7 +403,7 @@ export const calculateExperiencePointsForLesson = (
 export interface DeriveLessonContentArgs {
   lists: HSKListSet;
   unlockedListIndex: number;
-  userScoreStatus: ScoreStatus;
+  userScoreStatus: ListScoreSet;
   appDifficultySetting: APP_DIFFICULTY_SETTING;
   limitToCurrentList?: boolean;
 }
@@ -624,7 +637,7 @@ export const capitalize = (value: string): string => {
  */
 export const getLessonSummaryStatus = (
   isFinalLesson: boolean,
-  userScoreStatus: ScoreStatus,
+  userScoreStatus: ListScoreSet,
   listIndex: number,
 ) => {
   const listScore = mapListIndexToListScores(listIndex, userScoreStatus);
@@ -632,22 +645,22 @@ export const getLessonSummaryStatus = (
   const mcEnglish = listCompleted
     ? true
     : isFinalLesson
-    ? userScoreStatus.mc_english
+    ? listScore.mc_english
     : true;
   const mcMandarin = listCompleted
     ? true
     : isFinalLesson
-    ? userScoreStatus.mc_mandarin
+    ? listScore.mc_mandarin
     : true;
   const quizText = listCompleted
     ? true
     : isFinalLesson
-    ? userScoreStatus.quiz_text
+    ? listScore.quiz_text
     : true;
   const mandarinPronunciation = listCompleted
     ? true
     : isFinalLesson
-    ? userScoreStatus.mandarin_pronunciation
+    ? listScore.mandarin_pronunciation
     : true;
 
   return {
@@ -916,7 +929,7 @@ export const mapSettingsChangeToAnalyticsEvent = (
  * @param scores Score history
  * @returns true if all lists are complete.
  */
-export const hasUserCompletedAllLists = (scores: ScoreStatus): boolean => {
+export const hasUserCompletedAllLists = (scores: ListScoreSet): boolean => {
   return (
     scores.list_02_score.complete &&
     scores.list_03_score.complete &&
