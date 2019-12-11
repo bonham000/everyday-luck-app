@@ -13,7 +13,7 @@ export const getPersistedUser = async (): Promise<User | undefined> => {
     const result = await AsyncStorage.getItem(ASYNC_STORE_KEYS.USER_KEY);
     return result ? JSON.parse(result) : undefined;
   } catch (err) {
-    return;
+    return undefined;
   }
 };
 

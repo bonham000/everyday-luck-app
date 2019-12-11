@@ -89,6 +89,8 @@ export interface Word {
 
 export interface HSKList {
   list: string;
+  locked: boolean;
+  title?: string;
   content: Lesson;
 }
 

@@ -3,6 +3,7 @@ import Lesson_03 from "@src/lessons/03";
 import Lesson_04 from "@src/lessons/04";
 import Lesson_05 from "@src/lessons/05";
 import Lesson_06 from "@src/lessons/06";
+import Lesson_07 from "@src/lessons/07";
 import { HSKListSet } from "@src/tools/types";
 
 /** ========================================================================
@@ -16,6 +17,7 @@ const HSK_LISTS: HSKListSet = [
   Lesson_04,
   Lesson_05,
   Lesson_06,
+  Lesson_07,
 ];
 
 export default HSK_LISTS;

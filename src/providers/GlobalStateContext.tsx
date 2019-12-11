@@ -21,6 +21,7 @@ export interface ListScoreSet {
   list_04_score: ListScore;
   list_05_score: ListScore;
   list_06_score: ListScore;
+  list_07_score: ListScore;
 }
 
 export interface ScoreStatus extends ListScoreSet {

@@ -285,6 +285,7 @@ export const SCORES_INDEX_MAP: ReadonlyArray<keyof ListScoreSet> = [
   "list_04_score",
   "list_05_score",
   "list_06_score",
+  "list_07_score",
 ];
 
 /**

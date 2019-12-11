@@ -73,9 +73,10 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
     const { lessons, userScoreStatus } = this.props;
     const unlockedListIndex = getFinalUnlockedListKey(userScoreStatus);
     return lessons.map((hskList, index) => {
-      const isLocked = index > unlockedListIndex;
+      const { list, title, locked, content } = hskList;
       const inProgress = index === unlockedListIndex;
-      const { list, content } = hskList;
+      const isLocked = locked ? index > unlockedListIndex : false;
+      const listTitle = title ? title : `HSK Level ${list}`;
       return (
         <LessonBlock
           key={hskList.list}
@@ -88,9 +89,7 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
           }}
           onPress={this.handleSelectList(list, content, index, isLocked)}
         >
-          <LessonBlockText isLocked={isLocked}>
-            HSK Level {list}
-          </LessonBlockText>
+          <LessonBlockText isLocked={isLocked}>{listTitle}</LessonBlockText>
           <LessonBlockText isLocked={isLocked}>
             ({content.length.toLocaleString()} words)
           </LessonBlockText>

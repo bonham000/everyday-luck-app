@@ -2,6 +2,7 @@ import { HSKList } from "@src/tools/types";
 
 const lesson: HSKList = {
   list: "3",
+  locked: true,
   content: [
     {
       simplified: "阿姨",

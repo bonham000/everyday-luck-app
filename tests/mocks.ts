@@ -98,6 +98,12 @@ const DEFAULT_SCORE_STATE = {
     list_key: "6",
     number_words_completed: 0,
   },
+  list_07_score: {
+    complete: false,
+    list_index: 5,
+    list_key: "7",
+    number_words_completed: 0,
+  },
 };
 
 const COMPLETED_SCORE_STATE = {
@@ -130,6 +136,12 @@ const COMPLETED_SCORE_STATE = {
     complete: true,
     list_index: 4,
     list_key: "6",
+    number_words_completed: 10000,
+  },
+  list_07_score: {
+    complete: true,
+    list_index: 5,
+    list_key: "7",
     number_words_completed: 10000,
   },
 };
