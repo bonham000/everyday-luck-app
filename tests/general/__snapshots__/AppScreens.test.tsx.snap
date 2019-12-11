@@ -4146,7 +4146,7 @@ exports[`App Screen Components Each screen component renders with props provided
         ]
       }
     >
-      5,000
+      5,002
        words total
     </Text>
     <View
@@ -4185,8 +4185,7 @@ exports[`App Screen Components Each screen component renders with props provided
           ]
         }
       >
-        HSK Level 
-        1-2
+        HSK Level 1-2
       </Text>
       <Text
         isLocked={false}
@@ -4241,8 +4240,7 @@ exports[`App Screen Components Each screen component renders with props provided
           ]
         }
       >
-        HSK Level 
-        3
+        HSK Level 3
       </Text>
       <Text
         isLocked={true}
@@ -4297,8 +4295,7 @@ exports[`App Screen Components Each screen component renders with props provided
           ]
         }
       >
-        HSK Level 
-        4
+        HSK Level 4
       </Text>
       <Text
         isLocked={true}
@@ -4353,8 +4350,7 @@ exports[`App Screen Components Each screen component renders with props provided
           ]
         }
       >
-        HSK Level 
-        5
+        HSK Level 5
       </Text>
       <Text
         isLocked={true}
@@ -4409,8 +4405,7 @@ exports[`App Screen Components Each screen component renders with props provided
           ]
         }
       >
-        HSK Level 
-        6
+        HSK Level 6
       </Text>
       <Text
         isLocked={true}
@@ -4426,6 +4421,116 @@ exports[`App Screen Components Each screen component renders with props provided
       >
         (
         2,500
+         words)
+      </Text>
+    </View>
+    <View
+      accessible={true}
+      isTVSelectable={true}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#3498db",
+          "borderRadius": 5,
+          "flexDirection": "row",
+          "height": 50,
+          "justifyContent": "space-between",
+          "margin": 4,
+          "opacity": 1,
+          "padding": 12,
+          "width": "90%",
+        }
+      }
+    >
+      <Text
+        isLocked={false}
+        style={
+          Array [
+            Object {
+              "color": "black",
+              "fontWeight": "500",
+              "textDecorationLine": "none",
+            },
+          ]
+        }
+      >
+        Custom List
+      </Text>
+      <Text
+        isLocked={false}
+        style={
+          Array [
+            Object {
+              "color": "black",
+              "fontWeight": "500",
+              "textDecorationLine": "none",
+            },
+          ]
+        }
+      >
+        (
+        1
+         words)
+      </Text>
+    </View>
+    <View
+      accessible={true}
+      isTVSelectable={true}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#3498db",
+          "borderRadius": 5,
+          "flexDirection": "row",
+          "height": 50,
+          "justifyContent": "space-between",
+          "margin": 4,
+          "opacity": 1,
+          "padding": 12,
+          "width": "90%",
+        }
+      }
+    >
+      <Text
+        isLocked={false}
+        style={
+          Array [
+            Object {
+              "color": "black",
+              "fontWeight": "500",
+              "textDecorationLine": "none",
+            },
+          ]
+        }
+      >
+        Michelle Week 1
+      </Text>
+      <Text
+        isLocked={false}
+        style={
+          Array [
+            Object {
+              "color": "black",
+              "fontWeight": "500",
+              "textDecorationLine": "none",
+            },
+          ]
+        }
+      >
+        (
+        1
          words)
       </Text>
     </View>
