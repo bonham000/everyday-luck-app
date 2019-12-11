@@ -1,5 +1,7 @@
 import { Audio } from "expo-av";
+import * as Speech from "expo-speech";
 import React, { ComponentType } from "react";
+
 import { Platform } from "react-native";
 
 import SoundRecordingContext, {
@@ -74,6 +76,19 @@ class SoundRecordingProvider extends React.Component<IProps, IState> {
     if (this.props.disableAudio) {
       return;
     }
+
+    /**
+     * ha! Just use the native Speech module for now ~~~
+     *
+     * Perhaps remove the other code later...
+     */
+    try {
+      Speech.speak(traditionalCharacters, { language: "zh" });
+    } catch (err) {
+      /* Do nothing ~ */
+    }
+
+    return;
 
     /**
      * The logic diverges on iOS and Android because the Android Audio API
