@@ -175,13 +175,15 @@ const getEnglishAlternateWords = (
   word: Word,
   wordDictionary: WordDictionary,
 ): Lesson => {
+  const englishWords = ENGLISH_WORDS.filter(
+    englishWord => englishWord.toLowerCase() in wordDictionary,
+  );
   const { english_alternate_choices } = word;
-  const alternateEnglishWords =
-    english_alternate_choices.length < 4
-      ? ENGLISH_WORDS.filter(
-          englishWord => englishWord.toLowerCase() in wordDictionary,
-        )
-      : english_alternate_choices;
+  const alternateEnglishWords = !english_alternate_choices
+    ? englishWords
+    : english_alternate_choices.length < 4
+    ? englishWords
+    : english_alternate_choices;
 
   let idx: number;
   let option: string;

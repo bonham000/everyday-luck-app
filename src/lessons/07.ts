@@ -10,7 +10,6 @@ const lesson: HSKList = {
       traditional: "赞",
       pinyin: "zàn",
       english: "Awesome",
-      english_alternate_choices: [""],
     },
   ],
 };

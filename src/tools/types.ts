@@ -84,7 +84,7 @@ export interface Word {
   simplified: string;
   pinyin: string;
   english: string;
-  english_alternate_choices: ReadonlyArray<string>;
+  english_alternate_choices?: ReadonlyArray<string>;
 }
 
 export interface HSKList {
