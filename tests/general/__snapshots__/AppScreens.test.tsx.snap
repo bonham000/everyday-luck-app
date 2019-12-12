@@ -675,6 +675,8 @@ Array [
             }
           >
             <Text
+              allowFontScaling={true}
+              numberOfLines={1}
               style={
                 Array [
                   Object {
@@ -717,6 +719,8 @@ Array [
             }
           >
             <Text
+              allowFontScaling={true}
+              numberOfLines={1}
               style={
                 Array [
                   Object {
@@ -759,6 +763,8 @@ Array [
             }
           >
             <Text
+              allowFontScaling={true}
+              numberOfLines={1}
               style={
                 Array [
                   Object {
@@ -801,6 +807,8 @@ Array [
             }
           >
             <Text
+              allowFontScaling={true}
+              numberOfLines={1}
               style={
                 Array [
                   Object {
@@ -1581,6 +1589,8 @@ Array [
         }
       >
         <Text
+          adjustsFontSizeToFit={true}
+          numberOfLines={1}
           style={
             Array [
               Object {
@@ -1661,6 +1671,8 @@ Array [
             }
           >
             <Text
+              allowFontScaling={true}
+              numberOfLines={1}
               style={
                 Array [
                   Object {
@@ -1703,6 +1715,8 @@ Array [
             }
           >
             <Text
+              allowFontScaling={true}
+              numberOfLines={1}
               style={
                 Array [
                   Object {
@@ -1745,6 +1759,8 @@ Array [
             }
           >
             <Text
+              allowFontScaling={true}
+              numberOfLines={1}
               style={
                 Array [
                   Object {
@@ -1787,6 +1803,8 @@ Array [
             }
           >
             <Text
+              allowFontScaling={true}
+              numberOfLines={1}
               style={
                 Array [
                   Object {
@@ -3006,6 +3024,8 @@ Array [
         }
       >
         <Text
+          adjustsFontSizeToFit={true}
+          numberOfLines={1}
           style={
             Array [
               Object {
@@ -3086,6 +3106,8 @@ Array [
             }
           >
             <Text
+              allowFontScaling={true}
+              numberOfLines={1}
               style={
                 Array [
                   Object {
@@ -3128,6 +3150,8 @@ Array [
             }
           >
             <Text
+              allowFontScaling={true}
+              numberOfLines={1}
               style={
                 Array [
                   Object {
@@ -3170,6 +3194,8 @@ Array [
             }
           >
             <Text
+              allowFontScaling={true}
+              numberOfLines={1}
               style={
                 Array [
                   Object {
@@ -3212,6 +3238,8 @@ Array [
             }
           >
             <Text
+              allowFontScaling={true}
+              numberOfLines={1}
               style={
                 Array [
                   Object {
@@ -4146,7 +4174,7 @@ exports[`App Screen Components Each screen component renders with props provided
         ]
       }
     >
-      5,002
+      5,017
        words total
     </Text>
     <View
@@ -4475,7 +4503,7 @@ exports[`App Screen Components Each screen component renders with props provided
         }
       >
         (
-        1
+        16
          words)
       </Text>
     </View>

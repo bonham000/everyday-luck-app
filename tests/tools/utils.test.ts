@@ -219,13 +219,6 @@ describe("utils", () => {
     expect(capitalize("hELLO hello hello")).toBe("Hello hello hello");
   });
 
-  test("flattenLessonSet", () => {
-    assertListsContainSameContent(
-      flattenLessonSet(HSK_LISTS),
-      flattenLessonSet(HSK_LISTS),
-    );
-  });
-
   test("isNetworkConnected", () => {
     expect(isNetworkConnected("none")).toBeFalsy();
     expect(isNetworkConnected("cell")).toBeTruthy();
