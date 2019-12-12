@@ -178,6 +178,7 @@ const getEnglishAlternateWords = (
   const englishWords = ENGLISH_WORDS.filter(
     englishWord => englishWord.toLowerCase() in wordDictionary,
   );
+
   const { english_alternate_choices } = word;
   const alternateEnglishWords = !english_alternate_choices
     ? englishWords
