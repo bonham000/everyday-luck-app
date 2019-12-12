@@ -272,6 +272,8 @@ const QuizPromptText = ({
   const fontSize = SMALL_DEVICE ? font * 0.8 : font;
   return (
     <Text
+      numberOfLines={1}
+      adjustsFontSizeToFit
       style={{
         fontWeight: "bold",
         fontSize,
@@ -401,9 +403,13 @@ const QuizAnswerText = ({
   }
 
   return quizType === QUIZ_TYPE.ENGLISH ? (
-    <Text style={textStyles}>{capitalize(choice.english)}</Text>
+    <Text numberOfLines={1} allowFontScaling style={textStyles}>
+      {capitalize(choice.english)}
+    </Text>
   ) : (
-    <Text style={textStyles}>{choice[languageSetting]}</Text>
+    <Text numberOfLines={1} allowFontScaling style={textStyles}>
+      {choice[languageSetting]}
+    </Text>
   );
 };
 

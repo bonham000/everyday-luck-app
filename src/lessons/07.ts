@@ -95,6 +95,12 @@ const lesson: HSKList = {
       pinyin: "jǐ diǎnle",
       english: "What time?",
     },
+    {
+      simplified: "田纳西",
+      traditional: "田納西",
+      pinyin: "tiánnàxī",
+      english: "Tennessee",
+    },
   ],
 };
 
