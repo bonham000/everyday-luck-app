@@ -101,6 +101,12 @@ const lesson: HSKList = {
       pinyin: "tiánnàxī",
       english: "Tennessee",
     },
+    {
+      simplified: "怎么了",
+      traditional: "怎麼了",
+      pinyin: "zěnmeliǎo",
+      english: "What happened?",
+    },
   ],
 };
 
