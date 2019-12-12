@@ -4174,7 +4174,7 @@ exports[`App Screen Components Each screen component renders with props provided
         ]
       }
     >
-      5,017
+      5,018
        words total
     </Text>
     <View
@@ -4503,7 +4503,7 @@ exports[`App Screen Components Each screen component renders with props provided
         }
       >
         (
-        16
+        17
          words)
       </Text>
     </View>
