@@ -342,11 +342,11 @@ export const mapListIndexToListScores = (
  * @returns true if lesson has been completed
  */
 export const isLessonComplete = (listScore: ListScore): boolean => {
-  return (
+  return Boolean(
     listScore.mc_english &&
-    listScore.mc_mandarin &&
-    listScore.quiz_text &&
-    listScore.mandarin_pronunciation
+      listScore.mc_mandarin &&
+      listScore.quiz_text &&
+      listScore.mandarin_pronunciation,
   );
 };
 

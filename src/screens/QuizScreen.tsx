@@ -581,6 +581,17 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     const listScore = mapListIndexToListScores(listIndex, updatedScoreStatus);
 
     /**
+     * Mark this quiz type as complete on the user score history.
+     */
+    updatedScoreStatus = {
+      ...updatedScoreStatus,
+      [listScoreKey]: {
+        ...listScore,
+        [quizType]: true,
+      },
+    };
+
+    /**
      * A lesson is complete.
      */
     if (lessonCompleted && lessonType === "LESSON") {

@@ -5,10 +5,14 @@ import Lesson_05 from "@src/lessons/05";
 import Lesson_06 from "@src/lessons/06";
 import Lesson_07 from "@src/lessons/07";
 import Lesson_08 from "@src/lessons/08";
+
 import { HSKListSet } from "@src/tools/types";
 
 /** ===========================================================================
  * Types & Config
+ * ----------------------------------------------------------------------------
+ * Adding a new vocabulary set requires importing it here and adding the
+ * additional lesson in the definitions below.
  * ============================================================================
  */
 
