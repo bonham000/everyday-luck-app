@@ -524,7 +524,6 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     let lessonCompleted = false;
     const updatedScoreStatus: ListScoreSet = {
       ...userScoreStatus,
-      [quizType]: perfectScore,
     };
 
     const allComplete = hasUserCompletedAllLists(updatedScoreStatus);
@@ -537,6 +536,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
         updatedScoreStatus,
         lessonCompleted,
         experiencePoints,
+        quizType,
       );
     }
 
@@ -564,6 +564,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     updatedScores: ListScoreSet,
     lessonCompleted: boolean,
     experiencePoints: number,
+    quizType: QUIZ_TYPE,
   ) => {
     let updatedScoreStatus = updatedScores;
     const { lessons } = this.props;
@@ -587,6 +588,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
         ...updatedScoreStatus,
         [listScoreKey]: {
           ...listScore,
+          [quizType]: true,
           complete: isFinalLesson,
           number_words_completed: (lessonIndex + 1) * lessonContentSize,
         },
