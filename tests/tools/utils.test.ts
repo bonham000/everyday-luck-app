@@ -33,7 +33,6 @@ import {
   mapListIndexToListScores,
   mapWordsForList,
   randomInRange,
-  translateWord,
 } from "@src/tools/utils";
 import MOCKS from "@tests/mocks";
 
@@ -323,22 +322,6 @@ describe("utils", () => {
       }),
     );
     expect(result).toBe(2);
-  });
-
-  test("translateWord", async () => {
-    jest.setTimeout(20000);
-
-    let result = await translateWord("cake", "english");
-    expect(typeof result.english).toBe("string");
-    expect(typeof result.pinyin).toBe("string");
-    expect(typeof result.simplified).toBe("string");
-    expect(typeof result.traditional).toBe("string");
-
-    result = await translateWord("晚安", "simplified");
-    expect(typeof result.english).toBe("string");
-    expect(typeof result.pinyin).toBe("string");
-    expect(typeof result.simplified).toBe("string");
-    expect(typeof result.traditional).toBe("string");
   });
 
   test("fetchLessonSet", () => {
