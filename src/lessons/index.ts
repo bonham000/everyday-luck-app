@@ -6,7 +6,7 @@ import Lesson_06 from "@src/lessons/06";
 import Lesson_07 from "@src/lessons/07";
 import Lesson_08 from "@src/lessons/08";
 
-import { HSKListSet } from "@src/tools/types";
+import { HSKList, HSKListSet } from "@src/tools/types";
 
 /** ===========================================================================
  * Types & Config
@@ -55,6 +55,11 @@ export const SCORES_INDEX_MAP: ReadonlyArray<keyof ListScoreSet> = [
  * =========================================================================
  */
 
+const filterEmptyWords = (lesson: HSKList) => ({
+  ...lesson,
+  content: lesson.content.filter(word => Boolean(word.traditional)),
+});
+
 const HSK_LISTS: HSKListSet = [
   Lesson_02,
   Lesson_03,
@@ -63,6 +68,6 @@ const HSK_LISTS: HSKListSet = [
   Lesson_06,
   Lesson_07,
   Lesson_08,
-];
+].map(filterEmptyWords);
 
 export default HSK_LISTS;
