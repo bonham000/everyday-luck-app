@@ -7,33 +7,33 @@ const lesson: HSKList = {
   content: [
     {
       simplified: "可以稍等我一下吗",
-      english: "Can you wait for me",
       traditional: "可以稍等我一下嗎",
-      pinyin: "kě yǐ shāo děng wǒ yī xià ",
+      english: "Can you wait for me",
+      pinyin: "kěyǐ shāo děng wǒ yīxià ma",
     },
     {
       simplified: "你下班后有什么事吗",
-      english: "Do you have anything after work",
       traditional: "你下班後有什麼事嗎",
+      english: "Do you have anything after work",
       pinyin: "nǐ xiàbān hòu yǒu shé me shì ma",
     },
     {
       simplified: "没有什么重要的事",
-      english: "Nothing important",
       traditional: "沒有什麼重要的事",
+      english: "Nothing important",
       pinyin: "méiyǒu shé me zhòngyào de shì",
     },
     {
       simplified: "你们有几位呢",
-      english: "How many of you",
       traditional: "你們有幾位呢",
+      english: "How many of you",
       pinyin: "Nǐmen yǒu jǐ wèi ne",
     },
     {
       simplified: "那是什么时候",
       traditional: "那是什麼時候",
-      pinyin: "nà shì shénme shíhòu",
       english: "When is that?",
+      pinyin: "nà shì shénme shíhòu",
     },
   ],
 };

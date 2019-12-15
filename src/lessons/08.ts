@@ -7,7 +7,7 @@ const lesson: HSKList = {
   content: [
     {
       simplified: "最近",
-      english: "Recent",
+      english: "Recently",
       traditional: "最近",
       pinyin: "zuì jìn",
     },
@@ -27,7 +27,7 @@ const lesson: HSKList = {
       simplified: "很差",
       english: "Very poor",
       traditional: "很差",
-      pinyin: "hěn ",
+      pinyin: "Hěn chà",
     },
     {
       simplified: "关心",
@@ -51,13 +51,7 @@ const lesson: HSKList = {
       simplified: "我要到",
       english: "I want to",
       traditional: "我要到",
-      pinyin: "wǒ ",
-    },
-    {
-      simplified: "可以稍等我一下吗",
-      english: "Can you wait for me",
-      traditional: "可以稍等我一下嗎",
-      pinyin: "kě yǐ shāo děng wǒ yī xià ",
+      pinyin: "wǒ yào dào",
     },
     {
       simplified: "稍等",
@@ -145,7 +139,7 @@ const lesson: HSKList = {
     },
     {
       simplified: "单点",
-      english: "Single Point",
+      english: "À la carte",
       traditional: "單點",
       pinyin: "dān diǎn",
     },
@@ -228,18 +222,6 @@ const lesson: HSKList = {
       pinyin: "xià bān hòu",
     },
     {
-      simplified: "你下班后有什么事吗",
-      english: "Do you have anything after work",
-      traditional: "你下班後有什麼事嗎",
-      pinyin: "nǐ xiàbān hòu yǒu shé me shì ma",
-    },
-    {
-      simplified: "没有什么重要的事",
-      english: "Nothing important",
-      traditional: "沒有什麼重要的事",
-      pinyin: "méiyǒu shé me zhòngyào de shì",
-    },
-    {
       simplified: "走吧",
       english: "Let's go",
       traditional: "走吧",
@@ -261,13 +243,13 @@ const lesson: HSKList = {
       simplified: "好的",
       english: "Ok",
       traditional: "好的",
-      pinyin: "Hǎo de",
+      pinyin: "hǎo de",
     },
     {
       simplified: "你们有几位呢",
       english: "How many of you",
       traditional: "你們有幾位呢",
-      pinyin: "Nǐmen yǒu jǐ wèi ne",
+      pinyin: "nǐmen yǒu jǐ wèi ne",
     },
   ],
 };
