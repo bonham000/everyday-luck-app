@@ -147,7 +147,7 @@ export const getAlternateChoices = (
        * Try to match choices with a similar length to the selected word,
        * but only up to words of length 3.
        */
-      if (word.simplified.length < 4) {
+      if (word.traditional.length < 4) {
         if (option.traditional.length === word.traditional.length) {
           chosen.add(idx);
           choices = choices.concat(option);
