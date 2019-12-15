@@ -18,16 +18,16 @@ export const getPersistedUser = async (): Promise<User | undefined> => {
       /**
        * Add scores for new lessons if they have been added.
        */
-      // if (
-      //   Object.keys(user.score_history).length !==
-      //   Object.keys(MOCKS.DEFAULT_SCORE_STATE).length
-      // ) {
-      // }
-      // tslint:disable-next-line
-      user.score_history = {
-        ...MOCKS.DEFAULT_SCORE_STATE,
-        ...user.score_history,
-      };
+      if (
+        Object.keys(user.score_history).length !==
+        Object.keys(MOCKS.DEFAULT_SCORE_STATE).length
+      ) {
+        // tslint:disable-next-line
+        user.score_history = {
+          ...MOCKS.DEFAULT_SCORE_STATE,
+          ...user.score_history,
+        };
+      }
 
       return user;
     }
