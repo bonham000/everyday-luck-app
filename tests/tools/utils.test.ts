@@ -88,8 +88,14 @@ describe("utils", () => {
     const assertChoicesAreAllUnique = (choices: Lesson) => {
       const seen = new Set();
       for (const choice of choices) {
-        seen.add(choice.traditional);
+        seen.add(`${choice.traditional}-${choice.pinyin}`);
       }
+
+      if (seen.size !== choices.length) {
+        console.log(JSON.stringify(choices));
+        throw new Error(JSON.stringify(choices));
+      }
+
       expect(seen.size).toBe(choices.length);
     };
 
