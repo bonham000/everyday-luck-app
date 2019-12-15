@@ -116,6 +116,13 @@ const DEFAULT_SCORE_STATE = {
     number_words_completed: 0,
     ...DEFAULT_LESSON_SCORES,
   },
+  list_09_score: {
+    complete: false,
+    list_index: 7,
+    list_key: "9",
+    number_words_completed: 0,
+    ...DEFAULT_LESSON_SCORES,
+  },
 };
 
 const COMPLETED_SCORE_STATE = {
@@ -166,6 +173,13 @@ const COMPLETED_SCORE_STATE = {
     complete: true,
     list_index: 6,
     list_key: "8",
+    number_words_completed: 10000,
+    ...DEFAULT_LESSON_SCORES,
+  },
+  list_09_score: {
+    complete: true,
+    list_index: 7,
+    list_key: "9",
     number_words_completed: 10000,
     ...DEFAULT_LESSON_SCORES,
   },

@@ -78,12 +78,6 @@ const lesson: HSKList = {
       english: "Meat",
     },
     {
-      simplified: "那是什么时候",
-      traditional: "那是什麼時候",
-      pinyin: "nà shì shénme shíhòu",
-      english: "When is that?",
-    },
-    {
       simplified: "哪里是",
       traditional: "哪裡是",
       pinyin: "nǎlǐ shì",
