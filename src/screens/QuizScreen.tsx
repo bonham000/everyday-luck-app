@@ -528,8 +528,11 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
 
     const allComplete = hasUserCompletedAllLists(updatedScoreStatus);
 
-    /* Is the lesson fully completed */
-    lessonCompleted = isLessonComplete(listScore);
+    /* Is the lesson fully completed, use updated list score with current lesson */
+    lessonCompleted = isLessonComplete({
+      ...listScore,
+      [quizType]: perfectScore,
+    });
 
     if (perfectScore) {
       this.handleSettingScoresForLesson(
@@ -599,17 +602,10 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
         ...updatedScoreStatus,
         [listScoreKey]: {
           ...listScore,
-          [quizType]: true,
+          ...MOCKS.DEFAULT_LESSON_SCORES,
           complete: isFinalLesson,
           number_words_completed: (lessonIndex + 1) * lessonContentSize,
         },
-      };
-    }
-
-    if (lessonCompleted) {
-      updatedScoreStatus = {
-        ...updatedScoreStatus,
-        ...MOCKS.DEFAULT_LESSON_SCORES,
       };
     }
 
@@ -619,7 +615,6 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
      */
     if (lessonType === "OPT_OUT_CHALLENGE") {
       updatedScoreStatus = {
-        ...MOCKS.DEFAULT_LESSON_SCORES,
         ...updatedScoreStatus,
         [listScoreKey]: {
           ...listScore,
