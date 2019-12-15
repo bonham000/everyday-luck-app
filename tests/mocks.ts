@@ -66,7 +66,6 @@ const DEFAULT_LESSON_SCORES = {
 };
 
 const DEFAULT_SCORE_STATE = {
-  ...DEFAULT_LESSON_SCORES,
   list_02_score: {
     complete: false,
     list_index: 0,
@@ -126,7 +125,6 @@ const DEFAULT_SCORE_STATE = {
 };
 
 const COMPLETED_SCORE_STATE = {
-  ...DEFAULT_LESSON_SCORES,
   list_02_score: {
     complete: true,
     list_index: 0,

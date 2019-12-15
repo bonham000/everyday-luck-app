@@ -15,8 +15,11 @@ export const getPersistedUser = async (): Promise<User | undefined> => {
     if (result) {
       const user: User = JSON.parse(result);
 
+      /**
+       * Add scores for new lessons if they have been added.
+       */
       if (
-        Object.keys(user.score_history).length !==
+        Object.keys(user.score_history).length <
         Object.keys(MOCKS.DEFAULT_SCORE_STATE).length
       ) {
         // tslint:disable-next-line
