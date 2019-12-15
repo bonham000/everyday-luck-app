@@ -4174,7 +4174,7 @@ exports[`App Screen Components Each screen component renders with props provided
         ]
       }
     >
-      5,061
+      5,062
        words total
     </Text>
     <View
@@ -4503,7 +4503,7 @@ exports[`App Screen Components Each screen component renders with props provided
         }
       >
         (
-        17
+        16
          words)
       </Text>
     </View>
@@ -4558,7 +4558,62 @@ exports[`App Screen Components Each screen component renders with props provided
         }
       >
         (
-        44
+        41
+         words)
+      </Text>
+    </View>
+    <View
+      accessible={true}
+      isTVSelectable={true}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#f5834e",
+          "borderRadius": 5,
+          "flexDirection": "row",
+          "height": 50,
+          "justifyContent": "space-between",
+          "margin": 4,
+          "opacity": 1,
+          "padding": 12,
+          "width": "90%",
+        }
+      }
+    >
+      <Text
+        isLocked={false}
+        style={
+          Array [
+            Object {
+              "color": "black",
+              "fontWeight": "500",
+              "textDecorationLine": "none",
+            },
+          ]
+        }
+      >
+        Phrases
+      </Text>
+      <Text
+        isLocked={false}
+        style={
+          Array [
+            Object {
+              "color": "black",
+              "fontWeight": "500",
+              "textDecorationLine": "none",
+            },
+          ]
+        }
+      >
+        (
+        5
          words)
       </Text>
     </View>
