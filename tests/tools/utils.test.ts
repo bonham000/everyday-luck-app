@@ -88,7 +88,7 @@ describe("utils", () => {
     const assertChoicesAreAllUnique = (choices: Lesson) => {
       const seen = new Set();
       for (const choice of choices) {
-        seen.add(choice.simplified);
+        seen.add(choice.traditional);
       }
       expect(seen.size).toBe(choices.length);
     };
