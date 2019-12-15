@@ -4464,7 +4464,7 @@ exports[`App Screen Components Each screen component renders with props provided
       style={
         Object {
           "alignItems": "center",
-          "backgroundColor": "#f5834e",
+          "backgroundColor": "#fa996b",
           "borderRadius": 5,
           "flexDirection": "row",
           "height": 50,
@@ -4519,7 +4519,7 @@ exports[`App Screen Components Each screen component renders with props provided
       style={
         Object {
           "alignItems": "center",
-          "backgroundColor": "#f5834e",
+          "backgroundColor": "#fa996b",
           "borderRadius": 5,
           "flexDirection": "row",
           "height": 50,
@@ -4574,7 +4574,7 @@ exports[`App Screen Components Each screen component renders with props provided
       style={
         Object {
           "alignItems": "center",
-          "backgroundColor": "#f5834e",
+          "backgroundColor": "#fa996b",
           "borderRadius": 5,
           "flexDirection": "row",
           "height": 50,
