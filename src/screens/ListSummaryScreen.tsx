@@ -55,7 +55,7 @@ export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
           extraData={listScore.number_words_completed}
           keyExtractor={item => `${item[0].traditional}-${item[0].pinyin}`}
         />
-        {!listScore.complete && (
+        {!listScore.complete ? (
           <OptOutBlock>
             <SubText>
               Already mastered this HSK Level? Prove your knowledge to opt-out
@@ -70,6 +70,19 @@ export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
               <LessonBlockText isLocked={false}>
                 Test out of this HSK Level
               </LessonBlockText>
+              <Text>👨‍🎓👩‍🎓</Text>
+            </LessonBlock>
+          </OptOutBlock>
+        ) : (
+          <OptOutBlock>
+            <SubText>Quiz all the content in this lesson.</SubText>
+            <LessonBlock
+              onPress={this.handleStudyAll}
+              style={{
+                backgroundColor: COLORS.actionButtonYellow,
+              }}
+            >
+              <LessonBlockText isLocked={false}>Review All</LessonBlockText>
               <Text>👨‍🎓👩‍🎓</Text>
             </LessonBlock>
           </OptOutBlock>
@@ -176,6 +189,20 @@ export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
       "OPT_OUT_CHALLENGE",
       listIndex,
     )();
+  };
+
+  handleStudyAll = () => {
+    const { lessons, userScoreStatus } = this.props;
+    const listIndex = this.props.navigation.getParam("listIndex");
+    const args: DeriveLessonContentArgs = {
+      lists: lessons,
+      unlockedListIndex: listIndex,
+      appDifficultySetting: OPT_OUT_LEVEL /* TODO: Change? */,
+      userScoreStatus,
+      limitToCurrentList: true,
+    };
+    const randomQuizSet = getRandomQuizChallenge(args);
+    this.openLessonSummarySpecial(randomQuizSet, "SUMMARY", listIndex)();
   };
 
   openLessonSummarySpecial = (
