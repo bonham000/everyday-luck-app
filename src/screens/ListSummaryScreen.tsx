@@ -162,12 +162,14 @@ export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
     type: LessonSummaryType = "LESSON",
   ) => () => {
     const listIndex = this.props.navigation.getParam("listIndex");
+    const listTitle = this.props.navigation.getParam("listTitle");
     const params: LessonScreenParams = {
       type,
       lesson,
       listIndex,
-      isFinalLesson,
+      listTitle,
       lessonIndex,
+      isFinalLesson,
       isFinalUnlockedLesson,
     };
     this.props.navigation.navigate(ROUTE_NAMES.LESSON_SUMMARY, params);
@@ -196,6 +198,7 @@ export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
     const listIndex = this.props.navigation.getParam("listIndex");
     const args: DeriveLessonContentArgs = {
       lists: lessons,
+
       unlockedListIndex: listIndex,
       appDifficultySetting: OPT_OUT_LEVEL /* TODO: Change? */,
       userScoreStatus,
@@ -210,10 +213,12 @@ export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
     type: LessonSummaryType,
     listIndex: number,
   ) => () => {
+    const listTitle = this.props.navigation.getParam("listTitle");
     const params: LessonScreenParams = {
       type,
       lesson,
       listIndex,
+      listTitle,
       lessonIndex: Infinity,
       isFinalLesson: false,
       isFinalUnlockedLesson: false,

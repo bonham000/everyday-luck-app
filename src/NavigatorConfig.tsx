@@ -57,16 +57,27 @@ const ROUTES: NavigationScreenRouteConfig = {
     }) => {
       const index = navigation.getParam("lessonIndex");
       const type = navigation.getParam("type");
+      const listTitle = navigation.getParam("listTitle");
       const listIndex = navigation.getParam("listIndex") + 1;
+
+      const quizTitle = `Quiz ${Number(index) + 1}`;
+      const IS_HSK = listIndex > 4;
+      const lessonTitle = IS_HSK
+        ? `${quizTitle} - ${listTitle}`
+        : `HSK List ${listIndex} - ${quizTitle} 🗂`;
+      const hskListTitle = IS_HSK
+        ? `HSK List ${listIndex} Challenge`
+        : listTitle;
+
       return {
         title:
           type === "LESSON"
-            ? `HSK List ${listIndex} - Quiz ${Number(index) + 1} 🗂`
+            ? lessonTitle
             : type === "SUMMARY"
             ? "Review All 🔮"
             : type === "DAILY_QUIZ"
             ? "Daily Quiz!"
-            : `HSK List ${listIndex} Challenge`,
+            : hskListTitle,
         headerBackTitle: null,
       };
     },
@@ -79,8 +90,9 @@ const ROUTES: NavigationScreenRouteConfig = {
       navigation: NavigationScreenProp<{}, ListScreenParams>;
     }) => {
       const listKey = navigation.getParam("listKey");
+      const listTitle = navigation.getParam("listTitle");
       return {
-        title: `HSK Level ${listKey}`,
+        title: listTitle ? listTitle : `HSK Level ${listKey}`,
         headerBackTitle: null,
       };
     },
@@ -244,7 +256,6 @@ const createNavigatorConfig = (firstTimeUser: boolean) => {
         },
       },
     },
-    // @ts-ignore
     {
       contentComponent: SideMenuComponent,
     },

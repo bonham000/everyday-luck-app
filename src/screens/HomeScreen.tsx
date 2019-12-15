@@ -12,7 +12,7 @@ import {
   withGlobalStateContext,
 } from "@src/providers/GlobalStateProvider";
 import {
-  Lesson,
+  HSKList,
   LessonScreenParams,
   LessonSummaryType,
   ListScreenParams,
@@ -89,7 +89,7 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
               ? COLORS.lessonBlockInProgress
               : COLORS.lessonBlock,
           }}
-          onPress={this.handleSelectList(list, content, index, isLocked)}
+          onPress={this.handleSelectList(list, hskList, index, isLocked)}
         >
           <LessonBlockText isLocked={isLocked}>{listTitle}</LessonBlockText>
           <LessonBlockText isLocked={isLocked}>
@@ -102,7 +102,7 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
 
   handleSelectList = (
     listKey: string,
-    hskList: Lesson,
+    hskList: HSKList,
     index: number,
     isLocked: boolean,
   ) => () => {
@@ -115,12 +115,12 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
 
   openListSummary = (
     listKey: string,
-    list: Lesson,
+    list: HSKList,
     listIndex: number,
     type: LessonSummaryType = "LESSON",
   ) => () => {
     const hskList = adjustListContentByDifficultySetting(
-      list,
+      list.content,
       this.props.appDifficultySetting,
     );
     const params: ListScreenParams = {
@@ -128,6 +128,7 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
       listKey,
       hskList,
       listIndex,
+      listTitle: list.title,
     };
     this.props.navigation.navigate(ROUTE_NAMES.LIST_SUMMARY, params);
   };

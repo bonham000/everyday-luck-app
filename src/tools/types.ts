@@ -108,6 +108,7 @@ export interface ListScreenParams {
   listKey: string;
   hskList: LessonSet;
   listIndex: number;
+  listTitle?: string;
   headerTitle?: string;
   type: LessonSummaryType;
 }
@@ -116,6 +117,7 @@ export interface LessonScreenParams {
   lesson: Lesson;
   listIndex: number;
   lessonIndex: number;
+  listTitle?: string;
   headerTitle?: string;
   isFinalLesson: boolean;
   type: LessonSummaryType;
