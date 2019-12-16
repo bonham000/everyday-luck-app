@@ -4174,7 +4174,7 @@ exports[`App Screen Components Each screen component renders with props provided
         ]
       }
     >
-      5,062
+      5,000
        words total
     </Text>
     <View
@@ -4452,6 +4452,47 @@ exports[`App Screen Components Each screen component renders with props provided
          words)
       </Text>
     </View>
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#000000",
+            "fontFamily": "Helvetica Neue",
+            "textAlign": "left",
+            "writingDirection": "ltr",
+          },
+          Object {
+            "fontSize": 16,
+            "fontWeight": "bold",
+            "marginBottom": 16,
+            "marginTop": 20,
+            "textAlign": "center",
+            "width": "88%",
+          },
+        ]
+      }
+    >
+      Custom Word Lists
+    </Text>
+    <Text
+      style={
+        Array [
+          Object {
+            "color": "#000000",
+            "fontFamily": "Helvetica Neue",
+            "textAlign": "left",
+            "writingDirection": "ltr",
+          },
+          Object {
+            "marginBottom": 18,
+            "marginTop": 6,
+          },
+        ]
+      }
+    >
+      62
+       words total
+    </Text>
     <View
       accessible={true}
       isTVSelectable={true}
