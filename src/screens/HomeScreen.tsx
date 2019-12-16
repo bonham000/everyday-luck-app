@@ -41,17 +41,30 @@ interface IProps extends GlobalStateContextProps {
 
 export class HomeScreenComponent extends React.Component<IProps, {}> {
   render(): JSX.Element {
-    const totalWords = this.props.lessons.reduce(
-      (total, lesson) => total + lesson.content.length,
+    const totalWordsHsk = this.props.lessons.reduce(
+      (total, lesson) =>
+        !Boolean(lesson.title) ? total + lesson.content.length : total,
       0,
     );
+
+    const totalWordsCustom = this.props.lessons.reduce(
+      (total, lesson) =>
+        Boolean(lesson.title) ? total + lesson.content.length : total,
+      0,
+    );
+
     return (
       <ScrollContainer>
         <Text style={TextStyles}>Choose a lesson to start studying</Text>
         <Text style={{ marginTop: 6, marginBottom: 18 }}>
-          {totalWords.toLocaleString()} words total
+          {totalWordsHsk.toLocaleString()} words total
         </Text>
-        {this.renderListSets()}
+        {this.renderListSets(true)}
+        <Text style={{ ...TextStyles, marginTop: 20 }}>Custom Word Lists</Text>
+        <Text style={{ marginTop: 6, marginBottom: 18 }}>
+          {totalWordsCustom.toLocaleString()} words total
+        </Text>
+        {this.renderListSets(false)}
         <LineBreak />
         <Text style={TextStyles}>Practice everyday to gain experience!</Text>
         <ReviewLink onPress={this.openLessonSummarySpecial("DAILY_QUIZ")}>
@@ -69,35 +82,44 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
     );
   }
 
-  renderListSets = () => {
+  renderListSets = (hsk: boolean) => {
     const { lessons, userScoreStatus } = this.props;
     const unlockedListIndex = getFinalUnlockedListKey(userScoreStatus);
-    return lessons.map((hskList, index) => {
-      const { list, title, locked, content } = hskList;
-      const inProgress = index === unlockedListIndex;
-      const isLocked = locked ? index > unlockedListIndex : false;
-      const listTitle = title ? title : `HSK Level ${list}`;
-      return (
-        <LessonBlock
-          key={hskList.list}
-          style={{
-            backgroundColor: !locked
-              ? COLORS.lessonCustom
-              : isLocked
-              ? COLORS.lockedLessonBlock
-              : inProgress
-              ? COLORS.lessonBlockInProgress
-              : COLORS.lessonBlock,
-          }}
-          onPress={this.handleSelectList(list, hskList, index, isLocked)}
-        >
-          <LessonBlockText isLocked={isLocked}>{listTitle}</LessonBlockText>
-          <LessonBlockText isLocked={isLocked}>
-            ({content.length.toLocaleString()} words)
-          </LessonBlockText>
-        </LessonBlock>
-      );
-    });
+    return lessons
+      .map((hskList, index) => {
+        const { list, title, locked, content } = hskList;
+        const inProgress = index === unlockedListIndex;
+        const isLocked = locked ? index > unlockedListIndex : false;
+        const listTitle = title ? title : `HSK Level ${list}`;
+
+        if (title && hsk) {
+          return null; // hsk lessons
+        } else if (!title && !hsk) {
+          return null; // custom lessons
+        }
+
+        return (
+          <LessonBlock
+            key={hskList.list}
+            style={{
+              backgroundColor: !locked
+                ? COLORS.lessonCustom
+                : isLocked
+                ? COLORS.lockedLessonBlock
+                : inProgress
+                ? COLORS.lessonBlockInProgress
+                : COLORS.lessonBlock,
+            }}
+            onPress={this.handleSelectList(list, hskList, index, isLocked)}
+          >
+            <LessonBlockText isLocked={isLocked}>{listTitle}</LessonBlockText>
+            <LessonBlockText isLocked={isLocked}>
+              ({content.length.toLocaleString()} words)
+            </LessonBlockText>
+          </LessonBlock>
+        );
+      })
+      .filter(Boolean);
   };
 
   handleSelectList = (
