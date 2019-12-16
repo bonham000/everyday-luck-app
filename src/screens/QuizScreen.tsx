@@ -68,7 +68,7 @@ interface IState {
   wordContent: ReadonlyArray<Word>;
 }
 
-const REVERSION_PENALTY = 250;
+const REVERSION_PENALTY = 2500;
 
 const AUTO_PROCEED_DELAY = 700;
 
@@ -273,7 +273,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
         {this.state.failedOnce && (
           <ActionButton.Item
             style={{ zIndex: 50 }}
-            title="Revert failed answer"
+            title="Recover!"
             onPress={this.handleRevertAnswer}
             buttonColor={COLORS.actionButtonBlue}
           >
@@ -391,7 +391,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
       () => {
         this.props.updateExperiencePoints(-cost);
         this.props.setToastMessage(
-          "Saved - you'll have another chance to answer that one! 😇",
+          "Recovered! You'll have another chance to answer that one! 😇",
         );
         this.handleProceedToNextQuestion();
       },

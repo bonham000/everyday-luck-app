@@ -1,0 +1,3 @@
+- Take notes of custom content to study later
+- Audio playback quiz mode
+- Separator for custom lists
