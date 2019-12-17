@@ -27,6 +27,7 @@ import WelcomeScreenComponent from "@src/screens/WelcomeScreen";
 import { getDrawerLockedState } from "@src/tools/navigation-utils";
 import { LessonScreenParams, ListScreenParams } from "@src/tools/types";
 import AboutDetailScreenComponent from "./screens/AboutDetailScreen";
+import AudioReviewAllScreen from "./screens/AudioReviewAllScreen";
 
 /** ========================================================================
  * App Routes
@@ -162,6 +163,13 @@ const ROUTES: NavigationScreenRouteConfig = {
     screen: ViewAllScreen,
     navigationOptions: {
       title: "Review All Words 📕",
+      headerBackTitle: null,
+    },
+  },
+  [ROUTE_NAMES.AUDIO_REVIEW_QUIZ]: {
+    screen: AudioReviewAllScreen,
+    navigationOptions: {
+      title: "Audio Review 🗣",
       headerBackTitle: null,
     },
   },

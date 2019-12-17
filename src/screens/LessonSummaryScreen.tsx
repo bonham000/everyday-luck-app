@@ -152,6 +152,15 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
               <Text>Review All Content</Text>
               <Text>🗃</Text>
             </ActionBlock>
+            <ActionBlock
+              style={{ backgroundColor: COLORS.actionButtonMint }}
+              onPress={this.handleNavigateToSection(
+                ROUTE_NAMES.AUDIO_REVIEW_QUIZ,
+              )}
+            >
+              <Text>Audio Quiz</Text>
+              <Text>📱</Text>
+            </ActionBlock>
           </React.Fragment>
         )}
         {IS_DAILY_QUIZ && (

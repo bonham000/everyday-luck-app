@@ -20,6 +20,10 @@ import "react-native-gesture-handler";
 /* Configure Sentry */
 Sentry.config(String(process.env.SENTRY_DSN)).install();
 
+/* Disable warnings */
+// tslint:disable-next-line
+console.disableYellowBox = true;
+
 /** ========================================================================
  * Mandarin App
  * =========================================================================
