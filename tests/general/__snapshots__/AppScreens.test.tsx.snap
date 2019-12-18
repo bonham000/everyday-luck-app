@@ -1036,6 +1036,140 @@ Array [
 ]
 `;
 
+exports[`App Screen Components Each screen component renders with props provided: Audio Quiz Screen 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "backgroundColor": "rgb(231, 237, 240)",
+        "display": "flex",
+        "flex": 1,
+      },
+    ]
+  }
+>
+  <View
+    style={null}
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "fontSize": 10,
+            "marginTop": 8,
+            "textAlign": "center",
+          },
+        ]
+      }
+    >
+      Progress: 
+      1
+       / 
+      1
+       completed, timer:
+       
+      8
+    </Text>
+    <Text
+      style={
+        Array [
+          Object {
+            "fontSize": 18,
+            "marginTop": 16,
+            "textAlign": "center",
+          },
+        ]
+      }
+    >
+      Audio Review Quiz
+    </Text>
+  </View>
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgba(45,45,45,0.05)",
+          "display": "flex",
+          "flexDirection": "row",
+          "height": 85,
+          "justifyContent": "center",
+          "marginTop": 25,
+          "width": "90%",
+        },
+        Object {
+          "marginTop": 155,
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "fontSize": 45,
+            "fontWeight": "bold",
+            "textAlign": "center",
+          },
+        ]
+      }
+    >
+      我
+    </Text>
+  </View>
+  <Text
+    style={
+      Array [
+        Object {
+          "fontSize": 18,
+          "marginTop": 16,
+          "textAlign": "center",
+        },
+        Object {
+          "marginTop": 50,
+        },
+      ]
+    }
+  >
+    Answer:
+  </Text>
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "rgba(45,45,45,0.05)",
+          "display": "flex",
+          "flexDirection": "row",
+          "height": 75,
+          "justifyContent": "center",
+          "marginTop": 25,
+          "width": "90%",
+        },
+        Object {
+          "backgroundColor": "rgb(125,125,125)",
+        },
+      ]
+    }
+  >
+    <Text
+      style={
+        Array [
+          Object {
+            "fontSize": 22,
+            "fontWeight": "bold",
+            "textAlign": "center",
+          },
+        ]
+      }
+    >
+      ???
+    </Text>
+  </View>
+</View>
+`;
+
 exports[`App Screen Components Each screen component renders with props provided: Characters Quiz 1`] = `
 Array [
   <RCTScrollView
@@ -5354,6 +5488,60 @@ exports[`App Screen Components Each screen component renders with props provided
         ]
       }
     />
+    <View
+      accessible={true}
+      isTVSelectable={true}
+      onResponderGrant={[Function]}
+      onResponderMove={[Function]}
+      onResponderRelease={[Function]}
+      onResponderTerminate={[Function]}
+      onResponderTerminationRequest={[Function]}
+      onStartShouldSetResponder={[Function]}
+      style={
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#1abc9c",
+          "flexDirection": "row",
+          "height": 50,
+          "justifyContent": "space-between",
+          "margin": 6,
+          "opacity": 1,
+          "padding": 12,
+          "width": "90%",
+        }
+      }
+    >
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#000000",
+              "fontFamily": "Helvetica Neue",
+              "textAlign": "left",
+              "writingDirection": "ltr",
+            },
+            undefined,
+          ]
+        }
+      >
+        Audio Quiz
+      </Text>
+      <Text
+        style={
+          Array [
+            Object {
+              "color": "#000000",
+              "fontFamily": "Helvetica Neue",
+              "textAlign": "left",
+              "writingDirection": "ltr",
+            },
+            undefined,
+          ]
+        }
+      >
+        📱
+      </Text>
+    </View>
     <View
       accessible={true}
       isTVSelectable={true}

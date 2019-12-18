@@ -1,3 +1,2 @@
 - Take notes of custom content to study later
-- Audio playback quiz mode
 - Forced review feature

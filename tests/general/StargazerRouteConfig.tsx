@@ -7,6 +7,7 @@ import { QUIZ_TYPE } from "@src/providers/GlobalStateContext";
 import AboutDetailScreenComponent from "@src/screens/AboutDetailScreen";
 import AboutScreenComponent from "@src/screens/AboutScreen";
 import { AccountScreenComponent } from "@src/screens/AccountScreen";
+import { AudioReviewAllScreen } from "@src/screens/AudioReviewAllScreen";
 import { ContactScreenComponent } from "@src/screens/ContactScreen";
 import { FlashcardsScreenComponent } from "@src/screens/FlashcardsScreen";
 import { HomeScreenComponent } from "@src/screens/HomeScreen";
@@ -147,6 +148,17 @@ const stargazerConfig: ReadonlyArray<StargazerRouteConfigObject> = [
       />
     ),
     paramsForNextScreen: MOCKS.LESSON_SCREEN_PARAMS,
+  },
+  {
+    name: "Audio Quiz Screen",
+    screenName: ROUTE_NAMES.AUDIO_REVIEW_QUIZ,
+    screen: (props: StargazerRouteProps<LessonScreenParams>) => (
+      <AudioReviewAllScreen
+        navigation={props.navigation}
+        {...MOCKS.GLOBAL_STATE_PROPS}
+        {...MOCKS.SOUND_RECORDING_PROPS}
+      />
+    ),
   },
   {
     name: "Flashcards Screen",
