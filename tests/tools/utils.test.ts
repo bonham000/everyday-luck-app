@@ -420,7 +420,7 @@ describe("utils", () => {
       limitToCurrentList: false,
     });
 
-    expect(result.length).toBe(10);
+    expect(result.length).toBeGreaterThan(10);
 
     result = getReviewLessonSet({
       lists: MOCKS.LESSONS,
@@ -430,7 +430,7 @@ describe("utils", () => {
       limitToCurrentList: false,
     });
 
-    expect(result.length).toBe(610);
+    expect(result.length).toBeGreaterThan(610);
 
     result = getReviewLessonSet({
       lists: MOCKS.LESSONS,
@@ -440,7 +440,7 @@ describe("utils", () => {
       limitToCurrentList: false,
     });
 
-    expect(result.length).toBe(2510);
+    expect(result.length).toBeGreaterThan(2510);
   });
 
   test("mapListIndexToListScores", () => {
