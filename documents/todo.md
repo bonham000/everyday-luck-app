@@ -1,2 +1,1 @@
-- Take notes of custom content to study later
 - Forced review feature

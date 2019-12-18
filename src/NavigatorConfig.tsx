@@ -28,6 +28,7 @@ import { getDrawerLockedState } from "@src/tools/navigation-utils";
 import { LessonScreenParams, ListScreenParams } from "@src/tools/types";
 import AboutDetailScreenComponent from "./screens/AboutDetailScreen";
 import AudioReviewAllScreen from "./screens/AudioReviewAllScreen";
+import NotePadScreen from "./screens/NotePadScreen";
 
 /** ========================================================================
  * App Routes
@@ -177,6 +178,13 @@ const ROUTES: NavigationScreenRouteConfig = {
     screen: TranslationScreenComponent,
     navigationOptions: {
       title: "Translation 📔",
+      headerBackTitle: null,
+    },
+  },
+  [ROUTE_NAMES.NOTE_PAD]: {
+    screen: NotePadScreen,
+    navigationOptions: {
+      title: "Note Pad 🗂",
       headerBackTitle: null,
     },
   },

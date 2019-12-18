@@ -84,6 +84,9 @@ class SideMenuComponent extends React.Component<IProps, {}> {
           ⛱{"  "}
           About
         </Item>
+        <Item onPress={this.createNavigationHandler(ROUTE_NAMES.NOTE_PAD)}>
+          🗂 Note Pad
+        </Item>
         <BottomBlock>
           <SmallItem>
             <Bold>Experience Points:</Bold> {experience.toLocaleString()}

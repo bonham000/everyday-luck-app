@@ -82,6 +82,33 @@ export const setUserDocumentsAgreementsFlag = async (agreement: boolean) => {
 };
 
 /** ========================================================================
+ * Word Study List
+ * =========================================================================
+ */
+
+export type WordStudyList = ReadonlyArray<string>;
+
+export const getWordStudyList = async (): Promise<WordStudyList> => {
+  try {
+    const result = await AsyncStorage.getItem(ASYNC_STORE_KEYS.WORD_STUDY_LIST);
+    return result ? JSON.parse(result) : [];
+  } catch (err) {
+    return [];
+  }
+};
+
+export const setWordStudyList = async (wordList: WordStudyList) => {
+  try {
+    await AsyncStorage.setItem(
+      ASYNC_STORE_KEYS.WORD_STUDY_LIST,
+      JSON.stringify(wordList),
+    );
+  } catch (err) {
+    return;
+  }
+};
+
+/** ========================================================================
  * Offline Flag:
  * =========================================================================
  */

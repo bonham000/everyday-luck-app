@@ -14,6 +14,7 @@ import { HomeScreenComponent } from "@src/screens/HomeScreen";
 import IntroScreenComponent from "@src/screens/IntroScreen";
 import { LessonSummaryScreenComponent } from "@src/screens/LessonSummaryScreen";
 import { ListSummaryScreenComponent } from "@src/screens/ListSummaryScreen";
+import { NotePadScreen } from "@src/screens/NotePadScreen";
 import { QuizScreenComponent } from "@src/screens/QuizScreen";
 import { SettingsScreenComponent } from "@src/screens/SettingsScreen";
 import { TranslationScreenComponent } from "@src/screens/TranslationScreen";
@@ -187,6 +188,16 @@ const stargazerConfig: ReadonlyArray<StargazerRouteConfigObject> = [
     screenName: ROUTE_NAMES.TRANSLATION,
     screen: (props: StargazerRouteProps) => (
       <TranslationScreenComponent
+        navigation={props.navigation}
+        {...MOCKS.GLOBAL_STATE_PROPS}
+      />
+    ),
+  },
+  {
+    name: "Note Pad Screen",
+    screenName: ROUTE_NAMES.NOTE_PAD,
+    screen: (props: StargazerRouteProps) => (
+      <NotePadScreen
         navigation={props.navigation}
         {...MOCKS.GLOBAL_STATE_PROPS}
       />
