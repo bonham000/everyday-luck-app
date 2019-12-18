@@ -40,7 +40,9 @@ interface IState {
   time: number;
 }
 
-const TIMEOUT = 8;
+const QUIZ_TIMEOUT = 6;
+const REPEAT_TIMEOUT = QUIZ_TIMEOUT - 2;
+const REVEAL_TIMEOUT = 3;
 
 /** ========================================================================
  * React Class
@@ -61,7 +63,7 @@ export class AudioReviewAllScreen extends React.Component<IProps, IState> {
       lesson,
       index: 0,
       completed: 0,
-      time: TIMEOUT,
+      time: QUIZ_TIMEOUT,
       quizState: "QUIZ",
     };
   }
@@ -91,7 +93,7 @@ export class AudioReviewAllScreen extends React.Component<IProps, IState> {
           </ProgressText>
           <Title>Audio Review Quiz</Title>
         </TopSection>
-        <WordContainer style={{ marginTop: 155 }}>
+        <WordContainer style={{ marginTop: 125 }}>
           <WordTitle>{currentText}</WordTitle>
         </WordContainer>
         <Title style={{ marginTop: 50 }}>Answer:</Title>
@@ -124,7 +126,7 @@ export class AudioReviewAllScreen extends React.Component<IProps, IState> {
       }
     } else if (time === 1) {
       return STATE_ENUM.REVEAL_ANSWER;
-    } else if (time === 6 && quizState === "QUIZ") {
+    } else if (time === REPEAT_TIMEOUT && quizState === "QUIZ") {
       return STATE_ENUM.REPEAT_CHINESE_PRONUNCIATION;
     } else {
       return STATE_ENUM.DECREMENT_TIMER;
@@ -141,7 +143,7 @@ export class AudioReviewAllScreen extends React.Component<IProps, IState> {
         return this.setState(
           {
             index: 0,
-            time: TIMEOUT,
+            time: QUIZ_TIMEOUT,
             quizState: "QUIZ",
             words: knuthShuffle(lesson),
           },
@@ -151,7 +153,7 @@ export class AudioReviewAllScreen extends React.Component<IProps, IState> {
       case STATE_ENUM.ADVANCE_TO_NEXT_WORD:
         return this.setState(
           {
-            time: TIMEOUT,
+            time: QUIZ_TIMEOUT,
             quizState: "QUIZ",
             index: index + 1,
           },
@@ -161,7 +163,7 @@ export class AudioReviewAllScreen extends React.Component<IProps, IState> {
         /* Pronunciation quiz completed, advance to reveal English */
         return this.setState(
           {
-            time: TIMEOUT,
+            time: REVEAL_TIMEOUT,
             quizState: "REVEAL",
           },
           this.handleProceed,
