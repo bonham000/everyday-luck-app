@@ -9,7 +9,7 @@ import {
   withGlobalStateContext,
 } from "@src/providers/GlobalStateProvider";
 import { Lesson, LessonScreenParams } from "@src/tools/types";
-import { knuthShuffle } from "@src/tools/utils";
+import { assertUnreachable, knuthShuffle } from "@src/tools/utils";
 
 /** ========================================================================
  * Types
@@ -20,14 +20,23 @@ interface IProps extends GlobalStateContextProps {
   navigation: NavigationScreenProp<{}, LessonScreenParams>;
 }
 
-type TIMER_STATE = "QUIZ" | "REVEAL";
+type QUIZ_STATE = "QUIZ" | "REVEAL";
+
+/* State enum to represent all the possible states for the quiz logic */
+enum STATE_ENUM {
+  REPEAT_QUIZ = "REPEAT_QUIZ",
+  ADVANCE_TO_NEXT_WORD = "ADVANCE_TO_NEXT_WORD",
+  REVEAL_ANSWER = "REVEAL_ANSWER",
+  REPEAT_CHINESE_PRONUNCIATION = "REPEAT_CHINESE_PRONUNCIATION",
+  DECREMENT_TIMER = "DECREMENT_TIMER",
+}
 
 interface IState {
   words: Lesson;
   index: number;
   lesson: Lesson;
   completed: number;
-  quizState: TIMER_STATE;
+  quizState: QUIZ_STATE;
   time: number;
 }
 
@@ -104,61 +113,83 @@ export class AudioReviewAllScreen extends React.Component<IProps, IState> {
     );
   }
 
-  executeQuizLogic = () => {
-    // tslint:disable-next-line
-    this.timer = setTimeout(() => {
-      const { time, quizState, index, words, lesson } = this.state;
-      if (time === 1 && quizState === "REVEAL") {
-        const nextIndex = index + 1;
-        /* Word set completed, shuffle and repeat */
-        if (nextIndex === words.length) {
-          this.setState(
-            {
-              index: 0,
-              time: TIMEOUT,
-              quizState: "QUIZ",
-              words: knuthShuffle(lesson),
-            },
-            this.handleProceed,
-          );
-        } else {
-          /* Word completed, advance to next word and quiz */
-          this.setState(
-            {
-              time: TIMEOUT,
-              quizState: "QUIZ",
-              index: nextIndex,
-            },
-            this.handleProceed,
-          );
-        }
-      } else if (time === 1) {
+  deriveCurrentStateEnum = () => {
+    const { time, quizState, index, words } = this.state;
+    if (time === 1 && quizState === "REVEAL") {
+      const nextIndex = index + 1;
+      if (nextIndex === words.length) {
+        return STATE_ENUM.REPEAT_QUIZ;
+      } else {
+        return STATE_ENUM.ADVANCE_TO_NEXT_WORD;
+      }
+    } else if (time === 1) {
+      return STATE_ENUM.REVEAL_ANSWER;
+    } else if (time === 6 && quizState === "QUIZ") {
+      return STATE_ENUM.REPEAT_CHINESE_PRONUNCIATION;
+    } else {
+      return STATE_ENUM.DECREMENT_TIMER;
+    }
+  };
+
+  advanceQuizStateMachine = () => {
+    const { time, index, lesson } = this.state;
+    const currentState = this.deriveCurrentStateEnum();
+
+    switch (currentState) {
+      /* Word set completed, shuffle and repeat */
+      case STATE_ENUM.REPEAT_QUIZ:
+        return this.setState(
+          {
+            index: 0,
+            time: TIMEOUT,
+            quizState: "QUIZ",
+            words: knuthShuffle(lesson),
+          },
+          this.handleProceed,
+        );
+      /* Word completed, advance to next word and quiz */
+      case STATE_ENUM.ADVANCE_TO_NEXT_WORD:
+        return this.setState(
+          {
+            time: TIMEOUT,
+            quizState: "QUIZ",
+            index: index + 1,
+          },
+          this.handleProceed,
+        );
+      case STATE_ENUM.REVEAL_ANSWER:
         /* Pronunciation quiz completed, advance to reveal English */
-        this.setState(
+        return this.setState(
           {
             time: TIMEOUT,
             quizState: "REVEAL",
           },
           this.handleProceed,
         );
-      } else if (time === 6 && quizState === "QUIZ") {
+      case STATE_ENUM.REPEAT_CHINESE_PRONUNCIATION:
         /* Still quizzing, repeat the Chinese pronunciation */
-        this.setState(
+        return this.setState(
           {
             time: time - 1,
           },
           this.handleProceed,
         );
-      } else {
+      case STATE_ENUM.DECREMENT_TIMER:
         /* No state change, just decrement the timer by 1 second and repeat */
-        this.setState(
+        return this.setState(
           {
             time: time - 1,
           },
           this.executeQuizLogic,
         );
-      }
-    }, 1000);
+      default:
+        return assertUnreachable(currentState);
+    }
+  };
+
+  executeQuizLogic = () => {
+    // tslint:disable-next-line
+    this.timer = setTimeout(this.advanceQuizStateMachine, 1000);
   };
 
   handleProceed = () => {
