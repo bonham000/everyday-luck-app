@@ -27,11 +27,11 @@ interface IState {
   index: number;
   lesson: Lesson;
   completed: number;
-  timerState: TIMER_STATE;
+  quizState: TIMER_STATE;
   time: number;
 }
 
-const TIMEOUT = 3;
+const TIMEOUT = 8;
 
 /** ========================================================================
  * React Class
@@ -53,12 +53,13 @@ export class AudioReviewAllScreen extends React.Component<IProps, IState> {
       index: 0,
       completed: 0,
       time: TIMEOUT,
-      timerState: "QUIZ",
+      quizState: "QUIZ",
     };
   }
 
   componentDidMount(): void {
-    this.setTimeout();
+    this.executeQuizLogic();
+    this.speak();
   }
 
   componentWillUnmount(): void {
@@ -76,8 +77,8 @@ export class AudioReviewAllScreen extends React.Component<IProps, IState> {
       <Container>
         <TopSection>
           <ProgressText>
-            Progress: {this.state.completed} / {this.state.lesson.length}{" "}
-            completed, timer: {time}
+            Progress: {index + 1} / {this.state.lesson.length} completed, timer:{" "}
+            {time}
           </ProgressText>
           <Title>Audio Review Quiz</Title>
         </TopSection>
@@ -85,19 +86,17 @@ export class AudioReviewAllScreen extends React.Component<IProps, IState> {
           <WordTitle>{currentText}</WordTitle>
         </WordContainer>
         <Title style={{ marginTop: 50 }}>Answer:</Title>
-        {this.state.timerState === "REVEAL" ? (
+        {this.state.quizState === "REVEAL" ? (
           <React.Fragment>
             <AnswerContainer>
               <AnswerTitle>{currentWord.pinyin}</AnswerTitle>
             </AnswerContainer>
             <AnswerContainer>
-              <AnswerTitle style={{ fontSize: 18 }}>
-                {currentWord.english}
-              </AnswerTitle>
+              <AnswerTitle>{currentWord.english}</AnswerTitle>
             </AnswerContainer>
           </React.Fragment>
         ) : (
-          <AnswerContainer>
+          <AnswerContainer style={{ backgroundColor: COLORS.inactive }}>
             <AnswerTitle>???</AnswerTitle>
           </AnswerContainer>
         )}
@@ -105,58 +104,72 @@ export class AudioReviewAllScreen extends React.Component<IProps, IState> {
     );
   }
 
-  setTimeout = () => {
+  executeQuizLogic = () => {
     // tslint:disable-next-line
     this.timer = setTimeout(() => {
-      const { time, timerState, index, words } = this.state;
-      if (time === 1 && timerState === "REVEAL") {
+      const { time, quizState, index, words, lesson } = this.state;
+      if (time === 1 && quizState === "REVEAL") {
         const nextIndex = index + 1;
+        /* Word set completed, shuffle and repeat */
         if (nextIndex === words.length) {
-          this.randomizeDeck();
-          this.setState({
-            index: 0,
-            time: TIMEOUT,
-            timerState: "QUIZ",
-          });
+          this.setState(
+            {
+              index: 0,
+              time: TIMEOUT,
+              quizState: "QUIZ",
+              words: knuthShuffle(lesson),
+            },
+            this.handleProceed,
+          );
         } else {
+          /* Word completed, advance to next word and quiz */
           this.setState(
             {
               time: TIMEOUT,
-              timerState: "QUIZ",
+              quizState: "QUIZ",
               index: nextIndex,
             },
-            () => {
-              this.speak();
-              this.setTimeout();
-            },
+            this.handleProceed,
           );
         }
       } else if (time === 1) {
+        /* Pronunciation quiz completed, advance to reveal English */
         this.setState(
           {
             time: TIMEOUT,
-            timerState: "REVEAL",
+            quizState: "REVEAL",
           },
-          () => {
-            this.speak();
-            this.setTimeout();
-          },
+          this.handleProceed,
         );
-      } else {
+      } else if (time === 6 && quizState === "QUIZ") {
+        /* Still quizzing, repeat the Chinese pronunciation */
         this.setState(
           {
             time: time - 1,
           },
-          this.setTimeout,
+          this.handleProceed,
+        );
+      } else {
+        /* No state change, just decrement the timer by 1 second and repeat */
+        this.setState(
+          {
+            time: time - 1,
+          },
+          this.executeQuizLogic,
         );
       }
     }, 1000);
   };
 
+  handleProceed = () => {
+    this.speak();
+    this.executeQuizLogic();
+  };
+
   speak = () => {
     try {
       const currentWord = this.state.words[this.state.index];
-      if (this.state.timerState === "QUIZ") {
+      if (this.state.quizState === "QUIZ") {
         Speech.speak(currentWord.traditional, { language: "zh" });
       } else {
         Speech.speak(currentWord.english, { language: "en" });
@@ -164,12 +177,6 @@ export class AudioReviewAllScreen extends React.Component<IProps, IState> {
     } catch (err) {
       /* Do nothing ~ */
     }
-  };
-
-  randomizeDeck = () => {
-    this.setState({
-      words: knuthShuffle(this.state.lesson),
-    });
   };
 }
 
@@ -207,6 +214,7 @@ const WordTitle = glamorous.text({
 
 const AnswerTitle = glamorous.text({
   fontSize: 22,
+  fontWeight: "bold",
   textAlign: "center",
 });
 
@@ -229,7 +237,7 @@ const AnswerContainer = glamorous.view({
   flexDirection: "row",
   alignItems: "center",
   justifyContent: "center",
-  backgroundColor: COLORS.inactive,
+  backgroundColor: COLORS.lightDark,
 });
 
 /** ========================================================================
