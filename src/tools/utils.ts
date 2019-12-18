@@ -467,6 +467,14 @@ const getAllUnlockedWordContent = (
   }
 
   /**
+   * Lists which are unlocked by default.
+   */
+  const unlockedLists = lists
+    .filter(l => !l.locked)
+    .map(l => l.content)
+    .reduce((flattened, lesson) => flattened.concat(lesson));
+
+  /**
    * Otherwise gather all the unlocked words the user has completed so far and
    * flatten and return the results.
    */
@@ -477,6 +485,12 @@ const getAllUnlockedWordContent = (
           .map(list => list.content)
           .reduce((flattened, lesson) => flattened.concat(lesson))
       : [];
+
+  /**
+   * Combine locked and unlocked content.
+   */
+  const allUnlockedLists = completedLists.concat(unlockedLists);
+
   const finalUnlockedList = lists[unlockedListIndex];
   const finalListScore = mapListIndexToListScores(
     unlockedListIndex,
@@ -489,7 +503,7 @@ const getAllUnlockedWordContent = (
     completedWords || lessonSize,
   );
 
-  return completedLists.concat(finalListWords);
+  return allUnlockedLists.concat(finalListWords);
 };
 
 /**
