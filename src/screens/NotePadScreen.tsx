@@ -1,6 +1,6 @@
 import glamorous from "glamorous-native";
 import React from "react";
-import { Alert, StyleSheet } from "react-native";
+import { Alert, StyleSheet, TouchableOpacity } from "react-native";
 import { TextInput } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
@@ -78,7 +78,15 @@ export class NotePadScreen extends React.Component<IProps, IState> {
           wordList.length ? (
             <React.Fragment>
               {this.state.wordList.map((word, index) => {
-                return <InfoText key={`${word}-${index}`}>{word}</InfoText>;
+                return (
+                  <TouchableOpacity
+                    key={`${word}-${index}`}
+                    style={{ height: 36, marginTop: 8 }}
+                    onPress={this.handlePressItem(word)}
+                  >
+                    <InfoText>{word}</InfoText>
+                  </TouchableOpacity>
+                );
               })}
               <Button
                 onPress={this.handleClearList}
@@ -114,7 +122,7 @@ export class NotePadScreen extends React.Component<IProps, IState> {
         const list = await getWordStudyList();
         const newList: ReadonlyArray<string> = [...list, value];
         await setWordStudyList(newList);
-        this.setState({ loading: false, wordList: newList });
+        this.setState({ value: "", loading: false, wordList: newList });
       },
     );
   };
@@ -140,6 +148,10 @@ export class NotePadScreen extends React.Component<IProps, IState> {
       ],
       { cancelable: false },
     );
+  };
+
+  handlePressItem = (text: string) => () => {
+    this.props.copyToClipboard(text);
   };
 }
 
