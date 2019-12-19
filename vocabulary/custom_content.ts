@@ -1,10 +1,10 @@
 import fs from "fs";
 
 import { HSKList, TRADITIONAL_CHINESE, Word } from "@src/tools/types";
-import { translateWord } from "@src/tools/utils";
+import { capitalize, translateWord } from "@src/tools/utils";
 
 /* Replace this with the custom word list to convert: */
-import CustomList from "@src/lessons/08";
+import CustomList from "@src/lessons/09";
 
 const writeListToJson = (
   result: ReadonlyArray<Word>,
@@ -38,7 +38,16 @@ const processListAndTranslateSimplifiedToTraditional = async (
       }),
   );
 
-  writeListToJson(translated);
+  const ordered = translated.map(
+    ({ traditional, simplified, english, pinyin }) => ({
+      simplified,
+      traditional,
+      pinyin,
+      english: capitalize(english),
+    }),
+  );
+
+  writeListToJson(ordered);
 };
 
 const main = async () => {
