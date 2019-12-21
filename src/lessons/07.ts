@@ -101,6 +101,24 @@ const lesson: HSKList = {
       pinyin: "zěnmeliǎo",
       english: "What happened?",
     },
+    {
+      simplified: "走路",
+      traditional: "走路",
+      pinyin: "zǒulù",
+      english: "Walk",
+    },
+    {
+      simplified: "蜜柚红茶",
+      traditional: "蜜柚紅茶",
+      pinyin: "mì yòu hóngchá",
+      english: "Honey grapefruit tea",
+    },
+    {
+      simplified: "卤味",
+      traditional: "滷味",
+      pinyin: "lǔwèi",
+      english: "Fried vegetables bowl",
+    },
   ],
 };
 
