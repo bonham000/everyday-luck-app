@@ -4,17 +4,16 @@ import { HSKList, TRADITIONAL_CHINESE, Word } from "@src/tools/types";
 import { capitalize, translateWord } from "@src/tools/utils";
 
 /* Replace this with the custom word list to convert: */
-const FILE_NUMBER = "08";
-const CustomList = require(`@src/lessons/${FILE_NUMBER}`);
+import CustomList from "@src/lessons/07";
 
 const writeListToJson = (
   result: ReadonlyArray<Word>,
-  fileName: string = "custom_vocabulary_list.json",
+  filename: string = "src/lessons/07.ts",
 ) => {
-  console.log("\nWriting JSON result...");
-  const data = JSON.stringify({ ...CustomList, content: result });
-  fs.writeFileSync(fileName, data, "utf8");
-  console.log("\nFinished!\n");
+  console.log(`Writing JSON result to file: ${filename}\n`);
+  const list = { ...CustomList, content: result };
+  const data = JSON.stringify(list, null, 2);
+  fs.writeFileSync(filename, data, "utf8");
 };
 
 const processListAndTranslateSimplifiedToTraditional = async (
@@ -52,8 +51,9 @@ const processListAndTranslateSimplifiedToTraditional = async (
 };
 
 const main = async () => {
-  console.log("Starting translation -");
-  processListAndTranslateSimplifiedToTraditional(CustomList);
+  console.log("Starting translation -\n");
+  await processListAndTranslateSimplifiedToTraditional(CustomList);
+  console.log("Finished!\n");
 };
 
 main();

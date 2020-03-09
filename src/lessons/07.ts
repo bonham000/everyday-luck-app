@@ -599,6 +599,12 @@ const lesson: HSKList = {
       pinyin: "zhí yè",
       english: "Occupation",
     },
+    {
+      simplified: "",
+      traditional: "擂茶",
+      pinyin: "",
+      english: "",
+    },
   ],
 };
 
