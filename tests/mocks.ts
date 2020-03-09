@@ -21,7 +21,6 @@ import {
 import {
   adjustListContentByDifficultySetting,
   createWordDictionaryFromLessons,
-  mapListIndexToListScores,
 } from "@src/tools/utils";
 
 /** ========================================================================
@@ -69,7 +68,7 @@ const DEFAULT_LESSON_SCORES = {
 const getLessonFiller = (complete = false) =>
   SCORES_INDEX_MAP.slice(1).reduce((map, scoreIndex, index) => {
     return {
-      ...mapListIndexToListScores,
+      ...map,
       [scoreIndex]: {
         complete: false,
         list_index: index + 1,
