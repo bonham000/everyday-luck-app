@@ -19,31 +19,6 @@ const checkWordAvailability = (words: ReadonlyArray<string>) => {
   console.log(unique);
 };
 
-const NEW_WORDS: ReadonlyArray<string> = [
-  // "打鸡血",
-  // "萌萌哒",
-  // "谢谢老板",
-  // "老板",
-  // "辣眼睛",
-  // "方了",
-  // "接地气",
-  // "一脸懵逼",
-  // "吃瓜群众",
-  // "土豪",
-  // "买",
-  // "网红",
-  // "不要不要的",
-  // "你懂的",
-  // "狗带",
-  // "腹黑",
-  // "老司机",
-  // "比心",
-  // "吃土",
-  // "搞事情",
-  // "友谊",
-  // "缺心眼儿",
-  // "脑洞很大",
-  // "吃货",
-];
+const NEW_WORDS: ReadonlyArray<string> = ["擂茶"];
 
 checkWordAvailability(NEW_WORDS);

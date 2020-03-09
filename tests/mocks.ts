@@ -1,6 +1,6 @@
 import uuid from "uuid/v1";
 
-import HSK_LISTS, { ListScoreSet } from "@src/lessons";
+import HSK_LISTS, { ListScoreSet, SCORES_INDEX_MAP } from "@src/lessons";
 import lessonData from "@src/lessons/02";
 import {
   APP_DIFFICULTY_SETTING,
@@ -21,6 +21,7 @@ import {
 import {
   adjustListContentByDifficultySetting,
   createWordDictionaryFromLessons,
+  mapListIndexToListScores,
 } from "@src/tools/utils";
 
 /** ========================================================================
@@ -65,6 +66,20 @@ const DEFAULT_LESSON_SCORES = {
   mandarin_pronunciation: false,
 };
 
+const getLessonFiller = (complete = false) =>
+  SCORES_INDEX_MAP.slice(1).reduce((map, scoreIndex, index) => {
+    return {
+      ...mapListIndexToListScores,
+      [scoreIndex]: {
+        complete: false,
+        list_index: index + 1,
+        list_key: index + 3,
+        number_words_completed: complete ? 10000 : 0,
+        ...DEFAULT_LESSON_SCORES,
+      },
+    };
+  }, {});
+
 const DEFAULT_SCORE_STATE = {
   list_02_score: {
     complete: false,
@@ -73,69 +88,7 @@ const DEFAULT_SCORE_STATE = {
     number_words_completed: 0,
     ...DEFAULT_LESSON_SCORES,
   },
-  list_03_score: {
-    complete: false,
-    list_index: 1,
-    list_key: "3",
-    number_words_completed: 0,
-    ...DEFAULT_LESSON_SCORES,
-  },
-  list_04_score: {
-    complete: false,
-    list_index: 2,
-    list_key: "4",
-    number_words_completed: 0,
-    ...DEFAULT_LESSON_SCORES,
-  },
-  list_05_score: {
-    complete: false,
-    list_index: 3,
-    list_key: "5",
-    number_words_completed: 0,
-    ...DEFAULT_LESSON_SCORES,
-  },
-  list_06_score: {
-    complete: false,
-    list_index: 4,
-    list_key: "6",
-    number_words_completed: 0,
-    ...DEFAULT_LESSON_SCORES,
-  },
-  list_07_score: {
-    complete: false,
-    list_index: 5,
-    list_key: "7",
-    number_words_completed: 0,
-    ...DEFAULT_LESSON_SCORES,
-  },
-  list_08_score: {
-    complete: false,
-    list_index: 6,
-    list_key: "8",
-    number_words_completed: 0,
-    ...DEFAULT_LESSON_SCORES,
-  },
-  list_09_score: {
-    complete: false,
-    list_index: 7,
-    list_key: "9",
-    number_words_completed: 0,
-    ...DEFAULT_LESSON_SCORES,
-  },
-  list_10_score: {
-    complete: false,
-    list_index: 8,
-    list_key: "10",
-    number_words_completed: 0,
-    ...DEFAULT_LESSON_SCORES,
-  },
-  list_11_score: {
-    complete: false,
-    list_index: 8,
-    list_key: "11",
-    number_words_completed: 0,
-    ...DEFAULT_LESSON_SCORES,
-  },
+  ...(getLessonFiller() as ListScoreSet),
 };
 
 const COMPLETED_SCORE_STATE = {
@@ -146,69 +99,7 @@ const COMPLETED_SCORE_STATE = {
     number_words_completed: 10000,
     ...DEFAULT_LESSON_SCORES,
   },
-  list_03_score: {
-    complete: true,
-    list_index: 1,
-    list_key: "3",
-    number_words_completed: 10000,
-    ...DEFAULT_LESSON_SCORES,
-  },
-  list_04_score: {
-    complete: true,
-    list_index: 2,
-    list_key: "4",
-    number_words_completed: 10000,
-    ...DEFAULT_LESSON_SCORES,
-  },
-  list_05_score: {
-    complete: true,
-    list_index: 3,
-    list_key: "5",
-    number_words_completed: 10000,
-    ...DEFAULT_LESSON_SCORES,
-  },
-  list_06_score: {
-    complete: true,
-    list_index: 4,
-    list_key: "6",
-    number_words_completed: 10000,
-    ...DEFAULT_LESSON_SCORES,
-  },
-  list_07_score: {
-    complete: true,
-    list_index: 5,
-    list_key: "7",
-    number_words_completed: 10000,
-    ...DEFAULT_LESSON_SCORES,
-  },
-  list_08_score: {
-    complete: true,
-    list_index: 6,
-    list_key: "8",
-    number_words_completed: 10000,
-    ...DEFAULT_LESSON_SCORES,
-  },
-  list_09_score: {
-    complete: true,
-    list_index: 7,
-    list_key: "9",
-    number_words_completed: 10000,
-    ...DEFAULT_LESSON_SCORES,
-  },
-  list_10_score: {
-    complete: true,
-    list_index: 8,
-    list_key: "10",
-    number_words_completed: 10000,
-    ...DEFAULT_LESSON_SCORES,
-  },
-  list_11_score: {
-    complete: true,
-    list_index: 9,
-    list_key: "11",
-    number_words_completed: 10000,
-    ...DEFAULT_LESSON_SCORES,
-  },
+  ...(getLessonFiller(true) as ListScoreSet),
 };
 
 const getMockScoreStatus = (overrides: Partial<ListScoreSet>) => ({

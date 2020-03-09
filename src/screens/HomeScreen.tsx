@@ -55,12 +55,14 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
 
     return (
       <ScrollContainer>
-        <Text style={TextStyles}>Choose a lesson to start studying</Text>
+        <Text style={TextStyles}>HSK Vocabulary Lists</Text>
         <Text style={{ marginTop: 6, marginBottom: 18 }}>
           {totalWordsHsk.toLocaleString()} words total
         </Text>
         {this.renderListSets(true)}
-        <Text style={{ ...TextStyles, marginTop: 20 }}>Custom Word Lists</Text>
+        <Text style={{ ...TextStyles, marginTop: 20 }}>
+          Mandarin Teaching Center Lessons
+        </Text>
         <Text style={{ marginTop: 6, marginBottom: 18 }}>
           {totalWordsCustom.toLocaleString()} words total
         </Text>

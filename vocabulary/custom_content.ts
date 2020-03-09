@@ -4,7 +4,8 @@ import { HSKList, TRADITIONAL_CHINESE, Word } from "@src/tools/types";
 import { capitalize, translateWord } from "@src/tools/utils";
 
 /* Replace this with the custom word list to convert: */
-import CustomList from "@src/lessons/11";
+const FILE_NUMBER = "08";
+const CustomList = require(`@src/lessons/${FILE_NUMBER}`);
 
 const writeListToJson = (
   result: ReadonlyArray<Word>,

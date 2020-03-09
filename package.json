@@ -9,6 +9,8 @@
     "url": "https://github.com/bonham000/everyday-luck-app"
   },
   "scripts": {
+    "cli": "mv script.babelrc .babelrc",
+    "cli:reset": ".babelrc script.babelrc",
     "stargazer": "yarn stargazer:setup && npx ttab 'yarn start' && yarn stargazer:server",
     "stargazer:setup": "./scripts/stargazer_init.sh",
     "stargazer:revert": "./scripts/stargazer_revert.sh",
