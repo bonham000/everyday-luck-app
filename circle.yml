@@ -3,7 +3,7 @@ jobs:
   stargazer:
     working_directory: ~/mandarin
     docker:
-      - image: circleci/node:8.14
+      - image: circleci/node:10.13.0
     steps:
       - checkout
       - run:
