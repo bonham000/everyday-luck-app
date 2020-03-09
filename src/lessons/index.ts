@@ -4,6 +4,7 @@ import Lesson_04 from "@src/lessons/04";
 import Lesson_05 from "@src/lessons/05";
 import Lesson_06 from "@src/lessons/06";
 import Lesson_07 from "@src/lessons/07";
+import Lesson_08 from "@src/lessons/08";
 
 import { HSKList, HSKListSet } from "@src/tools/types";
 
@@ -33,6 +34,7 @@ export interface ListScoreSet {
   list_05_score: ListScore;
   list_06_score: ListScore;
   list_07_score: ListScore;
+  list_08_score: ListScore;
 }
 
 /**
@@ -45,6 +47,7 @@ export const SCORES_INDEX_MAP: ReadonlyArray<keyof ListScoreSet> = [
   "list_05_score",
   "list_06_score",
   "list_07_score",
+  "list_08_score",
 ];
 
 /** ========================================================================
@@ -64,6 +67,7 @@ const HSK_LISTS: HSKListSet = [
   Lesson_05,
   Lesson_06,
   Lesson_07,
+  Lesson_08,
 ].map(filterEmptyWords);
 
 export default HSK_LISTS;

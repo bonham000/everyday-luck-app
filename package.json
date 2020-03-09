@@ -38,7 +38,7 @@
     "cli:reset": "mv .babelrc script.babelrc",
     "audio-status": "tsc && babel-node build/vocabulary/audio_status.js",
     "custom-list": "tsc && babel-node build/vocabulary/add_list.js",
-    "translate:list": "yarn cli && yarn custom-list && yarn cli:reset && yarn format"
+    "add:list": "yarn cli && yarn custom-list && yarn cli:reset && yarn format"
   },
   "dependencies": {
     "axios": "^0.18.1",

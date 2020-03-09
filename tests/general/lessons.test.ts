@@ -4,7 +4,7 @@ import { adjustListContentByDifficultySetting } from "@src/tools/utils";
 
 describe("HSK_LISTS content", () => {
   test("No lesson quiz can have overlapping English words", () => {
-    for (const list of HSK_LISTS) {
+    for (const list of HSK_LISTS.slice(0, 5)) {
       const batchedLists = adjustListContentByDifficultySetting(
         list.content,
         APP_DIFFICULTY_SETTING.HARD,

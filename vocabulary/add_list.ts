@@ -10,7 +10,7 @@ const FILE_INDEX_KEY = `0${lesson.list}`;
 // Write the results to a JSON file
 const writeListToJson = (
   result: ReadonlyArray<Word>,
-  filename: string = `src/lessons/${FILE_INDEX_KEY}-alt.ts`,
+  filename: string = `src/lessons/${FILE_INDEX_KEY}.ts`,
 ) => {
   console.log(`Writing JSON result to file: ${filename}\n`);
   const list: HSKList = { ...lesson, content: result };
@@ -36,7 +36,7 @@ const processListAndTranslateSimplifiedToTraditional = async (
     ({ traditional, simplified, english, pinyin }) => ({
       simplified,
       traditional,
-      pinyin,
+      pinyin: Array.isArray(pinyin) ? pinyin[0] : pinyin,
       english: capitalize(english),
     }),
   );
