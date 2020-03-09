@@ -9,8 +9,6 @@
     "url": "https://github.com/bonham000/everyday-luck-app"
   },
   "scripts": {
-    "cli": "mv script.babelrc .babelrc",
-    "cli:reset": "mv .babelrc script.babelrc",
     "stargazer": "yarn stargazer:setup && npx ttab 'yarn start' && yarn stargazer:server",
     "stargazer:setup": "./scripts/stargazer_init.sh",
     "stargazer:revert": "./scripts/stargazer_revert.sh",
@@ -36,9 +34,11 @@
     "build:ios": ". ./scripts/release_channel.sh && expo build:ios --release-channel $RELEASE_CHANNEL",
     "build:android": ". ./scripts/release_channel.sh && expo build:android --release-channel $RELEASE_CHANNEL",
     "upload:ios": "expo upload:ios",
-    "custom-list": "tsc && babel-node build/vocabulary/custom_content.js",
-    "translate:list": "yarn cli && yarn custom-list && yarn cli:reset",
-    "audio-status": "tsc && babel-node build/vocabulary/audio_status.js"
+    "cli": "mv script.babelrc .babelrc",
+    "cli:reset": "mv .babelrc script.babelrc",
+    "audio-status": "tsc && babel-node build/vocabulary/audio_status.js",
+    "custom-list": "tsc && babel-node build/vocabulary/add_list.js",
+    "translate:list": "yarn cli && yarn custom-list && yarn cli:reset && yarn format"
   },
   "dependencies": {
     "axios": "^0.18.1",

@@ -3,19 +3,28 @@ import fs from "fs";
 import { HSKList, TRADITIONAL_CHINESE, Word } from "@src/tools/types";
 import { capitalize, translateWord } from "@src/tools/utils";
 
-/* Replace this with the custom word list to convert: */
+// Replace the following with the custom word list index:
+const FILE_INDEX_KEY = "07";
 import CustomList from "@src/lessons/07";
 
+// Write the results to a JSON file
 const writeListToJson = (
   result: ReadonlyArray<Word>,
-  filename: string = "src/lessons/07.ts",
+  filename: string = `src/lessons/${FILE_INDEX_KEY}-alt.ts`,
 ) => {
   console.log(`Writing JSON result to file: ${filename}\n`);
   const list = { ...CustomList, content: result };
   const data = JSON.stringify(list, null, 2);
-  fs.writeFileSync(filename, data, "utf8");
+  const file = `import { HSKList } from "@src/tools/types";
+
+const lesson: HSKList = ${data}
+
+export default lesson;`;
+
+  fs.writeFileSync(filename, file, "utf8");
 };
 
+// Process the list and fill in the content for each word
 const processListAndTranslateSimplifiedToTraditional = async (
   list: HSKList,
 ) => {
@@ -50,6 +59,7 @@ const processListAndTranslateSimplifiedToTraditional = async (
   writeListToJson(ordered);
 };
 
+// Run it!
 const main = async () => {
   console.log("Starting translation -\n");
   await processListAndTranslateSimplifiedToTraditional(CustomList);
