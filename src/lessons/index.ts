@@ -4,6 +4,7 @@ import Lesson_04 from "@src/lessons/04";
 import Lesson_05 from "@src/lessons/05";
 import Lesson_06 from "@src/lessons/06";
 import Lesson_07 from "@src/lessons/07";
+import Lesson_08 from "@src/lessons/08";
 import Lesson_09 from "@src/lessons/09";
 import Lesson_10 from "@src/lessons/10";
 
@@ -72,6 +73,7 @@ const HSK_LISTS: HSKListSet = [
   Lesson_05,
   Lesson_06,
   Lesson_07,
+  Lesson_08,
   Lesson_09,
   Lesson_10,
 ].map(filterEmptyWords);
