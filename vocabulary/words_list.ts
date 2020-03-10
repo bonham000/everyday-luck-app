@@ -7,48 +7,14 @@
 
 // Metadata for lesson:
 const lesson = {
-  list: "9",
+  list: "8",
   locked: false,
-  title: "MTC Book 1 Lesson 2",
+  title: "Dictation",
   content: [],
 };
 
 // Words to add:
-const words: ReadonlyArray<string> = [
-  "的",
-  "家人",
-  "家",
-  "漂亮",
-  "房子",
-  "坐",
-  "有",
-  "多",
-  "照片",
-  "都",
-  "照相",
-  "張",
-  "好看",
-  "誰",
-  "姐姐",
-  "妹妹",
-  "爸爸",
-  "媽媽",
-  "請進",
-  "伯母",
-  "您",
-  "名字",
-  "書",
-  "哥哥",
-  "老師",
-  "看書",
-  "幾",
-  "個",
-  "沒",
-  "兄弟",
-  "姐妹",
-  "五",
-  "兩",
-];
+const words: ReadonlyArray<string> = [""];
 
 // Export
 export { lesson, words };
