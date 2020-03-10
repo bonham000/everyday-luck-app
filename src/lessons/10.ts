@@ -195,7 +195,7 @@ const lesson: HSKList = {
       simplified: "五",
       traditional: "五",
       pinyin: "wǔ",
-      english: "Fives",
+      english: "Five",
     },
     {
       simplified: "两",

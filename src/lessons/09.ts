@@ -111,7 +111,7 @@ const lesson: HSKList = {
       simplified: "不客气",
       traditional: "不客氣",
       pinyin: "bù kè qi",
-      english: "You&#39;re welcome",
+      english: "You're welcome",
     },
     {
       simplified: "你好",
@@ -195,7 +195,7 @@ const lesson: HSKList = {
       simplified: "要",
       traditional: "要",
       pinyin: "yāo",
-      english: "To",
+      english: "Want",
     },
     {
       simplified: "咖啡",

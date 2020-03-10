@@ -5,23 +5,24 @@ import { capitalize, translateWord } from "@src/tools/utils";
 import { lesson, words } from "./words_list";
 
 // Replace the following with the custom word list index:
-const FILE_INDEX_KEY = `0${lesson.list}`;
+const FILE_INDEX_KEY = lesson.list;
+const FILENAME = `src/lessons/${FILE_INDEX_KEY}.ts`;
 
-// Write the results to a JSON file
-const writeListToJson = (
-  result: ReadonlyArray<Word>,
-  filename: string = `src/lessons/${FILE_INDEX_KEY}.ts`,
-) => {
-  console.log(`Writing JSON result to file: ${filename}\n`);
-  const list: HSKList = { ...lesson, content: result };
-  const data = JSON.stringify(list, null, 2);
-  const file = `import { HSKList } from "@src/tools/types";
-
+// Create the file contents
+const getFileContents = (
+  data: string,
+) => `import { HSKList } from "@src/tools/types";
 const lesson: HSKList = ${data}
 
 export default lesson;`;
 
-  fs.writeFileSync(filename, file, "utf8");
+// Write the results to a JSON file
+const writeListToJson = (result: ReadonlyArray<Word>) => {
+  console.log(`Writing JSON result to file: ${FILENAME}\n`);
+  const list: HSKList = { ...lesson, content: result };
+  const data = JSON.stringify(list, null, 2);
+  const file = getFileContents(data);
+  fs.writeFileSync(FILENAME, file, "utf8");
 };
 
 // Process the list and fill in the content for each word
@@ -44,11 +45,12 @@ const processListAndTranslateSimplifiedToTraditional = async (
   writeListToJson(ordered);
 };
 
-// Run it!
+// Run the program with log messages
 const main = async () => {
-  console.log("Starting translation -\n");
+  console.log(`Processing word list, generating file: ${FILENAME}\n`);
   await processListAndTranslateSimplifiedToTraditional(words);
   console.log("Finished!\n");
 };
 
+// Run it!
 main();

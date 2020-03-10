@@ -14,7 +14,45 @@ const lesson = {
 };
 
 // Words to add:
-const words: ReadonlyArray<string> = [""];
+const words: ReadonlyArray<string> = [
+  "陳",
+  "月",
+  "美",
+  "李",
+  "明",
+  "華",
+  "王",
+  "開",
+  "文",
+  "你",
+  "來",
+  "是",
+  "小",
+  "姐",
+  "嗎",
+  "接",
+  "我",
+  "們",
+  "這",
+  "先",
+  "生",
+  "好",
+  "姓",
+  "叫",
+  "臺",
+  "灣",
+  "歡",
+  "迎",
+  "請",
+  "問",
+  "的",
+  "謝",
+  "不",
+  "客",
+  "氣",
+  "喝",
+  "茶",
+];
 
 // Export
 export { lesson, words };
