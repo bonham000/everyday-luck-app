@@ -18,8 +18,9 @@ const existingLessonWithContent = {
 const targetLesson = USE_EXISTING_LESSON ? existingLessonWithContent : lesson;
 
 // Replace the following with the custom word list index:
-const FILE_INDEX_KEY = targetLesson.list;
-const FILENAME = `src/lessons/${FILE_INDEX_KEY}.ts`;
+const LIST_INDEX = targetLesson.list;
+const FILE_KEY = Number(LIST_INDEX) < 10 ? `0${LIST_INDEX}` : LIST_INDEX;
+const FILENAME = `src/lessons/${FILE_KEY}.ts`;
 
 // Create the file contents
 const getFileContents = (
@@ -72,7 +73,7 @@ const processListAndTranslateSimplifiedToTraditional = async (
 // Run the program with log messages
 const processWordList = async () => {
   console.log(`Processing word list, generating file: ${FILENAME}\n`);
-  await processListAndTranslateSimplifiedToTraditional(existingLesson.content);
+  await processListAndTranslateSimplifiedToTraditional(targetLesson.content);
   console.log("Finished!\n");
 };
 
