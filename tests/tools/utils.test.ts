@@ -74,7 +74,7 @@ describe("utils", () => {
   });
 
   test("knuthShuffle", () => {
-    for (const lesson of HSK_LISTS) {
+    for (const lesson of HSK_LISTS.slice(0, 5)) {
       const words = lesson.content;
       let current = 0;
       while (current < 10) {
