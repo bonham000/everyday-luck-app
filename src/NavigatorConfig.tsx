@@ -13,7 +13,7 @@ import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import { QUIZ_TYPE } from "@src/providers/GlobalStateContext";
 import AboutScreenComponent from "@src/screens/AboutScreen";
 import AccountScreenComponent from "@src/screens/AccountScreen";
-import CharacterDrawingScreenComponent from "@src/screens/CharacterDrawingScreen";
+import CharacterWritingScreenComponent from "@src/screens/CharacterWritingScreen";
 import ContactScreenComponent from "@src/screens/ContactScreen";
 import FlashcardsScreenComponent from "@src/screens/FlashcardsScreen";
 import HomeScreen from "@src/screens/HomeScreen";
@@ -161,8 +161,8 @@ const ROUTES: NavigationScreenRouteConfig = {
       headerBackTitle: null,
     },
   },
-  [ROUTE_NAMES.CHARACTER_DRAWING]: {
-    screen: CharacterDrawingScreenComponent,
+  [ROUTE_NAMES.CHARACTER_WRITING]: {
+    screen: CharacterWritingScreenComponent,
     navigationOptions: {
       title: "Writing Characters 🎨",
       headerBackTitle: null,

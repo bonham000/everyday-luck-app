@@ -36,7 +36,7 @@ interface IState {
  * =========================================================================
  */
 
-export class CharacterDrawingScreenComponent extends React.Component<
+export class CharacterWritingScreenComponent extends React.Component<
   IProps,
   IState
 > {
@@ -70,7 +70,8 @@ export class CharacterDrawingScreenComponent extends React.Component<
         ? word.simplified
         : word.traditional;
 
-    const width = 20;
+    // Sketch configuration settings
+    const width = 25;
     const alpha = 0.85;
     const color = "#0f0f0e";
 
@@ -80,11 +81,11 @@ export class CharacterDrawingScreenComponent extends React.Component<
           Progress: {completed} / {deck.length} completed
         </ProgressText>
         <CharacterHint>
-          {word.pinyin} {word.english}
+          {word.pinyin} <Italic>"{word.english}"</Italic>
         </CharacterHint>
         {reveal ? (
           <CharacterContainer>
-            <Character>{character}</Character>
+            <Character style={{ marginBottom: 24 }}>{character}</Character>
           </CharacterContainer>
         ) : (
           <Sketch
@@ -189,8 +190,12 @@ const ProgressText = glamorous.text({
 
 const CharacterHint = glamorous.text({
   marginTop: 10,
-  fontSize: 25,
+  fontSize: 20,
   textAlign: "center",
+});
+
+const Italic = glamorous.text({
+  fontStyle: "italic",
 });
 
 const CharacterContainer = glamorous.view({
@@ -226,4 +231,4 @@ const ControlText = glamorous.text({
  * =========================================================================
  */
 
-export default withGlobalStateContext(CharacterDrawingScreenComponent);
+export default withGlobalStateContext(CharacterWritingScreenComponent);

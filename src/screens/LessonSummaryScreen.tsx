@@ -141,20 +141,20 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
             <ActionBlock
               style={{ backgroundColor: COLORS.actionButtonMint }}
               onPress={this.handleNavigateToSection(
+                ROUTE_NAMES.CHARACTER_WRITING,
+              )}
+            >
+              <Text>Character Writing</Text>
+              <Text>🎨</Text>
+            </ActionBlock>
+            <ActionBlock
+              style={{ backgroundColor: COLORS.actionButtonMint }}
+              onPress={this.handleNavigateToSection(
                 ROUTE_NAMES.AUDIO_REVIEW_QUIZ,
               )}
             >
               <Text>Audio Quiz</Text>
               <Text>📱</Text>
-            </ActionBlock>
-            <ActionBlock
-              style={{ backgroundColor: COLORS.actionButtonMint }}
-              onPress={this.handleNavigateToSection(
-                ROUTE_NAMES.CHARACTER_DRAWING,
-              )}
-            >
-              <Text>Character Drawing</Text>
-              <Text>🎨</Text>
             </ActionBlock>
             <ActionBlock
               style={{ backgroundColor: COLORS.actionButtonMint }}
