@@ -1,5 +1,5 @@
-import { PIXI } from "expo-pixi";
-import glamorous from "glamorous-native";
+import { Sketch } from "expo-pixi";
+// import glamorous from "glamorous-native";
 import React from "react";
 import { Alert } from "react-native";
 import { NavigationScreenProp } from "react-navigation";
@@ -63,11 +63,7 @@ export class CharacterDrawingScreenComponent extends React.Component<
 
     return (
       <BasicContainer>
-        <ExpoPixi.Sketch
-          strokeColor={color}
-          strokeWidth={width}
-          strokeAlpha={alpha}
-        />
+        <Sketch strokeColor={color} strokeWidth={width} strokeAlpha={alpha} />
         {/* <ProgressText>
           Progress: {this.state.completed} / {this.state.lesson.length}{" "}
           completed
@@ -150,11 +146,11 @@ export class CharacterDrawingScreenComponent extends React.Component<
  * =========================================================================
  */
 
-const ProgressText = glamorous.text({
-  marginTop: 8,
-  fontSize: 10,
-  textAlign: "center",
-});
+// const ProgressText = glamorous.text({
+//   marginTop: 8,
+//   fontSize: 10,
+//   textAlign: "center",
+// });
 
 /** ========================================================================
  * Export
