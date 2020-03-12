@@ -6,6 +6,7 @@ import { NavigationScreenProp } from "react-navigation";
 
 import { BasicContainer } from "@src/components/SharedComponents";
 import { COLORS } from "@src/constants/Theme";
+import { APP_LANGUAGE_SETTING } from "@src/providers/GlobalStateContext";
 import {
   GlobalStateContextProps,
   withGlobalStateContext,
@@ -23,6 +24,7 @@ interface IProps extends GlobalStateContextProps {
 }
 
 interface IState {
+  index: number;
   completed: number;
   lesson: Lesson;
   deck: Lesson;
@@ -46,10 +48,12 @@ export class CharacterDrawingScreenComponent extends React.Component<
     const lesson = this.props.navigation.getParam("lesson");
 
     // Limit character drawing to only 1 or 2 character words
-    const oneOrTwoCharacters = lesson.filter(w => w.traditional.length > 2);
+    const oneOrTwoCharacters = lesson.filter(w => w.traditional.length < 2);
+    console.log(oneOrTwoCharacters);
 
     this.state = {
       reveal: false,
+      index: 0,
       completed: 0,
       lesson: oneOrTwoCharacters,
       deck: knuthShuffle(oneOrTwoCharacters),
@@ -57,11 +61,14 @@ export class CharacterDrawingScreenComponent extends React.Component<
   }
 
   render(): JSX.Element {
-    const { reveal } = this.state;
+    const { deck, reveal, index, completed } = this.state;
+    const word = deck[index];
 
-    if (reveal) {
-      return <BasicContainer />;
-    }
+    const language = this.props.languageSetting;
+    const character =
+      language === APP_LANGUAGE_SETTING.SIMPLIFIED
+        ? word.simplified
+        : word.traditional;
 
     const width = 20;
     const alpha = 0.85;
@@ -70,24 +77,37 @@ export class CharacterDrawingScreenComponent extends React.Component<
     return (
       <BasicContainer>
         <ProgressText>
-          Progress: {this.state.completed} / {this.state.lesson.length}{" "}
-          completed
+          Progress: {completed} / {deck.length} completed
         </ProgressText>
-        <Sketch
-          style={{ flex: 8 }}
-          strokeColor={color}
-          strokeWidth={width}
-          strokeAlpha={alpha}
-          ref={this.assignSketchRef}
-        />
+        {reveal ? (
+          <CharacterContainer>
+            <Character>{character}</Character>
+          </CharacterContainer>
+        ) : (
+          <Sketch
+            style={{ flex: 8 }}
+            strokeColor={color}
+            strokeWidth={width}
+            strokeAlpha={alpha}
+            ref={this.assignSketchRef}
+          />
+        )}
         <Controls>
-          <Control
-            disabled={reveal}
-            onPress={this.undoSketchLine}
-            style={{ backgroundColor: COLORS.actionButtonBlue }}
-          >
-            <ControlText>Reset</ControlText>
-          </Control>
+          {reveal ? (
+            <Control
+              onPress={this.handleProceed}
+              style={{ backgroundColor: COLORS.actionButtonBlue }}
+            >
+              <ControlText>Next Character</ControlText>
+            </Control>
+          ) : (
+            <Control
+              onPress={this.undoSketchLine}
+              style={{ backgroundColor: COLORS.actionButtonYellow }}
+            >
+              <ControlText>Undo Stroke</ControlText>
+            </Control>
+          )}
           <Control
             onPress={this.handleReveal}
             style={{ backgroundColor: COLORS.actionButtonMint }}
@@ -102,6 +122,18 @@ export class CharacterDrawingScreenComponent extends React.Component<
   undoSketchLine = () => {
     if (this.sketch) {
       this.sketch.undo();
+    }
+  };
+
+  handleProceed = () => {
+    if (this.state.index === this.state.deck.length) {
+      return this.handleFinish();
+    } else {
+      this.setState(ps => ({
+        reveal: false,
+        index: ps.index + 1,
+        completed: ps.completed + 1,
+      }));
     }
   };
 
@@ -136,7 +168,6 @@ export class CharacterDrawingScreenComponent extends React.Component<
   };
 
   assignSketchRef = (ref: any) => {
-    console.log(Object.keys(ref));
     // tslint:disable-next-line
     this.sketch = ref;
   };
@@ -153,9 +184,19 @@ const ProgressText = glamorous.text({
   textAlign: "center",
 });
 
+const CharacterContainer = glamorous.view({
+  flex: 8,
+  alignItems: "center",
+  justifyContent: "center",
+});
+
+const Character = glamorous.text({
+  fontSize: 125,
+});
+
 const Controls = glamorous.view({
   flex: 1,
-  backgroundColor: "pink",
+  backgroundColor: COLORS.actionButtonYellow,
   display: "flex",
   flexDirection: "row",
   justifyContent: "space-evenly",
@@ -165,11 +206,10 @@ const Control = glamorous.touchableOpacity({
   flex: 1,
   alignItems: "center",
   justifyContent: "center",
-  backgroundColor: COLORS.actionButtonYellow,
 });
 
 const ControlText = glamorous.text({
-  fontSize: 20,
+  fontSize: 18,
 });
 
 /** ========================================================================

@@ -164,7 +164,7 @@ const ROUTES: NavigationScreenRouteConfig = {
   [ROUTE_NAMES.CHARACTER_DRAWING]: {
     screen: CharacterDrawingScreenComponent,
     navigationOptions: {
-      title: "Characters 🎨",
+      title: "Writing Characters 🎨",
       headerBackTitle: null,
     },
   },
