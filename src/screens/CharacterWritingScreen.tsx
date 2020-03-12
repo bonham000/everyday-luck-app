@@ -72,8 +72,8 @@ export class CharacterWritingScreenComponent extends React.Component<
 
     // Sketch configuration settings
     const width = 25;
-    const alpha = 0.85;
-    const color = "#0f0f0e";
+    const alpha = 1;
+    const color = COLORS.dark;
 
     return (
       <BasicContainer>
@@ -83,19 +83,18 @@ export class CharacterWritingScreenComponent extends React.Component<
         <CharacterHint>
           {word.pinyin} <Italic>"{word.english}"</Italic>
         </CharacterHint>
-        {reveal ? (
+        {reveal && (
           <CharacterContainer>
             <Character style={{ marginBottom: 24 }}>{character}</Character>
           </CharacterContainer>
-        ) : (
-          <Sketch
-            style={{ flex: 8 }}
-            strokeColor={color}
-            strokeWidth={width}
-            strokeAlpha={alpha}
-            ref={this.assignSketchRef}
-          />
         )}
+        <Sketch
+          style={{ flex: 8 }}
+          strokeColor={color}
+          strokeWidth={width}
+          strokeAlpha={alpha}
+          ref={this.assignSketchRef}
+        />
         <Controls>
           {reveal ? (
             <Control
@@ -199,13 +198,20 @@ const Italic = glamorous.text({
 });
 
 const CharacterContainer = glamorous.view({
-  flex: 8,
+  position: "absolute",
+  top: 0,
+  right: 0,
+  left: 0,
+  bottom: 125,
+  flex: 1,
+  zIndex: 10,
   alignItems: "center",
   justifyContent: "center",
+  backgroundColor: "rgba(231, 237, 240, 0.75)",
 });
 
 const Character = glamorous.text({
-  fontSize: 125,
+  fontSize: 150,
 });
 
 const Controls = glamorous.view({
