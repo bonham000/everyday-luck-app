@@ -8,6 +8,7 @@ import AboutDetailScreenComponent from "@src/screens/AboutDetailScreen";
 import AboutScreenComponent from "@src/screens/AboutScreen";
 import { AccountScreenComponent } from "@src/screens/AccountScreen";
 import { AudioReviewAllScreen } from "@src/screens/AudioReviewAllScreen";
+import { CharacterWritingScreenComponent } from "@src/screens/CharacterWritingScreen";
 import { ContactScreenComponent } from "@src/screens/ContactScreen";
 import { FlashcardsScreenComponent } from "@src/screens/FlashcardsScreen";
 import { HomeScreenComponent } from "@src/screens/HomeScreen";
@@ -160,6 +161,17 @@ const stargazerConfig: ReadonlyArray<StargazerRouteConfigObject> = [
         {...MOCKS.SOUND_RECORDING_PROPS}
       />
     ),
+  },
+  {
+    name: "Character Writing Screen",
+    screenName: ROUTE_NAMES.CHARACTER_WRITING,
+    screen: (props: StargazerRouteProps<LessonScreenParams>) => (
+      <CharacterWritingScreenComponent
+        navigation={props.navigation}
+        {...MOCKS.GLOBAL_STATE_PROPS}
+      />
+    ),
+    paramsForNextScreen: MOCKS.LESSON_SCREEN_PARAMS,
   },
   {
     name: "Flashcards Screen",
