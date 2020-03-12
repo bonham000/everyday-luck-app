@@ -161,7 +161,7 @@ const ROUTES: NavigationScreenRouteConfig = {
       headerBackTitle: null,
     },
   },
-  [ROUTE_NAMES.FLASHCARDS]: {
+  [ROUTE_NAMES.CHARACTER_DRAWING]: {
     screen: CharacterDrawingScreenComponent,
     navigationOptions: {
       title: "Characters 🎨",

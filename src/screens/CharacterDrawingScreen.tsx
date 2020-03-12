@@ -1,10 +1,11 @@
 import { Sketch } from "expo-pixi";
-// import glamorous from "glamorous-native";
+import glamorous from "glamorous-native";
 import React from "react";
 import { Alert } from "react-native";
 import { NavigationScreenProp } from "react-navigation";
 
 import { BasicContainer } from "@src/components/SharedComponents";
+import { COLORS } from "@src/constants/Theme";
 import {
   GlobalStateContextProps,
   withGlobalStateContext,
@@ -25,6 +26,7 @@ interface IState {
   completed: number;
   lesson: Lesson;
   deck: Lesson;
+  reveal: boolean;
 }
 
 /** ========================================================================
@@ -36,6 +38,8 @@ export class CharacterDrawingScreenComponent extends React.Component<
   IProps,
   IState
 > {
+  sketch: any = null;
+
   constructor(props: IProps) {
     super(props);
 
@@ -45,6 +49,7 @@ export class CharacterDrawingScreenComponent extends React.Component<
     const oneOrTwoCharacters = lesson.filter(w => w.traditional.length > 2);
 
     this.state = {
+      reveal: false,
       completed: 0,
       lesson: oneOrTwoCharacters,
       deck: knuthShuffle(oneOrTwoCharacters),
@@ -52,70 +57,60 @@ export class CharacterDrawingScreenComponent extends React.Component<
   }
 
   render(): JSX.Element {
-    const color = "0x0000ff";
-    const width = 5;
-    const alpha = 0.5;
+    const { reveal } = this.state;
 
-    // TODO:
-    // Create sketch space
-    // Create controls to flip card
-    // Render character on reverse side
+    if (reveal) {
+      return <BasicContainer />;
+    }
+
+    const width = 20;
+    const alpha = 0.85;
+    const color = "#0f0f0e";
 
     return (
       <BasicContainer>
-        <Sketch strokeColor={color} strokeWidth={width} strokeAlpha={alpha} />
-        {/* <ProgressText>
+        <ProgressText>
           Progress: {this.state.completed} / {this.state.lesson.length}{" "}
           completed
-        </ProgressText> */}
+        </ProgressText>
+        <Sketch
+          style={{ flex: 8 }}
+          strokeColor={color}
+          strokeWidth={width}
+          strokeAlpha={alpha}
+          ref={this.assignSketchRef}
+        />
+        <Controls>
+          <Control
+            disabled={reveal}
+            onPress={this.undoSketchLine}
+            style={{ backgroundColor: COLORS.actionButtonBlue }}
+          >
+            <ControlText>Reset</ControlText>
+          </Control>
+          <Control
+            onPress={this.handleReveal}
+            style={{ backgroundColor: COLORS.actionButtonMint }}
+          >
+            <ControlText>{reveal ? "Draw" : "Reveal"}</ControlText>
+          </Control>
+        </Controls>
       </BasicContainer>
     );
   }
 
-  randomizeDeck = () => {
-    this.setState({
-      deck: knuthShuffle(this.state.lesson),
-    });
+  undoSketchLine = () => {
+    if (this.sketch) {
+      this.sketch.undo();
+    }
   };
 
-  handleSwipe = (direction: "left" | "right") => (cardIndex: number) => {
-    const { deck, completed } = this.state;
+  handleReveal = () => {
+    this.setState(ps => ({ reveal: !ps.reveal }));
+  };
 
-    let newDeck: Lesson;
-    if (direction === "left") {
-      if (cardIndex === deck.length - 2) {
-        newDeck = [
-          ...deck.slice(0, cardIndex + 1),
-          deck[cardIndex + 1],
-          deck[cardIndex],
-        ];
-      } else {
-        const reshuffledDeckSlice = knuthShuffle([
-          ...deck.slice(cardIndex + 1),
-          deck[cardIndex],
-        ]);
-
-        if (cardIndex === deck.length - 1 && completed > 0) {
-          newDeck = reshuffledDeckSlice;
-        } else {
-          newDeck = [...deck.slice(0, cardIndex + 1), ...reshuffledDeckSlice];
-        }
-      }
-    } else {
-      newDeck = deck;
-    }
-
-    const inc = direction === "right" ? 1 : 0;
-    const finished = completed + inc;
-
-    if (finished === this.state.lesson.length) {
-      return this.handleFinish();
-    }
-
-    this.setState({
-      deck: newDeck,
-      completed: finished,
-    });
+  randomizeDeck = () => {
+    this.setState({ deck: knuthShuffle(this.state.lesson) });
   };
 
   handleFinish = () => {
@@ -126,7 +121,7 @@ export class CharacterDrawingScreenComponent extends React.Component<
       },
       () => {
         Alert.alert(
-          "You finished all the flashcards!!! 🎉",
+          "You finished all the words!!! 🎉🎉🎉",
           "The deck will be shuffled and restarted now.",
           [
             {
@@ -139,6 +134,12 @@ export class CharacterDrawingScreenComponent extends React.Component<
       },
     );
   };
+
+  assignSketchRef = (ref: any) => {
+    console.log(Object.keys(ref));
+    // tslint:disable-next-line
+    this.sketch = ref;
+  };
 }
 
 /** ========================================================================
@@ -146,11 +147,30 @@ export class CharacterDrawingScreenComponent extends React.Component<
  * =========================================================================
  */
 
-// const ProgressText = glamorous.text({
-//   marginTop: 8,
-//   fontSize: 10,
-//   textAlign: "center",
-// });
+const ProgressText = glamorous.text({
+  marginTop: 8,
+  fontSize: 10,
+  textAlign: "center",
+});
+
+const Controls = glamorous.view({
+  flex: 1,
+  backgroundColor: "pink",
+  display: "flex",
+  flexDirection: "row",
+  justifyContent: "space-evenly",
+});
+
+const Control = glamorous.touchableOpacity({
+  flex: 1,
+  alignItems: "center",
+  justifyContent: "center",
+  backgroundColor: COLORS.actionButtonYellow,
+});
+
+const ControlText = glamorous.text({
+  fontSize: 20,
+});
 
 /** ========================================================================
  * Export
