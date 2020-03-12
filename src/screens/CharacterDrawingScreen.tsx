@@ -79,6 +79,9 @@ export class CharacterDrawingScreenComponent extends React.Component<
         <ProgressText>
           Progress: {completed} / {deck.length} completed
         </ProgressText>
+        <CharacterHint>
+          {word.pinyin} {word.english}
+        </CharacterHint>
         {reveal ? (
           <CharacterContainer>
             <Character>{character}</Character>
@@ -181,6 +184,12 @@ export class CharacterDrawingScreenComponent extends React.Component<
 const ProgressText = glamorous.text({
   marginTop: 8,
   fontSize: 10,
+  textAlign: "center",
+});
+
+const CharacterHint = glamorous.text({
+  marginTop: 10,
+  fontSize: 25,
   textAlign: "center",
 });
 
