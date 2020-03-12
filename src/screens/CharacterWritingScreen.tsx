@@ -29,6 +29,7 @@ interface IState {
   lesson: Lesson;
   deck: Lesson;
   reveal: boolean;
+  renderNull: boolean;
 }
 
 /** ========================================================================
@@ -52,6 +53,7 @@ export class CharacterWritingScreenComponent extends React.Component<
     console.log(oneOrTwoCharacters);
 
     this.state = {
+      renderNull: false,
       reveal: false,
       index: 0,
       completed: 0,
@@ -60,8 +62,14 @@ export class CharacterWritingScreenComponent extends React.Component<
     };
   }
 
-  render(): JSX.Element {
-    const { deck, reveal, index, completed } = this.state;
+  render(): JSX.Element | null {
+    const { deck, reveal, index, completed, renderNull } = this.state;
+
+    // This is shit we all know it!
+    if (renderNull) {
+      return null;
+    }
+
     const word = deck[index];
 
     const language = this.props.languageSetting;
@@ -132,11 +140,20 @@ export class CharacterWritingScreenComponent extends React.Component<
     if (this.state.index === this.state.deck.length) {
       return this.handleFinish();
     } else {
-      this.setState(ps => ({
-        reveal: false,
-        index: ps.index + 1,
-        completed: ps.completed + 1,
-      }));
+      // Suck it expo-pixi .clear method, yeah - that's right!!!
+      this.setState(
+        {
+          renderNull: true,
+        },
+        () => {
+          this.setState(ps => ({
+            renderNull: false,
+            reveal: false,
+            index: ps.index + 1,
+            completed: ps.completed + 1,
+          }));
+        },
+      );
     }
   };
 
@@ -145,7 +162,7 @@ export class CharacterWritingScreenComponent extends React.Component<
   };
 
   randomizeDeck = () => {
-    this.setState({ deck: knuthShuffle(this.state.lesson) });
+    this.setState({ deck: knuthShuffle(this.state.lesson), renderNull: false });
   };
 
   handleFinish = () => {
@@ -153,6 +170,7 @@ export class CharacterWritingScreenComponent extends React.Component<
       {
         deck: [],
         completed: 0,
+        renderNull: true,
       },
       () => {
         Alert.alert(
