@@ -65,12 +65,12 @@ class SideMenuComponent extends React.Component<IProps, {}> {
           />
         </View>
         <Item onPress={this.createNavigationHandler(ROUTE_NAMES.TRANSLATION)}>
-          📔
+          🐱
           {"  "}
           Translate
         </Item>
         <Item onPress={this.createNavigationHandler(ROUTE_NAMES.SETTINGS)}>
-          🔖
+          📔
           {"  "}
           Settings
         </Item>
@@ -81,7 +81,7 @@ class SideMenuComponent extends React.Component<IProps, {}> {
           👨‍💻 Contact
         </Item>
         <Item onPress={this.createNavigationHandler(ROUTE_NAMES.WELCOME)}>
-          ⛱{"  "}
+          🔖{"  "}
           About
         </Item>
         <Item onPress={this.createNavigationHandler(ROUTE_NAMES.NOTE_PAD)}>
