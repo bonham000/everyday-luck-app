@@ -119,7 +119,7 @@ export class CharacterWritingScreenComponent extends React.Component<
               onPress={this.handleProceed}
               style={{ backgroundColor: COLORS.actionButtonBlue }}
             >
-              <ControlText>Next Character</ControlText>
+              <ControlText>Next</ControlText>
             </Control>
           </Controls>
         ) : (

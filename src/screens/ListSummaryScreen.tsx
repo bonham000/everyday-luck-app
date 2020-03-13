@@ -42,6 +42,7 @@ export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
   render(): JSX.Element {
     const { userScoreStatus } = this.props;
     const listIndex = this.props.navigation.getParam("listIndex");
+    const listTitle = this.props.navigation.getParam("listTitle");
     const hskList = this.props.navigation.getParam("hskList");
     const listScore = mapListIndexToListScores(listIndex, userScoreStatus);
     return (
@@ -58,8 +59,9 @@ export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
         {!listScore.complete ? (
           <OptOutBlock>
             <SubText>
-              Already mastered this HSK Level? Prove your knowledge to opt-out
-              and unlock the next level immediately.
+              {listTitle
+                ? "Feel confident? Show your mastery of all of this content! You have to pass with a perfect score."
+                : "Already mastered this HSK Level? Prove your knowledge to opt-out and unlock the next level immediately."}
             </SubText>
             <LessonBlock
               onPress={this.handleTestOut}
@@ -68,7 +70,9 @@ export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
               }}
             >
               <LessonBlockText isLocked={false}>
-                Test out of this HSK Level
+                {listTitle
+                  ? "Test out of this lesson!"
+                  : "Test out of this HSK Level"}
               </LessonBlockText>
               <Text>👨‍🎓👩‍🎓</Text>
             </LessonBlock>
