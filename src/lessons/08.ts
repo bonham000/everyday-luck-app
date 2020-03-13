@@ -5,12 +5,6 @@ const lesson: HSKList = {
   title: "Dictation",
   content: [
     {
-      simplified: "陈",
-      traditional: "陳",
-      pinyin: "chén",
-      english: "Chen",
-    },
-    {
       simplified: "月",
       traditional: "月",
       pinyin: "yuè",
@@ -21,12 +15,6 @@ const lesson: HSKList = {
       traditional: "美",
       pinyin: "měi",
       english: "Nice",
-    },
-    {
-      simplified: "李",
-      traditional: "李",
-      pinyin: "lǐ",
-      english: "Lee",
     },
     {
       simplified: "明",
