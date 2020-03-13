@@ -93,7 +93,7 @@ describe("utils", () => {
       expect(seen.size).toBe(choices.length);
     };
 
-    const alternates = flattenLessonSet(HSK_LISTS);
+    const alternates = flattenLessonSet(HSK_LISTS.slice(0, 5));
 
     const quizTypes: ReadonlyArray<QUIZ_TYPE> = [
       QUIZ_TYPE.ENGLISH,
@@ -101,7 +101,7 @@ describe("utils", () => {
       QUIZ_TYPE.PRONUNCIATION,
     ];
 
-    for (const lesson of HSK_LISTS) {
+    for (const lesson of HSK_LISTS.slice(0, 5)) {
       const words = lesson.content;
       for (const word of words) {
         const type = quizTypes[randomInRange(0, 3)];
