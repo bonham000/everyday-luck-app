@@ -24,7 +24,6 @@ interface IProps extends GlobalStateContextProps {
 }
 
 interface IState {
-  index: number;
   completed: number;
   lesson: Lesson;
   deck: Lesson;
@@ -55,7 +54,6 @@ export class CharacterWritingScreenComponent extends React.Component<
     this.state = {
       renderNull: false,
       reveal: false,
-      index: 0,
       completed: 0,
       lesson: oneOrTwoCharacters,
       deck: knuthShuffle(oneOrTwoCharacters),
@@ -63,14 +61,14 @@ export class CharacterWritingScreenComponent extends React.Component<
   }
 
   render(): JSX.Element | null {
-    const { deck, reveal, index, completed, renderNull } = this.state;
+    const { deck, reveal, lesson, completed, renderNull } = this.state;
 
     // This is shit we all know it!
     if (renderNull) {
       return null;
     }
 
-    const word = deck[index];
+    const word = deck[0];
 
     const language = this.props.languageSetting;
     const character =
@@ -86,7 +84,7 @@ export class CharacterWritingScreenComponent extends React.Component<
     return (
       <BasicContainer>
         <ProgressText>
-          Progress: {completed} / {deck.length} completed
+          Progress: {completed} / {lesson.length} completed
         </ProgressText>
         <CharacterHint>
           {word.pinyin} <Italic>"{word.english}"</Italic>
@@ -103,29 +101,43 @@ export class CharacterWritingScreenComponent extends React.Component<
           strokeAlpha={alpha}
           ref={this.assignSketchRef}
         />
-        <Controls>
-          {reveal ? (
+        {reveal ? (
+          <Controls>
+            <Control
+              onPress={this.handleProceedWithRetry}
+              style={{ backgroundColor: COLORS.actionButtonYellow }}
+            >
+              <ControlText>Retry</ControlText>
+            </Control>
+            <Control
+              onPress={this.handleToggleReveal}
+              style={{ backgroundColor: COLORS.actionButtonMint }}
+            >
+              <ControlText>Draw</ControlText>
+            </Control>
             <Control
               onPress={this.handleProceed}
               style={{ backgroundColor: COLORS.actionButtonBlue }}
             >
               <ControlText>Next Character</ControlText>
             </Control>
-          ) : (
+          </Controls>
+        ) : (
+          <Controls>
             <Control
               onPress={this.undoSketchLine}
               style={{ backgroundColor: COLORS.actionButtonYellow }}
             >
               <ControlText>Undo Stroke</ControlText>
             </Control>
-          )}
-          <Control
-            onPress={this.handleReveal}
-            style={{ backgroundColor: COLORS.actionButtonMint }}
-          >
-            <ControlText>{reveal ? "Draw" : "Reveal"}</ControlText>
-          </Control>
-        </Controls>
+            <Control
+              onPress={this.handleToggleReveal}
+              style={{ backgroundColor: COLORS.actionButtonMint }}
+            >
+              <ControlText>Reveal</ControlText>
+            </Control>
+          </Controls>
+        )}
       </BasicContainer>
     );
   }
@@ -137,7 +149,7 @@ export class CharacterWritingScreenComponent extends React.Component<
   };
 
   handleProceed = () => {
-    if (this.state.index === this.state.deck.length) {
+    if (this.state.completed === this.state.deck.length) {
       return this.handleFinish();
     } else {
       // Suck it expo-pixi .clear method, yeah - that's right!!!
@@ -149,7 +161,7 @@ export class CharacterWritingScreenComponent extends React.Component<
           this.setState(ps => ({
             renderNull: false,
             reveal: false,
-            index: ps.index + 1,
+            deck: ps.deck.slice(1),
             completed: ps.completed + 1,
           }));
         },
@@ -157,7 +169,25 @@ export class CharacterWritingScreenComponent extends React.Component<
     }
   };
 
-  handleReveal = () => {
+  handleProceedWithRetry = () => {
+    // Suck it expo-pixi .clear method, yeah - that's right!!!
+    this.setState(
+      {
+        renderNull: true,
+      },
+      () => {
+        this.setState(ps => {
+          return {
+            renderNull: false,
+            reveal: false,
+            deck: knuthShuffle(ps.deck),
+          };
+        });
+      },
+    );
+  };
+
+  handleToggleReveal = () => {
     this.setState(ps => ({ reveal: !ps.reveal }));
   };
 
