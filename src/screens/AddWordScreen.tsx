@@ -92,7 +92,11 @@ export class AddWordScreen extends React.Component<IProps, IState> {
               {wordList.map((word, index) => {
                 return (
                   <WordContainer key={`${word}-${index}`}>
-                    <RemoveWordButton onPress={() => this.removeWord(index)}>
+                    <RemoveWordButton
+                      onPress={() =>
+                        this.removeWord(word[this.props.languageSetting], index)
+                      }
+                    >
                       <Bold style={{ color: COLORS.white }}>Delete</Bold>
                     </RemoveWordButton>
                     <WordView>
@@ -145,19 +149,27 @@ export class AddWordScreen extends React.Component<IProps, IState> {
         const word = await translateWord(value, this.props.languageSetting);
         const newList: CustomWordStudyList = wordList.concat(word);
         await setCustomWordStudyList(newList);
-        this.setState({ value: "", loading: false, wordList: newList });
+        this.setState({ value: "", loading: false, wordList: newList }, () => {
+          this.props.setToastMessage(
+            `${word[this.props.languageSetting]} added!`,
+          );
+          this.props.reloadLessonSet();
+        });
       },
     );
   };
 
-  removeWord = async (index: number) => {
+  removeWord = async (word: string, index: number) => {
     const { wordList } = this.state;
     const newList: CustomWordStudyList = [
       ...wordList.slice(0, index),
       ...wordList.slice(index + 1),
     ];
     await setCustomWordStudyList(newList);
-    this.setState({ wordList: newList });
+    this.setState({ wordList: newList }, () => {
+      this.props.setToastMessage(`${word} removed!`);
+      this.props.reloadLessonSet();
+    });
   };
 
   handleClearList = () => {
@@ -174,8 +186,10 @@ export class AddWordScreen extends React.Component<IProps, IState> {
           text: "OK",
           onPress: async () => {
             await setCustomWordStudyList([]);
-            this.setState({ wordList: [] });
-            this.props.setToastMessage("List cleared!");
+            this.setState({ wordList: [] }, () => {
+              this.props.setToastMessage("List cleared!");
+              this.props.reloadLessonSet();
+            });
           },
         },
       ],
