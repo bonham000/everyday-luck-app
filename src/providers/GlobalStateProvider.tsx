@@ -54,6 +54,7 @@ export interface GlobalStateContextProps
     message: string,
     successCallback?: () => void,
   ) => void;
+  reloadLessonSet: () => void;
 }
 
 interface IProps {

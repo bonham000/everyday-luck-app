@@ -24,6 +24,7 @@ import {
   getRandomQuizChallenge,
   getReviewLessonSet,
 } from "@src/tools/utils";
+import { CUSTOM_WORD_LIST_TITLE } from "@tests/mocks";
 
 /** ========================================================================
  * Types
@@ -41,17 +42,28 @@ interface IProps extends GlobalStateContextProps {
 
 export class HomeScreenComponent extends React.Component<IProps, {}> {
   render(): JSX.Element {
-    const totalWordsHsk = this.props.lessons.reduce(
+    const { lessons } = this.props;
+
+    const totalWordsHsk = lessons.reduce(
       (total, lesson) =>
         !Boolean(lesson.title) ? total + lesson.content.length : total,
       0,
     );
 
-    const totalWordsCustom = this.props.lessons.reduce(
-      (total, lesson) =>
-        Boolean(lesson.title) ? total + lesson.content.length : total,
-      0,
-    );
+    const CUSTOM_WORD_LIST_EXISTS =
+      lessons[lessons.length - 1].title === CUSTOM_WORD_LIST_TITLE;
+
+    const totalWordsMTC = lessons
+      .slice(0, CUSTOM_WORD_LIST_EXISTS ? lessons.length - 2 : Infinity) // What!
+      .reduce(
+        (total, lesson) =>
+          Boolean(lesson.title) ? total + lesson.content.length : total,
+        0,
+      );
+
+    const totalWordsCustomList = !CUSTOM_WORD_LIST_EXISTS
+      ? NaN
+      : lessons[lessons.length - 1].content.length;
 
     return (
       <ScrollContainer>
@@ -64,9 +76,20 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
           Mandarin Teaching Center Lessons
         </Text>
         <Text style={{ marginTop: 6, marginBottom: 18 }}>
-          {totalWordsCustom.toLocaleString()} words total
+          {totalWordsMTC.toLocaleString()} words total
         </Text>
         {this.renderListSets(false)}
+        {CUSTOM_WORD_LIST_EXISTS && (
+          <React.Fragment>
+            <Text style={{ ...TextStyles, marginTop: 20 }}>
+              Custom Vocabulary List
+            </Text>
+            <Text style={{ marginTop: 6, marginBottom: 18 }}>
+              {totalWordsCustomList.toLocaleString()} words total
+            </Text>
+            {this.renderListSets(false, true)}
+          </React.Fragment>
+        )}
         <LineBreak />
         <Text style={TextStyles}>Practice everyday to gain experience!</Text>
         <ReviewLink onPress={this.openLessonSummarySpecial("DAILY_QUIZ")}>
@@ -84,9 +107,27 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
     );
   }
 
-  renderListSets = (hsk: boolean) => {
+  renderListSets = (hsk: boolean, custom = false) => {
     const { lessons, userScoreStatus } = this.props;
     const unlockedListIndex = getFinalUnlockedListKey(userScoreStatus);
+
+    if (custom) {
+      const index = lessons.length - 1;
+      const hskList = lessons[index];
+      return (
+        <LessonBlock
+          key={hskList.list}
+          style={{ backgroundColor: COLORS.lessonCustomList }}
+          onPress={this.handleSelectList(hskList.list, hskList, index, false)}
+        >
+          <LessonBlockText isLocked={false}>{hskList.title}</LessonBlockText>
+          <LessonBlockText isLocked={false}>
+            ({hskList.content.length.toLocaleString()} words)
+          </LessonBlockText>
+        </LessonBlock>
+      );
+    }
+
     return lessons
       .map((hskList, index) => {
         const { list, title, locked, content } = hskList;
@@ -98,6 +139,8 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
           return null; // hsk lessons
         } else if (!title && !hsk) {
           return null; // custom lessons
+        } else if (title === CUSTOM_WORD_LIST_TITLE) {
+          return null;
         }
 
         return (
@@ -105,7 +148,7 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
             key={hskList.list}
             style={{
               backgroundColor: !locked
-                ? COLORS.lessonCustom
+                ? COLORS.lessonMTC
                 : isLocked
                 ? COLORS.lockedLessonBlock
                 : inProgress

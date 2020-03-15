@@ -130,6 +130,10 @@ const GlobalStateContextValues = {
     /* Handle sending email */
     return;
   },
+  reloadLessonSet: () => {
+    /* Handle reloading lesson set */
+    return;
+  },
 };
 
 const GlobalStateContext = React.createContext(GlobalStateContextValues);

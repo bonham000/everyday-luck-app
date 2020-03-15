@@ -30,11 +30,12 @@ import { GlobalStateValues } from "@src/providers/GlobalStateProvider";
 import SoundRecordingProvider from "@src/providers/SoundRecordingProvider";
 import { sendContactRequest } from "@src/tools/api";
 import {
+  getCustomWordStudyList,
   getPersistedUser,
   saveUserToAsyncStorage,
 } from "@src/tools/async-store";
 import CONFIG from "@src/tools/config";
-import { User } from "@src/tools/types";
+import { HSKList, User } from "@src/tools/types";
 import {
   createWordDictionaryFromLessons,
   fetchLessonSet,
@@ -43,7 +44,7 @@ import {
   isEmailValid,
   mapSettingsChangeToAnalyticsEvent,
 } from "@src/tools/utils";
-import MOCKS, { getNewDefaultUser } from "@tests/mocks";
+import MOCKS, { CUSTOM_WORD_LIST_TITLE, getNewDefaultUser } from "@tests/mocks";
 import { ListScoreSet } from "./lessons";
 
 /** ========================================================================
@@ -488,6 +489,7 @@ class RootContainer extends RootContainerBase<{}> {
       handleUpdateApp: this.handleUpdateApp,
       handleResetScores: this.handleResetScores,
       logAnalyticsEvent: this.logAnalyticsEvent,
+      reloadLessonSet: this.handleReloadLessonSet,
       handleSwitchLanguage: this.handleSwitchLanguage,
       updateExperiencePoints: this.updateExperiencePoints,
       handleSendContactEmail: this.handleSendContactEmail,
@@ -518,7 +520,7 @@ class RootContainer extends RootContainerBase<{}> {
     /**
      * Fetch lessons
      */
-    const lessons = fetchLessonSet();
+    const lessons = await this.getLessonSet();
     const wordDictionary = createWordDictionaryFromLessons(lessons);
     this.setState(
       {
@@ -527,6 +529,32 @@ class RootContainer extends RootContainerBase<{}> {
       },
       this.initializeUserSession,
     );
+  };
+
+  handleReloadLessonSet = async () => {
+    const lessons = await this.getLessonSet();
+    this.setState({ lessons });
+  };
+
+  getLessonSet = async () => {
+    const hsk = fetchLessonSet();
+
+    // Add the custom word list to the lessons, if it exists.
+    const customWordList = await getCustomWordStudyList();
+
+    if (customWordList.length > 0) {
+      const customWordListLesson: HSKList = {
+        list: String(Number(hsk[hsk.length - 1].list) + 1),
+        locked: false,
+        title: CUSTOM_WORD_LIST_TITLE,
+        content: customWordList,
+      };
+
+      const fullListSet = hsk.concat(customWordListLesson);
+      return fullListSet;
+    } else {
+      return hsk;
+    }
   };
 
   initializeUserSession = async () => {

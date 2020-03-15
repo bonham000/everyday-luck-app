@@ -3,7 +3,7 @@ import { HSKList } from "@src/tools/types";
 const lesson: HSKList = {
   list: "7",
   locked: false,
-  title: "Custom Vocabulary List",
+  title: "General Vocabulary",
   content: [
     {
       simplified: "讚",
@@ -28,12 +28,6 @@ const lesson: HSKList = {
       traditional: "跟",
       pinyin: "gēn",
       english: "With",
-    },
-    {
-      simplified: "跟我回家",
-      traditional: "跟我回家",
-      pinyin: "gēn wǒ huí jiā",
-      english: "Go home with me",
     },
     {
       simplified: "大学",
