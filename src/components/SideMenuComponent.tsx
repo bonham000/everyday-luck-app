@@ -18,6 +18,7 @@ import {
   withGlobalStateContext,
 } from "@src/providers/GlobalStateProvider";
 import { formatUserLanguageSetting } from "@src/tools/utils";
+import { ScrollView } from "react-native-gesture-handler";
 
 /** ========================================================================
  * Types
@@ -54,39 +55,58 @@ class SideMenuComponent extends React.Component<IProps, {}> {
     } = this.props;
     return (
       <SafeAreaView
-        style={{ flex: 1, paddingTop: SMALL_DEVICE ? 35 : 75, paddingLeft: 6 }}
+        style={{
+          flex: 1,
+          justifyContent: "space-evenly",
+          paddingTop: SMALL_DEVICE ? 35 : 75,
+          paddingLeft: 6,
+        }}
         forceInset={{ top: "always", horizontal: "never" }}
       >
-        <View style={{ flexDirection: "row", justifyContent: "center" }}>
+        <View
+          style={{ flex: 1, flexDirection: "row", justifyContent: "center" }}
+        >
           <Image
             resizeMode="contain"
             style={{ width: ICON_DIMENSION, height: ICON_DIMENSION }}
             source={require("../assets/icon.png")}
           />
         </View>
-        <Item onPress={this.createNavigationHandler(ROUTE_NAMES.TRANSLATION)}>
-          🐱
-          {"  "}
-          Translate
-        </Item>
-        <Item onPress={this.createNavigationHandler(ROUTE_NAMES.SETTINGS)}>
-          📔
-          {"  "}
-          Settings
-        </Item>
-        <Item onPress={this.createNavigationHandler(ROUTE_NAMES.ACCOUNT)}>
-          🗃 Account
-        </Item>
-        <Item onPress={this.createNavigationHandler(ROUTE_NAMES.CONTACT)}>
-          👨‍💻 Contact
-        </Item>
-        <Item onPress={this.createNavigationHandler(ROUTE_NAMES.WELCOME)}>
-          🔖{"  "}
-          About
-        </Item>
-        <Item onPress={this.createNavigationHandler(ROUTE_NAMES.NOTE_PAD)}>
-          🗂 Note Pad
-        </Item>
+        <View style={{ flex: 6, paddingBottom: 24 }}>
+          <ScrollView>
+            <Item
+              onPress={this.createNavigationHandler(ROUTE_NAMES.TRANSLATION)}
+            >
+              🐱
+              {"  "}
+              Translate
+            </Item>
+            <Item onPress={this.createNavigationHandler(ROUTE_NAMES.NOTE_PAD)}>
+              📜 Writing Pad
+            </Item>
+            <Item onPress={this.createNavigationHandler(ROUTE_NAMES.NOTE_PAD)}>
+              📋 Add Custom Words
+            </Item>
+            <Item onPress={this.createNavigationHandler(ROUTE_NAMES.NOTE_PAD)}>
+              🗂 Note Pad
+            </Item>
+            <Item onPress={this.createNavigationHandler(ROUTE_NAMES.SETTINGS)}>
+              📔
+              {"  "}
+              Settings
+            </Item>
+            <Item onPress={this.createNavigationHandler(ROUTE_NAMES.ACCOUNT)}>
+              🗃 Account
+            </Item>
+            <Item onPress={this.createNavigationHandler(ROUTE_NAMES.CONTACT)}>
+              👨‍💻 Contact
+            </Item>
+            <Item onPress={this.createNavigationHandler(ROUTE_NAMES.WELCOME)}>
+              🔖{"  "}
+              About
+            </Item>
+          </ScrollView>
+        </View>
         <BottomBlock>
           <SmallItem>
             <Bold>Experience Points:</Bold> {experience.toLocaleString()}
@@ -135,10 +155,12 @@ class SideMenuComponent extends React.Component<IProps, {}> {
  */
 
 const BottomBlock = glamorous.view({
-  left: 6,
-  bottom: 0,
-  height: 120,
-  position: "absolute",
+  flex: 1,
+  paddingBottom: 32,
+  // left: 6,
+  // bottom: 0,
+  // height: 120,
+  // position: "absolute",
 });
 
 const Item = ({ children, onPress, style }: any) => (
