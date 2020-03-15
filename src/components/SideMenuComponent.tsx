@@ -100,18 +100,18 @@ class SideMenuComponent extends React.Component<IProps, {}> {
             <Item onPress={this.createNavigationHandler(ROUTE_NAMES.ACCOUNT)}>
               🗃 Account
             </Item>
-            <Item onPress={this.createNavigationHandler(ROUTE_NAMES.CONTACT)}>
-              👨‍💻 Contact
-            </Item>
             <Item onPress={this.createNavigationHandler(ROUTE_NAMES.WELCOME)}>
               🔖{"  "}
               About
+            </Item>
+            <Item onPress={this.createNavigationHandler(ROUTE_NAMES.CONTACT)}>
+              👨‍💻 Feedback
             </Item>
           </ScrollView>
         </View>
         <BottomBlock>
           <SmallItem>
-            <Bold>Experience Points:</Bold> {experience.toLocaleString()}
+            <Bold>Orange Points: </Bold> {experience.toLocaleString()} 🍊
           </SmallItem>
           <SmallItem>
             <Bold>Language:</Bold> {formatUserLanguageSetting(languageSetting)}

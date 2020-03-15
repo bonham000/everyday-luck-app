@@ -91,7 +91,7 @@ export class AddWordScreen extends React.Component<IProps, IState> {
             <React.Fragment>
               {wordList.map((word, index) => {
                 return (
-                  <WordContainer key={`${word}-${index}`}>
+                  <WordContainer key={`${word.traditional}-${index}`}>
                     <RemoveWordButton
                       onPress={() =>
                         this.removeWord(word[this.props.languageSetting], index)

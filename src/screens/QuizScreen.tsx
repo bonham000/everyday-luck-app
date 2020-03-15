@@ -68,7 +68,7 @@ interface IState {
   wordContent: ReadonlyArray<Word>;
 }
 
-const REVERSION_PENALTY = 2500;
+const REVERSION_PENALTY = 1; // 1 orange point 🍊!
 
 const AUTO_PROCEED_DELAY = 700;
 
@@ -282,7 +282,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
         {this.state.failedOnce && (
           <ActionButton.Item
             style={{ zIndex: 50 }}
-            title="Recover!"
+            title="Use an Orange! 🍊"
             onPress={this.handleRevertAnswer}
             buttonColor={COLORS.actionButtonBlue}
           >
@@ -374,7 +374,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     if (cost <= experience) {
       Alert.alert(
         "Are you sure?",
-        `This will cost you ${cost} experience points (you have a total of ${experience} experience).`,
+        `This will cost you 1 orange point (you have a total of ${experience} 🍊 to spare!).`,
         [
           {
             text: "Cancel",
@@ -510,7 +510,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
   };
 
   handleCompleteQuiz = () => {
-    const { userScoreStatus, quizType, appDifficultySetting } = this.props;
+    const { userScoreStatus, quizType } = this.props;
     const lessonType = this.props.navigation.getParam("type");
     const listIndex = this.props.navigation.getParam("listIndex");
     const isFinalLesson = this.props.navigation.getParam("isFinalLesson");
@@ -527,7 +527,6 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
       perfectScore,
       quizType,
       lessonType,
-      appDifficultySetting,
     );
 
     let lessonCompleted = false;

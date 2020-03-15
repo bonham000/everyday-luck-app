@@ -369,38 +369,30 @@ export const calculateExperiencePointsForLesson = (
   perfectScore: boolean,
   quizType: QUIZ_TYPE,
   lessonType: LessonSummaryType,
-  appDifficultySetting: APP_DIFFICULTY_SETTING,
 ): number => {
-  const MIN: number = 15;
+  const MIN: number = 1;
   let MAX: number;
   if (lessonType === "OPT_OUT_CHALLENGE") {
-    MAX = 1000;
+    MAX = 10;
   } else if (lessonType === "DAILY_QUIZ") {
-    MAX = 500;
+    MAX = 5;
   } else if (quizType === QUIZ_TYPE.QUIZ_TEXT) {
-    MAX = 35;
+    MAX = 3;
   } else {
-    MAX = 20;
+    MAX = 2;
   }
 
-  const OFFSET = lessonType === "LESSON" ? 25 : 0;
-  const result = randomInRange(MIN, MAX - OFFSET);
-
-  let multipliedResult = result;
-  if (lessonType === "LESSON" || lessonType === "SUMMARY") {
-    multipliedResult = result * DIFFICULTY_MULTIPLIERS[appDifficultySetting];
-  }
-
-  /**
-   * Add bonus points for firstPass and perfectScore:
-   */
   if (firstPass) {
-    multipliedResult += 15;
-  } else if (perfectScore) {
-    multipliedResult += 5;
+    MAX = MAX = 1;
   }
 
-  return multipliedResult;
+  const result = randomInRange(MIN, MAX);
+
+  if (perfectScore) {
+    return result;
+  } else {
+    return 0;
+  }
 };
 
 export interface DeriveLessonContentArgs {
