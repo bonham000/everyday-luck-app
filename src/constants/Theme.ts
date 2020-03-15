@@ -13,6 +13,7 @@ const COLORS = {
   inactive: "rgb(125,125,125)",
   primaryRed: "rgb(200,8,20)",
   primaryBlue: "#3498db",
+  actionButtonPink: "#f76d5e",
   actionButtonRed: "rgba(231,76,60,1)",
   actionButtonPurple: "#9b59b6",
   actionButtonBlue: "#3498db",

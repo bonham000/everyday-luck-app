@@ -1,7 +1,7 @@
 import { AsyncStorage } from "react-native";
 
 import { ASYNC_STORE_KEYS } from "@src/constants/AsyncStoreKeys";
-import { User } from "@src/tools/types";
+import { User, Word } from "@src/tools/types";
 import MOCKS from "@tests/mocks";
 
 /** ========================================================================
@@ -101,6 +101,37 @@ export const setWordStudyList = async (wordList: WordStudyList) => {
   try {
     await AsyncStorage.setItem(
       ASYNC_STORE_KEYS.WORD_STUDY_LIST,
+      JSON.stringify(wordList),
+    );
+  } catch (err) {
+    return;
+  }
+};
+
+/** ========================================================================
+ * Custom Word List
+ * =========================================================================
+ */
+
+export type CustomWordStudyList = ReadonlyArray<Word>;
+
+export const getCustomWordStudyList = async (): Promise<
+  CustomWordStudyList
+> => {
+  try {
+    const result = await AsyncStorage.getItem(
+      ASYNC_STORE_KEYS.CUSTOM_WORD_STUDY_LIST,
+    );
+    return result ? JSON.parse(result) : [];
+  } catch (err) {
+    return [];
+  }
+};
+
+export const setCustomWordStudyList = async (wordList: CustomWordStudyList) => {
+  try {
+    await AsyncStorage.setItem(
+      ASYNC_STORE_KEYS.CUSTOM_WORD_STUDY_LIST,
       JSON.stringify(wordList),
     );
   } catch (err) {

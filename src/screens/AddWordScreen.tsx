@@ -1,20 +1,25 @@
 import glamorous from "glamorous-native";
 import React from "react";
-import { Alert, StyleSheet, TouchableOpacity } from "react-native";
+import { Alert, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { TextInput } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
-import { Button, ScrollContainer } from "@src/components/SharedComponents";
+import {
+  Bold,
+  Button,
+  ScrollContainer,
+} from "@src/components/SharedComponents";
 import { COLORS } from "@src/constants/Theme";
 import {
   GlobalStateContextProps,
   withGlobalStateContext,
 } from "@src/providers/GlobalStateProvider";
 import {
-  getWordStudyList,
-  setWordStudyList,
-  WordStudyList,
+  CustomWordStudyList,
+  getCustomWordStudyList,
+  setCustomWordStudyList,
 } from "@src/tools/async-store";
+import { translateWord } from "@src/tools/utils";
 
 /** ========================================================================
  * Types
@@ -29,7 +34,7 @@ interface IState {
   value: string;
   loading: boolean;
   initialized: boolean;
-  wordList: WordStudyList;
+  wordList: CustomWordStudyList;
 }
 
 /** ========================================================================
@@ -37,7 +42,7 @@ interface IState {
  * =========================================================================
  */
 
-export class NotePadScreen extends React.Component<IProps, IState> {
+export class AddWordScreen extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
 
@@ -50,7 +55,7 @@ export class NotePadScreen extends React.Component<IProps, IState> {
   }
 
   async componentDidMount(): Promise<void> {
-    const wordList = await getWordStudyList();
+    const wordList = await getCustomWordStudyList();
     this.setState({ wordList, initialized: true });
   }
 
@@ -58,8 +63,15 @@ export class NotePadScreen extends React.Component<IProps, IState> {
     const { initialized, wordList } = this.state;
     return (
       <ScrollContainer>
-        <SectionTitle>Words to Study</SectionTitle>
-        <InfoText>Add words or notes here</InfoText>
+        <SectionTitle>Build a Custom Study List</SectionTitle>
+        <InfoText>
+          Add words for your own study list. You will find these words on the
+          Home Screen for you to practice.
+        </InfoText>
+        <InfoText>
+          Enter words in your selected Chinese language setting (
+          {this.props.languageSetting}) so the app can understand them!
+        </InfoText>
         <TextInput
           mode="outlined"
           label="Add a new word"
@@ -77,17 +89,22 @@ export class NotePadScreen extends React.Component<IProps, IState> {
         {initialized ? (
           wordList.length ? (
             <React.Fragment>
-              {this.state.wordList.map((word, index) => {
+              {wordList.map((word, index) => {
                 return (
-                  <TouchableOpacity
-                    key={`${word}-${index}`}
-                    style={{ height: 36, marginTop: 8 }}
-                    onPress={this.handlePressItem(word)}
-                  >
-                    <InfoText>{word}</InfoText>
-                  </TouchableOpacity>
+                  <WordContainer key={`${word}-${index}`}>
+                    <RemoveWordButton onPress={() => this.removeWord(index)}>
+                      <Bold style={{ color: COLORS.white }}>Delete</Bold>
+                    </RemoveWordButton>
+                    <WordView>
+                      <WordText>
+                        <Bold>{word[this.props.languageSetting]}</Bold> (
+                        {word.pinyin}): {word.english}
+                      </WordText>
+                    </WordView>
+                  </WordContainer>
                 );
               })}
+              <LineBreak style={{ marginTop: 20 }} />
               <Button
                 onPress={this.handleClearList}
                 style={{
@@ -108,10 +125,16 @@ export class NotePadScreen extends React.Component<IProps, IState> {
   }
 
   handleAddWord = async () => {
-    const { value, loading } = this.state;
+    const { wordList, value, loading } = this.state;
 
     if (loading || !value) {
       return;
+    }
+
+    const REGEX_CHINESE = /[\u3040-\u30ff\u3400-\u4dbf\u4e00-\u9fff\uf900-\ufaff\uff66-\uff9f]/;
+    const hasChinese = value.match(REGEX_CHINESE);
+    if (!hasChinese) {
+      return this.props.setToastMessage("Is it Chinese?!");
     }
 
     this.setState(
@@ -119,12 +142,22 @@ export class NotePadScreen extends React.Component<IProps, IState> {
         loading: true,
       },
       async () => {
-        const list = await getWordStudyList();
-        const newList: ReadonlyArray<string> = [...list, value];
-        await setWordStudyList(newList);
+        const word = await translateWord(value, this.props.languageSetting);
+        const newList: CustomWordStudyList = wordList.concat(word);
+        await setCustomWordStudyList(newList);
         this.setState({ value: "", loading: false, wordList: newList });
       },
     );
+  };
+
+  removeWord = async (index: number) => {
+    const { wordList } = this.state;
+    const newList: CustomWordStudyList = [
+      ...wordList.slice(0, index),
+      ...wordList.slice(index + 1),
+    ];
+    await setCustomWordStudyList(newList);
+    this.setState({ wordList: newList });
   };
 
   handleClearList = () => {
@@ -140,7 +173,7 @@ export class NotePadScreen extends React.Component<IProps, IState> {
         {
           text: "OK",
           onPress: async () => {
-            await setWordStudyList([]);
+            await setCustomWordStudyList([]);
             this.setState({ wordList: [] });
             this.props.setToastMessage("List cleared!");
           },
@@ -185,8 +218,32 @@ const TextInputStyles = {
 const InfoText = glamorous.text({
   marginTop: 5,
   marginBottom: 5,
-  width: "80%",
+  width: "85%",
   textAlign: "center",
+});
+
+const WordText = glamorous.text({
+  fontSize: 16,
+});
+
+const WordView = glamorous.view({
+  flex: 6,
+  paddingLeft: 8,
+});
+
+const WordContainer = glamorous.view({
+  marginTop: 8,
+  paddingHorizontal: 25,
+  flexDirection: "row",
+  alignItems: "center",
+});
+
+const RemoveWordButton = glamorous.touchableOpacity({
+  flex: 1,
+  padding: 6,
+  alignItems: "center",
+  justifyContent: "center",
+  backgroundColor: COLORS.actionButtonPink,
 });
 
 /** ========================================================================
@@ -194,4 +251,4 @@ const InfoText = glamorous.text({
  * =========================================================================
  */
 
-export default withGlobalStateContext(NotePadScreen);
+export default withGlobalStateContext(AddWordScreen);

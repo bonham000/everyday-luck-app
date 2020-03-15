@@ -86,8 +86,8 @@ class SideMenuComponent extends React.Component<IProps, {}> {
             >
               📜 Writing Pad
             </Item>
-            <Item onPress={this.createNavigationHandler(ROUTE_NAMES.NOTE_PAD)}>
-              📋 Add Custom Words
+            <Item onPress={this.createNavigationHandler(ROUTE_NAMES.ADD_WORDS)}>
+              📋 Add Words
             </Item>
             <Item onPress={this.createNavigationHandler(ROUTE_NAMES.NOTE_PAD)}>
               🗂 Note Pad

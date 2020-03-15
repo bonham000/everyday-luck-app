@@ -713,6 +713,8 @@ export const translateWord = async (
 
   const translationQueue = needToTranslate.map(async target => {
     const translation = await fetchWordTranslation(word, source, target);
+    console.log("TRANSLATION:");
+    console.log(translation);
     return {
       [target]: translation[0],
     };

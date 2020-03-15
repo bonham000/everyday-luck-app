@@ -28,6 +28,7 @@ import WelcomeScreenComponent from "@src/screens/WelcomeScreen";
 import { getDrawerLockedState } from "@src/tools/navigation-utils";
 import { LessonScreenParams, ListScreenParams } from "@src/tools/types";
 import AboutDetailScreenComponent from "./screens/AboutDetailScreen";
+import AddWordScreen from "./screens/AddWordScreen";
 import AudioReviewAllScreen from "./screens/AudioReviewAllScreen";
 import NotePadScreen from "./screens/NotePadScreen";
 import WritingPadScreenComponent from "./screens/WritingPadScreen";
@@ -194,6 +195,13 @@ const ROUTES: NavigationScreenRouteConfig = {
     screen: TranslationScreenComponent,
     navigationOptions: {
       title: "Translation 📔",
+      headerBackTitle: null,
+    },
+  },
+  [ROUTE_NAMES.ADD_WORDS]: {
+    screen: AddWordScreen,
+    navigationOptions: {
+      title: "Custom Word List 📋",
       headerBackTitle: null,
     },
   },
