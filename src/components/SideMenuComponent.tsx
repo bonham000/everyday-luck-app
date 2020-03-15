@@ -92,6 +92,11 @@ class SideMenuComponent extends React.Component<IProps, {}> {
             <Item onPress={this.createNavigationHandler(ROUTE_NAMES.NOTE_PAD)}>
               🗂 Note Pad
             </Item>
+            <Item onPress={this.createNavigationHandler(ROUTE_NAMES.RADICALS)}>
+              🍰
+              {"  "}
+              Radicals
+            </Item>
             <Item onPress={this.createNavigationHandler(ROUTE_NAMES.SETTINGS)}>
               📔
               {"  "}

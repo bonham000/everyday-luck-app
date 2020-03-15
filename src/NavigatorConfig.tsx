@@ -31,6 +31,7 @@ import AboutDetailScreenComponent from "./screens/AboutDetailScreen";
 import AddWordScreen from "./screens/AddWordScreen";
 import AudioReviewAllScreen from "./screens/AudioReviewAllScreen";
 import NotePadScreen from "./screens/NotePadScreen";
+import RadicalsScreenComponent from "./screens/RadicalsScreen";
 import WritingPadScreenComponent from "./screens/WritingPadScreen";
 
 /** ========================================================================
@@ -209,6 +210,13 @@ const ROUTES: NavigationScreenRouteConfig = {
     screen: NotePadScreen,
     navigationOptions: {
       title: "Note Pad 🗂",
+      headerBackTitle: null,
+    },
+  },
+  [ROUTE_NAMES.RADICALS]: {
+    screen: RadicalsScreenComponent,
+    navigationOptions: {
+      title: "Radicals 🍰",
       headerBackTitle: null,
     },
   },
