@@ -53,17 +53,21 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
     const CUSTOM_WORD_LIST_EXISTS =
       lessons[lessons.length - 1].title === CUSTOM_WORD_LIST_TITLE;
 
+    // Total garbage code
     const totalWordsMTC = lessons
-      .slice(0, CUSTOM_WORD_LIST_EXISTS ? lessons.length - 2 : Infinity) // What!
+      .slice(6, CUSTOM_WORD_LIST_EXISTS ? lessons.length - 2 : Infinity) // What!
       .reduce(
         (total, lesson) =>
           Boolean(lesson.title) ? total + lesson.content.length : total,
         0,
       );
 
-    const totalWordsCustomList = !CUSTOM_WORD_LIST_EXISTS
-      ? NaN
+    const generalVocabularyListWords = lessons[5].content.length;
+    const customListWords = !CUSTOM_WORD_LIST_EXISTS
+      ? 0
       : lessons[lessons.length - 1].content.length;
+
+    const totalWordsCustomList = customListWords + generalVocabularyListWords;
 
     return (
       <ScrollContainer>
@@ -79,17 +83,13 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
           {totalWordsMTC.toLocaleString()} words total
         </Text>
         {this.renderListSets(false)}
-        {CUSTOM_WORD_LIST_EXISTS && (
-          <React.Fragment>
-            <Text style={{ ...TextStyles, marginTop: 20 }}>
-              Custom Vocabulary List
-            </Text>
-            <Text style={{ marginTop: 6, marginBottom: 18 }}>
-              {totalWordsCustomList.toLocaleString()} words total
-            </Text>
-            {this.renderListSets(false, true)}
-          </React.Fragment>
-        )}
+        <Text style={{ ...TextStyles, marginTop: 20 }}>
+          Vocabulary Practice
+        </Text>
+        <Text style={{ marginTop: 6, marginBottom: 18 }}>
+          {totalWordsCustomList.toLocaleString()} words total
+        </Text>
+        {this.renderListSets(false, true)}
         <LineBreak />
         <Text style={TextStyles}>Practice everyday to gain experience!</Text>
         <ReviewLink onPress={this.openLessonSummarySpecial("DAILY_QUIZ")}>
@@ -112,20 +112,47 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
     const unlockedListIndex = getFinalUnlockedListKey(userScoreStatus);
 
     if (custom) {
-      const index = lessons.length - 1;
-      const hskList = lessons[index];
-      return (
+      const generalVocabularyList = lessons[5];
+      const GeneralVocabulary = (
         <LessonBlock
-          key={hskList.list}
+          key={generalVocabularyList.list}
           style={{ backgroundColor: COLORS.lessonCustomList }}
-          onPress={this.handleSelectList(hskList.list, hskList, index, false)}
+          onPress={this.handleSelectList(
+            generalVocabularyList.list,
+            generalVocabularyList,
+            5,
+            false,
+          )}
         >
-          <LessonBlockText isLocked={false}>{hskList.title}</LessonBlockText>
           <LessonBlockText isLocked={false}>
-            ({hskList.content.length.toLocaleString()} words)
+            {generalVocabularyList.title}
+          </LessonBlockText>
+          <LessonBlockText isLocked={false}>
+            ({generalVocabularyList.content.length.toLocaleString()} words)
           </LessonBlockText>
         </LessonBlock>
       );
+
+      const index = lessons.length - 1;
+      const hskList = lessons[index];
+      if (hskList.title === CUSTOM_WORD_LIST_TITLE) {
+        const CustomList = (
+          <LessonBlock
+            key={hskList.list}
+            style={{ backgroundColor: COLORS.lessonCustomList }}
+            onPress={this.handleSelectList(hskList.list, hskList, index, false)}
+          >
+            <LessonBlockText isLocked={false}>{hskList.title}</LessonBlockText>
+            <LessonBlockText isLocked={false}>
+              ({hskList.content.length.toLocaleString()} words)
+            </LessonBlockText>
+          </LessonBlock>
+        );
+
+        return [GeneralVocabulary, CustomList];
+      } else {
+        return [GeneralVocabulary];
+      }
     }
 
     return lessons
@@ -139,6 +166,8 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
           return null; // hsk lessons
         } else if (!title && !hsk) {
           return null; // custom lessons
+        } else if (title === "General Vocabulary") {
+          return null; // Total shit!
         } else if (title === CUSTOM_WORD_LIST_TITLE) {
           return null;
         }
