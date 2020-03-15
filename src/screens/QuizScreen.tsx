@@ -180,14 +180,23 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     const type = this.props.navigation.getParam("type");
     const IS_RANDOM_QUIZ =
       type === "DAILY_QUIZ" || type === "OPT_OUT_CHALLENGE";
+
     if (IS_RANDOM_QUIZ) {
       /**
        * If audio pronunciation is disabled exclude it from
        * from the random quiz type options.
+       *
+       * Exclude the quiz input from the opt out challenge
+       * quiz.
        */
       const finalIndex = this.props.disableAudio ? 3 : 4;
-      const randomIdx = this.getRandomWordIndex(0, finalIndex);
+      const randomIdx = this.getRandomWordIndex(
+        type === "OPT_OUT_CHALLENGE" ? 1 : 0,
+        finalIndex,
+      );
+
       const quizType = QuizTypeOptions[randomIdx];
+
       if (this.state === undefined || quizType !== this.state.quizType) {
         return quizType;
       } else {
