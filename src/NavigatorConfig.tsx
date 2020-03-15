@@ -48,7 +48,7 @@ const ROUTES: NavigationScreenRouteConfig = {
       navigation: NavigationScreenProp<{}>;
     }) => {
       return {
-        title: "天天吉 🍀",
+        title: "🍊 天天吉 🍀",
         headerBackTitle: null,
         headerLeft: <MenuIcon onPress={navigation.toggleDrawer} />,
       };
