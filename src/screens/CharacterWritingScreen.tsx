@@ -252,8 +252,6 @@ const CharacterContainer = glamorous.view({
   right: 0,
   left: 0,
   bottom: CONTROLS_HEIGHT,
-  borderColor: "black",
-  borderWidth: 1,
   flex: 1,
   zIndex: 10,
   alignItems: "center",

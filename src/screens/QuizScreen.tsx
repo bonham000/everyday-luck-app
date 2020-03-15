@@ -399,9 +399,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
       }),
       () => {
         this.props.updateExperiencePoints(-cost);
-        this.props.setToastMessage(
-          "Recovered! You'll have another chance to answer that one! 😇",
-        );
+        this.props.setToastMessage("That's 天天吉! 🍊 Keep going!");
         this.handleProceedToNextQuestion();
       },
     );
