@@ -30,6 +30,7 @@ import { LessonScreenParams, ListScreenParams } from "@src/tools/types";
 import AboutDetailScreenComponent from "./screens/AboutDetailScreen";
 import AudioReviewAllScreen from "./screens/AudioReviewAllScreen";
 import NotePadScreen from "./screens/NotePadScreen";
+import WritingPadScreenComponent from "./screens/WritingPadScreen";
 
 /** ========================================================================
  * App Routes
@@ -165,6 +166,13 @@ const ROUTES: NavigationScreenRouteConfig = {
     screen: CharacterWritingScreenComponent,
     navigationOptions: {
       title: "Writing Characters 🎨",
+      headerBackTitle: null,
+    },
+  },
+  [ROUTE_NAMES.WRITING_PAD]: {
+    screen: WritingPadScreenComponent,
+    navigationOptions: {
+      title: "Practice Writing 🎨",
       headerBackTitle: null,
     },
   },

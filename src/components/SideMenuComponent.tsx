@@ -81,7 +81,9 @@ class SideMenuComponent extends React.Component<IProps, {}> {
               {"  "}
               Translate
             </Item>
-            <Item onPress={this.createNavigationHandler(ROUTE_NAMES.NOTE_PAD)}>
+            <Item
+              onPress={this.createNavigationHandler(ROUTE_NAMES.WRITING_PAD)}
+            >
               📜 Writing Pad
             </Item>
             <Item onPress={this.createNavigationHandler(ROUTE_NAMES.NOTE_PAD)}>
