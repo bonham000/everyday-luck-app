@@ -95,7 +95,7 @@ export class CharacterWritingScreenComponent extends React.Component<
           </CharacterContainer>
         )}
         <Sketch
-          style={{ flex: 8 }}
+          style={{ flex: 1 }}
           strokeColor={color}
           strokeWidth={width}
           strokeAlpha={alpha}
@@ -229,6 +229,8 @@ export class CharacterWritingScreenComponent extends React.Component<
  * =========================================================================
  */
 
+const CONTROLS_HEIGHT = 75;
+
 const ProgressText = glamorous.text({
   marginTop: 8,
   fontSize: 10,
@@ -250,20 +252,22 @@ const CharacterContainer = glamorous.view({
   top: 0,
   right: 0,
   left: 0,
-  bottom: 125,
+  bottom: CONTROLS_HEIGHT,
+  borderColor: "black",
+  borderWidth: 1,
   flex: 1,
   zIndex: 10,
   alignItems: "center",
   justifyContent: "center",
-  backgroundColor: "rgba(231, 237, 240, 0.75)",
+  backgroundColor: "rgba(231, 237, 240, 0.85)",
 });
 
 const Character = glamorous.text({
-  fontSize: 150,
+  fontSize: 175,
 });
 
 const Controls = glamorous.view({
-  flex: 1,
+  height: CONTROLS_HEIGHT,
   backgroundColor: COLORS.actionButtonYellow,
   display: "flex",
   flexDirection: "row",
