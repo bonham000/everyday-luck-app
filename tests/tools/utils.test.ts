@@ -587,64 +587,29 @@ describe("utils", () => {
       true,
       QUIZ_TYPE.QUIZ_TEXT,
       "LESSON",
-      APP_DIFFICULTY_SETTING.EASY,
     );
-    expect(result < 35).toBeTruthy();
-    expect(result > 15).toBeTruthy();
+    expect(result <= 3).toBeTruthy();
+    expect(result >= 1).toBeTruthy();
 
     result = calculateExperiencePointsForLesson(
       true,
       true,
       QUIZ_TYPE.MANDARIN,
       "DAILY_QUIZ",
-      APP_DIFFICULTY_SETTING.EASY,
     );
 
-    expect(result < 550).toBeTruthy();
-    expect(result > 15).toBeTruthy();
+    expect(result <= 2).toBeTruthy();
+    expect(result >= 1).toBeTruthy();
 
     result = calculateExperiencePointsForLesson(
       true,
       true,
       QUIZ_TYPE.MANDARIN,
       "OPT_OUT_CHALLENGE",
-      APP_DIFFICULTY_SETTING.EASY,
     );
 
-    expect(result < 1050).toBeTruthy();
-    expect(result > 15).toBeTruthy();
-
-    result = calculateExperiencePointsForLesson(
-      true,
-      true,
-      QUIZ_TYPE.QUIZ_TEXT,
-      "LESSON",
-      APP_DIFFICULTY_SETTING.HARD,
-    );
-    expect(result < 105).toBeTruthy();
-    expect(result > 15).toBeTruthy();
-
-    result = calculateExperiencePointsForLesson(
-      true,
-      true,
-      QUIZ_TYPE.MANDARIN,
-      "DAILY_QUIZ",
-      APP_DIFFICULTY_SETTING.HARD,
-    );
-
-    expect(result < 550).toBeTruthy();
-    expect(result > 15).toBeTruthy();
-
-    result = calculateExperiencePointsForLesson(
-      true,
-      true,
-      QUIZ_TYPE.MANDARIN,
-      "OPT_OUT_CHALLENGE",
-      APP_DIFFICULTY_SETTING.HARD,
-    );
-
-    expect(result < 1050).toBeTruthy();
-    expect(result > 15).toBeTruthy();
+    expect(result <= 10).toBeTruthy();
+    expect(result >= 1).toBeTruthy();
   });
 
   test("allContentComplete", () => {

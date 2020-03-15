@@ -350,12 +350,6 @@ export const isLessonComplete = (listScore: ListScore): boolean => {
   );
 };
 
-const DIFFICULTY_MULTIPLIERS = {
-  [APP_DIFFICULTY_SETTING.EASY]: 1,
-  [APP_DIFFICULTY_SETTING.MEDIUM]: 2,
-  [APP_DIFFICULTY_SETTING.HARD]: 3,
-};
-
 /**
  * Determine experience points for completing a lesson. Result is random,
  * within a range. Adjust for app difficulty setting and if this is the

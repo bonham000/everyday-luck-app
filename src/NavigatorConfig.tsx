@@ -28,7 +28,7 @@ import WelcomeScreenComponent from "@src/screens/WelcomeScreen";
 import { getDrawerLockedState } from "@src/tools/navigation-utils";
 import { LessonScreenParams, ListScreenParams } from "@src/tools/types";
 import AboutDetailScreenComponent from "./screens/AboutDetailScreen";
-import AddWordScreen from "./screens/AddWordScreen";
+import AddWordScreenComponent from "./screens/AddWordScreen";
 import AudioReviewAllScreen from "./screens/AudioReviewAllScreen";
 import NotePadScreen from "./screens/NotePadScreen";
 import RadicalsScreenComponent from "./screens/RadicalsScreen";
@@ -200,7 +200,7 @@ const ROUTES: NavigationScreenRouteConfig = {
     },
   },
   [ROUTE_NAMES.ADD_WORDS]: {
-    screen: AddWordScreen,
+    screen: AddWordScreenComponent,
     navigationOptions: {
       title: "Custom Word List 📋",
       headerBackTitle: null,

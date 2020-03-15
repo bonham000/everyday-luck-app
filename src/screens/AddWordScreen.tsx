@@ -1,6 +1,6 @@
 import glamorous from "glamorous-native";
 import React from "react";
-import { Alert, StyleSheet, Text, TouchableOpacity } from "react-native";
+import { Alert, StyleSheet } from "react-native";
 import { TextInput } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
@@ -42,7 +42,7 @@ interface IState {
  * =========================================================================
  */
 
-export class AddWordScreen extends React.Component<IProps, IState> {
+export class AddWordScreenComponent extends React.Component<IProps, IState> {
   constructor(props: IProps) {
     super(props);
 
@@ -265,4 +265,4 @@ const RemoveWordButton = glamorous.touchableOpacity({
  * =========================================================================
  */
 
-export default withGlobalStateContext(AddWordScreen);
+export default withGlobalStateContext(AddWordScreenComponent);

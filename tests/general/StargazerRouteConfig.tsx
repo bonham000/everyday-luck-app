@@ -7,6 +7,7 @@ import { QUIZ_TYPE } from "@src/providers/GlobalStateContext";
 import AboutDetailScreenComponent from "@src/screens/AboutDetailScreen";
 import AboutScreenComponent from "@src/screens/AboutScreen";
 import { AccountScreenComponent } from "@src/screens/AccountScreen";
+import { AddWordScreenComponent } from "@src/screens/AddWordScreen";
 import { AudioReviewAllScreen } from "@src/screens/AudioReviewAllScreen";
 import { CharacterWritingScreenComponent } from "@src/screens/CharacterWritingScreen";
 import { ContactScreenComponent } from "@src/screens/ContactScreen";
@@ -17,10 +18,12 @@ import { LessonSummaryScreenComponent } from "@src/screens/LessonSummaryScreen";
 import { ListSummaryScreenComponent } from "@src/screens/ListSummaryScreen";
 import { NotePadScreen } from "@src/screens/NotePadScreen";
 import { QuizScreenComponent } from "@src/screens/QuizScreen";
+import { RadicalsScreenComponent } from "@src/screens/RadicalsScreen";
 import { SettingsScreenComponent } from "@src/screens/SettingsScreen";
 import { TranslationScreenComponent } from "@src/screens/TranslationScreen";
 import { ViewAllScreenComponent } from "@src/screens/ViewAllScreen";
 import { WelcomeScreenComponent } from "@src/screens/WelcomeScreen";
+import { WritingPadScreenComponent } from "@src/screens/WritingPadScreen";
 import { LessonScreenParams, ListScreenParams } from "@src/tools/types";
 import MOCKS from "@tests/mocks";
 
@@ -174,6 +177,17 @@ const stargazerConfig: ReadonlyArray<StargazerRouteConfigObject> = [
     paramsForNextScreen: MOCKS.LESSON_SCREEN_PARAMS,
   },
   {
+    name: "Writing Practice Screen Screen",
+    screenName: ROUTE_NAMES.WRITING_PAD,
+    screen: (props: StargazerRouteProps<LessonScreenParams>) => (
+      <WritingPadScreenComponent
+        navigation={props.navigation}
+        {...MOCKS.GLOBAL_STATE_PROPS}
+      />
+    ),
+    paramsForNextScreen: MOCKS.LESSON_SCREEN_PARAMS,
+  },
+  {
     name: "Flashcards Screen",
     screenName: ROUTE_NAMES.FLASHCARDS,
     screen: (props: StargazerRouteProps<LessonScreenParams>) => (
@@ -206,10 +220,30 @@ const stargazerConfig: ReadonlyArray<StargazerRouteConfigObject> = [
     ),
   },
   {
+    name: "Add Words Screen",
+    screenName: ROUTE_NAMES.ADD_WORDS,
+    screen: (props: StargazerRouteProps) => (
+      <AddWordScreenComponent
+        navigation={props.navigation}
+        {...MOCKS.GLOBAL_STATE_PROPS}
+      />
+    ),
+  },
+  {
     name: "Note Pad Screen",
     screenName: ROUTE_NAMES.NOTE_PAD,
     screen: (props: StargazerRouteProps) => (
       <NotePadScreen
+        navigation={props.navigation}
+        {...MOCKS.GLOBAL_STATE_PROPS}
+      />
+    ),
+  },
+  {
+    name: "Radicals Screen",
+    screenName: ROUTE_NAMES.RADICALS,
+    screen: (props: StargazerRouteProps) => (
+      <RadicalsScreenComponent
         navigation={props.navigation}
         {...MOCKS.GLOBAL_STATE_PROPS}
       />
