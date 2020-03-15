@@ -110,16 +110,16 @@ export class CharacterWritingScreenComponent extends React.Component<
               <ControlText>Retry</ControlText>
             </Control>
             <Control
-              onPress={this.handleToggleReveal}
-              style={{ backgroundColor: COLORS.actionButtonMint }}
-            >
-              <ControlText>Draw</ControlText>
-            </Control>
-            <Control
               onPress={this.handleProceed}
               style={{ backgroundColor: COLORS.actionButtonBlue }}
             >
               <ControlText>Next</ControlText>
+            </Control>
+            <Control
+              onPress={this.handleToggleReveal}
+              style={{ backgroundColor: COLORS.actionButtonMint }}
+            >
+              <ControlText>Draw</ControlText>
             </Control>
           </Controls>
         ) : (
