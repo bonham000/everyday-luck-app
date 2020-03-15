@@ -58,8 +58,10 @@ export class NotePadScreen extends React.Component<IProps, IState> {
     const { initialized, wordList } = this.state;
     return (
       <ScrollContainer>
-        <SectionTitle>Words to Study</SectionTitle>
-        <InfoText>Add words or notes here</InfoText>
+        <SectionTitle>Add Words or Notes</SectionTitle>
+        <InfoText>
+          You can use this screen to records notes to reference later!
+        </InfoText>
         <TextInput
           mode="outlined"
           label="Add a new word"

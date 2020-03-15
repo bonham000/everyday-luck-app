@@ -39,6 +39,8 @@ export interface ListScoreSet {
   list_08_score: ListScore;
   list_09_score: ListScore;
   list_10_score: ListScore;
+  // Add new content here!
+  list_11_score: ListScore; // Hard-coded last list for custom vocabulary list
 }
 
 /**
@@ -54,6 +56,8 @@ export const SCORES_INDEX_MAP: ReadonlyArray<keyof ListScoreSet> = [
   "list_08_score",
   "list_09_score",
   "list_10_score",
+  // Add new content here!
+  "list_11_score", // Hard-coded last list for custom vocabulary list
 ];
 
 /** ========================================================================
