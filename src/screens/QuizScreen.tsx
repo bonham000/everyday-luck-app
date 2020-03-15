@@ -188,10 +188,13 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
        *
        * Exclude the quiz input from the opt out challenge
        * quiz.
+       *
+       * NOTE: Just force it to exclude the quiz input type!!!
        */
       const finalIndex = this.props.disableAudio ? 3 : 4;
       const randomIdx = this.getRandomWordIndex(
-        type === "OPT_OUT_CHALLENGE" ? 1 : 0,
+        // type === "OPT_OUT_CHALLENGE" ? 1 : 0,
+        1,
         finalIndex,
       );
 

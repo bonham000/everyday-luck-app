@@ -55,7 +55,7 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
 
     // Total garbage code
     const totalWordsMTC = lessons
-      .slice(6, CUSTOM_WORD_LIST_EXISTS ? lessons.length - 2 : Infinity) // What!
+      .slice(6, CUSTOM_WORD_LIST_EXISTS ? lessons.length - 3 : Infinity) // What!
       .reduce(
         (total, lesson) =>
           Boolean(lesson.title) ? total + lesson.content.length : total,
