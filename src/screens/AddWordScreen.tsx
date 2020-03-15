@@ -148,14 +148,27 @@ export class AddWordScreenComponent extends React.Component<IProps, IState> {
       async () => {
         this.props.setToastMessage(`Adding ${value}...`);
         const word = await translateWord(value, this.props.languageSetting);
-        const newList: CustomWordStudyList = wordList.concat(word);
-        await setCustomWordStudyList(newList);
-        this.setState({ value: "", loading: false, wordList: newList }, () => {
-          this.props.setToastMessage(
-            `${word[this.props.languageSetting]} added!`,
+
+        if (
+          word.traditional &&
+          word.simplified &&
+          word.pinyin &&
+          word.english
+        ) {
+          const newList: CustomWordStudyList = wordList.concat(word);
+          await setCustomWordStudyList(newList);
+          this.setState(
+            { value: "", loading: false, wordList: newList },
+            () => {
+              this.props.setToastMessage(
+                `${word[this.props.languageSetting]} added!`,
+              );
+              this.props.reloadLessonSet();
+            },
           );
-          this.props.reloadLessonSet();
-        });
+        } else {
+          this.props.setToastMessage("Failed to add word!");
+        }
       },
     );
   };

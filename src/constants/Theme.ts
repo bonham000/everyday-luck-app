@@ -24,7 +24,7 @@ const COLORS = {
   lineLight: "rgba(1,1,1,0.5)",
   lessonBlock: "#3498db",
   lessonBlockInProgress: "#6fc3fc",
-  lessonMTC: "#ff976b",
+  lessonMTC: "#ffa47d",
   lessonCustomList: "#c380ff",
   lockedLessonBlock: "rgb(215,215,215)",
   dark: "rgb(15,15,15)",
