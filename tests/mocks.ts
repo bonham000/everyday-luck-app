@@ -158,11 +158,6 @@ const GLOBAL_STATE_PROPS: GlobalStateContextProps = {
 
 const SOUND_RECORDING_PROPS: SoundRecordingProps = {
   playbackError: false,
-  loadingSoundData: false,
-  audioMetadataCache: {},
-  prefetchLessonSoundData: async (lesson: Lesson) => {
-    return;
-  },
   handlePronounceWord: async (traditionalCharacters: string) => {
     return;
   },

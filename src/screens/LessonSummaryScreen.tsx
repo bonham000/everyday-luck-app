@@ -38,14 +38,6 @@ interface IProps extends GlobalStateContextProps, SoundRecordingProps {
  */
 
 export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
-  componentDidMount(): void {
-    /**
-     * Go ahead and prefetch sound data for this lesson.
-     */
-    const lesson = this.props.navigation.getParam("lesson");
-    this.props.prefetchLessonSoundData(lesson);
-  }
-
   render(): JSX.Element {
     const { navigation, userScoreStatus } = this.props;
     const type = navigation.getParam("type");

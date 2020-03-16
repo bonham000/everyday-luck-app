@@ -18,7 +18,6 @@ import {
   formatUserLanguageSetting,
   getAlternateChoices,
   getAlternateLanguageSetting,
-  getAudioFileUrl,
   getFinalUnlockedListKey,
   getLessonSummaryStatus,
   getListScoreKeyFromIndex,
@@ -177,25 +176,6 @@ describe("utils", () => {
     );
     expect(getAlternateLanguageSetting(APP_LANGUAGE_SETTING.SIMPLIFIED)).toBe(
       APP_LANGUAGE_SETTING.TRADITIONAL,
-    );
-  });
-
-  test("getAudioFileUrl", () => {
-    const formatUrlResult = (url: string) =>
-      url.slice(url.indexOf("s3.amazonaws.com"));
-    let result = getAudioFileUrl("我-1");
-    expect(formatUrlResult(result)).toMatchInlineSnapshot(
-      `"s3.amazonaws.com/%E6%88%91-1.mp3"`,
-    );
-
-    result = getAudioFileUrl("蛋糕-5");
-    expect(formatUrlResult(result)).toMatchInlineSnapshot(
-      `"s3.amazonaws.com/%E8%9B%8B%E7%B3%95-5.mp3"`,
-    );
-
-    result = getAudioFileUrl("對不起-3");
-    expect(formatUrlResult(result)).toMatchInlineSnapshot(
-      `"s3.amazonaws.com/%E5%B0%8D%E4%B8%8D%E8%B5%B7-3.mp3"`,
     );
   });
 

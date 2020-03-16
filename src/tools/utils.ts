@@ -16,7 +16,6 @@ import {
   WordDictionary,
 } from "@src/providers/GlobalStateContext";
 import { convertChineseToPinyin, fetchWordTranslation } from "@src/tools/api";
-import CONFIG from "@src/tools/config";
 import {
   ENGLISH,
   HSKListSet,
@@ -550,17 +549,6 @@ export const flattenLessonSet = (lessons: HSKListSet): Lesson => {
   return lessons
     .map(list => list.content)
     .reduce((flat, lesson) => flat.concat(lesson));
-};
-
-/**
- * Create the file path url for a word mp3 file recording.
- *
- * @param fileKey for word
- * @returns encoded URL to fetch mp3 file
- */
-export const getAudioFileUrl = (fileKey: string): string => {
-  const encodedFileKey = encodeURIComponent(fileKey);
-  return `${CONFIG.AMAZON_CLOUD_FRONT}/${encodedFileKey}.mp3`;
 };
 
 /**

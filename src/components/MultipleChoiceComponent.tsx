@@ -132,8 +132,8 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
       quizType,
       currentWord,
       audioDisabled,
+      playbackError,
       languageSetting,
-      audioMetadataCache,
     } = this.props;
 
     /**
@@ -155,11 +155,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
      * Render audio pronunciation quiz:
      */
     const { traditional } = currentWord;
-    const soundFileCache = audioMetadataCache[traditional];
-    const soundLoading = soundFileCache ? soundFileCache.loading : false;
-    const soundLoadingError = soundFileCache
-      ? soundFileCache.playbackError
-      : false;
+    const soundLoadingError = playbackError;
 
     /**
      * Some error state: sound file is not available - show the audio fallback UI
@@ -193,17 +189,10 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
         <TitleContainer>
           <VoiceButton
             onPress={() => {
-              if (!soundLoading) {
-                /* Block press if sound is already loading */
-                this.props.handlePronounceWord(traditional);
-              }
+              this.props.handlePronounceWord(traditional);
             }}
           >
-            <Text>
-              {soundLoading
-                ? "Loading and playing sound file..."
-                : "Press to Speak!"}
-            </Text>
+            <Text>Press to Speak!</Text>
           </VoiceButton>
         </TitleContainer>
       );
