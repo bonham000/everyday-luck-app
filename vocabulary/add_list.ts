@@ -5,10 +5,10 @@ import { capitalize, translateWord } from "@src/tools/utils";
 import { content, lesson } from "./words_list";
 
 // Flag to modify existing lesson or use new word list
-const USE_EXISTING_LESSON = false;
+const USE_EXISTING_LESSON = true;
 
 // Read existing lesson file
-import existingLesson from "@src/lessons/08";
+import existingLesson from "@src/lessons/11";
 
 const existingLessonWithContent = {
   ...existingLesson,
