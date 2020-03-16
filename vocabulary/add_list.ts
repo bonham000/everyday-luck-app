@@ -5,7 +5,7 @@ import { capitalize, translateWord } from "@src/tools/utils";
 import { content, lesson } from "./words_list";
 
 // Flag to modify existing lesson or use new word list
-const USE_EXISTING_LESSON = true;
+const USE_EXISTING_LESSON = false;
 
 // Read existing lesson file
 import existingLesson from "@src/lessons/08";
@@ -73,6 +73,8 @@ const processListAndTranslateSimplifiedToTraditional = async (
 // Run the program with log messages
 const processWordList = async () => {
   console.log(`Processing word list, generating file: ${FILENAME}\n`);
+  console.log(targetLesson);
+
   await processListAndTranslateSimplifiedToTraditional(targetLesson.content);
   console.log("Finished!\n");
 };
