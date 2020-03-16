@@ -148,7 +148,7 @@ export class CharacterWritingScreenComponent extends React.Component<
   };
 
   handleProceed = () => {
-    if (this.state.completed === this.state.deck.length) {
+    if (this.state.completed === this.state.lesson.length) {
       return this.handleFinish();
     } else {
       // Suck it expo-pixi .clear method, yeah - that's right!!!
@@ -190,8 +190,17 @@ export class CharacterWritingScreenComponent extends React.Component<
     this.setState(ps => ({ reveal: !ps.reveal }));
   };
 
-  randomizeDeck = () => {
-    this.setState({ deck: knuthShuffle(this.state.lesson), renderNull: false });
+  resetWritingQuiz = () => {
+    this.setState(
+      {
+        reveal: false,
+        renderNull: false,
+        deck: knuthShuffle(this.state.lesson),
+      },
+      () => {
+        this.props.setToastMessage("Reset to the beginning!");
+      },
+    );
   };
 
   handleFinish = () => {
@@ -208,7 +217,7 @@ export class CharacterWritingScreenComponent extends React.Component<
           [
             {
               text: "OK!",
-              onPress: this.randomizeDeck,
+              onPress: this.resetWritingQuiz,
             },
           ],
           { cancelable: false },

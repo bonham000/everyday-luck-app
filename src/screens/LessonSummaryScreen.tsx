@@ -50,6 +50,7 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
     const { navigation, userScoreStatus } = this.props;
     const type = navigation.getParam("type");
     const listIndex = navigation.getParam("listIndex");
+    const listTitle = navigation.getParam("listTitle");
     const isFinalUnlockedLesson = navigation.getParam("isFinalUnlockedLesson");
     const isLesson = type === "LESSON";
     const {
@@ -185,21 +186,31 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
             </InfoText>
           </React.Fragment>
         )}
-        {IS_OPT_OUT_CHALLENGE && (
-          <React.Fragment>
-            <InfoText>
-              Some intermediate Chinese learners will already have mastered some
-              of the basic content and this gives them an option to skip through
-              the earlier lessons quickly.
-            </InfoText>
-            <InfoText>
-              You must pass the quiz with a perfect score and the quiz is
-              reshuffled on each attempt, so you will have to know of all the
-              content at this level pretty well to pass.
-            </InfoText>
-            <InfoText style={{ fontWeight: "bold" }}>Good luck! 🍀</InfoText>
-          </React.Fragment>
-        )}
+        {IS_OPT_OUT_CHALLENGE &&
+          (!listTitle ? (
+            <React.Fragment>
+              <InfoText>
+                Some intermediate Chinese learners will already have mastered
+                some of the basic content and this gives them an option to skip
+                through the earlier lessons quickly.
+              </InfoText>
+              <InfoText>
+                You must pass the quiz with a perfect score and the quiz is
+                reshuffled on each attempt, so you will have to know of all the
+                content at this level pretty well to pass.
+              </InfoText>
+              <InfoText style={{ fontWeight: "bold" }}>Good luck! 🍀</InfoText>
+            </React.Fragment>
+          ) : (
+            <React.Fragment>
+              <InfoText>
+                You must pass the quiz with a perfect score and the quiz is
+                reshuffled on each attempt, so you will have to know of all the
+                content at this level pretty well to pass.
+              </InfoText>
+              <InfoText style={{ fontWeight: "bold" }}>Good luck! 🍀</InfoText>
+            </React.Fragment>
+          ))}
       </ScrollContainer>
     );
   }
@@ -214,11 +225,12 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
         {type === "DAILY_QUIZ" && (
           <Text style={TextStyles}>Daily Quiz - 天天桔 🍊</Text>
         )}
-        {type === "OPT_OUT_CHALLENGE" && listIndex > 4 ? (
-          <Text style={TextStyles}>Test!</Text>
-        ) : (
-          <Text style={TextStyles}>HSK Test</Text>
-        )}
+        {type === "OPT_OUT_CHALLENGE" &&
+          (listIndex > 4 ? (
+            <Text style={TextStyles}>Test!</Text>
+          ) : (
+            <Text style={TextStyles}>HSK Test</Text>
+          ))}
       </React.Fragment>
     );
   };
@@ -247,17 +259,18 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
             the best way to build up experience points!
           </Text>
         )}
-        {type === "OPT_OUT_CHALLENGE" && listIndex > 4 ? (
-          <Text style={SubTextStyles}>
-            There are {COUNT} random words selected. If you can pass the quiz
-            with a perfect score you will unlock all the content here.
-          </Text>
-        ) : (
-          <Text style={SubTextStyles}>
-            There are {COUNT} random words selected. If you can pass the quiz
-            with a perfect score you will unlock the next HSK Level!
-          </Text>
-        )}
+        {type === "OPT_OUT_CHALLENGE" &&
+          (listIndex > 4 ? (
+            <Text style={SubTextStyles}>
+              There are {COUNT} random words selected. If you can pass the quiz
+              with a perfect score you will unlock all the content here.
+            </Text>
+          ) : (
+            <Text style={SubTextStyles}>
+              There are {COUNT} random words selected. If you can pass the quiz
+              with a perfect score you will unlock the next HSK Level!
+            </Text>
+          ))}
       </React.Fragment>
     );
   };
