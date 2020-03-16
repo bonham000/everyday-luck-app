@@ -265,7 +265,7 @@ const lesson: HSKList = {
     {
       simplified: "么",
       traditional: "麼",
-      pinyin: "má",
+      pinyin: "me",
       english: "What",
     },
     {

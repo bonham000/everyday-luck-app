@@ -148,7 +148,7 @@ export class CharacterWritingScreenComponent extends React.Component<
   };
 
   handleProceed = () => {
-    if (this.state.completed === this.state.lesson.length) {
+    if (this.state.completed === this.state.lesson.length - 1) {
       return this.handleFinish();
     } else {
       // Suck it expo-pixi .clear method, yeah - that's right!!!
