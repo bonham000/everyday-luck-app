@@ -206,6 +206,7 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
 
   renderTitleText = () => {
     const type = this.props.navigation.getParam("type");
+    const listIndex = this.props.navigation.getParam("listIndex");
     return (
       <React.Fragment>
         {type === "LESSON" && <Text style={TextStyles}>Lesson Summary</Text>}
@@ -213,7 +214,9 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
         {type === "DAILY_QUIZ" && (
           <Text style={TextStyles}>Daily Quiz - 天天桔 🍊</Text>
         )}
-        {type === "OPT_OUT_CHALLENGE" && (
+        {type === "OPT_OUT_CHALLENGE" && listIndex > 4 ? (
+          <Text style={TextStyles}>Test!</Text>
+        ) : (
           <Text style={TextStyles}>HSK Test</Text>
         )}
       </React.Fragment>
@@ -223,6 +226,7 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
   renderSubText = () => {
     const type = this.props.navigation.getParam("type");
     const lesson = this.props.navigation.getParam("lesson");
+    const listIndex = this.props.navigation.getParam("listIndex");
     const COUNT = lesson.length;
     return (
       <React.Fragment>
@@ -243,7 +247,12 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
             the best way to build up experience points!
           </Text>
         )}
-        {type === "OPT_OUT_CHALLENGE" && (
+        {type === "OPT_OUT_CHALLENGE" && listIndex > 4 ? (
+          <Text style={SubTextStyles}>
+            There are {COUNT} random words selected. If you can pass the quiz
+            with a perfect score you will unlock all the content here.
+          </Text>
+        ) : (
           <Text style={SubTextStyles}>
             There are {COUNT} random words selected. If you can pass the quiz
             with a perfect score you will unlock the next HSK Level!
