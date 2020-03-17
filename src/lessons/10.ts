@@ -1,7 +1,7 @@
 import { HSKList } from "@src/tools/types";
 
 const lesson: HSKList = {
-  list: "11",
+  list: "10",
   locked: false,
   title: "MTC Book 1 Lesson 3",
   content: [

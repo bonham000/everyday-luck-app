@@ -1,6 +1,6 @@
 import fs from "fs";
 
-import { HSKList, Lesson, TRADITIONAL_CHINESE } from "@src/tools/types";
+import { HSKList, Lesson, TRADITIONAL_CHINESE, Word } from "@src/tools/types";
 import { capitalize, translateWord } from "@src/tools/utils";
 import * as CustomList from "./words_list";
 
@@ -8,16 +8,9 @@ import * as CustomList from "./words_list";
 const USE_EXISTING_LESSON = true;
 
 // Read existing lesson file
-import existingLesson from "@src/lessons/10";
+import existingLesson from "@src/lessons/09";
 
-const existingLessonWithContent = {
-  ...existingLesson,
-  content: existingLesson.content.concat(CustomList.content),
-};
-
-const targetLesson = USE_EXISTING_LESSON
-  ? existingLessonWithContent
-  : CustomList.lesson;
+const targetLesson = USE_EXISTING_LESSON ? existingLesson : CustomList.lesson;
 
 // Replace the following with the custom word list index:
 const LIST_INDEX = targetLesson.list;
@@ -41,10 +34,24 @@ const writeListToJson = (content: Lesson, dictation?: Lesson) => {
   fs.writeFileSync(FILENAME, file, "utf8");
 };
 
+const maybeStringToWord = (input: Word | string) => {
+  if (typeof input === "string") {
+    return {
+      traditional: input,
+      simplified: "",
+      pinyin: "",
+      english: "",
+    };
+  } else {
+    return input;
+  }
+};
+
 // Process the list and fill in the content for each word
 const translateList = async (list: Lesson) => {
   const translated = await Promise.all(
     list
+      .map(maybeStringToWord)
       .filter(x => !!x.traditional)
       .map(async word => {
         const wordComplete =
@@ -71,7 +78,6 @@ const translateList = async (list: Lesson) => {
 // Run the program with log messages
 const processWordList = async () => {
   console.log(`Processing word list, generating file: ${FILENAME}\n`);
-  console.log(targetLesson);
 
   let dictation;
   const content = await translateList(targetLesson.content);

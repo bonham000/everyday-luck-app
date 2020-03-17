@@ -38,17 +38,6 @@ interface IProps extends GlobalStateContextProps {
  * =========================================================================
  */
 
-const ActionBlock = glamorous.touchableOpacity({
-  width: "90%",
-  height: 50,
-  margin: 6,
-  padding: 12,
-  flexDirection: "row",
-  alignItems: "center",
-  justifyContent: "space-between",
-  backgroundColor: COLORS.actionButtonPurple,
-});
-
 export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
   render(): JSX.Element {
     const { userScoreStatus } = this.props;
