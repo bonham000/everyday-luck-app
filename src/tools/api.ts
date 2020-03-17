@@ -5,46 +5,7 @@ import {
   GoogleTranslateResponse,
   LANGUAGE_CODE_MAP,
   languageCode,
-  Result,
-  ResultType,
-  SoundFileResponse,
 } from "@src/tools/types";
-
-/** ========================================================================
- * Forvo Pronunciation API Methods:
- * =========================================================================
- */
-
-export const getForvoUrl = (word: string) => {
-  const encodedWordURI = encodeURIComponent(word);
-  const url = `https://apifree.forvo.com/key/${
-    CONFIG.FORVO_API_KEY
-  }/format/json/action/word-pronunciations/word/${encodedWordURI}/language/zh`;
-
-  return url;
-};
-
-/**
- * Fetch word pronunciation.
- */
-export const fetchWordPronunciation = async (
-  word: string,
-): Promise<Result<SoundFileResponse>> => {
-  try {
-    const url = getForvoUrl(word);
-    const result = await axios.get<SoundFileResponse>(url);
-    return {
-      type: ResultType.OK,
-      data: result.data,
-    };
-  } catch (err) {
-    console.log("Error fetching sound pronunciation file ---", err.message);
-    return {
-      err,
-      type: ResultType.ERROR,
-    };
-  }
-};
 
 /** ========================================================================
  * Language Translation API Methods:
