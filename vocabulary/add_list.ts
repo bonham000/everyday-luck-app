@@ -8,7 +8,7 @@ import * as CustomList from "./words_list";
 const USE_EXISTING_LESSON = true;
 
 // Read existing lesson file
-import existingLesson from "@src/lessons/09";
+import existingLesson from "@src/lessons/10";
 
 const targetLesson = USE_EXISTING_LESSON ? existingLesson : CustomList.lesson;
 

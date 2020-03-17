@@ -124,10 +124,10 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
             false,
           )}
         >
-          <LessonBlockText isLocked={false}>
+          <LessonBlockText mtcLesson={false} isLocked={false}>
             {generalVocabularyList.title}
           </LessonBlockText>
-          <LessonBlockText isLocked={false}>
+          <LessonBlockText mtcLesson={false} isLocked={false}>
             ({generalVocabularyList.content.length.toLocaleString()} words)
           </LessonBlockText>
         </LessonBlock>
@@ -142,8 +142,10 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
             style={{ backgroundColor: COLORS.lessonCustomList }}
             onPress={this.handleSelectList(hskList.list, hskList, index, false)}
           >
-            <LessonBlockText isLocked={false}>{hskList.title}</LessonBlockText>
-            <LessonBlockText isLocked={false}>
+            <LessonBlockText mtcLesson={false} isLocked={false}>
+              {hskList.title}
+            </LessonBlockText>
+            <LessonBlockText mtcLesson={false} isLocked={false}>
               ({hskList.content.length.toLocaleString()} words)
             </LessonBlockText>
           </LessonBlock>
@@ -172,6 +174,8 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
           return null;
         }
 
+        const mtcLesson = !!title;
+
         return (
           <LessonBlock
             key={hskList.list}
@@ -186,8 +190,10 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
             }}
             onPress={this.handleSelectList(list, hskList, index, isLocked)}
           >
-            <LessonBlockText isLocked={isLocked}>{listTitle}</LessonBlockText>
-            <LessonBlockText isLocked={isLocked}>
+            <LessonBlockText mtcLesson={mtcLesson} isLocked={isLocked}>
+              {listTitle}
+            </LessonBlockText>
+            <LessonBlockText mtcLesson={false} isLocked={isLocked}>
               ({content.length.toLocaleString()} words)
             </LessonBlockText>
           </LessonBlock>
@@ -302,17 +308,19 @@ const LineBreak = glamorous.view({
 
 const LessonBlockText = glamorous.text(
   {},
-  (props: { isLocked: boolean }) =>
+  (props: { mtcLesson: boolean; isLocked: boolean }) =>
     (props.isLocked
       ? {
           color: COLORS.inactive,
           fontWeight: "500",
           textDecorationStyle: "solid",
+          fontSize: props.mtcLesson ? 16 : 14,
         }
       : {
           color: "black",
           fontWeight: "500",
           textDecorationLine: "none",
+          fontSize: props.mtcLesson ? 16 : 14,
         }) as TextStyle,
 );
 

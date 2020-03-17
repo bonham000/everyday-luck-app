@@ -48,7 +48,7 @@ export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
     const listScore = mapListIndexToListScores(listIndex, userScoreStatus);
     return (
       <Container>
-        {dictation && (
+        {dictation && dictation.length > 0 && (
           <View style={{ paddingTop: 15, paddingLeft: 15, paddingRight: 15 }}>
             <LessonBlock
               onPress={this.handleNavigateToSection(
