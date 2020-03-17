@@ -48,7 +48,7 @@ export class CharacterWritingScreenComponent extends React.Component<
     const lesson = this.props.navigation.getParam("lesson");
 
     // Limit character drawing to only 1 or 2 character words
-    const oneOrTwoCharacters = lesson.filter(w => w.traditional.length < 2);
+    const oneOrTwoCharacters = lesson.filter(w => w.traditional.length <= 2);
 
     this.state = {
       renderNull: false,
