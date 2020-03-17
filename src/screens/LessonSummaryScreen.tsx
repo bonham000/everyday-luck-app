@@ -126,16 +126,6 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
               <Text>Characters Quiz</Text>
               {quizText && isLesson && <Text>💯</Text>}
             </ActionBlock>
-            {dictation && (
-              <ActionBlock
-                style={{ backgroundColor: COLORS.actionButtonPurple }}
-                onPress={this.handleNavigateToSection(
-                  ROUTE_NAMES.CHARACTER_WRITING,
-                )}
-              >
-                <Text>Lesson Dictation</Text>
-              </ActionBlock>
-            )}
           </React.Fragment>
         )}
         {NON_RANDOM_QUIZ && (

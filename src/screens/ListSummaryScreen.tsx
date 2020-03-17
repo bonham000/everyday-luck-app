@@ -1,6 +1,6 @@
 import glamorous from "glamorous-native";
 import React from "react";
-import { FlatList, TextStyle } from "react-native";
+import { FlatList, TextStyle, View } from "react-native";
 import { Text } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
@@ -38,15 +38,44 @@ interface IProps extends GlobalStateContextProps {
  * =========================================================================
  */
 
+const ActionBlock = glamorous.touchableOpacity({
+  width: "90%",
+  height: 50,
+  margin: 6,
+  padding: 12,
+  flexDirection: "row",
+  alignItems: "center",
+  justifyContent: "space-between",
+  backgroundColor: COLORS.actionButtonPurple,
+});
+
 export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
   render(): JSX.Element {
     const { userScoreStatus } = this.props;
     const listIndex = this.props.navigation.getParam("listIndex");
     const listTitle = this.props.navigation.getParam("listTitle");
+    const dictation = this.props.navigation.getParam("dictation");
     const hskList = this.props.navigation.getParam("hskList");
     const listScore = mapListIndexToListScores(listIndex, userScoreStatus);
     return (
       <Container>
+        {dictation && (
+          <View style={{ paddingTop: 15, paddingLeft: 15, paddingRight: 15 }}>
+            <LessonBlock
+              onPress={this.handleNavigateToSection(
+                ROUTE_NAMES.CHARACTER_WRITING,
+              )}
+              style={{
+                backgroundColor: COLORS.lessonCustomList,
+              }}
+            >
+              <LessonBlockText isLocked={false}>
+                Lesson Dictation
+              </LessonBlockText>
+              <Text>🎨</Text>
+            </LessonBlock>
+          </View>
+        )}
         <TitleText>Choose a lesson to start studying</TitleText>
         <FlatList
           data={hskList}
@@ -197,6 +226,25 @@ export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
       "OPT_OUT_CHALLENGE",
       listIndex,
     )();
+  };
+
+  handleNavigateToSection = (routeName: ROUTE_NAMES) => () => {
+    const type = this.props.navigation.getParam("type");
+    const dictation = this.props.navigation.getParam("dictation");
+    const listIndex = this.props.navigation.getParam("listIndex");
+
+    if (dictation) {
+      const params: LessonScreenParams = {
+        type,
+        lesson: dictation,
+        listIndex,
+        lessonIndex: NaN, // Fuck!
+        isFinalLesson: false,
+        isFinalUnlockedLesson: false,
+      };
+
+      this.props.navigation.navigate(routeName, params);
+    }
   };
 
   handleStudyAll = () => {
