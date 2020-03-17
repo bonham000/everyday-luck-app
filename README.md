@@ -6,7 +6,7 @@
 
 ### An app for learning Chinese everyday
 
-This app uses repetitive-learning and a game-based approach to provide small, portable lessons covering the *Hanyu Shuiping Kaoshi* vocabulary content. The [Hanyu Shuiping Kaoshi](https://en.wikipedia.org/wiki/Hanyu_Shuiping_Kaoshi) is a standardized Chinese proficiency tests which provides a set of vocabulary for learners to practice and learn. There are 5,000 words provided here to learn.
+This app uses repetitive-learning and a game-based approach to provide small, portable lessons covering the _Hanyu Shuiping Kaoshi_ vocabulary content. The [Hanyu Shuiping Kaoshi](https://en.wikipedia.org/wiki/Hanyu_Shuiping_Kaoshi) is a standardized Chinese proficiency tests which provides a set of vocabulary for learners to practice and learn. There are 5,000 words provided here to learn.
 
 The goal of the app is to provide an easy and approachable way to practice learning and reviewing these words everyday. That's where the notion 天天吉 comes into play. You just need a little luck everyday to learn Chinese! The name itself also hides a clever joke, if you read "jí" differently as "jú", the name is 天天桔 - "Everyday Orange" or "Everyday Mandarin".
 
@@ -26,10 +26,10 @@ More experienced students who have already master earlier content can attempt to
 
 Each lesson contains four quiz types:
 
-* Multiple Choice English Recognition
-* Multiple Choice Mandarin Recognition
-* Multiple Choice Mandarin Pronunciation
-* Mandarin Text Input Quiz
+- Multiple Choice English Recognition
+- Multiple Choice Mandarin Recognition
+- Multiple Choice Mandarin Pronunciation
+- Mandarin Text Input Quiz
 
 A student must complete all 4 quizzes with a perfect score to pass the given lesson and unlock the next lesson.
 
@@ -45,15 +45,6 @@ Experience points are awarded for completing any of the lesson quizzes, but the 
 
 ---
 
-## Technical Aspects
-
-The app is built with React Native/TypeScript and Expo and powered by a backend built in Rust and deployed on the serverless Google Cloud Run platform. There are also a few other supporting resources:
-
-* [**Dragon Backend:**](https://github.com/bonham000/dragon) Basic CRUD user APIs with a SQL database.
-* [**NodeJS Pinyin Translation Service:**](https://github.com/bonham000/pinyin-conversion-service) A service for returning pinyin romanizations for translations.
-* [**App Landing Page:**](https://github.com/bonham000/mandarin-landing-page) Public landing page for the app.
-* [**App Stargazer UI:**](https://chinese-app-stargazer.surge.sh/) Stargazer testing UI for all app screens.
-
 ## Contributing
 
 This and the other projects listed above are all open source on GitHub. Contributions are welcome - feel free to make a pull request with an changes or open and issue.
@@ -62,5 +53,4 @@ This and the other projects listed above are all open source on GitHub. Contribu
 
 ## Credits
 
-* All audio pronunciations are courtesy of the [Forvo Pronunciation API](https://api.forvo.com/).
-* All vocabulary content is from the [Hanyu Shuiping Kaoshi vocabulary lists](https://en.wikipedia.org/wiki/Hanyu_Shuiping_Kaoshi).
+- All vocabulary content is from the [Hanyu Shuiping Kaoshi vocabulary lists](https://en.wikipedia.org/wiki/Hanyu_Shuiping_Kaoshi).
