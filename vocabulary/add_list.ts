@@ -1,21 +1,23 @@
 import fs from "fs";
 
-import { HSKList, TRADITIONAL_CHINESE, Word } from "@src/tools/types";
+import { HSKList, Lesson, TRADITIONAL_CHINESE } from "@src/tools/types";
 import { capitalize, translateWord } from "@src/tools/utils";
-import { content, lesson } from "./words_list";
+import * as CustomList from "./words_list";
 
 // Flag to modify existing lesson or use new word list
 const USE_EXISTING_LESSON = true;
 
 // Read existing lesson file
-import existingLesson from "@src/lessons/11";
+import existingLesson from "@src/lessons/10";
 
 const existingLessonWithContent = {
   ...existingLesson,
-  content: existingLesson.content.concat(content),
+  content: existingLesson.content.concat(CustomList.content),
 };
 
-const targetLesson = USE_EXISTING_LESSON ? existingLessonWithContent : lesson;
+const targetLesson = USE_EXISTING_LESSON
+  ? existingLessonWithContent
+  : CustomList.lesson;
 
 // Replace the following with the custom word list index:
 const LIST_INDEX = targetLesson.list;
@@ -31,18 +33,16 @@ const lesson: HSKList = ${data}
 export default lesson;`;
 
 // Write the results to a JSON file
-const writeListToJson = (result: ReadonlyArray<Word>) => {
+const writeListToJson = (content: Lesson, dictation?: Lesson) => {
   console.log(`Writing JSON result to file: ${FILENAME}\n`);
-  const list: HSKList = { ...targetLesson, content: result };
+  const list: HSKList = { ...targetLesson, content, dictation };
   const data = JSON.stringify(list, null, 2);
   const file = getFileContents(data);
   fs.writeFileSync(FILENAME, file, "utf8");
 };
 
 // Process the list and fill in the content for each word
-const processListAndTranslateSimplifiedToTraditional = async (
-  list: ReadonlyArray<Word>,
-) => {
+const translateList = async (list: Lesson) => {
   const translated = await Promise.all(
     list
       .filter(x => !!x.traditional)
@@ -58,16 +58,14 @@ const processListAndTranslateSimplifiedToTraditional = async (
       }),
   );
 
-  const ordered = translated.map(
-    ({ traditional, simplified, english, pinyin }) => ({
+  return translated
+    .filter(x => !!x.traditional)
+    .map(({ traditional, simplified, english, pinyin }) => ({
       simplified,
       traditional,
       pinyin: Array.isArray(pinyin) ? pinyin[0] : pinyin,
       english: capitalize(english),
-    }),
-  );
-
-  writeListToJson(ordered);
+    }));
 };
 
 // Run the program with log messages
@@ -75,7 +73,13 @@ const processWordList = async () => {
   console.log(`Processing word list, generating file: ${FILENAME}\n`);
   console.log(targetLesson);
 
-  await processListAndTranslateSimplifiedToTraditional(targetLesson.content);
+  let dictation;
+  const content = await translateList(targetLesson.content);
+  if (targetLesson.dictation) {
+    dictation = await translateList(targetLesson.dictation);
+  }
+
+  writeListToJson(content, dictation);
   console.log("Finished!\n");
 };
 

@@ -167,11 +167,13 @@ export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
   ) => () => {
     const listIndex = this.props.navigation.getParam("listIndex");
     const listTitle = this.props.navigation.getParam("listTitle");
+    const dictation = this.props.navigation.getParam("dictation");
     const params: LessonScreenParams = {
       type,
       lesson,
       listIndex,
       listTitle,
+      dictation,
       lessonIndex,
       isFinalLesson,
       isFinalUnlockedLesson,

@@ -225,6 +225,7 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
       hskList,
       listIndex,
       listTitle: list.title,
+      dictation: list.dictation,
     };
     this.props.navigation.navigate(ROUTE_NAMES.LIST_SUMMARY, params);
   };

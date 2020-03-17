@@ -92,6 +92,7 @@ export interface HSKList {
   locked: boolean;
   title?: string;
   content: Lesson;
+  dictation?: Lesson;
 }
 
 export type Lesson = ReadonlyArray<Word>;
@@ -109,6 +110,7 @@ export interface ListScreenParams {
   hskList: LessonSet;
   listIndex: number;
   listTitle?: string;
+  dictation?: Lesson;
   headerTitle?: string;
   type: LessonSummaryType;
 }
@@ -121,6 +123,7 @@ export interface LessonScreenParams {
   headerTitle?: string;
   isFinalLesson: boolean;
   type: LessonSummaryType;
+  dictation?: Lesson;
   isFinalUnlockedLesson: boolean;
 }
 
