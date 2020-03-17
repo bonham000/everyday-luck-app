@@ -42,7 +42,6 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
     const { navigation, userScoreStatus } = this.props;
     const type = navigation.getParam("type");
     const listIndex = navigation.getParam("listIndex");
-    const dictation = navigation.getParam("dictation");
     const listTitle = navigation.getParam("listTitle");
     const isFinalUnlockedLesson = navigation.getParam("isFinalUnlockedLesson");
     const isLesson = type === "LESSON";
@@ -130,10 +129,19 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
         )}
         {NON_RANDOM_QUIZ && (
           <React.Fragment>
-            <Text style={SectionTextStyles}>Study</Text>
+            <Text style={SectionTextStyles}>Practice</Text>
             <LineBreak />
             <ActionBlock
-              style={{ backgroundColor: COLORS.actionButtonMint }}
+              style={{ backgroundColor: COLORS.lessonCustomList }}
+              onPress={this.handleNavigateToSection(
+                ROUTE_NAMES.AUDIO_REVIEW_QUIZ,
+              )}
+            >
+              <Text>Listening Quiz</Text>
+              <Text>📱</Text>
+            </ActionBlock>
+            <ActionBlock
+              style={{ backgroundColor: COLORS.lessonCustomList }}
               onPress={this.handleNavigateToSection(
                 ROUTE_NAMES.CHARACTER_WRITING,
               )}
@@ -141,15 +149,8 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
               <Text>Character Writing</Text>
               <Text>🎨</Text>
             </ActionBlock>
-            <ActionBlock
-              style={{ backgroundColor: COLORS.actionButtonMint }}
-              onPress={this.handleNavigateToSection(
-                ROUTE_NAMES.AUDIO_REVIEW_QUIZ,
-              )}
-            >
-              <Text>Audio Quiz</Text>
-              <Text>📱</Text>
-            </ActionBlock>
+            <Text style={SectionTextStyles}>Study</Text>
+            <LineBreak />
             <ActionBlock
               style={{ backgroundColor: COLORS.actionButtonMint }}
               onPress={this.handleNavigateToSection(ROUTE_NAMES.FLASHCARDS)}
