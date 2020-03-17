@@ -1,17 +1,5 @@
 version: 2
 jobs:
-  stargazer:
-    working_directory: ~/mandarin
-    docker:
-      - image: circleci/node:10.13.0
-    steps:
-      - checkout
-      - run:
-          name: Deploy with Surge
-          command: |
-            yarn add global surge
-            yarn stargazer:deploy
-
   pr-tests:
     working_directory: ~/mandarin
     docker:
@@ -110,12 +98,6 @@ workflows:
               ignore:
                 - master
                 - production
-  deploy_stargazer:
-    jobs:
-      - stargazer:
-          filters:
-            branches:
-              only: master
   deploy_update:
     jobs:
       - publish:

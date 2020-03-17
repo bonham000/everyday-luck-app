@@ -9,13 +9,6 @@
     "url": "https://github.com/bonham000/everyday-luck-app"
   },
   "scripts": {
-    "stargazer": "yarn stargazer:setup && npx ttab 'yarn start' && yarn stargazer:server",
-    "stargazer:setup": "./scripts/stargazer_init.sh",
-    "stargazer:revert": "./scripts/stargazer_revert.sh",
-    "stargazer:init": "stargazer:init",
-    "stargazer:view": "stargazer:view",
-    "stargazer:server": "stargazer:server",
-    "stargazer:deploy": "surge --project ./stargazer-ui --domain everyday-luck-stargazer.surge.sh",
     "start": "expo start",
     "tsc": "tsc",
     "tslint": "tslint --project tsconfig.json -c tslint.json",
@@ -87,7 +80,6 @@
     "jest-expo": "^34.0.0",
     "mock-async-storage": "^2.1.0",
     "prettier": "^1.15.3",
-    "react-native-stargazer": "^1.0.6",
     "schedule": "0.4.0",
     "ts-jest": "24.0.2",
     "tslint": "^5.12.1",
