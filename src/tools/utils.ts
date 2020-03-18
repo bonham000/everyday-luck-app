@@ -788,7 +788,7 @@ export const getQuizSuccessToasts = (
     secondary =
       "You've completed all the content! You must be fluent by now! Congratulations!!!";
   } else if (lessonCompleted) {
-    secondary = `Great - keep going! 很好! You earned ${experience} experience points!`;
+    secondary = `Great - keep going! 很好! You earned ${experience} oranges 🍊!`;
   } else if (lessonType === "OPT_OUT_CHALLENGE") {
     if (perfectScore) {
       secondary = "The next HSK Level will now be unlocked! 💫💫💫";
@@ -798,12 +798,12 @@ export const getQuizSuccessToasts = (
     }
   } else if (lessonType === "DAILY_QUIZ") {
     if (perfectScore) {
-      secondary = `You gained ${experience} points! Keep reviewing to master more vocabulary!`;
+      secondary = `You gained ${experience} 🍊 oranges! Keep reviewing to master more vocabulary!`;
     } else {
       secondary = "Great job! Keep trying and reviewing more!";
     }
   } else if (firstPass) {
-    secondary = `Congratulations! You gained ${experience} experience points!`;
+    secondary = `Congratulations! You gained ${experience} 🍊 oranges!`;
   } else {
     secondary =
       "All words completed, 很好！ Try again to get a perfect score to unlock the next lesson.";

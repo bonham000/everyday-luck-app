@@ -377,7 +377,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     if (cost <= experience) {
       Alert.alert(
         "Are you sure?",
-        `This will cost you 1 orange point (you have a total of ${experience} 🍊 to spare!).`,
+        `This will cost you 1 🍊 (you have a total of ${experience} oranges now!).`,
         [
           {
             text: "Cancel",
@@ -389,9 +389,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
         { cancelable: false },
       );
     } else {
-      this.props.setToastMessage(
-        `You don't have enough experience points to do that! Sorry! 🙏`,
-      );
+      this.props.setToastMessage("You don't have enough 🍊to do that! Sorry!");
     }
   };
 
