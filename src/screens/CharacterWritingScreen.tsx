@@ -106,19 +106,19 @@ export class CharacterWritingScreenComponent extends React.Component<
               onPress={this.handleProceedWithRetry}
               style={{ backgroundColor: COLORS.actionButtonYellow }}
             >
-              <ControlText>Retry</ControlText>
-            </Control>
-            <Control
-              onPress={this.handleProceed}
-              style={{ backgroundColor: COLORS.actionButtonBlue }}
-            >
-              <ControlText>Next</ControlText>
+              <ControlText>Retry Word</ControlText>
             </Control>
             <Control
               onPress={this.handleToggleReveal}
               style={{ backgroundColor: COLORS.actionButtonMint }}
             >
               <ControlText>Draw</ControlText>
+            </Control>
+            <Control
+              onPress={this.handleProceed}
+              style={{ backgroundColor: COLORS.actionButtonBlue }}
+            >
+              <ControlText>Next</ControlText>
             </Control>
           </Controls>
         ) : (
@@ -134,6 +134,12 @@ export class CharacterWritingScreenComponent extends React.Component<
               style={{ backgroundColor: COLORS.actionButtonMint }}
             >
               <ControlText>Reveal</ControlText>
+            </Control>
+            <Control
+              onPress={this.handleProceed}
+              style={{ backgroundColor: COLORS.actionButtonBlue }}
+            >
+              <ControlText>Next</ControlText>
             </Control>
           </Controls>
         )}
