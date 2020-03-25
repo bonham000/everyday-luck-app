@@ -5,7 +5,7 @@ import { capitalize, translateWord } from "@src/tools/utils";
 import * as CustomList from "./words_list";
 
 // Flag to modify existing lesson or use new word list
-const USE_EXISTING_LESSON = true;
+const USE_EXISTING_LESSON = false;
 
 // Read existing lesson file
 import existingLesson from "@src/lessons/10";
