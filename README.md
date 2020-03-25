@@ -49,6 +49,16 @@ Experience points are awarded for completing any of the lesson quizzes, but the 
 
 This and the other projects listed above are all open source on GitHub. Contributions are welcome - feel free to make a pull request with an changes or open and issue.
 
+## iOS
+
+To install the app on iOS follow these instructions:
+
+* Download [Expo Client for iOS](https://apps.apple.com/us/app/expo-client/id982107779).
+* Login to Expo Client with these credentials:
+  * username: `everyday-luck-app`
+  * password: `everyday-luck-app`
+* Open the app with this [link with Expo Client](https://exp.host/@everyday-luck-app/everyday-luck?release-channel=production-34.0.0).
+
 ---
 
 ## Credits
