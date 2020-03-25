@@ -6,7 +6,7 @@
     "privacy": "public",
     "sdkVersion": "34.0.0",
     "platforms": ["ios", "android"],
-    "version": "1.0.42",
+    "version": "1.0.43",
     "orientation": "portrait",
     "icon": "./src/assets/icon.png",
     "splash": {
