@@ -3,7 +3,7 @@ import { HSKList } from "@src/tools/types";
 const lesson: HSKList = {
   list: "8",
   locked: false,
-  title: "Book 1 Lesson 1（第一课）",
+  title: "Book 1 Lesson 1",
   content: [
     {
       simplified: "你",
