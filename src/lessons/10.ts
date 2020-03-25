@@ -2,7 +2,7 @@ import { HSKList } from "@src/tools/types";
 const lesson: HSKList = {
   list: "10",
   locked: false,
-  title: "Book 1 Lesson 3（第三课）",
+  title: "Book 1 Lesson 3",
   content: [
     {
       simplified: "周末",
@@ -35,40 +35,16 @@ const lesson: HSKList = {
       english: "Hit",
     },
     {
-      simplified: "网球",
-      traditional: "網球",
-      pinyin: "wǎng qiú",
-      english: "Tennis",
-    },
-    {
-      simplified: "棒球",
-      traditional: "棒球",
-      pinyin: "bàng qiú",
-      english: "Baseball",
-    },
-    {
       simplified: "和",
       traditional: "和",
       pinyin: "hé",
       english: "With",
     },
     {
-      simplified: "游泳",
-      traditional: "游泳",
-      pinyin: "yóu yǒng",
-      english: "Swim",
-    },
-    {
       simplified: "常",
       traditional: "常",
       pinyin: "cháng",
       english: "Often",
-    },
-    {
-      simplified: "篮球",
-      traditional: "籃球",
-      pinyin: "lán qiú",
-      english: "Basketball",
     },
     {
       simplified: "也",
@@ -81,12 +57,6 @@ const lesson: HSKList = {
       traditional: "踢",
       pinyin: "tī",
       english: "Kick",
-    },
-    {
-      simplified: "足球",
-      traditional: "足球",
-      pinyin: "zú qiú",
-      english: "Football",
     },
     {
       simplified: "觉得",
@@ -170,7 +140,7 @@ const lesson: HSKList = {
       simplified: "妳",
       traditional: "妳",
       pinyin: "nǎi",
-      english: "You",
+      english: "You (female)",
     },
     {
       simplified: "想",
