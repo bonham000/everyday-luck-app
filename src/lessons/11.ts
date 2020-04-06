@@ -1,4 +1,5 @@
 import { HSKList } from "@src/tools/types";
+
 const lesson: HSKList = {
   list: "11",
   locked: false,
