@@ -31,41 +31,43 @@ export interface ListScore {
   mandarin_pronunciation: boolean;
 }
 
+/**
+ * Generate new ids here:
+ *
+ * https://npm.runkit.com/shortid
+ * console.log(shortid.generate());
+ */
 export interface ListScoreSet {
-  list_02_score: ListScore;
-  list_03_score: ListScore;
-  list_04_score: ListScore;
-  list_05_score: ListScore;
-  list_06_score: ListScore;
-  list_07_score: ListScore;
-  list_08_score: ListScore;
-  list_09_score: ListScore;
-  list_10_score: ListScore;
-  list_11_score: ListScore;
-  list_12_score: ListScore;
-
-  // Add new content above here!
-  list_13_score: ListScore; // Hard-coded last list for custom vocabulary list
+  hmcs97kF5: ListScore;
+  m1uti3kcG: ListScore;
+  aZuy5YQTO5: ListScore;
+  f6OodXOVM1: ListScore;
+  yXMqj8ait2: ListScore;
+  wLnPWgrVUY: ListScore;
+  CbbMYmOGz: ListScore;
+  qaAR6U7k8Q: ListScore;
+  wALlo9yXLq: ListScore;
+  xyB2jhUO3: ListScore;
+  hjbUpJC1UF: ListScore;
+  jhEP7WEWFF: ListScore;
 }
 
 /**
  * Index mapping of score keys to list index.
  */
 export const SCORES_INDEX_MAP: ReadonlyArray<keyof ListScoreSet> = [
-  "list_02_score",
-  "list_03_score",
-  "list_04_score",
-  "list_05_score",
-  "list_06_score",
-  "list_07_score",
-  "list_08_score",
-  "list_09_score",
-  "list_10_score",
-  "list_11_score",
-  "list_12_score",
-
-  // Add new content above here!
-  "list_13_score", // Hard-coded last list for custom vocabulary list
+  "hmcs97kF5",
+  "m1uti3kcG",
+  "aZuy5YQTO5",
+  "f6OodXOVM1",
+  "yXMqj8ait2",
+  "wLnPWgrVUY",
+  "CbbMYmOGz",
+  "qaAR6U7k8Q",
+  "wALlo9yXLq",
+  "xyB2jhUO3",
+  "hjbUpJC1UF",
+  "jhEP7WEWFF",
 ];
 
 /** ========================================================================

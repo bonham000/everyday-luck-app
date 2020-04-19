@@ -236,11 +236,11 @@ export const getFinalUnlockedListScores = (
   userScoreStatus: ListScoreSet,
 ): ListScore => {
   const result = [
-    userScoreStatus.list_02_score,
-    userScoreStatus.list_03_score,
-    userScoreStatus.list_04_score,
-    userScoreStatus.list_05_score,
-    userScoreStatus.list_06_score,
+    userScoreStatus.hmcs97kF5,
+    userScoreStatus.m1uti3kcG,
+    userScoreStatus.aZuy5YQTO5,
+    userScoreStatus.f6OodXOVM1,
+    userScoreStatus.yXMqj8ait2,
     // @ts-ignore
   ].reduce((finalIndex, current) => {
     return finalIndex ? finalIndex : !current.complete ? current : null;
@@ -259,11 +259,11 @@ export const getFinalUnlockedListKey = (
   userScoreStatus: ListScoreSet,
 ): number => {
   const result = [
-    userScoreStatus.list_02_score,
-    userScoreStatus.list_03_score,
-    userScoreStatus.list_04_score,
-    userScoreStatus.list_05_score,
-    userScoreStatus.list_06_score,
+    userScoreStatus.hmcs97kF5,
+    userScoreStatus.m1uti3kcG,
+    userScoreStatus.aZuy5YQTO5,
+    userScoreStatus.f6OodXOVM1,
+    userScoreStatus.yXMqj8ait2,
 
     // @ts-ignore
   ].reduce((finalIndex, current) => {

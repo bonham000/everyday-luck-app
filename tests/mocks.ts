@@ -82,7 +82,7 @@ const getLessonFiller = (complete = false) =>
   }, {});
 
 const DEFAULT_SCORE_STATE = {
-  list_02_score: {
+  hmcs97kF5: {
     complete: false,
     list_index: 0,
     list_key: "1-2",
@@ -93,7 +93,7 @@ const DEFAULT_SCORE_STATE = {
 };
 
 const COMPLETED_SCORE_STATE = {
-  list_02_score: {
+  hmcs97kF5: {
     complete: true,
     list_index: 0,
     list_key: "1-2",
