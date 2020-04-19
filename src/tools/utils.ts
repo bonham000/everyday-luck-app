@@ -922,11 +922,11 @@ export const mapSettingsChangeToAnalyticsEvent = (
  */
 export const hasUserCompletedAllLists = (scores: ListScoreSet): boolean => {
   return (
-    scores.list_02_score.complete &&
-    scores.list_03_score.complete &&
-    scores.list_04_score.complete &&
-    scores.list_05_score.complete &&
-    scores.list_06_score.complete
+    scores.hmcs97kF5.complete &&
+    scores.m1uti3kcG.complete &&
+    scores.aZuy5YQTO5.complete &&
+    scores.f6OodXOVM1.complete &&
+    scores.yXMqj8ait2.complete
   );
 };
 

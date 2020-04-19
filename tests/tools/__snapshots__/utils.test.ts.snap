@@ -1,14 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`utils getListScoreKeyFromIndex 1`] = `"list_02_score"`;
+exports[`utils getListScoreKeyFromIndex 1`] = `"hmcs97kF5"`;
 
-exports[`utils getListScoreKeyFromIndex 2`] = `"list_03_score"`;
+exports[`utils getListScoreKeyFromIndex 2`] = `"m1uti3kcG"`;
 
-exports[`utils getListScoreKeyFromIndex 3`] = `"list_04_score"`;
+exports[`utils getListScoreKeyFromIndex 3`] = `"aZuy5YQTO5"`;
 
-exports[`utils getListScoreKeyFromIndex 4`] = `"list_05_score"`;
+exports[`utils getListScoreKeyFromIndex 4`] = `"f6OodXOVM1"`;
 
-exports[`utils getListScoreKeyFromIndex 5`] = `"list_06_score"`;
+exports[`utils getListScoreKeyFromIndex 5`] = `"yXMqj8ait2"`;
 
 exports[`utils mapWordsForList 1`] = `
 Object {

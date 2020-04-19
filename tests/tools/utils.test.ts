@@ -117,11 +117,11 @@ describe("utils", () => {
 
   test("getListScoreKeyFromIndex", () => {
     const expected: ReadonlyArray<keyof ListScoreSet> = [
-      "list_02_score",
-      "list_03_score",
-      "list_04_score",
-      "list_05_score",
-      "list_06_score",
+      "hmcs97kF5",
+      "m1uti3kcG",
+      "aZuy5YQTO5",
+      "f6OodXOVM1",
+      "yXMqj8ait2",
     ];
 
     expected.forEach((key, index) => {
@@ -149,9 +149,7 @@ describe("utils", () => {
   });
 
   test("isLessonComplete", () => {
-    expect(
-      isLessonComplete(MOCKS.DEFAULT_SCORE_STATE.list_02_score),
-    ).toBeFalsy();
+    expect(isLessonComplete(MOCKS.DEFAULT_SCORE_STATE.hmcs97kF5)).toBeFalsy();
 
     expect({
       mc_english: true,
@@ -228,7 +226,7 @@ describe("utils", () => {
       MOCKS.LESSON_DATA,
       0,
       MOCKS.getMockScoreStatus({
-        list_02_score: {
+        hmcs97kF5: {
           complete: false,
           list_index: 0,
           list_key: "1-2",
@@ -244,7 +242,7 @@ describe("utils", () => {
       MOCKS.LESSON_DATA,
       0,
       MOCKS.getMockScoreStatus({
-        list_02_score: {
+        hmcs97kF5: {
           complete: false,
           list_index: 0,
           list_key: "1-2",
@@ -285,14 +283,14 @@ describe("utils", () => {
 
     result = getFinalUnlockedListKey(
       MOCKS.getMockScoreStatus({
-        list_02_score: {
+        hmcs97kF5: {
           complete: true,
           list_index: 0,
           list_key: "1-2",
           number_words_completed: 80,
           ...MOCKS.DEFAULT_LESSON_SCORES,
         },
-        list_03_score: {
+        m1uti3kcG: {
           complete: true,
           list_index: 0,
           list_key: "3",
@@ -376,7 +374,7 @@ describe("utils", () => {
       unlockedListIndex: 0,
       appDifficultySetting: APP_DIFFICULTY_SETTING.MEDIUM,
       userScoreStatus: MOCKS.getMockScoreStatus({
-        list_02_score: {
+        hmcs97kF5: {
           complete: false,
           list_index: 0,
           list_key: "1-2",
@@ -465,7 +463,7 @@ describe("utils", () => {
     result = getLessonSummaryStatus(
       true,
       MOCKS.getMockScoreStatus({
-        list_02_score: {
+        hmcs97kF5: {
           complete: false,
           list_index: 0,
           list_key: "1-2",
@@ -598,35 +596,35 @@ describe("utils", () => {
 
     result = hasUserCompletedAllLists(
       MOCKS.getMockScoreStatus({
-        list_02_score: {
+        hmcs97kF5: {
           complete: true,
           list_index: 0,
           list_key: "1-2",
           number_words_completed: 0,
           ...MOCKS.DEFAULT_LESSON_SCORES,
         },
-        list_03_score: {
+        m1uti3kcG: {
           complete: true,
           list_index: 1,
           list_key: "3",
           number_words_completed: 0,
           ...MOCKS.DEFAULT_LESSON_SCORES,
         },
-        list_04_score: {
+        aZuy5YQTO5: {
           complete: true,
           list_index: 2,
           list_key: "4",
           number_words_completed: 0,
           ...MOCKS.DEFAULT_LESSON_SCORES,
         },
-        list_05_score: {
+        f6OodXOVM1: {
           complete: true,
           list_index: 3,
           list_key: "5",
           number_words_completed: 0,
           ...MOCKS.DEFAULT_LESSON_SCORES,
         },
-        list_06_score: {
+        yXMqj8ait2: {
           complete: true,
           list_index: 4,
           list_key: "6",
