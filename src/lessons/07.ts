@@ -60,7 +60,7 @@ const lesson: HSKList = {
       english: "Beef",
     },
     {
-      simplified: "Jī",
+      simplified: "雞",
       traditional: "雞",
       pinyin: "Jī",
       english: "Chicken",

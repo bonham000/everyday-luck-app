@@ -519,7 +519,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     /* Is the quiz finished with a perfect score */
     const perfectScore = this.state.failCount === 0;
     /* Is this the first time the user completed this quiz */
-    const firstPass = perfectScore && !listScore[quizType];
+    const firstPass = perfectScore && !!quizType && !listScore[quizType];
     /* Determine experience points for this lesson */
     const experiencePoints = calculateExperiencePointsForLesson(
       firstPass,

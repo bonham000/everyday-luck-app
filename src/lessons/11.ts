@@ -144,7 +144,7 @@ const lesson: HSKList = {
       english: "Too",
     },
     {
-      simplified: "",
+      simplified: "舊",
       traditional: "舊",
       pinyin: "jiù",
       english: "Old",

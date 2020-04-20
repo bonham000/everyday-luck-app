@@ -108,7 +108,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
         </Shaker>
         {quizType === QUIZ_TYPE.PRONUNCIATION && (
           <AudioEscapeBlock onPress={this.activateAudioEscapeHatch}>
-            <AudioEscapeText>Sound not loading?</AudioEscapeText>
+            <AudioEscapeText>Reveal Definition</AudioEscapeText>
           </AudioEscapeBlock>
         )}
         {shouldReveal && (!autoProceedQuestion || !valid) && (
