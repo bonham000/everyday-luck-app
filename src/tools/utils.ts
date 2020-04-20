@@ -218,12 +218,7 @@ const getEnglishAlternateWords = (
  * @returns true if `wordA` and `wordB` are equivalent
  */
 const areWordsEqual = (wordA: Word, wordB: Word): boolean => {
-  return (
-    wordA.english === wordB.english &&
-    wordA.pinyin === wordB.pinyin &&
-    wordA.simplified === wordB.simplified &&
-    wordA.traditional === wordB.traditional
-  );
+  return wordA.traditional === wordB.traditional;
 };
 
 /**
