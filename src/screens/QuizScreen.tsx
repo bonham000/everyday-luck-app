@@ -289,7 +289,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
             onPress={this.handleRevertAnswer}
             buttonColor={COLORS.actionButtonBlue}
           >
-            <Ionicons name="ios-rewind" style={ActionIconStyle} />
+            <Ionicons name="ios-star" style={ActionIconStyle} />
           </ActionButton.Item>
         )}
         <ActionButton.Item
