@@ -46,20 +46,10 @@ const words: ReadonlyArray<string> = [
   "",
   "",
   "",
-  "",
-  "",
-  "",
 ];
 
 // Words to add:
 const dictationWords: ReadonlyArray<string> = [
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
-  "",
   "",
   "",
   "",
@@ -109,9 +99,9 @@ export const dictation = dictationWords.filter(Boolean).map(traditional => ({
 
 // Metadata for lesson:
 export const lesson: HSKList = {
-  list: "13",
+  list: "14",
   locked: false,
-  title: "MTC Book 1 Lesson 6",
+  title: "MTC Book 1 Lesson 7",
   content,
   dictation,
 };
