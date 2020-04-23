@@ -101,7 +101,7 @@ export const dictation = dictationWords.filter(Boolean).map(traditional => ({
 export const lesson: HSKList = {
   list: "17",
   locked: false,
-  title: "MTC Book 1 Lesson 10",
+  title: "Book 1 Lesson 10",
   content,
   dictation,
 };
