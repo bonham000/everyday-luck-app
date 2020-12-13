@@ -15,14 +15,14 @@ import { APP_THEME } from "@src/constants/Theme";
 // useScreens();
 
 /* Workaround for an issue with screen navigation */
-// import "react-native-gesture-handler";
+import "react-native-gesture-handler";
 
 /* Configure Sentry */
 Sentry.config(String(process.env.SENTRY_DSN)).install();
 
 /* Disable warnings */
 // tslint:disable-next-line
-// console.disableYellowBox = true;
+console.disableYellowBox = true;
 
 /** ========================================================================
  * Mandarin App

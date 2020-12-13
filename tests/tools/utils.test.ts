@@ -331,19 +331,19 @@ describe("utils", () => {
     );
 
     expect(result).toMatchInlineSnapshot(`
-                                                                  Object {
-                                                                    "correct": true,
-                                                                    "correctWord": Object {
-                                                                      "english": "Rich, plentiful, abundant",
-                                                                      "english_alternate_choices": Array [
-                                                                        "",
-                                                                      ],
-                                                                      "pinyin": "fēngfù",
-                                                                      "simplified": "丰富",
-                                                                      "traditional": "豐富",
-                                                                    },
-                                                                  }
-                                            `);
+      Object {
+        "correct": true,
+        "correctWord": Object {
+          "english": "Rich, plentiful, abundant",
+          "english_alternate_choices": Array [
+            "",
+          ],
+          "pinyin": "fēngfù",
+          "simplified": "丰富",
+          "traditional": "豐富",
+        },
+      }
+    `);
 
     result = determineAnyPossibleCorrectAnswerForFreeInput(
       "晚安",
@@ -353,19 +353,19 @@ describe("utils", () => {
     );
 
     expect(result).toMatchInlineSnapshot(`
-                                                                  Object {
-                                                                    "correct": false,
-                                                                    "correctWord": Object {
-                                                                      "english": "Rich",
-                                                                      "english_alternate_choices": Array [
-                                                                        "",
-                                                                      ],
-                                                                      "pinyin": "fù",
-                                                                      "simplified": "富",
-                                                                      "traditional": "富",
-                                                                    },
-                                                                  }
-                                            `);
+      Object {
+        "correct": false,
+        "correctWord": Object {
+          "english": "Rich",
+          "english_alternate_choices": Array [
+            "",
+          ],
+          "pinyin": "fù",
+          "simplified": "富",
+          "traditional": "富",
+        },
+      }
+    `);
   });
 
   test("getRandomQuizChallenge", () => {
@@ -432,33 +432,33 @@ describe("utils", () => {
   test("getLessonSummaryStatus", () => {
     let result = getLessonSummaryStatus(false, MOCKS.DEFAULT_SCORE_STATE, 0);
     expect(result).toMatchInlineSnapshot(`
-                                                Object {
-                                                  "mandarinPronunciation": true,
-                                                  "mcEnglish": true,
-                                                  "mcMandarin": true,
-                                                  "quizText": true,
-                                                }
-                                `);
+      Object {
+        "mandarinPronunciation": true,
+        "mcEnglish": true,
+        "mcMandarin": true,
+        "quizText": true,
+      }
+    `);
 
     result = getLessonSummaryStatus(true, MOCKS.DEFAULT_SCORE_STATE, 0);
     expect(result).toMatchInlineSnapshot(`
-                                                Object {
-                                                  "mandarinPronunciation": false,
-                                                  "mcEnglish": false,
-                                                  "mcMandarin": false,
-                                                  "quizText": false,
-                                                }
-                                `);
+      Object {
+        "mandarinPronunciation": false,
+        "mcEnglish": false,
+        "mcMandarin": false,
+        "quizText": false,
+      }
+    `);
 
     result = getLessonSummaryStatus(true, MOCKS.DEFAULT_SCORE_STATE, 1);
     expect(result).toMatchInlineSnapshot(`
-                                                Object {
-                                                  "mandarinPronunciation": false,
-                                                  "mcEnglish": false,
-                                                  "mcMandarin": false,
-                                                  "quizText": false,
-                                                }
-                                `);
+      Object {
+        "mandarinPronunciation": false,
+        "mcEnglish": false,
+        "mcMandarin": false,
+        "quizText": false,
+      }
+    `);
 
     result = getLessonSummaryStatus(
       true,
@@ -477,13 +477,13 @@ describe("utils", () => {
       1,
     );
     expect(result).toMatchInlineSnapshot(`
-            Object {
-              "mandarinPronunciation": false,
-              "mcEnglish": false,
-              "mcMandarin": false,
-              "quizText": false,
-            }
-        `);
+      Object {
+        "mandarinPronunciation": false,
+        "mcEnglish": false,
+        "mcMandarin": false,
+        "quizText": false,
+      }
+    `);
   });
 
   test("getQuizSuccessToasts", () => {
@@ -521,11 +521,11 @@ describe("utils", () => {
 
     result = getQuizSuccessToasts(false, false, "SUMMARY", 158, true, false);
     expect(result).toMatchInlineSnapshot(`
-                                    Object {
-                                      "primary": "You finished the quiz!",
-                                      "secondary": "All words completed, 很好！ Try again to get a perfect score to unlock the next lesson.",
-                                    }
-                        `);
+      Object {
+        "primary": "You finished the quiz!",
+        "secondary": "All words completed, 很好！ Try again to get a perfect score to unlock the next lesson.",
+      }
+    `);
 
     result = getQuizSuccessToasts(
       false,
@@ -536,11 +536,11 @@ describe("utils", () => {
       false,
     );
     expect(result).toMatchInlineSnapshot(`
-                                    Object {
-                                      "primary": "You passed but not with a perfect score!",
-                                      "secondary": "You can try again anytime to still unlock the HSK Level, good luck!",
-                                    }
-                        `);
+      Object {
+        "primary": "You passed but not with a perfect score!",
+        "secondary": "You can try again anytime to still unlock the HSK Level, good luck!",
+      }
+    `);
 
     result = getQuizSuccessToasts(false, true, "DAILY_QUIZ", 158, true, false);
     expect(result).toMatchInlineSnapshot(`
@@ -552,11 +552,11 @@ describe("utils", () => {
 
     result = getQuizSuccessToasts(false, true, "DAILY_QUIZ", 158, true, true);
     expect(result).toMatchInlineSnapshot(`
-                        Object {
-                          "primary": "Extraordinary!!! 🏆",
-                          "secondary": "You've completed all the content! You must be fluent by now! Congratulations!!!",
-                        }
-                `);
+      Object {
+        "primary": "Extraordinary!!! 🏆",
+        "secondary": "You've completed all the content! You must be fluent by now! Congratulations!!!",
+      }
+    `);
   });
 
   test("calculateExperiencePointsForLesson", () => {
