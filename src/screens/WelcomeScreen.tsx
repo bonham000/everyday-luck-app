@@ -83,8 +83,8 @@ export class WelcomeScreenComponent extends React.Component<IProps, IState> {
             </DescriptionText>
             <DescriptionText>
               First we want to give you a quick introduction to Chinese and how
-              this app works as a learning tool, and then we will get out of
-              your way and let you start studying!
+              this app works. Then we will get out of your way and let you start
+              studying!
             </DescriptionText>
             <DescriptionText>
               <Bold>Good luck!</Bold>
