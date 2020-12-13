@@ -1,11 +1,11 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import React from "react";
-import { NavigationState } from "react-native-paper";
 import {
   createDrawerNavigator,
   createStackNavigator,
   NavigationScreenProp,
   NavigationScreenRouteConfig,
+  NavigationState,
 } from "react-navigation";
 
 import SideMenuComponent from "@src/components/SideMenuComponent";
@@ -296,7 +296,7 @@ const createNavigatorConfig = (firstTimeUser: boolean) => {
         navigationOptions: ({
           navigation,
         }: {
-          navigation: NavigationScreenProp<NavigationState<{}>>;
+          navigation: NavigationScreenProp<NavigationState>;
         }) => {
           return {
             drawerLockMode: getDrawerLockedState(navigation),

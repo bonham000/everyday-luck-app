@@ -1,4 +1,4 @@
-import glamorous from "glamorous-native";
+import styled from "@emotion/native";
 import React from "react";
 
 /** ========================================================================
@@ -31,7 +31,7 @@ const CustomToast = ({
  * =========================================================================
  */
 
-const BarContainer = glamorous.touchableOpacity({
+const BarContainer = styled.TouchableOpacity({
   zIndex: 25,
   marginTop: 55,
   width: "100%",
@@ -40,7 +40,7 @@ const BarContainer = glamorous.touchableOpacity({
   justifyContent: "center",
 });
 
-const Bar = glamorous.view({
+const Bar = styled.View({
   width: "90%",
   borderRadius: 3,
   alignItems: "center",
@@ -48,7 +48,7 @@ const Bar = glamorous.view({
   backgroundColor: "rgba(45,45,45,0.91)",
 });
 
-const ToastText = glamorous.text({
+const ToastText = styled.Text({
   color: "white",
   fontSize: 18,
   margin: 10,

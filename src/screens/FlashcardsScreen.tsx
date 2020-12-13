@@ -1,4 +1,4 @@
-import glamorous from "glamorous-native";
+import styled from "@emotion/native";
 import React from "react";
 import { Alert, Dimensions, ScrollView } from "react-native";
 import Swiper from "react-native-deck-swiper";
@@ -204,27 +204,27 @@ const FlipCardStyles = {
   borderWidth: 0,
 };
 
-const FlipSideView = glamorous.view({
+const FlipSideView = styled.View({
   flex: 1,
   justifyContent: "center",
   alignItems: "center",
 });
 
-const FaceText = glamorous.text({
+const FaceText = styled.Text({
   fontSize: 100,
   textAlign: "center",
   width: width - 40,
   color: COLORS.primaryRed,
 });
 
-const BackText = glamorous.text({
+const BackText = styled.Text({
   fontSize: 40,
   textAlign: "center",
   width: width - 40,
   color: COLORS.primaryBlue,
 });
 
-const ProgressText = glamorous.text({
+const ProgressText = styled.Text({
   marginTop: 8,
   fontSize: 10,
   textAlign: "center",

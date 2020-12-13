@@ -1,4 +1,4 @@
-import glamorous from "glamorous-native";
+import styled from "@emotion/native";
 import React from "react";
 import { TextInput } from "react-native-paper";
 
@@ -126,7 +126,7 @@ const QuizInput = ({
  * =========================================================================
  */
 
-const QuizBox = glamorous.touchableOpacity({
+const QuizBox = styled.TouchableOpacity({
   height: 150,
   marginTop: 25,
   width: "100%",
@@ -140,21 +140,21 @@ const TextInputStyles = {
   backgroundColor: COLORS.background,
 };
 
-const EnglishText = glamorous.text({
+const EnglishText = styled.Text({
   fontSize: 24,
   marginTop: 15,
   marginBottom: 15,
   fontWeight: "bold",
 });
 
-const MandarinText = glamorous.text({
+const MandarinText = styled.Text({
   fontSize: 40,
   marginTop: 15,
   marginBottom: 15,
   fontWeight: "bold",
 });
 
-const PinyinText = glamorous.text({
+const PinyinText = styled.Text({
   fontSize: 22,
   marginBottom: 15,
   fontWeight: "bold",

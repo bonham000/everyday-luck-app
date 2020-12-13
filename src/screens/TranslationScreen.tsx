@@ -1,4 +1,4 @@
-import glamorous from "glamorous-native";
+import styled from "@emotion/native";
 import React from "react";
 import {
   Keyboard,
@@ -14,7 +14,6 @@ import {
   Button,
   ScrollContainer,
 } from "@src/components/SharedComponents";
-import EVENTS from "@src/constants/AnalyticsEvents";
 import { COLORS } from "@src/constants/Theme";
 import {
   GlobalStateContextProps,
@@ -185,7 +184,6 @@ export class TranslationScreenComponent extends React.Component<
               { translationResults, loadingTranslation: false },
               () => {
                 Keyboard.dismiss();
-                this.props.logAnalyticsEvent(EVENTS.TRANSLATION_EVENT);
               },
             );
           }
@@ -212,34 +210,34 @@ export class TranslationScreenComponent extends React.Component<
  * Helpers & Styles
  * =========================================================================
  */
-const ToggleLanguageContainer = glamorous.view({
+const ToggleLanguageContainer = styled.View({
   height: 75,
   flexDirection: "row",
   alignItems: "center",
 });
 
-const TranslationResults = glamorous.view({
+const TranslationResults = styled.View({
   padding: 12,
   width: "100%",
   alignItems: "center",
   justifyContent: "center",
 });
 
-const SectionTitle = glamorous.text({
+const SectionTitle = styled.Text({
   fontSize: 22,
   fontWeight: "bold",
   marginTop: 5,
   marginBottom: 5,
 });
 
-const InfoText = glamorous.text({
+const InfoText = styled.Text({
   marginTop: 5,
   marginBottom: 5,
   width: "80%",
   textAlign: "center",
 });
 
-const TranslationTextContainer = glamorous.touchableOpacity({
+const TranslationTextContainer = styled.TouchableOpacity({
   marginBottom: 15,
   flexDirection: "row",
   alignItems: "center",
@@ -270,7 +268,7 @@ const TranslationTextResult = ({
   );
 };
 
-const LineBreak = glamorous.view({
+const LineBreak = styled.View({
   width: "95%",
   backgroundColor: "black",
   height: StyleSheet.hairlineWidth,

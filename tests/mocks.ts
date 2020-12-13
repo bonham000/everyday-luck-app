@@ -51,7 +51,7 @@ const MULTIPLE_CHOICE_OPTIONS: Lesson = LESSON_DATA.slice(0, 4);
 const LESSON =
   process.env.NODE_ENV === "test" ? LESSON_BASE.slice(0, 1) : LESSON_BASE;
 
-const LESSONS: ReadonlyArray<HSKList> = HSK_LISTS;
+const LESSONS: HSKList[] = HSK_LISTS;
 
 const WORD_DICTIONARY = createWordDictionaryFromLessons(LESSONS);
 
@@ -82,6 +82,7 @@ const getLessonFiller = (complete = false) =>
   }, {});
 
 const DEFAULT_SCORE_STATE = {
+  // @ts-ignore
   hmcs97kF5: {
     complete: false,
     list_index: 0,
@@ -93,6 +94,7 @@ const DEFAULT_SCORE_STATE = {
 };
 
 const COMPLETED_SCORE_STATE = {
+  // @ts-ignore
   hmcs97kF5: {
     complete: true,
     list_index: 0,

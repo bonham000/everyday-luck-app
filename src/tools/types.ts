@@ -95,9 +95,9 @@ export interface HSKList {
   dictation?: Lesson;
 }
 
-export type Lesson = ReadonlyArray<Word>;
-export type LessonSet = ReadonlyArray<Lesson>;
-export type HSKListSet = ReadonlyArray<HSKList>;
+export type Lesson = Word[];
+export type LessonSet = Lesson[];
+export type HSKListSet = HSKList[];
 
 export type LessonSummaryType =
   | "SUMMARY"

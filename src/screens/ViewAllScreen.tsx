@@ -1,4 +1,4 @@
-import glamorous from "glamorous-native";
+import styled from "@emotion/native";
 import React from "react";
 import { FlatList, Keyboard } from "react-native";
 import { Searchbar } from "react-native-paper";
@@ -110,7 +110,7 @@ export class ViewAllScreenComponent extends React.Component<IProps, IState> {
  * =========================================================================
  */
 
-const WordBox = glamorous.touchableOpacity({
+const WordBox = styled.TouchableOpacity({
   padding: 8,
   width: "100%",
   paddingLeft: 12,
@@ -119,12 +119,12 @@ const WordBox = glamorous.touchableOpacity({
   backgroundColor: COLORS.background,
 });
 
-const WordText = glamorous.text({
+const WordText = styled.Text({
   padding: 4,
   paddingLeft: 8,
 });
 
-const SmallText = glamorous.text({
+const SmallText = styled.Text({
   fontSize: 14,
 });
 

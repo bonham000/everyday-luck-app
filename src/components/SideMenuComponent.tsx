@@ -1,5 +1,5 @@
+import styled from "@emotion/native";
 import Constants from "expo-constants";
-import glamorous from "glamorous-native";
 import React from "react";
 import {
   Image,
@@ -161,7 +161,7 @@ class SideMenuComponent extends React.Component<IProps, {}> {
  * =========================================================================
  */
 
-const BottomBlock = glamorous.view({
+const BottomBlock = styled.View({
   flex: 1,
   paddingBottom: 32,
   // left: 6,
@@ -182,29 +182,29 @@ const SmallItem = ({ children, onPress, style }: any) => (
   </TouchableOpacity>
 );
 
-const ItemText = glamorous.text({
+const ItemText = styled.Text({
   fontSize: 16,
   marginTop: 45,
   marginLeft: 12,
 });
 
-const Bold = glamorous.text({
+const Bold = styled.Text({
   fontWeight: "600",
 });
 
-const SmallText = glamorous.text({
+const SmallText = styled.Text({
   fontSize: 16,
   marginTop: 4,
   marginLeft: 12,
 });
 
-const LinkText = glamorous.text({
+const LinkText = styled.Text({
   fontSize: 14,
   fontWeight: "500",
   color: COLORS.primaryBlue,
 });
 
-const LineBreak = glamorous.view({
+const LineBreak = styled.View({
   width: "90%",
   marginTop: 12,
   marginLeft: 12,

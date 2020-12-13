@@ -113,7 +113,7 @@ export const setWordStudyList = async (wordList: WordStudyList) => {
  * =========================================================================
  */
 
-export type CustomWordStudyList = ReadonlyArray<Word>;
+export type CustomWordStudyList = Word[];
 
 export const getCustomWordStudyList = async (): Promise<
   CustomWordStudyList
@@ -164,7 +164,7 @@ export const getOfflineUpdatesFlagState = async (): Promise<
     const result = await AsyncStorage.getItem(
       ASYNC_STORE_KEYS.OFFLINE_UPDATES_FLAG,
     );
-    const flag = JSON.parse(result);
+    const flag = JSON.parse(result || "");
     return flag || DEFAULT_FLAG_STATE;
   } catch (err) {
     return DEFAULT_FLAG_STATE;

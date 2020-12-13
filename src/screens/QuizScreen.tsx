@@ -1,5 +1,5 @@
+import styled from "@emotion/native";
 import { Ionicons } from "@expo/vector-icons";
-import glamorous from "glamorous-native";
 import React from "react";
 import { Alert, Keyboard, TouchableWithoutFeedback } from "react-native";
 import ActionButton from "react-native-action-button";
@@ -88,16 +88,13 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     this.state = this.getInitialState();
   }
 
-  getInitialState = () => {
-    const { autoProceedQuestion, disableAudio, navigation } = this.props;
+  getInitialState = (): IState => {
+    const { navigation } = this.props;
     const lesson = navigation.getParam("lesson");
     return {
       value: "",
-      skipCount: 0,
       failCount: 0,
       valid: false,
-      disableAudio,
-      autoProceedQuestion,
       initalizing: true,
       attempted: false,
       shouldShake: false,
@@ -107,7 +104,6 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
       didReveal: false,
       revealAnswer: false,
       quizFinished: false,
-      encouragementText: "",
       wordCompletedCache: new Set(),
       wordContent: knuthShuffle(lesson),
       quizType: this.getQuizComponentType(),
@@ -774,7 +770,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
  * =========================================================================
  */
 
-const ProgressText = glamorous.text({
+const ProgressText = styled.Text({
   fontSize: 10,
   justifyContent: "center",
 });

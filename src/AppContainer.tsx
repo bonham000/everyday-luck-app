@@ -1,5 +1,4 @@
-import { Updates } from "expo";
-import * as Amplitude from "expo-analytics-amplitude";
+import * as Updates from "expo-updates";
 import React from "react";
 import {
   Alert,
@@ -17,7 +16,6 @@ import {
   TransparentLoadingComponent,
 } from "@src/components/LoadingComponent";
 import { CustomToast } from "@src/components/ToastComponent";
-import EVENTS from "@src/constants/AnalyticsEvents";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import createAppNavigator from "@src/NavigatorConfig";
 import GlobalContext, {
@@ -34,7 +32,6 @@ import {
   getPersistedUser,
   saveUserToAsyncStorage,
 } from "@src/tools/async-store";
-import CONFIG from "@src/tools/config";
 import { HSKList, User } from "@src/tools/types";
 import {
   createWordDictionaryFromLessons,
@@ -42,7 +39,6 @@ import {
   formatUserLanguageSetting,
   getAlternateLanguageSetting,
   isEmailValid,
-  mapSettingsChangeToAnalyticsEvent,
 } from "@src/tools/utils";
 import MOCKS, { CUSTOM_WORD_LIST_TITLE, getNewDefaultUser } from "@tests/mocks";
 import { ListScoreSet } from "./lessons";
@@ -109,16 +105,11 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
 
   setupUserSessionFromPersistedUserData = async (persistedUser: User) => {
     if (persistedUser) {
-      this.setState(
-        {
-          loading: false,
-          user: persistedUser,
-          transparentLoading: false,
-        },
-        async () => {
-          this.initializeAmplitudeAnalyticsModule();
-        },
-      );
+      this.setState({
+        loading: false,
+        user: persistedUser,
+        transparentLoading: false,
+      });
     }
   };
 
@@ -145,18 +136,6 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
             optionalSuccessCallback();
           }
           this.performUserUpdate();
-
-          /**
-           * Log analytics for whatever change occurred.
-           */
-          for (const key in data) {
-            const event = mapSettingsChangeToAnalyticsEvent(key as Partial<
-              UserSettings
-            >);
-            if (event) {
-              this.logAnalyticsEvent(event);
-            }
-          }
         },
       );
     }
@@ -244,7 +223,7 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
         },
         async () => {
           await Updates.fetchUpdateAsync();
-          Updates.reloadFromCache();
+          Updates.reloadAsync();
         },
       );
     } catch (err) {
@@ -330,28 +309,6 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
     }
   };
 
-  initializeAmplitudeAnalyticsModule = () => {
-    if (this.state.user) {
-      try {
-        Amplitude.initialize(CONFIG.AMPLITUDE_API_KEY);
-        Amplitude.setUserId(this.state.user.uuid);
-      } catch (err) {
-        return;
-      }
-    }
-  };
-
-  logAnalyticsEvent = (event: EVENTS) => {
-    /**
-     * Log event to Amplitude
-     */
-    try {
-      Amplitude.logEvent(event);
-    } catch (err) {
-      return;
-    }
-  };
-
   handleSendContactEmail = (
     contactEmail: string,
     message: string,
@@ -400,28 +357,31 @@ class RootContainer extends RootContainerBase<{}> {
      * press the back button when it will close the app. Show them
      * a toast and allow them to press again to close the app.
      */
-    BackHandler.addEventListener("hardwareBackPress", () => {
-      if (this.canCloseApp()) {
-        if (!this.state.tryingToCloseApp) {
-          this.setState(
-            {
-              tryingToCloseApp: true,
-            },
-            () => this.setToastMessage("Press again to close app"),
-          );
-          return true;
-        } else {
-          return this.setState(
-            {
-              tryingToCloseApp: false,
-            },
-            BackHandler.exitApp,
-          );
+    BackHandler.addEventListener(
+      "hardwareBackPress",
+      (): any => {
+        if (this.canCloseApp()) {
+          if (!this.state.tryingToCloseApp) {
+            this.setState(
+              {
+                tryingToCloseApp: true,
+              },
+              () => this.setToastMessage("Press again to close app"),
+            );
+            return true;
+          } else {
+            return this.setState(
+              {
+                tryingToCloseApp: false,
+              },
+              BackHandler.exitApp,
+            );
+          }
         }
-      }
 
-      return false;
-    });
+        return false;
+      },
+    );
 
     /**
      * Check for updates when app is first opened.
@@ -433,9 +393,12 @@ class RootContainer extends RootContainerBase<{}> {
     /**
      * Remove listeners and clear any existing timeout.
      */
-    BackHandler.removeEventListener("hardwareBackPress", () => {
-      return;
-    });
+    BackHandler.removeEventListener(
+      "hardwareBackPress",
+      (): any => {
+        return;
+      },
+    );
 
     this.clearTimer();
   }
@@ -488,7 +451,6 @@ class RootContainer extends RootContainerBase<{}> {
       copyToClipboard: this.copyToClipboard,
       handleUpdateApp: this.handleUpdateApp,
       handleResetScores: this.handleResetScores,
-      logAnalyticsEvent: this.logAnalyticsEvent,
       reloadLessonSet: this.handleReloadLessonSet,
       handleSwitchLanguage: this.handleSwitchLanguage,
       updateExperiencePoints: this.updateExperiencePoints,
@@ -593,8 +555,6 @@ class RootContainer extends RootContainerBase<{}> {
         experience_points: updatedExperience,
       });
     }
-
-    this.logAnalyticsEvent(EVENTS.COMPLETED_LESSON);
   };
 
   handleResetScores = () => {

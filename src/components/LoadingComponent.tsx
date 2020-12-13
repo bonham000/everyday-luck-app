@@ -1,4 +1,4 @@
-import glamorous from "glamorous-native";
+import styled from "@emotion/native";
 import React from "react";
 import { ActivityIndicator } from "react-native";
 
@@ -39,21 +39,21 @@ const TransparentLoadingComponent = () => (
   </Container>
 );
 
-const WelcomeText = glamorous.text({
+const WelcomeText = styled.Text({
   marginTop: 55,
   fontSize: 45,
   fontWeight: "bold",
   color: COLORS.darkText,
 });
 
-const PinyinText = glamorous.text({
+const PinyinText = styled.Text({
   marginTop: 25,
   fontSize: 24,
   fontWeight: "bold",
   color: COLORS.darkText,
 });
 
-const EnglishText = glamorous.text({
+const EnglishText = styled.Text({
   marginTop: 15,
   fontSize: 18,
   fontWeight: "bold",
