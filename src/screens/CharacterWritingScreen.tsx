@@ -1,5 +1,5 @@
+import styled from "@emotion/native";
 import { Sketch } from "expo-pixi";
-import glamorous from "glamorous-native";
 import React from "react";
 import { Alert } from "react-native";
 import { NavigationScreenProp } from "react-navigation";
@@ -245,23 +245,23 @@ export class CharacterWritingScreenComponent extends React.Component<
 
 const CONTROLS_HEIGHT = 75;
 
-const ProgressText = glamorous.text({
+const ProgressText = styled.Text({
   marginTop: 8,
   fontSize: 10,
   textAlign: "center",
 });
 
-const CharacterHint = glamorous.text({
+const CharacterHint = styled.Text({
   marginTop: 10,
   fontSize: 20,
   textAlign: "center",
 });
 
-const Italic = glamorous.text({
+const Italic = styled.Text({
   fontStyle: "italic",
 });
 
-const CharacterContainer = glamorous.view({
+const CharacterContainer = styled.View({
   position: "absolute",
   top: 0,
   right: 0,
@@ -274,11 +274,11 @@ const CharacterContainer = glamorous.view({
   backgroundColor: "rgba(231, 237, 240, 0.85)",
 });
 
-const Character = glamorous.text({
+const Character = styled.Text({
   fontSize: 175,
 });
 
-const Controls = glamorous.view({
+const Controls = styled.View({
   height: CONTROLS_HEIGHT,
   backgroundColor: COLORS.actionButtonYellow,
   display: "flex",
@@ -286,13 +286,13 @@ const Controls = glamorous.view({
   justifyContent: "space-evenly",
 });
 
-const Control = glamorous.touchableOpacity({
+const Control = styled.TouchableOpacity({
   flex: 1,
   alignItems: "center",
   justifyContent: "center",
 });
 
-const ControlText = glamorous.text({
+const ControlText = styled.Text({
   fontSize: 18,
 });
 

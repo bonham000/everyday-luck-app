@@ -1,6 +1,5 @@
 import React, { ComponentType } from "react";
 
-import EVENTS from "@src/constants/AnalyticsEvents";
 import { ListScoreSet } from "@src/lessons";
 import GlobalStateContextValues, {
   APP_DIFFICULTY_SETTING,
@@ -48,7 +47,6 @@ export interface GlobalStateContextProps
     data: Partial<UserSettings>,
     optionalSuccessCallback?: (args?: any) => any,
   ) => void;
-  logAnalyticsEvent: (event: EVENTS) => void;
   handleSendContactEmail: (
     contactEmail: string,
     message: string,

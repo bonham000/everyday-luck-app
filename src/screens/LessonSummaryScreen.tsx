@@ -1,4 +1,4 @@
-import glamorous from "glamorous-native";
+import styled from "@emotion/native";
 import React from "react";
 import { StyleSheet } from "react-native";
 import { Text } from "react-native-paper";
@@ -326,7 +326,7 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
  * =========================================================================
  */
 
-const TextStyles = {
+const TextStyles: any = {
   fontSize: 16,
   width: "88%",
   fontWeight: "bold",
@@ -334,21 +334,21 @@ const TextStyles = {
   marginBottom: 16,
 };
 
-const SubTextStyles = {
+const SubTextStyles: any = {
   fontSize: 16,
   width: "85%",
   textAlign: "center",
   marginBottom: 16,
 };
 
-const SectionTextStyles = {
+const SectionTextStyles: any = {
   fontSize: 14,
   marginTop: 16,
   width: "88%",
   textAlign: "left",
 };
 
-const ActionBlock = glamorous.touchableOpacity({
+const ActionBlock = styled.TouchableOpacity({
   width: "90%",
   height: 50,
   margin: 6,
@@ -359,7 +359,7 @@ const ActionBlock = glamorous.touchableOpacity({
   backgroundColor: COLORS.lessonBlock,
 });
 
-const LineBreak = glamorous.view({
+const LineBreak = styled.View({
   width: "85%",
   marginTop: 12,
   marginBottom: 12,
@@ -367,7 +367,7 @@ const LineBreak = glamorous.view({
   height: StyleSheet.hairlineWidth,
 });
 
-const InfoText = glamorous.text({
+const InfoText = styled.Text({
   textAlign: "center",
   width: "85%",
   marginTop: 15,

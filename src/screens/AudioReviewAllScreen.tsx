@@ -1,5 +1,5 @@
+import styled from "@emotion/native";
 import * as Speech from "expo-speech";
-import glamorous from "glamorous-native";
 import React from "react";
 import { NavigationScreenProp } from "react-navigation";
 
@@ -218,40 +218,40 @@ export class AudioReviewAllScreen extends React.Component<IProps, IState> {
  * =========================================================================
  */
 
-const Container = glamorous.view({
+const Container = styled.View({
   flex: 1,
   display: "flex",
   alignItems: "center",
   backgroundColor: COLORS.background,
 });
 
-const TopSection = glamorous.view({});
+const TopSection = styled.View({});
 
-const ProgressText = glamorous.text({
+const ProgressText = styled.Text({
   marginTop: 8,
   fontSize: 10,
   textAlign: "center",
 });
 
-const Title = glamorous.text({
+const Title = styled.Text({
   fontSize: 18,
   marginTop: 16,
   textAlign: "center",
 });
 
-const WordTitle = glamorous.text({
+const WordTitle = styled.Text({
   fontSize: 45,
   fontWeight: "bold",
   textAlign: "center",
 });
 
-const AnswerTitle = glamorous.text({
+const AnswerTitle = styled.Text({
   fontSize: 22,
   fontWeight: "bold",
   textAlign: "center",
 });
 
-const WordContainer = glamorous.view({
+const WordContainer = styled.View({
   marginTop: 25,
   height: 85,
   width: "90%",
@@ -262,7 +262,7 @@ const WordContainer = glamorous.view({
   backgroundColor: COLORS.lightDark,
 });
 
-const AnswerContainer = glamorous.view({
+const AnswerContainer = styled.View({
   marginTop: 25,
   height: 75,
   width: "90%",

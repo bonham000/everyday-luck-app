@@ -1,4 +1,4 @@
-import glamorous from "glamorous-native";
+import styled from "@emotion/native";
 import React from "react";
 import {
   GestureResponderEvent,
@@ -224,7 +224,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
  * =========================================================================
  */
 
-const TitleContainer = glamorous.view({
+const TitleContainer = styled.View({
   marginTop: SMALL_DEVICE ? 15 : 25,
   marginBottom: SMALL_DEVICE ? 10 : 25,
   padding: 12,
@@ -234,12 +234,12 @@ const TitleContainer = glamorous.view({
   justifyContent: "center",
 });
 
-const Container = glamorous.view({
+const Container = styled.View({
   width: "100%",
   alignItems: "center",
 });
 
-const VoiceButton = glamorous.touchableOpacity({
+const VoiceButton = styled.TouchableOpacity({
   width: "85%",
   height: SMALL_DEVICE ? 40 : 55,
   alignItems: "center",
@@ -270,13 +270,13 @@ const QuizPromptText = ({
   );
 };
 
-const QuizSubText = glamorous.text({
+const QuizSubText = styled.Text({
   fontSize: 22,
   marginTop: 12,
   marginBottom: 12,
 });
 
-const AudioEscapeBlock = glamorous.touchableOpacity({
+const AudioEscapeBlock = styled.TouchableOpacity({
   right: 30,
   bottom: 25,
   height: 50,
@@ -285,7 +285,7 @@ const AudioEscapeBlock = glamorous.touchableOpacity({
   justifyContent: "center",
 });
 
-const AudioEscapeText = glamorous.text({
+const AudioEscapeText = styled.Text({
   textAlign: "right",
   fontSize: 14,
   fontWeight: "bold",

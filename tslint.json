@@ -78,7 +78,6 @@
     "whitespace": false,
     "no-parameter-reassignment": true,
     "typedef": [true, "call-signature"],
-    "readonly-array": true,
     "no-object-mutation": true,
     "no-delete": true,
     "no-method-signature": true

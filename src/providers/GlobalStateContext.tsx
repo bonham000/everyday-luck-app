@@ -1,6 +1,5 @@
 import React from "react";
 
-import EVENTS from "@src/constants/AnalyticsEvents";
 import { ListScoreSet } from "@src/lessons";
 import { HSKListSet, Word } from "@src/tools/types";
 
@@ -116,10 +115,6 @@ const GlobalStateContextValues = {
     optionalSuccessCallback?: (args?: any) => any,
   ) => {
     /* Handle updating user settings */
-    return;
-  },
-  logAnalyticsEvent: (event: EVENTS) => {
-    /* Handle logging event */
     return;
   },
   handleSendContactEmail: (

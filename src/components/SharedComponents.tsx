@@ -1,4 +1,4 @@
-import glamorous from "glamorous-native";
+import styled from "@emotion/native";
 import React from "react";
 import { ScrollView, StyleSheet, ViewStyle } from "react-native";
 
@@ -27,7 +27,7 @@ const Button = (buttonProps: ButtonProps) => {
   );
 };
 
-const ButtonBaseStyles = glamorous.touchableOpacity({
+const ButtonBaseStyles = styled.TouchableOpacity({
   marginTop: 15,
   marginBottom: 15,
   height: 40,
@@ -39,16 +39,16 @@ const ButtonBaseStyles = glamorous.touchableOpacity({
   backgroundColor: COLORS.primaryBlue,
 });
 
-const Bold = glamorous.text({
+const Bold = styled.Text({
   fontWeight: "bold",
 });
 
-const BasicContainer = glamorous.view({
+const BasicContainer = styled.View({
   flex: 1,
   backgroundColor: COLORS.background,
 });
 
-const Container = glamorous.view({
+const Container = styled.View({
   flex: 1,
   paddingTop: 25,
   alignItems: "center",
@@ -71,7 +71,7 @@ const ScrollContainer = (props: { children: any; style?: ViewStyle }) => (
   </ScrollView>
 );
 
-const LineBreak = glamorous.view({
+const LineBreak = styled.View({
   width: "85%",
   marginTop: 12,
   marginBottom: 12,
@@ -79,17 +79,17 @@ const LineBreak = glamorous.view({
   height: StyleSheet.hairlineWidth,
 });
 
-const Screen = glamorous.view({
+const Screen = styled.View({
   flex: 1,
   backgroundColor: COLORS.background,
 });
 
-const ScreenTop = glamorous.view({
+const ScreenTop = styled.View({
   flex: 8,
   width: "100%",
 });
 
-const ScreenBottom = glamorous.view({
+const ScreenBottom = styled.View({
   flex: 1,
   width: "100%",
   alignItems: "center",

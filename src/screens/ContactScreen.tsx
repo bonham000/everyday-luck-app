@@ -1,4 +1,4 @@
-import glamorous from "glamorous-native";
+import styled from "@emotion/native";
 import React from "react";
 import { Keyboard, TouchableWithoutFeedback } from "react-native";
 import { TextInput } from "react-native-paper";
@@ -102,14 +102,14 @@ export class ContactScreenComponent extends React.Component<IProps, IState> {
  * =========================================================================
  */
 
-const SectionTitle = glamorous.text({
+const SectionTitle = styled.Text({
   fontSize: 22,
   fontWeight: "bold",
   marginTop: 5,
   marginBottom: 5,
 });
 
-const InfoText = glamorous.text({
+const InfoText = styled.Text({
   marginTop: 12,
   marginBottom: 12,
   width: "80%",

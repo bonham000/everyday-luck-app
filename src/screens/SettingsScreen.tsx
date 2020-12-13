@@ -1,4 +1,4 @@
-import glamorous from "glamorous-native";
+import styled from "@emotion/native";
 import React from "react";
 import { StyleSheet } from "react-native";
 import { Text } from "react-native-paper";
@@ -137,21 +137,21 @@ export class SettingsScreenComponent extends React.Component<IProps, {}> {
  * =========================================================================
  */
 
-const SectionTitle = glamorous.text({
+const SectionTitle = styled.Text({
   fontSize: 22,
   fontWeight: "bold",
   marginTop: 5,
   marginBottom: 5,
 });
 
-const InfoText = glamorous.text({
+const InfoText = styled.Text({
   marginTop: 5,
   marginBottom: 5,
   width: "80%",
   textAlign: "center",
 });
 
-const LineBreak = glamorous.view({
+const LineBreak = styled.View({
   width: "85%",
   marginTop: 12,
   marginBottom: 12,
@@ -159,7 +159,7 @@ const LineBreak = glamorous.view({
   height: StyleSheet.hairlineWidth,
 });
 
-const DifficultSettingBlock = glamorous.touchableOpacity(
+const DifficultSettingBlock = styled.TouchableOpacity(
   {
     marginTop: 10,
     width: "85%",
@@ -179,7 +179,7 @@ const DifficultSettingBlock = glamorous.touchableOpacity(
 const getFontStyle = (selected: boolean): "normal" | "bold" =>
   selected ? "bold" : "normal";
 
-const DifficultSettingBlockText = glamorous.text(
+const DifficultSettingBlockText = styled.Text(
   {},
   ({ selected }: { selected: boolean }) => ({
     fontWeight: getFontStyle(selected),

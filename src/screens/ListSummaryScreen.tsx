@@ -1,4 +1,4 @@
-import glamorous from "glamorous-native";
+import styled from "@emotion/native";
 import React from "react";
 import { FlatList, TextStyle, View } from "react-native";
 import { Text } from "react-native-paper";
@@ -276,7 +276,7 @@ export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
  * =========================================================================
  */
 
-const Container = glamorous.view({
+const Container = styled.View({
   flex: 1,
   width: "100%",
   backgroundColor: COLORS.background,
@@ -288,7 +288,7 @@ const FlatListStyles = {
   paddingRight: 15,
 };
 
-const LessonBlock = glamorous.touchableOpacity({
+const LessonBlock = styled.TouchableOpacity({
   height: 50,
   padding: 12,
   margin: 4,
@@ -299,7 +299,7 @@ const LessonBlock = glamorous.touchableOpacity({
   backgroundColor: COLORS.lessonBlockDefault,
 });
 
-const TitleText = glamorous.text({
+const TitleText = styled.Text({
   fontSize: 16,
   width: "100%",
   fontWeight: "bold",
@@ -308,14 +308,14 @@ const TitleText = glamorous.text({
   marginBottom: 15,
 });
 
-const SubText = glamorous.text({
+const SubText = styled.Text({
   fontSize: 13,
   width: "100%",
   marginBottom: 6,
   textAlign: "center",
 });
 
-const OptOutBlock = glamorous.view({
+const OptOutBlock = styled.View({
   paddingTop: 15,
   paddingBottom: 25,
   paddingLeft: 15,
@@ -324,7 +324,7 @@ const OptOutBlock = glamorous.view({
   borderTopColor: COLORS.fadedText,
 });
 
-const LessonBlockText = glamorous.text(
+const LessonBlockText = styled.Text(
   {},
   (props: { isLocked: boolean }) =>
     (props.isLocked

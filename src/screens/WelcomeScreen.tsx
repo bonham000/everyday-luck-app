@@ -1,5 +1,5 @@
+import styled from "@emotion/native";
 import { WebBrowser } from "expo";
-import glamorous from "glamorous-native";
 import React from "react";
 import { Switch } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
@@ -177,7 +177,7 @@ export class WelcomeScreenComponent extends React.Component<IProps, IState> {
  * =========================================================================
  */
 
-const DescriptionText = glamorous.text({
+const DescriptionText = styled.Text({
   marginTop: 18,
   fontSize: 18,
   width: "90%",
@@ -185,7 +185,7 @@ const DescriptionText = glamorous.text({
   textAlign: "center",
 });
 
-const TermsText = glamorous.text({
+const TermsText = styled.Text({
   marginLeft: 10,
   width: "75%",
   fontSize: 14,
@@ -193,12 +193,12 @@ const TermsText = glamorous.text({
   textAlign: "center",
 });
 
-const LinkText = glamorous.text({
+const LinkText = styled.Text({
   fontWeight: "500",
   color: COLORS.primaryBlue,
 });
 
-const AgreementContainer = glamorous.view({
+const AgreementContainer = styled.View({
   width: "90%",
   flexDirection: "row",
   alignItems: "center",

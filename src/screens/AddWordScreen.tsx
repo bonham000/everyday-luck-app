@@ -1,4 +1,4 @@
-import glamorous from "glamorous-native";
+import styled from "@emotion/native";
 import React from "react";
 import { Alert, StyleSheet } from "react-native";
 import { TextInput } from "react-native-paper";
@@ -221,14 +221,14 @@ export class AddWordScreenComponent extends React.Component<IProps, IState> {
  * =========================================================================
  */
 
-const SectionTitle = glamorous.text({
+const SectionTitle = styled.Text({
   fontSize: 22,
   fontWeight: "bold",
   marginTop: 5,
   marginBottom: 5,
 });
 
-const LineBreak = glamorous.view({
+const LineBreak = styled.View({
   width: "85%",
   marginTop: 12,
   marginBottom: 12,
@@ -243,30 +243,30 @@ const TextInputStyles = {
   backgroundColor: "rgb(231,237,240)",
 };
 
-const InfoText = glamorous.text({
+const InfoText = styled.Text({
   marginTop: 5,
   marginBottom: 5,
   width: "85%",
   textAlign: "center",
 });
 
-const WordText = glamorous.text({
+const WordText = styled.Text({
   fontSize: 16,
 });
 
-const WordView = glamorous.view({
+const WordView = styled.View({
   flex: 6,
   paddingLeft: 8,
 });
 
-const WordContainer = glamorous.view({
+const WordContainer = styled.View({
   marginTop: 8,
   paddingHorizontal: 25,
   flexDirection: "row",
   alignItems: "center",
 });
 
-const RemoveWordButton = glamorous.touchableOpacity({
+const RemoveWordButton = styled.TouchableOpacity({
   flex: 1,
   padding: 6,
   alignItems: "center",

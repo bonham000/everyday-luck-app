@@ -1,4 +1,4 @@
-import glamorous from "glamorous-native";
+import styled from "@emotion/native";
 import React from "react";
 import { NavigationScreenProp } from "react-navigation";
 
@@ -36,7 +36,7 @@ export class RadicalsScreenComponent extends React.Component<IProps, {}> {
  * =========================================================================
  */
 
-const DescriptionText = glamorous.text({
+const DescriptionText = styled.Text({
   marginTop: 18,
   fontSize: 18,
   width: "90%",
@@ -44,7 +44,7 @@ const DescriptionText = glamorous.text({
   textAlign: "center",
 });
 
-const Italics = glamorous.text({
+const Italics = styled.Text({
   marginTop: 24,
   fontStyle: "italic",
 });

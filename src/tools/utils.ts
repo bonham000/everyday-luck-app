@@ -1,6 +1,3 @@
-import { ConnectionInfo } from "react-native";
-
-import EVENTS from "@src/constants/AnalyticsEvents";
 import ENGLISH_WORDS from "@src/constants/EnglishWords";
 import HSK_LISTS, {
   ListScore,
@@ -12,7 +9,6 @@ import {
   APP_LANGUAGE_SETTING,
   DIFFICULTY_TO_LESSON_SIZE_MAP,
   QUIZ_TYPE,
-  UserSettings,
   WordDictionary,
 } from "@src/providers/GlobalStateContext";
 import { convertChineseToPinyin, fetchWordTranslation } from "@src/tools/api";
@@ -86,7 +82,7 @@ export const mapWordsForList = (word: Word) => ({
  * @param array input
  * @returns input array, shuffled
  */
-export const knuthShuffle = <T>(array: ReadonlyArray<T>): ReadonlyArray<T> => {
+export const knuthShuffle = <T>(array: T[]): T[] => {
   let currentIndex = array.length;
   let temporaryValue;
   let randomIndex;
@@ -129,7 +125,7 @@ export const getAlternateChoices = (
   let idx: number;
   let option: Word;
   const chosen: Set<number> = new Set();
-  let choices: ReadonlyArray<Word> = [word];
+  let choices: Word[] = [word];
 
   while (choices.length < 4) {
     idx = randomInRange(0, alternates.length);
@@ -188,7 +184,7 @@ const getEnglishAlternateWords = (
   let idx: number;
   let option: string;
   const chosen: Set<string> = new Set([word.english]);
-  let choices: ReadonlyArray<string> = [];
+  let choices: string[] = [];
 
   while (choices.length < 4) {
     idx = randomInRange(0, alternateEnglishWords.length);
@@ -203,6 +199,7 @@ const getEnglishAlternateWords = (
   return [
     word,
     ...knuthShuffle(choices).map(choice => ({
+      // @ts-ignore
       english: choice,
       ...wordDictionary[choice.toLowerCase()],
     })),
@@ -427,9 +424,7 @@ export const getReviewLessonSet = (args: DeriveLessonContentArgs) => {
  * @param `DeriveLessonContentArgs`
  * @returns merged word lists of all unlocked words
  */
-const getAllUnlockedWordContent = (
-  args: DeriveLessonContentArgs,
-): ReadonlyArray<Word> => {
+const getAllUnlockedWordContent = (args: DeriveLessonContentArgs): Word[] => {
   const {
     lists,
     unlockedListIndex,
@@ -521,11 +516,8 @@ export const getAlternateLanguageSetting = (
  * @param batchSize size of batches
  * @returns batched result
  */
-const batchList = <T>(
-  data: ReadonlyArray<T>,
-  batchSize: number = 10,
-): ReadonlyArray<ReadonlyArray<T>> => {
-  let result: ReadonlyArray<ReadonlyArray<T>> = [];
+const batchList = <T>(data: T[], batchSize: number = 10): T[][] => {
+  let result: T[][] = [];
 
   for (let i = 0; i < data.length; i += batchSize) {
     result = result.concat([data.slice(i, i + batchSize)]);
@@ -713,7 +705,7 @@ export const translateWord = async (
  * @param type ConnectionInfo type result
  * @param true if the network is online
  */
-export const isNetworkConnected = (type: ConnectionInfo["type"]): boolean => {
+export const isNetworkConnected = (type: any): boolean => {
   return type !== "none";
 };
 
@@ -884,29 +876,6 @@ export const determineAnyPossibleCorrectAnswerForFreeInput = (
     correct: false,
     correctWord: word,
   };
-};
-
-/**
- * Map a user settings change to the associated analytics event.
- *
- * @param setting Settings data changed
- * @returns `EVENTS` Analytics event type to record
- */
-export const mapSettingsChangeToAnalyticsEvent = (
-  setting: Partial<UserSettings>,
-): EVENTS | null => {
-  switch (setting) {
-    case "disable_audio":
-      return EVENTS.TOGGLE_AUDIO_SETTING;
-    case "auto_proceed_question":
-      return EVENTS.TOGGLE_AUTO_PROCEED_QUIZ;
-    case "language_setting":
-      return EVENTS.SET_APP_LANGUAGE;
-    case "app_difficulty_setting":
-      return EVENTS.SET_APP_DIFFICULTY;
-  }
-
-  return null;
 };
 
 /**

@@ -33,11 +33,12 @@ class ShakerComponent extends Component<IProps, {}> {
 
   shake = () => {
     this.SHAKER.setValue(0);
-    Animated.spring(this.SHAKER, {
+    const options: any = {
       toValue: 1,
       friction: 3,
       tension: 10,
-    }).start(() => {
+    };
+    Animated.spring(this.SHAKER, options).start(() => {
       this.SHAKER.setValue(0);
     });
   };
@@ -62,10 +63,12 @@ class ShakerComponent extends Component<IProps, {}> {
       ],
     };
 
+    const View: any = Animated.View;
+
     return (
-      <Animated.View {...rest} style={[animatedStyle, style]}>
+      <View {...rest} style={[animatedStyle, style]}>
         {children}
-      </Animated.View>
+      </View>
     );
   }
 }

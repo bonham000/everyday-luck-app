@@ -1,4 +1,4 @@
-import glamorous from "glamorous-native";
+import styled from "@emotion/native";
 import React from "react";
 import { Alert, StyleSheet } from "react-native";
 import { TextInput } from "react-native-paper";
@@ -241,14 +241,14 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
  * =========================================================================
  */
 
-const SectionTitle = glamorous.text({
+const SectionTitle = styled.Text({
   fontSize: 22,
   fontWeight: "bold",
   marginTop: 5,
   marginBottom: 5,
 });
 
-const LineBreak = glamorous.view({
+const LineBreak = styled.View({
   width: "85%",
   marginTop: 12,
   marginBottom: 12,
@@ -263,7 +263,7 @@ const TextInputStyles = {
   backgroundColor: "rgb(231,237,240)",
 };
 
-const InfoText = glamorous.text({
+const InfoText = styled.Text({
   marginTop: 5,
   marginBottom: 5,
   width: "80%",

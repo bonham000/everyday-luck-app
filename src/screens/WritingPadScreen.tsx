@@ -1,5 +1,5 @@
+import styled from "@emotion/native";
 import { Sketch } from "expo-pixi";
-import glamorous from "glamorous-native";
 import React from "react";
 import { NavigationScreenProp } from "react-navigation";
 
@@ -111,7 +111,7 @@ export class WritingPadScreenComponent extends React.Component<IProps, IState> {
 
 const CONTROLS_HEIGHT = 75;
 
-const Controls = glamorous.view({
+const Controls = styled.View({
   height: CONTROLS_HEIGHT,
   backgroundColor: COLORS.actionButtonYellow,
   display: "flex",
@@ -119,13 +119,13 @@ const Controls = glamorous.view({
   justifyContent: "space-evenly",
 });
 
-const Control = glamorous.touchableOpacity({
+const Control = styled.TouchableOpacity({
   flex: 1,
   alignItems: "center",
   justifyContent: "center",
 });
 
-const ControlText = glamorous.text({
+const ControlText = styled.Text({
   fontSize: 18,
 });
 

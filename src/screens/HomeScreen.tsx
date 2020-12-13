@@ -1,4 +1,4 @@
-import glamorous from "glamorous-native";
+import styled from "@emotion/native";
 import React from "react";
 import { TextStyle } from "react-native";
 import { Text } from "react-native-paper";
@@ -267,7 +267,7 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
  * =========================================================================
  */
 
-const LessonBlock = glamorous.touchableOpacity({
+const LessonBlock = styled.TouchableOpacity({
   width: "90%",
   height: 50,
   padding: 12,
@@ -279,7 +279,7 @@ const LessonBlock = glamorous.touchableOpacity({
   backgroundColor: "rgb(225,225,225)",
 });
 
-const ReviewLink = glamorous.touchableOpacity({
+const ReviewLink = styled.TouchableOpacity({
   width: "90%",
   height: 50,
   padding: 12,
@@ -290,7 +290,7 @@ const ReviewLink = glamorous.touchableOpacity({
   backgroundColor: COLORS.actionButtonMint,
 });
 
-const TextStyles = {
+const TextStyles: any = {
   fontSize: 16,
   width: "88%",
   fontWeight: "bold",
@@ -298,7 +298,7 @@ const TextStyles = {
   marginBottom: 16,
 };
 
-const LineBreak = glamorous.view({
+const LineBreak = styled.View({
   width: "85%",
   height: 1,
   marginTop: 16,
@@ -306,7 +306,7 @@ const LineBreak = glamorous.view({
   backgroundColor: COLORS.line,
 });
 
-const LessonBlockText = glamorous.text(
+const LessonBlockText = styled.Text(
   {},
   (props: { mtcLesson: boolean; isLocked: boolean }) =>
     (props.isLocked
