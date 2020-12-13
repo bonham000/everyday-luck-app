@@ -78,8 +78,8 @@ export class WelcomeScreenComponent extends React.Component<IProps, IState> {
             </DescriptionText>
             <DescriptionText>
               We are excited you are learning Chinese! We're here to make that
-              easy and fun. This app is free to use and we collect no personal
-              data.
+              easy and fun. This app is free to use as a tool for learning
+              Chinese.
             </DescriptionText>
             <DescriptionText>
               First we want to give you a quick introduction to Chinese and how
