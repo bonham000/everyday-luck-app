@@ -3,7 +3,6 @@
   "extends": ["tslint:recommended", "tslint-immutable"],
   "jsRules": {},
   "rules": {
-    "align": [true, "elements"],
     "await-promise": true,
     "no-empty-interface": true,
     "ban-comma-operator": true,
