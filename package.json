@@ -60,7 +60,6 @@
     "react-native-screens": "~2.15.0",
     "react-native-svg": "12.1.0",
     "react-navigation": "^3.11.1",
-    "sentry-expo": "~1.13.0",
     "uuid": "^3.3.3"
   },
   "devDependencies": {

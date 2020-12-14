@@ -16,7 +16,7 @@ module.exports = {
     "<rootDir>/node_modules/",
   ],
   transformIgnorePatterns: [
-    "node_modules/(?!((jest-)?react-native|react-clone-referenced-element|expo(nent)?|@expo(nent)?/.*|@unimodules|react-navigation|sentry-expo|glamorous-native))",
+    "node_modules/(?!((jest-)?react-native|react-clone-referenced-element|expo(nent)?|@expo(nent)?/.*|@unimodules|react-navigation|glamorous-native))",
   ],
   moduleFileExtensions: [
     "ts",
