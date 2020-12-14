@@ -1,6 +1,6 @@
 import React from "react";
 import { Provider as ReactNativePaperProvider } from "react-native-paper";
-// import { useScreens } from "react-native-screens";
+import { enableScreens } from "react-native-screens";
 import Sentry from "sentry-expo";
 
 import App from "@src/AppContainer";
@@ -12,7 +12,7 @@ import { APP_THEME } from "@src/constants/Theme";
  */
 
 /* Enable react-native-screens */
-// useScreens();
+enableScreens();
 
 /* Workaround for an issue with screen navigation */
 import "react-native-gesture-handler";
