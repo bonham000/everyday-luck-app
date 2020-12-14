@@ -5,15 +5,6 @@ import Lesson_05 from "@src/lessons/05";
 import Lesson_06 from "@src/lessons/06";
 import Lesson_07 from "@src/lessons/07";
 import Lesson_08 from "@src/lessons/08";
-import Lesson_09 from "@src/lessons/09";
-import Lesson_10 from "@src/lessons/10";
-import Lesson_11 from "@src/lessons/11";
-import Lesson_12 from "@src/lessons/12";
-import Lesson_13 from "@src/lessons/13";
-import Lesson_14 from "@src/lessons/14";
-import Lesson_15 from "@src/lessons/15";
-import Lesson_16 from "@src/lessons/16";
-import Lesson_17 from "@src/lessons/17";
 
 import { HSKList, HSKListSet } from "@src/tools/types";
 
@@ -103,15 +94,6 @@ const HSK_LISTS: HSKListSet = [
   Lesson_06,
   Lesson_07,
   Lesson_08,
-  Lesson_09,
-  Lesson_10,
-  Lesson_11,
-  Lesson_12,
-  Lesson_13,
-  Lesson_14,
-  Lesson_15,
-  Lesson_16,
-  Lesson_17,
 ].map(filterEmptyWords);
 
 export default HSK_LISTS;

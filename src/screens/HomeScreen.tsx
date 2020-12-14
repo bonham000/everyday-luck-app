@@ -53,14 +53,9 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
     const CUSTOM_WORD_LIST_EXISTS =
       lessons[lessons.length - 1].title === CUSTOM_WORD_LIST_TITLE;
 
+    const MTC = lessons.slice(6, 7)[0];
     // Total garbage code
-    const totalWordsMTC = lessons
-      .slice(6, CUSTOM_WORD_LIST_EXISTS ? lessons.length - 1 : Infinity) // What!
-      .reduce(
-        (total, lesson) =>
-          Boolean(lesson.title) ? total + lesson.content.length : total,
-        0,
-      );
+    const totalWordsMTC = MTC.content.length;
 
     const generalVocabularyListWords = lessons[5].content.length;
     const customListWords = !CUSTOM_WORD_LIST_EXISTS
