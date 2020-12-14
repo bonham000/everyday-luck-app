@@ -55,10 +55,14 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
       userScoreStatus,
       listIndex,
     );
+    const IS_SHUFFLE_QUIZ = type === "SHUFFLE_QUIZ";
     const IS_DAILY_QUIZ = type === "DAILY_QUIZ";
     const IS_OPT_OUT_CHALLENGE = type === "OPT_OUT_CHALLENGE";
     const NON_RANDOM_QUIZ =
-      type !== "DAILY_QUIZ" && type !== "OPT_OUT_CHALLENGE";
+      type !== "SHUFFLE_QUIZ" &&
+      type !== "DAILY_QUIZ" &&
+      type !== "OPT_OUT_CHALLENGE";
+
     return (
       <ScrollContainer>
         {this.renderTitleText()}
@@ -76,6 +80,21 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
                 Start the Quiz!
               </Text>
               <Text>🏟</Text>
+            </ActionBlock>
+          </React.Fragment>
+        )}
+        {IS_SHUFFLE_QUIZ && (
+          <React.Fragment>
+            <LineBreak />
+            <ActionBlock
+              onPress={this.handleNavigateToSection(
+                ROUTE_NAMES.DAILY_CHALLENGE,
+              )}
+            >
+              <Text style={{ color: COLORS.white, fontWeight: "bold" }}>
+                Start the Quiz!
+              </Text>
+              <Text>📟</Text>
             </ActionBlock>
           </React.Fragment>
         )}
@@ -165,6 +184,13 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
               <Text>Review All Content</Text>
               <Text>🗃</Text>
             </ActionBlock>
+            <ActionBlock
+              onPress={this.navigateToPracticeQuiz}
+              style={{ backgroundColor: COLORS.actionButtonMint }}
+            >
+              <Text>Shuffle Quiz</Text>
+              <Text>📟</Text>
+            </ActionBlock>
           </React.Fragment>
         )}
         {IS_DAILY_QUIZ && (
@@ -174,6 +200,14 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
               prompt you each day with a quiz on the content you've already
               learned.
             </InfoText>
+            <InfoText>
+              The 4 quiz options will be mixed randomly within the quiz for a
+              more interesting challenge - enjoy!
+            </InfoText>
+          </React.Fragment>
+        )}
+        {IS_SHUFFLE_QUIZ && (
+          <React.Fragment>
             <InfoText>
               The 4 quiz options will be mixed randomly within the quiz for a
               more interesting challenge - enjoy!
@@ -216,6 +250,9 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
       <React.Fragment>
         {type === "LESSON" && <Text style={TextStyles}>Lesson Summary</Text>}
         {type === "SUMMARY" && <Text style={TextStyles}>Content Summary</Text>}
+        {type === "SHUFFLE_QUIZ" && (
+          <Text style={TextStyles}>Shuffle Quiz</Text>
+        )}
         {type === "DAILY_QUIZ" && (
           <Text style={TextStyles}>Daily Quiz - 天天桔 🍊</Text>
         )}
@@ -251,6 +288,11 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
           <Text style={SubTextStyles}>
             There are {COUNT} random words selected for you! Practicing daily is
             the best way to build up experience points!
+          </Text>
+        )}
+        {type === "SHUFFLE_QUIZ" && (
+          <Text style={SubTextStyles}>
+            This is a good way to review the content in this lesson.
           </Text>
         )}
         {type === "OPT_OUT_CHALLENGE" &&
@@ -318,6 +360,20 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
       lesson: randomQuizSet,
     };
     this.props.navigation.navigate(routeName, params);
+  };
+
+  navigateToPracticeQuiz = () => {
+    const lesson = this.props.navigation.getParam("lesson");
+    const params: LessonScreenParams = {
+      lesson,
+      type: "SHUFFLE_QUIZ",
+      listIndex: Infinity,
+      lessonIndex: Infinity,
+      isFinalLesson: false,
+      isFinalUnlockedLesson: false,
+    };
+
+    this.props.navigation.navigate(ROUTE_NAMES.LESSON_SUMMARY, params);
   };
 }
 

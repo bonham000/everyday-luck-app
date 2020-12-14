@@ -103,6 +103,7 @@ export type LessonSummaryType =
   | "SUMMARY"
   | "DAILY_QUIZ"
   | "LESSON"
+  | "SHUFFLE_QUIZ"
   | "OPT_OUT_CHALLENGE";
 
 export interface ListScreenParams {

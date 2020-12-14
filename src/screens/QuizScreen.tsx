@@ -175,7 +175,9 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
   getQuizComponentType = (): QUIZ_TYPE => {
     const type = this.props.navigation.getParam("type");
     const IS_RANDOM_QUIZ =
-      type === "DAILY_QUIZ" || type === "OPT_OUT_CHALLENGE";
+      type === "SHUFFLE_QUIZ" ||
+      type === "DAILY_QUIZ" ||
+      type === "OPT_OUT_CHALLENGE";
 
     if (IS_RANDOM_QUIZ) {
       /**
@@ -675,7 +677,11 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     lessonType: LessonSummaryType,
   ) => {
     this.stopConfettiAnimation();
-    if (lessonType === "OPT_OUT_CHALLENGE" || lessonType === "DAILY_QUIZ") {
+    if (
+      lessonType === "DAILY_QUIZ" ||
+      lessonType === "SHUFFLE_QUIZ" ||
+      lessonType === "OPT_OUT_CHALLENGE"
+    ) {
       this.props.navigation.navigate(ROUTE_NAMES.HOME);
     } else if (lessonCompleted) {
       if (isFinalLesson) {

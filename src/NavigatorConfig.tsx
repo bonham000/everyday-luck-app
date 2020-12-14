@@ -83,6 +83,8 @@ const ROUTES: NavigationScreenRouteConfig = {
             ? "Review All 🔮"
             : type === "DAILY_QUIZ"
             ? "Daily Quiz!"
+            : type === "SHUFFLE_QUIZ"
+            ? "Shuffle Quiz"
             : hskListTitle,
         headerBackTitle: null,
       };

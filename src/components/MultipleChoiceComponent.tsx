@@ -141,17 +141,14 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
      */
     if (quizType !== QUIZ_TYPE.PRONUNCIATION) {
       const correctWord = currentWord[languageSetting];
-      const renderEnglish = false; // Do not display English text...
       return (
         <TitleContainer>
-          {renderEnglish && (
-            <QuizPromptText quizType={quizType}>
-              {quizType === QUIZ_TYPE.ENGLISH
-                ? correctWord
-                : currentWord.english}
-            </QuizPromptText>
+          {quizType === QUIZ_TYPE.ENGLISH && (
+            <QuizPromptText quizType={quizType}>{correctWord}</QuizPromptText>
           )}
-          <QuizSubText>{currentWord.pinyin}</QuizSubText>
+          {quizType !== QUIZ_TYPE.ENGLISH && (
+            <QuizSubText>{currentWord.pinyin}</QuizSubText>
+          )}
         </TitleContainer>
       );
     }
