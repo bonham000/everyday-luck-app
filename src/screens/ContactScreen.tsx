@@ -118,7 +118,7 @@ const InfoText = styled.Text({
 
 const TextInputStyles = {
   width: "90%",
-  fontSize: 34,
+  fontSize: 18,
   marginTop: 10,
   backgroundColor: COLORS.background,
 };

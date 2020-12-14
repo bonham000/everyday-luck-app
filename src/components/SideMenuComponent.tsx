@@ -57,14 +57,18 @@ class SideMenuComponent extends React.Component<IProps, {}> {
       <SafeAreaView
         style={{
           flex: 1,
+          paddingLeft: 6,
           justifyContent: "space-evenly",
           paddingTop: SMALL_DEVICE ? 35 : 75,
-          paddingLeft: 6,
         }}
         forceInset={{ top: "always", horizontal: "never" }}
       >
         <View
-          style={{ flex: 1, flexDirection: "row", justifyContent: "center" }}
+          style={{
+            flex: 1,
+            flexDirection: "row",
+            justifyContent: "center",
+          }}
         >
           <Image
             resizeMode="contain"
@@ -92,11 +96,11 @@ class SideMenuComponent extends React.Component<IProps, {}> {
             <Item onPress={this.createNavigationHandler(ROUTE_NAMES.NOTE_PAD)}>
               🗂 Note Pad
             </Item>
-            <Item onPress={this.createNavigationHandler(ROUTE_NAMES.RADICALS)}>
+            {/* <Item onPress={this.createNavigationHandler(ROUTE_NAMES.RADICALS)}>
               🍰
               {"  "}
               Radicals
-            </Item>
+            </Item> */}
             <Item onPress={this.createNavigationHandler(ROUTE_NAMES.SETTINGS)}>
               📔
               {"  "}
@@ -164,10 +168,6 @@ class SideMenuComponent extends React.Component<IProps, {}> {
 const BottomBlock = styled.View({
   flex: 1,
   paddingBottom: 32,
-  // left: 6,
-  // bottom: 0,
-  // height: 120,
-  // position: "absolute",
 });
 
 const Item = ({ children, onPress, style }: any) => (

@@ -179,7 +179,7 @@ const LineBreak = styled.View({
 
 const TextInputStyles = {
   width: "90%",
-  fontSize: 34,
+  fontSize: 20,
   marginTop: 6,
   backgroundColor: "rgb(231,237,240)",
 };

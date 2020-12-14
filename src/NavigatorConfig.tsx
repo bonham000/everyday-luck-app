@@ -31,7 +31,7 @@ import AboutDetailScreenComponent from "./screens/AboutDetailScreen";
 import AddWordScreenComponent from "./screens/AddWordScreen";
 import AudioReviewAllScreen from "./screens/AudioReviewAllScreen";
 import NotePadScreen from "./screens/NotePadScreen";
-import RadicalsScreenComponent from "./screens/RadicalsScreen";
+// import RadicalsScreenComponent from "./screens/RadicalsScreen";
 import WritingPadScreenComponent from "./screens/WritingPadScreen";
 
 /** ========================================================================
@@ -215,13 +215,13 @@ const ROUTES: NavigationScreenRouteConfig = {
       headerBackTitle: null,
     },
   },
-  [ROUTE_NAMES.RADICALS]: {
-    screen: RadicalsScreenComponent,
-    navigationOptions: {
-      title: "Radicals 🍰",
-      headerBackTitle: null,
-    },
-  },
+  // [ROUTE_NAMES.RADICALS]: {
+  //   screen: RadicalsScreenComponent,
+  //   navigationOptions: {
+  //     title: "Radicals 🍰",
+  //     headerBackTitle: null,
+  //   },
+  // },
   [ROUTE_NAMES.SETTINGS]: {
     screen: SettingsScreenComponent,
     navigationOptions: {
