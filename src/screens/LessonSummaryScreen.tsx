@@ -63,7 +63,7 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
       <ScrollContainer>
         {this.renderTitleText()}
         {this.renderSubText()}
-        {NON_RANDOM_QUIZ && <Text style={SectionTextStyles}>Practice</Text>}
+        {NON_RANDOM_QUIZ && <Text style={SectionTextStyles}>Quizzes</Text>}
         {IS_DAILY_QUIZ && (
           <React.Fragment>
             <LineBreak />

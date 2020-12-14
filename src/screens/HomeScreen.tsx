@@ -1,7 +1,7 @@
 import styled from "@emotion/native";
 import React from "react";
 import { TextStyle } from "react-native";
-import { Text } from "react-native-paper";
+
 import { NavigationScreenProp } from "react-navigation";
 
 import { ScrollContainer } from "@src/components/SharedComponents";
@@ -54,7 +54,6 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
       lessons[lessons.length - 1].title === CUSTOM_WORD_LIST_TITLE;
 
     const MTC = lessons.slice(6, 7)[0];
-    // Total garbage code
     const totalWordsMTC = MTC.content.length;
 
     const generalVocabularyListWords = lessons[5].content.length;
@@ -66,36 +65,36 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
 
     return (
       <ScrollContainer>
-        <Text style={TextStyles}>HSK Vocabulary Lists</Text>
+        <BoldText>HSK Vocabulary Lists</BoldText>
         <Text style={{ marginTop: 6, marginBottom: 18 }}>
           {totalWordsHsk.toLocaleString()} words total
         </Text>
         {this.renderListSets(true)}
-        <Text style={{ ...TextStyles, marginTop: 20 }}>
+        <BoldText style={{ marginTop: 20 }}>
           Mandarin Teaching Center Lessons
-        </Text>
+        </BoldText>
         <Text style={{ marginTop: 6, marginBottom: 18 }}>
           {totalWordsMTC.toLocaleString()} words total
         </Text>
         {this.renderListSets(false)}
-        <Text style={{ ...TextStyles, marginTop: 20 }}>
-          Vocabulary Practice
-        </Text>
+        <BoldText style={{ marginTop: 20 }}>Vocabulary Practice</BoldText>
         <Text style={{ marginTop: 6, marginBottom: 18 }}>
           {totalWordsCustomList.toLocaleString()} words total
         </Text>
         {this.renderListSets(false, true)}
         <LineBreak />
-        <Text style={TextStyles}>Practice everyday to gain experience!</Text>
+        <BoldText style={{ marginBottom: 16 }}>
+          Practice everyday to gain experience!
+        </BoldText>
         <ReviewLink onPress={this.openLessonSummarySpecial("DAILY_QUIZ")}>
-          <Text style={{ fontWeight: "600" }}>Daily Challenge! 天天桔</Text>
+          <BoldText>Daily Challenge! 天天桔</BoldText>
           <Text>🍊</Text>
         </ReviewLink>
         <ReviewLink
           style={{ marginTop: 6 }}
           onPress={this.openLessonSummarySpecial("SUMMARY")}
         >
-          <Text style={{ fontWeight: "600" }}>Review All Unlocked Content</Text>
+          <BoldText>Review All Unlocked Content</BoldText>
           <Text>🗃</Text>
         </ReviewLink>
       </ScrollContainer>
@@ -279,19 +278,21 @@ const ReviewLink = styled.TouchableOpacity({
   height: 50,
   padding: 12,
   margin: 4,
+  borderRadius: 5,
   flexDirection: "row",
   alignItems: "center",
   justifyContent: "space-between",
   backgroundColor: COLORS.actionButtonMint,
 });
 
-const TextStyles: any = {
+const BoldText = styled.Text({
   fontSize: 16,
-  width: "88%",
   fontWeight: "bold",
-  textAlign: "center",
-  marginBottom: 16,
-};
+});
+
+const Text = styled.Text({
+  fontSize: 16,
+});
 
 const LineBreak = styled.View({
   width: "85%",

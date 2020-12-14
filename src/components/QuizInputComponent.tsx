@@ -135,7 +135,7 @@ const QuizBox = styled.TouchableOpacity({
 
 const TextInputStyles = {
   width: "95%",
-  fontSize: 34,
+  fontSize: 18,
   marginTop: 12,
   backgroundColor: COLORS.background,
 };

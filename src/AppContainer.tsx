@@ -460,7 +460,7 @@ class RootContainer extends RootContainerBase<{}> {
 
     return (
       <View style={{ flex: 1 }}>
-        <StatusBar barStyle="dark-content" />
+        <StatusBar translucent />
         {transparentLoading && <TransparentLoadingComponent />}
         <CustomToast
           close={this.clearToast}

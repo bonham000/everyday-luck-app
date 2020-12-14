@@ -599,6 +599,12 @@ const lesson: HSKList = {
       pinyin: "léi cha",
       english: "Tea",
     },
+    {
+      simplified: "芋頭",
+      traditional: "芋头",
+      pinyin: "yùtou",
+      english: "Taro",
+    },
   ],
 };
 
