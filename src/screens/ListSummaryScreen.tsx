@@ -276,7 +276,7 @@ export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
 
 const Container = styled.View<any>`
   flex: 1;
-  width: "100%";
+  width: 100%;
   background-color: ${(props: NativeStyleThemeProps) =>
     props.theme.type === "dark" ? COLORS.backgroundDark : COLORS.background};
 `;

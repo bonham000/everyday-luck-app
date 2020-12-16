@@ -59,7 +59,10 @@
     "react-native-reanimated": "~1.13.0",
     "react-native-screens": "~2.15.0",
     "react-native-svg": "12.1.0",
-    "react-navigation": "^3.11.1",
+    "react-navigation": "^4.4.3",
+    "react-navigation-drawer": "^2.6.0",
+    "react-navigation-stack": "^1.7.3",
+    "react-navigation-tabs": "^1.2.0",
     "uuid": "^3.3.3"
   },
   "devDependencies": {
@@ -71,7 +74,6 @@
     "@types/react-native": "~0.63.2",
     "@types/react-native-dialog": "^4.0.2",
     "@types/react-native-sortable-list": "^0.0.7",
-    "@types/react-navigation": "3.0.1",
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^26.6.3",
     "babel-plugin-inline-dotenv": "^1.2.0",

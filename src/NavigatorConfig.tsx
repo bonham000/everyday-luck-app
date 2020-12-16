@@ -1,12 +1,12 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import React from "react";
 import {
-  createDrawerNavigator,
-  createStackNavigator,
+  NavigationRouteConfigMap,
   NavigationScreenProp,
-  NavigationScreenRouteConfig,
   NavigationState,
 } from "react-navigation";
+import { createStackNavigator } from "react-navigation-stack";
+import { createDrawerNavigator } from "react-navigation-drawer";
 
 import SideMenuComponent from "@src/components/SideMenuComponent";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
@@ -39,7 +39,7 @@ import WritingPadScreenComponent from "./screens/WritingPadScreen";
  * =========================================================================
  */
 
-const ROUTES: NavigationScreenRouteConfig = {
+const ROUTES: NavigationRouteConfigMap<any, any> = {
   [ROUTE_NAMES.HOME]: {
     screen: HomeScreen,
     navigationOptions: ({
@@ -50,6 +50,7 @@ const ROUTES: NavigationScreenRouteConfig = {
       return {
         title: "🍊 天天吉 🍀",
         headerBackTitle: null,
+        // @ts-ignore
         headerLeft: <MenuIcon onPress={navigation.toggleDrawer} />,
       };
     },
