@@ -1,3 +1,4 @@
+import { ThemeProvider } from "@emotion/react";
 import React from "react";
 import { Provider as ReactNativePaperProvider } from "react-native-paper";
 import { enableScreens } from "react-native-screens";
@@ -20,6 +21,19 @@ import "react-native-gesture-handler";
 // tslint:disable-next-line
 console.disableYellowBox = true;
 
+const theme = {
+  type: "dark",
+  colors: {
+    primary: "hotpink",
+  },
+};
+
+export type NativeStyleTheme = typeof theme;
+
+export interface NativeStyleThemeProps {
+  theme: NativeStyleTheme;
+}
+
 /** ========================================================================
  * Mandarin App
  * =========================================================================
@@ -28,9 +42,11 @@ console.disableYellowBox = true;
 export default class extends React.Component {
   render(): JSX.Element {
     return (
-      <ReactNativePaperProvider theme={APP_THEME}>
-        <App />
-      </ReactNativePaperProvider>
+      <ThemeProvider theme={theme}>
+        <ReactNativePaperProvider theme={APP_THEME}>
+          <App />
+        </ReactNativePaperProvider>
+      </ThemeProvider>
     );
   }
 }

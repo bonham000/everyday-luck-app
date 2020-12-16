@@ -4,6 +4,7 @@ import { ScrollView, StyleSheet, ViewStyle } from "react-native";
 
 import { COLORS } from "@src/constants/Theme";
 import { Text } from "react-native-paper";
+import { NativeStyleThemeProps } from "App";
 
 /** ========================================================================
  * Components
@@ -56,20 +57,24 @@ const Container = styled.View({
 });
 
 const ScrollContainer = (props: { children: any; style?: ViewStyle }) => (
-  <ScrollView
+  <StyledScrollView
     contentContainerStyle={{
       flexGrow: 1,
       width: "100%",
       paddingTop: 25,
       paddingBottom: 50,
       alignItems: "center",
-      backgroundColor: COLORS.background,
       ...props.style,
     }}
   >
     {props.children}
-  </ScrollView>
+  </StyledScrollView>
 );
+
+const StyledScrollView = styled.ScrollView<any>`
+  background-color: ${(props: NativeStyleThemeProps) =>
+    props.theme.type === "dark" ? COLORS.backgroundDark : COLORS.background};
+`;
 
 const LineBreak = styled.View({
   width: "85%",
@@ -79,10 +84,11 @@ const LineBreak = styled.View({
   height: StyleSheet.hairlineWidth,
 });
 
-const Screen = styled.View({
-  flex: 1,
-  backgroundColor: COLORS.background,
-});
+const Screen = styled.View`
+  flex: 1;
+  background-color: ${(props: NativeStyleThemeProps) =>
+    props.theme.type === "dark" ? COLORS.backgroundDark : COLORS.background};
+`;
 
 const ScreenTop = styled.View({
   flex: 8,

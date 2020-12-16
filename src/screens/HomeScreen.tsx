@@ -25,6 +25,7 @@ import {
   getReviewLessonSet,
 } from "@src/tools/utils";
 import { CUSTOM_WORD_LIST_TITLE } from "@tests/mocks";
+import { NativeStyleThemeProps } from "App";
 
 /** ========================================================================
  * Types
@@ -285,10 +286,12 @@ const ReviewLink = styled.TouchableOpacity({
   backgroundColor: COLORS.actionButtonMint,
 });
 
-const BoldText = styled.Text({
-  fontSize: 16,
-  fontWeight: "bold",
-});
+const BoldText = styled.Text<any>`
+  font-size: 16;
+  font-weight: bold;
+  color: ${(props: NativeStyleThemeProps) =>
+    props.theme.type === "dark" ? COLORS.white : COLORS.darkText};
+`;
 
 const Text = styled.Text({
   fontSize: 16,
