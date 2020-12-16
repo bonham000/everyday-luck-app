@@ -1,10 +1,14 @@
 import styled from "@emotion/native";
 import React from "react";
-import { Alert, StyleSheet, TouchableOpacity } from "react-native";
-import { TextInput } from "react-native-paper";
+import { Alert, TouchableOpacity } from "react-native";
 import { NavigationScreenProp } from "react-navigation";
 
-import { Button, ScrollContainer } from "@src/components/SharedComponents";
+import {
+  Button,
+  ScrollContainer,
+  StyledText,
+  StyledTextInput,
+} from "@src/components/SharedComponents";
 import { COLORS } from "@src/constants/Theme";
 import {
   GlobalStateContextProps,
@@ -15,6 +19,7 @@ import {
   setWordStudyList,
   WordStudyList,
 } from "@src/tools/async-store";
+import { NativeStyleThemeProps } from "@src/AppContainer";
 
 /** ========================================================================
  * Types
@@ -62,10 +67,9 @@ export class NotePadScreen extends React.Component<IProps, IState> {
         <InfoText>
           You can use this screen to records notes to reference later!
         </InfoText>
-        <TextInput
+        <StyledTextInput
           mode="outlined"
           label="Add a new word"
-          style={TextInputStyles}
           value={this.state.value}
           onChangeText={(value: string) => this.setState({ value })}
         />
@@ -162,29 +166,24 @@ export class NotePadScreen extends React.Component<IProps, IState> {
  * =========================================================================
  */
 
-const SectionTitle = styled.Text({
+const SectionTitle = styled(StyledText)({
   fontSize: 22,
   fontWeight: "bold",
   marginTop: 5,
   marginBottom: 5,
 });
 
-const LineBreak = styled.View({
-  width: "85%",
-  marginTop: 12,
-  marginBottom: 12,
-  backgroundColor: "black",
-  height: StyleSheet.hairlineWidth,
-});
+const LineBreak = styled.View<any>`
+  width: 85%;
+  margin-top: 12px;
+  margin-left: 12px;
+  margin-bottom: 6px;
+  height: 1px;
+  background-color: ${(props: NativeStyleThemeProps) =>
+    props.theme.type === "dark" ? COLORS.fadedText : COLORS.dark};
+`;
 
-const TextInputStyles = {
-  width: "90%",
-  fontSize: 20,
-  marginTop: 6,
-  backgroundColor: "rgb(231,237,240)",
-};
-
-const InfoText = styled.Text({
+const InfoText = styled(StyledText)({
   marginTop: 5,
   marginBottom: 5,
   width: "80%",

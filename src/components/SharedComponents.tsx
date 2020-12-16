@@ -3,7 +3,7 @@ import React from "react";
 import { StyleSheet, ViewStyle } from "react-native";
 
 import { COLORS } from "@src/constants/Theme";
-import { Text } from "react-native-paper";
+import { Text, TextInput } from "react-native-paper";
 import { NativeStyleThemeProps } from "@src/AppContainer";
 
 /** ========================================================================
@@ -49,12 +49,13 @@ const BasicContainer = styled.View({
   backgroundColor: COLORS.background,
 });
 
-const Container = styled.View({
-  flex: 1,
-  paddingTop: 25,
-  alignItems: "center",
-  backgroundColor: COLORS.background,
-});
+const Container = styled.View`
+  flex: 1;
+  padding-top: 25px;
+  align-items: center;
+  background-color: ${(props: NativeStyleThemeProps) =>
+    props.theme.type === "dark" ? COLORS.backgroundDark : COLORS.background};
+`;
 
 const ScrollContainer = (props: { children: any; style?: ViewStyle }) => (
   <StyledScrollView
@@ -84,7 +85,7 @@ const LineBreak = styled.View({
   height: StyleSheet.hairlineWidth,
 });
 
-const Screen = styled.View`
+const Screen = styled.View<any>`
   flex: 1;
   background-color: ${(props: NativeStyleThemeProps) =>
     props.theme.type === "dark" ? COLORS.backgroundDark : COLORS.background};
@@ -160,6 +161,24 @@ export const LessonBlockText = styled.Text<any>`
       }
     }
   }};
+`;
+
+export const StyledText = styled.Text<any>`
+  color: ${(props: NativeStyleThemeProps) =>
+    props.theme.type === "dark" ? COLORS.whiteThemeText : COLORS.darkText};
+`;
+
+export const StyledTextInput = styled(TextInput)<any>`
+  width: 95%;
+  font-size: 18px;
+  margin-top: 12px;
+  color: ${(props: NativeStyleThemeProps) =>
+    props.theme.type === "dark" ? COLORS.white : COLORS.darkText};
+
+  background-color: ${(props: NativeStyleThemeProps) =>
+    props.theme.type === "dark"
+      ? COLORS.textInputDarkTheme
+      : COLORS.textInputLightTheme};
 `;
 
 /** ========================================================================

@@ -3,7 +3,7 @@ import React from "react";
 import { TextInput } from "react-native-paper";
 
 import Shaker from "@src/components/ShakerComponent";
-import { Button } from "@src/components/SharedComponents";
+import { Button, StyledText } from "@src/components/SharedComponents";
 import { COMPLIMENTS } from "@src/constants/Compliments";
 import { COLORS } from "@src/constants/Theme";
 import { QuizScreenComponentProps } from "@src/tools/types";
@@ -146,21 +146,21 @@ const StyledTextInput = styled(TextInput)<any>`
       : COLORS.textInputLightTheme};
 `;
 
-const EnglishText = styled.Text({
+const EnglishText = styled(StyledText)({
   fontSize: 24,
   marginTop: 15,
   marginBottom: 15,
   fontWeight: "bold",
 });
 
-const MandarinText = styled.Text({
+const MandarinText = styled(StyledText)({
   fontSize: 40,
   marginTop: 15,
   marginBottom: 15,
   fontWeight: "bold",
 });
 
-const PinyinText = styled.Text({
+const PinyinText = styled(StyledText)({
   fontSize: 22,
   marginBottom: 15,
   fontWeight: "bold",

@@ -1,11 +1,14 @@
 import styled from "@emotion/native";
 import React from "react";
 import { Keyboard, TouchableWithoutFeedback } from "react-native";
-import { TextInput } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
-import { Button, Container } from "@src/components/SharedComponents";
-import { COLORS } from "@src/constants/Theme";
+import {
+  Button,
+  Container,
+  StyledText,
+  StyledTextInput,
+} from "@src/components/SharedComponents";
 import {
   GlobalStateContextProps,
   withGlobalStateContext,
@@ -50,19 +53,17 @@ export class ContactScreenComponent extends React.Component<IProps, IState> {
             with the developer by sending a quick message here. Please leave
             your email so we can reply to your feedback, if needed.
           </InfoText>
-          <TextInput
+          <StyledTextInput
             multiline
             mode="outlined"
             label="Type a message"
-            style={TextInputStyles}
             value={this.state.message}
             onChangeText={this.handleFieldChange("message")}
           />
-          <TextInput
+          <StyledTextInput
             multiline
             mode="outlined"
             label="Please add a contact email"
-            style={TextInputStyles}
             value={this.state.contactEmail}
             onChangeText={this.handleFieldChange("contactEmail")}
           />
@@ -102,26 +103,19 @@ export class ContactScreenComponent extends React.Component<IProps, IState> {
  * =========================================================================
  */
 
-const SectionTitle = styled.Text({
+const SectionTitle = styled(StyledText)({
   fontSize: 22,
   fontWeight: "bold",
   marginTop: 5,
   marginBottom: 5,
 });
 
-const InfoText = styled.Text({
+const InfoText = styled(StyledText)({
   marginTop: 12,
   marginBottom: 12,
   width: "80%",
   textAlign: "center",
 });
-
-const TextInputStyles = {
-  width: "90%",
-  fontSize: 18,
-  marginTop: 10,
-  backgroundColor: COLORS.background,
-};
 
 /** ========================================================================
  * Export

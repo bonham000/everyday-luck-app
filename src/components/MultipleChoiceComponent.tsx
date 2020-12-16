@@ -9,7 +9,7 @@ import {
 import { Text } from "react-native-paper";
 
 import Shaker from "@src/components/ShakerComponent";
-import { Button } from "@src/components/SharedComponents";
+import { Button, StyledText } from "@src/components/SharedComponents";
 import { SMALL_DEVICE } from "@src/constants/Device";
 import { COLORS } from "@src/constants/Theme";
 import {
@@ -275,7 +275,7 @@ const QuizPromptText = ({
 
 const ThemedText = styled.Text<any>`
   color: ${(props: NativeStyleThemeProps) =>
-    props.theme.type === "dark" ? COLORS.white : COLORS.darkText};
+    props.theme.type === "dark" ? COLORS.lightWhiteText : COLORS.darkText};
 `;
 
 const QuizSubText = styled(ThemedText)`
@@ -293,11 +293,10 @@ const AudioEscapeBlock = styled.TouchableOpacity({
   justifyContent: "center",
 });
 
-const AudioEscapeText = styled.Text({
+const AudioEscapeText = styled(StyledText)({
   textAlign: "right",
   fontSize: 14,
   fontWeight: "bold",
-  color: COLORS.fadedText,
 });
 
 const Choice = ({
@@ -318,6 +317,9 @@ const Choice = ({
   const height = quizType === QUIZ_TYPE.ENGLISH ? 50 : 75;
   return (
     <ChoiceBlock
+      valid={valid}
+      isCorrect={isCorrect}
+      isAttempted={attempted}
       style={{
         width: "90%",
         marginBottom: 12,
@@ -325,15 +327,6 @@ const Choice = ({
         alignItems: "center",
         justifyContent: "center",
         height: height - (SMALL_DEVICE ? 15 : 0),
-        // backgroundColor: valid
-        //   ? isCorrect
-        //     ? COLORS.actionButtonMint
-        //     : COLORS.lightDark
-        //   : attempted
-        //   ? isCorrect
-        //     ? COLORS.actionButtonMint
-        //     : COLORS.primaryRed
-        //   : COLORS.choiceBlockDefault,
       }}
       onPress={onPress}
     >
@@ -365,7 +358,7 @@ const ChoiceBlock = styled.TouchableOpacity<any>`
     }
 
     if (props.theme.type === "dark") {
-      return COLORS.choiceBlockDefault;
+      return COLORS.choiceBlockDarkTheme;
     } else {
       return COLORS.lessonBlockLightInactive;
     }

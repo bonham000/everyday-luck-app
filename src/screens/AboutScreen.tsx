@@ -10,6 +10,7 @@ import {
   ScreenBottom,
   ScreenTop,
   ScrollContainer,
+  StyledText,
 } from "@src/components/SharedComponents";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import { COLORS } from "@src/constants/Theme";
@@ -90,7 +91,7 @@ export class AboutScreenComponent extends React.Component<IProps, {}> {
  * =========================================================================
  */
 
-const DescriptionText = styled.Text({
+const DescriptionText = styled(StyledText)({
   marginTop: 18,
   fontSize: 18,
   width: "90%",
@@ -98,12 +99,12 @@ const DescriptionText = styled.Text({
   textAlign: "center",
 });
 
-const Emoji = styled.Text({
+const Emoji = styled(StyledText)({
   fontSize: 34,
   marginTop: 22,
 });
 
-const LinkText = styled.Text({
+const LinkText = styled(StyledText)({
   fontSize: 16,
   marginTop: 22,
   fontWeight: "500",

@@ -9,6 +9,7 @@ import {
   ScreenBottom,
   ScreenTop,
   ScrollContainer,
+  StyledText,
 } from "@src/components/SharedComponents";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 
@@ -82,7 +83,7 @@ export class IntroScreenComponent extends React.Component<IProps, {}> {
  * =========================================================================
  */
 
-const DescriptionText = styled.Text({
+const DescriptionText = styled(StyledText)({
   marginTop: 18,
   fontSize: 18,
   width: "90%",

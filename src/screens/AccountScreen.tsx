@@ -1,10 +1,14 @@
 import styled from "@emotion/native";
 import React from "react";
-import { Alert, StyleSheet } from "react-native";
-import { TextInput } from "react-native-paper";
+import { Alert } from "react-native";
 import { NavigationScreenProp } from "react-navigation";
 
-import { Button, ScrollContainer } from "@src/components/SharedComponents";
+import {
+  Button,
+  ScrollContainer,
+  StyledText,
+  StyledTextInput,
+} from "@src/components/SharedComponents";
 import {
   GlobalStateContextProps,
   withGlobalStateContext,
@@ -12,6 +16,8 @@ import {
 import { logoutUserLocal } from "@src/tools/async-store";
 import { convertAppDifficultyToLessonSize } from "@src/tools/utils";
 import MOCKS from "@tests/mocks";
+import { NativeStyleThemeProps } from "@src/AppContainer";
+import { COLORS } from "@src/constants/Theme";
 
 /** ========================================================================
  * Types
@@ -92,9 +98,8 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
           Override your current progress. Enter a number of lessons you wish to
           have completed.
         </InfoText>
-        <TextInput
+        <StyledTextInput
           mode="outlined"
-          style={TextInputStyles}
           value={this.state.numberOfLessonsCompleted}
           onChangeText={this.handleChangeNumberOfLessons}
           onSubmitEditing={this.dangerouslySetUserScoresManuallyAsync}
@@ -241,29 +246,24 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
  * =========================================================================
  */
 
-const SectionTitle = styled.Text({
+const SectionTitle = styled(StyledText)({
   fontSize: 22,
   fontWeight: "bold",
   marginTop: 5,
   marginBottom: 5,
 });
 
-const LineBreak = styled.View({
-  width: "85%",
-  marginTop: 12,
-  marginBottom: 12,
-  backgroundColor: "black",
-  height: StyleSheet.hairlineWidth,
-});
+const LineBreak = styled.View<any>`
+  width: 85%;
+  margin-top: 12px;
+  margin-left: 12px;
+  margin-bottom: 6px;
+  height: 1px;
+  background-color: ${(props: NativeStyleThemeProps) =>
+    props.theme.type === "dark" ? COLORS.fadedText : COLORS.dark};
+`;
 
-const TextInputStyles = {
-  width: "90%",
-  fontSize: 34,
-  marginTop: 6,
-  backgroundColor: "rgb(231,237,240)",
-};
-
-const InfoText = styled.Text({
+const InfoText = styled(StyledText)({
   marginTop: 5,
   marginBottom: 5,
   width: "80%",

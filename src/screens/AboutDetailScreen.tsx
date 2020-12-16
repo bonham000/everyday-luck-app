@@ -8,6 +8,7 @@ import {
   ScreenBottom,
   ScreenTop,
   ScrollContainer,
+  StyledText,
 } from "@src/components/SharedComponents";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import { resetNavigation } from "@src/tools/navigation-utils";
@@ -75,7 +76,7 @@ export class AboutDetailScreenComponent extends React.Component<IProps, {}> {
  * =========================================================================
  */
 
-const DescriptionText = styled.Text({
+const DescriptionText = styled(StyledText)({
   marginTop: 18,
   fontSize: 18,
   width: "90%",

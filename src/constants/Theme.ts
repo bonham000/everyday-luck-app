@@ -11,6 +11,7 @@ const COLORS = {
   darkText: "rgb(45,45,45)",
   fadedText: "rgb(60,60,60)",
   inactive: "rgb(125,125,125)",
+  lightWhiteText: "rgb(215,215,215)",
   primaryRed: "rgb(200,8,20)",
   primaryBlue: "#3498db",
   actionButtonPink: "#f76d5e",
@@ -34,8 +35,9 @@ const COLORS = {
   lessonBlockDarkInactive: "rgb(26,26,26)",
   lessonBlockLightInactive: "rgb(205,205,205)",
   choiceBlockDefault: "rgb(55,55,55)",
-  textInputDarkTheme: "rgb(15,15,15)",
+  textInputDarkTheme: "rgb(50,50,50)",
   textInputLightTheme: "rgb(231, 237, 240)",
+  choiceBlockDarkTheme: "rgb(26,26,26)",
 
   /**
    * Background

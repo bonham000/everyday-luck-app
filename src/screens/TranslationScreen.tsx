@@ -6,13 +6,15 @@ import {
   Text,
   TouchableWithoutFeedback,
 } from "react-native";
-import { Switch, TextInput } from "react-native-paper";
+import { Switch } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
 import {
   Bold,
   Button,
   ScrollContainer,
+  StyledText,
+  StyledTextInput,
 } from "@src/components/SharedComponents";
 import { COLORS } from "@src/constants/Theme";
 import {
@@ -74,11 +76,10 @@ export class TranslationScreenComponent extends React.Component<
         <ScrollContainer>
           <SectionTitle>Translation Tool</SectionTitle>
           <InfoText>Translate between English and Chinese</InfoText>
-          <TextInput
+          <StyledTextInput
             mode="outlined"
             value={input}
             ref={this.setInputRef}
-            style={TextInputStyles}
             onChangeText={this.handleChange}
             onSubmitEditing={this.handleTranslate}
             label="Enter text to translate"
@@ -223,19 +224,19 @@ const TranslationResults = styled.View({
   justifyContent: "center",
 });
 
-const SectionTitle = styled.Text({
-  fontSize: 22,
-  fontWeight: "bold",
-  marginTop: 5,
-  marginBottom: 5,
-});
+const SectionTitle = styled(StyledText)`
+  font-size: 22px;
+  font-weight: bold;
+  margin-top: 5px;
+  margin-bottom: 5px;
+`;
 
-const InfoText = styled.Text({
-  marginTop: 5,
-  marginBottom: 5,
-  width: "80%",
-  textAlign: "center",
-});
+const InfoText = styled(StyledText)`
+  margin-top: 5px;
+  margin-bottom: 5px;
+  width: 80%;
+  text-align: center;
+`;
 
 const TranslationTextContainer = styled.TouchableOpacity({
   marginBottom: 15,
@@ -273,13 +274,6 @@ const LineBreak = styled.View({
   backgroundColor: "black",
   height: StyleSheet.hairlineWidth,
 });
-
-const TextInputStyles = {
-  width: "90%",
-  fontSize: 20,
-  marginTop: 14,
-  backgroundColor: "rgb(231,237,240)",
-};
 
 /** ========================================================================
  * Export

@@ -12,6 +12,7 @@ import {
   ScreenBottom,
   ScreenTop,
   ScrollContainer,
+  StyledText,
 } from "@src/components/SharedComponents";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import { COLORS } from "@src/constants/Theme";
@@ -177,7 +178,7 @@ export class WelcomeScreenComponent extends React.Component<IProps, IState> {
  * =========================================================================
  */
 
-const DescriptionText = styled.Text({
+const DescriptionText = styled(StyledText)({
   marginTop: 18,
   fontSize: 18,
   width: "90%",
@@ -185,7 +186,7 @@ const DescriptionText = styled.Text({
   textAlign: "center",
 });
 
-const TermsText = styled.Text({
+const TermsText = styled(StyledText)({
   marginLeft: 10,
   width: "75%",
   fontSize: 14,
@@ -193,7 +194,7 @@ const TermsText = styled.Text({
   textAlign: "center",
 });
 
-const LinkText = styled.Text({
+const LinkText = styled(StyledText)({
   fontWeight: "500",
   color: COLORS.primaryBlue,
 });
