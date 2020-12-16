@@ -197,6 +197,7 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
       };
     } else {
       return {
+        appTheme: "light",
         experience: 0,
         disableAudio: false,
         autoProceedQuestion: false,
@@ -669,7 +670,7 @@ class RootContainer extends RootContainerBase<{}> {
   };
 
   toggleAppTheme = () => {
-    const theme = this.state.appTheme === "dark" ? "light" : "dark";
+    const theme = this.state.user?.settings.app_theme === "dark" ? "light" : "dark";
     return this.handleUpdateUserSettingsField({
       app_theme: theme,
     });

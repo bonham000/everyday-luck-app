@@ -184,35 +184,47 @@ const LineBreak = styled.View<any>`
   background-color: black;
 `;
 
-const DifficultSettingBlock = styled.TouchableOpacity(
-  {
-    marginTop: 10,
-    width: "85%",
-    height: 50,
-    paddingLeft: 8,
-    paddingRight: 8,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  ({ selected }: { selected: boolean }) => ({
-    fontWeight: selected ? "500" : "200",
-    backgroundColor: selected
-      ? COLORS.primaryBlue
-      : COLORS.lessonBlockDarkInactive,
-  }),
-);
+const DifficultSettingBlock = styled.TouchableOpacity<any>`
+  margin-top: 10px;
+  width: 85%;
+  height: 50px;
+  padding-left: 8px;
+  padding-right: 8px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: ${props => (props.selected ? 500 : 200)};
 
-const getFontStyle = (selected: boolean): "normal" | "bold" =>
-  selected ? "bold" : "normal";
+  background-color: ${(
+    props: NativeStyleThemeProps & { selected: boolean },
+  ) => {
+    if (props.selected) {
+      return COLORS.primaryBlue;
+    }
 
-const DifficultSettingBlockText = styled.Text(
-  {},
-  ({ selected }: { selected: boolean }) => ({
-    fontWeight: getFontStyle(selected),
-    color: selected ? COLORS.white : COLORS.darkText,
-  }),
-);
+    if (props.theme.type === "dark") {
+      return COLORS.lessonBlockDarkInactive;
+    } else {
+      return COLORS.lessonBlockLightInactive;
+    }
+  }};
+`;
+
+const DifficultSettingBlockText = styled.Text<any>`
+  font-weight: ${props => (props.selected ? "bold" : "normal")};
+
+  color: ${(props: NativeStyleThemeProps & { selected: boolean }) => {
+    if (props.selected) {
+      return COLORS.white;
+    }
+
+    if (props.theme.type === "dark") {
+      return COLORS.darkText;
+    } else {
+      return COLORS.fadedText;
+    }
+  }};
+`;
 
 /** ========================================================================
  * Export

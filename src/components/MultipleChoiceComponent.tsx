@@ -317,7 +317,7 @@ const Choice = ({
 }) => {
   const height = quizType === QUIZ_TYPE.ENGLISH ? 50 : 75;
   return (
-    <TouchableOpacity
+    <ChoiceBlock
       style={{
         width: "90%",
         marginBottom: 12,
@@ -325,22 +325,52 @@ const Choice = ({
         alignItems: "center",
         justifyContent: "center",
         height: height - (SMALL_DEVICE ? 15 : 0),
-        backgroundColor: valid
-          ? isCorrect
-            ? COLORS.actionButtonMint
-            : COLORS.lightDark
-          : attempted
-          ? isCorrect
-            ? COLORS.actionButtonMint
-            : COLORS.primaryRed
-          : COLORS.choiceBlockDefault,
+        // backgroundColor: valid
+        //   ? isCorrect
+        //     ? COLORS.actionButtonMint
+        //     : COLORS.lightDark
+        //   : attempted
+        //   ? isCorrect
+        //     ? COLORS.actionButtonMint
+        //     : COLORS.primaryRed
+        //   : COLORS.choiceBlockDefault,
       }}
       onPress={onPress}
     >
       {children}
-    </TouchableOpacity>
+    </ChoiceBlock>
   );
 };
+
+const ChoiceBlock = styled.TouchableOpacity<any>`
+  background-color: ${(
+    props: NativeStyleThemeProps & {
+      valid: boolean;
+      isCorrect: boolean;
+      isAttempted: boolean;
+    },
+  ) => {
+    if (props.valid) {
+      if (props.isCorrect) {
+        return COLORS.actionButtonMint;
+      } else {
+        return COLORS.lightDark;
+      }
+    } else if (props.isAttempted) {
+      if (props.isCorrect) {
+        return COLORS.actionButtonMint;
+      } else {
+        return COLORS.primaryRed;
+      }
+    }
+
+    if (props.theme.type === "dark") {
+      return COLORS.choiceBlockDefault;
+    } else {
+      return COLORS.lessonBlockLightInactive;
+    }
+  }};
+`;
 
 const QuizAnswerText = ({
   shouldReveal,

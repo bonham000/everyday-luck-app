@@ -129,7 +129,7 @@ export const LessonBlock = styled.TouchableOpacity<any>`
       }
     } else {
       if (props.isLocked) {
-        return COLORS.inactive;
+        return COLORS.lessonBlockLightInactive;
       } else if (props.inProgress) {
         return COLORS.lessonBlockInProgress;
       }
@@ -145,7 +145,21 @@ export const LessonBlockText = styled.Text<any>`
 
   color: ${(
     props: NativeStyleThemeProps & { isLocked: boolean; mtcLesson: boolean },
-  ) => (props.isLocked ? COLORS.inactive : "black")};
+  ) => {
+    if (props.theme.type === "dark") {
+      if (props.isLocked) {
+        return COLORS.inactive;
+      } else {
+        return "black";
+      }
+    } else {
+      if (props.isLocked) {
+        return COLORS.fadedText;
+      } else {
+        return "black";
+      }
+    }
+  }};
 `;
 
 /** ========================================================================
