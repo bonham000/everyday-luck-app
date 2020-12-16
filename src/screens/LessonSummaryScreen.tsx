@@ -1,7 +1,6 @@
 import styled from "@emotion/native";
 import React from "react";
 import { Text } from "react-native-paper";
-import { StyleSheet } from "react-native";
 import { NavigationScreenProp } from "react-navigation";
 
 import { Bold, ScrollContainer } from "@src/components/SharedComponents";
@@ -22,7 +21,7 @@ import {
   getLessonSummaryStatus,
   getRandomQuizChallenge,
 } from "@src/tools/utils";
-import { NativeStyleThemeProps } from "App";
+import { NativeStyleThemeProps } from "@src/AppContainer";
 
 /** ========================================================================
  * Types
@@ -420,10 +419,10 @@ const LineBreak = styled.View<any>`
   width: 85%;
   margin-top: 12;
   margin-bottom: 12;
-  height: ${StyleSheet.hairlineWidth};
+  height: 1px;
 
   background-color: ${(props: NativeStyleThemeProps) =>
-    props.theme.type === "dark" ? COLORS.whiteThemeText : COLORS.darkText};
+    props.theme.type === "dark" ? COLORS.fadedText : COLORS.darkText};
 `;
 
 const InfoText = styled.Text<any>`

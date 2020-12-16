@@ -1,10 +1,9 @@
-import { ThemeProvider } from "@emotion/react";
 import React from "react";
 import { LogBox } from "react-native";
 import { Provider as ReactNativePaperProvider } from "react-native-paper";
 import { enableScreens } from "react-native-screens";
 
-import App from "@src/AppContainer";
+import AppContainer from "@src/AppContainer";
 import { APP_THEME } from "@src/constants/Theme";
 
 /** ========================================================================
@@ -21,19 +20,6 @@ import "react-native-gesture-handler";
 /* Disable warnings */
 LogBox.ignoreAllLogs(true);
 
-const theme = {
-  type: "dark",
-  colors: {
-    primary: "hotpink",
-  },
-};
-
-export type NativeStyleTheme = typeof theme;
-
-export interface NativeStyleThemeProps {
-  theme: NativeStyleTheme;
-}
-
 /** ========================================================================
  * Mandarin App
  * =========================================================================
@@ -42,11 +28,9 @@ export interface NativeStyleThemeProps {
 export default class extends React.Component {
   render(): JSX.Element {
     return (
-      <ThemeProvider theme={theme}>
-        <ReactNativePaperProvider theme={APP_THEME}>
-          <App />
-        </ReactNativePaperProvider>
-      </ThemeProvider>
+      <ReactNativePaperProvider theme={APP_THEME}>
+        <AppContainer />
+      </ReactNativePaperProvider>
     );
   }
 }

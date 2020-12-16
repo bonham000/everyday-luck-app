@@ -27,7 +27,7 @@ import {
   getReviewLessonSet,
 } from "@src/tools/utils";
 import { CUSTOM_WORD_LIST_TITLE } from "@tests/mocks";
-import { NativeStyleThemeProps } from "App";
+import { NativeStyleThemeProps } from "@src/AppContainer";
 
 /** ========================================================================
  * Types

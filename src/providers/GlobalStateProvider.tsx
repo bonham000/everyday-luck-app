@@ -21,6 +21,8 @@ export interface GlobalStateValues {
   wordDictionary: WordDictionary;
 }
 
+export type APP_THEME = "dark" | "light";
+
 export interface AdditionalProviderProps {
   experience: number;
   userScoreStatus: ListScoreSet;
@@ -28,11 +30,13 @@ export interface AdditionalProviderProps {
   autoProceedQuestion: boolean;
   languageSetting: APP_LANGUAGE_SETTING;
   appDifficultySetting: APP_DIFFICULTY_SETTING;
+  appTheme: APP_THEME;
 }
 
 export interface GlobalStateContextProps
   extends GlobalStateValues,
     AdditionalProviderProps {
+  toggleAppTheme: () => void;
   setToastMessage: (toastMessage: string) => void;
   handleUpdateApp: () => void;
   handleResetScores: () => void;

@@ -24,7 +24,7 @@ import {
   flattenLessonSet,
   getAlternateChoices,
 } from "@src/tools/utils";
-import { NativeStyleThemeProps } from "App";
+import { NativeStyleThemeProps } from "@src/AppContainer";
 
 /** ========================================================================
  * Types

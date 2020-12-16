@@ -1,14 +1,8 @@
 import styled from "@emotion/native";
 import Constants from "expo-constants";
 import React from "react";
-import {
-  Image,
-  Keyboard,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-} from "react-native";
-import { NavigationScreenProp, SafeAreaView } from "react-navigation";
+import { Image, Keyboard, TouchableOpacity, View } from "react-native";
+import { NavigationScreenProp } from "react-navigation";
 
 import { SMALL_DEVICE } from "@src/constants/Device";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
@@ -19,6 +13,7 @@ import {
 } from "@src/providers/GlobalStateProvider";
 import { formatUserLanguageSetting } from "@src/tools/utils";
 import { ScrollView } from "react-native-gesture-handler";
+import { NativeStyleThemeProps } from "@src/AppContainer";
 
 /** ========================================================================
  * Types
@@ -54,7 +49,7 @@ class SideMenuComponent extends React.Component<IProps, {}> {
       handleUpdateApp,
     } = this.props;
     return (
-      <SafeAreaView
+      <ThemedSafeAreaView
         style={{
           flex: 1,
           paddingLeft: 6,
@@ -140,7 +135,7 @@ class SideMenuComponent extends React.Component<IProps, {}> {
             )}
           </SmallText>
         </BottomBlock>
-      </SafeAreaView>
+      </ThemedSafeAreaView>
     );
   }
 
@@ -182,36 +177,51 @@ const SmallItem = ({ children, onPress, style }: any) => (
   </TouchableOpacity>
 );
 
-const ItemText = styled.Text({
-  fontSize: 16,
-  marginTop: 45,
-  marginLeft: 12,
-});
+const ItemText = styled.Text<any>`
+  font-size: 16px;
+  margin-top: 45px;
+  margin-left: 12px;
 
-const Bold = styled.Text({
-  fontWeight: "600",
-});
+  color: ${(props: NativeStyleThemeProps) =>
+    props.theme.type === "dark" ? COLORS.whiteThemeText : COLORS.darkText};
+`;
 
-const SmallText = styled.Text({
-  fontSize: 16,
-  marginTop: 4,
-  marginLeft: 12,
-});
+const Bold = styled.Text<any>`
+  font-weight: 600;
 
-const LinkText = styled.Text({
-  fontSize: 14,
-  fontWeight: "500",
-  color: COLORS.primaryBlue,
-});
+  color: ${(props: NativeStyleThemeProps) =>
+    props.theme.type === "dark" ? COLORS.whiteThemeText : COLORS.darkText};
+`;
 
-const LineBreak = styled.View({
-  width: "90%",
-  marginTop: 12,
-  marginLeft: 12,
-  marginBottom: 6,
-  backgroundColor: "black",
-  height: StyleSheet.hairlineWidth,
-});
+const SmallText = styled.Text<any>`
+  font-size: 16px;
+  margin-top: 4px;
+  margin-left: 12px;
+
+  color: ${(props: NativeStyleThemeProps) =>
+    props.theme.type === "dark" ? COLORS.whiteThemeText : COLORS.darkText};
+`;
+
+const LinkText = styled.Text<any>`
+  font-size: 14px;
+  font-weight: 500;
+  color: ${COLORS.primaryBlue};
+`;
+
+const LineBreak = styled.View<any>`
+  width: 90%;
+  margin-top: 12px;
+  margin-left: 12px;
+  margin-bottom: 6px;
+  height: 1px;
+  background-color: ${(props: NativeStyleThemeProps) =>
+    props.theme.type === "dark" ? COLORS.fadedText : COLORS.dark};
+`;
+
+const ThemedSafeAreaView = styled.SafeAreaView<any>`
+  background-color: ${(props: NativeStyleThemeProps) =>
+    props.theme.type === "dark" ? COLORS.backgroundDark : COLORS.background};
+`;
 
 /** ========================================================================
  * Export

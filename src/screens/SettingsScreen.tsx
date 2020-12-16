@@ -1,7 +1,6 @@
 import styled from "@emotion/native";
 import React from "react";
-import { StyleSheet } from "react-native";
-import { Text } from "react-native-paper";
+import { Text, Switch } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
 import {
@@ -21,6 +20,7 @@ import {
   formatUserLanguageSetting,
   getAlternateLanguageSetting,
 } from "@src/tools/utils";
+import { NativeStyleThemeProps } from "@src/AppContainer";
 
 /** ========================================================================
  * Types
@@ -38,14 +38,19 @@ interface IProps extends GlobalStateContextProps {
 
 export class SettingsScreenComponent extends React.Component<IProps, {}> {
   render(): JSX.Element {
-    const { languageSetting, disableAudio } = this.props;
+    const {
+      languageSetting,
+      disableAudio,
+      appTheme,
+      toggleAppTheme,
+    } = this.props;
     return (
       <ScrollContainer>
         <SectionTitle>Language Setting</SectionTitle>
-        <Text>
+        <BasicText>
           Your current language setting is:{" "}
           <Bold>{formatUserLanguageSetting(languageSetting)}</Bold>
-        </Text>
+        </BasicText>
         <InfoText style={{ marginTop: 12 }}>
           Simplified Chinese is the most common version of the written language.
           However, Traditional Chinese is still used in places like Taiwan, and
@@ -59,10 +64,10 @@ export class SettingsScreenComponent extends React.Component<IProps, {}> {
         </Button>
         <LineBreak />
         <SectionTitle>Pronunciation Settings</SectionTitle>
-        <Text>
+        <BasicText>
           Audio word pronunciation is currently:{" "}
           <Bold>{disableAudio ? "Disabled" : "Enabled"}</Bold>
-        </Text>
+        </BasicText>
         <Button
           onPress={this.handleSetAudioOptions}
           style={{ marginTop: 15, marginBottom: 15 }}
@@ -81,6 +86,15 @@ export class SettingsScreenComponent extends React.Component<IProps, {}> {
           APP_DIFFICULTY_SETTING.MEDIUM,
           APP_DIFFICULTY_SETTING.HARD,
         ].map(this.renderDifficultyBlock)}
+        <LineBreak />
+        <SectionTitle>App Theme</SectionTitle>
+        <BasicText>Toggle app dark theme on and off.</BasicText>
+        <Switch
+          value={appTheme === "dark"}
+          color={COLORS.primaryBlue}
+          onValueChange={toggleAppTheme}
+          style={{ marginTop: 15, marginBottom: 15 }}
+        />
         <LineBreak />
         <SectionTitle>Experience Points</SectionTitle>
         <InfoText>
@@ -137,27 +151,38 @@ export class SettingsScreenComponent extends React.Component<IProps, {}> {
  * =========================================================================
  */
 
-const SectionTitle = styled.Text({
-  fontSize: 22,
-  fontWeight: "bold",
-  marginTop: 5,
-  marginBottom: 5,
-});
+const BasicText = styled(Text)<any>`
+  color: ${(props: NativeStyleThemeProps) =>
+    props.theme.type === "dark" ? COLORS.whiteThemeText : COLORS.darkText};
+`;
 
-const InfoText = styled.Text({
-  marginTop: 5,
-  marginBottom: 5,
-  width: "80%",
-  textAlign: "center",
-});
+const SectionTitle = styled.Text<any>`
+  font-size: 22px;
+  font-weight: bold;
+  margin-top: 5px;
+  margin-bottom: 5px;
 
-const LineBreak = styled.View({
-  width: "85%",
-  marginTop: 12,
-  marginBottom: 12,
-  backgroundColor: "black",
-  height: StyleSheet.hairlineWidth,
-});
+  color: ${(props: NativeStyleThemeProps) =>
+    props.theme.type === "dark" ? COLORS.whiteThemeText : COLORS.darkText};
+`;
+
+const InfoText = styled.Text<any>`
+  margin-top: 5px;
+  margin-bottom: 5px;
+  width: 80%;
+  text-align: center;
+
+  color: ${(props: NativeStyleThemeProps) =>
+    props.theme.type === "dark" ? COLORS.whiteThemeText : COLORS.darkText};
+`;
+
+const LineBreak = styled.View<any>`
+  width: 85%;
+  height: 1px;
+  margin-top: 12px;
+  margin-bottom: 12px;
+  background-color: black;
+`;
 
 const DifficultSettingBlock = styled.TouchableOpacity(
   {
@@ -172,7 +197,9 @@ const DifficultSettingBlock = styled.TouchableOpacity(
   },
   ({ selected }: { selected: boolean }) => ({
     fontWeight: selected ? "500" : "200",
-    backgroundColor: selected ? COLORS.primaryBlue : COLORS.lightDark,
+    backgroundColor: selected
+      ? COLORS.primaryBlue
+      : COLORS.lessonBlockDarkInactive,
   }),
 );
 

@@ -2,6 +2,7 @@ import React from "react";
 
 import { ListScoreSet } from "@src/lessons";
 import { HSKListSet, Word } from "@src/tools/types";
+import { APP_THEME } from "./GlobalStateProvider";
 
 /** ========================================================================
  * Types and Config
@@ -9,6 +10,7 @@ import { HSKListSet, Word } from "@src/tools/types";
  */
 
 export interface UserSettings {
+  app_theme: APP_THEME;
   disable_audio: boolean;
   auto_proceed_question: boolean;
   language_setting: APP_LANGUAGE_SETTING;
@@ -70,6 +72,7 @@ export interface ToastMessageArgs {
  */
 
 const GlobalStateContextValues = {
+  appTheme: "light",
   experience: 0,
   lessons: [] as HSKListSet,
   userScoreStatus: {},
@@ -79,6 +82,10 @@ const GlobalStateContextValues = {
   autoProceedQuestion: false,
   appDifficultySetting: APP_DIFFICULTY_SETTING.MEDIUM,
   languageSetting: APP_LANGUAGE_SETTING.SIMPLIFIED,
+  toggleAppTheme: () => {
+    // Toggle app theme;
+    return;
+  },
   setToastMessage: (toastMessage: string | ToastMessageArgs) => {
     /* Handle setting Toast message */
     return;

@@ -23,7 +23,7 @@ import {
   getRandomQuizChallenge,
   mapListIndexToListScores,
 } from "@src/tools/utils";
-import { NativeStyleThemeProps } from "App";
+import { NativeStyleThemeProps } from "@src/AppContainer";
 import { LessonBlock, LessonBlockText } from "@src/components/SharedComponents";
 
 /** ========================================================================

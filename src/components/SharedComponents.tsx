@@ -4,7 +4,7 @@ import { StyleSheet, ViewStyle } from "react-native";
 
 import { COLORS } from "@src/constants/Theme";
 import { Text } from "react-native-paper";
-import { NativeStyleThemeProps } from "App";
+import { NativeStyleThemeProps } from "@src/AppContainer";
 
 /** ========================================================================
  * Components

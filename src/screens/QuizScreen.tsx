@@ -39,7 +39,7 @@ import {
   randomInRange,
 } from "@src/tools/utils";
 import MOCKS from "@tests/mocks";
-import { NativeStyleThemeProps } from "App";
+import { NativeStyleThemeProps } from "@src/AppContainer";
 
 /** ========================================================================
  * Types

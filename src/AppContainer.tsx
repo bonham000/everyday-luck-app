@@ -1,3 +1,4 @@
+import { ThemeProvider } from "@emotion/react";
 import * as Updates from "expo-updates";
 import React from "react";
 import {
@@ -24,7 +25,10 @@ import GlobalContext, {
   ToastMessageArgs,
   UserSettings,
 } from "@src/providers/GlobalStateContext";
-import { GlobalStateValues } from "@src/providers/GlobalStateProvider";
+import {
+  APP_THEME,
+  GlobalStateValues,
+} from "@src/providers/GlobalStateProvider";
 import SoundRecordingProvider from "@src/providers/SoundRecordingProvider";
 import { sendContactRequest } from "@src/tools/api";
 import {
@@ -60,6 +64,16 @@ interface IState extends GlobalStateValues {
 }
 
 const TOAST_TIMEOUT = 5000; /* 5 seconds */
+
+const theme = {
+  type: "dark",
+};
+
+export type NativeStyleTheme = typeof theme;
+
+export interface NativeStyleThemeProps {
+  theme: NativeStyleTheme;
+}
 
 /** ========================================================================
  * Root Container Base Component
@@ -173,6 +187,7 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
     const { user } = this.state;
     if (user) {
       return {
+        appTheme: user.settings.app_theme,
         experience: user.experience_points,
         disableAudio: user.settings.disable_audio,
         autoProceedQuestion: user.settings.auto_proceed_question,
@@ -424,6 +439,7 @@ class RootContainer extends RootContainerBase<{}> {
     }
 
     const {
+      appTheme,
       disableAudio,
       autoProceedQuestion,
       experience,
@@ -438,6 +454,7 @@ class RootContainer extends RootContainerBase<{}> {
     const ProviderValues = {
       user,
       lessons,
+      appTheme,
       experience,
       disableAudio,
       wordDictionary,
@@ -446,6 +463,7 @@ class RootContainer extends RootContainerBase<{}> {
       userScoreStatus,
       autoProceedQuestion,
       appDifficultySetting,
+      toggleAppTheme: this.toggleAppTheme,
       setLessonScore: this.setLessonScore,
       setToastMessage: this.setToastMessage,
       copyToClipboard: this.copyToClipboard,
@@ -459,22 +477,24 @@ class RootContainer extends RootContainerBase<{}> {
     };
 
     return (
-      <View style={{ flex: 1 }}>
-        <StatusBar translucent />
-        {transparentLoading && <TransparentLoadingComponent />}
-        <CustomToast
-          close={this.clearToast}
-          message={this.state.toastMessage}
-        />
-        <GlobalContext.Provider value={ProviderValues}>
-          <SoundRecordingProvider disableAudio={disableAudio}>
-            <RenderAppOnce
-              firstTimeUser={firstTimeUser}
-              assignNavigatorRef={this.assignNavRef}
-            />
-          </SoundRecordingProvider>
-        </GlobalContext.Provider>
-      </View>
+      <ThemeProvider theme={{ type: appTheme }}>
+        <View style={{ flex: 1 }}>
+          <StatusBar translucent />
+          {transparentLoading && <TransparentLoadingComponent />}
+          <CustomToast
+            close={this.clearToast}
+            message={this.state.toastMessage}
+          />
+          <GlobalContext.Provider value={ProviderValues}>
+            <SoundRecordingProvider disableAudio={disableAudio}>
+              <RenderAppOnce
+                firstTimeUser={firstTimeUser}
+                assignNavigatorRef={this.assignNavRef}
+              />
+            </SoundRecordingProvider>
+          </GlobalContext.Provider>
+        </View>
+      </ThemeProvider>
     );
   }
 
@@ -646,6 +666,13 @@ class RootContainer extends RootContainerBase<{}> {
         console.log(`Unknown language setting received: ${setting}`);
         return setLanguage(APP_LANGUAGE_SETTING.SIMPLIFIED);
     }
+  };
+
+  toggleAppTheme = () => {
+    const theme = this.state.appTheme === "dark" ? "light" : "dark";
+    return this.handleUpdateUserSettingsField({
+      app_theme: theme,
+    });
   };
 
   assignNavRef = (ref: any) => {
