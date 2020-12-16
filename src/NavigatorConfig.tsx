@@ -27,6 +27,7 @@ import ViewAllScreen from "@src/screens/ViewAllScreen";
 import WelcomeScreenComponent from "@src/screens/WelcomeScreen";
 import { getDrawerLockedState } from "@src/tools/navigation-utils";
 import { LessonScreenParams, ListScreenParams } from "@src/tools/types";
+import { Platform } from "react-native";
 import {
   GlobalStateContextProps,
   withGlobalStateContext,
@@ -37,7 +38,6 @@ import AudioReviewAllScreen from "./screens/AudioReviewAllScreen";
 import NotePadScreen from "./screens/NotePadScreen";
 // import RadicalsScreenComponent from "./screens/RadicalsScreen";
 import WritingPadScreenComponent from "./screens/WritingPadScreen";
-import { Platform } from "react-native";
 
 /** ========================================================================
  * App Routes
