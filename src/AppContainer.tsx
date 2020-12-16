@@ -6,6 +6,7 @@ import {
   AppState,
   BackHandler,
   Clipboard,
+  Platform,
   StatusBar,
   View,
 } from "react-native";
@@ -477,12 +478,17 @@ class RootContainer extends RootContainerBase<{}> {
       handleUpdateUserSettingsField: this.handleUpdateUserSettingsField,
     };
 
+    const statusBarStyle =
+      Platform.OS === "android"
+        ? "light-content"
+        : appTheme === "dark"
+        ? "light-content"
+        : "dark-content";
+
     return (
       <ThemeProvider theme={{ type: appTheme }}>
         <View style={{ flex: 1 }}>
-          <StatusBar
-            barStyle={appTheme === "dark" ? "light-content" : "dark-content"}
-          />
+          <StatusBar barStyle={statusBarStyle} />
           {transparentLoading && <TransparentLoadingComponent />}
           <CustomToast
             close={this.clearToast}

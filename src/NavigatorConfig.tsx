@@ -37,6 +37,7 @@ import AudioReviewAllScreen from "./screens/AudioReviewAllScreen";
 import NotePadScreen from "./screens/NotePadScreen";
 // import RadicalsScreenComponent from "./screens/RadicalsScreen";
 import WritingPadScreenComponent from "./screens/WritingPadScreen";
+import { Platform } from "react-native";
 
 /** ========================================================================
  * App Routes
@@ -278,9 +279,20 @@ const ROUTES: NavigationRouteConfigMap<any, any> = {
   },
 };
 
+const styledNavigationOptions = {
+  headerStyle: {
+    height: 62,
+  },
+  headerForceInset: { top: "never", bottom: "never" },
+};
+
+const defaultNavigationOptions =
+  Platform.OS === "android" ? styledNavigationOptions : {};
+
 const createAppNavigationStack = (firstTimeUser: boolean) => {
   return createStackNavigator(ROUTES, {
     initialRouteName: firstTimeUser ? ROUTE_NAMES.WELCOME : ROUTE_NAMES.HOME,
+    defaultNavigationOptions,
   });
 };
 

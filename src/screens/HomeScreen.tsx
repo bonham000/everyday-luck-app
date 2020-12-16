@@ -272,14 +272,14 @@ const ReviewLink = styled.TouchableOpacity({
 });
 
 const BoldText = styled.Text<any>`
-  font-size: 16;
+  font-size: 16px;
   font-weight: bold;
   color: ${(props: NativeStyleThemeProps) =>
     props.theme.type === "dark" ? COLORS.whiteThemeText : COLORS.darkText};
 `;
 
 const Text = styled.Text<any>`
-  font-size: 16;
+  font-size: 16px;
   color: ${(props: NativeStyleThemeProps) =>
     props.theme.type === "dark" ? COLORS.whiteThemeText : COLORS.darkText};
 `;

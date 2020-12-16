@@ -18,7 +18,7 @@ enableScreens();
 import "react-native-gesture-handler";
 
 /* Disable warnings */
-LogBox.ignoreAllLogs(true);
+LogBox.ignoreAllLogs();
 
 /** ========================================================================
  * Mandarin App
