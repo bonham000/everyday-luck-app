@@ -1,6 +1,6 @@
 import styled from "@emotion/native";
 import React from "react";
-import { FlatList, TextStyle, View } from "react-native";
+import { FlatList, View } from "react-native";
 import { Text } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
@@ -23,6 +23,8 @@ import {
   getRandomQuizChallenge,
   mapListIndexToListScores,
 } from "@src/tools/utils";
+import { NativeStyleThemeProps } from "App";
+import { LessonBlock, LessonBlockText } from "@src/components/SharedComponents";
 
 /** ========================================================================
  * Types
@@ -133,13 +135,9 @@ export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
 
     return (
       <LessonBlock
-        style={{
-          backgroundColor: shouldShowTrophy
-            ? COLORS.lessonBlock
-            : inProgress
-            ? COLORS.lessonBlockInProgress
-            : COLORS.lockedLessonBlock,
-        }}
+        hskLocked={true}
+        isLocked={isLocked}
+        inProgress={inProgress}
         onPress={this.handleSelectLesson(
           lesson,
           index,
@@ -276,28 +274,18 @@ export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
  * =========================================================================
  */
 
-const Container = styled.View({
-  flex: 1,
-  width: "100%",
-  backgroundColor: COLORS.background,
-});
+const Container = styled.View<any>`
+  flex: 1;
+  width: "100%";
+  background-color: ${(props: NativeStyleThemeProps) =>
+    props.theme.type === "dark" ? COLORS.backgroundDark : COLORS.background};
+`;
 
 const FlatListStyles = {
   paddingBottom: 30,
   paddingLeft: 15,
   paddingRight: 15,
 };
-
-const LessonBlock = styled.TouchableOpacity({
-  height: 50,
-  padding: 12,
-  margin: 4,
-  borderRadius: 5,
-  flexDirection: "row",
-  alignItems: "center",
-  justifyContent: "space-between",
-  backgroundColor: COLORS.lessonBlockDefault,
-});
 
 const TitleText = styled.Text({
   fontSize: 16,
@@ -323,22 +311,6 @@ const OptOutBlock = styled.View({
   borderTopWidth: 1,
   borderTopColor: COLORS.fadedText,
 });
-
-const LessonBlockText = styled.Text(
-  {},
-  (props: { isLocked: boolean }) =>
-    (props.isLocked
-      ? {
-          color: COLORS.inactive,
-          fontWeight: "500",
-          textDecorationStyle: "solid",
-        }
-      : {
-          color: "black",
-          fontWeight: "500",
-          textDecorationLine: "none",
-        }) as TextStyle,
-);
 
 /** ========================================================================
  * Export

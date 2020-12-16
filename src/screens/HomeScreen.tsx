@@ -1,10 +1,12 @@
 import styled from "@emotion/native";
 import React from "react";
-import { TextStyle } from "react-native";
-
 import { NavigationScreenProp } from "react-navigation";
 
-import { ScrollContainer } from "@src/components/SharedComponents";
+import {
+  LessonBlock,
+  LessonBlockText,
+  ScrollContainer,
+} from "@src/components/SharedComponents";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import { COLORS } from "@src/constants/Theme";
 import {
@@ -111,7 +113,7 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
       const GeneralVocabulary = (
         <LessonBlock
           key={generalVocabularyList.list}
-          style={{ backgroundColor: COLORS.lessonCustomList }}
+          style={{ backgroundColor: COLORS.lessonCustomList, width: "90%" }}
           onPress={this.handleSelectList(
             generalVocabularyList.list,
             generalVocabularyList,
@@ -134,7 +136,7 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
         const CustomList = (
           <LessonBlock
             key={hskList.list}
-            style={{ backgroundColor: COLORS.lessonCustomList }}
+            style={{ backgroundColor: COLORS.lessonCustomList, width: "90%" }}
             onPress={this.handleSelectList(hskList.list, hskList, index, false)}
           >
             <LessonBlockText mtcLesson={false} isLocked={false}>
@@ -174,15 +176,10 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
         return (
           <LessonBlock
             key={hskList.list}
-            style={{
-              backgroundColor: !locked
-                ? COLORS.lessonMTC
-                : isLocked
-                ? COLORS.lockedLessonBlock
-                : inProgress
-                ? COLORS.lessonBlockInProgress
-                : COLORS.lessonBlock,
-            }}
+            hskLocked={locked}
+            isLocked={isLocked}
+            inProgress={inProgress}
+            style={{ width: "90%" }}
             onPress={this.handleSelectList(list, hskList, index, isLocked)}
           >
             <LessonBlockText mtcLesson={mtcLesson} isLocked={isLocked}>
@@ -262,18 +259,6 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
  * =========================================================================
  */
 
-const LessonBlock = styled.TouchableOpacity({
-  width: "90%",
-  height: 50,
-  padding: 12,
-  margin: 4,
-  borderRadius: 5,
-  flexDirection: "row",
-  alignItems: "center",
-  justifyContent: "space-between",
-  backgroundColor: "rgb(225,225,225)",
-});
-
 const ReviewLink = styled.TouchableOpacity({
   width: "90%",
   height: 50,
@@ -290,12 +275,14 @@ const BoldText = styled.Text<any>`
   font-size: 16;
   font-weight: bold;
   color: ${(props: NativeStyleThemeProps) =>
-    props.theme.type === "dark" ? COLORS.white : COLORS.darkText};
+    props.theme.type === "dark" ? COLORS.whiteThemeText : COLORS.darkText};
 `;
 
-const Text = styled.Text({
-  fontSize: 16,
-});
+const Text = styled.Text<any>`
+  font-size: 16;
+  color: ${(props: NativeStyleThemeProps) =>
+    props.theme.type === "dark" ? COLORS.whiteThemeText : COLORS.darkText};
+`;
 
 const LineBreak = styled.View({
   width: "85%",
@@ -304,24 +291,6 @@ const LineBreak = styled.View({
   marginBottom: 16,
   backgroundColor: COLORS.line,
 });
-
-const LessonBlockText = styled.Text(
-  {},
-  (props: { mtcLesson: boolean; isLocked: boolean }) =>
-    (props.isLocked
-      ? {
-          color: COLORS.inactive,
-          fontWeight: "500",
-          textDecorationStyle: "solid",
-          fontSize: props.mtcLesson ? 16 : 14,
-        }
-      : {
-          color: "black",
-          fontWeight: "500",
-          textDecorationLine: "none",
-          fontSize: props.mtcLesson ? 16 : 14,
-        }) as TextStyle,
-);
 
 /** ========================================================================
  * Export

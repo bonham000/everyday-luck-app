@@ -1,6 +1,6 @@
 import styled from "@emotion/native";
 import React from "react";
-import { ScrollView, StyleSheet, ViewStyle } from "react-native";
+import { StyleSheet, ViewStyle } from "react-native";
 
 import { COLORS } from "@src/constants/Theme";
 import { Text } from "react-native-paper";
@@ -100,6 +100,53 @@ const ScreenBottom = styled.View({
   width: "100%",
   alignItems: "center",
 });
+
+interface LessonBlockProps {
+  hskLocked: boolean;
+  isLocked: boolean;
+  inProgress: boolean;
+}
+
+export const LessonBlock = styled.TouchableOpacity<any>`
+  height: 50px;
+  padding: 12px;
+  margin: 4px;
+  border-radius: 5px;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+
+  background-color: ${(props: NativeStyleThemeProps & LessonBlockProps) => {
+    if (!props.hskLocked) {
+      return COLORS.lessonMTC;
+    }
+
+    if (props.theme.type === "dark") {
+      if (props.isLocked) {
+        return COLORS.lessonBlockDarkInactive;
+      } else if (props.inProgress) {
+        return COLORS.lessonBlockInProgress;
+      }
+    } else {
+      if (props.isLocked) {
+        return COLORS.inactive;
+      } else if (props.inProgress) {
+        return COLORS.lessonBlockInProgress;
+      }
+    }
+
+    return COLORS.lessonBlock;
+  }};
+`;
+
+export const LessonBlockText = styled.Text<any>`
+  font-size: 14px;
+  font-weight: 500;
+
+  color: ${(
+    props: NativeStyleThemeProps & { isLocked: boolean; mtcLesson: boolean },
+  ) => (props.isLocked ? COLORS.inactive : "black")};
+`;
 
 /** ========================================================================
  * Export

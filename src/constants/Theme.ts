@@ -29,14 +29,19 @@ const COLORS = {
   lockedLessonBlock: "rgb(215,215,215)",
   dark: "rgb(15,15,15)",
   white: "rgb(250,250,250)",
+  whiteThemeText: "rgb(235,235,235)",
   lessonBlockDefault: "rgb(225,225,225)",
+  lessonBlockDarkInactive: "rgb(75,75,75)",
 
   /**
    * Background
    */
   background: "rgb(231, 237, 240)",
-  backgroundDark: "rgb(25,25,25)",
+  backgroundDark: "rgb(18,18,18)",
 };
+
+export const setFontColor = (theme: string) =>
+  theme === "dark" ? COLORS.white : COLORS.darkText;
 
 /** ========================================================================
  * React Native Paper Theme Configuration

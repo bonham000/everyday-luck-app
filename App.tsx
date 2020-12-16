@@ -1,5 +1,6 @@
 import { ThemeProvider } from "@emotion/react";
 import React from "react";
+import { LogBox } from "react-native";
 import { Provider as ReactNativePaperProvider } from "react-native-paper";
 import { enableScreens } from "react-native-screens";
 
@@ -18,8 +19,7 @@ enableScreens();
 import "react-native-gesture-handler";
 
 /* Disable warnings */
-// tslint:disable-next-line
-console.disableYellowBox = true;
+LogBox.ignoreAllLogs(true);
 
 const theme = {
   type: "dark",
