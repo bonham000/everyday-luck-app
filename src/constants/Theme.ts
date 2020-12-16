@@ -39,11 +39,11 @@ const COLORS = {
   textInputLightTheme: "rgb(231, 237, 240)",
   choiceBlockDarkTheme: "rgb(26,26,26)",
 
-  /**
-   * Background
-   */
   background: "rgb(231, 237, 240)",
   backgroundDark: "rgb(18,18,18)",
+
+  flashcardDarkTheme: "rgb(35,35,35)",
+  flashcardLightTheme: "rgb(225,225,225)",
 };
 
 export const setFontColor = (theme: string) =>

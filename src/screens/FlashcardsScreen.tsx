@@ -13,6 +13,7 @@ import {
 } from "@src/providers/GlobalStateProvider";
 import { Lesson, LessonScreenParams, Word } from "@src/tools/types";
 import { knuthShuffle } from "@src/tools/utils";
+import { NativeStyleThemeProps } from "@src/AppContainer";
 
 /** ========================================================================
  * Types
@@ -65,7 +66,11 @@ export class FlashcardsScreenComponent extends React.Component<IProps, IState> {
           cards={this.state.deck}
           renderCard={this.renderCard}
           ref={this.handleAssignSwiperRef}
-          backgroundColor={COLORS.lightWhite}
+          backgroundColor={
+            this.props.appTheme === "dark"
+              ? COLORS.backgroundDark
+              : COLORS.lightWhite
+          }
           overlayLabels={CARD_OVERLAY_LABELS}
           onSwipedLeft={this.handleSwipe("left")}
           onSwipedRight={this.handleSwipe("right")}
@@ -188,7 +193,7 @@ export class FlashcardsScreenComponent extends React.Component<IProps, IState> {
  */
 
 const FlipCardStyles = {
-  backgroundColor: "white",
+  // backgroundColor: "white",
   alignItems: "center",
   shadowOpacity: 0.5,
   shadowOffset: {
@@ -204,11 +209,15 @@ const FlipCardStyles = {
   borderWidth: 0,
 };
 
-const FlipSideView = styled.View({
-  flex: 1,
-  justifyContent: "center",
-  alignItems: "center",
-});
+const FlipSideView = styled.View<any>`
+  flex: 1px;
+  align-items: center;
+  justify-content: center;
+  background-color: ${(props: NativeStyleThemeProps) =>
+    props.theme.type === "dark"
+      ? COLORS.flashcardDarkTheme
+      : COLORS.flashcardLightTheme};
+`;
 
 const FaceText = styled.Text({
   fontSize: 100,

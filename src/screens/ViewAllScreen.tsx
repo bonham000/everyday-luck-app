@@ -4,7 +4,7 @@ import { FlatList, Keyboard } from "react-native";
 import { Searchbar } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
-import { BasicContainer } from "@src/components/SharedComponents";
+import { BasicContainer, StyledText } from "@src/components/SharedComponents";
 import { COLORS } from "@src/constants/Theme";
 import {
   GlobalStateContextProps,
@@ -16,6 +16,7 @@ import {
 } from "@src/providers/SoundRecordingProvider";
 import { LessonScreenParams, Word } from "@src/tools/types";
 import { filterBySearchTerm, mapWordsForList } from "@src/tools/utils";
+import { NativeStyleThemeProps } from "@src/AppContainer";
 
 /** ========================================================================
  * Types
@@ -45,8 +46,8 @@ export class ViewAllScreenComponent extends React.Component<IProps, IState> {
   }
 
   render(): JSX.Element {
-    const SearchBar = (
-      <Searchbar
+    const SearchBarInput = (
+      <StyledSearchBar
         autoFocus
         style={SearchBarStyles}
         placeholder="Filter list (enter Chinese or English)"
@@ -57,7 +58,7 @@ export class ViewAllScreenComponent extends React.Component<IProps, IState> {
 
     return (
       <BasicContainer>
-        {SearchBar}
+        {SearchBarInput}
         <FlatList
           onScroll={Keyboard.dismiss}
           contentContainerStyle={{ width: "100%" }}
@@ -110,21 +111,24 @@ export class ViewAllScreenComponent extends React.Component<IProps, IState> {
  * =========================================================================
  */
 
-const WordBox = styled.TouchableOpacity({
-  padding: 8,
-  width: "100%",
-  paddingLeft: 12,
-  borderBottomWidth: 1,
-  borderBottomColor: COLORS.wordCardBorder,
-  backgroundColor: COLORS.background,
-});
+const WordBox = styled.TouchableOpacity<any>`
+  padding: 8px;
+  width: 100%;
+  padding-left: 12px;
+  border-bottom-width: 1px;
+  background-color: ${(props: NativeStyleThemeProps) =>
+    props.theme.type === "dark" ? COLORS.white : COLORS.wordCardBorder};
 
-const WordText = styled.Text({
+  background-color: ${(props: NativeStyleThemeProps) =>
+    props.theme.type === "dark" ? COLORS.backgroundDark : COLORS.background};
+`;
+
+const WordText = styled(StyledText)({
   padding: 4,
   paddingLeft: 8,
 });
 
-const SmallText = styled.Text({
+const SmallText = styled(StyledText)({
   fontSize: 14,
 });
 
@@ -132,6 +136,13 @@ const SearchBarStyles = {
   borderTopWidth: 1,
   borderTopColor: COLORS.lightDark,
 };
+
+const StyledSearchBar = styled(Searchbar)<any>`
+  background-color: ${(props: NativeStyleThemeProps) =>
+    props.theme.type === "dark"
+      ? COLORS.textInputDarkTheme
+      : COLORS.textInputLightTheme};
+`;
 
 /** ========================================================================
  * Export

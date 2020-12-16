@@ -44,10 +44,11 @@ const Bold = styled.Text({
   fontWeight: "bold",
 });
 
-const BasicContainer = styled.View({
-  flex: 1,
-  backgroundColor: COLORS.background,
-});
+const BasicContainer = styled.View<any>`
+  flex: 1;
+  background-color: ${(props: NativeStyleThemeProps) =>
+    props.theme.type === "dark" ? COLORS.backgroundDark : COLORS.background};
+`;
 
 const Container = styled.View`
   flex: 1;
