@@ -46,6 +46,19 @@ export class SettingsScreenComponent extends React.Component<IProps, {}> {
     } = this.props;
     return (
       <ScrollContainer>
+        <SectionTitle>Experience Points</SectionTitle>
+        <InfoText>
+          You currently have{" "}
+          <Bold>{this.props.experience.toLocaleString()}</Bold> experience
+          points.
+        </InfoText>
+        <InfoText>
+          You can use these experience points on any quiz challenge to reclaim a
+          question if you answer it incorrectly. You will still be prompted to
+          answer the same question again later in the quiz, but this can help
+          you to recover from missed words.
+        </InfoText>
+        <LineBreak />
         <SectionTitle>Language Setting</SectionTitle>
         <BasicText>
           Your current language setting is:{" "}
@@ -95,19 +108,6 @@ export class SettingsScreenComponent extends React.Component<IProps, {}> {
           onValueChange={toggleAppTheme}
           style={{ marginTop: 15, marginBottom: 15 }}
         />
-        <LineBreak />
-        <SectionTitle>Experience Points</SectionTitle>
-        <InfoText>
-          You currently have{" "}
-          <Bold>{this.props.experience.toLocaleString()}</Bold> experience
-          points.
-        </InfoText>
-        <InfoText>
-          You can use these experience points on any quiz challenge to reclaim a
-          question if you answer it incorrectly. You will still be prompted to
-          answer the same question again later in the quiz, but this can help
-          you to recover from missed words.
-        </InfoText>
       </ScrollContainer>
     );
   }
@@ -178,10 +178,11 @@ const InfoText = styled.Text<any>`
 
 const LineBreak = styled.View<any>`
   width: 85%;
-  height: 1px;
   margin-top: 12px;
   margin-bottom: 12px;
-  background-color: black;
+  height: 1px;
+  background-color: ${(props: NativeStyleThemeProps) =>
+    props.theme.type === "dark" ? COLORS.fadedText : COLORS.dark};
 `;
 
 const DifficultSettingBlock = styled.TouchableOpacity<any>`

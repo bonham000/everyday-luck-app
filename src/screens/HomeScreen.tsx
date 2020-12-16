@@ -284,13 +284,14 @@ const Text = styled.Text<any>`
     props.theme.type === "dark" ? COLORS.whiteThemeText : COLORS.darkText};
 `;
 
-const LineBreak = styled.View({
-  width: "85%",
-  height: 1,
-  marginTop: 16,
-  marginBottom: 16,
-  backgroundColor: COLORS.line,
-});
+const LineBreak = styled.View<any>`
+  width: 85%;
+  margin-top: 16px;
+  margin-bottom: 16px;
+  height: 1px;
+  background-color: ${(props: NativeStyleThemeProps) =>
+    props.theme.type === "dark" ? COLORS.fadedText : COLORS.dark};
+`;
 
 /** ========================================================================
  * Export

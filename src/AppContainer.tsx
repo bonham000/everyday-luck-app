@@ -25,7 +25,10 @@ import GlobalContext, {
   ToastMessageArgs,
   UserSettings,
 } from "@src/providers/GlobalStateContext";
-import { GlobalStateValues } from "@src/providers/GlobalStateProvider";
+import {
+  APP_THEME,
+  GlobalStateValues,
+} from "@src/providers/GlobalStateProvider";
 import SoundRecordingProvider from "@src/providers/SoundRecordingProvider";
 import { sendContactRequest } from "@src/tools/api";
 import {
@@ -477,7 +480,9 @@ class RootContainer extends RootContainerBase<{}> {
     return (
       <ThemeProvider theme={{ type: appTheme }}>
         <View style={{ flex: 1 }}>
-          <StatusBar translucent />
+          <StatusBar
+            barStyle={appTheme === "dark" ? "light-content" : "dark-content"}
+          />
           {transparentLoading && <TransparentLoadingComponent />}
           <CustomToast
             close={this.clearToast}
@@ -486,6 +491,7 @@ class RootContainer extends RootContainerBase<{}> {
           <GlobalContext.Provider value={ProviderValues}>
             <SoundRecordingProvider disableAudio={disableAudio}>
               <RenderAppOnce
+                theme={appTheme as APP_THEME}
                 firstTimeUser={firstTimeUser}
                 assignNavigatorRef={this.assignNavRef}
               />
@@ -688,20 +694,40 @@ class RootContainer extends RootContainerBase<{}> {
  */
 
 interface RenderAppOnceProps {
+  theme: APP_THEME;
   firstTimeUser: boolean;
   assignNavigatorRef: (ref: any) => void;
 }
 
 // tslint:disable-next-line
-class RenderAppOnce extends React.Component<RenderAppOnceProps, {}> {
-  shouldComponentUpdate(_: RenderAppOnceProps): boolean {
-    return false;
+class RenderAppOnce extends React.Component<
+  RenderAppOnceProps,
+  { navigator: any }
+> {
+  constructor(props: RenderAppOnceProps) {
+    super(props);
+
+    this.state = {
+      navigator: null,
+    };
   }
 
-  render(): JSX.Element {
+  componentDidMount(): void {
+    // Create the navigator once on mount so it doesn't get re-created on prop changes...
     const AppNavigator = createAppNavigator(this.props.firstTimeUser);
     const Nav = createAppContainer(AppNavigator);
-    return <Nav ref={this.props.assignNavigatorRef} />;
+    this.setState({ navigator: Nav });
+  }
+
+  render(): JSX.Element | null {
+    const Nav = this.state.navigator;
+    if (Nav) {
+      return (
+        <Nav theme={this.props.theme} ref={this.props.assignNavigatorRef} />
+      );
+    }
+
+    return null;
   }
 }
 

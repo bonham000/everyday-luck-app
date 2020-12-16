@@ -1,8 +1,5 @@
-import {
-  DrawerLockMode,
-  NavigationActions,
-  StackActions,
-} from "react-navigation";
+import { NavigationActions, StackActions } from "react-navigation";
+import { DrawerLockMode } from "react-navigation-drawer";
 
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 

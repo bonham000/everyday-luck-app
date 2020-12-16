@@ -5,8 +5,8 @@ import {
   NavigationScreenProp,
   NavigationState,
 } from "react-navigation";
-import { createStackNavigator } from "react-navigation-stack";
 import { createDrawerNavigator } from "react-navigation-drawer";
+import { createStackNavigator } from "react-navigation-stack";
 
 import SideMenuComponent from "@src/components/SideMenuComponent";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
@@ -27,6 +27,10 @@ import ViewAllScreen from "@src/screens/ViewAllScreen";
 import WelcomeScreenComponent from "@src/screens/WelcomeScreen";
 import { getDrawerLockedState } from "@src/tools/navigation-utils";
 import { LessonScreenParams, ListScreenParams } from "@src/tools/types";
+import {
+  GlobalStateContextProps,
+  withGlobalStateContext,
+} from "./providers/GlobalStateProvider";
 import AboutDetailScreenComponent from "./screens/AboutDetailScreen";
 import AddWordScreenComponent from "./screens/AddWordScreen";
 import AudioReviewAllScreen from "./screens/AudioReviewAllScreen";
@@ -280,16 +284,21 @@ const createAppNavigationStack = (firstTimeUser: boolean) => {
   });
 };
 
-const MenuIcon = ({ onPress }: { onPress: () => void }) => (
+const Hamburger = (
+  props: { onPress: () => void } & GlobalStateContextProps,
+) => (
   <MaterialIcons
     name="menu"
     size={32}
+    color={props.appTheme === "dark" ? "white" : "black"}
     style={{
       marginLeft: 15,
     }}
-    onPress={onPress}
+    onPress={props.onPress}
   />
 );
+
+const MenuIcon = withGlobalStateContext(Hamburger);
 
 const createNavigatorConfig = (firstTimeUser: boolean) => {
   return createDrawerNavigator(
