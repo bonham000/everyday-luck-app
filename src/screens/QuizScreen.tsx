@@ -39,6 +39,7 @@ import {
   randomInRange,
 } from "@src/tools/utils";
 import MOCKS from "@tests/mocks";
+import { NativeStyleThemeProps } from "App";
 
 /** ========================================================================
  * Types
@@ -776,10 +777,13 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
  * =========================================================================
  */
 
-const ProgressText = styled.Text({
-  fontSize: 10,
-  justifyContent: "center",
-});
+const ProgressText = styled.Text<any>`
+  font-size: 10px;
+  justify-content: center;
+
+  color: ${(props: NativeStyleThemeProps) =>
+    props.theme.type === "dark" ? COLORS.white : COLORS.darkText};
+`;
 
 const ActionIconStyle = {
   fontSize: 20,

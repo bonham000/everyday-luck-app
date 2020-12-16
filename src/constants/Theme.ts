@@ -31,7 +31,10 @@ const COLORS = {
   white: "rgb(250,250,250)",
   whiteThemeText: "rgb(235,235,235)",
   lessonBlockDefault: "rgb(225,225,225)",
-  lessonBlockDarkInactive: "rgb(75,75,75)",
+  lessonBlockDarkInactive: "rgb(26,26,26)",
+  choiceBlockDefault: "rgb(55,55,55)",
+  textInputDarkTheme: "rgb(15,15,15)",
+  textInputLightTheme: "rgb(231, 237, 240)",
 
   /**
    * Background

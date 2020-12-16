@@ -287,21 +287,26 @@ const FlatListStyles = {
   paddingRight: 15,
 };
 
-const TitleText = styled.Text({
-  fontSize: 16,
-  width: "100%",
-  fontWeight: "bold",
-  textAlign: "center",
-  marginTop: 15,
-  marginBottom: 15,
-});
+const TitleText = styled.Text<any>`
+  font-size: 16px;
+  width: 100%;
+  font-weight: bold;
+  margin-bottom: 16px;
+  text-align: center;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  color: ${(props: NativeStyleThemeProps) =>
+    props.theme.type === "dark" ? COLORS.whiteThemeText : COLORS.darkText};
+`;
 
-const SubText = styled.Text({
-  fontSize: 13,
-  width: "100%",
-  marginBottom: 6,
-  textAlign: "center",
-});
+const SubText = styled.Text<any>`
+  font-size: 13px;
+  width: 100%;
+  margin-bottom: 6px;
+  text-align: center;
+  color: ${(props: NativeStyleThemeProps) =>
+    props.theme.type === "dark" ? COLORS.whiteThemeText : COLORS.darkText};
+`;
 
 const OptOutBlock = styled.View({
   paddingTop: 15,

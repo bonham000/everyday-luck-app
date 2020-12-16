@@ -12,6 +12,7 @@ import {
   formatUserLanguageSetting,
   randomInRange,
 } from "@src/tools/utils";
+import { NativeStyleThemeProps } from "App";
 
 /** ========================================================================
  * React Class
@@ -99,12 +100,11 @@ const QuizInput = ({
         <Shaker style={{ width: "100%" }} shouldShake={shouldShake}>
           <QuizBox>
             <EnglishText>"{currentWord.english}"</EnglishText>
-            <TextInput
+            <StyledTextInput
               mode="outlined"
               value={value}
               error={attempted}
               ref={setInputRef}
-              style={TextInputStyles}
               onChangeText={handleChange}
               onSubmitEditing={handleCheckAnswer}
               label={`Enter ${formatUserLanguageSetting(languageSetting)}`}
@@ -133,12 +133,18 @@ const QuizBox = styled.TouchableOpacity({
   alignItems: "center",
 });
 
-const TextInputStyles = {
-  width: "95%",
-  fontSize: 18,
-  marginTop: 12,
-  backgroundColor: COLORS.background,
-};
+const StyledTextInput = styled(TextInput)<any>`
+  width: 95%;
+  font-size: 18px;
+  margin-top: 12px;
+  color: ${(props: NativeStyleThemeProps) =>
+    props.theme.type === "dark" ? COLORS.white : COLORS.darkText};
+
+  background-color: ${(props: NativeStyleThemeProps) =>
+    props.theme.type === "dark"
+      ? COLORS.textInputDarkTheme
+      : COLORS.textInputLightTheme};
+`;
 
 const EnglishText = styled.Text({
   fontSize: 24,

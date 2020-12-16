@@ -24,6 +24,7 @@ import {
   flattenLessonSet,
   getAlternateChoices,
 } from "@src/tools/utils";
+import { NativeStyleThemeProps } from "App";
 
 /** ========================================================================
  * Types
@@ -259,7 +260,7 @@ const QuizPromptText = ({
   const font = quizType === QUIZ_TYPE.ENGLISH ? 52 : 26;
   const fontSize = SMALL_DEVICE ? font * 0.8 : font;
   return (
-    <Text
+    <ThemedText
       numberOfLines={1}
       adjustsFontSizeToFit
       style={{
@@ -268,15 +269,20 @@ const QuizPromptText = ({
       }}
     >
       {children}
-    </Text>
+    </ThemedText>
   );
 };
 
-const QuizSubText = styled.Text({
-  fontSize: 22,
-  marginTop: 12,
-  marginBottom: 12,
-});
+const ThemedText = styled.Text<any>`
+  color: ${(props: NativeStyleThemeProps) =>
+    props.theme.type === "dark" ? COLORS.white : COLORS.darkText};
+`;
+
+const QuizSubText = styled(ThemedText)`
+  font-size: 22px;
+  margin-top: 12px;
+  margin-bottom: 12px;
+`;
 
 const AudioEscapeBlock = styled.TouchableOpacity({
   right: 30,
@@ -327,7 +333,7 @@ const Choice = ({
           ? isCorrect
             ? COLORS.actionButtonMint
             : COLORS.primaryRed
-          : COLORS.lightDark,
+          : COLORS.choiceBlockDefault,
       }}
       onPress={onPress}
     >
@@ -350,7 +356,6 @@ const QuizAnswerText = ({
   const font = shouldReveal ? 15 : quizType === QUIZ_TYPE.ENGLISH ? 22 : 45;
   const fontSize = SMALL_DEVICE ? font * 0.7 : font;
   const textStyles: TextStyle = {
-    color: "black",
     fontWeight: shouldReveal
       ? "400"
       : quizType === QUIZ_TYPE.ENGLISH
@@ -369,28 +374,28 @@ const QuizAnswerText = ({
           justifyContent: "center",
         }}
       >
-        <Text
+        <ThemedText
           numberOfLines={1}
           allowFontScaling
           style={{ fontSize: SMALL_DEVICE ? 15 : 30, paddingRight: 10 }}
         >
           {choice[languageSetting]}
-        </Text>
-        <Text numberOfLines={1} allowFontScaling style={textStyles}>
+        </ThemedText>
+        <ThemedText numberOfLines={1} allowFontScaling style={textStyles}>
           {choice.pinyin} - {choice.english}
-        </Text>
+        </ThemedText>
       </View>
     );
   }
 
   return quizType === QUIZ_TYPE.ENGLISH ? (
-    <Text numberOfLines={1} allowFontScaling style={textStyles}>
+    <ThemedText numberOfLines={1} allowFontScaling style={textStyles}>
       {capitalize(choice.english)}
-    </Text>
+    </ThemedText>
   ) : (
-    <Text numberOfLines={1} allowFontScaling style={textStyles}>
+    <ThemedText numberOfLines={1} allowFontScaling style={textStyles}>
       {choice[languageSetting]}
-    </Text>
+    </ThemedText>
   );
 };
 

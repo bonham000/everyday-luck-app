@@ -1,7 +1,7 @@
 import styled from "@emotion/native";
 import React from "react";
-import { StyleSheet } from "react-native";
 import { Text } from "react-native-paper";
+import { StyleSheet } from "react-native";
 import { NavigationScreenProp } from "react-navigation";
 
 import { Bold, ScrollContainer } from "@src/components/SharedComponents";
@@ -22,6 +22,7 @@ import {
   getLessonSummaryStatus,
   getRandomQuizChallenge,
 } from "@src/tools/utils";
+import { NativeStyleThemeProps } from "App";
 
 /** ========================================================================
  * Types
@@ -67,7 +68,7 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
       <ScrollContainer>
         {this.renderTitleText()}
         {this.renderSubText()}
-        {NON_RANDOM_QUIZ && <Text style={SectionTextStyles}>Quizzes</Text>}
+        {NON_RANDOM_QUIZ && <SectionTitleText>Quizzes</SectionTitleText>}
         {IS_DAILY_QUIZ && (
           <React.Fragment>
             <LineBreak />
@@ -148,7 +149,7 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
         )}
         {NON_RANDOM_QUIZ && (
           <React.Fragment>
-            <Text style={SectionTextStyles}>Practice</Text>
+            <SectionTitleText>Practice</SectionTitleText>
             <LineBreak />
             <ActionBlock
               style={{ backgroundColor: COLORS.lessonCustomList }}
@@ -168,7 +169,7 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
               <Text>Character Writing</Text>
               <Text>🎨</Text>
             </ActionBlock>
-            <Text style={SectionTextStyles}>Study</Text>
+            <SectionTitleText>Study</SectionTitleText>
             <LineBreak />
             <ActionBlock
               style={{ backgroundColor: COLORS.actionButtonMint }}
@@ -248,19 +249,15 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
     const listIndex = this.props.navigation.getParam("listIndex");
     return (
       <React.Fragment>
-        {type === "LESSON" && <Text style={TextStyles}>Lesson Summary</Text>}
-        {type === "SUMMARY" && <Text style={TextStyles}>Content Summary</Text>}
-        {type === "SHUFFLE_QUIZ" && (
-          <Text style={TextStyles}>Shuffle Quiz</Text>
-        )}
-        {type === "DAILY_QUIZ" && (
-          <Text style={TextStyles}>Daily Quiz - 天天桔 🍊</Text>
-        )}
+        {type === "LESSON" && <TitleText>Lesson Summary</TitleText>}
+        {type === "SUMMARY" && <TitleText>Content Summary</TitleText>}
+        {type === "SHUFFLE_QUIZ" && <TitleText>Shuffle Quiz</TitleText>}
+        {type === "DAILY_QUIZ" && <TitleText>Daily Quiz - 天天桔 🍊</TitleText>}
         {type === "OPT_OUT_CHALLENGE" &&
           (listIndex > 4 ? (
-            <Text style={TextStyles}>Test!</Text>
+            <TitleText>Test!</TitleText>
           ) : (
-            <Text style={TextStyles}>HSK Test</Text>
+            <TitleText>HSK Test</TitleText>
           ))}
       </React.Fragment>
     );
@@ -274,38 +271,36 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
     return (
       <React.Fragment>
         {type === "LESSON" && (
-          <Text style={SubTextStyles}>
-            {COUNT} total words to practice in this lesson
-          </Text>
+          <SubText>{COUNT} total words to practice in this lesson</SubText>
         )}
         {type === "SUMMARY" && (
-          <Text style={SubTextStyles}>
+          <SubText>
             This is a summary of all unlocked content. There are {COUNT} to
             review.
-          </Text>
+          </SubText>
         )}
         {type === "DAILY_QUIZ" && (
-          <Text style={SubTextStyles}>
+          <SubText>
             There are {COUNT} random words selected for you! Practicing daily is
             the best way to build up experience points!
-          </Text>
+          </SubText>
         )}
         {type === "SHUFFLE_QUIZ" && (
-          <Text style={SubTextStyles}>
+          <SubText>
             This is a good way to review the content in this lesson.
-          </Text>
+          </SubText>
         )}
         {type === "OPT_OUT_CHALLENGE" &&
           (listIndex > 4 ? (
-            <Text style={SubTextStyles}>
+            <SubText>
               There are {COUNT} random words selected. If you can pass the quiz
               with a perfect score you will unlock all the content here.
-            </Text>
+            </SubText>
           ) : (
-            <Text style={SubTextStyles}>
+            <SubText>
               There are {COUNT} random words selected. If you can pass the quiz
               with a perfect score you will unlock the next HSK Level!
-            </Text>
+            </SubText>
           ))}
       </React.Fragment>
     );
@@ -382,27 +377,33 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
  * =========================================================================
  */
 
-const TextStyles: any = {
-  fontSize: 16,
-  width: "88%",
-  fontWeight: "bold",
-  textAlign: "center",
-  marginBottom: 16,
-};
+const TitleText = styled.Text<any>`
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 16px;
+  text-align: center;
+  color: ${(props: NativeStyleThemeProps) =>
+    props.theme.type === "dark" ? COLORS.whiteThemeText : COLORS.darkText};
+`;
 
-const SubTextStyles: any = {
-  fontSize: 16,
-  width: "85%",
-  textAlign: "center",
-  marginBottom: 16,
-};
+const SectionTitleText = styled.Text<any>`
+  width: 88%;
+  font-size: 16px;
+  font-weight: bold;
+  margin-top: 16px;
+  text-align: left;
+  color: ${(props: NativeStyleThemeProps) =>
+    props.theme.type === "dark" ? COLORS.whiteThemeText : COLORS.darkText};
+`;
 
-const SectionTextStyles: any = {
-  fontSize: 14,
-  marginTop: 16,
-  width: "88%",
-  textAlign: "left",
-};
+const SubText = styled.Text<any>`
+  font-size: 16px;
+  width: 85%;
+  text-align: center;
+  margin-bottom: 16px;
+  color: ${(props: NativeStyleThemeProps) =>
+    props.theme.type === "dark" ? COLORS.whiteThemeText : COLORS.darkText};
+`;
 
 const ActionBlock = styled.TouchableOpacity({
   width: "90%",
@@ -415,19 +416,24 @@ const ActionBlock = styled.TouchableOpacity({
   backgroundColor: COLORS.lessonBlock,
 });
 
-const LineBreak = styled.View({
-  width: "85%",
-  marginTop: 12,
-  marginBottom: 12,
-  backgroundColor: "black",
-  height: StyleSheet.hairlineWidth,
-});
+const LineBreak = styled.View<any>`
+  width: 85%;
+  margin-top: 12;
+  margin-bottom: 12;
+  height: ${StyleSheet.hairlineWidth};
 
-const InfoText = styled.Text({
-  textAlign: "center",
-  width: "85%",
-  marginTop: 15,
-});
+  background-color: ${(props: NativeStyleThemeProps) =>
+    props.theme.type === "dark" ? COLORS.whiteThemeText : COLORS.darkText};
+`;
+
+const InfoText = styled.Text<any>`
+  width: 85%;
+  text-align: center;
+  margin-top: 15px;
+
+  color: ${(props: NativeStyleThemeProps) =>
+    props.theme.type === "dark" ? COLORS.whiteThemeText : COLORS.darkText};
+`;
 
 /** ========================================================================
  * Export

@@ -90,14 +90,14 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
           Practice everyday to gain experience!
         </BoldText>
         <ReviewLink onPress={this.openLessonSummarySpecial("DAILY_QUIZ")}>
-          <BoldText>Daily Challenge! 天天桔</BoldText>
+          <LessonBlockText>Daily Challenge! 天天桔</LessonBlockText>
           <Text>🍊</Text>
         </ReviewLink>
         <ReviewLink
           style={{ marginTop: 6 }}
           onPress={this.openLessonSummarySpecial("SUMMARY")}
         >
-          <BoldText>Review All Unlocked Content</BoldText>
+          <LessonBlockText>Review All Unlocked Content</LessonBlockText>
           <Text>🗃</Text>
         </ReviewLink>
       </ScrollContainer>
