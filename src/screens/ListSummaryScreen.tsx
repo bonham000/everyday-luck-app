@@ -4,6 +4,8 @@ import { FlatList, View } from "react-native";
 import { Text } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
+import { NativeStyleThemeProps } from "@src/AppContainer";
+import { LessonBlock, LessonBlockText } from "@src/components/SharedComponents";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import { COLORS } from "@src/constants/Theme";
 import { OPT_OUT_LEVEL } from "@src/providers/GlobalStateContext";
@@ -23,8 +25,6 @@ import {
   getRandomQuizChallenge,
   mapListIndexToListScores,
 } from "@src/tools/utils";
-import { NativeStyleThemeProps } from "@src/AppContainer";
-import { LessonBlock, LessonBlockText } from "@src/components/SharedComponents";
 
 /** ========================================================================
  * Types

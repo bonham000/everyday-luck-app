@@ -25,10 +25,7 @@ import GlobalContext, {
   ToastMessageArgs,
   UserSettings,
 } from "@src/providers/GlobalStateContext";
-import {
-  APP_THEME,
-  GlobalStateValues,
-} from "@src/providers/GlobalStateProvider";
+import { GlobalStateValues } from "@src/providers/GlobalStateProvider";
 import SoundRecordingProvider from "@src/providers/SoundRecordingProvider";
 import { sendContactRequest } from "@src/tools/api";
 import {
@@ -670,10 +667,13 @@ class RootContainer extends RootContainerBase<{}> {
   };
 
   toggleAppTheme = () => {
-    const theme = this.state.user?.settings.app_theme === "dark" ? "light" : "dark";
-    return this.handleUpdateUserSettingsField({
-      app_theme: theme,
-    });
+    const { user } = this.state;
+    if (user) {
+      const newTheme = user.settings.app_theme === "dark" ? "light" : "dark";
+      return this.handleUpdateUserSettingsField({
+        app_theme: newTheme,
+      });
+    }
   };
 
   assignNavRef = (ref: any) => {

@@ -4,6 +4,7 @@ import React from "react";
 import { Image, Keyboard, TouchableOpacity, View } from "react-native";
 import { NavigationScreenProp } from "react-navigation";
 
+import { NativeStyleThemeProps } from "@src/AppContainer";
 import { SMALL_DEVICE } from "@src/constants/Device";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import { COLORS } from "@src/constants/Theme";
@@ -13,7 +14,6 @@ import {
 } from "@src/providers/GlobalStateProvider";
 import { formatUserLanguageSetting } from "@src/tools/utils";
 import { ScrollView } from "react-native-gesture-handler";
-import { NativeStyleThemeProps } from "@src/AppContainer";
 
 /** ========================================================================
  * Types

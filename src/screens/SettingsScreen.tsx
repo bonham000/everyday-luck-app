@@ -1,8 +1,9 @@
 import styled from "@emotion/native";
 import React from "react";
-import { Text, Switch } from "react-native-paper";
+import { Switch, Text } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
+import { NativeStyleThemeProps } from "@src/AppContainer";
 import {
   Bold,
   Button,
@@ -20,7 +21,6 @@ import {
   formatUserLanguageSetting,
   getAlternateLanguageSetting,
 } from "@src/tools/utils";
-import { NativeStyleThemeProps } from "@src/AppContainer";
 
 /** ========================================================================
  * Types

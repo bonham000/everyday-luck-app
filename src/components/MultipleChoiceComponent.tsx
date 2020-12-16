@@ -1,13 +1,9 @@
 import styled from "@emotion/native";
 import React from "react";
-import {
-  GestureResponderEvent,
-  TextStyle,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { GestureResponderEvent, TextStyle, View } from "react-native";
 import { Text } from "react-native-paper";
 
+import { NativeStyleThemeProps } from "@src/AppContainer";
 import Shaker from "@src/components/ShakerComponent";
 import { Button, StyledText } from "@src/components/SharedComponents";
 import { SMALL_DEVICE } from "@src/constants/Device";
@@ -24,7 +20,6 @@ import {
   flattenLessonSet,
   getAlternateChoices,
 } from "@src/tools/utils";
-import { NativeStyleThemeProps } from "@src/AppContainer";
 
 /** ========================================================================
  * Types

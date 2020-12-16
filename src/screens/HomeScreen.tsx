@@ -2,6 +2,7 @@ import styled from "@emotion/native";
 import React from "react";
 import { NavigationScreenProp } from "react-navigation";
 
+import { NativeStyleThemeProps } from "@src/AppContainer";
 import {
   LessonBlock,
   LessonBlockText,
@@ -27,7 +28,6 @@ import {
   getReviewLessonSet,
 } from "@src/tools/utils";
 import { CUSTOM_WORD_LIST_TITLE } from "@tests/mocks";
-import { NativeStyleThemeProps } from "@src/AppContainer";
 
 /** ========================================================================
  * Types

@@ -2,6 +2,7 @@ import styled from "@emotion/native";
 import React from "react";
 import { TextInput } from "react-native-paper";
 
+import { NativeStyleThemeProps } from "@src/AppContainer";
 import Shaker from "@src/components/ShakerComponent";
 import { Button, StyledText } from "@src/components/SharedComponents";
 import { COMPLIMENTS } from "@src/constants/Compliments";
@@ -12,7 +13,6 @@ import {
   formatUserLanguageSetting,
   randomInRange,
 } from "@src/tools/utils";
-import { NativeStyleThemeProps } from "@src/AppContainer";
 
 /** ========================================================================
  * React Class

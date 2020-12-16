@@ -3,6 +3,7 @@ import React from "react";
 import { Alert, TouchableOpacity } from "react-native";
 import { NavigationScreenProp } from "react-navigation";
 
+import { NativeStyleThemeProps } from "@src/AppContainer";
 import {
   Button,
   ScrollContainer,
@@ -19,7 +20,6 @@ import {
   setWordStudyList,
   WordStudyList,
 } from "@src/tools/async-store";
-import { NativeStyleThemeProps } from "@src/AppContainer";
 
 /** ========================================================================
  * Types

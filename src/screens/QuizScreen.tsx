@@ -6,6 +6,7 @@ import ActionButton from "react-native-action-button";
 import Confetti from "react-native-confetti";
 import { NavigationScreenProp } from "react-navigation";
 
+import { NativeStyleThemeProps } from "@src/AppContainer";
 import MultipleChoiceComponent from "@src/components/MultipleChoiceComponent";
 import QuizInput from "@src/components/QuizInputComponent";
 import { ScrollContainer } from "@src/components/SharedComponents";
@@ -39,7 +40,6 @@ import {
   randomInRange,
 } from "@src/tools/utils";
 import MOCKS from "@tests/mocks";
-import { NativeStyleThemeProps } from "@src/AppContainer";
 
 /** ========================================================================
  * Types

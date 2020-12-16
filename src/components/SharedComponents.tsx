@@ -2,9 +2,9 @@ import styled from "@emotion/native";
 import React from "react";
 import { StyleSheet, ViewStyle } from "react-native";
 
+import { NativeStyleThemeProps } from "@src/AppContainer";
 import { COLORS } from "@src/constants/Theme";
 import { Text, TextInput } from "react-native-paper";
-import { NativeStyleThemeProps } from "@src/AppContainer";
 
 /** ========================================================================
  * Components
@@ -50,7 +50,7 @@ const BasicContainer = styled.View<any>`
     props.theme.type === "dark" ? COLORS.backgroundDark : COLORS.background};
 `;
 
-const Container = styled.View`
+const Container = styled.View<any>`
   flex: 1;
   padding-top: 25px;
   align-items: center;

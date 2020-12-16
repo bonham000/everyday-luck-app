@@ -3,6 +3,7 @@ import React from "react";
 import { Alert } from "react-native";
 import { NavigationScreenProp } from "react-navigation";
 
+import { NativeStyleThemeProps } from "@src/AppContainer";
 import {
   Bold,
   Button,
@@ -21,7 +22,6 @@ import {
   setCustomWordStudyList,
 } from "@src/tools/async-store";
 import { translateWord } from "@src/tools/utils";
-import { NativeStyleThemeProps } from "@src/AppContainer";
 
 /** ========================================================================
  * Types

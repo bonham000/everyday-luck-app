@@ -118,6 +118,7 @@ const getMockScoreStatus = (overrides: Partial<ListScoreSet>) => ({
 const EXPERIENCE_POINTS = 54234;
 
 const SETTINGS: UserSettings = {
+  app_theme: "light",
   disable_audio: false,
   auto_proceed_question: false,
   language_setting: APP_LANGUAGE_SETTING.SIMPLIFIED,
@@ -143,6 +144,7 @@ export const getNewDefaultUser = () => ({
 
 const GLOBAL_STATE_PROPS: GlobalStateContextProps = {
   ...GlobalStateContextValues,
+  appTheme: "light",
   experience: EXPERIENCE_POINTS,
   updateAvailable: false,
   user: USER,

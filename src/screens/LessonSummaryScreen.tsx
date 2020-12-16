@@ -3,6 +3,7 @@ import React from "react";
 import { Text } from "react-native-paper";
 import { NavigationScreenProp } from "react-navigation";
 
+import { NativeStyleThemeProps } from "@src/AppContainer";
 import { Bold, ScrollContainer } from "@src/components/SharedComponents";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import { COLORS } from "@src/constants/Theme";
@@ -21,7 +22,6 @@ import {
   getLessonSummaryStatus,
   getRandomQuizChallenge,
 } from "@src/tools/utils";
-import { NativeStyleThemeProps } from "@src/AppContainer";
 
 /** ========================================================================
  * Types

@@ -3,12 +3,14 @@ import React from "react";
 import { Alert } from "react-native";
 import { NavigationScreenProp } from "react-navigation";
 
+import { NativeStyleThemeProps } from "@src/AppContainer";
 import {
   Button,
   ScrollContainer,
   StyledText,
   StyledTextInput,
 } from "@src/components/SharedComponents";
+import { COLORS } from "@src/constants/Theme";
 import {
   GlobalStateContextProps,
   withGlobalStateContext,
@@ -16,8 +18,6 @@ import {
 import { logoutUserLocal } from "@src/tools/async-store";
 import { convertAppDifficultyToLessonSize } from "@src/tools/utils";
 import MOCKS from "@tests/mocks";
-import { NativeStyleThemeProps } from "@src/AppContainer";
-import { COLORS } from "@src/constants/Theme";
 
 /** ========================================================================
  * Types
