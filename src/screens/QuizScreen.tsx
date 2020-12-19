@@ -235,6 +235,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
       currentWord,
       shouldShake,
       revealAnswer,
+      theme: this.props.appTheme,
       setInputRef: this.setInputRef,
       handleChange: this.handleChange,
       handleCheck: this.handleCheckAnswer,

@@ -46,10 +46,25 @@ export class ViewAllScreenComponent extends React.Component<IProps, IState> {
   }
 
   render(): JSX.Element {
+    const theme = this.props.appTheme;
+
     const SearchBarInput = (
-      <StyledSearchBar
+      <Searchbar
         autoFocus
-        style={SearchBarStyles}
+        style={{
+          borderTopWidth: 1,
+          borderTopColor: COLORS.lightDark,
+          backgroundColor:
+            theme === "dark"
+              ? COLORS.textInputDarkTheme
+              : COLORS.textInputLightTheme,
+        }}
+        theme={{
+          colors: {
+            text: theme === "dark" ? "white" : "black",
+            placeholder: theme === "dark" ? "white" : "black",
+          },
+        }}
         placeholder="Filter list (enter Chinese or English)"
         value={this.state.searchValue}
         onChangeText={this.handleSearch}
@@ -116,8 +131,8 @@ const WordBox = styled.TouchableOpacity<any>`
   width: 100%;
   padding-left: 12px;
   border-bottom-width: 1px;
-  background-color: ${(props: NativeStyleThemeProps) =>
-    props.theme.type === "dark" ? COLORS.white : COLORS.wordCardBorder};
+  border-bottom-color: ${(props: NativeStyleThemeProps) =>
+    props.theme.type === "dark" ? COLORS.inactive : COLORS.wordCardBorder};
 
   background-color: ${(props: NativeStyleThemeProps) =>
     props.theme.type === "dark" ? COLORS.backgroundDark : COLORS.background};
@@ -131,18 +146,6 @@ const WordText = styled(StyledText)({
 const SmallText = styled(StyledText)({
   fontSize: 14,
 });
-
-const SearchBarStyles = {
-  borderTopWidth: 1,
-  borderTopColor: COLORS.lightDark,
-};
-
-const StyledSearchBar = styled(Searchbar)<any>`
-  background-color: ${(props: NativeStyleThemeProps) =>
-    props.theme.type === "dark"
-      ? COLORS.textInputDarkTheme
-      : COLORS.textInputLightTheme};
-`;
 
 /** ========================================================================
  * Export

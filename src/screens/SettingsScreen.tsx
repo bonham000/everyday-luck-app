@@ -153,7 +153,7 @@ export class SettingsScreenComponent extends React.Component<IProps, {}> {
 
 const BasicText = styled(Text)<any>`
   color: ${(props: NativeStyleThemeProps) =>
-    props.theme.type === "dark" ? COLORS.whiteThemeText : COLORS.darkText};
+    props.theme.type === "dark" ? COLORS.textDarkTheme : COLORS.darkText};
 `;
 
 const SectionTitle = styled.Text<any>`
@@ -163,7 +163,7 @@ const SectionTitle = styled.Text<any>`
   margin-bottom: 5px;
 
   color: ${(props: NativeStyleThemeProps) =>
-    props.theme.type === "dark" ? COLORS.whiteThemeText : COLORS.darkText};
+    props.theme.type === "dark" ? COLORS.textDarkTheme : COLORS.darkText};
 `;
 
 const InfoText = styled.Text<any>`
@@ -173,7 +173,7 @@ const InfoText = styled.Text<any>`
   text-align: center;
 
   color: ${(props: NativeStyleThemeProps) =>
-    props.theme.type === "dark" ? COLORS.whiteThemeText : COLORS.darkText};
+    props.theme.type === "dark" ? COLORS.textDarkTheme : COLORS.darkText};
 `;
 
 const LineBreak = styled.View<any>`
@@ -204,7 +204,7 @@ const DifficultSettingBlock = styled.TouchableOpacity<any>`
     }
 
     if (props.theme.type === "dark") {
-      return COLORS.lessonBlockDarkInactive;
+      return COLORS.choiceBlockDarkTheme;
     } else {
       return COLORS.lessonBlockLightInactive;
     }
@@ -220,7 +220,7 @@ const DifficultSettingBlockText = styled.Text<any>`
     }
 
     if (props.theme.type === "dark") {
-      return COLORS.darkText;
+      return COLORS.textDarkTheme;
     } else {
       return COLORS.fadedText;
     }

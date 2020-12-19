@@ -99,11 +99,11 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
           have completed.
         </InfoText>
         <StyledTextInput
-          mode="outlined"
-          value={this.state.numberOfLessonsCompleted}
-          onChangeText={this.handleChangeNumberOfLessons}
-          onSubmitEditing={this.dangerouslySetUserScoresManuallyAsync}
+          theme={this.props.appTheme}
           label="Set a number of lessons completed"
+          value={this.state.numberOfLessonsCompleted}
+          handleChange={this.handleChangeNumberOfLessons}
+          onSubmit={this.dangerouslySetUserScoresManuallyAsync}
         />
         <Button
           onPress={this.dangerouslySetUserScoresManuallyAsync}

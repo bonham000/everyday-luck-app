@@ -296,7 +296,7 @@ const TitleText = styled.Text<any>`
   margin-top: 15px;
   margin-bottom: 15px;
   color: ${(props: NativeStyleThemeProps) =>
-    props.theme.type === "dark" ? COLORS.whiteThemeText : COLORS.darkText};
+    props.theme.type === "dark" ? COLORS.textDarkTheme : COLORS.darkText};
 `;
 
 const SubText = styled.Text<any>`
@@ -305,7 +305,7 @@ const SubText = styled.Text<any>`
   margin-bottom: 6px;
   text-align: center;
   color: ${(props: NativeStyleThemeProps) =>
-    props.theme.type === "dark" ? COLORS.whiteThemeText : COLORS.darkText};
+    props.theme.type === "dark" ? COLORS.textDarkTheme : COLORS.darkText};
 `;
 
 const OptOutBlock = styled.View({

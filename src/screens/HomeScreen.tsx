@@ -275,13 +275,13 @@ const BoldText = styled.Text<any>`
   font-size: 16px;
   font-weight: bold;
   color: ${(props: NativeStyleThemeProps) =>
-    props.theme.type === "dark" ? COLORS.whiteThemeText : COLORS.darkText};
+    props.theme.type === "dark" ? COLORS.textDarkTheme : COLORS.darkText};
 `;
 
 const Text = styled.Text<any>`
   font-size: 16px;
   color: ${(props: NativeStyleThemeProps) =>
-    props.theme.type === "dark" ? COLORS.whiteThemeText : COLORS.darkText};
+    props.theme.type === "dark" ? COLORS.textDarkTheme : COLORS.darkText};
 `;
 
 const LineBreak = styled.View<any>`

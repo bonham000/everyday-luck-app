@@ -1,10 +1,11 @@
 import styled from "@emotion/native";
 import React from "react";
 import { StyleSheet, ViewStyle } from "react-native";
+import { Text, TextInput } from "react-native-paper";
 
 import { NativeStyleThemeProps } from "@src/AppContainer";
 import { COLORS } from "@src/constants/Theme";
-import { Text, TextInput } from "react-native-paper";
+import { APP_THEME } from "@src/providers/GlobalStateProvider";
 
 /** ========================================================================
  * Components
@@ -166,21 +167,62 @@ export const LessonBlockText = styled.Text<any>`
 
 export const StyledText = styled.Text<any>`
   color: ${(props: NativeStyleThemeProps) =>
-    props.theme.type === "dark" ? COLORS.whiteThemeText : COLORS.darkText};
+    props.theme.type === "dark" ? COLORS.textDarkTheme : COLORS.darkText};
 `;
 
-export const StyledTextInput = styled(TextInput)<any>`
-  width: 95%;
-  font-size: 18px;
-  margin-top: 12px;
-  color: ${(props: NativeStyleThemeProps) =>
-    props.theme.type === "dark" ? COLORS.white : COLORS.darkText};
+interface StyledTextInputProps {
+  error?: boolean;
+  multiline?: boolean;
+  value: string;
+  label: string;
+  theme: APP_THEME;
+  onSubmit?: () => void;
+  setInputRef?: (ref: any) => void;
+  handleChange: (value: any) => void;
+}
 
-  background-color: ${(props: NativeStyleThemeProps) =>
-    props.theme.type === "dark"
-      ? COLORS.textInputDarkTheme
-      : COLORS.textInputLightTheme};
-`;
+export const StyledTextInput = (props: StyledTextInputProps) => {
+  const {
+    theme,
+    value,
+    error,
+    label,
+    onSubmit,
+    multiline,
+    setInputRef,
+    handleChange,
+  } = props;
+
+  const style = {
+    width: "95%",
+    fontSize: 18,
+    marginTop: 12,
+    backgroundColor:
+      theme === "dark" ? COLORS.textInputDarkTheme : COLORS.textInputLightTheme,
+  };
+
+  const themeStyles = {
+    colors: {
+      placeholder: theme === "dark" ? "white" : "black",
+      text: theme === "dark" ? "white" : "black",
+    },
+  };
+
+  return (
+    <TextInput
+      mode="outlined"
+      error={error}
+      value={value}
+      label={label}
+      style={style}
+      theme={themeStyles}
+      ref={setInputRef}
+      multiline={multiline}
+      onChangeText={handleChange}
+      onSubmitEditing={onSubmit}
+    />
+  );
+};
 
 /** ========================================================================
  * Export

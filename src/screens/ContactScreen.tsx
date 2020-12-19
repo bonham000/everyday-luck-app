@@ -55,17 +55,17 @@ export class ContactScreenComponent extends React.Component<IProps, IState> {
           </InfoText>
           <StyledTextInput
             multiline
-            mode="outlined"
             label="Type a message"
+            theme={this.props.appTheme}
             value={this.state.message}
-            onChangeText={this.handleFieldChange("message")}
+            handleChange={this.handleFieldChange("message")}
           />
           <StyledTextInput
             multiline
-            mode="outlined"
+            theme={this.props.appTheme}
             label="Please add a contact email"
             value={this.state.contactEmail}
-            onChangeText={this.handleFieldChange("contactEmail")}
+            handleChange={this.handleFieldChange("contactEmail")}
           />
           <Button style={{ marginTop: 35 }} onPress={this.handleSubmitForm}>
             Submit Feedback

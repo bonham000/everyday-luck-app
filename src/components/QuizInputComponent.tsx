@@ -1,10 +1,12 @@
 import styled from "@emotion/native";
 import React from "react";
-import { TextInput } from "react-native-paper";
 
-import { NativeStyleThemeProps } from "@src/AppContainer";
 import Shaker from "@src/components/ShakerComponent";
-import { Button, StyledText } from "@src/components/SharedComponents";
+import {
+  Button,
+  StyledText,
+  StyledTextInput,
+} from "@src/components/SharedComponents";
 import { COMPLIMENTS } from "@src/constants/Compliments";
 import { COLORS } from "@src/constants/Theme";
 import { QuizScreenComponentProps } from "@src/tools/types";
@@ -22,6 +24,7 @@ import {
 const QuizInput = ({
   valid,
   value,
+  theme,
   didReveal,
   attempted,
   currentWord,
@@ -101,12 +104,12 @@ const QuizInput = ({
           <QuizBox>
             <EnglishText>"{currentWord.english}"</EnglishText>
             <StyledTextInput
-              mode="outlined"
+              theme={theme}
               value={value}
               error={attempted}
-              ref={setInputRef}
-              onChangeText={handleChange}
-              onSubmitEditing={handleCheckAnswer}
+              setInputRef={setInputRef}
+              handleChange={handleChange}
+              onSubmit={handleCheckAnswer}
               label={`Enter ${formatUserLanguageSetting(languageSetting)}`}
             />
           </QuizBox>
@@ -132,19 +135,6 @@ const QuizBox = styled.TouchableOpacity({
   width: "100%",
   alignItems: "center",
 });
-
-const StyledTextInput = styled(TextInput)<any>`
-  width: 95%;
-  font-size: 18px;
-  margin-top: 12px;
-  color: ${(props: NativeStyleThemeProps) =>
-    props.theme.type === "dark" ? COLORS.white : COLORS.darkText};
-
-  background-color: ${(props: NativeStyleThemeProps) =>
-    props.theme.type === "dark"
-      ? COLORS.textInputDarkTheme
-      : COLORS.textInputLightTheme};
-`;
 
 const EnglishText = styled(StyledText)({
   fontSize: 24,

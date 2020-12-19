@@ -68,10 +68,10 @@ export class NotePadScreen extends React.Component<IProps, IState> {
           You can use this screen to records notes to reference later!
         </InfoText>
         <StyledTextInput
-          mode="outlined"
           label="Add a new word"
           value={this.state.value}
-          onChangeText={(value: string) => this.setState({ value })}
+          theme={this.props.appTheme}
+          handleChange={(value: string) => this.setState({ value })}
         />
         <Button
           onPress={this.handleAddWord}

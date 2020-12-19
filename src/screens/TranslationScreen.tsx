@@ -71,33 +71,34 @@ export class TranslationScreenComponent extends React.Component<
 
   render(): JSX.Element {
     const { input, sourceLanguageChinese } = this.state;
+    const theme = this.props.appTheme;
     return (
       <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
         <ScrollContainer>
           <SectionTitle>Translation Tool</SectionTitle>
           <InfoText>Translate between English and Chinese</InfoText>
           <StyledTextInput
-            mode="outlined"
+            theme={theme}
             value={input}
-            ref={this.setInputRef}
-            onChangeText={this.handleChange}
-            onSubmitEditing={this.handleTranslate}
+            setInputRef={this.setInputRef}
+            handleChange={this.handleChange}
+            onSubmit={this.handleTranslate}
             label="Enter text to translate"
           />
           <ToggleLanguageContainer>
             <Switch
-              color={COLORS.primaryRed}
+              color={COLORS.primaryBlue}
               value={sourceLanguageChinese}
               onValueChange={this.handleToggleLanguage}
             />
-            <Text style={{ marginLeft: 12 }}>
+            <StyledText style={{ marginLeft: 12 }}>
               Translating from:{" "}
               <Bold>
                 {sourceLanguageChinese
                   ? formatUserLanguageSetting(this.props.languageSetting)
                   : "English"}
               </Bold>
-            </Text>
+            </StyledText>
           </ToggleLanguageContainer>
           <Button onPress={this.handleTranslate}>
             {this.state.loadingTranslation ? "Translating..." : "Translate"}

@@ -183,14 +183,14 @@ const ItemText = styled.Text<any>`
   margin-left: 12px;
 
   color: ${(props: NativeStyleThemeProps) =>
-    props.theme.type === "dark" ? COLORS.whiteThemeText : COLORS.darkText};
+    props.theme.type === "dark" ? COLORS.textDarkTheme : COLORS.darkText};
 `;
 
 const Bold = styled.Text<any>`
   font-weight: 600;
 
   color: ${(props: NativeStyleThemeProps) =>
-    props.theme.type === "dark" ? COLORS.whiteThemeText : COLORS.darkText};
+    props.theme.type === "dark" ? COLORS.textDarkTheme : COLORS.darkText};
 `;
 
 const SmallText = styled.Text<any>`
@@ -199,7 +199,7 @@ const SmallText = styled.Text<any>`
   margin-left: 12px;
 
   color: ${(props: NativeStyleThemeProps) =>
-    props.theme.type === "dark" ? COLORS.whiteThemeText : COLORS.darkText};
+    props.theme.type === "dark" ? COLORS.textDarkTheme : COLORS.darkText};
 `;
 
 const LinkText = styled.Text<any>`

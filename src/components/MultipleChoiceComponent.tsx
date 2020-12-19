@@ -270,7 +270,9 @@ const QuizPromptText = ({
 
 const ThemedText = styled.Text<any>`
   color: ${(props: NativeStyleThemeProps) =>
-    props.theme.type === "dark" ? COLORS.lightWhiteText : COLORS.darkText};
+    props.theme.type === "dark"
+      ? COLORS.choiceBlockTextDarkTheme
+      : COLORS.darkText};
 `;
 
 const QuizSubText = styled(ThemedText)`
@@ -342,7 +344,11 @@ const ChoiceBlock = styled.TouchableOpacity<any>`
       if (props.isCorrect) {
         return COLORS.actionButtonMint;
       } else {
-        return COLORS.lightDark;
+        if (props.theme.type === "dark") {
+          return COLORS.choiceBlockDarkTheme;
+        } else {
+          return COLORS.lessonBlockLightInactive;
+        }
       }
     } else if (props.isAttempted) {
       if (props.isCorrect) {

@@ -1,4 +1,6 @@
 import styled from "@emotion/native";
+import { NativeStyleThemeProps } from "@src/AppContainer";
+import { COLORS } from "@src/constants/Theme";
 import React from "react";
 
 /** ========================================================================
@@ -40,19 +42,23 @@ const BarContainer = styled.TouchableOpacity({
   justifyContent: "center",
 });
 
-const Bar = styled.View({
-  width: "90%",
-  borderRadius: 3,
-  alignItems: "center",
-  justifyContent: "center",
-  backgroundColor: "rgba(45,45,45,0.91)",
-});
+const Bar = styled.View<any>`
+  width: 90%;
+  border-radius: 3px;
+  align-items: center;
+  justify-content: center;
+  background-color: ${(props: NativeStyleThemeProps) =>
+    props.theme.type === "dark"
+      ? "rgba(215,215,215,0.95)"
+      : "rgba(45,45,45,0.91)"};
+`;
 
-const ToastText = styled.Text({
-  color: "white",
-  fontSize: 18,
-  margin: 10,
-});
+const ToastText = styled.Text<any>`
+  margin: 10px;
+  font-size: 18px;
+  color: ${(props: NativeStyleThemeProps) =>
+    props.theme.type === "dark" ? COLORS.darkText : COLORS.textDarkTheme};
+`;
 
 /** ========================================================================
  * Export

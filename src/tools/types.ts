@@ -7,6 +7,7 @@ import {
   UserSettings,
   WordDictionary,
 } from "@src/providers/GlobalStateContext";
+import { APP_THEME } from "@src/providers/GlobalStateProvider";
 
 /** ========================================================================
  * Result & Option Types
@@ -129,6 +130,7 @@ export interface LessonScreenParams {
 }
 
 export interface QuizScreenComponentProps {
+  theme: APP_THEME;
   valid: boolean;
   revealAnswer: boolean;
   didReveal: boolean;

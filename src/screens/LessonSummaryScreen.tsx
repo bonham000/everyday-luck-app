@@ -382,7 +382,7 @@ const TitleText = styled.Text<any>`
   margin-bottom: 16px;
   text-align: center;
   color: ${(props: NativeStyleThemeProps) =>
-    props.theme.type === "dark" ? COLORS.whiteThemeText : COLORS.darkText};
+    props.theme.type === "dark" ? COLORS.textDarkTheme : COLORS.darkText};
 `;
 
 const SectionTitleText = styled.Text<any>`
@@ -392,7 +392,7 @@ const SectionTitleText = styled.Text<any>`
   margin-top: 16px;
   text-align: left;
   color: ${(props: NativeStyleThemeProps) =>
-    props.theme.type === "dark" ? COLORS.whiteThemeText : COLORS.darkText};
+    props.theme.type === "dark" ? COLORS.textDarkTheme : COLORS.darkText};
 `;
 
 const SubText = styled.Text<any>`
@@ -401,7 +401,7 @@ const SubText = styled.Text<any>`
   text-align: center;
   margin-bottom: 16px;
   color: ${(props: NativeStyleThemeProps) =>
-    props.theme.type === "dark" ? COLORS.whiteThemeText : COLORS.darkText};
+    props.theme.type === "dark" ? COLORS.textDarkTheme : COLORS.darkText};
 `;
 
 const ActionBlock = styled.TouchableOpacity({
@@ -431,7 +431,7 @@ const InfoText = styled.Text<any>`
   margin-top: 15px;
 
   color: ${(props: NativeStyleThemeProps) =>
-    props.theme.type === "dark" ? COLORS.whiteThemeText : COLORS.darkText};
+    props.theme.type === "dark" ? COLORS.textDarkTheme : COLORS.darkText};
 `;
 
 /** ========================================================================
