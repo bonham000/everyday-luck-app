@@ -70,6 +70,7 @@ interface IProps {
 
 class GlobalStateProvider extends React.Component<IProps, {}> {
   render(): JSX.Element | null {
+    // @ts-ignore
     const { Component, ...rest } = this.props;
 
     return (

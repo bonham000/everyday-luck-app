@@ -3,6 +3,8 @@ import * as Speech from "expo-speech";
 import React from "react";
 import { NavigationScreenProp } from "react-navigation";
 
+import { NativeStyleThemeProps } from "@src/AppContainer";
+import { Container, StyledText } from "@src/components/SharedComponents";
 import { COLORS } from "@src/constants/Theme";
 import {
   GlobalStateContextProps,
@@ -10,8 +12,6 @@ import {
 } from "@src/providers/GlobalStateProvider";
 import { Lesson, LessonScreenParams } from "@src/tools/types";
 import { assertUnreachable, knuthShuffle } from "@src/tools/utils";
-import { Container, StyledText } from "@src/components/SharedComponents";
-import { NativeStyleThemeProps } from "@src/AppContainer";
 
 /** ========================================================================
  * Types
