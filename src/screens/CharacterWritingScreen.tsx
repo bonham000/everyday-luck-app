@@ -78,7 +78,9 @@ export class CharacterWritingScreenComponent extends React.Component<
     // Sketch configuration settings
     const width = 25;
     const alpha = 1;
-    const color = COLORS.dark;
+    const white = 0xe3e1da;
+    const dark = 0x21211f;
+    const color = this.props.appTheme === "dark" ? white : dark;
 
     return (
       <BasicContainer>

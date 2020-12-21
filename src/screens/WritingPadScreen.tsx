@@ -51,9 +51,9 @@ export class WritingPadScreenComponent extends React.Component<IProps, IState> {
     // Sketch configuration settings
     const width = 25;
     const alpha = 1;
-
-    // NOTE: Apparently Expo Sketch component doesn't apply this color?
-    const color = this.props.appTheme === "dark" ? COLORS.white : COLORS.dark;
+    const white = 0xe3e1da;
+    const dark = 0x21211f;
+    const color = this.props.appTheme === "dark" ? white : dark;
 
     return (
       <BasicContainer>
