@@ -39,6 +39,7 @@ const COLORS = {
   textInputLightTheme: "rgb(231, 237, 240)",
   choiceBlockDarkTheme: "rgb(38,38,38)",
   choiceBlockTextDarkTheme: "rgb(245,245,245)",
+  listenBlockDefault: "rgb(85,85,85)",
 
   background: "rgb(231, 237, 240)",
   backgroundDark: "rgb(22,22,22)",

@@ -10,6 +10,8 @@ import {
 } from "@src/providers/GlobalStateProvider";
 import { Lesson, LessonScreenParams } from "@src/tools/types";
 import { assertUnreachable, knuthShuffle } from "@src/tools/utils";
+import { Container, StyledText } from "@src/components/SharedComponents";
+import { NativeStyleThemeProps } from "@src/AppContainer";
 
 /** ========================================================================
  * Types
@@ -107,7 +109,9 @@ export class AudioReviewAllScreen extends React.Component<IProps, IState> {
             </AnswerContainer>
           </React.Fragment>
         ) : (
-          <AnswerContainer style={{ backgroundColor: COLORS.inactive }}>
+          <AnswerContainer
+            style={{ backgroundColor: COLORS.listenBlockDefault }}
+          >
             <AnswerTitle>???</AnswerTitle>
           </AnswerContainer>
         )}
@@ -218,60 +222,55 @@ export class AudioReviewAllScreen extends React.Component<IProps, IState> {
  * =========================================================================
  */
 
-const Container = styled.View({
-  flex: 1,
-  display: "flex",
-  alignItems: "center",
-  backgroundColor: COLORS.background,
-});
-
 const TopSection = styled.View({});
 
-const ProgressText = styled.Text({
-  marginTop: 8,
-  fontSize: 10,
-  textAlign: "center",
-});
+const ProgressText = styled(StyledText)`
+  margin-top: 8;
+  font-size: 10;
+  text-align: center;
+`;
 
-const Title = styled.Text({
-  fontSize: 18,
-  marginTop: 16,
-  textAlign: "center",
-});
+const Title = styled(StyledText)`
+  margin-top: 16;
+  font-size: 18;
+  text-align: center;
+`;
 
-const WordTitle = styled.Text({
-  fontSize: 45,
-  fontWeight: "bold",
-  textAlign: "center",
-});
+const WordTitle = styled(StyledText)`
+  font-size: 45;
+  font-weight: bold;
+  text-align: center;
+`;
 
-const AnswerTitle = styled.Text({
-  fontSize: 22,
-  fontWeight: "bold",
-  textAlign: "center",
-});
+const AnswerTitle = styled(StyledText)`
+  font-size: 22;
+  font-weight: bold;
+  text-align: center;
+`;
 
-const WordContainer = styled.View({
-  marginTop: 25,
-  height: 85,
-  width: "90%",
-  display: "flex",
-  flexDirection: "row",
-  alignItems: "center",
-  justifyContent: "center",
-  backgroundColor: COLORS.lightDark,
-});
+const WordContainer = styled.View<any>`
+  margin-top: 25px;
+  height: 85px;
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: ${(props: NativeStyleThemeProps) =>
+    props.theme.type === "dark" ? COLORS.fadedText : COLORS.dark};
+`;
 
-const AnswerContainer = styled.View({
-  marginTop: 25,
-  height: 75,
-  width: "90%",
-  display: "flex",
-  flexDirection: "row",
-  alignItems: "center",
-  justifyContent: "center",
-  backgroundColor: COLORS.lightDark,
-});
+const AnswerContainer = styled.View<any>`
+  margin-top: 25px;
+  height: 75px;
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: ${(props: NativeStyleThemeProps) =>
+    props.theme.type === "dark" ? COLORS.fadedText : COLORS.dark};
+`;
 
 /** ========================================================================
  * Export
