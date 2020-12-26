@@ -605,6 +605,48 @@ const lesson: HSKList = {
       pinyin: "yùtou",
       english: "Taro",
     },
+    {
+      simplified: "旅行",
+      traditional: "旅行",
+      pinyin: "Lǚxíng",
+      english: "Travel",
+    },
+    {
+      simplified: "拍子",
+      traditional: "拍子",
+      pinyin: "Pāizi",
+      english: "Beat, tempo",
+    },
+    {
+      simplified: "害羞",
+      traditional: "害羞",
+      pinyin: "Hàixiū",
+      english: "Shy",
+    },
+    {
+      simplified: "年轻",
+      traditional: "年輕",
+      pinyin: "Niánqīng",
+      english: "Young",
+    },
+    {
+      simplified: "有时候",
+      traditional: "有時候",
+      pinyin: "Yǒu shíhòu",
+      english: "Sometimes",
+    },
+    {
+      simplified: "进步",
+      traditional: "進步",
+      pinyin: "Jìnbù",
+      english: "Progress, improve",
+    },
+    {
+      simplified: "不少",
+      traditional: "不少",
+      pinyin: "Bù shǎo",
+      english: "A lot",
+    },
   ],
 };
 
