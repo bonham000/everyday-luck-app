@@ -679,9 +679,10 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     lessonType: LessonSummaryType,
   ) => {
     this.stopConfettiAnimation();
-    if (
+    if (lessonType === "SHUFFLE_QUIZ") {
+      this.props.navigation.goBack();
+    } else if (
       lessonType === "DAILY_QUIZ" ||
-      lessonType === "SHUFFLE_QUIZ" ||
       lessonType === "OPT_OUT_CHALLENGE"
     ) {
       this.props.navigation.navigate(ROUTE_NAMES.HOME);

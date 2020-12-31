@@ -131,6 +131,8 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
       playbackError,
       languageSetting,
     } = this.props;
+    const { traditional } = currentWord;
+    const soundLoadingError = playbackError;
 
     /**
      * Regular quiz type:
@@ -138,7 +140,11 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
     if (quizType !== QUIZ_TYPE.PRONUNCIATION) {
       const correctWord = currentWord[languageSetting];
       return (
-        <TitleContainer>
+        <TitleContainer
+          onPress={() => {
+            this.props.handlePronounceWord(traditional);
+          }}
+        >
           {quizType === QUIZ_TYPE.ENGLISH && (
             <QuizPromptText quizType={quizType}>{correctWord}</QuizPromptText>
           )}
@@ -148,12 +154,6 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
         </TitleContainer>
       );
     }
-
-    /**
-     * Render audio pronunciation quiz:
-     */
-    const { traditional } = currentWord;
-    const soundLoadingError = playbackError;
 
     /**
      * Some error state: sound file is not available - show the audio fallback UI
@@ -222,7 +222,7 @@ class MultipleChoiceInput extends React.Component<IProps, IState> {
  * =========================================================================
  */
 
-const TitleContainer = styled.View({
+const TitleContainer = styled.TouchableOpacity({
   marginTop: SMALL_DEVICE ? 15 : 25,
   marginBottom: SMALL_DEVICE ? 10 : 25,
   padding: 12,
