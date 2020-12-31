@@ -267,21 +267,6 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
         position="left"
         buttonColor={COLORS.actionButtonRed}
       >
-        {this.props.quizType === QUIZ_TYPE.PRONUNCIATION && (
-          <ActionButton.Item
-            style={{ zIndex: 50 }}
-            onPress={this.toggleDisableAudio}
-            buttonColor={COLORS.actionButtonPurple}
-            title={`${this.props.disableAudio ? "Enable" : "Disable"} Audio`}
-          >
-            <Ionicons
-              name={
-                this.props.disableAudio ? "ios-volume-off" : "ios-volume-high"
-              }
-              style={ActionIconStyle}
-            />
-          </ActionButton.Item>
-        )}
         {this.state.failedOnce && (
           <ActionButton.Item
             style={{ zIndex: 50 }}
@@ -301,6 +286,21 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
           } auto next question`}
         >
           <Ionicons name="ios-rocket" style={ActionIconStyle} />
+        </ActionButton.Item>
+        <ActionButton.Item
+          style={{ zIndex: 50 }}
+          onPress={this.toggleDisableAudio}
+          buttonColor={COLORS.actionButtonPurple}
+          title={`${
+            this.props.disableAudio ? "Enable" : "Disable"
+          } audio pronunciation`}
+        >
+          <Ionicons
+            name={
+              this.props.disableAudio ? "ios-volume-off" : "ios-volume-high"
+            }
+            style={ActionIconStyle}
+          />
         </ActionButton.Item>
         <ActionButton.Item
           style={{ zIndex: 50 }}
