@@ -79,7 +79,7 @@ const REVERSION_PENALTY = 10;
  * autoProceedQuestion setting is enabled.
  */
 
-const AUTO_PROCEED_DELAY = 1650;
+const AUTO_PROCEED_DELAY = 750;
 
 /** ========================================================================
  * React Class
@@ -385,7 +385,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     if (cost <= experience) {
       Alert.alert(
         "Are you sure?",
-        `This will cost you 1 🍊 (you have a total of ${experience} oranges now!).`,
+        `This will cost you ${cost} 🍊 (you have a total of ${experience} oranges now!).`,
         [
           {
             text: "Cancel",
@@ -397,7 +397,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
         { cancelable: false },
       );
     } else {
-      this.props.setToastMessage("You don't have enough 🍊to do that! Sorry!");
+      this.props.setToastMessage("You don't have enough 🍊 to do that! Sorry!");
     }
   };
 
