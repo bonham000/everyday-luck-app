@@ -69,9 +69,17 @@ interface IState {
   wordContent: ReadonlyArray<Word>;
 }
 
-const REVERSION_PENALTY = 1; // 1 orange point 🍊!
+/**
+ * The cost of reverting a failed answer! 🍊
+ */
+const REVERSION_PENALTY = 10;
 
-const AUTO_PROCEED_DELAY = 700;
+/**
+ * The delay time for proceeding to the next question if the
+ * autoProceedQuestion setting is enabled.
+ */
+
+const AUTO_PROCEED_DELAY = 1650;
 
 /** ========================================================================
  * React Class
