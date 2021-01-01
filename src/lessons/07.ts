@@ -761,6 +761,60 @@ const lesson: HSKList = {
       pinyin: "xiūxí",
       english: "Rest",
     },
+    {
+      simplified: "跨年",
+      traditional: "跨年",
+      pinyin: "kuà nián",
+      english: "New Year's Eve",
+    },
+    {
+      simplified: "风",
+      traditional: "風",
+      pinyin: "fēng",
+      english: "Wind",
+    },
+    {
+      simplified: "烟火",
+      traditional: "煙火",
+      pinyin: "yānhuǒ",
+      english: "Fireworks",
+    },
+    {
+      simplified: "素食",
+      traditional: "素食",
+      pinyin: "sùshí",
+      english: "Vegetarian food",
+    },
+    {
+      simplified: "蔬菜",
+      traditional: "蔬菜",
+      pinyin: "shūcài",
+      english: "Vegetables",
+    },
+    {
+      simplified: "我等一下吃",
+      traditional: "我等一下吃",
+      pinyin: "wǒ děng yīxià chī",
+      english: "I'll eat later",
+    },
+    {
+      simplified: "只",
+      traditional: "只",
+      pinyin: "zhǐ",
+      english: "Only",
+    },
+    {
+      simplified: "刚刚",
+      traditional: "剛剛",
+      pinyin: "gānggāng",
+      english: "Just",
+    },
+    {
+      simplified: "烟",
+      traditional: "煙",
+      pinyin: "yān",
+      english: "Smoke",
+    },
   ],
 };
 
