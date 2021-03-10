@@ -124,7 +124,8 @@ export const getAlternateChoices = (
 ) => {
   let idx: number;
   let option: Word;
-  const chosen: Set<number> = new Set();
+  const chosenSet: Set<string> = new Set();
+  const chosenIndexSet: Set<number> = new Set();
   let choices: Word[] = [word];
 
   while (choices.length < 4) {
@@ -132,23 +133,30 @@ export const getAlternateChoices = (
     option = alternates[idx];
 
     if (mcType === QUIZ_TYPE.ENGLISH) {
-      /**
-       * Use different logic if the lesson is English recognition.
-       */
+      // Use different logic if the lesson is English recognition.
       choices = getEnglishAlternateWords(word, wordDictionary);
       break;
-    } else if (!chosen.has(idx) && !areWordsEqual(option, word)) {
-      /**
-       * Try to match choices with a similar length to the selected word,
-       * but only up to words of length 3.
-       */
+    }
+
+    // Duplicate choice, skip
+    if (chosenSet.has(word.simplified) || chosenSet.has(word.traditional)) {
+      break;
+    }
+
+    if (!chosenIndexSet.has(idx) && !areWordsEqual(option, word)) {
+      // Try to match choices with a similar length to the selected word,
+      // but only up to words of length 3.
       if (word.traditional.length < 4) {
         if (option.traditional.length === word.traditional.length) {
-          chosen.add(idx);
+          chosenIndexSet.add(idx);
+          chosenSet.add(option.simplified);
+          chosenSet.add(option.traditional);
           choices = choices.concat(option);
         }
       } else {
-        chosen.add(idx);
+        chosenIndexSet.add(idx);
+        chosenSet.add(option.simplified);
+        chosenSet.add(option.traditional);
         choices = choices.concat(option);
       }
     }
