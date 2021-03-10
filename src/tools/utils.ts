@@ -396,6 +396,8 @@ export interface DeriveLessonContentArgs {
   limitToCurrentList?: boolean;
 }
 
+const quizCacheSet: Set<string> = new Set();
+
 /**
  * Derive random lesson set for game mode.
  *
@@ -409,9 +411,31 @@ export interface DeriveLessonContentArgs {
 export const getRandomQuizChallenge = (
   args: DeriveLessonContentArgs,
 ): Lesson => {
+  const allWords = getAllUnlockedWordContent(args);
+  const shuffled = knuthShuffle(allWords);
   const quizSize = convertAppDifficultyToLessonSize(args.appDifficultySetting);
-  const allWordContent = getAllUnlockedWordContent(args);
-  return knuthShuffle(allWordContent).slice(0, quizSize);
+
+  let index = 0;
+  let result: Word[] = [];
+
+  // Create the result quiz set by walking through the shuffled choices
+  // an excluding any which exist already in the quizCacheSet. This is a
+  // simplistic caching strategy to avoid repeating words which have already
+  // been seen recently, in favor of unseen words.
+  while (result.length < quizSize) {
+    const current = shuffled[index];
+
+    if (quizCacheSet.has(current.traditional)) {
+      quizCacheSet.delete(current.traditional);
+    } else {
+      result.push(current);
+      quizCacheSet.add(current.traditional);
+    }
+
+    index++;
+  }
+
+  return result;
 };
 
 /**
