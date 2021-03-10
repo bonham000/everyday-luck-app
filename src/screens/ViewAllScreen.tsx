@@ -50,7 +50,6 @@ export class ViewAllScreenComponent extends React.Component<IProps, IState> {
 
     const SearchBarInput = (
       <Searchbar
-        autoFocus
         style={{
           borderTopWidth: 1,
           borderTopColor: COLORS.lightDark,
