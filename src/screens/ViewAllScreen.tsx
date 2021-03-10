@@ -115,7 +115,7 @@ export class ViewAllScreenComponent extends React.Component<IProps, IState> {
   };
 
   handlePressItem = (mandarin: string, traditional: string) => () => {
-    this.props.copyToClipboard(mandarin);
+    this.props.copyToClipboard(mandarin, false);
     this.props.handlePronounceWord(traditional);
   };
 }

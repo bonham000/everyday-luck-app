@@ -317,10 +317,12 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
     }
   };
 
-  copyToClipboard = (text: string) => {
+  copyToClipboard = (text: string, shouldToast = true) => {
     try {
       Clipboard.setString(text);
-      this.setToastMessage(`${text} copied!`);
+      if (shouldToast) {
+        this.setToastMessage(`${text} copied!`);
+      }
     } catch (_) {
       return;
     }

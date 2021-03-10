@@ -46,7 +46,7 @@ export interface GlobalStateContextProps
     updatedScoreStatus: ListScoreSet,
     exp: number,
   ) => Promise<void>;
-  copyToClipboard: (text: string) => void;
+  copyToClipboard: (text: string, shouldToast?: boolean) => void;
   handleUpdateUserSettingsField: (
     data: Partial<UserSettings>,
     optionalSuccessCallback?: (args?: any) => any,
