@@ -56,8 +56,8 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
     const CUSTOM_WORD_LIST_EXISTS =
       lessons[lessons.length - 1].title === CUSTOM_WORD_LIST_TITLE;
 
-    const MTC = lessons.slice(6, 7)[0];
-    const totalWordsMTC = MTC.content.length;
+    const ContemporaryChinese = lessons.slice(6, 7)[0];
+    const totalWordsTextbook = ContemporaryChinese.content.length;
 
     const generalVocabularyListWords = lessons[5].content.length;
     const customListWords = !CUSTOM_WORD_LIST_EXISTS
@@ -74,10 +74,10 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
         </Text>
         {this.renderListSets(true)}
         <BoldText style={{ marginTop: 20 }}>
-          Mandarin Teaching Center Lessons
+          A Course in Contemporary Chinese
         </BoldText>
         <Text style={{ marginTop: 6, marginBottom: 18 }}>
-          {totalWordsMTC.toLocaleString()} words total
+          {totalWordsTextbook.toLocaleString()} words total
         </Text>
         {this.renderListSets(false)}
         <BoldText style={{ marginTop: 20 }}>Vocabulary Practice</BoldText>
