@@ -21,7 +21,7 @@
     "test:format": "npm run prettier:check && npm run tsc",
     "test": "yarn run prettier:check && yarn run tsc && yarn run test:jest",
     "test:clear": "jest --clearCache && rm -rf build",
-    "publish": "expo publish --non-interactive",
+    "publish": "EXPO_USE_DEV_SERVER=true expo publish --non-interactive",
     "build:ios": "expo build:ios",
     "build:android": "expo build:android",
     "upload:ios": "expo upload:ios",
