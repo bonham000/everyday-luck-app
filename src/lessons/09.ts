@@ -3,7 +3,7 @@ import { HSKList } from "@src/tools/types";
 const lesson: HSKList = {
   list: "9",
   locked: false,
-  title: "Current Lesson Vocabulary",
+  title: "Lesson 7",
   content: [
     {
       simplified: "点",
