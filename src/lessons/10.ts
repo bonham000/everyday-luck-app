@@ -159,7 +159,7 @@ const lesson: HSKList = {
       simplified: "载",
       traditional: "載",
       pinyin: "zài",
-      english: "Set",
+      english: "To give a ride, pick up",
     },
     {
       simplified: "捷运",
@@ -202,6 +202,42 @@ const lesson: HSKList = {
       traditional: "差不多",
       pinyin: "chàbùduō",
       english: "Almost",
+    },
+    {
+      simplified: "百货公司",
+      traditional: "百貨公司",
+      pinyin: "bǎihuò gōngsī",
+      english: "Department store",
+    },
+    {
+      simplified: "皮鞋",
+      traditional: "皮鞋",
+      pinyin: "píxié",
+      english: "Leather shoes",
+    },
+    {
+      simplified: "爽",
+      traditional: "爽",
+      pinyin: "shuǎng",
+      english: "Cool",
+    },
+    {
+      simplified: "双",
+      traditional: "雙",
+      pinyin: "shuāng",
+      english: "Double",
+    },
+    {
+      simplified: "应该",
+      traditional: "應該",
+      pinyin: "yīnggāi",
+      english: "Should",
+    },
+    {
+      simplified: "路口",
+      traditional: "路口",
+      pinyin: "lùkǒu",
+      english: "Intersection",
     },
   ],
 };
