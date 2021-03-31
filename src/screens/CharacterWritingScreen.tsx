@@ -4,6 +4,7 @@ import React from "react";
 import { Alert } from "react-native";
 import { NavigationScreenProp } from "react-navigation";
 
+import { NativeStyleThemeProps } from "@src/AppContainer";
 import { BasicContainer } from "@src/components/SharedComponents";
 import { COLORS } from "@src/constants/Theme";
 import { APP_LANGUAGE_SETTING } from "@src/providers/GlobalStateContext";
@@ -247,17 +248,21 @@ export class CharacterWritingScreenComponent extends React.Component<
 
 const CONTROLS_HEIGHT = 75;
 
-const ProgressText = styled.Text({
-  marginTop: 8,
-  fontSize: 10,
-  textAlign: "center",
-});
+const ProgressText = styled.Text<any>`
+  margin-top: 8px;
+  font-size: 10px;
+  text-align: center;
+  color: ${(props: NativeStyleThemeProps) =>
+    props.theme.type === "dark" ? COLORS.textDarkTheme : COLORS.darkText};
+`;
 
-const CharacterHint = styled.Text({
-  marginTop: 10,
-  fontSize: 20,
-  textAlign: "center",
-});
+const CharacterHint = styled.Text<any>`
+  margin-top: 10px;
+  font-size: 20px;
+  text-align: center;
+  color: ${(props: NativeStyleThemeProps) =>
+    props.theme.type === "dark" ? COLORS.textDarkTheme : COLORS.darkText};
+`;
 
 const Italic = styled.Text({
   fontStyle: "italic",
