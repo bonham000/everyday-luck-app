@@ -203,42 +203,6 @@ const lesson: HSKList = {
       pinyin: "chàbùduō",
       english: "Almost",
     },
-    {
-      simplified: "百货公司",
-      traditional: "百貨公司",
-      pinyin: "bǎihuò gōngsī",
-      english: "Department store",
-    },
-    {
-      simplified: "皮鞋",
-      traditional: "皮鞋",
-      pinyin: "píxié",
-      english: "Leather shoes",
-    },
-    {
-      simplified: "爽",
-      traditional: "爽",
-      pinyin: "shuǎng",
-      english: "Cool",
-    },
-    {
-      simplified: "双",
-      traditional: "雙",
-      pinyin: "shuāng",
-      english: "Double",
-    },
-    {
-      simplified: "应该",
-      traditional: "應該",
-      pinyin: "yīnggāi",
-      english: "Should",
-    },
-    {
-      simplified: "路口",
-      traditional: "路口",
-      pinyin: "lùkǒu",
-      english: "Intersection",
-    },
   ],
 };
 
