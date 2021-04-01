@@ -82,7 +82,9 @@ jobs:
           command: expo login --username $EXPO_USERNAME --password $EXPO_PASSWORD
       - run:
           name: Publish OTA Update
-          command: yarn run publish
+          command: |
+            export NODE_OPTIONS=--max_old_space_size=4096
+            yarn run publish
 
 workflows:
   version: 2
