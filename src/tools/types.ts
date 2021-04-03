@@ -88,7 +88,7 @@ export interface Word {
   english_alternate_choices?: ReadonlyArray<string>;
 }
 
-type ContentListType =
+export type ContentListType =
   | "HSK"
   | "Contemporary Chinese"
   | "Far East"

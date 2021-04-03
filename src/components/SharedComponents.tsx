@@ -6,6 +6,7 @@ import { Text, TextInput } from "react-native-paper";
 import { NativeStyleThemeProps } from "@src/AppContainer";
 import { COLORS } from "@src/constants/Theme";
 import { APP_THEME } from "@src/providers/GlobalStateProvider";
+import { ContentListType } from "@src/tools/types";
 
 /** ========================================================================
  * Components
@@ -105,6 +106,7 @@ const ScreenBottom = styled.View({
 });
 
 interface LessonBlockProps {
+  type: ContentListType;
   hskLocked: boolean;
   isLocked: boolean;
   inProgress: boolean;
@@ -120,8 +122,10 @@ export const LessonBlock = styled.TouchableOpacity<any>`
   justify-content: space-between;
 
   background-color: ${(props: NativeStyleThemeProps & LessonBlockProps) => {
-    if (!props.hskLocked) {
-      return COLORS.lessonMTC;
+    if (props.type === "Contemporary Chinese") {
+      return COLORS.lessonContemporaryChinese;
+    } else if (props.type === "Far East") {
+      return COLORS.lessonFarEast;
     }
 
     if (props.theme.type === "dark") {

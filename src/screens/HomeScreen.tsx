@@ -16,6 +16,7 @@ import {
 } from "@src/providers/GlobalStateProvider";
 import {
   ContentList,
+  ContentListType,
   LessonScreenParams,
   LessonSummaryType,
   ListScreenParams,
@@ -56,8 +57,12 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
     const CUSTOM_WORD_LIST_EXISTS =
       lessons[lessons.length - 1].title === CUSTOM_WORD_LIST_TITLE;
 
-    const ContemporaryChinese = lessons.slice(6, 7)[0];
-    const totalWordsTextbook = ContemporaryChinese.content.length;
+    const ContemporaryChineseTotalWords = lessons
+      .filter(x => x.type === "Contemporary Chinese")
+      .reduce((total, list) => total + list.content.length, 0);
+    const FarEastTotalWords = lessons
+      .filter(x => x.type === "Far East")
+      .reduce((total, list) => total + list.content.length, 0);
 
     const generalVocabularyListWords = lessons[5].content.length;
     const customListWords = !CUSTOM_WORD_LIST_EXISTS
@@ -72,19 +77,24 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
         <Text style={{ marginTop: 6, marginBottom: 18 }}>
           {totalWordsHsk.toLocaleString()} words total
         </Text>
-        {this.renderListSets(true)}
+        {this.renderListSets(true, false, "HSK")}
         <BoldText style={{ marginTop: 20 }}>
           A Course in Contemporary Chinese
         </BoldText>
         <Text style={{ marginTop: 6, marginBottom: 18 }}>
-          {totalWordsTextbook.toLocaleString()} words total
+          {ContemporaryChineseTotalWords.toLocaleString()} words total
         </Text>
-        {this.renderListSets(false)}
+        {this.renderListSets(false, false, "Contemporary Chinese")}
+        <BoldText style={{ marginTop: 20 }}>Far East Textbook</BoldText>
+        <Text style={{ marginTop: 6, marginBottom: 18 }}>
+          {FarEastTotalWords.toLocaleString()} words total
+        </Text>
+        {this.renderListSets(false, false, "Far East")}
         <BoldText style={{ marginTop: 20 }}>Vocabulary Practice</BoldText>
         <Text style={{ marginTop: 6, marginBottom: 18 }}>
           {totalWordsCustomList.toLocaleString()} words total
         </Text>
-        {this.renderListSets(false, true)}
+        {this.renderListSets(false, true, "Custom Word List")}
         <LineBreak />
         <BoldText style={{ marginBottom: 16 }}>
           Practice everyday to gain experience!
@@ -104,7 +114,7 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
     );
   }
 
-  renderListSets = (hsk: boolean, custom = false) => {
+  renderListSets = (hsk: boolean, custom: boolean, type: ContentListType) => {
     const { lessons, userScoreStatus } = this.props;
     const unlockedListIndex = getFinalUnlockedListKey(userScoreStatus);
 
@@ -154,7 +164,19 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
       }
     }
 
-    return lessons
+    let lessonSlice;
+
+    if (type === "HSK") {
+      lessonSlice = lessons.filter(x => x.type === "HSK");
+    } else if (type === "Contemporary Chinese") {
+      lessonSlice = lessons.filter(x => x.type === "Contemporary Chinese");
+    } else if (type === "Far East") {
+      lessonSlice = lessons.filter(x => x.type === "Far East");
+    } else {
+      return null;
+    }
+
+    return lessonSlice
       .map((hskList, index) => {
         const { list, title, locked, content } = hskList;
         const inProgress = index === unlockedListIndex;
@@ -175,6 +197,7 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
 
         return (
           <LessonBlock
+            type={type}
             key={hskList.list}
             hskLocked={locked}
             isLocked={isLocked}
