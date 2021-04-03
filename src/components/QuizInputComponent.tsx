@@ -15,6 +15,7 @@ import {
   formatUserLanguageSetting,
   randomInRange,
 } from "@src/tools/utils";
+import { QUIZ_TYPE } from "@src/providers/GlobalStateContext";
 
 /** ========================================================================
  * React Class
@@ -25,6 +26,7 @@ const QuizInput = ({
   valid,
   value,
   theme,
+  quizType,
   didReveal,
   attempted,
   currentWord,
@@ -92,6 +94,8 @@ const QuizInput = ({
     ? handleToggleRevealAnswer
     : handleCheckAnswer;
 
+  const isDefault = quizType === QUIZ_TYPE.QUIZ_TEXT;
+
   return (
     <React.Fragment>
       {valid || revealAnswer ? (
@@ -102,7 +106,9 @@ const QuizInput = ({
       ) : (
         <Shaker style={{ width: "100%" }} shouldShake={shouldShake}>
           <QuizBox>
-            <EnglishText>"{currentWord.english}"</EnglishText>
+            <EnglishText>
+              "{isDefault ? currentWord.english : correctText}"
+            </EnglishText>
             <StyledTextInput
               theme={theme}
               value={value}

@@ -256,9 +256,15 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
       handleToggleRevealAnswer: this.handleToggleRevealAnswer,
     };
 
-    return quizType === QUIZ_TYPE.QUIZ_TEXT ? (
-      <QuizInput {...quizProps} />
-    ) : (
+    if (quizType === QUIZ_TYPE.QUIZ_TEXT_REVERSE) {
+      return <QuizInput {...quizProps} />;
+    }
+
+    if (quizType === QUIZ_TYPE.QUIZ_TEXT) {
+      return <QuizInput {...quizProps} />;
+    }
+
+    return (
       <MultipleChoiceComponent
         {...this.props}
         {...quizProps}

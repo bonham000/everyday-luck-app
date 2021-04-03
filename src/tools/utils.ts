@@ -667,6 +667,11 @@ export const getLessonSummaryStatus = (
     : isFinalLesson
     ? listScore.quiz_text
     : true;
+  const quizTextReverse = listCompleted
+    ? true
+    : isFinalLesson
+    ? listScore.quiz_text_reverse
+    : true;
   const mandarinPronunciation = listCompleted
     ? true
     : isFinalLesson
@@ -677,6 +682,7 @@ export const getLessonSummaryStatus = (
     mcEnglish,
     mcMandarin,
     quizText,
+    quizTextReverse,
     mandarinPronunciation,
   };
 };

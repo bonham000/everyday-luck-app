@@ -49,6 +49,7 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
       mcEnglish,
       mcMandarin,
       quizText,
+      quizTextReverse,
       mandarinPronunciation,
     } = getLessonSummaryStatus(
       isFinalUnlockedLesson,
@@ -143,6 +144,12 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
             >
               <Text>Characters Quiz</Text>
               {quizText && isLesson && <Text>💯</Text>}
+            </ActionBlock>
+            <ActionBlock
+              onPress={this.handleNavigateToSection(ROUTE_NAMES.QUIZ_REVERSE)}
+            >
+              <Text>Characters Quiz Reverse</Text>
+              {quizTextReverse && isLesson && <Text>💯</Text>}
             </ActionBlock>
           </React.Fragment>
         )}

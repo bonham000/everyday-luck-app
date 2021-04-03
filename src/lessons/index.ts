@@ -28,6 +28,7 @@ export interface ListScore {
   mc_english: boolean;
   mc_mandarin: boolean;
   quiz_text: boolean;
+  quiz_text_reverse: boolean;
   mandarin_pronunciation: boolean;
 }
 

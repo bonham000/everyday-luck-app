@@ -120,6 +120,15 @@ const ROUTES: NavigationRouteConfigMap<any, any> = {
       headerBackTitle: null,
     },
   },
+  [ROUTE_NAMES.QUIZ_REVERSE]: {
+    screen: (props: NavigationScreenProp<{}>) => (
+      <QuizScreenComponent {...props} quizType={QUIZ_TYPE.QUIZ_TEXT_REVERSE} />
+    ),
+    navigationOptions: {
+      title: "Characters Quiz Reverse",
+      headerBackTitle: null,
+    },
+  },
   [ROUTE_NAMES.MULTIPLE_CHOICE_MANDARIN]: {
     screen: (props: NavigationScreenProp<{}>) => (
       <QuizScreenComponent {...props} quizType={QUIZ_TYPE.MANDARIN} />

@@ -50,6 +50,7 @@ export enum QUIZ_TYPE {
   ENGLISH = "mc_english",
   MANDARIN = "mc_mandarin",
   QUIZ_TEXT = "quiz_text",
+  QUIZ_TEXT_REVERSE = "quiz_text_reverse",
   PRONUNCIATION = "mandarin_pronunciation",
 }
 
@@ -57,6 +58,7 @@ export const QuizTypeOptions: ReadonlyArray<QUIZ_TYPE> = [
   QUIZ_TYPE.QUIZ_TEXT,
   QUIZ_TYPE.ENGLISH,
   QUIZ_TYPE.MANDARIN,
+  QUIZ_TYPE.QUIZ_TEXT_REVERSE,
   QUIZ_TYPE.PRONUNCIATION,
 ];
 
