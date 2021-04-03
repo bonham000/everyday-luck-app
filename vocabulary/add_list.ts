@@ -1,6 +1,11 @@
 import fs from "fs";
 
-import { HSKList, Lesson, TRADITIONAL_CHINESE, Word } from "@src/tools/types";
+import {
+  ContentList,
+  Lesson,
+  TRADITIONAL_CHINESE,
+  Word,
+} from "@src/tools/types";
 import { capitalize, translateWord } from "@src/tools/utils";
 import * as CustomList from "./words_list";
 
@@ -28,7 +33,7 @@ export default lesson;`;
 // Write the results to a JSON file
 const writeListToJson = (content: Lesson, dictation?: Lesson) => {
   console.log(`Writing JSON result to file: ${FILENAME}\n`);
-  const list: HSKList = { ...targetLesson, content, dictation };
+  const list: ContentList = { ...targetLesson, content, dictation };
   const data = JSON.stringify(list, null, 2);
   const file = getFileContents(data);
   fs.writeFileSync(FILENAME, file, "utf8");

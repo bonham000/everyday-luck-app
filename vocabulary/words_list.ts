@@ -1,4 +1,4 @@
-import { HSKList } from "@src/tools/types";
+import { ContentList } from "@src/tools/types";
 
 // Instructions for adding new content:
 // 1. Update the lesson block list and title
@@ -98,10 +98,12 @@ export const dictation = dictationWords.filter(Boolean).map(traditional => ({
 }));
 
 // Metadata for lesson:
-export const lesson: HSKList = {
+export const lesson: ContentList = {
+  id: "O9y6toIgd",
   list: "17",
   locked: false,
   title: "Book 1 Lesson 10",
+  type: "Contemporary Chinese",
   content,
   dictation,
 };

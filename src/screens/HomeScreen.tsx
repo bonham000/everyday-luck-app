@@ -15,7 +15,7 @@ import {
   withGlobalStateContext,
 } from "@src/providers/GlobalStateProvider";
 import {
-  HSKList,
+  ContentList,
   LessonScreenParams,
   LessonSummaryType,
   ListScreenParams,
@@ -196,7 +196,7 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
 
   handleSelectList = (
     listKey: string,
-    hskList: HSKList,
+    hskList: ContentList,
     index: number,
     isLocked: boolean,
   ) => () => {
@@ -209,7 +209,7 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
 
   openListSummary = (
     listKey: string,
-    list: HSKList,
+    list: ContentList,
     listIndex: number,
     type: LessonSummaryType = "LESSON",
   ) => () => {
@@ -218,6 +218,8 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
       this.props.appDifficultySetting,
     );
     const params: ListScreenParams = {
+      id: list.id,
+      contentType: list.type,
       type,
       listKey,
       hskList,
@@ -232,6 +234,7 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
     const { lessons, userScoreStatus, appDifficultySetting } = this.props;
     const unlockedLessonIndex = getFinalUnlockedListKey(userScoreStatus);
     const args: DeriveLessonContentArgs = {
+      listId: "Special",
       lists: lessons,
       unlockedListIndex: unlockedLessonIndex,
       appDifficultySetting,
@@ -244,6 +247,8 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
     const params: LessonScreenParams = {
       type,
       lesson,
+      id: "special",
+      contentType: "Special",
       listIndex: Infinity,
       lessonIndex: Infinity,
       isFinalLesson: false,

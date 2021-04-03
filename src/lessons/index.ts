@@ -10,7 +10,7 @@ import Lesson_10 from "@src/lessons/10";
 import Lesson_11 from "@src/lessons/11";
 import Lesson_12 from "@src/lessons/12";
 
-import { HSKList, HSKListSet } from "@src/tools/types";
+import { ContentList, HSKListSet } from "@src/tools/types";
 
 /** ===========================================================================
  * Types & Config
@@ -38,57 +38,14 @@ export interface ListScore {
  * https://npm.runkit.com/shortid
  * console.log(shortid.generate());
  */
-export interface ListScoreSet {
-  hmcs97kF5: ListScore;
-  m1uti3kcG: ListScore;
-  aZuy5YQTO5: ListScore;
-  f6OodXOVM1: ListScore;
-  yXMqj8ait2: ListScore;
-  wLnPWgrVUY: ListScore;
-  CbbMYmOGz: ListScore;
-  qaAR6U7k8Q: ListScore;
-  wALlo9yXLq: ListScore;
-  xyB2jhUO3: ListScore;
-  hjbUpJC1UF: ListScore;
-  jhEP7WEWFF: ListScore;
-  MgKHTvgnv: ListScore;
-  hId0xKnMN: ListScore;
-  jQoiUtX6E: ListScore;
-  atqjDlkif: ListScore;
-  Wi2pvbetm: ListScore;
-  Zf3pvb9f8: ListScore;
-}
-
-/**
- * Index mapping of score keys to list index.
- */
-export const SCORES_INDEX_MAP: ReadonlyArray<keyof ListScoreSet> = [
-  "hmcs97kF5",
-  "m1uti3kcG",
-  "aZuy5YQTO5",
-  "f6OodXOVM1",
-  "yXMqj8ait2",
-  "wLnPWgrVUY",
-  "CbbMYmOGz",
-  "qaAR6U7k8Q",
-  "wALlo9yXLq",
-  "xyB2jhUO3",
-  "hjbUpJC1UF",
-  "jhEP7WEWFF",
-  "MgKHTvgnv",
-  "hId0xKnMN",
-  "jQoiUtX6E",
-  "atqjDlkif",
-  "Wi2pvbetm",
-  "Zf3pvb9f8",
-];
+export type ListScoreSet = { [key: string]: ListScore };
 
 /** ========================================================================
  * Combine and export all HSK List Content
  * =========================================================================
  */
 
-const filterEmptyWords = (lesson: HSKList) => ({
+const filterEmptyWords = (lesson: ContentList) => ({
   ...lesson,
   content: lesson.content.filter(word => Boolean(word.traditional)),
 });

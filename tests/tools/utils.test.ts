@@ -1,4 +1,4 @@
-import HSK_LISTS, { ListScoreSet, SCORES_INDEX_MAP } from "@src/lessons";
+import HSK_LISTS from "@src/lessons";
 import {
   APP_DIFFICULTY_SETTING,
   APP_LANGUAGE_SETTING,
@@ -20,7 +20,6 @@ import {
   getAlternateLanguageSetting,
   getFinalUnlockedListKey,
   getLessonSummaryStatus,
-  getListScoreKeyFromIndex,
   getQuizSuccessToasts,
   getRandomQuizChallenge,
   getReviewLessonSet,
@@ -29,7 +28,6 @@ import {
   isLessonComplete,
   isNetworkConnected,
   knuthShuffle,
-  mapListIndexToListScores,
   mapWordsForList,
   randomInRange,
 } from "@src/tools/utils";
@@ -115,37 +113,9 @@ describe("utils", () => {
     }
   });
 
-  test("getListScoreKeyFromIndex", () => {
-    const expected: ReadonlyArray<keyof ListScoreSet> = [
-      "hmcs97kF5",
-      "m1uti3kcG",
-      "aZuy5YQTO5",
-      "f6OodXOVM1",
-      "yXMqj8ait2",
-    ];
-
-    expected.forEach((key, index) => {
-      expect(getListScoreKeyFromIndex(index)).toBe(key);
-    });
-  });
-
   test("mapWordsForList", () => {
     const result = mapWordsForList(MOCKS.WORD);
     expect(result).toMatchSnapshot();
-  });
-
-  test("getListScoreKeyFromIndex", () => {
-    const results: ReadonlyArray<any> = [
-      getListScoreKeyFromIndex(0),
-      getListScoreKeyFromIndex(1),
-      getListScoreKeyFromIndex(2),
-      getListScoreKeyFromIndex(3),
-      getListScoreKeyFromIndex(4),
-    ];
-
-    for (const result of results) {
-      expect(result).toMatchSnapshot();
-    }
   });
 
   test("isLessonComplete", () => {
@@ -216,7 +186,7 @@ describe("utils", () => {
   test("determineFinalUnlockedLesson", () => {
     let result = determineFinalUnlockedLessonInList(
       MOCKS.LESSON_DATA,
-      0,
+      "hmcs97kF5",
       MOCKS.DEFAULT_SCORE_STATE,
       APP_DIFFICULTY_SETTING.EASY,
     );
@@ -224,7 +194,7 @@ describe("utils", () => {
 
     result = determineFinalUnlockedLessonInList(
       MOCKS.LESSON_DATA,
-      0,
+      "hmcs97kF5",
       MOCKS.getMockScoreStatus({
         hmcs97kF5: {
           complete: false,
@@ -240,7 +210,7 @@ describe("utils", () => {
 
     result = determineFinalUnlockedLessonInList(
       MOCKS.LESSON_DATA,
-      0,
+      "hmcs97kF5",
       MOCKS.getMockScoreStatus({
         hmcs97kF5: {
           complete: false,
@@ -370,6 +340,7 @@ describe("utils", () => {
 
   test("getRandomQuizChallenge", () => {
     const result = getRandomQuizChallenge({
+      listId: "hmcs97kF5",
       lists: MOCKS.LESSONS,
       unlockedListIndex: 0,
       appDifficultySetting: APP_DIFFICULTY_SETTING.MEDIUM,
@@ -391,6 +362,7 @@ describe("utils", () => {
 
   test("getReviewLessonSet", () => {
     let result = getReviewLessonSet({
+      listId: "hmcs97kF5",
       lists: MOCKS.LESSONS,
       unlockedListIndex: 0,
       userScoreStatus: MOCKS.DEFAULT_SCORE_STATE,
@@ -401,6 +373,7 @@ describe("utils", () => {
     expect(result.length).toBeGreaterThan(10);
 
     result = getReviewLessonSet({
+      listId: "hmcs97kF5",
       lists: MOCKS.LESSONS,
       unlockedListIndex: 2,
       userScoreStatus: MOCKS.DEFAULT_SCORE_STATE,
@@ -411,6 +384,7 @@ describe("utils", () => {
     expect(result.length).toBeGreaterThan(610);
 
     result = getReviewLessonSet({
+      listId: "hmcs97kF5",
       lists: MOCKS.LESSONS,
       unlockedListIndex: 4,
       userScoreStatus: MOCKS.DEFAULT_SCORE_STATE,
@@ -421,42 +395,49 @@ describe("utils", () => {
     expect(result.length).toBeGreaterThan(2510);
   });
 
-  test("mapListIndexToListScores", () => {
-    SCORES_INDEX_MAP.forEach((score, index) => {
-      expect(
-        mapListIndexToListScores(index, MOCKS.DEFAULT_SCORE_STATE),
-      ).toEqual(MOCKS.DEFAULT_SCORE_STATE[score]);
-    });
-  });
-
   test("getLessonSummaryStatus", () => {
-    let result = getLessonSummaryStatus(false, MOCKS.DEFAULT_SCORE_STATE, 0);
+    let result = getLessonSummaryStatus(
+      false,
+      MOCKS.DEFAULT_SCORE_STATE,
+      "hmcs97kF5",
+    );
     expect(result).toMatchInlineSnapshot(`
       Object {
         "mandarinPronunciation": true,
         "mcEnglish": true,
         "mcMandarin": true,
         "quizText": true,
+        "quizTextReverse": true,
       }
     `);
 
-    result = getLessonSummaryStatus(true, MOCKS.DEFAULT_SCORE_STATE, 0);
+    result = getLessonSummaryStatus(
+      true,
+      MOCKS.DEFAULT_SCORE_STATE,
+      "hmcs97kF5",
+    );
     expect(result).toMatchInlineSnapshot(`
       Object {
         "mandarinPronunciation": false,
         "mcEnglish": false,
         "mcMandarin": false,
         "quizText": false,
+        "quizTextReverse": false,
       }
     `);
 
-    result = getLessonSummaryStatus(true, MOCKS.DEFAULT_SCORE_STATE, 1);
+    result = getLessonSummaryStatus(
+      true,
+      MOCKS.DEFAULT_SCORE_STATE,
+      "m1uti3kcG",
+    );
     expect(result).toMatchInlineSnapshot(`
       Object {
         "mandarinPronunciation": false,
         "mcEnglish": false,
         "mcMandarin": false,
         "quizText": false,
+        "quizTextReverse": false,
       }
     `);
 
@@ -471,10 +452,11 @@ describe("utils", () => {
           mc_english: true,
           mc_mandarin: true,
           quiz_text: false,
+          quiz_text_reverse: false,
           mandarin_pronunciation: true,
         },
       }),
-      1,
+      "m1uti3kcG",
     );
     expect(result).toMatchInlineSnapshot(`
       Object {
@@ -482,6 +464,7 @@ describe("utils", () => {
         "mcEnglish": false,
         "mcMandarin": false,
         "quizText": false,
+        "quizTextReverse": false,
       }
     `);
   });

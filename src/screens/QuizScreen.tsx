@@ -31,7 +31,6 @@ import {
 import {
   calculateExperiencePointsForLesson,
   convertAppDifficultyToLessonSize,
-  getListScoreKeyFromIndex,
   getQuizSuccessToasts,
   hasUserCompletedAllLists,
   isLessonComplete,
@@ -525,10 +524,10 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
   handleCompleteQuiz = () => {
     const { userScoreStatus, quizType } = this.props;
     const lessonType = this.props.navigation.getParam("type");
-    const listIndex = this.props.navigation.getParam("listIndex");
+    const listId = this.props.navigation.getParam("id");
     const isFinalLesson = this.props.navigation.getParam("isFinalLesson");
 
-    const listScore = userScoreStatus[getListScoreKeyFromIndex(listIndex)];
+    const listScore = userScoreStatus[listId];
 
     /* Is the quiz finished with a perfect score */
     const perfectScore = this.state.failCount === 0;
@@ -596,13 +595,14 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     const listIndex = this.props.navigation.getParam("listIndex");
     const isFinalLesson = this.props.navigation.getParam("isFinalLesson");
     const lessonType = this.props.navigation.getParam("type");
+    const listId = this.props.navigation.getParam("id");
+    const listScoreKey = listId;
 
     const lessonContentSize = convertAppDifficultyToLessonSize(
       this.props.appDifficultySetting,
     );
 
-    const listScoreKey = getListScoreKeyFromIndex(listIndex);
-    const listScore = mapListIndexToListScores(listIndex, updatedScoreStatus);
+    const listScore = mapListIndexToListScores(listId, updatedScoreStatus);
 
     /**
      * Mark this quiz type as complete on the user score history.

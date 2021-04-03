@@ -41,7 +41,7 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
   render(): JSX.Element {
     const { navigation, userScoreStatus } = this.props;
     const type = navigation.getParam("type");
-    const listIndex = navigation.getParam("listIndex");
+    const listId = navigation.getParam("id");
     const listTitle = navigation.getParam("listTitle");
     const isFinalUnlockedLesson = navigation.getParam("isFinalUnlockedLesson");
     const isLesson = type === "LESSON";
@@ -51,11 +51,7 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
       quizText,
       quizTextReverse,
       mandarinPronunciation,
-    } = getLessonSummaryStatus(
-      isFinalUnlockedLesson,
-      userScoreStatus,
-      listIndex,
-    );
+    } = getLessonSummaryStatus(isFinalUnlockedLesson, userScoreStatus, listId);
     const IS_SHUFFLE_QUIZ = type === "SHUFFLE_QUIZ";
     const IS_DAILY_QUIZ = type === "DAILY_QUIZ";
     const IS_OPT_OUT_CHALLENGE = type === "OPT_OUT_CHALLENGE";
@@ -315,6 +311,8 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
   getNextScreenParams = (): LessonScreenParams => {
     const type = this.props.navigation.getParam("type");
     const lesson = this.props.navigation.getParam("lesson");
+    const id = this.props.navigation.getParam("id");
+    const contentType = this.props.navigation.getParam("contentType");
     const listIndex = this.props.navigation.getParam("listIndex");
     const lessonIndex = this.props.navigation.getParam("lessonIndex");
     const isFinalLesson = this.props.navigation.getParam("isFinalLesson");
@@ -323,6 +321,8 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
     );
 
     const params: LessonScreenParams = {
+      id,
+      contentType,
       type,
       lesson,
       listIndex,
@@ -341,6 +341,7 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
 
   handleNavigateToHskTest = (routeName: ROUTE_NAMES) => () => {
     const { lessons, userScoreStatus } = this.props;
+    const id = this.props.navigation.getParam("id");
     const listIndex = this.props.navigation.getParam("listIndex");
 
     /**
@@ -348,6 +349,7 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
      * content should always be randomized from the list.
      */
     const args: DeriveLessonContentArgs = {
+      listId: id,
       lists: lessons,
       unlockedListIndex: listIndex,
       appDifficultySetting: OPT_OUT_LEVEL,
@@ -365,7 +367,11 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
 
   navigateToPracticeQuiz = () => {
     const lesson = this.props.navigation.getParam("lesson");
+    const id = this.props.navigation.getParam("id");
+    const contentType = this.props.navigation.getParam("contentType");
     const params: LessonScreenParams = {
+      id,
+      contentType,
       lesson,
       type: "SHUFFLE_QUIZ",
       listIndex: Infinity,

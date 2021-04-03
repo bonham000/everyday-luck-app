@@ -1,9 +1,5 @@
 import ENGLISH_WORDS from "@src/constants/EnglishWords";
-import HSK_LISTS, {
-  ListScore,
-  ListScoreSet,
-  SCORES_INDEX_MAP,
-} from "@src/lessons";
+import HSK_LISTS, { ListScore, ListScoreSet } from "@src/lessons";
 import {
   APP_DIFFICULTY_SETTING,
   APP_LANGUAGE_SETTING,
@@ -288,11 +284,11 @@ export const getFinalUnlockedListKey = (
  */
 export const determineFinalUnlockedLessonInList = (
   list: Lesson,
-  listIndex: number,
+  listId: string,
   userScoreStatus: ListScoreSet,
   appDifficultySetting: APP_DIFFICULTY_SETTING,
 ): number => {
-  const listScore = mapListIndexToListScores(listIndex, userScoreStatus);
+  const listScore = mapListIndexToListScores(listId, userScoreStatus);
   if (listScore.complete) {
     return list.length;
   }
@@ -304,16 +300,6 @@ export const determineFinalUnlockedLessonInList = (
 };
 
 /**
- * Get the list score key from the given list index.
- *
- * @param index list index
- * @returns score key
- */
-export const getListScoreKeyFromIndex = (index: number) => {
-  return SCORES_INDEX_MAP[index];
-};
-
-/**
  * Map a list index to the list scores object.
  *
  * @param index list index
@@ -321,17 +307,16 @@ export const getListScoreKeyFromIndex = (index: number) => {
  * @returns score detail for the list
  */
 export const mapListIndexToListScores = (
-  index: number,
+  listId: string,
   userScoreStatus: ListScoreSet,
 ): ListScore => {
-  if (index === Infinity) {
+  if (listId === "special") {
     const result = { complete: false };
     return result as ListScore;
   }
 
-  const key = getListScoreKeyFromIndex(index);
   // @ts-ignore
-  return userScoreStatus[key] as ListScore;
+  return userScoreStatus[listId] as ListScore;
 };
 
 /**
@@ -389,6 +374,7 @@ export const calculateExperiencePointsForLesson = (
 };
 
 export interface DeriveLessonContentArgs {
+  listId: string;
   lists: HSKListSet;
   unlockedListIndex: number;
   userScoreStatus: ListScoreSet;
@@ -459,6 +445,7 @@ export const getReviewLessonSet = (args: DeriveLessonContentArgs) => {
 const getAllUnlockedWordContent = (args: DeriveLessonContentArgs): Word[] => {
   const {
     lists,
+    listId,
     unlockedListIndex,
     userScoreStatus,
     appDifficultySetting,
@@ -499,10 +486,7 @@ const getAllUnlockedWordContent = (args: DeriveLessonContentArgs): Word[] => {
   const allUnlockedLists = completedLists.concat(unlockedLists);
 
   const finalUnlockedList = lists[unlockedListIndex];
-  const finalListScore = mapListIndexToListScores(
-    unlockedListIndex,
-    userScoreStatus,
-  );
+  const finalListScore = mapListIndexToListScores(listId, userScoreStatus);
   const completedWords = finalListScore.number_words_completed;
   const lessonSize = convertAppDifficultyToLessonSize(appDifficultySetting);
   const finalListWords = finalUnlockedList.content.slice(
@@ -648,9 +632,9 @@ export const capitalize = (value: string): string => {
 export const getLessonSummaryStatus = (
   isFinalLesson: boolean,
   userScoreStatus: ListScoreSet,
-  listIndex: number,
+  listId: string,
 ) => {
-  const listScore = mapListIndexToListScores(listIndex, userScoreStatus);
+  const listScore = mapListIndexToListScores(listId, userScoreStatus);
   const listCompleted = listScore.complete;
   const mcEnglish = listCompleted
     ? true

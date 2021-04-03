@@ -204,6 +204,7 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
                 mc_english: false,
                 mc_mandarin: false,
                 quiz_text: false,
+                quiz_text_reverse: false,
                 mandarin_pronunciation: false,
               },
             };

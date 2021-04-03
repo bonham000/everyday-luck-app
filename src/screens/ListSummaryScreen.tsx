@@ -43,11 +43,11 @@ interface IProps extends GlobalStateContextProps {
 export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
   render(): JSX.Element {
     const { userScoreStatus } = this.props;
-    const listIndex = this.props.navigation.getParam("listIndex");
     const listTitle = this.props.navigation.getParam("listTitle");
     const dictation = this.props.navigation.getParam("dictation");
     const hskList = this.props.navigation.getParam("hskList");
-    const listScore = mapListIndexToListScores(listIndex, userScoreStatus);
+    const listId = this.props.navigation.getParam("id");
+    const listScore = mapListIndexToListScores(listId, userScoreStatus);
     return (
       <Container>
         {dictation && dictation.length > 0 && (
@@ -119,11 +119,11 @@ export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
     const lesson = item;
     const { appDifficultySetting, userScoreStatus } = this.props;
     const hskList = this.props.navigation.getParam("hskList");
-    const listIndex = this.props.navigation.getParam("listIndex");
-    const listScore = mapListIndexToListScores(listIndex, userScoreStatus);
+    const listId = this.props.navigation.getParam("id");
+    const listScore = mapListIndexToListScores(listId, userScoreStatus);
     const unlockedLessonIndex = determineFinalUnlockedLessonInList(
       lesson,
-      listIndex,
+      listId,
       userScoreStatus,
       appDifficultySetting,
     );
@@ -181,10 +181,14 @@ export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
     isFinalUnlockedLesson: boolean,
     type: LessonSummaryType = "LESSON",
   ) => () => {
+    const id = this.props.navigation.getParam("id");
+    const contentType = this.props.navigation.getParam("contentType");
     const listIndex = this.props.navigation.getParam("listIndex");
     const listTitle = this.props.navigation.getParam("listTitle");
     const dictation = this.props.navigation.getParam("dictation");
     const params: LessonScreenParams = {
+      id,
+      contentType,
       type,
       lesson,
       listIndex,
@@ -200,7 +204,9 @@ export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
   handleTestOut = () => {
     const { lessons, userScoreStatus } = this.props;
     const listIndex = this.props.navigation.getParam("listIndex");
+    const id = this.props.navigation.getParam("id");
     const args: DeriveLessonContentArgs = {
+      listId: id,
       lists: lessons,
       unlockedListIndex: listIndex,
       appDifficultySetting: OPT_OUT_LEVEL,
@@ -216,12 +222,16 @@ export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
   };
 
   handleNavigateToSection = (routeName: ROUTE_NAMES) => () => {
+    const id = this.props.navigation.getParam("id");
+    const contentType = this.props.navigation.getParam("contentType");
     const type = this.props.navigation.getParam("type");
     const dictation = this.props.navigation.getParam("dictation");
     const listIndex = this.props.navigation.getParam("listIndex");
 
     if (dictation) {
       const params: LessonScreenParams = {
+        id,
+        contentType,
         type,
         lesson: dictation,
         listIndex,
@@ -236,10 +246,11 @@ export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
 
   handleStudyAll = () => {
     const { lessons, userScoreStatus } = this.props;
+    const id = this.props.navigation.getParam("id");
     const listIndex = this.props.navigation.getParam("listIndex");
     const args: DeriveLessonContentArgs = {
+      listId: id,
       lists: lessons,
-
       unlockedListIndex: listIndex,
       appDifficultySetting: OPT_OUT_LEVEL /* TODO: Change? */,
       userScoreStatus,
@@ -254,8 +265,12 @@ export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
     type: LessonSummaryType,
     listIndex: number,
   ) => () => {
+    const id = this.props.navigation.getParam("id");
+    const contentType = this.props.navigation.getParam("contentType");
     const listTitle = this.props.navigation.getParam("listTitle");
     const params: LessonScreenParams = {
+      id,
+      contentType,
       type,
       lesson,
       listIndex,

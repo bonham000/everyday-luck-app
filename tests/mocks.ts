@@ -1,6 +1,6 @@
 import uuid from "uuid/v1";
 
-import HSK_LISTS, { ListScoreSet, SCORES_INDEX_MAP } from "@src/lessons";
+import HSK_LISTS, { ListScoreSet } from "@src/lessons";
 import lessonData from "@src/lessons/02";
 import {
   APP_DIFFICULTY_SETTING,
@@ -11,7 +11,7 @@ import {
 import { GlobalStateContextProps } from "@src/providers/GlobalStateProvider";
 import { SoundRecordingProps } from "@src/providers/SoundRecordingProvider";
 import {
-  HSKList,
+  ContentList,
   Lesson,
   LessonScreenParams,
   ListScreenParams,
@@ -51,7 +51,7 @@ const MULTIPLE_CHOICE_OPTIONS: Lesson = LESSON_DATA.slice(0, 4);
 const LESSON =
   process.env.NODE_ENV === "test" ? LESSON_BASE.slice(0, 1) : LESSON_BASE;
 
-const LESSONS: HSKList[] = HSK_LISTS;
+const LESSONS: ContentList[] = HSK_LISTS;
 
 const WORD_DICTIONARY = createWordDictionaryFromLessons(LESSONS);
 
@@ -64,14 +64,17 @@ const DEFAULT_LESSON_SCORES = {
   mc_english: false,
   mc_mandarin: false,
   quiz_text: false,
+  quiz_text_reverse: false,
   mandarin_pronunciation: false,
 };
 
 const getLessonFiller = (complete = false) =>
-  SCORES_INDEX_MAP.slice(1).reduce((map, scoreIndex, index) => {
+  HSK_LISTS.slice(1).reduce((map, contentList, index) => {
     return {
       ...map,
-      [scoreIndex]: {
+      [contentList.id]: {
+        id: contentList.id,
+        type: contentList.type,
         complete: false,
         list_index: index + 1,
         list_key: index + 3,
@@ -84,6 +87,8 @@ const getLessonFiller = (complete = false) =>
 const DEFAULT_SCORE_STATE = {
   // @ts-ignore
   hmcs97kF5: {
+    id: "hmcs97kF5",
+    type: "HSK",
     complete: false,
     list_index: 0,
     list_key: "1-2",
@@ -178,6 +183,8 @@ const lists = adjustListContentByDifficultySetting(
 );
 
 const LIST_SCREEN_PARAMS: ListScreenParams = {
+  id: "afa87sd0f97sa0",
+  contentType: "HSK",
   listKey: "1-2",
   hskList: lists,
   listIndex: 0,
@@ -185,6 +192,8 @@ const LIST_SCREEN_PARAMS: ListScreenParams = {
 };
 
 const LESSON_SCREEN_PARAMS: LessonScreenParams = {
+  id: "afa87sd0f97sa0",
+  contentType: "HSK",
   lesson: LESSON.slice(0, 10),
   listIndex: 0,
   lessonIndex: 0,

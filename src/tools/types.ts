@@ -88,17 +88,27 @@ export interface Word {
   english_alternate_choices?: ReadonlyArray<string>;
 }
 
-export interface HSKList {
+type ContentListType =
+  | "HSK"
+  | "Contemporary Chinese"
+  | "Far East"
+  | "General Vocabulary"
+  | "Custom Word List"
+  | "Special";
+
+export interface ContentList {
+  id: string;
   list: string;
   locked: boolean;
   title?: string;
   content: Lesson;
   dictation?: Lesson;
+  type: ContentListType;
 }
 
 export type Lesson = Word[];
 export type LessonSet = Lesson[];
-export type HSKListSet = HSKList[];
+export type HSKListSet = ContentList[];
 
 export type LessonSummaryType =
   | "SUMMARY"
@@ -108,6 +118,8 @@ export type LessonSummaryType =
   | "OPT_OUT_CHALLENGE";
 
 export interface ListScreenParams {
+  id: string;
+  contentType: ContentListType;
   listKey: string;
   hskList: LessonSet;
   listIndex: number;
@@ -118,6 +130,8 @@ export interface ListScreenParams {
 }
 
 export interface LessonScreenParams {
+  id: string;
+  contentType: ContentListType;
   lesson: Lesson;
   listIndex: number;
   lessonIndex: number;
@@ -150,42 +164,6 @@ export interface QuizScreenComponentProps {
   handleCheck: (correct: boolean) => void;
   handleCopyToClipboard: (text: string) => void;
   handleToggleRevealAnswer: (event: GestureResponderEvent) => void;
-}
-
-/** ========================================================================
- * API Types
- * =========================================================================
- */
-
-/** ========================================================================
- * Forvo API
- * =========================================================================
- */
-
-export interface AudioItem {
-  addtime: string;
-  code: string;
-  country: string;
-  hits: number;
-  id: number;
-  langname: string;
-  num_positive_votes: number;
-  num_votes: number;
-  original: string;
-  pathmp3?: string;
-  pathogg?: string;
-  filePath?: string;
-  rate: number;
-  sex: string;
-  username: string;
-  word: string;
-}
-
-export interface SoundFileResponse {
-  attributes: {
-    total: number;
-  };
-  items: ReadonlyArray<AudioItem>;
 }
 
 /** ========================================================================

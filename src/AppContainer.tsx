@@ -37,7 +37,7 @@ import {
   getPersistedUser,
   saveUserToAsyncStorage,
 } from "@src/tools/async-store";
-import { HSKList, User } from "@src/tools/types";
+import { ContentList, User } from "@src/tools/types";
 import {
   createWordDictionaryFromLessons,
   fetchLessonSet,
@@ -537,7 +537,9 @@ class RootContainer extends RootContainerBase<{}> {
     const customWordList = await getCustomWordStudyList();
 
     if (customWordList.length > 0) {
-      const customWordListLesson: HSKList = {
+      const customWordListLesson: ContentList = {
+        type: "Custom Word List",
+        id: "6wpi5hFuQ",
         list: String(Number(hsk[hsk.length - 1].list) + 1),
         locked: false,
         title: CUSTOM_WORD_LIST_TITLE,

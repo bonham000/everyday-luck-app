@@ -1,6 +1,8 @@
-import { HSKList } from "@src/tools/types";
+import { ContentList } from "@src/tools/types";
 
-const lesson: HSKList = {
+const lesson: ContentList = {
+  id: "xyB2jhUO3",
+  type: "Contemporary Chinese",
   list: "11",
   locked: false,
   title: "Lesson 9",
