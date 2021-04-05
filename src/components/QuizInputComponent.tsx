@@ -111,12 +111,7 @@ const QuizInput = ({
       ) : (
         <Shaker style={{ width: "100%" }} shouldShake={shouldShake}>
           <QuizBox>
-            {isDefaultQuizType ? (
-              <EnglishText>"{currentWord.english}"</EnglishText>
-            ) : (
-              <MandarinText>{correctText}</MandarinText>
-              // <EnglishText>{correctText}</EnglishText>
-            )}
+            {isDefaultQuizType ? `"${currentWord.english}"` : correctText}
             <StyledTextInput
               theme={theme}
               value={value}
@@ -144,23 +139,21 @@ const QuizInput = ({
  */
 
 const QuizBox = styled.TouchableOpacity({
-  height: 175,
-  marginTop: 35,
+  height: 150,
+  marginTop: 25,
   width: "100%",
   alignItems: "center",
 });
 
 const EnglishText = styled(StyledText)({
   fontSize: 24,
-  height: 50,
   marginTop: 15,
   marginBottom: 15,
   fontWeight: "bold",
 });
 
 const MandarinText = styled(StyledText)({
-  fontSize: 45,
-  height: 50,
+  fontSize: 40,
   marginTop: 15,
   marginBottom: 15,
   fontWeight: "bold",
