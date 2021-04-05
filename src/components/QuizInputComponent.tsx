@@ -111,7 +111,9 @@ const QuizInput = ({
       ) : (
         <Shaker style={{ width: "100%" }} shouldShake={shouldShake}>
           <QuizBox>
-            {isDefaultQuizType ? `"${currentWord.english}"` : correctText}
+            <EnglishText>
+              {isDefaultQuizType ? `"${currentWord.english}"` : correctText}
+            </EnglishText>
             <StyledTextInput
               theme={theme}
               value={value}
