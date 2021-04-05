@@ -270,6 +270,7 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
     const params: LessonScreenParams = {
       type,
       lesson,
+      listKey: "",
       id: "special",
       contentType: "Special",
       listIndex: Infinity,

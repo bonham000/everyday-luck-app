@@ -116,7 +116,7 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
                 ROUTE_NAMES.MULTIPLE_CHOICE_ENGLISH,
               )}
             >
-              <Text>English Recognition</Text>
+              <Text>English Recognition Quiz</Text>
               {mcEnglish && isLesson && <Text>💯</Text>}
             </ActionBlock>
             <ActionBlock
@@ -124,7 +124,7 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
                 ROUTE_NAMES.MULTIPLE_CHOICE_MANDARIN,
               )}
             >
-              <Text>Mandarin Recognition</Text>
+              <Text>Mandarin Recognition Quiz</Text>
               {mcMandarin && isLesson && <Text>💯</Text>}
             </ActionBlock>
             <ActionBlock
@@ -132,7 +132,7 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
                 ROUTE_NAMES.MULTIPLE_CHOICE_VOICE,
               )}
             >
-              <Text>Mandarin Pronunciation</Text>
+              <Text>Listening Quiz</Text>
               {mandarinPronunciation && isLesson && <Text>💯</Text>}
             </ActionBlock>
             <ActionBlock
@@ -314,6 +314,7 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
     const id = this.props.navigation.getParam("id");
     const contentType = this.props.navigation.getParam("contentType");
     const listIndex = this.props.navigation.getParam("listIndex");
+    const listKey = this.props.navigation.getParam("listKey");
     const lessonIndex = this.props.navigation.getParam("lessonIndex");
     const isFinalLesson = this.props.navigation.getParam("isFinalLesson");
     const isFinalUnlockedLesson = this.props.navigation.getParam(
@@ -322,10 +323,11 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
 
     const params: LessonScreenParams = {
       id,
-      contentType,
       type,
       lesson,
       listIndex,
+      listKey,
+      contentType,
       lessonIndex,
       isFinalLesson,
       isFinalUnlockedLesson,
@@ -368,11 +370,13 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
   navigateToPracticeQuiz = () => {
     const lesson = this.props.navigation.getParam("lesson");
     const id = this.props.navigation.getParam("id");
+    const listKey = this.props.navigation.getParam("listKey");
     const contentType = this.props.navigation.getParam("contentType");
     const params: LessonScreenParams = {
       id,
-      contentType,
       lesson,
+      listKey,
+      contentType,
       type: "SHUFFLE_QUIZ",
       listIndex: Infinity,
       lessonIndex: Infinity,

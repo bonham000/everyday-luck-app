@@ -69,14 +69,16 @@ const ROUTES: NavigationRouteConfigMap<any, any> = {
     }) => {
       const index = navigation.getParam("lessonIndex");
       const type = navigation.getParam("type");
+      const listKey = navigation.getParam("listKey");
       const listTitle = navigation.getParam("listTitle");
+      const contentType = navigation.getParam("contentType");
       const listIndex = navigation.getParam("listIndex") + 1;
 
       const quizTitle = `Quiz ${Number(index) + 1}`;
-      const IS_HSK = listIndex > 4;
+      const IS_HSK = contentType === "HSK";
       const lessonTitle = IS_HSK
-        ? `${quizTitle} - ${listTitle}`
-        : `HSK List ${listIndex} - ${quizTitle} 🗂`;
+        ? `HSK ${listKey} ${quizTitle}`
+        : `${contentType} - ${quizTitle} 🗂`;
       const hskListTitle = IS_HSK
         ? `HSK List ${listIndex} Challenge`
         : listTitle;

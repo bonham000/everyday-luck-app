@@ -78,7 +78,7 @@ const REVERSION_PENALTY = 10;
  * autoProceedQuestion setting is enabled.
  */
 
-const AUTO_PROCEED_DELAY = 750;
+const AUTO_PROCEED_DELAY = 900;
 
 /** ========================================================================
  * React Class

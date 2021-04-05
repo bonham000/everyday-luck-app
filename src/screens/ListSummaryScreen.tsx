@@ -185,15 +185,17 @@ export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
     const contentType = this.props.navigation.getParam("contentType");
     const listIndex = this.props.navigation.getParam("listIndex");
     const listTitle = this.props.navigation.getParam("listTitle");
+    const listKey = this.props.navigation.getParam("listKey");
     const dictation = this.props.navigation.getParam("dictation");
     const params: LessonScreenParams = {
       id,
-      contentType,
       type,
       lesson,
+      listKey,
       listIndex,
       listTitle,
       dictation,
+      contentType,
       lessonIndex,
       isFinalLesson,
       isFinalUnlockedLesson,
@@ -227,14 +229,16 @@ export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
     const type = this.props.navigation.getParam("type");
     const dictation = this.props.navigation.getParam("dictation");
     const listIndex = this.props.navigation.getParam("listIndex");
+    const listKey = this.props.navigation.getParam("listKey");
 
     if (dictation) {
       const params: LessonScreenParams = {
         id,
-        contentType,
         type,
-        lesson: dictation,
+        listKey,
         listIndex,
+        contentType,
+        lesson: dictation,
         lessonIndex: NaN, // Fuck!
         isFinalLesson: false,
         isFinalUnlockedLesson: false,
@@ -266,15 +270,18 @@ export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
     listIndex: number,
   ) => () => {
     const id = this.props.navigation.getParam("id");
-    const contentType = this.props.navigation.getParam("contentType");
+    const listKey = this.props.navigation.getParam("listKey");
     const listTitle = this.props.navigation.getParam("listTitle");
+    const contentType = this.props.navigation.getParam("contentType");
+
     const params: LessonScreenParams = {
       id,
-      contentType,
       type,
       lesson,
+      listKey,
       listIndex,
       listTitle,
+      contentType,
       lessonIndex: Infinity,
       isFinalLesson: false,
       isFinalUnlockedLesson: false,

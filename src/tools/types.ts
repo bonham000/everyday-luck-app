@@ -131,6 +131,7 @@ export interface ListScreenParams {
 
 export interface LessonScreenParams {
   id: string;
+  listKey: string;
   contentType: ContentListType;
   lesson: Lesson;
   listIndex: number;

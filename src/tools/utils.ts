@@ -487,7 +487,9 @@ const getAllUnlockedWordContent = (args: DeriveLessonContentArgs): Word[] => {
 
   const finalUnlockedList = lists[unlockedListIndex];
   const finalListScore = mapListIndexToListScores(listId, userScoreStatus);
-  const completedWords = finalListScore.number_words_completed;
+  const completedWords = finalListScore
+    ? finalListScore.number_words_completed
+    : 0;
   const lessonSize = convertAppDifficultyToLessonSize(appDifficultySetting);
   const finalListWords = finalUnlockedList.content.slice(
     0,
