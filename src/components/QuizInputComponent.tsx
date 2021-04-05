@@ -114,7 +114,7 @@ const QuizInput = ({
             {isDefaultQuizType ? (
               <EnglishText>"{currentWord.english}"</EnglishText>
             ) : (
-              <EnglishText style={{ fontSize: 40, marginBottom: 10 }}>
+              <EnglishText style={{ fontSize: 40, marginBottom: 0 }}>
                 {correctText}
               </EnglishText>
             )}
@@ -131,7 +131,10 @@ const QuizInput = ({
         </Shaker>
       )}
       {(!autoProceedQuestion || !valid) && (
-        <Button style={buttonStyles} onPress={onPressHandler}>
+        <Button
+          style={{ ...buttonStyles, marginTop: 45 }}
+          onPress={onPressHandler}
+        >
           {buttonText}
         </Button>
       )}
@@ -145,7 +148,7 @@ const QuizInput = ({
  */
 
 const QuizBox = styled.TouchableOpacity({
-  height: 150,
+  height: 155,
   marginTop: 25,
   width: "100%",
   alignItems: "center",
