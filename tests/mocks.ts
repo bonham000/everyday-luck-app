@@ -194,6 +194,7 @@ const LIST_SCREEN_PARAMS: ListScreenParams = {
 const LESSON_SCREEN_PARAMS: LessonScreenParams = {
   id: "afa87sd0f97sa0",
   contentType: "HSK",
+  listKey: "1-2",
   lesson: LESSON.slice(0, 10),
   listIndex: 0,
   lessonIndex: 0,
