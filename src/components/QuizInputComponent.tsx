@@ -102,7 +102,7 @@ const QuizInput = ({
         <QuizBox onPress={() => handleCopyToClipboard(correctText)}>
           <MandarinText>{correctText}</MandarinText>
           <PinyinText>{correctWord.pinyin}</PinyinText>
-          {!isDefaultQuizType && (
+          {!isDefaultQuizType && valid && (
             <EnglishText style={{ marginTop: 0 }}>
               "{correctWord.english}"
             </EnglishText>
@@ -111,9 +111,13 @@ const QuizInput = ({
       ) : (
         <Shaker style={{ width: "100%" }} shouldShake={shouldShake}>
           <QuizBox>
-            <EnglishText>
-              {isDefaultQuizType ? `"${currentWord.english}"` : correctText}
-            </EnglishText>
+            {isDefaultQuizType ? (
+              <EnglishText>"{currentWord.english}"</EnglishText>
+            ) : (
+              <EnglishText style={{ fontSize: 40, marginBottom: 10 }}>
+                {correctText}
+              </EnglishText>
+            )}
             <StyledTextInput
               theme={theme}
               value={value}
