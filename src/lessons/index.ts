@@ -8,7 +8,7 @@ import Lesson_08 from "@src/lessons/08";
 import Lesson_09 from "@src/lessons/09";
 import Lesson_10 from "@src/lessons/10";
 import Lesson_11 from "@src/lessons/11";
-import Lesson_12 from "@src/lessons/12";
+import Lesson_12 from "@src/lessons/12_Far_East_1-6";
 
 import { ContentList, HSKListSet } from "@src/tools/types";
 
