@@ -1,3 +1,5 @@
+# CircleCI is a piece of shit!
+
 version: 2
 jobs:
   pr-tests:
