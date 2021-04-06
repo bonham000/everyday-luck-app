@@ -21,7 +21,6 @@
     "test:format": "npm run prettier:check && npm run tsc",
     "test": "yarn run prettier:check && yarn run tsc && yarn run test:jest",
     "test:clear": "jest --clearCache && rm -rf build",
-    "publish": "EXPO_USE_DEV_SERVER=true expo publish --non-interactive",
     "build:ios": "expo build:ios",
     "build:android": "expo build:android",
     "upload:ios": "expo upload:ios",
@@ -29,7 +28,8 @@
     "cli:reset": "mv .babelrc script.babelrc",
     "audio-status": "tsc && babel-node build/vocabulary/audio_status.js",
     "custom-list": "tsc && babel-node build/vocabulary/add_list.js",
-    "add:list": "yarn cli && yarn custom-list && yarn cli:reset && yarn format"
+    "add:list": "yarn cli && yarn custom-list && yarn cli:reset && yarn format",
+    "publish": "EXPO_USE_DEV_SERVER=true expo publish --non-interactive"
   },
   "dependencies": {
     "@emotion/native": "^11.0.0",
