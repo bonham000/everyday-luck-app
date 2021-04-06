@@ -1,13 +1,13 @@
-import Lesson_02 from "@src/lessons/02";
-import Lesson_03 from "@src/lessons/03";
-import Lesson_04 from "@src/lessons/04";
-import Lesson_05 from "@src/lessons/05";
-import Lesson_06 from "@src/lessons/06";
-import Lesson_07 from "@src/lessons/07";
-import Lesson_08 from "@src/lessons/08";
-import Lesson_09 from "@src/lessons/09";
-import Lesson_10 from "@src/lessons/10";
-import Lesson_11 from "@src/lessons/11";
+import Lesson_02 from "@src/lessons/02_HSK_1-2";
+import Lesson_03 from "@src/lessons/03_HSK_3";
+import Lesson_04 from "@src/lessons/04_HSK_4";
+import Lesson_05 from "@src/lessons/05_HSK_5";
+import Lesson_06 from "@src/lessons/06_HSK_6";
+import Lesson_07 from "@src/lessons/07_General_Vocabulary";
+import Lesson_08 from "@src/lessons/08_Contemporary_Chinese_1-7";
+import Lesson_09 from "@src/lessons/09_Contemporary_Chinese_7";
+import Lesson_10 from "@src/lessons/10_Contemporary_Chinese_8";
+import Lesson_11 from "@src/lessons/11_Contemporary_Chinese_9";
 import Lesson_12 from "@src/lessons/12_Far_East_1-6";
 
 import { ContentList, HSKListSet } from "@src/tools/types";

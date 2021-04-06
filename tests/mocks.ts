@@ -1,7 +1,7 @@
 import uuid from "uuid/v1";
 
 import HSK_LISTS, { ListScoreSet } from "@src/lessons";
-import lessonData from "@src/lessons/02";
+import lessonData from "@src/lessons/02_HSK_1-2";
 import {
   APP_DIFFICULTY_SETTING,
   APP_LANGUAGE_SETTING,
