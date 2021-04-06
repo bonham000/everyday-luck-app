@@ -330,6 +330,7 @@ export const isLessonComplete = (listScore: ListScore): boolean => {
     listScore.mc_english &&
       listScore.mc_mandarin &&
       listScore.quiz_text &&
+      listScore.quiz_text_reverse &&
       listScore.mandarin_pronunciation,
   );
 };
