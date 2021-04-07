@@ -451,6 +451,60 @@ const lesson: ContentList = {
       pinyin: "xǐzǎo",
       english: "To take a shower or bath",
     },
+    {
+      simplified: "秋天",
+      traditional: "秋天",
+      pinyin: "Qiūtiān",
+      english: "Fall",
+    },
+    {
+      simplified: "学期",
+      traditional: "學期",
+      pinyin: "xuéqí",
+      english: "Semester",
+    },
+    {
+      simplified: "考试",
+      traditional: "考試",
+      pinyin: "kǎoshì",
+      english: "Examination",
+    },
+    {
+      simplified: "结果",
+      traditional: "結果",
+      pinyin: "jiéguǒ",
+      english: "Result",
+    },
+    {
+      simplified: "办法",
+      traditional: "辦法",
+      pinyin: "bànfǎ",
+      english: "Method",
+    },
+    {
+      simplified: "搬家",
+      traditional: "搬家",
+      pinyin: "bānjiā",
+      english: "Move",
+    },
+    {
+      simplified: "决定",
+      traditional: "決定",
+      pinyin: "juédìng",
+      english: "Decide",
+    },
+    {
+      simplified: "容易",
+      traditional: "容易",
+      pinyin: "róngyì",
+      english: "Easy",
+    },
+    {
+      simplified: "别的",
+      traditional: "別的",
+      pinyin: "bié de",
+      english: "Other",
+    },
   ],
 };
 
