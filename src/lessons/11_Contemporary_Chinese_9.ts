@@ -23,7 +23,7 @@ const lesson: ContentList = {
       simplified: "打算",
       traditional: "打算",
       pinyin: "dǎ suàn",
-      english: "Intend",
+      english: "Plan, intend",
     },
     {
       simplified: "电视",
@@ -119,12 +119,12 @@ const lesson: ContentList = {
       simplified: "她",
       traditional: "她",
       pinyin: "tā",
-      english: "She was",
+      english: "She",
     },
     {
       simplified: "还",
       traditional: "還",
-      pinyin: "huán",
+      pinyin: "hái",
       english: "Also",
     },
     {
@@ -149,13 +149,13 @@ const lesson: ContentList = {
       simplified: "逛",
       traditional: "逛",
       pinyin: "guàng",
-      english: "Visit",
+      english: "Wander around",
     },
     {
       simplified: "特别",
       traditional: "特別",
       pinyin: "tè bié",
-      english: "Particular",
+      english: "Special",
     },
     {
       simplified: "茶馆",
