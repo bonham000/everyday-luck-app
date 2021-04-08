@@ -95,10 +95,10 @@ export class ViewAllScreenComponent extends React.Component<IProps, IState> {
           {item.pinyin} <SmallText>(pinyin)</SmallText>
         </WordText>
         <WordText style={{ fontSize: 40 }}>
-          {item.simplified} <SmallText>(simplified)</SmallText>
+          {item.traditional} <SmallText>(traditional)</SmallText>
         </WordText>
         <WordText style={{ fontSize: 40 }}>
-          {item.traditional} <SmallText>(traditional)</SmallText>
+          {item.simplified} <SmallText>(simplified)</SmallText>
         </WordText>
       </WordBox>
     );
