@@ -12,8 +12,8 @@ import Lesson_12 from "@src/lessons/12_Far_East_1-6";
 import Lesson_13 from "@src/lessons/13_Contemporary_Chinese_10";
 import Lesson_14 from "@src/lessons/14_Far_East_7-8";
 import Lesson_15 from "@src/lessons/15_Sentences_Example";
-import Lesson_16 from "@src/lessons/16_Contemporary_Chinese_10";
-import Lesson_17 from "@src/lessons/17_Contemporary_Chinese_11";
+import Lesson_16 from "@src/lessons/16_Contemporary_Chinese_11";
+import Lesson_17 from "@src/lessons/17_Contemporary_Chinese_12";
 
 import { ContentList, HSKListSet } from "@src/tools/types";
 

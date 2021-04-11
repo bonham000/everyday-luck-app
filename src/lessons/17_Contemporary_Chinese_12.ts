@@ -5,7 +5,7 @@ const lesson: ContentList = {
   type: "Contemporary Chinese",
   list: "17",
   locked: false,
-  title: "Lesson 11",
+  title: "Lesson 12",
   content: [
     {
       traditional: "計畫",
