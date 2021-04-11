@@ -47,17 +47,19 @@ const Bar = styled.View<any>`
   border-radius: 3px;
   align-items: center;
   justify-content: center;
-  background-color: ${(props: NativeStyleThemeProps) =>
+  background-color: rgba(45,45,45,0.91);
+  /* background-color: ${(props: NativeStyleThemeProps) =>
     props.theme.type === "dark"
       ? "rgba(215,215,215,0.95)"
-      : "rgba(45,45,45,0.91)"};
+      : "rgba(45,45,45,0.91)"}; */
 `;
 
 const ToastText = styled.Text<any>`
   margin: 10px;
   font-size: 18px;
-  color: ${(props: NativeStyleThemeProps) =>
-    props.theme.type === "dark" ? COLORS.darkText : COLORS.textDarkTheme};
+  color: ${COLORS.textDarkTheme};
+  /* color: ${(props: NativeStyleThemeProps) =>
+    props.theme.type === "dark" ? COLORS.darkText : COLORS.textDarkTheme}; */
 `;
 
 /** ========================================================================
