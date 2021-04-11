@@ -219,7 +219,8 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
               {listTitle}
             </LessonBlockText>
             <LessonBlockText mtcLesson={false} isLocked={isLocked}>
-              ({content.length.toLocaleString()} words)
+              ({content.length.toLocaleString()}{" "}
+              {type === "Sentences" ? "sentences" : "words"})
             </LessonBlockText>
           </LessonBlock>
         );

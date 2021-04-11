@@ -11,6 +11,7 @@ import Lesson_11 from "@src/lessons/11_Contemporary_Chinese_9";
 import Lesson_12 from "@src/lessons/12_Far_East_1-6";
 import Lesson_13 from "@src/lessons/13_Contemporary_Chinese_10";
 import Lesson_14 from "@src/lessons/14_Far_East_7-8";
+import Lesson_15 from "@src/lessons/15_Sentences_Example";
 
 import { ContentList, HSKListSet } from "@src/tools/types";
 
@@ -66,6 +67,7 @@ const HSK_LISTS: HSKListSet = [
   Lesson_12,
   Lesson_13,
   Lesson_14,
+  Lesson_15,
 ].map(filterEmptyWords);
 
 export default HSK_LISTS;
