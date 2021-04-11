@@ -1,19 +1,19 @@
-import Lesson_02 from "@src/lessons/02_HSK_1-2";
-import Lesson_03 from "@src/lessons/03_HSK_3";
-import Lesson_04 from "@src/lessons/04_HSK_4";
-import Lesson_05 from "@src/lessons/05_HSK_5";
-import Lesson_06 from "@src/lessons/06_HSK_6";
-import Lesson_07 from "@src/lessons/07_General_Vocabulary";
-import Lesson_08 from "@src/lessons/08_Contemporary_Chinese_1-7";
-import Lesson_09 from "@src/lessons/09_Contemporary_Chinese_7";
-import Lesson_10 from "@src/lessons/10_Contemporary_Chinese_8";
-import Lesson_11 from "@src/lessons/11_Contemporary_Chinese_9";
-import Lesson_12 from "@src/lessons/12_Far_East_1-6";
-import Lesson_13 from "@src/lessons/13_Contemporary_Chinese_10";
-import Lesson_14 from "@src/lessons/14_Far_East_7-8";
-import Lesson_15 from "@src/lessons/15_Sentences_Example";
-import Lesson_16 from "@src/lessons/16_Contemporary_Chinese_11";
-import Lesson_17 from "@src/lessons/17_Contemporary_Chinese_12";
+import Lesson_02 from "@src/lessons/HSK_1-2";
+import Lesson_03 from "@src/lessons/HSK_3";
+import Lesson_04 from "@src/lessons/HSK_4";
+import Lesson_05 from "@src/lessons/HSK_5";
+import Lesson_06 from "@src/lessons/HSK_6";
+import Lesson_07 from "@src/lessons/General_Vocabulary";
+import Lesson_08 from "@src/lessons/Contemporary_Chinese_1-7";
+import Lesson_09 from "@src/lessons/Contemporary_Chinese_7";
+import Lesson_10 from "@src/lessons/Contemporary_Chinese_8";
+import Lesson_11 from "@src/lessons/Contemporary_Chinese_9";
+import Lesson_12 from "@src/lessons/Far_East_1-6";
+import Lesson_13 from "@src/lessons/Contemporary_Chinese_10";
+import Lesson_14 from "@src/lessons/Far_East_7-8";
+import Lesson_15 from "@src/lessons/Sentences_Lesson_8";
+import Lesson_16 from "@src/lessons/Contemporary_Chinese_11";
+import Lesson_17 from "@src/lessons/Contemporary_Chinese_12";
 
 import { ContentList, HSKListSet } from "@src/tools/types";
 
