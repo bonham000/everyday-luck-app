@@ -20,7 +20,7 @@ import {
   LessonScreenParams,
   LessonSummaryType,
   ListScreenParams,
-  SentenceScreenParams,
+  GrammarScreenParams,
 } from "@src/tools/types";
 import {
   adjustListContentByDifficultySetting,
@@ -64,8 +64,8 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
     const FarEastTotalWords = lessons
       .filter(x => x.type === "Far East")
       .reduce((total, list) => total + list.content.length, 0);
-    const SentencesContent = lessons
-      .filter(x => x.type === "Sentences")
+    const GrammarContent = lessons
+      .filter(x => x.type === "Grammar")
       .reduce((total, list) => total + list.content.length, 0);
 
     const generalVocabularyListWords = lessons[5].content.length;
@@ -99,11 +99,11 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
           {totalWordsCustomList.toLocaleString()} words total
         </Text>
         {this.renderListSets(false, true, "Custom Word List")}
-        <BoldText style={{ marginTop: 20 }}>Sentences Practice</BoldText>
+        <BoldText style={{ marginTop: 20 }}>Grammar Practice</BoldText>
         <Text style={{ marginTop: 6, marginBottom: 18 }}>
-          {SentencesContent.toLocaleString()} total sentences
+          {GrammarContent.toLocaleString()} total sentences
         </Text>
-        {this.renderListSets(false, false, "Sentences")}
+        {this.renderListSets(false, false, "Grammar")}
         <LineBreak />
         <BoldText style={{ marginBottom: 16 }}>
           Practice everyday to gain experience!
@@ -181,8 +181,8 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
       lessonSlice = lessons.filter(x => x.type === "Contemporary Chinese");
     } else if (type === "Far East") {
       lessonSlice = lessons.filter(x => x.type === "Far East");
-    } else if (type === "Sentences") {
-      lessonSlice = lessons.filter(x => x.type === "Sentences");
+    } else if (type === "Grammar") {
+      lessonSlice = lessons.filter(x => x.type === "Grammar");
     } else {
       return null;
     }
@@ -221,7 +221,7 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
             </LessonBlockText>
             <LessonBlockText mtcLesson={false} isLocked={isLocked}>
               ({content.length.toLocaleString()}{" "}
-              {type === "Sentences" ? "sentences" : "words"})
+              {type === "Grammar" ? "sentences" : "words"})
             </LessonBlockText>
           </LessonBlock>
         );
@@ -263,16 +263,16 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
       listTitle: list.title,
       dictation: list.dictation,
     };
-    if (list.type === "Sentences") {
-      const sentenceParams: SentenceScreenParams = {
+    if (list.type === "Grammar") {
+      const sentenceParams: GrammarScreenParams = {
         id: list.id,
         listKey,
-        sentences: list.content,
-        contentType: "Sentences",
+        content: list.content,
+        contentType: "Grammar",
         listTitle: String(list.title),
       };
       this.props.navigation.navigate(
-        ROUTE_NAMES.SENTENCES_SUMMARY,
+        ROUTE_NAMES.GRAMMAR_SUMMARY,
         sentenceParams,
       );
     } else {

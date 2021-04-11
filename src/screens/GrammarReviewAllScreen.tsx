@@ -13,7 +13,7 @@ import {
   SoundRecordingProps,
   withSoundRecordingContext,
 } from "@src/providers/SoundRecordingProvider";
-import { SentenceScreenParams, Word } from "@src/tools/types";
+import { GrammarScreenParams, Word } from "@src/tools/types";
 import { FlatList, Keyboard } from "react-native";
 
 /** ========================================================================
@@ -22,7 +22,7 @@ import { FlatList, Keyboard } from "react-native";
  */
 
 interface IProps extends GlobalStateContextProps, SoundRecordingProps {
-  navigation: NavigationScreenProp<{}, SentenceScreenParams>;
+  navigation: NavigationScreenProp<{}, GrammarScreenParams>;
 }
 
 /** ========================================================================
@@ -30,12 +30,12 @@ interface IProps extends GlobalStateContextProps, SoundRecordingProps {
  * =========================================================================
  */
 
-export class SentencesReviewAllScreenComponent extends React.Component<
+export class GrammarReviewAllScreenComponent extends React.Component<
   IProps,
   {}
 > {
   render(): JSX.Element {
-    const sentences = this.props.navigation.getParam("sentences");
+    const sentences = this.props.navigation.getParam("content");
     return (
       <BasicContainer>
         <FlatList
@@ -107,5 +107,5 @@ const SmallText = styled(StyledText)({
  */
 
 export default withGlobalStateContext(
-  withSoundRecordingContext(SentencesReviewAllScreenComponent),
+  withSoundRecordingContext(GrammarReviewAllScreenComponent),
 );

@@ -5,6 +5,7 @@ import { NavigationScreenProp } from "react-navigation";
 import { NativeStyleThemeProps } from "@src/AppContainer";
 import {
   Button,
+  Container,
   ScrollContainer,
   StyledText,
 } from "@src/components/SharedComponents";
@@ -17,7 +18,7 @@ import {
   SoundRecordingProps,
   withSoundRecordingContext,
 } from "@src/providers/SoundRecordingProvider";
-import { SentenceScreenParams, Word } from "@src/tools/types";
+import { GrammarScreenParams, Word } from "@src/tools/types";
 import { knuthShuffle } from "@src/tools/utils";
 
 /** ========================================================================
@@ -26,7 +27,7 @@ import { knuthShuffle } from "@src/tools/utils";
  */
 
 interface IProps extends GlobalStateContextProps, SoundRecordingProps {
-  navigation: NavigationScreenProp<{}, SentenceScreenParams>;
+  navigation: NavigationScreenProp<{}, GrammarScreenParams>;
 }
 
 interface IState {
@@ -41,7 +42,7 @@ interface IState {
  * =========================================================================
  */
 
-export class SentencesPracticeQuizScreenComponent extends React.Component<
+export class GrammarPracticeQuizScreenComponent extends React.Component<
   IProps,
   IState
 > {
@@ -51,7 +52,7 @@ export class SentencesPracticeQuizScreenComponent extends React.Component<
   }
 
   getInitialState = () => {
-    const content = this.props.navigation.getParam("sentences");
+    const content = this.props.navigation.getParam("content");
     const sentences = knuthShuffle(content);
 
     const state = {
@@ -70,27 +71,31 @@ export class SentencesPracticeQuizScreenComponent extends React.Component<
     const { languageSetting } = this.props;
     const text = item[languageSetting];
     return (
-      <ScrollContainer>
-        <WordBox onPress={this.handleReveal}>
-          <WordText style={{ fontSize: 44 }}>{text}</WordText>
-          {this.state.displayFull ? (
-            <React.Fragment>
-              <WordText style={{ fontSize: 22 }}>{item.pinyin}</WordText>
-              <WordText style={{ fontSize: 22 }}>"{item.english}"</WordText>
-            </React.Fragment>
-          ) : (
-            <WordText style={{ fontSize: 20, marginTop: 25, marginBottom: 25 }}>
-              ...?
-            </WordText>
-          )}
-        </WordBox>
+      <Container>
+        <ScrollContainer>
+          <WordBox onPress={this.handleReveal}>
+            <WordText style={{ fontSize: 44 }}>{text}</WordText>
+            {this.state.displayFull ? (
+              <React.Fragment>
+                <WordText style={{ fontSize: 22 }}>{item.pinyin}</WordText>
+                <WordText style={{ fontSize: 22 }}>"{item.english}"</WordText>
+              </React.Fragment>
+            ) : (
+              <WordText
+                style={{ fontSize: 20, marginTop: 25, marginBottom: 25 }}
+              >
+                ...?
+              </WordText>
+            )}
+          </WordBox>
+        </ScrollContainer>
         <ControlBox>
           <ProgressText>
             Progress: {completed} / {sentences.length} completed
           </ProgressText>
           <Button onPress={this.handleNext}>Next</Button>
         </ControlBox>
-      </ScrollContainer>
+      </Container>
     );
   }
 
@@ -156,5 +161,5 @@ const ControlBox = styled.View`
  */
 
 export default withGlobalStateContext(
-  withSoundRecordingContext(SentencesPracticeQuizScreenComponent),
+  withSoundRecordingContext(GrammarPracticeQuizScreenComponent),
 );

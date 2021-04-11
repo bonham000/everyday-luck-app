@@ -29,7 +29,7 @@ import { getDrawerLockedState } from "@src/tools/navigation-utils";
 import {
   LessonScreenParams,
   ListScreenParams,
-  SentenceScreenParams,
+  GrammarScreenParams,
 } from "@src/tools/types";
 import { Platform } from "react-native";
 import {
@@ -41,9 +41,9 @@ import AddWordScreenComponent from "./screens/AddWordScreen";
 import AudioReviewAllScreen from "./screens/AudioReviewAllScreen";
 import NotePadScreen from "./screens/NotePadScreen";
 import WritingPadScreenComponent from "./screens/WritingPadScreen";
-import SentencesSummaryScreenComponent from "./screens/SentencesSummaryScreen";
-import SentencesReviewAllScreenComponent from "./screens/SentencesReviewAllScreen";
-import SentencesPracticeQuizScreenComponent from "./screens/SentencesPracticeQuizScreen";
+import SentencesSummaryScreenComponent from "./screens/GrammarSummaryScreen";
+import SentencesReviewAllScreenComponent from "./screens/GrammarReviewAllScreen";
+import SentencesPracticeQuizScreenComponent from "./screens/GrammarPracticeQuizScreen";
 
 /** ========================================================================
  * App Routes
@@ -119,12 +119,12 @@ const ROUTES: NavigationRouteConfigMap<any, any> = {
       };
     },
   },
-  [ROUTE_NAMES.SENTENCES_SUMMARY]: {
+  [ROUTE_NAMES.GRAMMAR_SUMMARY]: {
     screen: SentencesSummaryScreenComponent,
     navigationOptions: ({
       navigation,
     }: {
-      navigation: NavigationScreenProp<{}, SentenceScreenParams>;
+      navigation: NavigationScreenProp<{}, GrammarScreenParams>;
     }) => {
       const title = navigation.getParam("listTitle");
       return {
@@ -133,12 +133,12 @@ const ROUTES: NavigationRouteConfigMap<any, any> = {
       };
     },
   },
-  [ROUTE_NAMES.SENTENCES_QUIZ]: {
+  [ROUTE_NAMES.GRAMMAR_QUIZ]: {
     screen: SentencesPracticeQuizScreenComponent,
     navigationOptions: ({
       navigation,
     }: {
-      navigation: NavigationScreenProp<{}, SentenceScreenParams>;
+      navigation: NavigationScreenProp<{}, GrammarScreenParams>;
     }) => {
       const listTitle = navigation.getParam("listTitle");
       return {
@@ -147,12 +147,12 @@ const ROUTES: NavigationRouteConfigMap<any, any> = {
       };
     },
   },
-  [ROUTE_NAMES.SENTENCES_REVIEW_ALL]: {
+  [ROUTE_NAMES.GRAMMAR_REVIEW_ALL]: {
     screen: SentencesReviewAllScreenComponent,
     navigationOptions: ({
       navigation,
     }: {
-      navigation: NavigationScreenProp<{}, SentenceScreenParams>;
+      navigation: NavigationScreenProp<{}, GrammarScreenParams>;
     }) => {
       const listTitle = navigation.getParam("listTitle");
       return {

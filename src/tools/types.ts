@@ -92,7 +92,7 @@ export type ContentListType =
   | "HSK"
   | "Contemporary Chinese"
   | "Far East"
-  | "Sentences"
+  | "Grammar"
   | "General Vocabulary"
   | "Custom Word List"
   | "Special";
@@ -145,12 +145,12 @@ export interface LessonScreenParams {
   isFinalUnlockedLesson: boolean;
 }
 
-export interface SentenceScreenParams {
+export interface GrammarScreenParams {
   id: string;
   contentType: ContentListType;
   listKey: string;
   listTitle: string;
-  sentences: Word[];
+  content: Word[];
 }
 
 export interface QuizScreenComponentProps {

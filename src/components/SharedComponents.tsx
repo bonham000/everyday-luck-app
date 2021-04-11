@@ -126,6 +126,8 @@ export const LessonBlock = styled.TouchableOpacity<any>`
       return COLORS.lessonContemporaryChinese;
     } else if (props.type === "Far East") {
       return COLORS.lessonFarEast;
+    } else if (props.type === "Grammar") {
+      return COLORS.lessonBlockGrammar;
     }
 
     if (props.theme.type === "dark") {

@@ -2,7 +2,7 @@ import { ContentList } from "@src/tools/types";
 
 const lesson: ContentList = {
   id: "871UpfHSui",
-  type: "Sentences",
+  type: "Grammar",
   list: "15",
   locked: false,
   title: "Lesson 8 Grammar",

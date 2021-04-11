@@ -15,7 +15,7 @@ import {
   SoundRecordingProps,
   withSoundRecordingContext,
 } from "@src/providers/SoundRecordingProvider";
-import { SentenceScreenParams } from "@src/tools/types";
+import { GrammarScreenParams } from "@src/tools/types";
 
 /** ========================================================================
  * Types
@@ -23,7 +23,7 @@ import { SentenceScreenParams } from "@src/tools/types";
  */
 
 interface IProps extends GlobalStateContextProps, SoundRecordingProps {
-  navigation: NavigationScreenProp<{}, SentenceScreenParams>;
+  navigation: NavigationScreenProp<{}, GrammarScreenParams>;
 }
 
 /** ========================================================================
@@ -31,10 +31,7 @@ interface IProps extends GlobalStateContextProps, SoundRecordingProps {
  * =========================================================================
  */
 
-export class SentencesSummaryScreenComponent extends React.Component<
-  IProps,
-  {}
-> {
+export class GrammarSummaryScreenComponent extends React.Component<IProps, {}> {
   render(): JSX.Element {
     const { navigation } = this.props;
     const listTitle = navigation.getParam("listTitle");
@@ -42,7 +39,9 @@ export class SentencesSummaryScreenComponent extends React.Component<
     return (
       <ScrollContainer>
         <TitleText>{listTitle}</TitleText>
-        <SubText>This section includes sentences for review practice.</SubText>
+        <SubText>
+          This section includes sentences for grammar review practice.
+        </SubText>
         <ActionBlock
           onPress={this.navigateToPracticeQuiz}
           style={{ backgroundColor: COLORS.actionButtonMint }}
@@ -64,13 +63,13 @@ export class SentencesSummaryScreenComponent extends React.Component<
   getNextScreenParams = (): any => {
     const id = this.props.navigation.getParam("id");
     const listKey = this.props.navigation.getParam("listKey");
-    const sentences = this.props.navigation.getParam("sentences");
+    const sentences = this.props.navigation.getParam("content");
     const contentType = this.props.navigation.getParam("contentType");
     const listTitle = this.props.navigation.getParam("listTitle");
-    const sentenceParams: SentenceScreenParams = {
+    const sentenceParams: GrammarScreenParams = {
       id,
       listKey,
-      sentences,
+      content: sentences,
       contentType,
       listTitle,
     };
@@ -79,12 +78,12 @@ export class SentencesSummaryScreenComponent extends React.Component<
 
   navigateToPracticeQuiz = () => {
     const params = this.getNextScreenParams();
-    this.props.navigation.navigate(ROUTE_NAMES.SENTENCES_QUIZ, params);
+    this.props.navigation.navigate(ROUTE_NAMES.GRAMMAR_QUIZ, params);
   };
 
   navigateToReviewAllScreen = () => {
     const params = this.getNextScreenParams();
-    this.props.navigation.navigate(ROUTE_NAMES.SENTENCES_REVIEW_ALL, params);
+    this.props.navigation.navigate(ROUTE_NAMES.GRAMMAR_REVIEW_ALL, params);
   };
 }
 
@@ -128,5 +127,5 @@ const ActionBlock = styled.TouchableOpacity({
  */
 
 export default withGlobalStateContext(
-  withSoundRecordingContext(SentencesSummaryScreenComponent),
+  withSoundRecordingContext(GrammarSummaryScreenComponent),
 );

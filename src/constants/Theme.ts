@@ -24,6 +24,7 @@ const COLORS = {
   line: "rgba(25,25,25,0.85)",
   lineLight: "rgba(1,1,1,0.5)",
   lessonBlock: "#3498db",
+  lessonBlockGrammar: "#5289ff",
   lessonBlockInProgress: "#6fc3fc",
   lessonContemporaryChinese: "#ffa47d",
   lessonFarEast: "#ffe15c",

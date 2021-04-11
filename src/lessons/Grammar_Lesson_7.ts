@@ -2,9 +2,9 @@ import { ContentList } from "@src/tools/types";
 
 const lesson: ContentList = {
   id: "f87sguIso9",
-  type: "Sentences",
+  type: "Grammar",
   locked: false,
-  title: "Lessons 7 Grammar",
+  title: "Lesson 7 Grammar",
   content: [
     {
       traditional: "他和他朋友下午在教室寫書法。",
