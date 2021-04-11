@@ -280,13 +280,6 @@ const ROUTES: NavigationRouteConfigMap<any, any> = {
       headerBackTitle: null,
     },
   },
-  // [ROUTE_NAMES.RADICALS]: {
-  //   screen: RadicalsScreenComponent,
-  //   navigationOptions: {
-  //     title: "Radicals 🍰",
-  //     headerBackTitle: null,
-  //   },
-  // },
   [ROUTE_NAMES.SETTINGS]: {
     screen: SettingsScreenComponent,
     navigationOptions: {

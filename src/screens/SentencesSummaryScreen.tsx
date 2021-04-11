@@ -41,7 +41,8 @@ export class SentencesSummaryScreenComponent extends React.Component<
 
     return (
       <ScrollContainer>
-        <Text>{listTitle}</Text>
+        <TitleText>{listTitle}</TitleText>
+        <SubText>This section includes sentences for review practice.</SubText>
         <ActionBlock
           onPress={this.navigateToPracticeQuiz}
           style={{ backgroundColor: COLORS.actionButtonMint }}
@@ -101,16 +102,6 @@ const TitleText = styled.Text<any>`
     props.theme.type === "dark" ? COLORS.textDarkTheme : COLORS.darkText};
 `;
 
-const SectionTitleText = styled.Text<any>`
-  width: 88%;
-  font-size: 16px;
-  font-weight: bold;
-  margin-top: 16px;
-  text-align: left;
-  color: ${(props: NativeStyleThemeProps) =>
-    props.theme.type === "dark" ? COLORS.textDarkTheme : COLORS.darkText};
-`;
-
 const SubText = styled.Text<any>`
   font-size: 16px;
   width: 85%;
@@ -130,25 +121,6 @@ const ActionBlock = styled.TouchableOpacity({
   justifyContent: "space-between",
   backgroundColor: COLORS.lessonBlock,
 });
-
-const LineBreak = styled.View<any>`
-  width: 85%;
-  margin-top: 12;
-  margin-bottom: 12;
-  height: 1px;
-
-  background-color: ${(props: NativeStyleThemeProps) =>
-    props.theme.type === "dark" ? COLORS.fadedText : COLORS.darkText};
-`;
-
-const InfoText = styled.Text<any>`
-  width: 85%;
-  text-align: center;
-  margin-top: 15px;
-
-  color: ${(props: NativeStyleThemeProps) =>
-    props.theme.type === "dark" ? COLORS.textDarkTheme : COLORS.darkText};
-`;
 
 /** ========================================================================
  * Export
