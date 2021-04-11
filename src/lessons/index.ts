@@ -16,6 +16,8 @@ import Lesson_16 from "@src/lessons/Grammar_Lesson_7";
 import Lesson_17 from "@src/lessons/Contemporary_Chinese_11";
 import Lesson_18 from "@src/lessons/Contemporary_Chinese_12";
 import Lesson_19 from "@src/lessons/Grammar_Lesson_8";
+import Lesson_20 from "@src/lessons/Grammar_Lesson_9";
+import Lesson_21 from "@src/lessons/Grammar_Lesson_10";
 
 import { ContentList, HSKListSet } from "@src/tools/types";
 
@@ -81,6 +83,8 @@ const LISTS: HSKListSet = [
   Lesson_17,
   Lesson_18,
   Lesson_19,
+  Lesson_20,
+  Lesson_21,
 ]
   .map(filterEmptyWords)
   .map(setListIndexes);
