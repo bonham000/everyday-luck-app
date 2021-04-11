@@ -8,5 +8,6 @@ npm-debug.*
 build
 .env
 env.ts
+vocabulary-content.json
 
 App_Temp.tsx

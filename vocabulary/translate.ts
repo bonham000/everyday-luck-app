@@ -6,7 +6,16 @@ import { Word } from "@src/tools/types";
 import { capitalize } from "@src/tools/utils";
 
 /** ===========================================================================
- * Text to Translate
+ * Translation Script Tool, how to use:
+ *
+ * - Add words or sentences to translation in the array below. Then run:
+ *
+ * - yarn cli
+ * - yarn t
+ * - yarn cli:reset
+ *
+ * - The translated results will be saved to a file vocabulary-content.json
+ * in the directory path.
  * ============================================================================
  */
 
