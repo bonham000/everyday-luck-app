@@ -63,6 +63,9 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
     const FarEastTotalWords = lessons
       .filter(x => x.type === "Far East")
       .reduce((total, list) => total + list.content.length, 0);
+    const SentencesContent = lessons
+      .filter(x => x.type === "Sentences")
+      .reduce((total, list) => total + list.content.length, 0);
 
     const generalVocabularyListWords = lessons[5].content.length;
     const customListWords = !CUSTOM_WORD_LIST_EXISTS
@@ -95,6 +98,11 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
           {totalWordsCustomList.toLocaleString()} words total
         </Text>
         {this.renderListSets(false, true, "Custom Word List")}
+        <BoldText style={{ marginTop: 20 }}>Sentences Practice</BoldText>
+        <Text style={{ marginTop: 6, marginBottom: 18 }}>
+          {SentencesContent.toLocaleString()} total sentences
+        </Text>
+        {this.renderListSets(false, false, "Sentences")}
         <LineBreak />
         <BoldText style={{ marginBottom: 16 }}>
           Practice everyday to gain experience!
@@ -172,6 +180,8 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
       lessonSlice = lessons.filter(x => x.type === "Contemporary Chinese");
     } else if (type === "Far East") {
       lessonSlice = lessons.filter(x => x.type === "Far East");
+    } else if (type === "Sentences") {
+      lessonSlice = lessons.filter(x => x.type === "Sentences");
     } else {
       return null;
     }

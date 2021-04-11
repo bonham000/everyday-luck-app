@@ -92,6 +92,7 @@ export type ContentListType =
   | "HSK"
   | "Contemporary Chinese"
   | "Far East"
+  | "Sentences"
   | "General Vocabulary"
   | "Custom Word List"
   | "Special";

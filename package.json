@@ -26,7 +26,7 @@
     "upload:ios": "expo upload:ios",
     "cli": "mv script.babelrc .babelrc",
     "cli:reset": "mv .babelrc script.babelrc",
-    "audio-status": "tsc && babel-node build/vocabulary/audio_status.js",
+    "t": "tsc && babel-node build/vocabulary/translate.js",
     "custom-list": "tsc && babel-node build/vocabulary/add_list.js",
     "add:list": "yarn cli && yarn custom-list && yarn cli:reset && yarn format",
     "publish": "EXPO_USE_DEV_SERVER=true expo publish --non-interactive"
@@ -34,9 +34,11 @@
   "dependencies": {
     "@emotion/native": "^11.0.0",
     "@emotion/react": "^11.1.2",
+    "@google-cloud/translate": "^6.2.0",
     "@react-native-community/netinfo": "5.9.7",
     "axios": "^0.18.1",
     "babel-cli": "^6.26.0",
+    "chinese-to-pinyin": "^1.3.1",
     "expo": "^40.0.0",
     "expo-av": "~8.7.0",
     "expo-constants": "~9.3.3",
