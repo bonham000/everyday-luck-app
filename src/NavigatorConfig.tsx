@@ -26,7 +26,11 @@ import TranslationScreenComponent from "@src/screens/TranslationScreen";
 import ViewAllScreen from "@src/screens/ViewAllScreen";
 import WelcomeScreenComponent from "@src/screens/WelcomeScreen";
 import { getDrawerLockedState } from "@src/tools/navigation-utils";
-import { LessonScreenParams, ListScreenParams } from "@src/tools/types";
+import {
+  LessonScreenParams,
+  ListScreenParams,
+  SentenceScreenParams,
+} from "@src/tools/types";
 import { Platform } from "react-native";
 import {
   GlobalStateContextProps,
@@ -36,8 +40,10 @@ import AboutDetailScreenComponent from "./screens/AboutDetailScreen";
 import AddWordScreenComponent from "./screens/AddWordScreen";
 import AudioReviewAllScreen from "./screens/AudioReviewAllScreen";
 import NotePadScreen from "./screens/NotePadScreen";
-// import RadicalsScreenComponent from "./screens/RadicalsScreen";
 import WritingPadScreenComponent from "./screens/WritingPadScreen";
+import SentencesSummaryScreenComponent from "./screens/SentencesSummaryScreen";
+import SentencesReviewAllScreenComponent from "./screens/SentencesReviewAllScreen";
+import SentencesPracticeQuizScreenComponent from "./screens/SentencesPracticeQuizScreen";
 
 /** ========================================================================
  * App Routes
@@ -109,6 +115,48 @@ const ROUTES: NavigationRouteConfigMap<any, any> = {
       const listTitle = navigation.getParam("listTitle");
       return {
         title: listTitle ? listTitle : `HSK Level ${listKey}`,
+        headerBackTitle: null,
+      };
+    },
+  },
+  [ROUTE_NAMES.SENTENCES_SUMMARY]: {
+    screen: SentencesSummaryScreenComponent,
+    navigationOptions: ({
+      navigation,
+    }: {
+      navigation: NavigationScreenProp<{}, SentenceScreenParams>;
+    }) => {
+      const title = navigation.getParam("listTitle");
+      return {
+        title,
+        headerBackTitle: null,
+      };
+    },
+  },
+  [ROUTE_NAMES.SENTENCES_QUIZ]: {
+    screen: SentencesPracticeQuizScreenComponent,
+    navigationOptions: ({
+      navigation,
+    }: {
+      navigation: NavigationScreenProp<{}, SentenceScreenParams>;
+    }) => {
+      const listTitle = navigation.getParam("listTitle");
+      return {
+        title: `${listTitle} Practice Quiz`,
+        headerBackTitle: null,
+      };
+    },
+  },
+  [ROUTE_NAMES.SENTENCES_REVIEW_ALL]: {
+    screen: SentencesReviewAllScreenComponent,
+    navigationOptions: ({
+      navigation,
+    }: {
+      navigation: NavigationScreenProp<{}, SentenceScreenParams>;
+    }) => {
+      const listTitle = navigation.getParam("listTitle");
+      return {
+        title: `${listTitle} View All`,
         headerBackTitle: null,
       };
     },

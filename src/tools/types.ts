@@ -145,6 +145,14 @@ export interface LessonScreenParams {
   isFinalUnlockedLesson: boolean;
 }
 
+export interface SentenceScreenParams {
+  id: string;
+  contentType: ContentListType;
+  listKey: string;
+  listTitle: string;
+  sentences: Word[];
+}
+
 export interface QuizScreenComponentProps {
   theme: APP_THEME;
   valid: boolean;

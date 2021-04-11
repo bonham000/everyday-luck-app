@@ -20,6 +20,7 @@ import {
   LessonScreenParams,
   LessonSummaryType,
   ListScreenParams,
+  SentenceScreenParams,
 } from "@src/tools/types";
 import {
   adjustListContentByDifficultySetting,
@@ -261,7 +262,21 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
       listTitle: list.title,
       dictation: list.dictation,
     };
-    this.props.navigation.navigate(ROUTE_NAMES.LIST_SUMMARY, params);
+    if (list.type === "Sentences") {
+      const sentenceParams: SentenceScreenParams = {
+        id: list.id,
+        listKey: listKey,
+        sentences: list.content,
+        contentType: "Sentences",
+        listTitle: String(list.title),
+      };
+      this.props.navigation.navigate(
+        ROUTE_NAMES.SENTENCES_SUMMARY,
+        sentenceParams,
+      );
+    } else {
+      this.props.navigation.navigate(ROUTE_NAMES.LIST_SUMMARY, params);
+    }
   };
 
   openLessonSummarySpecial = (type: LessonSummaryType) => () => {
