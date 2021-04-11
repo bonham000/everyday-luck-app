@@ -20,12 +20,27 @@ import { capitalize } from "@src/tools/utils";
  */
 
 const textContent = [
-  "你說的水果是西瓜",
-  "他喝的茶是烏龍茶",
-  "這些是我拍的照片",
-  "穿黃衣服的這個人是老闆",
-  "現在去哪裡玩的人比較少",
-  "買這種手機的人很多",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
 ];
 
 // ============================================================================
@@ -81,9 +96,10 @@ async function translateText(traditional: string): Promise<Word> {
 
 // Handle translation of text content, write results to a JSON file
 const translateWordsList = async (content: string[]) => {
+  const filtered = content.filter(Boolean);
   const results = [];
-  console.log(`\n-> Beginning translation of ${content.length} items:`);
-  for (const word of content) {
+  console.log(`\n-> Beginning translation of ${filtered.length} items:`);
+  for (const word of filtered) {
     const result = await translateText(word);
     results.push(result);
   }

@@ -3,7 +3,6 @@ import { ContentList } from "@src/tools/types";
 const lesson: ContentList = {
   id: "flkSIJf75S",
   type: "Far East",
-  list: "14",
   locked: false,
   title: "Far East Lessons 7-8",
   content: [

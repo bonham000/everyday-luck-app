@@ -230,7 +230,7 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
   };
 
   handleSelectList = (
-    listKey: string,
+    listKey: string | undefined,
     hskList: ContentList,
     index: number,
     isLocked: boolean,
@@ -243,11 +243,12 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
   };
 
   openListSummary = (
-    listKey: string,
+    key: string | undefined,
     list: ContentList,
     listIndex: number,
     type: LessonSummaryType = "LESSON",
   ) => () => {
+    const listKey = String(key);
     const hskList = adjustListContentByDifficultySetting(
       list.content,
       this.props.appDifficultySetting,
@@ -265,7 +266,7 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
     if (list.type === "Sentences") {
       const sentenceParams: SentenceScreenParams = {
         id: list.id,
-        listKey: listKey,
+        listKey,
         sentences: list.content,
         contentType: "Sentences",
         listTitle: String(list.title),

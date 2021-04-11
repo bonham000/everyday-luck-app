@@ -12,6 +12,8 @@ import Lesson_12 from "@src/lessons/12_Far_East_1-6";
 import Lesson_13 from "@src/lessons/13_Contemporary_Chinese_10";
 import Lesson_14 from "@src/lessons/14_Far_East_7-8";
 import Lesson_15 from "@src/lessons/15_Sentences_Example";
+import Lesson_16 from "@src/lessons/16_Contemporary_Chinese_10";
+import Lesson_17 from "@src/lessons/17_Contemporary_Chinese_11";
 
 import { ContentList, HSKListSet } from "@src/tools/types";
 
@@ -53,7 +55,12 @@ const filterEmptyWords = (lesson: ContentList) => ({
   content: lesson.content.filter(word => Boolean(word.traditional)),
 });
 
-const HSK_LISTS: HSKListSet = [
+const setListIndexes = (lesson: ContentList, index: number) => ({
+  ...lesson,
+  list: index === 0 ? lesson.list : String(index + 1),
+});
+
+const LISTS: HSKListSet = [
   Lesson_02,
   Lesson_03,
   Lesson_04,
@@ -68,6 +75,10 @@ const HSK_LISTS: HSKListSet = [
   Lesson_13,
   Lesson_14,
   Lesson_15,
-].map(filterEmptyWords);
+  Lesson_16,
+  Lesson_17,
+]
+  .map(filterEmptyWords)
+  .map(setListIndexes);
 
-export default HSK_LISTS;
+export default LISTS;

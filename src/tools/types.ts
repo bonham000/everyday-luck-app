@@ -99,7 +99,7 @@ export type ContentListType =
 
 export interface ContentList {
   id: string;
-  list: string;
+  list?: string;
   locked: boolean;
   title?: string;
   content: Lesson;

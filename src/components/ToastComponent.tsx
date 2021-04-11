@@ -35,7 +35,7 @@ const CustomToast = ({
 
 const BarContainer = styled.TouchableOpacity({
   zIndex: 25,
-  marginTop: 62,
+  marginTop: 52,
   width: "100%",
   position: "absolute",
   alignItems: "center",

@@ -143,10 +143,6 @@ const WordText = styled(StyledText)({
   marginBottom: 8,
 });
 
-const SmallText = styled(StyledText)({
-  fontSize: 14,
-});
-
 const ControlBox = styled.View`
   bottom: 0;
   position: absolute;
