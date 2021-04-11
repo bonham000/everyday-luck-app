@@ -5,7 +5,7 @@ import { NavigationScreenProp } from "react-navigation";
 import { NativeStyleThemeProps } from "@src/AppContainer";
 import {
   Button,
-  Container,
+  ScrollContainer,
   StyledText,
 } from "@src/components/SharedComponents";
 import { COLORS } from "@src/constants/Theme";
@@ -70,7 +70,7 @@ export class SentencesPracticeQuizScreenComponent extends React.Component<
     const { languageSetting } = this.props;
     const text = item[languageSetting];
     return (
-      <Container>
+      <ScrollContainer>
         <WordBox onPress={this.handleReveal}>
           <WordText style={{ fontSize: 44 }}>{text}</WordText>
           {this.state.displayFull ? (
@@ -90,7 +90,7 @@ export class SentencesPracticeQuizScreenComponent extends React.Component<
           </ProgressText>
           <Button onPress={this.handleNext}>Next</Button>
         </ControlBox>
-      </Container>
+      </ScrollContainer>
     );
   }
 
