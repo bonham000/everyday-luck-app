@@ -45,6 +45,7 @@ const COLORS = {
 
   background: "rgb(231, 237, 240)",
   backgroundDark: "rgb(22,22,22)",
+  backgroundDarkSecondary: "rgb(15,15,15)",
 
   flashcardDarkTheme: "rgb(35,35,35)",
   flashcardLightTheme: "rgb(225,225,225)",

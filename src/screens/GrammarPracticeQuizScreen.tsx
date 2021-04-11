@@ -71,7 +71,7 @@ export class GrammarPracticeQuizScreenComponent extends React.Component<
     const { languageSetting } = this.props;
     const text = item[languageSetting];
     return (
-      <Container>
+      <Container style={{ paddingTop: 0 }}>
         <ScrollContainer>
           <WordBox onPress={this.handleReveal}>
             <WordText style={{ fontSize: 44 }}>{text}</WordText>
@@ -133,10 +133,12 @@ const ProgressText = styled(StyledText)`
 `;
 
 const WordBox = styled.TouchableOpacity<any>`
-  padding: 8px;
   width: 100%;
   height: 100%;
+  padding-top: 6px;
+  padding-right: 12px;
   padding-left: 12px;
+  padding-bottom: 135px;
   background-color: ${(props: NativeStyleThemeProps) =>
     props.theme.type === "dark" ? COLORS.backgroundDark : COLORS.background};
 `;
@@ -148,11 +150,22 @@ const WordText = styled(StyledText)({
   marginBottom: 8,
 });
 
-const ControlBox = styled.View`
+const ControlBox = styled.View<any>`
   bottom: 0;
+  width: 100%;
   position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding-top: 25px;
-  padding-bottom: 45px;
+  padding-bottom: 35px;
+  border-top-width: 1px;
+  border-top-color: ${(props: NativeStyleThemeProps) =>
+    props.theme.type === "dark" ? COLORS.listenBlockDefault : COLORS.fadedText};
+  background-color: ${(props: NativeStyleThemeProps) =>
+    props.theme.type === "dark"
+      ? COLORS.backgroundDarkSecondary
+      : COLORS.background};
 `;
 
 /** ========================================================================
