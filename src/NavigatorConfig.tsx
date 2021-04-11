@@ -142,7 +142,7 @@ const ROUTES: NavigationRouteConfigMap<any, any> = {
     }) => {
       const listTitle = navigation.getParam("listTitle");
       return {
-        title: `${listTitle} Practice Quiz`,
+        title: `${listTitle} Quiz`,
         headerBackTitle: null,
       };
     },
