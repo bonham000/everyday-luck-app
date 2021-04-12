@@ -35,6 +35,7 @@ export class GrammarSummaryScreenComponent extends React.Component<IProps, {}> {
   render(): JSX.Element {
     const { navigation } = this.props;
     const listTitle = navigation.getParam("listTitle");
+    const { length } = navigation.getParam("content");
 
     return (
       <ScrollContainer>
@@ -42,6 +43,7 @@ export class GrammarSummaryScreenComponent extends React.Component<IProps, {}> {
         <SubText>
           This section includes sentences for grammar review practice.
         </SubText>
+        <SubText>There are a total of {length} examples.</SubText>
         <ActionBlock
           onPress={this.navigateToPracticeQuiz}
           style={{ backgroundColor: COLORS.actionButtonMint }}

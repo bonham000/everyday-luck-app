@@ -466,6 +466,8 @@ const getAllUnlockedWordContent = (args: DeriveLessonContentArgs): Word[] => {
    */
   const unlockedLists = lists
     .filter(l => !l.locked)
+    // Exclude grammar categories
+    .filter(l => l.type !== "Grammar")
     .map(l => l.content)
     .reduce((flattened, lesson) => flattened.concat(lesson));
 

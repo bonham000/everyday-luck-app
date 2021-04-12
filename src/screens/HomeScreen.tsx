@@ -101,9 +101,16 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
         {this.renderListSets(false, true, "Custom Word List")}
         <BoldText style={{ marginTop: 20 }}>Grammar Practice</BoldText>
         <Text style={{ marginTop: 6, marginBottom: 18 }}>
-          {GrammarContent.toLocaleString()} total sentences
+          {GrammarContent.toLocaleString()} total examples
         </Text>
         {this.renderListSets(false, false, "Grammar")}
+        <ReviewLink
+          onPress={this.openGrammarReviewAll}
+          style={{ backgroundColor: COLORS.grammarReview }}
+        >
+          <LessonBlockText>Review All Grammar</LessonBlockText>
+          <Text>📑</Text>
+        </ReviewLink>
         <LineBreak />
         <BoldText style={{ marginBottom: 16 }}>
           Practice everyday to gain experience!
@@ -221,7 +228,7 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
             </LessonBlockText>
             <LessonBlockText mtcLesson={false} isLocked={isLocked}>
               ({content.length.toLocaleString()}{" "}
-              {type === "Grammar" ? "sentences" : "words"})
+              {type === "Grammar" ? "examples" : "words"})
             </LessonBlockText>
           </LessonBlock>
         );
@@ -278,6 +285,23 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
     } else {
       this.props.navigation.navigate(ROUTE_NAMES.LIST_SUMMARY, params);
     }
+  };
+
+  openGrammarReviewAll = () => {
+    const { lessons } = this.props;
+    const grammar = lessons
+      .filter(x => x.type === "Grammar")
+      .map(l => l.content)
+      .reduce((flattened, lesson) => flattened.concat(lesson));
+
+    const sentenceParams: GrammarScreenParams = {
+      id: "review",
+      listKey: "1",
+      content: grammar,
+      contentType: "Grammar",
+      listTitle: "Review All Grammar",
+    };
+    this.props.navigation.navigate(ROUTE_NAMES.GRAMMAR_SUMMARY, sentenceParams);
   };
 
   openLessonSummarySpecial = (type: LessonSummaryType) => () => {
