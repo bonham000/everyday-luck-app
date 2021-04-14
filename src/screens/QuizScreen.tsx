@@ -13,7 +13,7 @@ import { ScrollContainer } from "@src/components/SharedComponents";
 import { ROUTE_NAMES } from "@src/constants/RouteNames";
 import { COLORS } from "@src/constants/Theme";
 import { ListScoreSet } from "@src/lessons";
-import { QUIZ_TYPE, QuizTypeOptions } from "@src/providers/GlobalStateContext";
+import { QUIZ_TYPE } from "@src/providers/GlobalStateContext";
 import {
   GlobalStateContextProps,
   withGlobalStateContext,
@@ -216,10 +216,9 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
         options = charactersShuffleQuiz;
       }
 
-      if (shuffleQuizType !== "characters") {
-        if (this.props.disableAudio) {
-          options?.pop();
-        }
+      // Remove pronunciation option if applicable and if it is disabled
+      if (shuffleQuizType !== "characters" && this.props.disableAudio) {
+        options?.pop();
       }
 
       if (!options || options.length === 0) {
@@ -227,7 +226,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
       }
 
       const randomIdx = this.getRandomWordIndex(0, options?.length);
-      const quizType = QuizTypeOptions[randomIdx];
+      const quizType = options[randomIdx];
 
       if (this.state === undefined || quizType !== this.state.quizType) {
         return quizType;

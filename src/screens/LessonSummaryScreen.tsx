@@ -86,6 +86,7 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
             <ActionBlock
               onPress={this.handleNavigateToSection(
                 ROUTE_NAMES.DAILY_CHALLENGE,
+                "multiple-choice",
               )}
             >
               <Text style={{ color: COLORS.white, fontWeight: "bold" }}>
@@ -96,10 +97,11 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
             <ActionBlock
               onPress={this.handleNavigateToSection(
                 ROUTE_NAMES.DAILY_CHALLENGE,
+                "characters",
               )}
             >
               <Text style={{ color: COLORS.white, fontWeight: "bold" }}>
-                Character Entry (Harder!)
+                Character Entry
               </Text>
               <Text>🏟</Text>
             </ActionBlock>
@@ -184,11 +186,11 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
             <SectionTitleText>Study</SectionTitleText>
             <LineBreak />
             <ActionBlock
+              onPress={this.navigateToPracticeQuiz}
               style={{ backgroundColor: COLORS.actionButtonMint }}
-              onPress={this.handleNavigateToSection(ROUTE_NAMES.FLASHCARDS)}
             >
-              <Text>Flashcards</Text>
-              <Text>📑</Text>
+              <Text>Shuffle Quiz</Text>
+              <Text>📟</Text>
             </ActionBlock>
             <ActionBlock
               style={{ backgroundColor: COLORS.actionButtonMint }}
@@ -198,11 +200,11 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
               <Text>🗃</Text>
             </ActionBlock>
             <ActionBlock
-              onPress={this.navigateToPracticeQuiz}
               style={{ backgroundColor: COLORS.actionButtonMint }}
+              onPress={this.handleNavigateToSection(ROUTE_NAMES.FLASHCARDS)}
             >
-              <Text>Shuffle Quiz</Text>
-              <Text>📟</Text>
+              <Text>Flashcards</Text>
+              <Text>📑</Text>
             </ActionBlock>
           </React.Fragment>
         )}
@@ -214,16 +216,16 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
               learned.
             </InfoText>
             <InfoText>
-              The 4 quiz options will be mixed randomly within the quiz for a
-              more interesting challenge - enjoy!
+              You can choose between a mix of the multiple choice quiz type
+              (easier) or the character entry quiz type (harder).
             </InfoText>
           </React.Fragment>
         )}
         {IS_SHUFFLE_QUIZ && (
           <React.Fragment>
             <InfoText>
-              The 4 quiz options will be mixed randomly within the quiz for a
-              more interesting challenge - enjoy!
+              You can choose between a mix of the multiple choice quiz type
+              (easier) or the character entry quiz type (harder).
             </InfoText>
           </React.Fragment>
         )}
@@ -360,6 +362,9 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
   handleNavigateToHskTest = (routeName: ROUTE_NAMES) => () => {
     const { lessons, userScoreStatus } = this.props;
     const id = this.props.navigation.getParam("id");
+    const lesson = this.props.navigation.getParam("lesson");
+    const contentType = this.props.navigation.getParam("contentType");
+    const IS_HSK = contentType === "HSK";
     const listIndex = this.props.navigation.getParam("listIndex");
 
     /**
@@ -378,7 +383,7 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
 
     const params: LessonScreenParams = {
       ...this.getNextScreenParams(),
-      lesson: randomQuizSet,
+      lesson: IS_HSK ? randomQuizSet : lesson,
     };
     this.props.navigation.navigate(routeName, params);
   };
