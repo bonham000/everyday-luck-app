@@ -111,6 +111,8 @@ export type Lesson = Word[];
 export type LessonSet = Lesson[];
 export type HSKListSet = ContentList[];
 
+export type ShuffleQuizType = "multiple-choice" | "characters";
+
 export type LessonSummaryType =
   | "SUMMARY"
   | "DAILY_QUIZ"
@@ -143,6 +145,7 @@ export interface LessonScreenParams {
   type: LessonSummaryType;
   dictation?: Lesson;
   isFinalUnlockedLesson: boolean;
+  shuffleQuizType?: ShuffleQuizType;
 }
 
 export interface GrammarScreenParams {

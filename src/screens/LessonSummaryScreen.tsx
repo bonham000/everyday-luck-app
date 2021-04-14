@@ -16,7 +16,7 @@ import {
   SoundRecordingProps,
   withSoundRecordingContext,
 } from "@src/providers/SoundRecordingProvider";
-import { LessonScreenParams } from "@src/tools/types";
+import { LessonScreenParams, ShuffleQuizType } from "@src/tools/types";
 import {
   DeriveLessonContentArgs,
   getLessonSummaryStatus,
@@ -89,9 +89,19 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
               )}
             >
               <Text style={{ color: COLORS.white, fontWeight: "bold" }}>
-                Start the Quiz!
+                Multiple Choice Only
               </Text>
               <Text>📟</Text>
+            </ActionBlock>
+            <ActionBlock
+              onPress={this.handleNavigateToSection(
+                ROUTE_NAMES.DAILY_CHALLENGE,
+              )}
+            >
+              <Text style={{ color: COLORS.white, fontWeight: "bold" }}>
+                Character Entry (Harder!)
+              </Text>
+              <Text>🏟</Text>
             </ActionBlock>
           </React.Fragment>
         )}
@@ -308,7 +318,9 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
     );
   };
 
-  getNextScreenParams = (): LessonScreenParams => {
+  getNextScreenParams = (
+    shuffleQuizType?: ShuffleQuizType,
+  ): LessonScreenParams => {
     const type = this.props.navigation.getParam("type");
     const lesson = this.props.navigation.getParam("lesson");
     const id = this.props.navigation.getParam("id");
@@ -331,13 +343,17 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
       lessonIndex,
       isFinalLesson,
       isFinalUnlockedLesson,
+      shuffleQuizType,
     };
 
     return params;
   };
 
-  handleNavigateToSection = (routeName: ROUTE_NAMES) => () => {
-    const params = this.getNextScreenParams();
+  handleNavigateToSection = (
+    routeName: ROUTE_NAMES,
+    type?: ShuffleQuizType,
+  ) => () => {
+    const params = this.getNextScreenParams(type);
     this.props.navigation.navigate(routeName, params);
   };
 

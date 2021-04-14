@@ -182,28 +182,51 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
 
   getQuizComponentType = (): QUIZ_TYPE => {
     const type = this.props.navigation.getParam("type");
+    const shuffleQuizType = this.props.navigation.getParam("shuffleQuizType");
     const IS_RANDOM_QUIZ =
       type === "SHUFFLE_QUIZ" ||
       type === "DAILY_QUIZ" ||
       type === "OPT_OUT_CHALLENGE";
 
     if (IS_RANDOM_QUIZ) {
-      /**
-       * If audio pronunciation is disabled exclude it from
-       * from the random quiz type options.
-       *
-       * Exclude the quiz input from the opt out challenge
-       * quiz.
-       *
-       * NOTE: Just force it to exclude the quiz input type!!!
-       */
-      const finalIndex = this.props.disableAudio ? 3 : 4;
-      const randomIdx = this.getRandomWordIndex(
-        // type === "OPT_OUT_CHALLENGE" ? 1 : 0,
-        1,
-        finalIndex,
-      );
+      const multipleChoiceShuffleQuiz = [
+        QUIZ_TYPE.ENGLISH,
+        QUIZ_TYPE.MANDARIN,
+        QUIZ_TYPE.PRONUNCIATION,
+      ];
 
+      const charactersShuffleQuiz = [
+        QUIZ_TYPE.QUIZ_TEXT,
+        QUIZ_TYPE.QUIZ_TEXT_REVERSE,
+      ];
+
+      const optOutChallengeQuiz = [
+        QUIZ_TYPE.ENGLISH,
+        QUIZ_TYPE.MANDARIN,
+        QUIZ_TYPE.PRONUNCIATION,
+      ];
+
+      let options;
+
+      if (type === "DAILY_QUIZ" || type === "OPT_OUT_CHALLENGE") {
+        options = optOutChallengeQuiz;
+      } else if (shuffleQuizType === "multiple-choice") {
+        options = multipleChoiceShuffleQuiz;
+      } else if (shuffleQuizType === "characters") {
+        options = charactersShuffleQuiz;
+      }
+
+      if (shuffleQuizType !== "characters") {
+        if (this.props.disableAudio) {
+          options?.pop();
+        }
+      }
+
+      if (!options || options.length === 0) {
+        return this.getQuizComponentType();
+      }
+
+      const randomIdx = this.getRandomWordIndex(0, options?.length);
       const quizType = QuizTypeOptions[randomIdx];
 
       if (this.state === undefined || quizType !== this.state.quizType) {

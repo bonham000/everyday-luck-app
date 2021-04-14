@@ -23,6 +23,7 @@ import {
   DeriveLessonContentArgs,
   determineFinalUnlockedLessonInList,
   getRandomQuizChallenge,
+  knuthShuffle,
   mapListIndexToListScores,
 } from "@src/tools/utils";
 
@@ -249,19 +250,24 @@ export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
   };
 
   handleStudyAll = () => {
-    const { lessons, userScoreStatus } = this.props;
-    const id = this.props.navigation.getParam("id");
+    // const { lessons, userScoreStatus } = this.props;
+    const lesson = this.props.navigation.getParam("hskList");
+    const shuffledList = knuthShuffle(
+      lesson.reduce((flat, c) => flat.concat(c), []),
+    );
+    // const id = this.props.navigation.getParam("id");
     const listIndex = this.props.navigation.getParam("listIndex");
-    const args: DeriveLessonContentArgs = {
-      listId: id,
-      lists: lessons,
-      unlockedListIndex: listIndex,
-      appDifficultySetting: OPT_OUT_LEVEL /* TODO: Change? */,
-      userScoreStatus,
-      limitToCurrentList: true,
-    };
-    const randomQuizSet = getRandomQuizChallenge(args);
-    this.openLessonSummarySpecial(randomQuizSet, "SUMMARY", listIndex)();
+    // const args: DeriveLessonContentArgs = {
+    //   listId: id,
+    //   lists: lesson,
+    //   unlockedListIndex: listIndex,
+    //   appDifficultySetting: OPT_OUT_LEVEL /* TODO: Change? */,
+    //   userScoreStatus,
+    //   limitToCurrentList: true,
+    // };
+    // const randomQuizSet = getRandomQuizChallenge(args);
+    // this.openLessonSummarySpecial(randomQuizSet, "SUMMARY", listIndex)();
+    this.openLessonSummarySpecial(shuffledList, "SUMMARY", listIndex)();
   };
 
   openLessonSummarySpecial = (
