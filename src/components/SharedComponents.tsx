@@ -110,6 +110,7 @@ interface LessonBlockProps {
   hskLocked: boolean;
   isLocked: boolean;
   inProgress: boolean;
+  index: number;
 }
 
 export const LessonBlock = styled.TouchableOpacity<any>`
@@ -127,7 +128,11 @@ export const LessonBlock = styled.TouchableOpacity<any>`
     } else if (props.type === "Far East") {
       return COLORS.lessonFarEast;
     } else if (props.type === "Grammar") {
-      return COLORS.lessonBlockGrammar;
+      if (props.index === 0) {
+        return COLORS.lessonBlockGrammarCustom;
+      } else {
+        return COLORS.lessonBlockGrammar;
+      }
     }
 
     if (props.theme.type === "dark") {

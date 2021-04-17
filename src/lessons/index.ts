@@ -16,6 +16,7 @@ import Contemporary_Chinese_14 from "@src/lessons/Contemporary_Chinese_14";
 import Contemporary_Chinese_15 from "@src/lessons/Contemporary_Chinese_15";
 import Far_East_1_6 from "@src/lessons/Far_East_1-6";
 import Far_East_7_8 from "@src/lessons/Far_East_7-8";
+import Far_East_9 from "@src/lessons/Far_East_9";
 import Grammar_Lesson_6 from "@src/lessons/Grammar_Lesson_6";
 import Grammar_Lesson_7 from "@src/lessons/Grammar_Lesson_7";
 import Grammar_Lesson_8 from "@src/lessons/Grammar_Lesson_8";
@@ -92,6 +93,7 @@ const LISTS: HSKListSet = [
   Contemporary_Chinese_15,
   Far_East_1_6,
   Far_East_7_8,
+  Far_East_9,
   Grammar_Custom,
   Grammar_Lesson_6,
   Grammar_Lesson_7,

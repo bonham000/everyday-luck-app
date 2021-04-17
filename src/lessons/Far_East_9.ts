@@ -4,7 +4,7 @@ const lesson: ContentList = {
   id: "fKauWfjsuQ",
   type: "Far East",
   locked: false,
-  title: "Lesson 9",
+  title: "Far East Lesson 9",
   content: [
     {
       traditional: "王家明",

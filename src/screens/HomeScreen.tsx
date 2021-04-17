@@ -104,13 +104,6 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
           {GrammarContent.toLocaleString()} total examples
         </Text>
         {this.renderListSets(false, false, "Grammar")}
-        <ReviewLink
-          onPress={this.openGrammarReviewAll}
-          style={{ backgroundColor: COLORS.grammarReview }}
-        >
-          <LessonBlockText>Review All Grammar</LessonBlockText>
-          <Text>📑</Text>
-        </ReviewLink>
         <LineBreak />
         <BoldText style={{ marginBottom: 16 }}>
           Practice everyday to gain experience!
@@ -125,6 +118,10 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
         >
           <LessonBlockText>Review All Unlocked Content</LessonBlockText>
           <Text>🗃</Text>
+        </ReviewLink>
+        <ReviewLink onPress={this.openGrammarReviewAll}>
+          <LessonBlockText>Review All Grammar</LessonBlockText>
+          <Text>📑</Text>
         </ReviewLink>
       </ScrollContainer>
     );
@@ -216,6 +213,7 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
         return (
           <LessonBlock
             type={type}
+            index={index}
             key={hskList.list}
             hskLocked={locked}
             isLocked={isLocked}
