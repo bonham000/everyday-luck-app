@@ -11,6 +11,9 @@ import Contemporary_Chinese_9 from "@src/lessons/Contemporary_Chinese_9";
 import Contemporary_Chinese_10 from "@src/lessons/Contemporary_Chinese_10";
 import Contemporary_Chinese_11 from "@src/lessons/Contemporary_Chinese_11";
 import Contemporary_Chinese_12 from "@src/lessons/Contemporary_Chinese_12";
+import Contemporary_Chinese_13 from "@src/lessons/Contemporary_Chinese_13";
+import Contemporary_Chinese_14 from "@src/lessons/Contemporary_Chinese_14";
+import Contemporary_Chinese_15 from "@src/lessons/Contemporary_Chinese_15";
 import Far_East_1_6 from "@src/lessons/Far_East_1-6";
 import Far_East_7_8 from "@src/lessons/Far_East_7-8";
 import Grammar_Lesson_6 from "@src/lessons/Grammar_Lesson_6";
@@ -20,6 +23,9 @@ import Grammar_Lesson_9 from "@src/lessons/Grammar_Lesson_9";
 import Grammar_Lesson_10 from "@src/lessons/Grammar_Lesson_10";
 import Grammar_Lesson_11 from "@src/lessons/Grammar_Lesson_11";
 import Grammar_Lesson_12 from "@src/lessons/Grammar_Lesson_12";
+import Grammar_Lesson_13 from "@src/lessons/Grammar_Lesson_13";
+import Grammar_Lesson_14 from "@src/lessons/Grammar_Lesson_14";
+import Grammar_Lesson_15 from "@src/lessons/Grammar_Lesson_15";
 import Grammar_Custom from "@src/lessons/Grammar_Custom";
 
 import { ContentList, HSKListSet } from "@src/tools/types";
@@ -81,6 +87,9 @@ const LISTS: HSKListSet = [
   Contemporary_Chinese_10,
   Contemporary_Chinese_11,
   Contemporary_Chinese_12,
+  Contemporary_Chinese_13,
+  Contemporary_Chinese_14,
+  Contemporary_Chinese_15,
   Far_East_1_6,
   Far_East_7_8,
   Grammar_Custom,
@@ -91,6 +100,9 @@ const LISTS: HSKListSet = [
   Grammar_Lesson_10,
   Grammar_Lesson_11,
   Grammar_Lesson_12,
+  Grammar_Lesson_13,
+  Grammar_Lesson_14,
+  Grammar_Lesson_15,
 ]
   .map(filterEmptyWords)
   .map(setListIndexes);

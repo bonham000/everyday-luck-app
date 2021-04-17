@@ -53,6 +53,18 @@ const textContent = [
   "",
   "",
   "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
+  "",
 ];
 
 // ============================================================================
@@ -62,7 +74,7 @@ const writeListToJson = (words: Word[]) => {
   const FILENAME = "vocabulary-content.json";
   const data = JSON.stringify(words, null, 2);
   fs.writeFileSync(FILENAME, data, "utf8");
-  console.log(`-> Results saved to file: ${FILENAME}\n`);
+  console.log(`-> Translation complete! Results saved to file: ${FILENAME}\n`);
 };
 
 // Instantiates a translation client
@@ -70,7 +82,7 @@ const translationClient = new TranslationServiceClient();
 
 // Handle translation and return Word objects
 async function translateText(traditional: string): Promise<Word> {
-  console.log(`   Translating ${traditional}...`);
+  console.log(`   Translating ${traditional}`);
 
   const location = "global";
   const projectId = "mandarin-app-1558242151131";
@@ -115,7 +127,6 @@ const translateWordsList = async (content: string[]) => {
     const result = await translateText(word);
     results.push(result);
   }
-  console.log("-> Translation complete!");
   writeListToJson(results);
 };
 
