@@ -448,11 +448,8 @@ export const getRandomQuizChallenge = (
   while (result.length < quizSize) {
     const current = shuffled[index];
 
-    if (current.traditional in quizCacheSetCopy) {
-      delete quizCacheSetCopy[current.traditional];
-    } else {
+    if (!(current.traditional in quizCacheSetCopy)) {
       result.push(current);
-      quizCacheSetCopy[current.traditional] = "selected";
     }
 
     index++;
