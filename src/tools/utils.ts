@@ -15,6 +15,7 @@ import {
   Lesson,
   LessonSet,
   LessonSummaryType,
+  QuizCacheSet,
   SIMPLIFIED_CHINESE,
   TRADITIONAL_CHINESE,
   TranslationsData,
@@ -378,12 +379,11 @@ export interface DeriveLessonContentArgs {
   listId: string;
   lists: HSKListSet;
   unlockedListIndex: number;
+  limitToCurrentList?: boolean;
+  quizCacheSet: QuizCacheSet;
   userScoreStatus: ListScoreSet;
   appDifficultySetting: APP_DIFFICULTY_SETTING;
-  limitToCurrentList?: boolean;
 }
-
-const quizCacheSet: Set<string> = new Set();
 
 /**
  * Derive random lesson set for game mode.
@@ -397,13 +397,49 @@ const quizCacheSet: Set<string> = new Set();
  */
 export const getRandomQuizChallenge = (
   args: DeriveLessonContentArgs,
-): Lesson => {
+): { result: Lesson; quizCacheSet: QuizCacheSet } => {
+  const { quizCacheSet } = args;
   const allWords = getAllUnlockedWordContent(args);
   const shuffled = knuthShuffle(allWords);
   const quizSize = convertAppDifficultyToLessonSize(args.appDifficultySetting);
 
+  // Copy the Quiz Cache Set
+  const quizCacheSetCopy: QuizCacheSet = JSON.parse(
+    JSON.stringify(quizCacheSet),
+  );
+
+  // Select some of the failed words first
+  let failedWords: Set<string> = new Set();
+  for (const [key, value] of Object.entries(quizCacheSet)) {
+    if (value === "failed") {
+      failedWords.add(key);
+    }
+  }
+
+  // Find all of the word items for the previously failed words
+  const failedWordsContent = allWords.filter(x => {
+    if (failedWords.has(x.traditional)) {
+      failedWords.delete(x.traditional);
+      return true;
+    } else {
+      return false;
+    }
+  });
+
+  // Just take the first 3 of whatever failed words exist
+  const selection = knuthShuffle(failedWordsContent)
+    .slice(0, 3)
+    .filter(Boolean);
+
+  // Remove them from the set so they may be selected again more often
+  for (const selected of selection) {
+    delete quizCacheSetCopy[selected.traditional];
+  }
+
   let index = 0;
-  let result: Word[] = [];
+
+  // Default the result to the current selected failed words
+  let result: Word[] = selection;
 
   // Create the result quiz set by walking through the shuffled choices
   // an excluding any which exist already in the quizCacheSet. This is a
@@ -412,17 +448,17 @@ export const getRandomQuizChallenge = (
   while (result.length < quizSize) {
     const current = shuffled[index];
 
-    if (quizCacheSet.has(current.traditional)) {
-      quizCacheSet.delete(current.traditional);
+    if (current.traditional in quizCacheSetCopy) {
+      delete quizCacheSetCopy[current.traditional];
     } else {
       result.push(current);
-      quizCacheSet.add(current.traditional);
+      quizCacheSetCopy[current.traditional] = "selected";
     }
 
     index++;
   }
 
-  return result;
+  return { result: knuthShuffle(result), quizCacheSet: quizCacheSetCopy };
 };
 
 /**

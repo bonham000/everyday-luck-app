@@ -68,9 +68,13 @@ export interface UserJson extends BaseUser {
   score_history: string;
 }
 
+type QuizCacheSetType = "selected" | "failed";
+
+export type QuizCacheSet = { [key: string]: QuizCacheSetType };
+
 export interface User extends BaseUser {
-  score_history: ListScoreSet;
   settings: UserSettings;
+  score_history: ListScoreSet;
 }
 
 export type UserAsyncResponse = Promise<UserJson | undefined>;

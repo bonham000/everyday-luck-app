@@ -7,7 +7,7 @@ import GlobalStateContextValues, {
   UserSettings,
   WordDictionary,
 } from "@src/providers/GlobalStateContext";
-import { HSKListSet, User } from "@src/tools/types";
+import { HSKListSet, QuizCacheSet, User } from "@src/tools/types";
 
 /** ========================================================================
  * Types
@@ -24,13 +24,14 @@ export interface GlobalStateValues {
 export type APP_THEME = "dark" | "light";
 
 export interface AdditionalProviderProps {
+  appTheme: APP_THEME;
   experience: number;
-  userScoreStatus: ListScoreSet;
   disableAudio: boolean;
+  quizCacheSet: QuizCacheSet;
   autoProceedQuestion: boolean;
+  userScoreStatus: ListScoreSet;
   languageSetting: APP_LANGUAGE_SETTING;
   appDifficultySetting: APP_DIFFICULTY_SETTING;
-  appTheme: APP_THEME;
 }
 
 export interface GlobalStateContextProps

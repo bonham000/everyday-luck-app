@@ -456,6 +456,15 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
       this.handleCorrectAnswer();
     } else {
       failed = true;
+
+      // Remove the word from the quiz cache set so it can be visited again:
+      const { quizCacheSet, handleUpdateUserSettingsField } = this.props;
+      const {traditional} = wordContent[currentWordIndex];
+      const quizCacheSetCopy = JSON.parse(JSON.stringify(quizCacheSet));
+      // Failed words will be reviewed again more often
+      quizCacheSetCopy[traditional] = "failed";
+      handleUpdateUserSettingsField({quizCacheSet: quizCacheSetCopy});
+
       /**
        * Answer is incorrect:
        *

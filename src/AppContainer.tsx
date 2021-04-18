@@ -190,16 +190,18 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
       return {
         appTheme: user.settings.app_theme,
         experience: user.experience_points,
-        disableAudio: user.settings.disable_audio,
-        autoProceedQuestion: user.settings.auto_proceed_question,
         userScoreStatus: user.score_history,
+        disableAudio: user.settings.disable_audio,
+        quizCacheSet: user.settings.quizCacheSet || {},
         languageSetting: user.settings.language_setting,
+        autoProceedQuestion: user.settings.auto_proceed_question,
         appDifficultySetting: user.settings.app_difficulty_setting,
       };
     } else {
       return {
         appTheme: "light",
         experience: 0,
+        quizCacheSet: {},
         disableAudio: false,
         autoProceedQuestion: false,
         userScoreStatus: MOCKS.DEFAULT_SCORE_STATE,
@@ -444,11 +446,12 @@ class RootContainer extends RootContainerBase<{}> {
 
     const {
       appTheme,
-      disableAudio,
-      autoProceedQuestion,
       experience,
+      disableAudio,
+      quizCacheSet,
       userScoreStatus,
       languageSetting,
+      autoProceedQuestion,
       appDifficultySetting,
     } = this.mapUserToAppFields();
 
@@ -461,6 +464,7 @@ class RootContainer extends RootContainerBase<{}> {
       appTheme,
       experience,
       disableAudio,
+      quizCacheSet,
       wordDictionary,
       updateAvailable,
       languageSetting,

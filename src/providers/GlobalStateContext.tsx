@@ -1,7 +1,7 @@
 import React from "react";
 
 import { ListScoreSet } from "@src/lessons";
-import { HSKListSet, Word } from "@src/tools/types";
+import { HSKListSet, QuizCacheSet, Word } from "@src/tools/types";
 import { APP_THEME } from "./GlobalStateProvider";
 
 /** ========================================================================
@@ -12,6 +12,7 @@ import { APP_THEME } from "./GlobalStateProvider";
 export interface UserSettings {
   app_theme: APP_THEME;
   disable_audio: boolean;
+  quizCacheSet: QuizCacheSet;
   auto_proceed_question: boolean;
   language_setting: APP_LANGUAGE_SETTING;
   app_difficulty_setting: APP_DIFFICULTY_SETTING;
@@ -74,6 +75,7 @@ export interface ToastMessageArgs {
  */
 
 const GlobalStateContextValues = {
+  quizCacheSet: {},
   appTheme: "light",
   experience: 0,
   lessons: [] as HSKListSet,

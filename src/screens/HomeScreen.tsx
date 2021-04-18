@@ -303,18 +303,31 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
   };
 
   openLessonSummarySpecial = (type: LessonSummaryType) => () => {
-    const { lessons, userScoreStatus, appDifficultySetting } = this.props;
+    const {
+      lessons,
+      quizCacheSet,
+      userScoreStatus,
+      appDifficultySetting,
+      handleUpdateUserSettingsField,
+    } = this.props;
     const unlockedLessonIndex = getFinalUnlockedListKey(userScoreStatus);
     const args: DeriveLessonContentArgs = {
       listId: "Special",
+      quizCacheSet,
       lists: lessons,
-      unlockedListIndex: unlockedLessonIndex,
-      appDifficultySetting,
       userScoreStatus,
+      appDifficultySetting,
+      unlockedListIndex: unlockedLessonIndex,
     };
-    const dailyQuizSet = getRandomQuizChallenge(args);
+    const {
+      result: dailyQuizSet,
+      quizCacheSet: quizCacheSetUpdated,
+    } = getRandomQuizChallenge(args);
     const reviewSet = getReviewLessonSet(args);
     const lesson = type === "DAILY_QUIZ" ? dailyQuizSet : reviewSet;
+
+    // Update Quiz Cache Set after the quiz selection
+    handleUpdateUserSettingsField({ quizCacheSet: quizCacheSetUpdated });
 
     const params: LessonScreenParams = {
       type,

@@ -123,6 +123,7 @@ const getMockScoreStatus = (overrides: Partial<ListScoreSet>) => ({
 const EXPERIENCE_POINTS = 54234;
 
 const SETTINGS: UserSettings = {
+  quizCacheSet: {},
   app_theme: "light",
   disable_audio: false,
   auto_proceed_question: false,
@@ -142,9 +143,9 @@ export const getNewDefaultUser = () => ({
   email: "",
   username: "",
   push_token: "",
-  score_history: DEFAULT_SCORE_STATE,
   experience_points: 0,
   settings: SETTINGS,
+  score_history: DEFAULT_SCORE_STATE,
 });
 
 const GLOBAL_STATE_PROPS: GlobalStateContextProps = {

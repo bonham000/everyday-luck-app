@@ -355,8 +355,8 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
       contentType,
       lessonIndex,
       isFinalLesson,
-      isFinalUnlockedLesson,
       shuffleQuizType,
+      isFinalUnlockedLesson,
     };
 
     return params;
@@ -385,12 +385,13 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
     const args: DeriveLessonContentArgs = {
       listId: id,
       lists: lessons,
+      userScoreStatus,
+      quizCacheSet: {},
+      limitToCurrentList: true,
       unlockedListIndex: listIndex,
       appDifficultySetting: OPT_OUT_LEVEL,
-      userScoreStatus,
-      limitToCurrentList: true,
     };
-    const randomQuizSet = getRandomQuizChallenge(args);
+    const { result: randomQuizSet } = getRandomQuizChallenge(args);
 
     const params: LessonScreenParams = {
       ...this.getNextScreenParams(),
