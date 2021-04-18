@@ -65,6 +65,7 @@ interface IState {
   didReveal: boolean;
   quizFinished: boolean;
   quizType: QUIZ_TYPE;
+  failedWords: Set<string>;
   wordContent: ReadonlyArray<Word>;
 }
 
@@ -112,6 +113,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
       didReveal: false,
       revealAnswer: false,
       quizFinished: false,
+      failedWords: new Set(),
       wordCompletedCache: new Set(),
       wordContent: knuthShuffle(lesson),
       quizType: this.getQuizComponentType(),
@@ -446,7 +448,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
   };
 
   handleCheckAnswer = (correct: boolean) => {
-    const { value, wordContent, currentWordIndex } = this.state;
+    const { value, wordContent, failedWords, currentWordIndex } = this.state;
 
     const {traditional} = wordContent[currentWordIndex];
     const { quizCacheSet, handleUpdateUserSettingsField } = this.props;
@@ -457,13 +459,15 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
      * Check answer: either correct or incorrect
      */
     if (correct) {
-
-      if (traditional in quizCacheSetCopy) {
-        delete quizCacheSetCopy[traditional];
-      } else {
-        quizCacheSetCopy[traditional] = "selected";
+      // Only update if it was not a failed word
+      if (!failedWords.has(traditional)) {
+        if (traditional in quizCacheSetCopy) {
+          delete quizCacheSetCopy[traditional];
+        } else {
+          quizCacheSetCopy[traditional] = "selected";
+        }
+        handleUpdateUserSettingsField({ quizCacheSet: quizCacheSetCopy });
       }
-      handleUpdateUserSettingsField({ quizCacheSet: quizCacheSetCopy });
 
       this.handleCorrectAnswer();
     } else {
@@ -490,14 +494,20 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
         }
       }
 
-      this.setState(prevState => ({
-        attempted: true,
+      this.setState(prevState => {
+        const failedWordsCopy = new Set(Array.from(prevState.failedWords));
+        failedWordsCopy.add(traditional);
+
+        return {
+          attempted: true,
         valid: false,
         shouldShake: true,
         failedOnce: true,
         wordContent: updatedContent,
+        failedWords: failedWordsCopy,
         failCount: failed ? prevState.failCount + 1 : prevState.failCount,
-      }));
+        };
+      });
     }
   };
 
