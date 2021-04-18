@@ -74,7 +74,18 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
               )}
             >
               <Text style={{ color: COLORS.white, fontWeight: "bold" }}>
-                Start the Quiz!
+                Multiple Choice Only
+              </Text>
+              <Text>📟</Text>
+            </ActionBlock>
+            <ActionBlock
+              onPress={this.handleNavigateToSection(
+                ROUTE_NAMES.DAILY_CHALLENGE,
+                "characters",
+              )}
+            >
+              <Text style={{ color: COLORS.white, fontWeight: "bold" }}>
+                Character Entry
               </Text>
               <Text>🏟</Text>
             </ActionBlock>

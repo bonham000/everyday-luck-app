@@ -209,7 +209,11 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
       let options;
 
       if (type === "DAILY_QUIZ" || type === "OPT_OUT_CHALLENGE") {
-        options = optOutChallengeQuiz;
+        if (shuffleQuizType === "characters") {
+          options = charactersShuffleQuiz;
+        } else {
+          options = optOutChallengeQuiz;
+        }
       } else if (shuffleQuizType === "multiple-choice") {
         options = multipleChoiceShuffleQuiz;
       } else if (shuffleQuizType === "characters") {
