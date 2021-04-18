@@ -462,7 +462,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
       // Only update if it was not a failed word
       if (!failedWords.has(traditional)) {
         if (traditional in quizCacheSetCopy) {
-          delete quizCacheSetCopy[traditional];
+          // No action if it is already in the cache
         } else {
           quizCacheSetCopy[traditional] = "selected";
         }

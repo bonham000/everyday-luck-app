@@ -448,7 +448,16 @@ export const getRandomQuizChallenge = (
   while (result.length < quizSize) {
     const current = shuffled[index];
 
-    if (!(current.traditional in quizCacheSetCopy)) {
+    const status = quizCacheSetCopy[current.traditional];
+    // If the word exists in the QuizCacheSet do not add it
+    if (status !== undefined) {
+      // Remove it if it has been selected before, to put it back in the
+      // selection pool
+      if (status === "selected") {
+        delete quizCacheSetCopy[current.traditional];
+      }
+    } else {
+      // If it is not in the QuizCacheSet, then add it
       result.push(current);
     }
 
