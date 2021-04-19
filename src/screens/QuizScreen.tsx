@@ -454,28 +454,37 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     const { quizCacheSet, handleUpdateUserSettingsField } = this.props;
     const quizCacheSetCopy = JSON.parse(JSON.stringify(quizCacheSet));
 
+    // Only make the QuizCacheSet updates for the Daily Review Quiz
+    const type = this.props.navigation.getParam("type");
+    const IS_DAILY_REVIEW_QUIZ = type === "DAILY_QUIZ";
+
     let failed = false;
     /**
      * Check answer: either correct or incorrect
      */
     if (correct) {
-      // Only update if it was not a failed word
-      if (!failedWords.has(traditional)) {
-        if (traditional in quizCacheSetCopy) {
-          // No action if it is already in the cache
-        } else {
-          quizCacheSetCopy[traditional] = "selected";
+
+      if (IS_DAILY_REVIEW_QUIZ) {
+        // Only update if it was not a failed word
+        if (!failedWords.has(traditional)) {
+          if (traditional in quizCacheSetCopy) {
+            // No action if it is already in the cache
+          } else {
+            quizCacheSetCopy[traditional] = "selected";
+          }
+          handleUpdateUserSettingsField({ quizCacheSet: quizCacheSetCopy });
         }
-        handleUpdateUserSettingsField({ quizCacheSet: quizCacheSetCopy });
       }
 
       this.handleCorrectAnswer();
     } else {
       failed = true;
       
-      // Remove the word from the quiz cache set so it can be visited again:
-      quizCacheSetCopy[traditional] = "failed";
-      handleUpdateUserSettingsField({ quizCacheSet: quizCacheSetCopy });
+      if (IS_DAILY_REVIEW_QUIZ) {
+        // Remove the word from the quiz cache set so it can be visited again:
+        quizCacheSetCopy[traditional] = "failed";
+        handleUpdateUserSettingsField({ quizCacheSet: quizCacheSetCopy });
+      }
 
       /**
        * Answer is incorrect:
