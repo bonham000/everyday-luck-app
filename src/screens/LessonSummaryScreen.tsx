@@ -227,6 +227,10 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
               prompt you each day with a quiz on the content you've already
               learned.
             </InfoText>
+            <InfoText>
+              The Characters Entry quiz is harder but will award success with
+              more 🍊🍀.
+            </InfoText>
             {this.renderDailyQuizStats()}
           </React.Fragment>
         )}
