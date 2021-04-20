@@ -72,7 +72,7 @@ interface IState {
 /**
  * The cost of reverting a failed answer! 🍊
  */
-const REVERSION_PENALTY = 10;
+const REVERSION_PENALTY = 25;
 
 /**
  * The delay time for proceeding to the next question if the

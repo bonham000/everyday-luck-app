@@ -200,7 +200,7 @@ class RootContainerBase<Props> extends React.Component<Props, IState> {
     } else {
       return {
         appTheme: "light",
-        experience: 0,
+        experience: 100,
         quizCacheSet: {},
         disableAudio: false,
         autoProceedQuestion: false,

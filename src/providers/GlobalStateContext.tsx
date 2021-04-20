@@ -77,7 +77,7 @@ export interface ToastMessageArgs {
 const GlobalStateContextValues = {
   quizCacheSet: {},
   appTheme: "light",
-  experience: 0,
+  experience: 100,
   lessons: [] as HSKListSet,
   userScoreStatus: {},
   wordDictionary: {},
