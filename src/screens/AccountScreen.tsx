@@ -82,6 +82,7 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
         >
           Complete Lessons
         </Button>
+        {this.renderDailyQuizCacheStats()}
       </ScrollContainer>
     );
   }
@@ -112,6 +113,43 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
           Set Scores
         </Button>
         <LineBreak />
+      </React.Fragment>
+    );
+  };
+
+  renderDailyQuizCacheStats = () => {
+    // Summarize stats from the daily quiz cache set
+    const { lessons, quizCacheSet } = this.props;
+    const totalContentItems = lessons
+      .filter(l => l.type !== "Grammar")
+      .map(x => x.content)
+      .reduce((total, x) => total + x.length, 0);
+
+    let failedCount = 0;
+    let reviewedCount = 0;
+    for (const [_, value] of Object.entries(quizCacheSet)) {
+      if (value === "failed") {
+        failedCount++;
+      } else if (value === "selected") {
+        reviewedCount++;
+      }
+    }
+
+    return (
+      <React.Fragment>
+        <LineBreak />
+        <SectionTitle>Daily Quiz Stats</SectionTitle>
+        <InfoText>
+          There are {reviewedCount} total items in the daily quiz review set out
+          of a total of {totalContentItems} and {failedCount} failed items which
+          will be reviewed again.
+        </InfoText>
+        <Button
+          onPress={this.resetDailyQuizCache}
+          style={{ marginTop: 15, marginBottom: 15 }}
+        >
+          Reset the Quiz Review History
+        </Button>
       </React.Fragment>
     );
   };
@@ -234,6 +272,28 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
             await this.props.setLessonScore(MOCKS.COMPLETED_SCORE_STATE, 10000);
             this.props.setToastMessage("All Lessons Completed!");
             this.props.navigation.goBack();
+          },
+        },
+      ],
+      { cancelable: false },
+    );
+  };
+
+  resetDailyQuizCache = () => {
+    Alert.alert(
+      "Are you sure?",
+      "This will clear all the items in the Daily Quiz review history.",
+      [
+        {
+          text: "Cancel",
+          style: "cancel",
+          onPress: () => null,
+        },
+        {
+          text: "OK",
+          onPress: () => {
+            this.props.handleUpdateUserSettingsField({ quizCacheSet: {} });
+            this.props.setToastMessage("Daily Quiz history cleared!");
           },
         },
       ],
