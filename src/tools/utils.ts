@@ -465,8 +465,6 @@ export const getRandomQuizChallenge = (
 
   if (failedWordsSecondaryContent) {
     selection.push(failedWordsSecondaryContent);
-    // Remove only the failed-secondary selection from the QuizCacheSet
-    delete quizCacheSetCopy[failedWordsSecondaryContent.traditional];
   }
 
   let index = 0;
@@ -487,7 +485,8 @@ export const getRandomQuizChallenge = (
       // Remove it if it has been selected before, to put it back in the
       // selection pool
       if (status === "selected") {
-        delete quizCacheSetCopy[current.traditional];
+        // Disabling this for now
+        // delete quizCacheSetCopy[current.traditional];
       }
     } else {
       // If it is not in the QuizCacheSet, then add it
@@ -497,6 +496,7 @@ export const getRandomQuizChallenge = (
     index++;
   }
 
+  // NOTE: It's not necessary to return the quizCacheSetCopy here
   return { result: knuthShuffle(result), quizCacheSet: quizCacheSetCopy };
 };
 

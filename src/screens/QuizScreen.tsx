@@ -476,6 +476,8 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
             quizCacheSetCopy[traditional] = "failed-secondary";
           } else if (status === "failed-secondary") {
             quizCacheSetCopy[traditional] = "selected";
+          } else {
+            quizCacheSetCopy[traditional] = "selected";
           }
 
           handleUpdateUserSettingsField({ quizCacheSet: quizCacheSetCopy });
