@@ -25,6 +25,7 @@ import {
 import {
   LessonScreenParams,
   LessonSummaryType,
+  QuizCacheSet,
   QuizScreenComponentProps,
   Word,
 } from "@src/tools/types";
@@ -452,7 +453,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
 
     const {traditional} = wordContent[currentWordIndex];
     const { quizCacheSet, handleUpdateUserSettingsField } = this.props;
-    const quizCacheSetCopy = JSON.parse(JSON.stringify(quizCacheSet));
+    const quizCacheSetCopy: QuizCacheSet = JSON.parse(JSON.stringify(quizCacheSet));
 
     // Only make the QuizCacheSet updates for the Daily Review Quiz
     const type = this.props.navigation.getParam("type");
@@ -467,11 +468,16 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
       if (IS_DAILY_REVIEW_QUIZ) {
         // Only update if it was not a failed word
         if (!failedWords.has(traditional)) {
-          if (traditional in quizCacheSetCopy) {
-            // No action if it is already in the cache
-          } else {
+          const status = quizCacheSetCopy[traditional];
+          if (status === "selected") {
+            // Do nothing
+          } else if (status === "failed-primary") {
+            // Set to failed secondary so it can be selected again later
+            quizCacheSetCopy[traditional] = "failed-secondary";
+          } else if (status === "failed-secondary") {
             quizCacheSetCopy[traditional] = "selected";
           }
+
           handleUpdateUserSettingsField({ quizCacheSet: quizCacheSetCopy });
         }
       }
@@ -479,10 +485,9 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
       this.handleCorrectAnswer();
     } else {
       failed = true;
-      
       if (IS_DAILY_REVIEW_QUIZ) {
         // Remove the word from the quiz cache set so it can be visited again:
-        quizCacheSetCopy[traditional] = "failed";
+        quizCacheSetCopy[traditional] = "failed-primary";
         handleUpdateUserSettingsField({ quizCacheSet: quizCacheSetCopy });
       }
 

@@ -68,7 +68,13 @@ export interface UserJson extends BaseUser {
   score_history: string;
 }
 
-type QuizCacheSetType = "selected" | "failed";
+/**
+ * - failed-primary   = the first failure state, these are re-selected for review again
+ * - failed-secondary = the second failure state, these are re-selected for review again
+ * - selected         = the default selection state, these words are skipping upon next selection,
+ *                      after being selected again they are removed from the quiz cache set.
+ */
+type QuizCacheSetType = "selected" | "failed-primary" | "failed-secondary";
 
 export type QuizCacheSet = { [key: string]: QuizCacheSetType };
 

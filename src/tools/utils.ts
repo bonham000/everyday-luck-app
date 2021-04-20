@@ -350,7 +350,7 @@ export const calculateExperiencePointsForLesson = (
   perfectScore: boolean,
   quizType: QUIZ_TYPE,
   lessonType: LessonSummaryType,
-  shuffleQuizType: ShuffleQuizType,
+  shuffleQuizType?: ShuffleQuizType,
 ): number => {
   const MIN: number = 1;
   let MAX: number;
@@ -412,28 +412,60 @@ export const getRandomQuizChallenge = (
     JSON.stringify(quizCacheSet),
   );
 
-  // Select some of the failed words first
-  let failedWords: Set<string> = new Set();
+  // Select some of the primary failed words
+  let failedWordsPrimarySet: Set<string> = new Set();
   for (const [key, value] of Object.entries(quizCacheSet)) {
-    if (value === "failed") {
-      failedWords.add(key);
+    if (value === "failed-primary") {
+      failedWordsPrimarySet.add(key);
+    }
+  }
+
+  // Select some of the secondary failed words
+  let failedWordsSecondarySet: Set<string> = new Set();
+  for (const [key, value] of Object.entries(quizCacheSet)) {
+    if (value === "failed-secondary") {
+      failedWordsSecondarySet.add(key);
     }
   }
 
   // Find all of the word items for the previously failed words
   const failedWordsContent = allWords.filter(x => {
-    if (failedWords.has(x.traditional)) {
-      failedWords.delete(x.traditional);
+    if (failedWordsPrimarySet.has(x.traditional)) {
+      failedWordsPrimarySet.delete(x.traditional);
       return true;
     } else {
       return false;
     }
   });
 
+  let failedWordSecondarySelection: string | undefined;
+  if (failedWordsPrimarySet.size > 0) {
+    // Only select one failed secondary word per quiz generation
+    failedWordSecondarySelection = knuthShuffle(
+      Array.from(failedWordsPrimarySet),
+    ).pop();
+  }
+
+  let failedWordsSecondaryContent: Word | undefined;
+  if (failedWordSecondarySelection !== null) {
+    failedWordsSecondaryContent = allWords.find(x => {
+      if (failedWordsSecondarySet.has(x.traditional)) {
+        failedWordsSecondarySet.delete(x.traditional);
+        return true;
+      } else {
+        return false;
+      }
+    });
+  }
+
   // Just take the first 3 of whatever failed words exist
   const selection = knuthShuffle(failedWordsContent)
     .slice(0, 3)
     .filter(Boolean);
+
+  if (failedWordsSecondaryContent) {
+    selection.push(failedWordsSecondaryContent);
+  }
 
   // Remove them from the set so they may be selected again more often
   for (const selected of selection) {
@@ -991,7 +1023,7 @@ export const summarizeDailyQuizStats = (
   let failedCount = 0;
   let reviewedCount = 0;
   for (const [_, value] of Object.entries(quizCacheSet)) {
-    if (value === "failed") {
+    if (value === "failed-primary" || value === "failed-secondary") {
       failedCount++;
     } else if (value === "selected") {
       reviewedCount++;
