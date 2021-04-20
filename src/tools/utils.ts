@@ -465,11 +465,8 @@ export const getRandomQuizChallenge = (
 
   if (failedWordsSecondaryContent) {
     selection.push(failedWordsSecondaryContent);
-  }
-
-  // Remove them from the set so they may be selected again more often
-  for (const selected of selection) {
-    delete quizCacheSetCopy[selected.traditional];
+    // Remove only the failed-secondary selection from the QuizCacheSet
+    delete quizCacheSetCopy[failedWordsSecondaryContent.traditional];
   }
 
   let index = 0;
@@ -498,14 +495,6 @@ export const getRandomQuizChallenge = (
     }
 
     index++;
-  }
-
-  // Hacked code to allow backwards compatibility
-  for (const [k, _] of Object.entries(quizCacheSetCopy)) {
-    // @ts-ignore
-    if (quizCacheSetCopy[k] === "failed") {
-      quizCacheSetCopy[k] = "failed-primary";
-    }
   }
 
   return { result: knuthShuffle(result), quizCacheSet: quizCacheSetCopy };
