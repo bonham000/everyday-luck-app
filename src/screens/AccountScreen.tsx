@@ -16,7 +16,10 @@ import {
   withGlobalStateContext,
 } from "@src/providers/GlobalStateProvider";
 import { logoutUserLocal } from "@src/tools/async-store";
-import { convertAppDifficultyToLessonSize } from "@src/tools/utils";
+import {
+  convertAppDifficultyToLessonSize,
+  summarizeDailyQuizStats,
+} from "@src/tools/utils";
 import MOCKS from "@tests/mocks";
 
 /** ========================================================================
@@ -118,23 +121,12 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
   };
 
   renderDailyQuizCacheStats = () => {
-    // Summarize stats from the daily quiz cache set
     const { lessons, quizCacheSet } = this.props;
-    const totalContentItems = lessons
-      .filter(l => l.type !== "Grammar")
-      .map(x => x.content)
-      .reduce((total, x) => total + x.length, 0);
-
-    let failedCount = 0;
-    let reviewedCount = 0;
-    for (const [_, value] of Object.entries(quizCacheSet)) {
-      if (value === "failed") {
-        failedCount++;
-      } else if (value === "selected") {
-        reviewedCount++;
-      }
-    }
-
+    const {
+      failedCount,
+      reviewedCount,
+      totalContentItems,
+    } = summarizeDailyQuizStats(lessons, quizCacheSet);
     return (
       <React.Fragment>
         <LineBreak />

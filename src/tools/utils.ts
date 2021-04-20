@@ -973,3 +973,35 @@ export const isEmailValid = (email: string): boolean => {
   const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
   return re.test(String(email).toLowerCase());
 };
+
+// Summarize stats from the daily quiz cache set
+export const summarizeDailyQuizStats = (
+  lessons: HSKListSet,
+  quizCacheSet: QuizCacheSet,
+) => {
+  const totalContentItems = lessons
+    .filter(l => l.type !== "Grammar")
+    .map(x => x.content)
+    .reduce((total, x) => total + x.length, 0);
+
+  let failedCount = 0;
+  let reviewedCount = 0;
+  for (const [_, value] of Object.entries(quizCacheSet)) {
+    if (value === "failed") {
+      failedCount++;
+    } else if (value === "selected") {
+      reviewedCount++;
+    }
+  }
+
+  const percentReviewed = ((reviewedCount / totalContentItems) * 100).toFixed(
+    2,
+  );
+
+  return {
+    failedCount,
+    reviewedCount,
+    totalContentItems,
+    percentReviewed,
+  };
+};

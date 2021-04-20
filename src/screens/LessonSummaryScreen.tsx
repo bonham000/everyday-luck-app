@@ -21,6 +21,7 @@ import {
   DeriveLessonContentArgs,
   getLessonSummaryStatus,
   getRandomQuizChallenge,
+  summarizeDailyQuizStats,
 } from "@src/tools/utils";
 
 /** ========================================================================
@@ -226,10 +227,7 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
               prompt you each day with a quiz on the content you've already
               learned.
             </InfoText>
-            <InfoText>
-              You can choose between a mix of the multiple choice quiz type
-              (easier) or the character entry quiz type (harder).
-            </InfoText>
+            {this.renderDailyQuizStats()}
           </React.Fragment>
         )}
         {IS_SHUFFLE_QUIZ && (
@@ -268,6 +266,25 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
       </ScrollContainer>
     );
   }
+
+  renderDailyQuizStats = () => {
+    const { lessons, quizCacheSet } = this.props;
+    const {
+      failedCount,
+      reviewedCount,
+      totalContentItems,
+      percentReviewed,
+    } = summarizeDailyQuizStats(lessons, quizCacheSet);
+    return (
+      <InfoText>
+        You have reviewed <Bold>{reviewedCount}</Bold> total items out of a
+        total of <Bold>{totalContentItems}</Bold>. There are{" "}
+        <Bold>{failedCount}</Bold> failed items which will be reviewed again. In
+        total, you have reviewed <Bold>{percentReviewed}%</Bold> of all unlocked
+        content. Keep it up!
+      </InfoText>
+    );
+  };
 
   renderTitleText = () => {
     const type = this.props.navigation.getParam("type");
