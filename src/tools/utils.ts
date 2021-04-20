@@ -16,6 +16,7 @@ import {
   LessonSet,
   LessonSummaryType,
   QuizCacheSet,
+  ShuffleQuizType,
   SIMPLIFIED_CHINESE,
   TRADITIONAL_CHINESE,
   TranslationsData,
@@ -349,13 +350,16 @@ export const calculateExperiencePointsForLesson = (
   perfectScore: boolean,
   quizType: QUIZ_TYPE,
   lessonType: LessonSummaryType,
+  shuffleQuizType: ShuffleQuizType,
 ): number => {
   const MIN: number = 1;
   let MAX: number;
   if (lessonType === "OPT_OUT_CHALLENGE") {
-    MAX = 10;
+    MAX = 50;
+  } else if (shuffleQuizType === "characters") {
+    MAX = 12;
   } else if (lessonType === "DAILY_QUIZ") {
-    MAX = 5;
+    MAX = 6;
   } else if (quizType === QUIZ_TYPE.QUIZ_TEXT) {
     MAX = 3;
   } else {

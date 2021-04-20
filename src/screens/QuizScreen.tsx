@@ -588,6 +588,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     const lessonType = this.props.navigation.getParam("type");
     const listId = this.props.navigation.getParam("id");
     const isFinalLesson = this.props.navigation.getParam("isFinalLesson");
+    const shuffleQuizType = this.props.navigation.getParam("shuffleQuizType");
 
     const listScore = userScoreStatus[listId];
 
@@ -601,6 +602,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
       perfectScore,
       quizType,
       lessonType,
+      shuffleQuizType,
     );
 
     let lessonCompleted = false;
