@@ -500,6 +500,14 @@ export const getRandomQuizChallenge = (
     index++;
   }
 
+  // Hacked code to allow backwards compatibility
+  for (const [k, _] of Object.entries(quizCacheSetCopy)) {
+    // @ts-ignore
+    if (quizCacheSetCopy[k] === "failed") {
+      quizCacheSetCopy[k] = "failed-primary";
+    }
+  }
+
   return { result: knuthShuffle(result), quizCacheSet: quizCacheSetCopy };
 };
 
