@@ -67,13 +67,15 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
     const GrammarContent = lessons
       .filter(x => x.type === "Grammar")
       .reduce((total, list) => total + list.content.length, 0);
+    const VocabularyContent = lessons
+      .filter(x => x.type === "General Vocabulary")
+      .reduce((total, list) => total + list.content.length, 0);
 
-    const generalVocabularyListWords = lessons[5].content.length;
     const customListWords = !CUSTOM_WORD_LIST_EXISTS
       ? 0
       : lessons[lessons.length - 1].content.length;
 
-    const totalWordsCustomList = customListWords + generalVocabularyListWords;
+    const totalWordsCustomList = customListWords + VocabularyContent;
 
     return (
       <ScrollContainer>
@@ -137,13 +139,16 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
       );
       const GeneralVocabulary = (
         <React.Fragment>
-          {generalVocabularyLists.map(generalVocabularyList => {
+          {generalVocabularyLists.map((generalVocabularyList, index) => {
             return (
               <LessonBlock
                 key={generalVocabularyList.id}
                 style={{
                   width: "90%",
-                  backgroundColor: COLORS.lessonCustomList,
+                  backgroundColor:
+                    index === 0
+                      ? COLORS.lessonFrequencyList
+                      : COLORS.lessonCustomList,
                 }}
                 onPress={this.handleSelectList(
                   generalVocabularyList.list,

@@ -30,6 +30,7 @@ const COLORS = {
   lessonContemporaryChinese: "#ffa570",
   lessonFarEast: "#ffe15c",
   lessonCustomList: "#c380ff",
+  lessonFrequencyList: "#fba8ff",
   lockedLessonBlock: "rgb(215,215,215)",
   dark: "rgb(15,15,15)",
   white: "rgb(250,250,250)",
