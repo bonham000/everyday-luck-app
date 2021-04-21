@@ -528,7 +528,7 @@ const LineBreak = styled.View<any>`
 
 const ProgressContainer = styled.View<any>`
   width: 90%;
-  height: 22px;
+  height: 23px;
   margin-top: 18px;
   border-radius: 1px;
   display: flex;
@@ -540,17 +540,17 @@ const ProgressContainer = styled.View<any>`
 
 const CurrentProgress = styled.View<any>`
   display: flex;
+  align-items: center;
   flex-direction: row;
-  height: 22px;
+  height: 23px;
   border-radius: 1px;
   background-color: ${COLORS.actionButtonPink};
   width: ${(props: { width: number }) => String(props.width)}%;
 `;
 
 const ProgressText = styled.Text<any>`
-  margin-top: 2px;
   margin-left: 4px;
-  font-size: 15px;
+  font-size: 14px;
   color: ${COLORS.textDarkTheme};
 `;
 
