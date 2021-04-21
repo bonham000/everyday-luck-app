@@ -339,8 +339,9 @@ describe("utils", () => {
   });
 
   test("getRandomQuizChallenge", () => {
-    const result = getRandomQuizChallenge({
+    const { result } = getRandomQuizChallenge({
       listId: "hmcs97kF5",
+      quizCacheSet: {},
       lists: MOCKS.LESSONS,
       unlockedListIndex: 0,
       appDifficultySetting: APP_DIFFICULTY_SETTING.MEDIUM,
@@ -362,6 +363,7 @@ describe("utils", () => {
 
   test("getReviewLessonSet", () => {
     let result = getReviewLessonSet({
+      quizCacheSet: {},
       listId: "hmcs97kF5",
       lists: MOCKS.LESSONS,
       unlockedListIndex: 0,
@@ -373,6 +375,7 @@ describe("utils", () => {
     expect(result.length).toBeGreaterThan(10);
 
     result = getReviewLessonSet({
+      quizCacheSet: {},
       listId: "hmcs97kF5",
       lists: MOCKS.LESSONS,
       unlockedListIndex: 2,
@@ -384,6 +387,7 @@ describe("utils", () => {
     expect(result.length).toBeGreaterThan(610);
 
     result = getReviewLessonSet({
+      quizCacheSet: {},
       listId: "hmcs97kF5",
       lists: MOCKS.LESSONS,
       unlockedListIndex: 4,

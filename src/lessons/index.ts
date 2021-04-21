@@ -4,6 +4,7 @@ import HSK_4 from "@src/lessons/HSK_4";
 import HSK_5 from "@src/lessons/HSK_5";
 import HSK_6 from "@src/lessons/HSK_6";
 import GeneralVocabulary from "@src/lessons/General_Vocabulary";
+import GeneralVocabularyFruits from "@src/lessons/General_Vocabulary_Fruit";
 import Contemporary_Chinese_1_7 from "@src/lessons/Contemporary_Chinese_1-7";
 import Contemporary_Chinese_7 from "@src/lessons/Contemporary_Chinese_7";
 import Contemporary_Chinese_8 from "@src/lessons/Contemporary_Chinese_8";
@@ -81,6 +82,7 @@ const LISTS: HSKListSet = [
   HSK_5,
   HSK_6,
   GeneralVocabulary,
+  GeneralVocabularyFruits,
   Contemporary_Chinese_1_7,
   Contemporary_Chinese_7,
   Contemporary_Chinese_8,

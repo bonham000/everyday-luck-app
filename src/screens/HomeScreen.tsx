@@ -132,25 +132,37 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
     const unlockedListIndex = getFinalUnlockedListKey(userScoreStatus);
 
     if (custom) {
-      const generalVocabularyList = lessons[5];
+      const generalVocabularyLists = lessons.filter(
+        x => x.type === "General Vocabulary",
+      );
       const GeneralVocabulary = (
-        <LessonBlock
-          key={generalVocabularyList.list}
-          style={{ backgroundColor: COLORS.lessonCustomList, width: "90%" }}
-          onPress={this.handleSelectList(
-            generalVocabularyList.list,
-            generalVocabularyList,
-            5,
-            false,
-          )}
-        >
-          <LessonBlockText mtcLesson={false} isLocked={false}>
-            {generalVocabularyList.title}
-          </LessonBlockText>
-          <LessonBlockText mtcLesson={false} isLocked={false}>
-            ({generalVocabularyList.content.length.toLocaleString()} words)
-          </LessonBlockText>
-        </LessonBlock>
+        <React.Fragment>
+          {generalVocabularyLists.map(generalVocabularyList => {
+            return (
+              <LessonBlock
+                key={generalVocabularyList.id}
+                style={{
+                  width: "90%",
+                  backgroundColor: COLORS.lessonCustomList,
+                }}
+                onPress={this.handleSelectList(
+                  generalVocabularyList.list,
+                  generalVocabularyList,
+                  5,
+                  false,
+                )}
+              >
+                <LessonBlockText mtcLesson={false} isLocked={false}>
+                  {generalVocabularyList.title}
+                </LessonBlockText>
+                <LessonBlockText mtcLesson={false} isLocked={false}>
+                  ({generalVocabularyList.content.length.toLocaleString()}{" "}
+                  words)
+                </LessonBlockText>
+              </LessonBlock>
+            );
+          })}
+        </React.Fragment>
       );
 
       const index = lessons.length - 1;
