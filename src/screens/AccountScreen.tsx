@@ -18,6 +18,9 @@ import {
 import { logoutUserLocal } from "@src/tools/async-store";
 import {
   convertAppDifficultyToLessonSize,
+  DeriveLessonContentArgs,
+  getFinalUnlockedListKey,
+  getReviewLessonSet,
   summarizeDailyQuizStats,
 } from "@src/tools/utils";
 import MOCKS from "@tests/mocks";
@@ -121,20 +124,35 @@ export class AccountScreenComponent extends React.Component<IProps, IState> {
   };
 
   renderDailyQuizCacheStats = () => {
-    const { lessons, quizCacheSet } = this.props;
+    const {
+      lessons,
+      quizCacheSet,
+      userScoreStatus,
+      appDifficultySetting,
+    } = this.props;
+    const unlockedLessonIndex = getFinalUnlockedListKey(userScoreStatus);
+    const args: DeriveLessonContentArgs = {
+      listId: "Special",
+      quizCacheSet,
+      lists: lessons,
+      userScoreStatus,
+      appDifficultySetting,
+      unlockedListIndex: unlockedLessonIndex,
+    };
+    const totalReviewSet = getReviewLessonSet(args);
     const {
       failedCount,
       reviewedCount,
-      totalContentItems,
-    } = summarizeDailyQuizStats(lessons, quizCacheSet);
+      totalUnlockedItems,
+    } = summarizeDailyQuizStats(lessons, quizCacheSet, totalReviewSet.length);
     return (
       <React.Fragment>
         <LineBreak />
         <SectionTitle>Daily Quiz Stats</SectionTitle>
         <InfoText>
           There are {reviewedCount} total items in the daily quiz review set out
-          of a total of {totalContentItems} and {failedCount} failed items which
-          will be reviewed again.
+          of a total of {totalUnlockedItems} and {failedCount} failed items
+          which will be reviewed again.
         </InfoText>
         <Button
           onPress={this.resetDailyQuizCache}

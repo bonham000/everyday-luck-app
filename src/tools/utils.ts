@@ -1011,6 +1011,7 @@ export const isEmailValid = (email: string): boolean => {
 export const summarizeDailyQuizStats = (
   lessons: HSKListSet,
   quizCacheSet: QuizCacheSet,
+  totalUnlockedItems: number,
 ) => {
   const totalContentItems = lessons
     .filter(l => l.type !== "Grammar")
@@ -1027,7 +1028,7 @@ export const summarizeDailyQuizStats = (
     }
   }
 
-  const percentReviewed = ((reviewedCount / totalContentItems) * 100).toFixed(
+  const percentReviewed = ((reviewedCount / totalUnlockedItems) * 100).toFixed(
     2,
   );
 
@@ -1035,6 +1036,7 @@ export const summarizeDailyQuizStats = (
     failedCount,
     reviewedCount,
     totalContentItems,
+    totalUnlockedItems,
     percentReviewed,
   };
 };

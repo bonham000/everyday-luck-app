@@ -19,8 +19,10 @@ import {
 import { LessonScreenParams, ShuffleQuizType } from "@src/tools/types";
 import {
   DeriveLessonContentArgs,
+  getFinalUnlockedListKey,
   getLessonSummaryStatus,
   getRandomQuizChallenge,
+  getReviewLessonSet,
   summarizeDailyQuizStats,
 } from "@src/tools/utils";
 
@@ -272,21 +274,49 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
   }
 
   renderDailyQuizStats = () => {
-    const { lessons, quizCacheSet } = this.props;
+    const {
+      lessons,
+      quizCacheSet,
+      userScoreStatus,
+      appDifficultySetting,
+    } = this.props;
+    const unlockedLessonIndex = getFinalUnlockedListKey(userScoreStatus);
+    const args: DeriveLessonContentArgs = {
+      listId: "Special",
+      quizCacheSet,
+      lists: lessons,
+      userScoreStatus,
+      appDifficultySetting,
+      unlockedListIndex: unlockedLessonIndex,
+    };
+    const totalReviewSet = getReviewLessonSet(args);
     const {
       failedCount,
       reviewedCount,
-      totalContentItems,
       percentReviewed,
-    } = summarizeDailyQuizStats(lessons, quizCacheSet);
+      totalUnlockedItems,
+    } = summarizeDailyQuizStats(lessons, quizCacheSet, totalReviewSet.length);
+
     return (
-      <InfoText>
-        You have reviewed <Bold>{reviewedCount}</Bold> total items out of a
-        total of <Bold>{totalContentItems}</Bold>. There are{" "}
-        <Bold>{failedCount}</Bold> failed items which will be reviewed again. In
-        total, you have reviewed <Bold>{percentReviewed}%</Bold> of all unlocked
-        content. Keep it up!
-      </InfoText>
+      <React.Fragment>
+        <InfoText>
+          You have reviewed <Bold>{reviewedCount}</Bold> total items out of a
+          total of <Bold>{totalUnlockedItems}</Bold>. There are{" "}
+          <Bold>{failedCount}</Bold> failed items which will be reviewed again.
+          In total, you have reviewed <Bold>{percentReviewed}%</Bold> of all
+          unlocked content. Keep it up!
+        </InfoText>
+        <ProgressContainer>
+          <CurrentProgress width={percentReviewed}>
+            {Number(percentReviewed) >= 45 && (
+              <ProgressText>{percentReviewed}% complete</ProgressText>
+            )}
+          </CurrentProgress>
+          {Number(percentReviewed) < 45 && (
+            <ProgressText>{percentReviewed}% complete</ProgressText>
+          )}
+        </ProgressContainer>
+      </React.Fragment>
     );
   };
 
@@ -494,6 +524,34 @@ const LineBreak = styled.View<any>`
 
   background-color: ${(props: NativeStyleThemeProps) =>
     props.theme.type === "dark" ? COLORS.fadedText : COLORS.darkText};
+`;
+
+const ProgressContainer = styled.View<any>`
+  width: 90%;
+  height: 22px;
+  margin-top: 18px;
+  border-radius: 1px;
+  display: flex;
+  flex-direction: row;
+
+  background-color: ${(props: NativeStyleThemeProps) =>
+    props.theme.type === "dark" ? COLORS.fadedText : COLORS.darkText};
+`;
+
+const CurrentProgress = styled.View<any>`
+  display: flex;
+  flex-direction: row;
+  height: 22px;
+  border-radius: 1px;
+  background-color: ${COLORS.actionButtonPink};
+  width: ${(props: { width: number }) => String(props.width)}%;
+`;
+
+const ProgressText = styled.Text<any>`
+  margin-top: 2px;
+  margin-left: 4px;
+  font-size: 15px;
+  color: ${COLORS.textDarkTheme};
 `;
 
 const InfoText = styled.Text<any>`
