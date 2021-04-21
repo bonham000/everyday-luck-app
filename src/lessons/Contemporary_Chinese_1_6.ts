@@ -5,7 +5,7 @@ const lesson: ContentList = {
   type: "Contemporary Chinese",
   list: "8",
   locked: false,
-  title: "Book 1 Vocabulary",
+  title: "Lessons 1-6",
   content: [
     {
       simplified: "你",

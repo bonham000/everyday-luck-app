@@ -6,29 +6,11 @@ import HSK_6 from "@src/lessons/HSK_6";
 import General_Vocabulary_Frequency_List from "@src/lessons/General_Vocabulary_Frequency_List";
 import GeneralVocabulary from "@src/lessons/General_Vocabulary";
 import GeneralVocabularyFruits from "@src/lessons/General_Vocabulary_Fruit";
-import Contemporary_Chinese_1_7 from "@src/lessons/Contemporary_Chinese_1-7";
-import Contemporary_Chinese_7 from "@src/lessons/Contemporary_Chinese_7";
-import Contemporary_Chinese_8 from "@src/lessons/Contemporary_Chinese_8";
-import Contemporary_Chinese_9 from "@src/lessons/Contemporary_Chinese_9";
-import Contemporary_Chinese_10 from "@src/lessons/Contemporary_Chinese_10";
-import Contemporary_Chinese_11 from "@src/lessons/Contemporary_Chinese_11";
-import Contemporary_Chinese_12 from "@src/lessons/Contemporary_Chinese_12";
-import Contemporary_Chinese_13 from "@src/lessons/Contemporary_Chinese_13";
-import Contemporary_Chinese_14 from "@src/lessons/Contemporary_Chinese_14";
-import Contemporary_Chinese_15 from "@src/lessons/Contemporary_Chinese_15";
-import Far_East_1_6 from "@src/lessons/Far_East_1-6";
-import Far_East_7_8 from "@src/lessons/Far_East_7-8";
+import Contemporary_Chinese_1_6 from "@src/lessons/Contemporary_Chinese_1_6";
+import Contemporary_Chinese_7_15 from "@src/lessons/Contemporary_Chinese_7_15";
+import Far_East_1_8 from "@src/lessons/Far_East_1_8";
 import Far_East_9 from "@src/lessons/Far_East_9";
-import Grammar_Lesson_6 from "@src/lessons/Grammar_Lesson_6";
-import Grammar_Lesson_7 from "@src/lessons/Grammar_Lesson_7";
-import Grammar_Lesson_8 from "@src/lessons/Grammar_Lesson_8";
-import Grammar_Lesson_9 from "@src/lessons/Grammar_Lesson_9";
-import Grammar_Lesson_10 from "@src/lessons/Grammar_Lesson_10";
-import Grammar_Lesson_11 from "@src/lessons/Grammar_Lesson_11";
-import Grammar_Lesson_12 from "@src/lessons/Grammar_Lesson_12";
-import Grammar_Lesson_13 from "@src/lessons/Grammar_Lesson_13";
-import Grammar_Lesson_14 from "@src/lessons/Grammar_Lesson_14";
-import Grammar_Lesson_15 from "@src/lessons/Grammar_Lesson_15";
+import Grammar_Lesson_6_15 from "@src/lessons/Grammar_Lesson_6_15";
 import Grammar_Custom from "@src/lessons/Grammar_Custom";
 
 import { ContentList, HSKListSet } from "@src/tools/types";
@@ -85,30 +67,12 @@ const LISTS: HSKListSet = [
   General_Vocabulary_Frequency_List,
   GeneralVocabulary,
   GeneralVocabularyFruits,
-  Contemporary_Chinese_1_7,
-  Contemporary_Chinese_7,
-  Contemporary_Chinese_8,
-  Contemporary_Chinese_9,
-  Contemporary_Chinese_10,
-  Contemporary_Chinese_11,
-  Contemporary_Chinese_12,
-  Contemporary_Chinese_13,
-  Contemporary_Chinese_14,
-  Contemporary_Chinese_15,
-  Far_East_1_6,
-  Far_East_7_8,
+  Contemporary_Chinese_1_6,
+  Contemporary_Chinese_7_15,
+  Far_East_1_8,
   Far_East_9,
   Grammar_Custom,
-  Grammar_Lesson_6,
-  Grammar_Lesson_7,
-  Grammar_Lesson_8,
-  Grammar_Lesson_9,
-  Grammar_Lesson_10,
-  Grammar_Lesson_11,
-  Grammar_Lesson_12,
-  Grammar_Lesson_13,
-  Grammar_Lesson_14,
-  Grammar_Lesson_15,
+  Grammar_Lesson_6_15,
 ]
   .map(filterEmptyWords)
   .map(setListIndexes);

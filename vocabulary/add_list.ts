@@ -13,7 +13,7 @@ import * as CustomList from "./words_list";
 const USE_EXISTING_LESSON = false;
 
 // Read existing lesson file
-import existingLesson from "@src/lessons/Contemporary_Chinese_1-7";
+import existingLesson from "@src/lessons/Contemporary_Chinese_1_6";
 
 const targetLesson = USE_EXISTING_LESSON ? existingLesson : CustomList.lesson;
 

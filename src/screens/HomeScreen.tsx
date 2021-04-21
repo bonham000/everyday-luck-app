@@ -142,7 +142,7 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
           {generalVocabularyLists.map((generalVocabularyList, index) => {
             return (
               <LessonBlock
-                key={generalVocabularyList.id}
+                key={generalVocabularyList.id + index}
                 style={{
                   width: "90%",
                   backgroundColor:
