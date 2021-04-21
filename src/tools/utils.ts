@@ -574,7 +574,21 @@ const getAllUnlockedWordContent = (args: DeriveLessonContentArgs): Word[] => {
     completedWords || lessonSize,
   );
 
-  return allUnlockedLists.concat(finalListWords);
+  const allWords = allUnlockedLists.concat(finalListWords);
+
+  // Filter out duplicated words, because they exist
+  const allWordsSet = new Set();
+  const allWordsUnique = [];
+  for (const x of allWords) {
+    if (allWordsSet.has(x.traditional)) {
+      // Do nothing
+    } else {
+      allWordsSet.add(x.traditional);
+      allWordsUnique.push(x);
+    }
+  }
+
+  return knuthShuffle(allWordsUnique);
 };
 
 /**
