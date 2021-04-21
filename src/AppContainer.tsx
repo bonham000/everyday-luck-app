@@ -543,7 +543,7 @@ class RootContainer extends RootContainerBase<{}> {
     if (customWordList.length > 0) {
       const customWordListLesson: ContentList = {
         type: "Custom Word List",
-        id: "6wpi5hFuQ",
+        id: "custom-word-list",
         list: String(Number(hsk[hsk.length - 1].list) + 1),
         locked: false,
         title: CUSTOM_WORD_LIST_TITLE,

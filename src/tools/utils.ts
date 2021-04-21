@@ -312,7 +312,7 @@ export const mapListIndexToListScores = (
   listId: string,
   userScoreStatus: ListScoreSet,
 ): ListScore => {
-  if (listId === "special") {
+  if (listId === "special" || listId === "custom-word-list") {
     const result = { complete: false };
     return result as ListScore;
   }

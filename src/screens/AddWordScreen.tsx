@@ -147,7 +147,9 @@ export class AddWordScreenComponent extends React.Component<IProps, IState> {
         loading: true,
       },
       async () => {
-        this.props.setToastMessage(`Adding ${value}...`);
+        this.props.setToastMessage(
+          `Adding ${value}. This may take several seconds...`,
+        );
         const word = await translateWord(value, this.props.languageSetting);
 
         if (
