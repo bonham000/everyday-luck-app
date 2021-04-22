@@ -550,7 +550,6 @@ class RootContainer extends RootContainerBase<{}> {
       const customWordListLesson: ContentList = {
         type: "Custom Word List",
         id: "custom-word-list",
-        list: String(Number(hsk[hsk.length - 1].list) + 1),
         locked: false,
         title: CUSTOM_WORD_LIST_TITLE,
         content: customWordList,
@@ -560,14 +559,14 @@ class RootContainer extends RootContainerBase<{}> {
     }
 
     if (bookmarkWordList.length > 0) {
-      const customWordListLesson: ContentList = {
+      const bookmarkedListLesson: ContentList = {
         type: "Bookmarked Word List",
         id: "bookmarked-word-list",
         locked: false,
         title: BOOKMARKED_WORD_LIST_TITLE,
-        content: customWordList,
+        content: bookmarkWordList,
       };
-      hsk = hsk.concat(customWordListLesson);
+      hsk = hsk.concat(bookmarkedListLesson);
     }
 
     return hsk;

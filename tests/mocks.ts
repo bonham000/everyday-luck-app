@@ -97,6 +97,24 @@ const DEFAULT_SCORE_STATE = {
     ...DEFAULT_LESSON_SCORES,
   },
   ...(getLessonFiller() as ListScoreSet),
+  "custom-word-list": {
+    type: "Custom Word List",
+    id: "custom-word-list",
+    list_key: "custom-word-list",
+    complete: true,
+    list_index: NaN,
+    number_words_completed: 0,
+    ...DEFAULT_LESSON_SCORES,
+  },
+  "bookmarked-word-list": {
+    type: "Bookmarked Word List",
+    id: "bookmarked-word-list",
+    list_key: "bookmarked-word-list",
+    complete: true,
+    list_index: NaN,
+    number_words_completed: 0,
+    ...DEFAULT_LESSON_SCORES,
+  },
 };
 
 const COMPLETED_SCORE_STATE = {

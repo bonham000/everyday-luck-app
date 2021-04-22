@@ -147,7 +147,7 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
             if (generalVocabularyList.type === "Custom Word List") {
               return (
                 <LessonBlock
-                  key={generalVocabularyList.list}
+                  key="custom-word-list"
                   style={{
                     width: "90%",
                     backgroundColor: COLORS.lessonBookmarkedList,
@@ -171,7 +171,7 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
             } else if (generalVocabularyList.type === "Bookmarked Word List") {
               return (
                 <LessonBlock
-                  key={"bookmarked-list"}
+                  key="bookmarked-list"
                   style={{
                     width: "90%",
                     backgroundColor: COLORS.lessonBookmarkedList,

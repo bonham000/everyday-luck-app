@@ -308,22 +308,38 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
   };
 
   renderActionButtons = () => {
-    const { wordContent, currentWordIndex } = this.state;
+    const { wordContent, currentWordIndex, bookmarkedWordList } = this.state;
     const currentWord = wordContent[currentWordIndex];
+
+    const isCurrentWordBookmarked = bookmarkedWordList.find(x => {
+      return x.traditional === currentWord.traditional;
+    });
+
     return (
       <ActionButton
         zIndex={40}
         position="left"
         buttonColor={COLORS.actionButtonPink}
       >
-        <ActionButton.Item
-          style={{ zIndex: 50 }}
-          onPress={() => this.handleBookmarkWord(currentWord)}
-          buttonColor={COLORS.actionButtonBlue}
-          title={"Bookmark Word"}
-        >
-          <Ionicons name="bookmark" style={ActionIconStyle} />
-        </ActionButton.Item>
+        {isCurrentWordBookmarked ? (
+            <ActionButton.Item
+            style={{ zIndex: 50 }}
+            title="Remove Bookmarked Word"
+            buttonColor={COLORS.actionButtonRed}
+            onPress={() => this.handleRemoveBookmarkWord(currentWord)}
+          >
+            <Ionicons name="trash-bin" style={ActionIconStyle} />
+          </ActionButton.Item>
+        ) : (
+          <ActionButton.Item
+            style={{ zIndex: 50 }}
+            title="Bookmark Word"
+            buttonColor={COLORS.actionButtonBlue}
+            onPress={() => this.handleBookmarkWord(currentWord)}
+          >
+            <Ionicons name="bookmark" style={ActionIconStyle} />
+          </ActionButton.Item>
+        )}
         {this.state.failedOnce && (
           <ActionButton.Item
             style={{ zIndex: 50 }}
@@ -383,6 +399,14 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     await setBookmarkWordList(newList);
     await this.props.reloadLessonSet();
     this.props.setToastMessage(`${word.traditional} bookmarked!`);
+  }
+
+  handleRemoveBookmarkWord = async (word: Word) => {
+    const { bookmarkedWordList } = this.state;
+    const newList = bookmarkedWordList.filter(x => x.traditional !== word.traditional);
+    await setBookmarkWordList(newList);
+    await this.props.reloadLessonSet();
+    this.props.setToastMessage(`${word.traditional} word removed!`);
   }
 
   toggleAutoProceed = () => {
