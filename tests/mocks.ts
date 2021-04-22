@@ -28,7 +28,8 @@ import {
  * =========================================================================
  */
 
-export const CUSTOM_WORD_LIST_TITLE = "Custom Word List 🔖";
+export const CUSTOM_WORD_LIST_TITLE = "Custom Word List 🎨";
+export const BOOKMARKED_WORD_LIST_TITLE = "Bookmarked Word List 🔖";
 
 const WORD: Word = {
   simplified: "阿姨",

@@ -40,6 +40,7 @@ import {
   randomInRange,
 } from "@src/tools/utils";
 import MOCKS from "@tests/mocks";
+import { CustomWordStudyList, getBookmarkWordList, setBookmarkWordList } from '@src/tools/async-store';
 
 /** ========================================================================
  * Types
@@ -68,6 +69,7 @@ interface IState {
   quizType: QUIZ_TYPE;
   failedWords: Set<string>;
   wordContent: ReadonlyArray<Word>;
+  bookmarkedWordList: CustomWordStudyList;
 }
 
 /**
@@ -115,22 +117,25 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
       revealAnswer: false,
       quizFinished: false,
       failedWords: new Set(),
+      bookmarkedWordList: [],
       wordCompletedCache: new Set(),
       wordContent: knuthShuffle(lesson),
       quizType: this.getQuizComponentType(),
     };
   };
 
-  componentDidMount(): void {
+  async componentDidMount(): Promise<void> {
     /**
      * Start the quiz when the component mounts at a
      * randomly selected word.
      */
     const currentWordIndex = this.getNextWordIndex();
+    const bookmarkWordList = await getBookmarkWordList();
     this.setState(
       {
         currentWordIndex,
         initalizing: false,
+        bookmarkedWordList: bookmarkWordList,
         wordCompletedCache: new Set([currentWordIndex]),
       },
       () => {
@@ -303,12 +308,22 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
   };
 
   renderActionButtons = () => {
+    const { wordContent, currentWordIndex } = this.state;
+    const currentWord = wordContent[currentWordIndex];
     return (
       <ActionButton
         zIndex={40}
         position="left"
-        buttonColor={COLORS.actionButtonRed}
+        buttonColor={COLORS.actionButtonPink}
       >
+        <ActionButton.Item
+          style={{ zIndex: 50 }}
+          onPress={() => this.handleBookmarkWord(currentWord)}
+          buttonColor={COLORS.actionButtonBlue}
+          title={"Bookmark Word"}
+        >
+          <Ionicons name="bookmark" style={ActionIconStyle} />
+        </ActionButton.Item>
         {this.state.failedOnce && (
           <ActionButton.Item
             style={{ zIndex: 50 }}
@@ -361,6 +376,14 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
       disable_audio: !this.props.disableAudio,
     });
   };
+
+  handleBookmarkWord = async (word: Word) => {
+    const { bookmarkedWordList } = this.state;
+    const newList = bookmarkedWordList.concat(word);
+    await setBookmarkWordList(newList);
+    await this.props.reloadLessonSet();
+    this.props.setToastMessage(`${word.traditional} bookmarked!`);
+  }
 
   toggleAutoProceed = () => {
     const currentValue = this.props.autoProceedQuestion;

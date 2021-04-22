@@ -33,6 +33,7 @@ import {
 import SoundRecordingProvider from "@src/providers/SoundRecordingProvider";
 import { sendContactRequest } from "@src/tools/api";
 import {
+  getBookmarkWordList,
   getCustomWordStudyList,
   getPersistedUser,
   saveUserToAsyncStorage,
@@ -45,7 +46,11 @@ import {
   getAlternateLanguageSetting,
   isEmailValid,
 } from "@src/tools/utils";
-import MOCKS, { CUSTOM_WORD_LIST_TITLE, getNewDefaultUser } from "@tests/mocks";
+import MOCKS, {
+  BOOKMARKED_WORD_LIST_TITLE,
+  CUSTOM_WORD_LIST_TITLE,
+  getNewDefaultUser,
+} from "@tests/mocks";
 import { ListScoreSet } from "./lessons";
 
 /** ========================================================================
@@ -535,10 +540,11 @@ class RootContainer extends RootContainerBase<{}> {
   };
 
   getLessonSet = async () => {
-    const hsk = fetchLessonSet();
+    let hsk = fetchLessonSet();
 
     // Add the custom word list to the lessons, if it exists.
     const customWordList = await getCustomWordStudyList();
+    const bookmarkWordList = await getBookmarkWordList();
 
     if (customWordList.length > 0) {
       const customWordListLesson: ContentList = {
@@ -550,11 +556,21 @@ class RootContainer extends RootContainerBase<{}> {
         content: customWordList,
       };
 
-      const fullListSet = hsk.concat(customWordListLesson);
-      return fullListSet;
-    } else {
-      return hsk;
+      hsk = hsk.concat(customWordListLesson);
     }
+
+    if (bookmarkWordList.length > 0) {
+      const customWordListLesson: ContentList = {
+        type: "Bookmarked Word List",
+        id: "bookmarked-word-list",
+        locked: false,
+        title: BOOKMARKED_WORD_LIST_TITLE,
+        content: customWordList,
+      };
+      hsk = hsk.concat(customWordListLesson);
+    }
+
+    return hsk;
   };
 
   initializeUserSession = async () => {
