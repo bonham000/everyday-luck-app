@@ -196,7 +196,7 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
 
             return (
               <LessonBlock
-                key={generalVocabularyList.id + index}
+                key={generalVocabularyList.id}
                 style={{
                   width: "90%",
                   backgroundColor:
@@ -224,7 +224,7 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
         </React.Fragment>
       );
 
-      return [GeneralVocabulary];
+      return GeneralVocabulary;
     }
 
     let lessonSlice;
@@ -263,12 +263,12 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
         return (
           <LessonBlock
             type={type}
-            index={index}
             key={hskList.list}
             hskLocked={locked}
             isLocked={isLocked}
             inProgress={inProgress}
             style={{ width: "90%" }}
+            index={`${title}-${index}`}
             onPress={this.handleSelectList(list, hskList, index, isLocked)}
           >
             <LessonBlockText mtcLesson={mtcLesson} isLocked={isLocked}>
