@@ -6,11 +6,15 @@ import HSK_6 from "@src/lessons/HSK_6";
 import General_Vocabulary_Frequency_List from "@src/lessons/General_Vocabulary_Frequency_List";
 import GeneralVocabulary from "@src/lessons/General_Vocabulary";
 import GeneralVocabularyFruits from "@src/lessons/General_Vocabulary_Fruit";
-import Contemporary_Chinese_1_6 from "@src/lessons/Contemporary_Chinese_1_6";
-import Contemporary_Chinese_7_15 from "@src/lessons/Contemporary_Chinese_7_15";
+import ACCC_Book_One_1_6 from "@src/lessons/ACCC_Book_One_1_6";
+import ACCC_Book_One_7_15 from "@src/lessons/ACCC_Book_One_7_15";
+import ACCC_Book_Two_1 from "@src/lessons/ACCC_Book_Two_1";
+import ACCC_Book_Two_2 from "@src/lessons/ACCC_Book_Two_2";
 import Far_East_1_8 from "@src/lessons/Far_East_1_8";
 import Far_East_9 from "@src/lessons/Far_East_9";
-import Grammar_Lesson_6_15 from "@src/lessons/Grammar_Lesson_6_15";
+import Grammar_Book_One_1_15 from "@src/lessons/Grammar_Book_One_6_15";
+import Grammar_Book_Two_1 from "@src/lessons/Grammar_Book_Two_1";
+import Grammar_Book_Two_2 from "@src/lessons/Grammar_Book_Two_2";
 import Grammar_Custom from "@src/lessons/Grammar_Custom";
 
 import { ContentList, HSKListSet } from "@src/tools/types";
@@ -67,12 +71,16 @@ const LISTS: HSKListSet = [
   General_Vocabulary_Frequency_List,
   GeneralVocabulary,
   GeneralVocabularyFruits,
-  Contemporary_Chinese_1_6,
-  Contemporary_Chinese_7_15,
+  ACCC_Book_One_1_6,
+  ACCC_Book_One_7_15,
+  ACCC_Book_Two_1,
+  ACCC_Book_Two_2,
   Far_East_1_8,
   Far_East_9,
   Grammar_Custom,
-  Grammar_Lesson_6_15,
+  Grammar_Book_One_1_15,
+  Grammar_Book_Two_1,
+  Grammar_Book_Two_2,
 ]
   .map(filterEmptyWords)
   .map(setListIndexes);

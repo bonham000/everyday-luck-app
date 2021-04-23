@@ -3,9 +3,8 @@ import { ContentList } from "@src/tools/types";
 const lesson: ContentList = {
   id: "CbbMYmOGz",
   type: "Contemporary Chinese",
-  list: "8",
   locked: false,
-  title: "Lessons 1-6",
+  title: "Book 1 Lessons 1-6",
   content: [
     {
       simplified: "你",

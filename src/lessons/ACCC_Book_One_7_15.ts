@@ -4,7 +4,7 @@ const lesson: ContentList = {
   id: "qaAR6U7k8Q",
   type: "Contemporary Chinese",
   locked: false,
-  title: "Lessons 7-15",
+  title: "Book 1 Lessons 7-15",
   content: [
     {
       simplified: "点",

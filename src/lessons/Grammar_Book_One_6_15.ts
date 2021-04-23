@@ -4,7 +4,7 @@ const lesson: ContentList = {
   id: "f87s63hJFK",
   type: "Grammar",
   locked: false,
-  title: "Lessons 6-15 Grammar",
+  title: "Book 1 Lessons 6-15",
   content: [
     {
       traditional: "我們學校在臺北。",
