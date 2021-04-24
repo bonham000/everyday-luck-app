@@ -107,7 +107,7 @@ export class CharacterWritingScreenComponent extends React.Component<
           <Controls>
             <Control
               onPress={this.handleProceedWithRetry}
-              style={{ backgroundColor: COLORS.actionButtonYellow }}
+              style={{ backgroundColor: COLORS.actionButtonOrange }}
             >
               <ControlText>Retry Word</ControlText>
             </Control>
@@ -128,7 +128,7 @@ export class CharacterWritingScreenComponent extends React.Component<
           <Controls>
             <Control
               onPress={this.undoSketchLine}
-              style={{ backgroundColor: COLORS.actionButtonYellow }}
+              style={{ backgroundColor: COLORS.actionButtonOrange }}
             >
               <ControlText>Undo Stroke</ControlText>
             </Control>
@@ -287,7 +287,7 @@ const Character = styled.Text({
 
 const Controls = styled.View({
   height: CONTROLS_HEIGHT,
-  backgroundColor: COLORS.actionButtonYellow,
+  backgroundColor: COLORS.actionButtonOrange,
   display: "flex",
   flexDirection: "row",
   justifyContent: "space-evenly",

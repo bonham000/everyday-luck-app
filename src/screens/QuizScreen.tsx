@@ -334,7 +334,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
           <ActionButton.Item
             style={{ zIndex: 50 }}
             title="Bookmark Word"
-            buttonColor={COLORS.actionButtonBlue}
+            buttonColor={COLORS.actionButtonYellow}
             onPress={() => this.handleBookmarkWord(currentWord)}
           >
             <Ionicons name="bookmark" style={ActionIconStyle} />
@@ -379,7 +379,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
           style={{ zIndex: 50 }}
           title="Shuffle and restart quiz"
           onPress={this.resetQuiz}
-          buttonColor={COLORS.actionButtonYellow}
+          buttonColor={COLORS.actionButtonOrange}
         >
           <Ionicons name="ios-refresh" style={ActionIconStyle} />
         </ActionButton.Item>

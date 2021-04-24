@@ -242,7 +242,7 @@ const VoiceButton = styled.TouchableOpacity({
   height: SMALL_DEVICE ? 40 : 55,
   alignItems: "center",
   justifyContent: "center",
-  backgroundColor: COLORS.actionButtonYellow,
+  backgroundColor: COLORS.actionButtonOrange,
 });
 
 const QuizPromptText = ({

@@ -84,7 +84,7 @@ export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
             <LessonBlock
               onPress={this.handleTestOut}
               style={{
-                backgroundColor: COLORS.actionButtonYellow,
+                backgroundColor: COLORS.actionButtonOrange,
               }}
             >
               <LessonBlockText isLocked={false}>
@@ -101,7 +101,7 @@ export class ListSummaryScreenComponent extends React.Component<IProps, {}> {
             <LessonBlock
               onPress={this.handleStudyAll}
               style={{
-                backgroundColor: COLORS.actionButtonYellow,
+                backgroundColor: COLORS.actionButtonOrange,
               }}
             >
               <LessonBlockText isLocked={false}>Review All</LessonBlockText>

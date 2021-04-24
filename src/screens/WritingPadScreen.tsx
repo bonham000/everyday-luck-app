@@ -73,7 +73,7 @@ export class WritingPadScreenComponent extends React.Component<IProps, IState> {
           </Control>
           <Control
             onPress={this.undoSketchLine}
-            style={{ backgroundColor: COLORS.actionButtonYellow }}
+            style={{ backgroundColor: COLORS.actionButtonOrange }}
           >
             <ControlText>Undo Stroke</ControlText>
           </Control>
@@ -115,7 +115,7 @@ const CONTROLS_HEIGHT = 75;
 
 const Controls = styled.View({
   height: CONTROLS_HEIGHT,
-  backgroundColor: COLORS.actionButtonYellow,
+  backgroundColor: COLORS.actionButtonOrange,
   display: "flex",
   flexDirection: "row",
   justifyContent: "space-evenly",
