@@ -54,6 +54,36 @@ const lesson: ContentList = {
       pinyin: "fèng lí",
       english: "Pineapple",
     },
+    {
+      traditional: "桃子",
+      simplified: "桃子",
+      pinyin: "táo zi",
+      english: "Peach",
+    },
+    {
+      traditional: "波羅蜜",
+      simplified: "波罗蜜",
+      pinyin: "bō luó mì",
+      english: "Parami",
+    },
+    {
+      traditional: "榴蓮",
+      simplified: "榴莲",
+      pinyin: "liú lián",
+      english: "Durian",
+    },
+    {
+      traditional: "奇異果",
+      simplified: "奇异果",
+      pinyin: "qí yì guǒ",
+      english: "Kiwi",
+    },
+    {
+      traditional: "酪梨",
+      simplified: "酪梨",
+      pinyin: "lào lí",
+      english: "Avocado",
+    },
   ],
 };
 

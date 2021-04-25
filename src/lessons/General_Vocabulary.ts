@@ -1069,6 +1069,24 @@ const lesson: ContentList = {
       pinyin: "lù biān",
       english: "Sidewalk",
     },
+    {
+      traditional: "撿屍",
+      simplified: "捡尸",
+      pinyin: "jiǎn shī",
+      english: "Pick up the corpse",
+    },
+    {
+      traditional: "工具人",
+      simplified: "工具人",
+      pinyin: "gōng jù rén",
+      english: "Tool man",
+    },
+    {
+      traditional: "狀元糕",
+      simplified: "状元糕",
+      pinyin: "zhuàng yuán gāo",
+      english: "Champion cake",
+    },
   ],
 };
 

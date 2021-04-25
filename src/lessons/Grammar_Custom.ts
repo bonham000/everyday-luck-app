@@ -298,6 +298,69 @@ const lesson: ContentList = {
       pinyin: "nǐ shì zhǐ xīng qī tiān ma",
       english: "Do you mean sunday?",
     },
+    {
+      traditional: "我把貼紙貼在電腦上。",
+      simplified: "我把贴纸贴在电脑上。",
+      pinyin: "wǒ bǎ tiē zhǐ tiē zài diàn nǎo shàng",
+      english: "I put the sticker on the computer.",
+    },
+    {
+      traditional: "我下午兩點去星巴克。",
+      simplified: "我下午两点去星巴克。",
+      pinyin: "wǒ xià wǔ liǎng diǎn qù xīng bā kè",
+      english: "I go to starbucks at two o'clock in the afternoon.",
+    },
+    {
+      traditional: "我讀完了第一冊中文課本。開始上第二册/冊課本。",
+      simplified: "我读完了第一册中文课本。开始上第二册/册课本。",
+      pinyin:
+        "wǒ dú wán le dì yī cè zhōng wén kè běn kāi shǐ shàng dì èr cè cè kè běn",
+      english:
+        "I finished reading the first chinese textbook. start reading the second book/book.",
+    },
+    {
+      traditional: "我有兩個男生朋友，一個女生朋友，都是韓國人。",
+      simplified: "我有两个男生朋友，一个女生朋友，都是韩国人。",
+      pinyin:
+        "wǒ yǒu liǎng gè nán shēng péng yǒu yī gè nǚ shēng péng yǒu dōu shì hán guó rén",
+      english: "I have two boy friends, one girl friend, both korean.",
+    },
+    {
+      traditional: "我有鴨子的貼紙。",
+      simplified: "我有鸭子的贴纸。",
+      pinyin: "wǒ yǒu yā zi dē tiē zhǐ",
+      english: "I have duck stickers.",
+    },
+    {
+      traditional: "我去超市買了五個桃子。",
+      simplified: "我去超市买了五个桃子。",
+      pinyin: "wǒ qù chāo shì mǎi le wǔ gè táo zi",
+      english: "I went to the supermarket and bought five peaches.",
+    },
+    {
+      traditional: "鳳梨和桃子只能選一個。",
+      simplified: "凤梨和桃子只能选一个。",
+      pinyin: "fèng lí hé táo zi zhǐ néng xuǎn yī gè",
+      english: "You can only choose one of pineapple and peach.",
+    },
+    {
+      traditional: "榴蓮很臭不可以帶上捷運。",
+      simplified: "榴莲很臭不可以带上捷运。",
+      pinyin: "liú lián hěn chòu bù kě yǐ dài shàng jié yùn",
+      english: "Durian is so smelly that you can't take it on the mrt.",
+    },
+    {
+      traditional: "奇異果長得很像雞蛋。",
+      simplified: "奇异果长得很像鸡蛋。",
+      pinyin: "qí yì guǒ zhǎng de hěn xiàng jī dàn",
+      english: "The kiwi fruit looks like an egg.",
+    },
+    {
+      traditional: "酪梨不是水果。",
+      simplified: "酪梨不是水果。",
+      pinyin: "lào lí bú shì shuǐ guǒ",
+      english: "Avocado is not a fruit.",
+    },
   ],
 };
 
