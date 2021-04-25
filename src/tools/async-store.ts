@@ -161,6 +161,28 @@ export const setBookmarkWordList = async (wordList: CustomWordStudyList) => {
   }
 };
 
+export const getFailedWordList = async (): Promise<CustomWordStudyList> => {
+  try {
+    const result = await AsyncStorage.getItem(
+      ASYNC_STORE_KEYS.FAILED_WORD_LIST,
+    );
+    return result ? JSON.parse(result) : [];
+  } catch (err) {
+    return [];
+  }
+};
+
+export const setFailedWordList = async (wordList: CustomWordStudyList) => {
+  try {
+    await AsyncStorage.setItem(
+      ASYNC_STORE_KEYS.FAILED_WORD_LIST,
+      JSON.stringify(wordList),
+    );
+  } catch (err) {
+    return;
+  }
+};
+
 /** ========================================================================
  * Offline Flag:
  * =========================================================================

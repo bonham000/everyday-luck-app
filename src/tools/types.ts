@@ -106,6 +106,7 @@ export type ContentListType =
   | "General Vocabulary"
   | "Custom Word List"
   | "Bookmarked Word List"
+  | "Failed Word List"
   | "Special";
 
 export interface ContentList {

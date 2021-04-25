@@ -315,6 +315,7 @@ export const mapListIndexToListScores = (
   if (
     listId === "special" ||
     listId === "custom-word-list" ||
+    listId === "failed-word-list" ||
     listId === "bookmarked-word-list"
   ) {
     const result = { complete: false };

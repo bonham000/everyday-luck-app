@@ -30,6 +30,7 @@ import {
 
 export const CUSTOM_WORD_LIST_TITLE = "Custom Word List 🎨";
 export const BOOKMARKED_WORD_LIST_TITLE = "Bookmarked Word List 🔖";
+export const FAILED_WORD_LIST_TITLE = "Failed Word List ‼️";
 
 const WORD: Word = {
   simplified: "阿姨",
@@ -110,6 +111,15 @@ const DEFAULT_SCORE_STATE = {
     type: "Bookmarked Word List",
     id: "bookmarked-word-list",
     list_key: "bookmarked-word-list",
+    complete: true,
+    list_index: NaN,
+    number_words_completed: 0,
+    ...DEFAULT_LESSON_SCORES,
+  },
+  "failed-word-list": {
+    type: "Failed Word List",
+    id: "failed-word-list",
+    list_key: "failed-word-list",
     complete: true,
     list_index: NaN,
     number_words_completed: 0,

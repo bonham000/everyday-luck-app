@@ -40,7 +40,7 @@ import {
   randomInRange,
 } from "@src/tools/utils";
 import MOCKS from "@tests/mocks";
-import { CustomWordStudyList, getBookmarkWordList, setBookmarkWordList } from '@src/tools/async-store';
+import { CustomWordStudyList, getBookmarkWordList, getFailedWordList, setBookmarkWordList, setFailedWordList } from '@src/tools/async-store';
 
 /** ========================================================================
  * Types
@@ -69,6 +69,7 @@ interface IState {
   quizType: QUIZ_TYPE;
   failedWords: Set<string>;
   wordContent: ReadonlyArray<Word>;
+  failedWordList: CustomWordStudyList;
   bookmarkedWordList: CustomWordStudyList;
 }
 
@@ -117,6 +118,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
       revealAnswer: false,
       quizFinished: false,
       failedWords: new Set(),
+      failedWordList: [],
       bookmarkedWordList: [],
       wordCompletedCache: new Set(),
       wordContent: knuthShuffle(lesson),
@@ -130,12 +132,14 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
      * randomly selected word.
      */
     const currentWordIndex = this.getNextWordIndex();
-    const bookmarkWordList = await getBookmarkWordList();
+    const bookmarkedWordList = await getBookmarkWordList();
+    const failedWordList = await getFailedWordList();
     this.setState(
       {
+        failedWordList,
+        bookmarkedWordList,
         currentWordIndex,
         initalizing: false,
-        bookmarkedWordList: bookmarkWordList,
         wordCompletedCache: new Set([currentWordIndex]),
       },
       () => {
@@ -308,10 +312,20 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
   };
 
   renderActionButtons = () => {
-    const { wordContent, currentWordIndex, bookmarkedWordList } = this.state;
+    const {
+      wordContent,
+      failedWordList,
+      currentWordIndex,
+      bookmarkedWordList,
+    } = this.state;
+
     const currentWord = wordContent[currentWordIndex];
 
     const isCurrentWordBookmarked = bookmarkedWordList.find(x => {
+      return x.traditional === currentWord.traditional;
+    });
+
+    const isCurrentWordInFailedWordList = failedWordList.find(x => {
       return x.traditional === currentWord.traditional;
     });
 
@@ -321,6 +335,16 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
         position="left"
         buttonColor={COLORS.actionButtonPink}
       >
+        {isCurrentWordInFailedWordList && (
+          <ActionButton.Item
+            style={{ zIndex: 50 }}
+            title="Remove Failed List Word"
+            buttonColor={COLORS.actionButtonPink}
+            onPress={() => this.handleRemoveFailedWordFromList(currentWord)}
+          >
+            <Ionicons name="trash" style={ActionIconStyle} />
+          </ActionButton.Item>
+        )}
         {isCurrentWordBookmarked ? (
             <ActionButton.Item
             style={{ zIndex: 50 }}
@@ -409,6 +433,14 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     this.props.setToastMessage(`${word.traditional} word removed!`);
   }
 
+  handleRemoveFailedWordFromList = async (word: Word) => {
+    const { failedWordList } = this.state;
+    const newList = failedWordList.filter(x => x.traditional !== word.traditional);
+    await setFailedWordList(newList);
+    await this.props.reloadLessonSet();
+    this.props.setToastMessage(`${word.traditional} word removed from failed word list!`);
+  }
+
   toggleAutoProceed = () => {
     const currentValue = this.props.autoProceedQuestion;
     this.props.handleUpdateUserSettingsField(
@@ -495,10 +527,11 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     );
   };
 
-  handleCheckAnswer = (correct: boolean) => {
+  handleCheckAnswer = async (correct: boolean) => {
     const { value, wordContent, failedWords, currentWordIndex } = this.state;
 
-    const {traditional} = wordContent[currentWordIndex];
+    const currentWord = wordContent[currentWordIndex];
+    const { traditional } = currentWord;
     const { quizCacheSet, handleUpdateUserSettingsField } = this.props;
     const quizCacheSetCopy: QuizCacheSet = JSON.parse(JSON.stringify(quizCacheSet));
 
@@ -535,6 +568,18 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
     } else {
       failed = true;
       if (IS_DAILY_REVIEW_QUIZ) {
+        const status = quizCacheSetCopy[traditional];
+        // The word has been failed again, add it to the failed word list
+        if (status === "failed-primary" || status === "failed-secondary") {
+          const failedWordList = await getFailedWordList();
+          // Only add the word if it doesn't exist in the failed words list yet
+          if (!failedWordList.find(x => x.traditional === currentWord.traditional)) {
+            const updatedList = failedWordList.concat(currentWord);
+            await setFailedWordList(updatedList);
+            await this.props.reloadLessonSet();
+          }
+        }
+
         // Remove the word from the quiz cache set so it can be visited again:
         quizCacheSetCopy[traditional] = "failed-primary";
         handleUpdateUserSettingsField({ quizCacheSet: quizCacheSetCopy });

@@ -35,6 +35,7 @@ import { sendContactRequest } from "@src/tools/api";
 import {
   getBookmarkWordList,
   getCustomWordStudyList,
+  getFailedWordList,
   getPersistedUser,
   saveUserToAsyncStorage,
 } from "@src/tools/async-store";
@@ -49,6 +50,7 @@ import {
 import MOCKS, {
   BOOKMARKED_WORD_LIST_TITLE,
   CUSTOM_WORD_LIST_TITLE,
+  FAILED_WORD_LIST_TITLE,
   getNewDefaultUser,
 } from "@tests/mocks";
 import { ListScoreSet } from "./lessons";
@@ -545,6 +547,7 @@ class RootContainer extends RootContainerBase<{}> {
     // Add the custom word list to the lessons, if it exists.
     const customWordList = await getCustomWordStudyList();
     const bookmarkWordList = await getBookmarkWordList();
+    const failedWordList = await getFailedWordList();
 
     if (customWordList.length > 0) {
       const customWordListLesson: ContentList = {
@@ -567,6 +570,17 @@ class RootContainer extends RootContainerBase<{}> {
         content: bookmarkWordList,
       };
       hsk = hsk.concat(bookmarkedListLesson);
+    }
+
+    if (failedWordList.length > 0) {
+      const failedWordListLesson: ContentList = {
+        type: "Failed Word List",
+        id: "failed-word-list",
+        locked: false,
+        title: FAILED_WORD_LIST_TITLE,
+        content: failedWordList,
+      };
+      hsk = hsk.concat(failedWordListLesson);
     }
 
     return hsk;

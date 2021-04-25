@@ -138,60 +138,23 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
         x =>
           x.type === "General Vocabulary" ||
           x.type === "Custom Word List" ||
+          x.type === "Failed Word List" ||
           x.type === "Bookmarked Word List",
       );
 
       const GeneralVocabulary = (
         <React.Fragment>
           {generalVocabularyLists.map((generalVocabularyList, index) => {
-            if (generalVocabularyList.type === "Custom Word List") {
-              return (
-                <LessonBlock
-                  key="custom-word-list"
-                  style={{
-                    width: "90%",
-                    backgroundColor: COLORS.lessonBookmarkedList,
-                  }}
-                  onPress={this.handleSelectList(
-                    generalVocabularyList.list,
-                    generalVocabularyList,
-                    index,
-                    false,
-                  )}
-                >
-                  <LessonBlockText mtcLesson={false} isLocked={false}>
-                    {generalVocabularyList.title}
-                  </LessonBlockText>
-                  <LessonBlockText mtcLesson={false} isLocked={false}>
-                    ({generalVocabularyList.content.length.toLocaleString()}{" "}
-                    words)
-                  </LessonBlockText>
-                </LessonBlock>
-              );
-            } else if (generalVocabularyList.type === "Bookmarked Word List") {
-              return (
-                <LessonBlock
-                  key="bookmarked-list"
-                  style={{
-                    width: "90%",
-                    backgroundColor: COLORS.lessonBookmarkedList,
-                  }}
-                  onPress={this.handleSelectList(
-                    generalVocabularyList.list,
-                    generalVocabularyList,
-                    index,
-                    false,
-                  )}
-                >
-                  <LessonBlockText mtcLesson={false} isLocked={false}>
-                    {generalVocabularyList.title}
-                  </LessonBlockText>
-                  <LessonBlockText mtcLesson={false} isLocked={false}>
-                    ({generalVocabularyList.content.length.toLocaleString()}{" "}
-                    words)
-                  </LessonBlockText>
-                </LessonBlock>
-              );
+            const { type } = generalVocabularyList;
+            let backgroundColor = COLORS.lessonCustomList;
+            if (index === 0) {
+              backgroundColor = COLORS.lessonFrequencyList;
+            } else if (
+              type === "Failed Word List" ||
+              type === "Custom Word List" ||
+              type === "Bookmarked Word List"
+            ) {
+              backgroundColor = COLORS.lessonBookmarkedList;
             }
 
             return (
@@ -199,10 +162,7 @@ export class HomeScreenComponent extends React.Component<IProps, {}> {
                 key={generalVocabularyList.id}
                 style={{
                   width: "90%",
-                  backgroundColor:
-                    index === 0
-                      ? COLORS.lessonFrequencyList
-                      : COLORS.lessonCustomList,
+                  backgroundColor,
                 }}
                 onPress={this.handleSelectList(
                   generalVocabularyList.list,
