@@ -477,23 +477,25 @@ export const getRandomQuizChallenge = (
   // Default the result to the current selected failed words
   let result: Word[] = selection;
 
+  const quizCacheSize = Object.keys(quizCacheSetCopy).length;
+  const quizCacheFull = quizCacheSize === shuffled.length;
+
   // Create the result quiz set by walking through the shuffled choices
   // an excluding any which exist already in the quizCacheSet. This is a
   // simplistic caching strategy to avoid repeating words which have already
   // been seen recently, in favor of unseen words.
+
+  // TODO: It would be better to exclude all of the quizCacheSet words
+  // from the shuffled list before running the following loop:
   while (result.length < quizSize) {
     const current = shuffled[index];
 
     const status = quizCacheSetCopy[current.traditional];
-    // If the word exists in the QuizCacheSet do not add it
-    if (status !== undefined) {
-      // Remove it if it has been selected before, to put it back in the
-      // selection pool
-      if (status === "selected") {
-        // Disabling this for now
-        // delete quizCacheSetCopy[current.traditional];
-      }
-    } else {
+    // Add words only which do not exist in the quizCacheSet,
+    // unless the quizCacheSet includes all of the words, in
+    // which case avoid the infinite loop which would otherwise
+    // occur here and add the word
+    if (status === undefined || quizCacheFull) {
       // If it is not in the QuizCacheSet, then add it
       result.push(current);
     }
