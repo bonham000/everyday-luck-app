@@ -47,7 +47,8 @@ const Bar = styled.View<any>`
   border-radius: 3px;
   align-items: center;
   justify-content: center;
-  background-color: rgba(52, 52, 52, 0.92);
+  background-color: rgba(52, 52, 52, 0.95);
+  border: 1px solid ${COLORS.actionButtonMint};
 `;
 
 const ToastText = styled.Text<any>`
