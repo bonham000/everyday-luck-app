@@ -477,30 +477,28 @@ export const getRandomQuizChallenge = (
   // Default the result to the current selected failed words
   let result: Word[] = selection;
 
-  const quizCacheSize = Object.keys(quizCacheSetCopy).length;
-  const quizCacheFull = quizCacheSize === shuffled.length;
+  const resultSet = new Set();
+  let availableWordSet = shuffled.filter(x => x.traditional in quizCacheSet);
 
-  // Create the result quiz set by walking through the shuffled choices
-  // an excluding any which exist already in the quizCacheSet. This is a
-  // simplistic caching strategy to avoid repeating words which have already
-  // been seen recently, in favor of unseen words.
-
-  // TODO: It would be better to exclude all of the quizCacheSet words
-  // from the shuffled list before running the following loop:
   while (result.length < quizSize) {
-    const current = shuffled[index];
+    const current = availableWordSet[index];
 
-    const status = quizCacheSetCopy[current.traditional];
-    // Add words only which do not exist in the quizCacheSet,
-    // unless the quizCacheSet includes all of the words, in
-    // which case avoid the infinite loop which would otherwise
-    // occur here and add the word
-    if (status === undefined || quizCacheFull) {
-      // If it is not in the QuizCacheSet, then add it
+    if (!resultSet.has(current.traditional)) {
       result.push(current);
+      resultSet.add(current.traditional);
     }
 
     index++;
+
+    // If the availableWordSet is exhausted, concatenate all of the shuffled
+    // words. This will happen when the review words in the quizCacheSet
+    // near the limit of all of the current available words. In this case,
+    // we need to enable more choices otherwise this loop will never
+    // finish. The resultSet is used to maintain uniqueness among the
+    // selected choices.
+    if (index === availableWordSet.length) {
+      availableWordSet = availableWordSet.concat(shuffled);
+    }
   }
 
   // NOTE: It's not necessary to return the quizCacheSetCopy here
@@ -818,7 +816,10 @@ export const translateWord = async (
     pinyin: await convertChineseToPinyin(result.traditional),
   };
 
-  return data;
+  return {
+    ...data,
+    english: capitalize(data.english),
+  };
 };
 
 /**
