@@ -478,7 +478,7 @@ export const getRandomQuizChallenge = (
   let result: Word[] = selection;
 
   const resultSet = new Set();
-  let availableWordSet = shuffled.filter(x => x.traditional in quizCacheSet);
+  let availableWordSet = shuffled.filter(x => !(x.traditional in quizCacheSet));
 
   while (result.length < quizSize) {
     const current = availableWordSet[index];
