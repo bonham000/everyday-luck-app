@@ -10,8 +10,11 @@ import ACCC_Book_One_1_6 from "@src/lessons/ACCC_Book_One_1_6";
 import ACCC_Book_One_7_15 from "@src/lessons/ACCC_Book_One_7_15";
 import ACCC_Book_Two_1 from "@src/lessons/ACCC_Book_Two_1";
 import ACCC_Book_Two_2 from "@src/lessons/ACCC_Book_Two_2";
+import ACCC_Book_Two_3 from "@src/lessons/ACCC_Book_Two_3";
+import ACCC_Book_Two_4 from "@src/lessons/ACCC_Book_Two_4";
 import Far_East_1_8 from "@src/lessons/Far_East_1_8";
 import Far_East_9 from "@src/lessons/Far_East_9";
+import Far_East_10 from "@src/lessons/Far_East_10";
 import Grammar_Book_One_1_15 from "@src/lessons/Grammar_Book_One_6_15";
 import Grammar_Book_Two_1 from "@src/lessons/Grammar_Book_Two_1";
 import Grammar_Book_Two_2 from "@src/lessons/Grammar_Book_Two_2";
@@ -75,8 +78,11 @@ const LISTS: HSKListSet = [
   ACCC_Book_One_7_15,
   ACCC_Book_Two_1,
   ACCC_Book_Two_2,
+  ACCC_Book_Two_3,
+  ACCC_Book_Two_4,
   Far_East_1_8,
   Far_East_9,
+  Far_East_10,
   Grammar_Custom,
   Grammar_Book_One_1_15,
   Grammar_Book_Two_1,

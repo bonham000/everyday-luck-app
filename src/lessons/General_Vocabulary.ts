@@ -1183,6 +1183,12 @@ const lesson: ContentList = {
       pinyin: "jiē dào lù biāo",
       english: "Street sign",
     },
+    {
+      traditional: "過馬路",
+      simplified: "过马路",
+      pinyin: "guò mǎlù",
+      english: "Cross the road",
+    },
   ],
 };
 
