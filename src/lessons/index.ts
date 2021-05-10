@@ -6,6 +6,7 @@ import HSK_6 from "@src/lessons/HSK_6";
 import General_Vocabulary_Frequency_List from "@src/lessons/General_Vocabulary_Frequency_List";
 import GeneralVocabulary from "@src/lessons/General_Vocabulary";
 import GeneralVocabularyFruits from "@src/lessons/General_Vocabulary_Fruit";
+import GeneralVocabularyMenus from "@src/lessons/General_Vocabulary_Menus";
 import ACCC_Book_One_1_6 from "@src/lessons/ACCC_Book_One_1_6";
 import ACCC_Book_One_7_15 from "@src/lessons/ACCC_Book_One_7_15";
 import ACCC_Book_Two_1 from "@src/lessons/ACCC_Book_Two_1";
@@ -21,6 +22,7 @@ import Grammar_Book_Two_2 from "@src/lessons/Grammar_Book_Two_2";
 import Grammar_Book_Two_3 from "@src/lessons/Grammar_Book_Two_3";
 import Grammar_Book_Two_4 from "@src/lessons/Grammar_Book_Two_4";
 import Grammar_Custom from "@src/lessons/Grammar_Custom";
+import Grammar_Custom_Menus from "@src/lessons/Grammar_Custom_Menus";
 
 import { ContentList, HSKListSet } from "@src/tools/types";
 
@@ -76,6 +78,7 @@ const LISTS: HSKListSet = [
   General_Vocabulary_Frequency_List,
   GeneralVocabulary,
   GeneralVocabularyFruits,
+  GeneralVocabularyMenus,
   ACCC_Book_One_1_6,
   ACCC_Book_One_7_15,
   ACCC_Book_Two_1,
@@ -86,6 +89,7 @@ const LISTS: HSKListSet = [
   Far_East_9,
   Far_East_10,
   Grammar_Custom,
+  Grammar_Custom_Menus,
   Grammar_Book_One_1_15,
   Grammar_Book_Two_1,
   Grammar_Book_Two_2,
