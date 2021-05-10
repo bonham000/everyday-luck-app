@@ -361,6 +361,12 @@ const lesson: ContentList = {
       pinyin: "lào lí bú shì shuǐ guǒ",
       english: "Avocado is not a fruit.",
     },
+    {
+      traditional: "但也因為這樣，你學到這個字了！",
+      simplified: "但也因为这样，你学到这个字了！",
+      pinyin: "Dàn yě yīnwèi zhèyàng, nǐ xué dào zhège zìle!",
+      english: "But because of this, you have learned the word!",
+    },
   ],
 };
 
