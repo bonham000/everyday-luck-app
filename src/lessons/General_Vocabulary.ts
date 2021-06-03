@@ -1189,6 +1189,66 @@ const lesson: ContentList = {
       pinyin: "guò mǎlù",
       english: "Cross the road",
     },
+    {
+      traditional: "戴口罩",
+      simplified: "戴口罩",
+      pinyin: "dài kǒu zhào",
+      english: "Wear mask",
+    },
+    {
+      traditional: "市場",
+      simplified: "市场",
+      pinyin: "shì chǎng",
+      english: "Market",
+    },
+    {
+      traditional: "影響",
+      simplified: "影响",
+      pinyin: "yǐng xiǎng",
+      english: "Influences",
+    },
+    {
+      traditional: "比起來",
+      simplified: "比起来",
+      pinyin: "bǐ qǐ lái",
+      english: "Compare with",
+    },
+    {
+      traditional: "以太坊",
+      simplified: "以太坊",
+      pinyin: "yǐ tài fāng",
+      english: "Ethereum",
+    },
+    {
+      traditional: "解決",
+      simplified: "解决",
+      pinyin: "jiě jué",
+      english: "Solve",
+    },
+    {
+      traditional: "招牌",
+      simplified: "招牌",
+      pinyin: "zhāo pái",
+      english: "Sign",
+    },
+    {
+      traditional: "口感",
+      simplified: "口感",
+      pinyin: "kǒu gǎn",
+      english: "Taste",
+    },
+    {
+      traditional: "味道",
+      simplified: "味道",
+      pinyin: "wèi dào",
+      english: "Taste",
+    },
+    {
+      traditional: "翻白眼",
+      simplified: "翻白眼",
+      pinyin: "fān bái yǎn",
+      english: "Roll your eyes",
+    },
   ],
 };
 
