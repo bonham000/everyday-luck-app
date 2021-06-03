@@ -14,6 +14,7 @@ import ACCC_Book_Two_2 from "@src/lessons/ACCC_Book_Two_2";
 import ACCC_Book_Two_3 from "@src/lessons/ACCC_Book_Two_3";
 import ACCC_Book_Two_4 from "@src/lessons/ACCC_Book_Two_4";
 import ACCC_Book_Two_5 from "@src/lessons/ACCC_Book_Two_5";
+import ACCC_Book_Two_6 from "@src/lessons/ACCC_Book_Two_6";
 import Far_East_1_8 from "@src/lessons/Far_East_1_8";
 import Far_East_9 from "@src/lessons/Far_East_9";
 import Far_East_10 from "@src/lessons/Far_East_10";
@@ -23,6 +24,7 @@ import Grammar_Book_Two_2 from "@src/lessons/Grammar_Book_Two_2";
 import Grammar_Book_Two_3 from "@src/lessons/Grammar_Book_Two_3";
 import Grammar_Book_Two_4 from "@src/lessons/Grammar_Book_Two_4";
 import Grammar_Book_Two_5 from "@src/lessons/Grammar_Book_Two_5";
+import Grammar_Book_Two_6 from "@src/lessons/Grammar_Book_Two_6";
 import Grammar_Custom from "@src/lessons/Grammar_Custom";
 import Grammar_Custom_Menus from "@src/lessons/Grammar_Custom_Menus";
 
@@ -88,6 +90,7 @@ const LISTS: HSKListSet = [
   ACCC_Book_Two_3,
   ACCC_Book_Two_4,
   ACCC_Book_Two_5,
+  ACCC_Book_Two_6,
   Far_East_1_8,
   Far_East_9,
   Far_East_10,
@@ -99,6 +102,7 @@ const LISTS: HSKListSet = [
   Grammar_Book_Two_3,
   Grammar_Book_Two_4,
   Grammar_Book_Two_5,
+  Grammar_Book_Two_6,
 ]
   .map(filterEmptyWords)
   .map(setListIndexes);
