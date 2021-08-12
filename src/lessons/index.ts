@@ -6,7 +6,7 @@ import HSK_6 from "@src/lessons/HSK_6";
 import General_Vocabulary_Frequency_List from "@src/lessons/General_Vocabulary_Frequency_List";
 import GeneralVocabulary from "@src/lessons/General_Vocabulary";
 import GeneralVocabularyFruits from "@src/lessons/General_Vocabulary_Fruit";
-import GeneralVocabularyMenus from "@src/lessons/General_Vocabulary_Menus";
+// import GeneralVocabularyMenus from "@src/lessons/General_Vocabulary_Menus";
 import ACCC_Book_One_1_6 from "@src/lessons/ACCC_Book_One_1_6";
 import ACCC_Book_One_7_15 from "@src/lessons/ACCC_Book_One_7_15";
 import ACCC_Book_Two_1 from "@src/lessons/ACCC_Book_Two_1";
@@ -82,7 +82,7 @@ const LISTS: HSKListSet = [
   General_Vocabulary_Frequency_List,
   GeneralVocabulary,
   GeneralVocabularyFruits,
-  GeneralVocabularyMenus,
+  // GeneralVocabularyMenus,
   ACCC_Book_One_1_6,
   ACCC_Book_One_7_15,
   ACCC_Book_Two_1,
