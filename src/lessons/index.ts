@@ -26,7 +26,7 @@ import Grammar_Book_Two_4 from "@src/lessons/Grammar_Book_Two_4";
 import Grammar_Book_Two_5 from "@src/lessons/Grammar_Book_Two_5";
 import Grammar_Book_Two_6 from "@src/lessons/Grammar_Book_Two_6";
 import Grammar_Custom from "@src/lessons/Grammar_Custom";
-import Grammar_Custom_Menus from "@src/lessons/Grammar_Custom_Menus";
+// import Grammar_Custom_Menus from "@src/lessons/Grammar_Custom_Menus";
 
 import { ContentList, HSKListSet } from "@src/tools/types";
 
@@ -95,7 +95,7 @@ const LISTS: HSKListSet = [
   Far_East_9,
   Far_East_10,
   Grammar_Custom,
-  Grammar_Custom_Menus,
+  // Grammar_Custom_Menus,
   Grammar_Book_One_1_15,
   Grammar_Book_Two_1,
   Grammar_Book_Two_2,
@@ -106,5 +106,10 @@ const LISTS: HSKListSet = [
 ]
   .map(filterEmptyWords)
   .map(setListIndexes);
+
+/** ===========================================================================
+ * Export
+ * ============================================================================
+ */
 
 export default LISTS;
