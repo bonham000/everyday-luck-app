@@ -497,7 +497,8 @@ export const getRandomQuizChallenge = (
     // finish. The resultSet is used to maintain uniqueness among the
     // selected choices.
     if (index === availableWordSet.length) {
-      availableWordSet = availableWordSet.concat(shuffled);
+      const reShuffled = knuthShuffle(shuffled);
+      availableWordSet = availableWordSet.concat(reShuffled);
     }
   }
 
