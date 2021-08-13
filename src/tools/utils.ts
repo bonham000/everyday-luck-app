@@ -483,7 +483,7 @@ export const getRandomQuizChallenge = (
   while (result.length < quizSize) {
     const current = availableWordSet[index];
 
-    if (!resultSet.has(current.traditional)) {
+    if (current !== undefined && !resultSet.has(current.traditional)) {
       result.push(current);
       resultSet.add(current.traditional);
     }
@@ -497,8 +497,8 @@ export const getRandomQuizChallenge = (
     // finish. The resultSet is used to maintain uniqueness among the
     // selected choices.
     if (index === availableWordSet.length) {
-      // const reShuffled = knuthShuffle(shuffled);
-      availableWordSet = availableWordSet.concat(shuffled);
+      const reShuffled = knuthShuffle(shuffled);
+      availableWordSet = availableWordSet.concat(reShuffled);
     }
   }
 
