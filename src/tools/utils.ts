@@ -481,6 +481,12 @@ export const getRandomQuizChallenge = (
   let availableWordSet = shuffled.filter(x => !(x.traditional in quizCacheSet));
 
   while (result.length < quizSize) {
+    // Add more items to the availableWordSet if it has been emptied
+    if (availableWordSet.length === 0 || index >= availableWordSet.length) {
+      const reShuffled = knuthShuffle(shuffled);
+      availableWordSet = availableWordSet.concat(reShuffled);
+    }
+
     const current = availableWordSet[index];
 
     if (current !== undefined && !resultSet.has(current.traditional)) {
@@ -489,17 +495,6 @@ export const getRandomQuizChallenge = (
     }
 
     index++;
-
-    // If the availableWordSet is exhausted, concatenate all of the shuffled
-    // words. This will happen when the review words in the quizCacheSet
-    // near the limit of all of the current available words. In this case,
-    // we need to enable more choices otherwise this loop will never
-    // finish. The resultSet is used to maintain uniqueness among the
-    // selected choices.
-    if (index === availableWordSet.length) {
-      const reShuffled = knuthShuffle(shuffled);
-      availableWordSet = availableWordSet.concat(reShuffled);
-    }
   }
 
   // NOTE: It's not necessary to return the quizCacheSetCopy here
