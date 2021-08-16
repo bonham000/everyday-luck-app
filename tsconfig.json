@@ -4,7 +4,11 @@
     "module": "es2015",
     "target": "es2017",
     "outDir": "build",
-    "lib": ["es2015", "es2016", "es2017"],
+    "lib": [
+      "es2015",
+      "es2016",
+      "es2017"
+    ],
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "esModuleInterop": true,
@@ -22,12 +26,22 @@
     "forceConsistentCasingInFileNames": false,
     "baseUrl": ".",
     "paths": {
-      "@src/*": ["src/*"],
-      "@tests/*": ["tests/*"],
-      "expo": ["node_modules/@types/expo", "node_modules/expo"]
+      "@src/*": [
+        "src/*"
+      ],
+      "@tests/*": [
+        "tests/*"
+      ],
+      "expo": [
+        "node_modules/@types/expo",
+        "node_modules/expo"
+      ]
     }
   },
-  "exclude": ["node_modules", "build"],
+  "exclude": [
+    "node_modules",
+    "build"
+  ],
   "include": [
     "src/**/*",
     "tests/**/*",
@@ -36,5 +50,8 @@
     "App.tsx",
     "StargazerApp.tsx"
   ],
-  "types": ["typePatches"]
+  "types": [
+    "typePatches"
+  ],
+  "extends": "expo/tsconfig.base"
 }
