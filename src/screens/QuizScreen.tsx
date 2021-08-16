@@ -663,10 +663,11 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
           return this.handleCompleteQuiz();
         }
 
+        const nextIndex = this.getNextWordIndex();
+        const word = this.state.wordContent[nextIndex];
+
         this.setState(
           prevState => {
-            const nextIndex = this.getNextWordIndex();
-
             return {
               currentWordIndex: nextIndex,
               quizType: this.getQuizComponentType(),
@@ -676,11 +677,26 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
           () => {
             this.stopConfettiAnimation();
             this.focusTextInput();
+            this.handleAutoPronounceWord(word.traditional);
           },
         );
       },
     );
   };
+
+  /**
+   * If audio and autoProceed are enabled, automatically pronounce
+   * the word after a short delay when loading the next question.
+   */
+  handleAutoPronounceWord = (word: string) => {
+    if (!this.props.disableAudio && this.props.autoProceedQuestion) {
+      // tslint:disable-next-line
+      this.timer = setTimeout(
+        () => this.props.handlePronounceWord(word),
+        250,
+      );
+    }
+  }
 
   handleCompleteQuiz = () => {
     const { userScoreStatus, quizType } = this.props;

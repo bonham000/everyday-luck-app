@@ -5,7 +5,7 @@
     "slug": "everyday-luck",
     "privacy": "public",
     "platforms": ["ios", "android"],
-    "version": "1.1.47",
+    "version": "1.1.48",
     "orientation": "portrait",
     "icon": "./src/assets/icon.png",
     "splash": {
