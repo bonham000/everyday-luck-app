@@ -345,9 +345,7 @@ const defaultNavigationOptions =
 const createAppNavigationStack = (firstTimeUser: boolean) => {
   return createStackNavigator(ROUTES, {
     initialRouteName: firstTimeUser ? ROUTE_NAMES.WELCOME : ROUTE_NAMES.HOME,
-    defaultNavigationOptions: {
-      cardStyle: { backgroundColor: "black" },
-    },
+    defaultNavigationOptions,
   });
 };
 
@@ -385,12 +383,6 @@ const createNavigatorConfig = (firstTimeUser: boolean, theme: APP_THEME) => {
     },
     {
       contentComponent: SideMenuComponent,
-      drawerBackgroundColor: "black",
-      overlayColor: "black",
-      screenContainerStyle: {
-        backgroundColor: "black",
-      },
-      // screenContainerStyle: "black",
     },
   );
 };

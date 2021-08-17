@@ -55,6 +55,7 @@ import MOCKS, {
 } from "@tests/mocks";
 import { ListScoreSet } from "./lessons";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import { COLORS } from "./constants/Theme";
 
 /** ========================================================================
  * Types
@@ -770,7 +771,7 @@ class RenderAppOnce extends React.Component<
     const Nav = this.state.navigator;
     if (Nav) {
       return (
-        <SafeAreaProvider style={{ backgroundColor: "black" }}>
+        <SafeAreaProvider style={{ backgroundColor: COLORS.backgroundDark }}>
           <Nav theme={this.props.theme} ref={this.props.assignNavigatorRef} />
         </SafeAreaProvider>
       );

@@ -48,7 +48,7 @@ const COLORS = {
   listenBlockDefault: "rgb(85,85,85)",
 
   background: "rgb(231, 237, 240)",
-  backgroundDark: "rgb(22,22,22)",
+  backgroundDark: "rgb(32,32,32)",
   backgroundDarkSecondary: "rgb(15,15,15)",
 
   flashcardDarkTheme: "rgb(35,35,35)",
