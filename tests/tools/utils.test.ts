@@ -304,11 +304,8 @@ describe("utils", () => {
       Object {
         "correct": true,
         "correctWord": Object {
-          "english": "Rich, plentiful, abundant",
-          "english_alternate_choices": Array [
-            "",
-          ],
-          "pinyin": "fēngfù",
+          "english": "Rich",
+          "pinyin": "fēng fù",
           "simplified": "丰富",
           "traditional": "豐富",
         },
