@@ -345,7 +345,9 @@ const defaultNavigationOptions =
 const createAppNavigationStack = (firstTimeUser: boolean) => {
   return createStackNavigator(ROUTES, {
     initialRouteName: firstTimeUser ? ROUTE_NAMES.WELCOME : ROUTE_NAMES.HOME,
-    defaultNavigationOptions,
+    defaultNavigationOptions: {
+      cardStyle: { backgroundColor: "transparent" },
+    },
   });
 };
 

@@ -1,7 +1,6 @@
 import React from "react";
 import { LogBox } from "react-native";
 import { Provider as ReactNativePaperProvider } from "react-native-paper";
-import { enableScreens } from "react-native-screens";
 
 import AppContainer from "@src/AppContainer";
 import { APP_THEME } from "@src/constants/Theme";
@@ -10,9 +9,6 @@ import { APP_THEME } from "@src/constants/Theme";
  * Config
  * =========================================================================
  */
-
-/* Enable react-native-screens */
-enableScreens(false);
 
 /* Workaround for an issue with screen navigation */
 import "react-native-gesture-handler";
