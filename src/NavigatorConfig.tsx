@@ -347,7 +347,6 @@ const createAppNavigationStack = (firstTimeUser: boolean) => {
     initialRouteName: firstTimeUser ? ROUTE_NAMES.WELCOME : ROUTE_NAMES.HOME,
     defaultNavigationOptions: {
       cardStyle: { backgroundColor: "black" },
-      animationEnabled: false,
     },
   });
 };

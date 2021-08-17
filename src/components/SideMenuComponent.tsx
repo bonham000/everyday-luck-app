@@ -117,7 +117,8 @@ class SideMenuComponent extends React.Component<IProps, {}> {
           </SmallItem>
           <LineBreak />
           <SmallText style={{ fontSize: 14 }}>
-            <Bold>Version:</Bold> {Constants.manifest.version}{" "}
+            <Bold>Version:</Bold>{" "}
+            {Constants.manifest && Constants.manifest.version}{" "}
             {updateAvailable ? (
               <React.Fragment>
                 <SmallText style={{ fontSize: 14 }}>
