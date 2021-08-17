@@ -90,7 +90,7 @@ export interface NativeStyleThemeProps {
 
 // tslint:disable-next-line
 class RootContainerBase<Props> extends React.Component<Props, IState> {
-  timeout: NodeJS.Timeout | null = null;
+  timeout: number | null = null;
   navigationRef: any = null;
 
   constructor(props: Props) {

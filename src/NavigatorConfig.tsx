@@ -33,6 +33,7 @@ import {
 } from "@src/tools/types";
 import { Platform } from "react-native";
 import {
+  APP_THEME,
   GlobalStateContextProps,
   withGlobalStateContext,
 } from "./providers/GlobalStateProvider";
@@ -364,7 +365,7 @@ const Hamburger = (
 
 const MenuIcon = withGlobalStateContext(Hamburger);
 
-const createNavigatorConfig = (firstTimeUser: boolean) => {
+const createNavigatorConfig = (firstTimeUser: boolean, theme: APP_THEME) => {
   return createDrawerNavigator(
     {
       [ROUTE_NAMES.APP]: {
@@ -382,6 +383,9 @@ const createNavigatorConfig = (firstTimeUser: boolean) => {
     },
     {
       contentComponent: SideMenuComponent,
+      // drawerBackgroundColor: "",
+      // overlayColor: "",
+      // screenContainerStyle: "",
     },
   );
 };

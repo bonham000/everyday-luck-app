@@ -133,6 +133,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
      */
     const currentWordIndex = this.getNextWordIndex();
     const bookmarkedWordList = await getBookmarkWordList();
+    const currentWord = this.state.wordContent[currentWordIndex];
     const failedWordList = await getFailedWordList();
     this.setState(
       {
@@ -143,6 +144,7 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
         wordCompletedCache: new Set([currentWordIndex]),
       },
       () => {
+        this.handleAutoPronounceWord(currentWord.traditional);
         // tslint:disable-next-line
         this.timer = setTimeout(this.focusTextInput, 250);
       },
