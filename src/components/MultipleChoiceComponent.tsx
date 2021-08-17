@@ -388,16 +388,13 @@ const QuizAnswerText = ({
     fontSize,
   };
 
-  if (shouldReveal) {
-    return (
-      <View
-        style={{
-          width: "80%",
-          flexDirection: "row",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
+  const Content =
+    choice.traditional.length > 4 ? (
+      <ThemedText numberOfLines={1} allowFontScaling style={textStyles}>
+        {choice.english}
+      </ThemedText>
+    ) : (
+      <>
         <ThemedText
           numberOfLines={1}
           allowFontScaling
@@ -408,6 +405,20 @@ const QuizAnswerText = ({
         <ThemedText numberOfLines={1} allowFontScaling style={textStyles}>
           {choice.pinyin} - {choice.english}
         </ThemedText>
+      </>
+    );
+
+  if (shouldReveal) {
+    return (
+      <View
+        style={{
+          width: "80%",
+          flexDirection: "row",
+          alignItems: "center",
+          justifyContent: "center",
+        }}
+      >
+        {Content}
       </View>
     );
   }

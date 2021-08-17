@@ -769,9 +769,12 @@ class RenderAppOnce extends React.Component<
 
   render(): JSX.Element | null {
     const Nav = this.state.navigator;
+    const backgroundColor =
+      this.props.theme === "dark" ? COLORS.backgroundDark : COLORS.background;
+
     if (Nav) {
       return (
-        <SafeAreaProvider style={{ backgroundColor: COLORS.backgroundDark }}>
+        <SafeAreaProvider style={{ backgroundColor }}>
           <Nav theme={this.props.theme} ref={this.props.assignNavigatorRef} />
         </SafeAreaProvider>
       );
