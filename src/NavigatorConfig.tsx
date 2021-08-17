@@ -383,9 +383,9 @@ const createNavigatorConfig = (firstTimeUser: boolean, theme: APP_THEME) => {
     },
     {
       contentComponent: SideMenuComponent,
-      // drawerBackgroundColor: "",
-      // overlayColor: "",
-      // screenContainerStyle: "",
+      drawerBackgroundColor: "black",
+      overlayColor: "black",
+      // screenContainerStyle: "black",
     },
   );
 };

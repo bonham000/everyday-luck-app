@@ -757,7 +757,10 @@ class RenderAppOnce extends React.Component<
 
   componentDidMount(): void {
     // Create the navigator once on mount so it doesn't get re-created on prop changes...
-    const AppNavigator = createAppNavigator(this.props.firstTimeUser);
+    const AppNavigator = createAppNavigator(
+      this.props.firstTimeUser,
+      this.props.theme,
+    );
     const Nav = createAppContainer(AppNavigator);
     this.setState({ navigator: Nav });
   }
