@@ -346,7 +346,9 @@ const createAppNavigationStack = (firstTimeUser: boolean) => {
   return createStackNavigator(ROUTES, {
     initialRouteName: firstTimeUser ? ROUTE_NAMES.WELCOME : ROUTE_NAMES.HOME,
     defaultNavigationOptions: {
-      cardStyle: { backgroundColor: "transparent" },
+      cardStyle: { backgroundColor: "black" },
+      // detachPreviousScreen: true,
+      cardShadowEnabled: false,
     },
   });
 };
