@@ -347,7 +347,7 @@ const ChoiceBlock = styled.TouchableOpacity<any>`
         if (props.theme.type === "dark") {
           return COLORS.choiceBlockDarkTheme;
         } else {
-          return COLORS.lessonBlockLightInactive;
+          return COLORS.choiceDefault;
         }
       }
     } else if (props.isAttempted) {
