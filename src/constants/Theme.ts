@@ -38,7 +38,7 @@ const COLORS = {
   white: "rgb(250,250,250)",
   textDarkTheme: "rgb(230,230,230)",
   lessonBlockDefault: "rgb(225,225,225)",
-  lessonBlockDarkInactive: "rgb(40,40,40)",
+  lessonBlockDarkInactive: "rgb(60,60,60)",
   choiceDefault: "rgb(50,50,50)",
   lessonBlockLightInactive: "rgb(205,205,205)",
   choiceBlockDefault: "rgb(55,55,55)",
