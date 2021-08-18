@@ -711,9 +711,20 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
    * This is not done when the quiz launches.
    */
   handleAutoPronounceWord = (word: string) => {
-    if (!this.props.disableAudio && this.props.autoProceedQuestion) {
-      // tslint:disable-next-line
-      this.timer = setTimeout(() => this.props.handlePronounceWord(word), 250);
+    const shuffleQuizType = this.props.navigation.getParam("shuffleQuizType");
+    const {
+      disableAudio,
+      autoProceedQuestion,
+      handlePronounceWord,
+    } = this.props;
+
+    console.log(shuffleQuizType);
+
+    if (shuffleQuizType === "multiple-choice") {
+      if (!disableAudio && autoProceedQuestion) {
+        // tslint:disable-next-line
+        this.timer = setTimeout(() => handlePronounceWord(word), 250);
+      }
     }
   };
 

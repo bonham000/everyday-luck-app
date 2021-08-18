@@ -74,6 +74,7 @@ export class LessonSummaryScreenComponent extends React.Component<IProps, {}> {
             <ActionBlock
               onPress={this.handleNavigateToSection(
                 ROUTE_NAMES.DAILY_CHALLENGE,
+                "multiple-choice",
               )}
             >
               <Text style={{ color: COLORS.white, fontWeight: "bold" }}>
