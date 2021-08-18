@@ -718,8 +718,6 @@ export class QuizScreenComponent extends React.Component<IProps, IState> {
       handlePronounceWord,
     } = this.props;
 
-    console.log(shuffleQuizType);
-
     if (shuffleQuizType === "multiple-choice") {
       if (!disableAudio && autoProceedQuestion) {
         // tslint:disable-next-line
